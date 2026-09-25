@@ -211,7 +211,7 @@ export function telaPais(): Tela {
       h(
         'p',
         {},
-        'A cada avanço dela (uma tarefa contada, uma letra, um som, a chegada, um bilhete) um balão aparece no topo da tela com uma frase curta para vocês lerem em voz alta. Ela não lê; vocês leem para ela. As frases nomeiam o que ela fez de verdade, dizem o carinho e a segurança da família, e colocam o Theo como quem torce por ela, nunca como medida. Sem comparação, sem "melhor que". Um toque no balão fecha; ele também some sozinho.',
+        'A cada avanço dela (uma tarefa contada, uma letra, um som, a chegada, um bilhete) um balão aparece no topo da tela com uma frase curta para vocês lerem em voz alta. Ela não lê; vocês leem para ela. As frases nomeiam o que ela fez de verdade, dizem o carinho e a segurança da família, e colocam o Theo como quem torce por ela, nunca como medida. Sem comparação, sem "melhor que". O balão fica na tela até vocês tocarem no "x" para fechar.',
       ),
     );
     const bNarra = h('button', { type: 'button', class: e.pais.narracao ? 'ligado' : '' }, e.pais.narracao ? 'Ligada' : 'Desligada');
@@ -284,7 +284,7 @@ export function telaPais(): Tela {
     /* letras */
     painel.append(h('h2', {}, 'As letras'));
     const letraAtual = (letras as { id: string }[])[Math.min(e.letraIndice, letras.length - 1)]!.id;
-    painel.append(h('p', {}, `Ordem: A, E, L, S, T (as do nome dela), depois O, M, U, I. Uma por semana por padrão. Letra da vez: ${letraAtual}. Já traçadas: ${e.letras.join(', ') || 'nenhuma'}.`));
+    painel.append(h('p', {}, `Ordem: A, E, L, S, T (as do nome dela), depois O, M, U, I, V. Uma por semana por padrão. Letra da vez: ${letraAtual}. Já traçadas: ${e.letras.join(', ') || 'nenhuma'}. Palavras lidas inteiras no escorregador de sons: ${e.palavras.join(', ') || 'nenhuma ainda'}.`));
     const bRitmo = h('button', { type: 'button', class: e.pais.ritmoLetras === 'semanal' ? 'ligado' : '' }, e.pais.ritmoLetras === 'semanal' ? 'Uma por semana' : 'Quando ela terminar');
     bRitmo.addEventListener('click', () => {
       mudar((x) => void (x.pais.ritmoLetras = x.pais.ritmoLetras === 'semanal' ? 'livre' : 'semanal'));

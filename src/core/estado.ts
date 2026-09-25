@@ -109,6 +109,8 @@ export interface Estado {
   flores: Flor[];
   estrelas: number;
   letras: string[];
+  /** palavras que ela já leu inteiras no escorregador de sons (uma vez cada, na ordem) */
+  palavras: string[];
   letraIndice: number;
   semanaDaLetra: string;
   pinhas: PinhaNaMesa[];
@@ -173,6 +175,7 @@ export function estadoNovo(agora = new Date()): Estado {
     flores: [],
     estrelas: 0,
     letras: [],
+    palavras: [],
     letraIndice: 0,
     semanaDaLetra: '',
     pinhas: [],

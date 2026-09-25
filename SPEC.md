@@ -228,8 +228,8 @@ marionete por dados). Nada de copiar personagens, colagem ou estilo visual do de
   Ela não lê; quem está ao lado lê para ela. Toda frase faz três coisas: nomeia o que ela
   fez de verdade (a força dela), diz o carinho e a segurança da família, e coloca o Theo
   como quem torce por ela e faz junto, nunca como medida. Sem comparação, sem "melhor que",
-  sem cobrança. As frases vivem em `src/data/narracao.json` e se revezam; o balão some
-  sozinho no tempo de ler e fecha com um toque. Desliga-se no cantinho dos pais.
+  sem cobrança. As frases vivem em `src/data/narracao.json` e se revezam; o balão fica na
+  tela até um toque no "x". Desliga-se no cantinho dos pais.
 
 ## 7. A casa verde, o quintal e o quarto rosa
 
@@ -458,7 +458,8 @@ quando ela termina. Irmão mais velho ensinando é uma cena que ela reconhece.
 1. **Traços antes das letras**: linha em pé, linha deitada, linha inclinada, bolinha, curva,
    ponte. Cada traço é uma coisa do mundo dela (a chuva cai: linha em pé; a onda do lago:
    curva; a ponte do jardim).
-2. **As vogais e as letras do nome dela**: A, E, O, S, L, depois T. As vogais primeiro porque
+2. **As vogais e as letras do nome dela**: A, E, O, S, L, depois T (e, no fim da v1, o V,
+   que se estica como o S e o L). As vogais primeiro porque
    no fônico tudo se apoia nelas. Em **letra de forma maiúscula (bastão)**, que é
    a letra com que a alfabetização começa no Brasil. Ao terminar as letras dela, monta o nome
    STELLA inteiro, e ele aparece na porta do quarto.
@@ -502,11 +503,19 @@ A voz diz, sempre na mesma ordem e devagar, no jeito do método fônico:
 
 Tocar de novo repete. Nunca toca sozinho sem ela pedir, e nunca durante uma aventura.
 
+**O que fazer e o avanço.** As quatro etapas são sempre as mesmas e cada uma é mostrada, não
+dita: a estrela guia percorre a fita soando cada letra (ouvir), a mãozinha faz o gesto de
+traçar (os sons), a estrela corre rápido e a voz diz a palavra (o modelo de juntar), e no fim
+a próxima palavra da fila acende para ela tocar. Três estrelinhas embaixo da fita acendem uma
+por etapa; um colar no alto mostra as palavras desta fase, as lidas cheias de ouro. A fila é a
+palavra de cada letra já traçada mais as palavras feitas só dessas letras (`src/core/palavras.ts`).
+
 **Quais palavras.** Curtas, de sílaba aberta, em que cada letra soa exatamente como o som
-ensinado (no português do Brasil isso exclui L no fim da sílaba, que soa U; TE e TI, que
-soam "tchi"; e O ou E átonos no fim, que soam U e I). Um teste automático guarda a regra.
-- Primeiras (v1): LUA, ASA, ELA, OLÁ, MALA, SALA, LAMA, MOLA, TATU, TUTU, TELA, LATA, MATA,
-  MESA, LIMA e STELLA.
+ensinado (no português do Brasil isso exclui L no fim da sílaba, que soa U; S entre vogais,
+que soa Z, como em ASA e MESA; TE e TI, que soam "tchi"; e O ou E átonos no fim, que soam U
+e I). Um teste automático guarda a regra.
+- Primeiras (v1): LUA, AVÓ, ELA, OLÁ, UVA, MALA, SALA, LAMA, MOLA, TATU, TUTU, TELA, LATA,
+  MATA, LIMA, VELA, LUVA e STELLA.
 - Da casa: GATO, BOLA, CAMA, MALA, SOFÁ, PIPOCA, BONECA.
 - Da família: MAMÃE, PAPAI, THEO, STELLA (que é mais difícil e tudo bem: é o nome dela).
 - Dos bichos: GATO, COELHO (o LH é difícil, entra depois), PATO, SAPO, VACA.

@@ -130,6 +130,33 @@ await shot('16-caderno-tracado');
 const letrasDepois = await page.evaluate(() => globalThis.littleStar.estado().letras);
 if (!letrasDepois.includes('A')) erros.push(`caderno: o A traçado não entrou nas letras (${JSON.stringify(letrasDepois)})`);
 
+/* a palavra: ouvir, os sons (a fita devagar), juntar (a fita de novo), pronta */
+await abrir('sessoes=8&hora=15:00&tela=casa');
+await page.evaluate(() => globalThis.littleStar.mudar((e) => void (e.letras = ['A', 'E', 'L'])));
+await page.evaluate(() => globalThis.littleStar.ir('palavra', { palavra: 'LUA', volta: 'casa' }));
+await conta('palavra: o colar das palavras da fase', '.conta', 3);
+await conta('palavra: as três etapas', '.etapa', 3);
+await espera(9000); /* a palavra inteira e a estrela guia som por som */
+await shot('10b-palavra-sons');
+async function fita() {
+  await page.mouse.move(62, 390);
+  await page.mouse.down();
+  for (let k = 1; k <= 30; k++) {
+    await page.mouse.move(62 + ((330 - 62) * k) / 30, 390);
+    await espera(40);
+  }
+  await page.mouse.up();
+}
+await fita();
+await espera(7000); /* o sininho, a estrela corre rápido, a voz diz a palavra */
+await fita();
+await espera(9000); /* a palavra, as sílabas, a pedrinha, a próxima acende */
+await shot('10c-palavra-pronta');
+const palavrasLidas = await page.evaluate(() => globalThis.littleStar.estado().palavras);
+if (!palavrasLidas.includes('LUA')) erros.push(`palavra: LUA não entrou nas palavras lidas (${JSON.stringify(palavrasLidas)})`);
+const proximaVisivel = await page.evaluate(() => document.querySelector('.proxima')?.getAttribute('opacity'));
+if (proximaVisivel !== '1') erros.push(`palavra: a próxima palavra não acendeu (opacity ${proximaVisivel})`);
+
 /* 4. o jardim e o palco */
 await abrir('sessoes=8&hora=15:00&tela=jardim');
 await espera(3000);

@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 import { estadoNovo, migrar, VERSAO_DO_SAVE } from '@/core/estado';
 import { ganhar, PEDRINHAS, perder } from '@/core/pedrinhas';
 import { anunciar, aoAnunciar, AVANCOS_NARRADOS, frasesDe, narracao, vezesNoHistorico } from '@/core/narracao';
-import { tempoDeLeitura, LEITURA_MAXIMA } from '@/ui/balao';
 
 /** todo motivo que o jogo dá a `ganhar`, mais os momentos sem pedrinha */
 const MOTIVOS_DO_JOGO = ['cama', 'dentes', 'brinquedos', 'banho', 'quarto', 'gentil', 'dormiu_sozinha', 'noite_toda', 'letra', 'areia', 'palavra', 'som', 'relogio', 'colheita', 'comidinha', 'aventura', 'medalha', 'chegada', 'bilhete', 'bichos', 'despedida', 'boa_noite'];
@@ -73,9 +72,5 @@ describe('a narração para quem joga junto', () => {
   it('um save antigo chega com a narração ligada', () => {
     const e = migrar({ versao: VERSAO_DO_SAVE, pais: { pedrinhas: true } } as unknown as Record<string, unknown>);
     expect(e.pais.narracao).toBe(true);
-  });
-  it('o tempo de leitura cresce com o texto e tem teto', () => {
-    expect(tempoDeLeitura('Oi.')).toBeLessThan(tempoDeLeitura('Uma frase bem mais comprida para ler com calma.'));
-    expect(tempoDeLeitura('x'.repeat(2000))).toBe(LEITURA_MAXIMA * 1000);
   });
 });

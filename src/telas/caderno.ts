@@ -197,6 +197,15 @@ export function telaCaderno(): Tela {
         ctx.lineTo(0.54, 0.95);
         ctx.lineTo(0.54, 0.7);
         break;
+      case 'vale':
+        ctx.moveTo(0.05, 0.3);
+        ctx.lineTo(0.15, 0.06);
+        ctx.lineTo(0.5, 0.94);
+        ctx.lineTo(0.85, 0.06);
+        ctx.lineTo(0.95, 0.3);
+        ctx.moveTo(0.4, 0.94);
+        ctx.lineTo(0.6, 0.94);
+        break;
       case 'tronco':
         ctx.rect(0.42, 0.1, 0.16, 0.85);
         ctx.moveTo(0.1, 0.1);
