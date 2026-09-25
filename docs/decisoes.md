@@ -240,10 +240,11 @@ aparecia sem aviso.
   que abre.
 - Sem número, sem barra, sem "faltam 3": continua a língua de sinais da seção 5 do GAMEPLAY.
 
-## O varal de bandeirinhas (proposta, esperando aprovação)
+## O varal de bandeirinhas
 
 O pedido: um placar no alto da casa mostrando o que já foi explorado e o que não. Para não
 contrariar a língua de sinais (sem número, sem barra), virou um varal no céu, acima do telhado.
+Aprovado pela família depois de ver os prints em oito cenários (dia, tarde, noite, festa, celular pequeno).
 
 - Cada coisa **aberta** pendura uma bandeirinha redonda com o desenho dela. Dourada com
   centelha: brincou hoje. Clarinha: aberta, ainda não hoje. Fio rosa balançando: nunca tocou.
