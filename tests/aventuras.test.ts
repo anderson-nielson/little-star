@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { ARVORE } from '@/telas/arvoregrande';
 import { LAGO, posicaoNaFaixa, proximoEncontro, type Faixa } from '@/telas/lago';
 import { beatsDosObstaculos } from '@/telas/jardim';
-import { ACORDES } from '@/telas/ukulele';
+import { ACORDES, AFINACAO, CASAS } from '@/telas/ukulele';
 
 describe('a Árvore Grande', () => {
   it('as pinhas chegam no tempo forte, e menos nas primeiras aventuras', () => {
@@ -42,11 +42,23 @@ describe('o Lago dos Cisnes', () => {
 });
 
 describe('o ukulele', () => {
+  it('tem quatro cordas, afinadas em sol, dó, mi e lá (a afinação padrão, reentrante)', () => {
+    expect(AFINACAO).toEqual([67, 60, 64, 69]);
+  });
   it('cada acorde tem quatro cordas e só notas do tom: nenhuma combinação soa feia', () => {
     const doMaior = new Set([0, 2, 4, 5, 7, 9, 11]);
     for (const a of ACORDES) {
       expect(a.notas).toHaveLength(4);
       for (const n of a.notas) expect(doMaior.has(n % 12)).toBe(true);
+    }
+  });
+  it('cada nota de acorde é a corda solta ou poucas casas acima: posições de ukulele de verdade', () => {
+    for (const a of ACORDES) {
+      a.notas.forEach((n, i) => {
+        const casa = n - AFINACAO[i]!;
+        expect(casa).toBeGreaterThanOrEqual(0);
+        expect(casa).toBeLessThanOrEqual(CASAS);
+      });
     }
   });
 });
