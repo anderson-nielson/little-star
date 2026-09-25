@@ -29,8 +29,21 @@ Atalhos de depuração: `?debug=1&zerar=1&sessoes=8&hora=15:00&tela=jardim` e
 
 ## Publicado
 
-O jogo é publicado no GitHub Pages a cada push em `main` pelo workflow em
-`.github/workflows/pages.yml`: https://anderson-nielson.github.io/little-star/
+O jogo vive em https://anderson-nielson.github.io/little-star/ e toda rodada de
+desenvolvimento chega lá sozinha. O ciclo é sempre o mesmo:
+
+1. A rodada acontece num branch e vira uma pull request para `main`.
+2. `.github/workflows/ci.yml` roda lint, teste e build na PR. Vermelho não entra.
+3. A PR entra em `main` e `.github/workflows/pages.yml` confere tudo de novo,
+   monta o jogo, publica no GitHub Pages e depois lê `versao.txt` no ar até
+   encontrar o sha do commit que acabou de entrar. Se não encontrar em dois
+   minutos, o workflow fica vermelho em vez de fingir que publicou.
+
+O mesmo sha aparece no cantinho dos pais ("Little Star abc1234"), então dá para
+conferir no celular qual rodada está instalada. Se algum dia o Pages precisar
+ser publicado na mão, o `pages.yml` aceita `workflow_dispatch` na aba Actions.
+O site do Pages precisa existir com a fonte "GitHub Actions" em Settings >
+Pages; o token do workflow não consegue criá-lo sozinho.
 
 ## Regras da casa
 

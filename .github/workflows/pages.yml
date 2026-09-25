@@ -1,3 +1,7 @@
+# Publica o jogo no GitHub Pages a cada rodada que chega em main.
+# Uma rodada = uma PR aprovada (o ci.yml já rodou lint, teste e build nela).
+# Aqui a gente confere tudo de novo, publica e depois verifica que o que está
+# no ar é exatamente o commit que acabou de entrar.
 name: Publicar no GitHub Pages
 
 on:
@@ -10,12 +14,15 @@ permissions:
   pages: write
   id-token: write
 
+# Uma publicação por vez, e nunca cancela uma que já começou: a próxima espera
+# na fila e publica por cima. Assim nenhuma rodada fica pela metade no ar.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
+    name: Conferir e montar
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,15 +31,25 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npm run lint
       - run: npm test
       - run: npm run build
+      # O commit publicado fica legível em /versao.txt (o jogo mostra o mesmo
+      # sha curto no cantinho dos pais). É isso que o passo de conferência lê.
+      - name: Carimbar a versão
+        run: printf '%s\n' "$GITHUB_SHA" > dist/versao.txt
+      # O site do Pages precisa existir com a fonte "GitHub Actions"
+      # (Settings > Pages). O token do workflow não consegue criar o site
+      # sozinho; se ele sumir, é ali que se religa.
       - uses: actions/configure-pages@v5
         with:
           enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
+
   deploy:
+    name: Publicar
     needs: build
     runs-on: ubuntu-latest
     environment:
@@ -41,3 +58,22 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+      # O Pages leva alguns segundos para propagar. A gente insiste por até
+      # dois minutos até ler o sha desta rodada no ar; se não ler, o workflow
+      # fica vermelho em vez de fingir que publicou.
+      - name: Conferir o que está no ar
+        env:
+          URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          esperado="$GITHUB_SHA"
+          for tentativa in $(seq 1 24); do
+            lido="$(curl -fsS -H 'Cache-Control: no-cache' "${URL%/}/versao.txt?t=$tentativa" 2>/dev/null | tr -d '[:space:]' || true)"
+            if [ "$lido" = "$esperado" ]; then
+              echo "No ar: $lido em ${URL}"
+              exit 0
+            fi
+            echo "Tentativa $tentativa: no ar está '${lido:-nada}', esperava '$esperado'. Aguardando..."
+            sleep 5
+          done
+          echo "::error::O Pages não serviu o commit $esperado em ${URL} depois de dois minutos."
+          exit 1
