@@ -5,6 +5,7 @@ import { ceuDaHora } from '@/core/relogio';
 import { familia } from '@/puppet/boneco';
 import { arco, coelho, gato, nuvem, pinheiro, veu } from '@/puppet/objetos';
 import { falar, temVoz } from '@/audio/vozes';
+import { anunciar } from '@/core/narracao';
 import { tocarFundo } from '@/audio/musica';
 import { liraSobe } from '@/audio/synth';
 import { esperar } from '@/core/util';
@@ -66,6 +67,7 @@ export function telaChegada(): Tela {
       g.style.opacity = '1';
     }
     tela.comemorar(200, 430);
+    anunciar('chegada');
     if (temVoz(quem)) await falar(quem);
     else await esperar(1500);
     await esperar(1500);

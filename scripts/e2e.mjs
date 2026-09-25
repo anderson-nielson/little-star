@@ -71,6 +71,7 @@ await espera(2200);
 await toque(195, 552);
 await espera(5200);
 await shot('05-roda-lembranca');
+await conta('roda: balão de narração para quem joga junto', '.balao.visivel');
 /* deixa a roda seguir sozinha até o prato (quatro tarefas, umas 9 s cada) */
 await espera(30000);
 await shot('06-prato');

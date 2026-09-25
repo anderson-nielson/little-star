@@ -183,6 +183,22 @@ export function telaPais(): Tela {
       painel.append(h('p', {}, 'Últimas: ' + e.pedrinhasHistorico.slice(-14).reverse().map((r) => `${r.delta > 0 ? '+' : ''}${r.delta} ${nome(r.motivo)} (${r.dia.slice(5)})`).join(' · ')));
     }
 
+    /* a narração para quem joga junto */
+    painel.append(h('h2', {}, 'A narração para quem joga junto'));
+    painel.append(
+      h(
+        'p',
+        {},
+        'A cada avanço dela (uma tarefa contada, uma letra, um som, a chegada, um bilhete) um balão aparece no topo da tela com uma frase curta para vocês lerem em voz alta. Ela não lê; vocês leem para ela. As frases nomeiam o que ela fez de verdade, dizem o carinho e a segurança da família, e colocam o Theo como quem torce por ela, nunca como medida. Sem comparação, sem "melhor que". Um toque no balão fecha; ele também some sozinho.',
+      ),
+    );
+    const bNarra = h('button', { type: 'button', class: e.pais.narracao ? 'ligado' : '' }, e.pais.narracao ? 'Ligada' : 'Desligada');
+    bNarra.addEventListener('click', () => {
+      mudar((x) => void (x.pais.narracao = !x.pais.narracao));
+      abrir();
+    });
+    painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Balão de narração', h('span', { class: 'sub' }, 'Se ela ainda não estiver jogando com alguém ao lado, desliguem: o texto é para quem lê.')), bNarra));
+
     /* a roda */
     painel.append(h('h2', {}, 'A roda do dia'));
     painel.append(h('p', {}, 'Quais tarefas a família pergunta. Cada uma vale uma vez por dia, sem prazo e sem contador. Poucas por vez: a roda é para contar, não para cobrar.'));

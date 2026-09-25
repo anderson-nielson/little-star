@@ -1,6 +1,7 @@
 import { mover, telaSvg } from './comum';
 import { estado, mudar } from '@/core/estado';
 import { sessao } from '@/core/sessao';
+import { anunciar } from '@/core/narracao';
 import { esperar } from '@/core/util';
 import { familia } from '@/puppet/boneco';
 import { arco, centelha, contornoLuz, gato, veu } from '@/puppet/objetos';
@@ -126,6 +127,7 @@ export function telaNoite(): Tela {
     mudar((x) => {
       x.hoje.despedidaFeita = true;
     });
+    anunciar('boa_noite');
     await esperar(1500);
     if (vivo) void ir('dormindo');
   };

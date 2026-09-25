@@ -5,6 +5,10 @@ import { sessao } from './core/sessao';
 import { estado, mudar, estadoNovo, substituir } from './core/estado';
 import { audio } from './audio/engine';
 import { prepararVozes } from './audio/vozes';
+import { aoAnunciar, narracao, vezesNoHistorico } from './core/narracao';
+import { montarBalao } from './ui/balao';
+import { telaAtual } from './core/roteador';
+import { esperar } from './core/util';
 import { telaChegada } from './telas/chegada';
 import { telaCasa } from './telas/casa';
 import { telaRoda } from './telas/roda';
@@ -68,6 +72,22 @@ const app = document.getElementById('app')!;
 montar(app);
 definirVoltar(() => void sessao.voltarParaCasa());
 
+/* a narração para quem joga junto: a cada avanço dela, um balão no topo para ler em voz alta */
+const balao = montarBalao(app);
+const vistas = new Map<string, number>();
+aoAnunciar((avanco) => {
+  const e = estado();
+  if (!e.pais.narracao) return;
+  const t = telaAtual();
+  if (t === 'pais' || t === 'styleguide' || t === 'dormindo') return;
+  const noHistorico = vezesNoHistorico(e, avanco);
+  const vez = noHistorico > 0 ? noHistorico - 1 : (vistas.get(avanco) ?? 0);
+  vistas.set(avanco, (vistas.get(avanco) ?? 0) + 1);
+  const texto = narracao(avanco, vez);
+  /* o balão chega um instante depois da cena comemorar, para não brigar com as centelhas */
+  if (texto) void esperar(700).then(() => balao.mostrar(texto));
+});
+
 /* o áudio destrava no primeiro toque em qualquer lugar */
 const destravar = () => {
   void audio.tentarDestravar();
@@ -105,4 +125,4 @@ if (import.meta.env.PROD && 'serviceWorker' in navigator) {
 }
 
 /* para o passeio automático e para a depuração no console */
-(window as unknown as { littleStar: unknown }).littleStar = { ir, estado, mudar, sessao, versao: __VERSAO__ };
+(window as unknown as { littleStar: unknown }).littleStar = { ir, estado, mudar, sessao, balao, versao: __VERSAO__ };
