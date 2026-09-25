@@ -228,8 +228,8 @@ marionete por dados). Nada de copiar personagens, colagem ou estilo visual do de
   Ela não lê; quem está ao lado lê para ela. Toda frase faz três coisas: nomeia o que ela
   fez de verdade (a força dela), diz o carinho e a segurança da família, e coloca o Theo
   como quem torce por ela e faz junto, nunca como medida. Sem comparação, sem "melhor que",
-  sem cobrança. As frases vivem em `src/data/narracao.json` e se revezam; o balão some
-  sozinho no tempo de ler e fecha com um toque. Desliga-se no cantinho dos pais.
+  sem cobrança. As frases vivem em `src/data/narracao.json` e se revezam; o balão fica na
+  tela até um toque no "x". Desliga-se no cantinho dos pais.
 
 ## 7. A casa verde, o quintal e o quarto rosa
 

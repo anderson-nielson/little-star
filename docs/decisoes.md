@@ -157,10 +157,12 @@ parte existe para mostrar que não precisa ser assim.
   de quem lê, com rótulo "para ler para a Stella". Frases curtas para caber na voz de quem
   está ao lado. Elas se revezam pelo histórico das pedrinhas, para não repetir a mesma na
   sequência.
-- **Suave.** Só `opacity` e `transform`; entra depois das centelhas, some sozinho no tempo
-  de ler (4,5 s mais 60 ms por letra, teto de 14 s), fecha com um toque. Um de cada vez;
-  se outro chegar, o primeiro fica pelo menos 3,5 s. Não aparece no cantinho dos pais, no
-  styleguide nem com ela dormindo.
+- **Suave, e fica.** Só `opacity` e `transform`; entra depois das centelhas e fica na tela
+  até um toque no "x" (alvo de 72 px, no canto de cima). Não some sozinho: quem lê marca o
+  próprio tempo. Um de cada vez; se outra frase chegar, ela toma o lugar. Não aparece no
+  cantinho dos pais, no styleguide nem com ela dormindo, e sai sozinho ao entrar neles.
+  (Antes sumia num tempo de leitura calculado por letra, e a forma de aparecer e sumir
+  confundia; foi trocado por ficar até o "x".)
 - **Desliga no cantinho.** `pais.narracao`, ligado por padrão. Se ela estiver jogando
   sozinha, o texto não serve e vira ruído.
 - Onde vive: `src/data/narracao.json` (as frases), `src/core/narracao.ts` (o canal e a
