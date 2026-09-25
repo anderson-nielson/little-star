@@ -1,0 +1,11 @@
+{
+  "id": "brilha",
+  "titulo": "Brilha, brilha estrelinha",
+  "compositor": "tradicional, tema das variações K. 265 de Mozart",
+  "tom": "dó maior",
+  "bpm": 84,
+  "compasso": 4,
+  "fonte": "Melodia tradicional em domínio público, arranjo próprio com baixo simples.",
+  "melodia": "C4:1 C4:1 G4:1 G4:1 | A4:1 A4:1 G4:2 | F4:1 F4:1 E4:1 E4:1 | D4:1 D4:1 C4:2 | G4:1 G4:1 F4:1 F4:1 | E4:1 E4:1 D4:2 | G4:1 G4:1 F4:1 F4:1 | E4:1 E4:1 D4:2 | C4:1 C4:1 G4:1 G4:1 | A4:1 A4:1 G4:2 | F4:1 F4:1 E4:1 E4:1 | D4:1 D4:1 C4:2",
+  "baixo": "C3:2 E3:2 | F3:2 C3:2 | F3:2 C3:2 | G3:2 C3:2 | C3:2 G3:2 | C3:2 G3:2 | C3:2 G3:2 | C3:2 G3:2 | C3:2 E3:2 | F3:2 C3:2 | F3:2 C3:2 | G3:2 C3:2"
+}

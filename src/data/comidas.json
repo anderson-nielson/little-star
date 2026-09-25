@@ -1,0 +1,8 @@
+{
+  "vermelho": [{ "id": "tomate", "nome": "tomate" }, { "id": "morango", "nome": "morango" }],
+  "laranja": [{ "id": "cenoura", "nome": "cenoura" }, { "id": "mamao", "nome": "mamão" }],
+  "amarelo": [{ "id": "banana", "nome": "banana" }, { "id": "milho", "nome": "milho" }],
+  "verde": [{ "id": "brocolis", "nome": "brócolis" }, { "id": "alface", "nome": "alface" }],
+  "roxo": [{ "id": "uva", "nome": "uva" }, { "id": "beterraba", "nome": "beterraba" }],
+  "marrom": [{ "id": "pao", "nome": "pão" }, { "id": "arroz", "nome": "arroz e feijão" }]
+}

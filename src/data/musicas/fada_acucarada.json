@@ -1,0 +1,11 @@
+{
+  "id": "fada_acucarada",
+  "titulo": "Dança da Fada Açucarada",
+  "compositor": "Piotr Ilitch Tchaikovsky, O Quebra-Nozes",
+  "tom": "mi menor",
+  "bpm": 80,
+  "compasso": 2,
+  "fonte": "Arranjo livre e simplificado da melodia da celesta, em oito compassos. Obra em domínio público.",
+  "melodia": "E5:0.5 G5:0.5 B5:0.5 E6:0.5 | D#6:1 B5:1 | C6:0.5 B5:0.5 A5:0.5 G5:0.5 | F#5:1 B4:1 | E5:0.5 G5:0.5 B5:0.5 E6:0.5 | D#6:1 B5:1 | C6:0.5 A5:0.5 F#5:0.5 D#5:0.5 | E5:2",
+  "baixo": "E3:2 | B2:2 | A2:2 | B2:2 | E3:2 | B2:2 | B2:2 | E3:2"
+}

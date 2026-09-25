@@ -1,0 +1,11 @@
+{
+  "id": "preludio_bach",
+  "titulo": "Prelúdio em dó maior",
+  "compositor": "Johann Sebastian Bach, BWV 846",
+  "tom": "dó maior",
+  "bpm": 66,
+  "compasso": 4,
+  "fonte": "Os oito primeiros compassos, com o arpejo simplificado em colcheias. Obra em domínio público.",
+  "melodia": "E4:0.5 G4:0.5 C5:0.5 E5:0.5 G4:0.5 C5:0.5 E5:0.5 G4:0.5 | D4:0.5 A4:0.5 D5:0.5 F5:0.5 A4:0.5 D5:0.5 F5:0.5 A4:0.5 | D4:0.5 G4:0.5 D5:0.5 F5:0.5 G4:0.5 D5:0.5 F5:0.5 G4:0.5 | E4:0.5 G4:0.5 C5:0.5 E5:0.5 G4:0.5 C5:0.5 E5:0.5 G4:0.5 | E4:0.5 A4:0.5 E5:0.5 A5:0.5 A4:0.5 E5:0.5 A5:0.5 A4:0.5 | D4:0.5 F#4:0.5 A4:0.5 D5:0.5 F#4:0.5 A4:0.5 D5:0.5 F#4:0.5 | D4:0.5 G4:0.5 D5:0.5 G5:0.5 G4:0.5 D5:0.5 G5:0.5 G4:0.5 | C4:0.5 E4:0.5 G4:0.5 C5:0.5 E4:0.5 G4:0.5 C5:0.5 E4:0.5",
+  "baixo": "C3:4 | C3:4 | B2:4 | C3:4 | C3:4 | C3:4 | B2:4 | B2:4"
+}

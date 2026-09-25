@@ -1,0 +1,120 @@
+/* Little Star: tokens. Única fonte de cor, tipo, espaço, forma e movimento.
+   Herdados do Ponta, mais o verde musgo da casa, o rosa da Stella, a areia e o
+   vermelho da caixa de areia. */
+:root {
+  /* cor: base do Ponta */
+  --noite: #10142a;
+  --noite-alta: #232a55;
+  --noite-2: #1b2140;
+  --marfim: #f6f0e4;
+  --papel: #fbf8f1;
+  --tinta: #1a1c2b;
+  --rosa: #ebcdc3;
+  --rosa-clara: #f6e3dc;
+  --rosa-doce: #f2a9c4;
+  --veludo: #6e1a27;
+  --veludo-2: #9b2f3f;
+  --ouro: #c6a15b;
+  --ouro-tinta: #8f6f2c;
+  --luz: #ebd9a8;
+  --mata: #2c4a42;
+  --mata-2: #35564d;
+  --dia-alto: #fbf3ea;
+
+  /* cor: a casa da Stella */
+  --musgo: #8fae6b;
+  --musgo-claro: #c9dbb2;
+  --musgo-tinta: #4f6b3a;
+  --areia: #eeddb4;
+  --areia-sombra: #d9c69a;
+  --estrela-vermelha: #d2463c;
+  --lago: #9fc3cf;
+  --ceu-dia: #dbe7ee;
+  --ceu-tarde: #f3d9cf;
+  --ceu-noite: #232a55;
+  --madeira: #c9a189;
+  --terra: #8a6a4a;
+
+  /* cor: comidas e flores */
+  --vermelho: #d2463c;
+  --laranja: #e8a24a;
+  --amarelo: #ebd9a8;
+  --verde: #4f6b3a;
+  --roxo: #8a5aa8;
+  --marrom: #c48f5a;
+
+  /* cor: a semana (Waldorf tradicional) */
+  --dia-dom: #ebd9a8;
+  --dia-seg: #a58bc4;
+  --dia-ter: #d97f74;
+  --dia-qua: #e9d27a;
+  --dia-qui: #e8a24a;
+  --dia-sex: #8fae6b;
+  --dia-sab: #7fa5b8;
+
+  /* semântica */
+  --txt: var(--tinta);
+  --txt-2: rgba(26, 28, 43, 0.7);
+  --txt-claro: var(--marfim);
+  --fio: rgba(79, 107, 58, 0.35);
+  --fio-ouro: rgba(198, 161, 91, 0.6);
+  --toque: rgba(79, 107, 58, 0.12);
+  --halo: rgba(235, 217, 168, 0.5);
+  --veu: rgba(16, 20, 42, 0.55);
+
+  /* tipo */
+  --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --sans: 'Jost', 'Avenir Next', 'Century Gothic', system-ui, sans-serif;
+  --t-nome: 2rem;
+  --t-h1: 1.75rem;
+  --t-h2: 1.375rem;
+  --t-corpo: 1rem;
+  --t-rotulo: 0.875rem;
+  --t-micro: 0.75rem;
+
+  /* espaço (base 4) */
+  --e1: 4px;
+  --e2: 8px;
+  --e3: 12px;
+  --e4: 16px;
+  --e5: 24px;
+  --e6: 32px;
+  --e7: 48px;
+
+  /* forma e alvo */
+  --r-arco: 999px 999px 12px 12px;
+  --r-pilula: 999px;
+  --r-folha: 20px;
+  --fio-w: 1px;
+  --alvo: 72px;
+  --entre-alvos: 16px;
+  --borda-morta: 24px;
+  --coluna: 430px;
+  --fundo-seguro: max(env(safe-area-inset-bottom, 0px), 12px);
+
+  /* movimento: tudo lento, nada pisca */
+  --d-rapido: 200ms;
+  --d-base: 320ms;
+  --d-lento: 600ms;
+  --d-cena: 1200ms;
+  --d-pulso: 1800ms;
+  --d-respira: 2400ms;
+  --ease-sai: cubic-bezier(0.2, 0, 0, 1);
+  --ease-entra-sai: cubic-bezier(0.6, 0, 0.2, 1);
+
+  /* camadas */
+  --z-cena: 1;
+  --z-figura: 3;
+  --z-hud: 5;
+  --z-veu: 8;
+  --z-pais: 9;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --d-rapido: 0ms;
+    --d-base: 0ms;
+    --d-lento: 0ms;
+    --d-cena: 0ms;
+  }
+}

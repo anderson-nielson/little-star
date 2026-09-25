@@ -1,0 +1,368 @@
+[
+  {
+    "id": "A",
+    "som": "som_a",
+    "historia": "hist_a",
+    "imagem": "telhado",
+    "palavra": "ASA",
+    "figuras": [
+      "asa",
+      "abelha",
+      "arvore"
+    ],
+    "tracos": [
+      [
+        [
+          0.5,
+          0.06
+        ],
+        [
+          0.12,
+          0.94
+        ]
+      ],
+      [
+        [
+          0.5,
+          0.06
+        ],
+        [
+          0.88,
+          0.94
+        ]
+      ],
+      [
+        [
+          0.27,
+          0.62
+        ],
+        [
+          0.73,
+          0.62
+        ]
+      ]
+    ]
+  },
+  {
+    "id": "E",
+    "som": "som_e",
+    "historia": "hist_e",
+    "imagem": "estante",
+    "palavra": "ELA",
+    "figuras": [
+      "ela",
+      "elefante",
+      "egua"
+    ],
+    "tracos": [
+      [
+        [
+          0.22,
+          0.06
+        ],
+        [
+          0.22,
+          0.94
+        ]
+      ],
+      [
+        [
+          0.22,
+          0.06
+        ],
+        [
+          0.82,
+          0.06
+        ]
+      ],
+      [
+        [
+          0.22,
+          0.5
+        ],
+        [
+          0.72,
+          0.5
+        ]
+      ],
+      [
+        [
+          0.22,
+          0.94
+        ],
+        [
+          0.82,
+          0.94
+        ]
+      ]
+    ]
+  },
+  {
+    "id": "L",
+    "som": "som_l",
+    "historia": "hist_l",
+    "imagem": "deitada",
+    "palavra": "LUA",
+    "figuras": [
+      "lua",
+      "lata",
+      "lobo"
+    ],
+    "tracos": [
+      [
+        [
+          0.28,
+          0.06
+        ],
+        [
+          0.28,
+          0.94
+        ]
+      ],
+      [
+        [
+          0.28,
+          0.94
+        ],
+        [
+          0.84,
+          0.94
+        ]
+      ]
+    ]
+  },
+  {
+    "id": "S",
+    "som": "som_s",
+    "historia": "hist_s",
+    "imagem": "rabo",
+    "palavra": "SALA",
+    "figuras": [
+      "sapo",
+      "sol",
+      "sino"
+    ],
+    "tracos": [
+      [
+        "curva",
+        [
+          0.8,
+          0.2
+        ],
+        [
+          0.8,
+          -0.05
+        ],
+        [
+          0.15,
+          0.0
+        ],
+        [
+          0.2,
+          0.32
+        ],
+        [
+          0.25,
+          0.6
+        ],
+        [
+          0.85,
+          0.55
+        ],
+        [
+          0.8,
+          0.82
+        ],
+        [
+          0.75,
+          1.05
+        ],
+        [
+          0.2,
+          1.02
+        ],
+        [
+          0.18,
+          0.78
+        ]
+      ]
+    ]
+  },
+  {
+    "id": "T",
+    "som": "som_t",
+    "historia": "hist_t",
+    "imagem": "tronco",
+    "palavra": "LATA",
+    "figuras": [
+      "tatu",
+      "tela",
+      "tomate"
+    ],
+    "tracos": [
+      [
+        [
+          0.1,
+          0.08
+        ],
+        [
+          0.9,
+          0.08
+        ]
+      ],
+      [
+        [
+          0.5,
+          0.08
+        ],
+        [
+          0.5,
+          0.94
+        ]
+      ]
+    ]
+  },
+  {
+    "id": "O",
+    "som": "som_o",
+    "historia": "hist_o",
+    "imagem": "boca",
+    "palavra": "OLÁ",
+    "figuras": [
+      "ovo",
+      "olho",
+      "onda"
+    ],
+    "tracos": [
+      [
+        "circulo",
+        0.5,
+        0.5,
+        0.42
+      ]
+    ]
+  },
+  {
+    "id": "M",
+    "som": "som_m",
+    "historia": "hist_m",
+    "imagem": "montanhas",
+    "palavra": "MALA",
+    "figuras": [
+      "mala",
+      "mesa",
+      "mao"
+    ],
+    "tracos": [
+      [
+        [
+          0.1,
+          0.94
+        ],
+        [
+          0.1,
+          0.06
+        ]
+      ],
+      [
+        [
+          0.1,
+          0.06
+        ],
+        [
+          0.5,
+          0.64
+        ]
+      ],
+      [
+        [
+          0.5,
+          0.64
+        ],
+        [
+          0.9,
+          0.06
+        ]
+      ],
+      [
+        [
+          0.9,
+          0.06
+        ],
+        [
+          0.9,
+          0.94
+        ]
+      ]
+    ]
+  },
+  {
+    "id": "U",
+    "som": "som_u",
+    "historia": "hist_u",
+    "imagem": "balanco",
+    "palavra": "TUTU",
+    "figuras": [
+      "uva",
+      "urso",
+      "unha"
+    ],
+    "tracos": [
+      [
+        "curva",
+        [
+          0.15,
+          0.06
+        ],
+        [
+          0.15,
+          0.7
+        ],
+        [
+          0.15,
+          0.98
+        ],
+        [
+          0.5,
+          0.98
+        ],
+        [
+          0.85,
+          0.98
+        ],
+        [
+          0.85,
+          0.7
+        ],
+        [
+          0.85,
+          0.06
+        ]
+      ]
+    ]
+  },
+  {
+    "id": "I",
+    "som": "som_i",
+    "historia": "hist_i",
+    "imagem": "pinheiro",
+    "palavra": "LIMA",
+    "figuras": [
+      "ilha",
+      "ima",
+      "ioio"
+    ],
+    "tracos": [
+      [
+        [
+          0.5,
+          0.06
+        ],
+        [
+          0.5,
+          0.94
+        ]
+      ]
+    ]
+  }
+]
