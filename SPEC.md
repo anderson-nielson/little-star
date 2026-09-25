@@ -1,4 +1,4 @@
-# Little Star: especificação (v2.3)
+# Little Star: especificação (v2.4)
 
 > Jogo de celular para a Stella, 5 anos. Irmão pequeno do **Ponta**
 > (`anderson-nielson/grande-ballet`): mesma família visual, mesmo piano, outro jogo.
@@ -305,6 +305,7 @@ Cada tarefa tem um objeto grande na casa (não um botão) e uma cena curta.
 |---|---|---|---|
 | Arrumar a cama | a cama | Ela estica o lençol rosa com um arrasto curto, a mãe sorri | Colcha ou travesseiro novo |
 | Fazer comidinha | o fogão | Na cozinha com a mãe, põe ingredientes na tigela | Pratinho na mesa das bonecas |
+| Comer colorido | o prato na mesa | Ela toca nas cores que provou (seção 8.4) | Uma flor de cada cor no canteiro |
 | Arrumar o quarto | o chão bagunçado | Toca nas coisas, elas voam para o lugar | Tapete ou luzinha |
 | Guardar os brinquedos | a caixa | Bonecas e blocos pulam para a caixa, o pai comemora | Prateleira nova |
 | Ser gentil | o Theo | Ela dá um abraço ou empresta um brinquedo | Desenho do Theo na parede |
@@ -338,6 +339,57 @@ Cada tarefa vale uma vez por dia. Sem prazo, sem sequência, sem contador.
 - O jogo escurece até o azul da noite e fecha sozinho. Até a manhã, abrir o app mostra só a
   Stella dormindo e a canção de ninar baixinha.
 - De manhã, a família dá bom dia e, se os pais marcaram "dormiu sozinha", a estrela nova brilha.
+
+### 8.4 Comer colorido: o canteiro de flores
+
+Na vida real a Stella não come muito bem. No jogo, cada cor que ela **prova** vira uma flor.
+
+**Como funciona**
+1. Depois de uma refeição de verdade, na mesa da cozinha do jogo, aparece um prato vazio e,
+   em volta dele, seis cores de comida desenhadas (não escritas): vermelho (tomate, morango),
+   laranja (cenoura, mamão), amarelo (milho, banana), verde (brócolis, alface, ervilha), roxo
+   (beterraba, uva, açaí) e branco ou marrom (arroz, feijão, pão, couve-flor).
+2. Ela toca nas cores que provou. Cada uma pula para o prato, diz o nome da comida (palavra
+   em destaque, 9.5) e a família comemora com a voz gravada: "você provou cenoura!".
+3. Para cada cor provada, **nasce uma flor daquela cor** no canteiro em frente à casa verde.
+   Laranja provada, flor laranja. O coelhinho cheira a flor nova.
+4. **Comida nova**, que ela nunca tinha provado, rende uma flor especial, um girassol, e os
+   pais marcam no cantinho dos pais qual foi, para lembrar depois.
+5. Com cinco cores diferentes provadas na mesma semana, um **arco-íris** aparece sobre a casa
+   no fim de semana. Se não aparecer, nada murcha: o canteiro guarda todas as flores que já
+   nasceram, para sempre.
+
+**As regras que protegem a relação dela com a comida**
+
+Esta é a parte do jogo em que é mais fácil errar, então as regras são firmes. Elas vêm do que
+a pesquisa sobre alimentação infantil já mostrou: prêmio pequeno, que não é comida, por
+**provar** um alimento ajuda a criança a aceitá-lo com o tempo, porque cada prova é uma
+exposição; prêmio por **quantidade**, ou comida usada como prêmio, piora a relação com a
+comida e com a fome. Por isso:
+
+- **Vale provar, não comer tudo.** Uma mordida conta. Cuspir depois de provar conta. Nunca
+  "limpou o prato", nunca quantidade, nunca "comeu bem" ou "comeu mal".
+- **A flor é pela cor e pela coragem**, não pelo tamanho da refeição.
+- **Comida nunca é prêmio.** Nenhum doce, sobremesa ou guloseima aparece como recompensa, no
+  jogo ou sugerido fora dele.
+- **Nada sobre corpo.** Nenhuma palavra sobre crescer forte, engordar, emagrecer, "saudável"
+  contra "besteira". O jogo fala de cor, de sabor e de coragem.
+- **Não provar não tira nada.** Nenhuma flor murcha, nenhum bicho fica com fome, nenhuma cena
+  triste. A mesa só celebra.
+- **O jogo não serve de moeda de troca** ("se comer, pode jogar"). Fica escrito no guia do
+  cantinho dos pais, com a explicação.
+
+**O que ajuda além da flor** (e costuma funcionar melhor que qualquer prêmio):
+- **Ver quem ela ama comendo.** No jogo, o Theo come brócolis rindo, o coelhinho come
+  cenoura, a mãe e o pai provam coisas novas na cozinha. Criança come o que vê comer.
+- **Brincar com a comida antes de comer.** Na horta (abaixo) e na comidinha
+  com a mãe, ela planta, colhe, lava e mistura legumes coloridos. Mexer com o alimento sem
+  obrigação de comer aproxima a criança dele.
+- **Uma horta no quintal.** Um canteiro ao lado das flores onde ela planta sementes, rega com
+  o regador, e dias depois colhe cenoura, tomate, milho e alface. Colhido no jogo, vai para a
+  comidinha com a mãe. Bem Waldorf, e bom para plantar de verdade também.
+- **Palavras da comida.** Cada alimento tem palavra em destaque e nome em espanhol:
+  "cenoura... zanahoria", "morango... fresa", "milho... maíz".
 
 ## 9. Escrever e ouvir: letras e sons
 
@@ -683,6 +735,7 @@ metade.
 1. **Styleguide vivo** com a Stella pequena, a família e duas bonecas nas poses básicas.
 2. **A casa** com quarto, cozinha e porta, céu pela hora, recepção da família.
 3. **Três tarefas**: cama, dentes, brinquedos. E a hora de dormir.
+   **Comer colorido** com o canteiro de flores (8.4), que é prioridade da família.
 4. **Caderno**: os traços básicos e as letras S, T, E, L, A, montando STELLA na porta.
 5. **Piano** livre e *Brilha, brilha estrelinha*.
 6. **Uma aventura**: o Jardim, com o palco no fim.
@@ -724,10 +777,13 @@ letras da família, mais espanhol.
     "Estrelinha" ou "Estrellita"?
 12. **Semana e festas.** A casa tem um ritmo da semana (dia do pão, da pintura)? Quais festas
    vocês celebram? O jogo copia o ritmo de vocês em vez de inventar um.
+13. **Comida.** Quais comidas ela já aceita e quais vocês gostariam que ela provasse? Os
+    primeiros desenhos do prato saem dessa lista. Vale mostrar a seção 8.4 à pediatra ou
+    nutricionista dela, se ela tiver uma.
 
 ## 18. Fora de escopo
 
 Texto necessário para jogar, nota, pontos na tela, vidas, tempo-limite, placar, sequência de
 dias que se quebra, castigo por tarefa não feita, moeda ou loja, compras, anúncios, login,
-notificações, dados fora do aparelho, links para fora, e qualquer mecânica sobre corpo, peso
-ou comida como prêmio.
+notificações, dados fora do aparelho, links para fora, qualquer mecânica sobre corpo ou peso,
+comida (doce, sobremesa) usada como prêmio, e qualquer medida de quanto ela comeu.
