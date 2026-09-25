@@ -66,3 +66,10 @@ arco-íris semanal (é um contador disfarçado; o canteiro já recompensa).
    os convites e o boa noite. Uns 45 minutos, de preferência sem a Stella por perto.
 3. Escolher a hora de dormir, o limite diário e as comidas de cada cor.
 4. Jogar junto, no colo, na primeira semana.
+
+## O que mudou depois da primeira rodada no celular
+
+- **O toque travava a tela inteira.** No celular cada dedo novo tem um `pointerId` novo. Se o dedo descia num alvo e soltava fora dele (comum no piano, escorregando entre teclas), o alvo nunca via o `pointerup` e o "primeiro dedo" ficava preso: nada mais respondia. Agora o alvo captura o ponteiro e a janela sempre libera o dedo ao soltar.
+- **A cena não corta mais.** Em telas mais curtas que 1:2 (quase todo Android com a barra do navegador), o `slice` cortava o alto e o pé da cena e jogava a casinha e a lua para dentro da borda morta de 24 px: não dava para sair do piano. A cena agora usa `meet`; sobram faixas finas nos lados, na cor do fundo da própria tela.
+- **A casa fechada confundiu os pais.** Nas primeiras quatro sessões só o que brilha responde (aberturas graduais). Isso segue igual para a Stella, mas o cantinho dos pais ganhou o botão "Abrir a casa inteira agora".
+- **A família, versão escolhida.** Theo: cachinhos curtos só em cima, camiseta com mangas, mais encorpado. Pai: opção C, testa alta, barba cheia, óculos finos sem hastes (de frente, a haste parecia um brinco). As três opções ficam em `?styleguide=pai`.

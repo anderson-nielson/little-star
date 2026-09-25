@@ -9,6 +9,7 @@ export type Pose = 'parado' | 'acena' | 'sentado' | 'pulo' | 'aponta' | 'segura'
 export type Cabelo = 'liso' | 'cacheado' | 'cachinhos' | 'coque' | 'curto' | 'rabo' | 'entradas' | 'testa-alta';
 export type Barba = 'baixa' | 'leve' | 'cheia';
 export type Oculos = 'oval' | 'redondo' | 'fino';
+/* os óculos não têm hastes: de frente, a haste saindo da cabeça parecia um brinco */
 
 export interface Figura {
   x: number;
@@ -29,7 +30,7 @@ export interface Figura {
   contorno?: string;
   /** encorpado: multiplica a largura de ombros, membros e roupa (1 = magro) */
   forte?: number;
-  /** óculos: ovais, redondos ou finos com hastes */
+  /** óculos: ovais, redondos ou finos */
   oculos?: boolean | Oculos;
   /** barba, na cor dada */
   barba?: string;
@@ -55,7 +56,8 @@ export const CORES = {
   cabeloStella: '#e2c27a',
   cabeloTheo: '#c9a86a',
   cabeloMae: '#4a3222',
-  cabeloPai: '#a67c52',
+  cabeloPai: '#b08a5e',
+  barbaPai: '#9a7548',
   rosaDoce: '#f2a9c4',
   rosaClara: '#f6e3dc',
   rosa: '#ebcdc3',
@@ -315,8 +317,7 @@ export function boneco(o: Figura): Desenho {
     const ry = estilo === 'redondo' ? hr * 0.27 : hr * 0.22;
     const w = Math.max(0.8, hr * (estilo === 'fino' ? 0.05 : 0.075));
     const cy = olhoY - hr * 0.02;
-    const hastes = estilo === 'fino' ? `<path d="M${hx - ox - rx} ${cy}L${hx - hr * 1.02} ${cy - hr * 0.06}M${hx + ox + rx} ${cy}L${hx + hr * 1.02} ${cy - hr * 0.06}"/>` : '';
-    oculos = `<g fill="none" stroke="${CORES.tinta}" stroke-width="${w}" opacity="0.7"><ellipse cx="${hx - ox}" cy="${cy}" rx="${rx}" ry="${ry}"/><ellipse cx="${hx + ox}" cy="${cy}" rx="${rx}" ry="${ry}"/><path d="M${hx - ox + rx} ${cy - hr * 0.03}h${(ox - rx) * 2}"/>${hastes}</g>`;
+    oculos = `<g fill="none" stroke="${CORES.tinta}" stroke-width="${w}" opacity="0.7"><ellipse cx="${hx - ox}" cy="${cy}" rx="${rx}" ry="${ry}"/><ellipse cx="${hx + ox}" cy="${cy}" rx="${rx}" ry="${ry}"/><path d="M${hx - ox + rx} ${cy - hr * 0.03}h${(ox - rx) * 2}"/></g>`;
   }
   const contorno = o.contorno ? `stroke="${o.contorno}" stroke-width="1" stroke-linejoin="round"` : '';
   const sapato = o.sapato ?? pele;
@@ -357,7 +358,7 @@ export const familia = {
   mae: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
     boneco({ x, y, h, pose, pele: C.peleMae, cabelo: C.cabeloMae, roupa: '#D9B4A6', cabeloTipo: 'liso', vestido: true, sapato: C.madeira, ...extra }),
   pai: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
-    boneco({ x, y, h, pose, pele: C.pelePai, cabelo: C.cabeloPai, roupa: C.mata2, calca: '#3f3a4a', cabeloTipo: 'entradas', oculos: true, barba: C.cabeloPai, forte: 1.18, sapato: '#3f3a4a', ...extra }),
+    boneco({ x, y, h, pose, pele: C.pelePai, cabelo: C.cabeloPai, roupa: C.mata2, calca: '#3f3a4a', cabeloTipo: 'testa-alta', oculos: 'fino', barba: C.barbaPai, barbaEstilo: 'cheia', forte: 1.18, sapato: '#3f3a4a', ...extra }),
   /** bonecas Waldorf de pano: rosto quase liso */
   boneca: (x: number, y: number, h: number, i: number, extra: Extra = {}): Desenho => {
     const roupas = [C.rosaDoce, C.luz, C.azul, '#D9B4A6', '#a58bc4'];
@@ -371,7 +372,7 @@ export const familia = {
 export const OPCOES_DE_PAI: Record<string, { rotulo: string; extra: Extra }> = {
   A: { rotulo: 'A. Entradas, barba baixa, óculos ovais', extra: { cabeloTipo: 'entradas', cabelo: '#a67c52', barba: '#a67c52', barbaEstilo: 'baixa', oculos: 'oval' } },
   B: { rotulo: 'B. Entradas, barba por fazer, óculos redondos', extra: { cabeloTipo: 'entradas', cabelo: '#8f6a45', barba: '#8f6a45', barbaEstilo: 'leve', oculos: 'redondo' } },
-  C: { rotulo: 'C. Testa alta, barba cheia, óculos finos com haste', extra: { cabeloTipo: 'testa-alta', cabelo: '#b08a5e', barba: '#9a7548', barbaEstilo: 'cheia', oculos: 'fino' } },
+  C: { rotulo: 'C. Testa alta, barba cheia, óculos finos (o escolhido)', extra: { cabeloTipo: 'testa-alta', cabelo: '#b08a5e', barba: '#9a7548', barbaEstilo: 'cheia', oculos: 'fino' } },
 };
 
 /** Proporções decididas: Stella 1, Theo 1,5, pais 2. */
