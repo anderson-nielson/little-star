@@ -1,4 +1,4 @@
-import { etapa, SESSAO_COMPLETA, tarefasAtivas } from '@/core/laco';
+import { brincouHoje, COISAS, disponivel, etapa, luzDaCasa, novidade, SESSAO_COMPLETA, sessaoQueAbre, tarefasAtivas, type Coisa } from '@/core/laco';
 import { ajustar, PEDRINHAS } from '@/core/pedrinhas';
 import { apagarTudo, CORES_DE_COMIDA, estado, estadoNovo, hojeVazio, mudar, substituir, TAREFAS, type CorDeComida, type Tarefa } from '@/core/estado';
 import { sessao } from '@/core/sessao';
@@ -15,6 +15,7 @@ import type { Tela } from '@/core/roteador';
 const NUMEROS = ['dois', 'três', 'quatro', 'cinco', 'seis', 'sete', 'oito', 'nove'];
 const DONO = { mae: 'Andrea', pai: 'Anderson', theo: 'Theo', qualquer: 'Qualquer um' };
 const NOME_COR: Record<CorDeComida, string> = { vermelho: 'Vermelho', laranja: 'Laranja', amarelo: 'Amarelo', verde: 'Verde', roxo: 'Roxo', marrom: 'Branco ou marrom' };
+const NOME_COISA: Record<Coisa, string> = { piano: 'Piano', caderno: 'Caderno de letras', palavras: 'Mala de palavras', areia: 'Caixa de areia', pinhas: 'Pinhas', jardim: 'A porta (aventuras)', familia: 'A família na sala', cozinha: 'Cozinha', ukulele: 'Ukulele', lira: 'Lira', bonecas: 'Bonecas', bilhete: 'Bilhetinho', relogio: 'Relógio', horta: 'Horta', arvore: 'Árvore do quintal' };
 const NOME_TAREFA: Record<Tarefa, string> = { cama: 'Arrumou a cama', dentes: 'Escovou os dentes', brinquedos: 'Guardou os brinquedos', banho: 'Tomou banho', quarto: 'Arrumou o quarto', gentil: 'Foi gentil com alguém' };
 
 /**
@@ -92,6 +93,22 @@ export function telaPais(): Tela {
     });
     painel.append(h('div', { class: 'linha' }, comidaNova, bNova));
     if (e.pais.comidasNovas.length) painel.append(h('p', {}, 'Comidas novas: ' + e.pais.comidasNovas.map((c) => `${c.comida} (${c.dia})`).join(', ')));
+
+    /* a casa hoje: o que ela já explorou, o que espera por ela, o que ainda não abriu */
+    painel.append(h('h2', {}, 'A casa hoje'));
+    painel.append(h('p', {}, 'A luz dourada mostra onde ela ainda pode ir: primeiro a brincadeira do dia, depois o que ela nunca tocou, depois o que ainda não foi hoje. O que ela já brincou ganha uma centelha parada. Coisa nova balança devagar até o primeiro toque.'));
+    const brincadas = COISAS.filter((c) => brincouHoje(e, c));
+    const esperando = COISAS.filter((c) => disponivel(e, c) && !brincouHoje(e, c));
+    const fechadas = COISAS.filter((c) => !disponivel(e, c));
+    const nomes = (lista: Coisa[]) => lista.map((c) => NOME_COISA[c] + (novidade(e, c) ? ' (nova)' : '')).join(', ');
+    const luz = luzDaCasa(e, sessao.agora());
+    painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'A luz está em', h('span', { class: 'sub' }, luz ? NOME_COISA[luz] : 'Nada: hoje ela já foi em tudo'))));
+    painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Brincou hoje', h('span', { class: 'sub' }, brincadas.length ? nomes(brincadas) : 'Ainda nada hoje'))));
+    painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Aberto, esperando ela', h('span', { class: 'sub' }, esperando.length ? nomes(esperando) : 'Nada: hoje ela já foi em tudo'))));
+    if (fechadas.length)
+      painel.append(
+        h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Ainda fechado', h('span', { class: 'sub' }, fechadas.map((c) => `${NOME_COISA[c]} (${c === 'bilhete' && etapa(e) >= sessaoQueAbre(c) ? 'depois da primeira letra' : `etapa ${sessaoQueAbre(c)}`})`).join(', ')))),
+      );
 
     /* rotina */
     painel.append(h('h2', {}, 'Rotina'));
