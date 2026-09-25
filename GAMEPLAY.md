@@ -1,5 +1,7 @@
 # Little Star: como a Stella joga
 
+> As decisões tomadas para implementar a v1 estão em `docs/decisoes.md`; onde este texto e
+> o código discordarem, vale aquele.
 > Este documento junta tudo o que conversamos numa forma jogável. A `SPEC.md` diz **o que**
 > existe no jogo e por quê; este diz **como se joga**, toque a toque, e com quem. Quando os
 > dois discordarem sobre jogabilidade, vale este.
@@ -62,7 +64,10 @@ precisa agir, porque o próprio laço termina antes.
 
 O laço **respira**, como se diz em Waldorf: um momento de atenção, um momento solto. A roda e o
 som do dia pedem atenção; a brincadeira do dia solta; o livre solta mais; os bichos acalmam; a
-despedida fecha. Nunca duas coisas de atenção seguidas.
+despedida fecha. A roda e o som do dia vêm seguidos, as duas únicas partes de atenção, e
+somam menos de três minutos; o som do dia é contado pelo Theo como história curta, para
+mudar o tom. A brincadeira do dia e o livre são a própria casa: depois do som, a casa abre
+com o objeto do dia pulsando, e depois de cinco minutos de casa a família chama para os bichos.
 
 Regras do laço:
 - **A ordem nunca muda.** O conteúdo muda com o dia da semana e com o que ela aprendeu.
@@ -238,13 +243,15 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
   1. Embaixo da palavra aparece uma fita reta, da esquerda para a direita, com a estrela
      guia no começo.
   2. Ela **traça** a fita. Quando o dedo passa embaixo de cada letra, a letra acende e soa,
-     esticada: "sss... ooo... lll".
-  3. Se ela passar de novo, mais rápido, os sons se juntam: "sol". A palavra pula, o objeto
-     reage (o sol brilha), e o sininho toca.
+     esticada: "lll... uuu... aaa".
+  3. Se ela passar de novo, mais rápido, os sons se juntam: "lua". A palavra pula, o objeto
+     reage (a lua brilha), e o sininho toca.
   4. É a técnica que as salas de fônico usam, o dedo embaixo da palavra, e é a mesma fita que
      ela já conhece do caderno.
-- **Palavras da v1** (só com as letras da v1): SOL, LUA, MEL, SAL, ASA, OLÁ, MALA, MOLA,
-  SALA, LAMA, MIMO, TUTU, TATU, MOTO, SETE, e o nome STELLA.
+- **Palavras da v1** (só com as letras da v1, de sílaba aberta, em que cada letra soa como o
+  som ensinado): LUA, ASA, ELA, OLÁ, MALA, SALA, LAMA, MOLA, TATU, TUTU, TELA, LATA, MATA,
+  MESA, LIMA e o nome STELLA. Os objetos de palavra na casa são a mala, a lata e a lua da
+  janela à noite; GATO e CAMA aparecem como palavra só no caderno.
 - **Dura**: o quanto ela quiser; cada palavra leva uns 15 segundos.
 - **Ajuda**: A1, a estrela guia percorre a fita no ritmo certo. A2, a voz junta os sons
   sozinha no fim.
@@ -304,8 +311,9 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
 - **Como**:
   1. A porta abre, a Stella e o coelhinho saem correndo pelo jardim, na faixa do meio da tela.
      Ela corre sozinha; a tela rola devagar. Música: *Valsa das Flores*.
-  2. Poças e pedrinhas chegam **no tempo da música**: cada obstáculo cai num tempo forte. Assim,
-     pular no tempo da música é pular na hora certa, e ela aprende as duas coisas juntas.
+  2. Poças e pedrinhas chegam **no tempo da música**: um obstáculo a cada dois compassos,
+     sempre no tempo forte (uns 30 em dois minutos; nas duas primeiras aventuras, a cada
+     quatro). Assim, pular no tempo da música é pular na hora certa.
   3. **Toque em qualquer lugar = pular.** O pulo "procura" o obstáculo: tocou em até 0,7
      segundo antes, a Stella espera e pula na hora exata. Tocou longe de qualquer obstáculo,
      ela dá um pulinho de alegria (não é pulo perdido). Pulo no tempo forte ganha um acorde.
@@ -367,16 +375,17 @@ resto da casa fica aberto no livre.
 
 | Dia | Cor do dia (toalha da mesa, véu do céu) | Brincadeira do dia |
 |---|---|---|
-| Segunda | Roxo | Cozinha: comidinha com a mãe e a horta |
+| Segunda | Roxo | Palavras: o escorregador de sons (a cozinha e a horta ficam para a v2) |
 | Terça | Vermelho | Caderno: a letra da semana |
 | Quarta | Amarelo | Pinhas e a mesa da estação |
-| Quinta | Verde | Caixa de areia |
-| Sexta | Azul | Piano rosa |
-| Sábado | Laranja | Aventura do Jardim e o palco |
-| Domingo | Rosa | Livre com a família inteira (todos no quarto, brincando junto) |
+| Quinta | Laranja | Caixa de areia |
+| Sexta | Verde | Piano rosa |
+| Sábado | Azul | Aventura do Jardim e o palco |
+| Domingo | Dourado | Livre com a família inteira (todos no quarto, brincando junto) |
 
-As cores seguem a tradição dos jardins Waldorf (a cor do dia ligada ao planeta), e podem ser
-trocadas pelas da escola dela nos dados.
+As cores seguem a sequência tradicional dos jardins Waldorf (a cor do dia ligada ao planeta:
+domingo dourado, segunda roxo, terça vermelho, quarta amarelo, quinta laranja, sexta verde,
+sábado azul), e podem ser trocadas pelas da escola dela nos tokens.
 
 ---
 
@@ -397,6 +406,23 @@ continua de onde parou.
 | 7 em diante | O ritmo da semana (seção 7) | |
 
 A hora de dormir existe desde a sessão 1, porque depende do relógio e não do progresso.
+
+**O laço em cada sessão da primeira semana.** A forma é sempre a mesma; as partes que ainda
+não existem são puladas em silêncio, para a ordem que ela aprende no primeiro dia ser a
+mesma que cresce depois.
+
+| Sessão | Laço |
+|---|---|
+| 1 | chegada, casa (o piano brilha), despedida com a cestinha do gatinho |
+| 2 | chegada, roda, som do dia, casa (o caderno brilha), bichos (só o gatinho), despedida |
+| 3 | chegada, roda, som, casa (a caixa de areia brilha; o coelhinho aparece na grama e ganha nome), bichos, despedida |
+| 4 | chegada, roda, prato, som, casa (a mala brilha: palavras), bichos, despedida |
+| 5 | o mesmo, com as pinhas brilhando |
+| 6 | o mesmo, com a porta brilhando: o Jardim e o palco |
+| 7 em diante | o laço inteiro, com a brincadeira do dia da semana |
+
+Na segunda abertura do mesmo dia, roda, prato e som não voltam: chegada, casa, bichos,
+despedida. Um toque na porta fechada da despedida reabre assim.
 
 ---
 

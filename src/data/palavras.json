@@ -1,0 +1,18 @@
+[
+  { "palavra": "LUA", "figura": "lua", "silabas": ["LU", "A"] },
+  { "palavra": "ASA", "figura": "asa", "silabas": ["A", "SA"] },
+  { "palavra": "ELA", "figura": "ela", "silabas": ["E", "LA"] },
+  { "palavra": "OLÁ", "figura": "ola", "silabas": ["O", "LÁ"] },
+  { "palavra": "MALA", "figura": "mala", "silabas": ["MA", "LA"] },
+  { "palavra": "SALA", "figura": "sala", "silabas": ["SA", "LA"] },
+  { "palavra": "LAMA", "figura": "lama", "silabas": ["LA", "MA"] },
+  { "palavra": "MOLA", "figura": "mola", "silabas": ["MO", "LA"] },
+  { "palavra": "TATU", "figura": "tatu", "silabas": ["TA", "TU"] },
+  { "palavra": "TUTU", "figura": "tutu", "silabas": ["TU", "TU"] },
+  { "palavra": "TELA", "figura": "tela", "silabas": ["TE", "LA"] },
+  { "palavra": "LATA", "figura": "lata", "silabas": ["LA", "TA"] },
+  { "palavra": "MATA", "figura": "mata", "silabas": ["MA", "TA"] },
+  { "palavra": "MESA", "figura": "mesa", "silabas": ["ME", "SA"] },
+  { "palavra": "LIMA", "figura": "lima", "silabas": ["LI", "MA"] },
+  { "palavra": "STELLA", "figura": "stella", "silabas": ["STE", "LLA"] }
+]

@@ -1,0 +1,5 @@
+Salamander Grand Piano V3, de Alexander Holm.
+Licença Creative Commons Atribuição 3.0 (CC BY 3.0): http://creativecommons.org/licenses/by/3.0/
+Fonte: https://archive.org/details/SalamanderGrandPianoV3 (via o pacote npm @audio-samples/piano-mp3-velocity8).
+Alterações: 21 notas (uma a cada terça menor, de C2 a C7), mixadas para mono, cortadas em 4 s com esmaecimento
+nos últimos 0,8 s e recodificadas em MP3 de 48 kbps. Arquivo pNN.mp3, onde NN é o número MIDI da nota.

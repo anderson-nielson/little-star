@@ -6,6 +6,9 @@
 > depende da família está na seção 17.
 > **Como se joga**, toque a toque, com o laço de cada sessão, a semana e o escopo revisto
 > da v1, está em `GAMEPLAY.md`. Em jogabilidade, vale aquele.
+> **As decisões tomadas para implementar a v1** (palavras, proporções, casa sem rolagem,
+> vozes, semana) estão em `docs/decisoes.md`, e o código está em `src/`. Onde este texto e o
+> código discordarem, vale `docs/decisoes.md`.
 
 Sumário
 1. Para quem é
@@ -305,7 +308,7 @@ Cada tarefa tem um objeto grande na casa (não um botão) e uma cena curta.
 
 | Tarefa | Onde se toca | Cena no jogo | Lembrança no quarto |
 |---|---|---|---|
-| Arrumar a cama | a cama | Ela estica o lençol rosa com um arrasto curto, a mãe sorri | Colcha ou travesseiro novo |
+| Arrumar a cama | a cama | Ela toca na caminha; o lençol rosa se estica sozinho, a mãe sorri | Colcha ou travesseiro novo |
 | Fazer comidinha | o fogão | Na cozinha com a mãe, põe ingredientes na tigela | Pratinho na mesa das bonecas |
 | Comer colorido | o prato na mesa | Ela toca nas cores que provou (seção 8.4) | Uma flor de cada cor no canteiro |
 | Arrumar o quarto | o chão bagunçado | Toca nas coisas, elas voam para o lugar | Tapete ou luzinha |
@@ -338,9 +341,11 @@ Cada tarefa vale uma vez por dia. Sem prazo, sem sequência, sem contador.
   fecha com uma lua pendurada.
 - Só resta a **rotina da noite**: banho, dentes, pijama, livro, apagar a luz. A mãe e o pai dão
   boa noite, o Theo acena, a Stella deita, uma estrela nova acende na janela.
-- O jogo escurece até o azul da noite e fecha sozinho. Até a manhã, abrir o app mostra só a
-  Stella dormindo e a canção de ninar baixinha.
-- De manhã, a família dá bom dia e, se os pais marcaram "dormiu sozinha", a estrela nova brilha.
+- O jogo escurece até o azul da noite e **dorme**: para de responder a toque (um PWA não
+  consegue se fechar; o adulto fecha o app). Até a manhã, abrir o app mostra só a Stella
+  dormindo e a canção de ninar baixinha por 20 segundos.
+- De manhã, a primeira pergunta da roda é "você dormiu na sua caminha?": a resposta dela
+  acende a estrela nova; a confirmação dos pais no cantinho é um brilho a mais.
 
 ### 8.4 Comer colorido: o canteiro de flores
 
@@ -434,7 +439,9 @@ língua da sala de aula, para não confundir:
   "vvv" e "nnn" se seguram no ar e se juntam fácil com a vogal. S e L estão no nome dela, o
   que ajuda muito. Consoantes de estalo (P, T, B, D, G, C) vêm depois, com uma exceção
   afetiva: o T de Theo.
-- **Juntar os sons** é o passo depois das letras: "sss... ooo... lll": SOL (9.5).
+- **Juntar os sons** é o passo depois das letras: "lll... uuu... aaa": LUA (9.5). No
+  português falado, L no fim da sílaba soa U (SOL se fala "sou"), por isso o L só aparece
+  no começo da sílaba nas primeiras palavras.
 
 O **Theo** é o professor do caderno, como o Charlie que explica as coisas para a Lola: ele
 senta ao lado dela, desenha a letra primeiro (a estrela guia sai do lápis dele) e comemora
@@ -471,15 +478,15 @@ sons**, que é o passo antes de ler.
 surgir em cima dele, grande, em letra bastão:
 
 ```
-   S O L            a letra que soa acende em rosa-doce;
+   L U A            a letra que soa acende em rosa-doce;
    ‾‾‾‾‾            as outras em musgo-tinta; um fio embaixo
 ```
 
 A voz diz, sempre na mesma ordem e devagar, no jeito do método fônico:
-1. **A palavra inteira**: "sol".
-2. **Som por som, esticados**, cada letra acendendo quando soa: "sss... ooo... lll".
+1. **A palavra inteira**: "lua".
+2. **Som por som, esticados**, cada letra acendendo quando soa: "lll... uuu... aaa".
    O som, nunca o nome da letra ("esse", "ó", "ele").
-3. **Os sons se juntando**, cada vez mais rápido, até virar palavra: "sss-ooo-lll... sol!".
+3. **Os sons se juntando**, cada vez mais rápido, até virar palavra: "lll-uuu-aaa... lua!".
    Juntar os sons é o coração do fônico, e é onde ela vai sentir que leu.
 4. **As sílabas, batidas como palmas** (só em palavra de duas sílabas ou mais): "BO... LA",
    cada sílaba com uma nota do piano. Bater o ritmo da palavra é bem Waldorf e ela já sente
@@ -487,10 +494,11 @@ A voz diz, sempre na mesma ordem e devagar, no jeito do método fônico:
 
 Tocar de novo repete. Nunca toca sozinho sem ela pedir, e nunca durante uma aventura.
 
-**Quais palavras.** Curtas, em que cada letra tem um som só, do mundo dela, com as letras
-que ela está traçando. As primeiras são de três sons com consoantes que se esticam, as mais
-fáceis de juntar no fônico:
-- Primeiras: SOL, MAR, LUA, MEL, SAL, ASA, OLÁ.
+**Quais palavras.** Curtas, de sílaba aberta, em que cada letra soa exatamente como o som
+ensinado (no português do Brasil isso exclui L no fim da sílaba, que soa U; TE e TI, que
+soam "tchi"; e O ou E átonos no fim, que soam U e I). Um teste automático guarda a regra.
+- Primeiras (v1): LUA, ASA, ELA, OLÁ, MALA, SALA, LAMA, MOLA, TATU, TUTU, TELA, LATA, MATA,
+  MESA, LIMA e STELLA.
 - Da casa: GATO, BOLA, CAMA, MALA, SOFÁ, PIPOCA, BONECA.
 - Da família: MAMÃE, PAPAI, THEO, STELLA (que é mais difícil e tudo bem: é o nome dela).
 - Dos bichos: GATO, COELHO (o LH é difícil, entra depois), PATO, SAPO, VACA.
@@ -551,8 +559,8 @@ botão grande para ela acompanhar o piano ou a canção. Nas aventuras, um acord
 do jardim.
 
 **Bonecas** na estante do quarto, que é a coleção dela.
-- Cada aventura terminada e cada semana de tarefas traz uma boneca nova, devagar (bailarina,
-  fada, princesa-cisne, boneca de pano, e a Estrellita desde o começo).
+- Cada aventura terminada traz uma boneca de pano nova, devagar, até cinco na estante (a
+  Estrellita está lá desde o começo). Semana de tarefas não dá boneca: seria contador.
 - Ela pode **vestir** uma boneca com as cores do figurino (o sistema de figurino do Ponta:
   collant, tutu, enfeite).
 - Ela escolhe **uma boneca companheira** que vai junto nas aventuras, no bolso do tutu.
@@ -594,7 +602,9 @@ girar ou pular (sempre dá certo). Plateia: mãe, pai, Theo e as bonecas. Rever�
 abraço na coxia, volta para casa.
 
 ### 12.5 Generosidade das aventuras
-- O pulo **procura** o obstáculo: um toque até ~500 ms antes ainda vira o pulo certo.
+- O pulo **procura** o obstáculo: um toque até 0,7 s antes ainda vira o pulo certo.
+- Um obstáculo a cada dois compassos (uns 30 em dois minutos), sempre no tempo forte; nas
+  duas primeiras aventuras, a cada quatro. Em dados (`JARDIM`, em `src/telas/jardim.ts`).
 - Se ela não toca, a Stella não fica presa: depois de duas tentativas no mesmo obstáculo, a
   mãozinha mostra o toque; depois de três, ela passa sozinha com uma ajudinha (o Theo empurra
   a vitória-régia, o esquilo manda a pinha devagarinho).
@@ -607,7 +617,8 @@ Mesmas formas do Ponta, com mais rosa, mais luz e mais tamanho.
 **Mantido do Ponta**
 - Fio no lugar de caixa (1 a 2 px). Nenhum cartão com sombra, nenhum gradiente decorativo.
 - Arco do proscênio como ornamento: janela do quarto, porta, palco, moldura do caderno.
-- Centelha de quatro pontas como a estrela do jogo. Nunca ★, nunca emoji.
+- Centelha de quatro pontas como a estrela do jogo. Nunca ★, nunca emoji. A única estrela de
+  cinco pontas é a caixa de areia, porque ela existe de verdade no quintal.
 - Cormorant Garamond no título. Para as letras que ela traça, uma **letra bastão** de traço
   simples e redondo (desenhada em SVG como fita, não uma fonte), para ela aprender a forma
   certa.
@@ -706,7 +717,9 @@ PWA offline, sem engine e sem lib. Publicado no GitHub Pages.
 ### 15.3 Cantinho dos pais
 Segurar 2 segundos na lua do canto de cima, depois uma conta simples (por exemplo "toque no
 número 7" escrito por extenso), que uma criança de 5 anos não resolve. Ali: hora de dormir,
-limite diário, confirmar tarefas, gravar vozes, ver os bilhetes, volume, apagar tudo.
+limite diário, confirmar tarefas, gravar vozes (com exportar e importar, porque o aparelho
+pode apagá-las), comidas de cada cor, prato ligado ou não, ritmo das letras, resumo,
+instruções de instalação e de Acesso Guiado, apagar tudo.
 
 ### 15.4 Vozes gravadas
 - Gravadas no próprio app (`MediaRecorder`) pelo cantinho dos pais: uma lista de frases, cada
