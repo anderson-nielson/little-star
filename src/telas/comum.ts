@@ -40,7 +40,8 @@ export function telaSvg(conteudo: string, o: OpcoesTela = {}): TelaSvg {
   if (corDeFundo) el.style.background = corDeFundo;
   const svg = cena(conteudo + (o.casinha ? casinha() : '') + (o.lua ? lua() : ''));
   el.appendChild(svg);
-  const camadaMao = svgEl('<g class="camada-mao"></g>');
+  /* a mãozinha só mostra: nunca fica na frente do que ela vai tocar */
+  const camadaMao = svgEl('<g class="camada-mao" style="pointer-events:none"></g>');
   svg.appendChild(camadaMao);
   const limpezas: (() => void)[] = [];
 

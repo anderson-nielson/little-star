@@ -265,17 +265,25 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
   da brincadeira.
 - **Quando**: brincadeira do dia na quinta; sempre aberta no quintal.
 - **Como**, três jeitos, e ela escolhe tocando no balde, na pá ou no dedo:
-  - **Dedo**: a areia fica lisa. As letras que ela já sabe aparecem como estrela guia bem
-    fraquinha, uma de cada vez; ela traça, o sulco fica. Ou ela desenha o que quiser, e o
-    sulco fica também. Passar a mão inteira (ou tocar o rastelo do Theo) alisa tudo.
+  - **Dedo**: a areia fica lisa. As letras que ela já sabe aparecem pontilhadas na areia,
+    uma de cada vez, do tamanho que cabe na estrela (o A cabe grande, o T cabe menor). A
+    letra diz o som dela ao chegar e a mãozinha percorre o caminho uma vez. Ela traça, o
+    sulco fica, e a letra enche de ouro por onde o dedo passou: um sininho a cada traço, e
+    quando a letra fica inteira, centelhas, o som da letra de novo, a areia se alisa
+    sozinha e a próxima letra chega. Ou ela desenha o que quiser, e o sulco fica também.
+    Tocar o rastelo do Theo alisa tudo e traz outra letra.
   - **Pá, cavar tesouro**: ela toca na areia e cava. Aparece uma letra de madeira enterrada.
     A letra diz o som e aparece a figura de uma palavra que começa com ela ("mmm, mala").
     Às vezes, no lugar da letra, uma pinha.
   - **Balde, castelo**: cada toque vira um baldinho de areia; o gatinho derruba o castelo
     quando ela quiser (tocando no gatinho). Sem objetivo.
 - **Dura**: 3 a 5 minutos.
-- **Ajuda**: nenhuma necessária. Atividade livre.
-- **Cresce**: pinhas achadas vão para a mesa da estação.
+- **Ajuda**: no dedo, A1, a mãozinha repete o traço a partir de onde ela parou; A2, o traço
+  fica generoso, como no caderno. Na pá e no balde, a mãozinha mostra onde tocar quando ela
+  escolhe a ferramenta; no primeiro castelo, aponta o gatinho. Nada disso é obrigatório:
+  desenhar fora da letra continua sendo brincadeira.
+- **Cresce**: pinhas achadas vão para a mesa da estação; cada letra inteira na areia ganha
+  uma frase no balão de quem joga junto.
 
 ### 6.8 Pinhas e a mesa da estação
 
