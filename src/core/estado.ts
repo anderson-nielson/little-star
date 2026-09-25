@@ -33,8 +33,12 @@ export interface Hoje {
   dia: string;
   /** o que ela contou na roda */
   roda: Partial<Record<Tarefa, boolean>>;
-  /** dormiu na caminha (resposta dela de manhã) */
+  /** dormiu sozinha no quarto dela (resposta dela de manhã) */
   noite: boolean | null;
+  /** dormiu a noite toda (resposta dela de manhã) */
+  noiteToda: boolean | null;
+  /** horas acertadas no relógio */
+  relogio: number;
   rodaFeita: boolean;
   pratoFeito: boolean;
   somFeito: boolean;
@@ -80,6 +84,10 @@ export interface Pais {
   espanhol: 'auto' | 'ligado' | 'desligado';
   /** as festas das estações mudam a casa */
   festas: boolean;
+  /** o pote de pedrinhas existe */
+  pedrinhas: boolean;
+  /** um combinado não cumprido faz uma pedrinha rolar para fora */
+  perdePedrinhas: boolean;
 }
 
 export interface Estado {
@@ -119,6 +127,10 @@ export interface Estado {
   coreto: number;
   /** aventuras terminadas por tipo */
   aventurasPor: Record<string, number>;
+  /** as pedrinhas no pote (até encher) e as medalhas na parede */
+  pedrinhas: number;
+  medalhas: number;
+  pedrinhasHistorico: { dia: string; delta: number; motivo: string }[];
 }
 
 export function hojeVazio(dia: string): Hoje {
@@ -126,6 +138,8 @@ export function hojeVazio(dia: string): Hoje {
     dia,
     roda: {},
     noite: null,
+    noiteToda: null,
+    relogio: 0,
     rodaFeita: false,
     pratoFeito: false,
     somFeito: false,
@@ -165,6 +179,9 @@ export function estadoNovo(agora = new Date()): Estado {
     companheira: -1,
     coreto: 0,
     aventurasPor: {},
+    pedrinhas: 0,
+    medalhas: 0,
+    pedrinhasHistorico: [],
     pais: {
       horaDormir: '20:00',
       limiteMin: 15,
@@ -177,6 +194,8 @@ export function estadoNovo(agora = new Date()): Estado {
       tarefas: { cama: true, dentes: true, brinquedos: true, banho: true, quarto: false, gentil: false },
       espanhol: 'auto',
       festas: true,
+      pedrinhas: true,
+      perdePedrinhas: true,
     },
   };
 }
@@ -214,7 +233,8 @@ export function migrar(bruto: Record<string, unknown>): Estado {
   /* campos novos com valor padrão, para um save antigo não quebrar a tela */
   const base = estadoNovo();
   const pais = (atual.pais as Partial<Pais> | undefined) ?? {};
-  return { ...base, ...(atual as unknown as Estado), pais: { ...base.pais, ...pais, tarefas: { ...base.pais.tarefas, ...(pais.tarefas ?? {}) } } };
+  const hoje = (atual.hoje as Partial<Hoje> | undefined) ?? {};
+  return { ...base, ...(atual as unknown as Estado), hoje: { ...base.hoje, ...hoje }, pais: { ...base.pais, ...pais, tarefas: { ...base.pais.tarefas, ...(pais.tarefas ?? {}) } } };
 }
 
 function storage(): Storage | null {

@@ -1,4 +1,5 @@
-import { mover, relogioDeAjuda, telaSvg } from './comum';
+import { mover, pedrinhasSobem, relogioDeAjuda, telaSvg } from './comum';
+import { ganhar, PEDRINHAS } from '@/core/pedrinhas';
 import { estado, mudar, type Semente } from '@/core/estado';
 import { colher, estagio, plantar, regadoHoje, regar, type Estagio } from '@/core/horta';
 import { espanholAtivo } from '@/core/laco';
@@ -123,7 +124,11 @@ export function telaHorta(): Tela {
       if (temVoz('horta_plantar')) void falar('horta_plantar');
     } else if (estagio(c, hoje) === 'pronta') {
       const sem = c.semente;
-      mudar((x2) => void colher(x2, i, hoje));
+      mudar((x2) => {
+        colher(x2, i, hoje);
+        ganhar(x2, PEDRINHAS.colheita, 'colheita');
+      });
+      pedrinhasSobem(tela, PEDRINHAS.colheita, x, y - 60);
       const g = el as SVGGElement;
       mover(g, 170 - x, 200, 800, 0.6);
       sininho();

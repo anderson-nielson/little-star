@@ -1,6 +1,7 @@
-import { mover, telaSvg } from './comum';
+import { mover, pedrinhaRola, pedrinhasSobem, telaSvg } from './comum';
 import { estado, mudar, type Tarefa } from '@/core/estado';
 import { tarefasAtivas } from '@/core/laco';
+import { ganhar, PEDRINHAS, perder } from '@/core/pedrinhas';
 import { sessao } from '@/core/sessao';
 import { esperar } from '@/core/util';
 import { familia } from '@/puppet/boneco';
@@ -11,7 +12,7 @@ import { travar } from '@/core/toque';
 import type { Tela } from '@/core/roteador';
 
 interface Objeto {
-  id: Tarefa | 'noite';
+  id: Tarefa | 'noite' | 'noite_toda';
   pergunta: string;
   comemora: string;
   desenho: string;
@@ -31,11 +32,22 @@ export function telaRoda(): Tela {
 
   const objetos: Objeto[] = [];
   if (manha && e.hoje.noite === null && e.sessoes > 1) {
+    /* dormiu sozinha no quarto dela: a caminha com a lua */
     objetos.push({
       id: 'noite',
       pergunta: 'pergunta_noite',
       comemora: 'comemora_noite',
-      desenho: `<g data-obj="noite"><path d="M170 600a26 26 0 1 0 24 40a20 20 0 1 1-24-40z" fill="#ebd9a8"/><circle cx="222" cy="600" r="5" fill="#c6a15b"/></g>`,
+      desenho: `<g data-obj="noite"><rect x="150" y="548" width="90" height="30" rx="8" fill="#fbf8f1"/><rect x="150" y="558" width="90" height="20" rx="6" fill="#a58bc4" opacity="0.7"/><rect x="146" y="530" width="10" height="48" rx="3" fill="#c9a189"/><path d="M215 520a14 14 0 1 0 13 21a11 11 0 1 1-13-21z" fill="#ebd9a8"/></g>`,
+      cena: () => {},
+    });
+  }
+  if (manha && e.hoje.noiteToda === null && e.sessoes > 1) {
+    /* dormiu a noite toda: da lua ao sol */
+    objetos.push({
+      id: 'noite_toda',
+      pergunta: 'pergunta_noite_toda',
+      comemora: 'comemora_noite_toda',
+      desenho: `<g data-obj="noite_toda"><path d="M150 580q45 -60 90 0" fill="none" stroke="#c6a15b" stroke-width="2" stroke-dasharray="3 6"/><path d="M158 560a14 14 0 1 0 13 21a11 11 0 1 1-13-21z" fill="#ebd9a8"/><circle cx="232" cy="566" r="13" fill="#e8a24a" opacity="0.9"/><path d="M232 544v-8M232 596v-2M210 566h-8M254 566h8" stroke="#e8a24a" stroke-width="3" stroke-linecap="round"/></g>`,
       cena: () => {},
     });
   }
@@ -154,7 +166,7 @@ export function telaRoda(): Tela {
     const g = camada.firstElementChild as SVGGElement;
     g.classList.add('respira');
     camadaLuz.innerHTML = contornoLuz(195, 552, 66, 50);
-    const dono = { cama: 'mae', dentes: 'pai', brinquedos: 'theo', noite: 'mae', banho: 'pai', quarto: 'mae', gentil: 'theo' }[obj.id];
+    const dono = { cama: 'mae', dentes: 'pai', brinquedos: 'theo', noite: 'mae', noite_toda: 'pai', banho: 'pai', quarto: 'mae', gentil: 'theo' }[obj.id];
     svg.querySelectorAll('.quem').forEach((q) => ((q as SVGElement).style.opacity = q.getAttribute('data-quem') === dono ? '1' : '0.75'));
     /* a pergunta: só depois dela o objeto aceita o toque */
     if (temVoz(obj.pergunta)) await falar(obj.pergunta);
@@ -173,6 +185,16 @@ export function telaRoda(): Tela {
           aceitando = false;
           (g as SVGElement).style.transition = 'opacity 900ms';
           (g as SVGElement).style.opacity = '0.2';
+          /* não aconteceu: um combinado não cumprido faz uma pedrinha rolar, sem ninguém dizer nada */
+          let rolou = 0;
+          mudar((x) => {
+            if (obj.id === 'noite') {
+              x.hoje.noite = false;
+              rolou = perder(x, PEDRINHAS.naoDormiuSozinha, 'nao_dormiu_sozinha');
+            } else if (obj.id === 'noite_toda') x.hoje.noiteToda = false;
+            else rolou = perder(x, PEDRINHAS.tarefaNaoFeita, `nao_${obj.id}`);
+          });
+          if (rolou) pedrinhaRola(tela, 195, 560);
           void esperar(900).then(proximo);
         }
       }
@@ -190,18 +212,30 @@ export function telaRoda(): Tela {
       tela.mao(null);
       sininho();
       obj.cena(svg);
+      let ganhas = 0;
+      let medalha = 0;
       mudar((x) => {
         if (obj.id === 'noite') {
           x.hoje.noite = true;
           x.estrelas += 1;
+          ganhas = PEDRINHAS.dormiuSozinha;
+          medalha = ganhar(x, ganhas, 'dormiu_sozinha');
+        } else if (obj.id === 'noite_toda') {
+          x.hoje.noiteToda = true;
+          ganhas = PEDRINHAS.noiteToda;
+          medalha = ganhar(x, ganhas, 'noite_toda');
         } else {
           x.hoje.roda[obj.id] = true;
           x.lembrancas.push(`${obj.id}:${x.hoje.dia}`);
+          ganhas = PEDRINHAS.tarefa;
+          medalha = ganhar(x, ganhas, obj.id);
         }
       });
       void (async () => {
         await esperar(1200);
         tela.comemorar(195, 500);
+        if (ganhas) pedrinhasSobem(tela, ganhas, 195, 520);
+        if (medalha) sininho();
         if (temVoz(obj.comemora)) await falar(obj.comemora);
         else await esperar(1500);
         /* a lembrança voa para o quarto (para cima e para fora) */

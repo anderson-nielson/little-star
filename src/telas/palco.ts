@@ -1,4 +1,5 @@
-import { mover, telaSvg } from './comum';
+import { mover, pedrinhasSobem, telaSvg } from './comum';
+import { ganhar, PEDRINHAS } from '@/core/pedrinhas';
 import { estado, mudar } from '@/core/estado';
 import { ir } from '@/core/roteador';
 import { esperar } from '@/core/util';
@@ -108,7 +109,9 @@ export function telaPalco(): Tela {
     sininho();
     mudar((x) => {
       if (x.bonecas < 5) x.bonecas += 1;
+      ganhar(x, PEDRINHAS.aventura, 'aventura');
     });
+    pedrinhasSobem(tela, PEDRINHAS.aventura, 195, 440);
     await esperar(1500);
     /* abraço na coxia */
     stella.innerHTML = familia.stellaPalco(180, 470, 170, 'parado').svg + familia.pai(230, 470, 200, 'abraca', { dir: -1, contorno: '#ebd9a8' }).svg;

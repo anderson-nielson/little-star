@@ -1,4 +1,5 @@
-import { mover, telaSvg } from './comum';
+import { mover, pedrinhasSobem, telaSvg } from './comum';
+import { ganhar, PEDRINHAS } from '@/core/pedrinhas';
 import { estado, mudar } from '@/core/estado';
 import { sessao } from '@/core/sessao';
 import { embaralhar, esperar, semente } from '@/core/util';
@@ -118,7 +119,9 @@ export function telaSom(): Tela {
         mudar((m) => {
           if (ajuda.nivel >= 1) m.registro.a1[`som`] = (m.registro.a1.som ?? 0) + 1;
           if (ajuda.nivel >= 2) m.registro.a2[`som`] = (m.registro.a2.som ?? 0) + 1;
+          ganhar(m, PEDRINHAS.som, 'som');
         });
+        pedrinhasSobem(tela, PEDRINHAS.som, x, y + 60);
         camadaLuz.innerHTML = contornoLuz(x, y, 70, 86, 'respira');
         tela.comemorar(x, y - 90);
         camada.innerHTML += `<text x="${x}" y="${y - 96}" text-anchor="middle" font-family="Jost, sans-serif" font-size="48" font-weight="500" fill="#f2a9c4" class="surge">${letra.id}</text>`;

@@ -4,7 +4,7 @@ import { ir } from '@/core/roteador';
 import { sessao } from '@/core/sessao';
 import { casinha, centelhas, lua, maozinha } from '@/puppet/objetos';
 import { audio } from '@/audio/engine';
-import { centelhasSom, tiquinho } from '@/audio/synth';
+import { centelhasSom, tiquinho, toc } from '@/audio/synth';
 import type { Tela } from '@/core/roteador';
 
 export interface TelaSvg extends Tela {
@@ -217,4 +217,32 @@ export function dedilhar(svg: SVGSVGElement, xs: number[], faixaY: [number, numb
     svg.removeEventListener('pointerup', cima);
     svg.removeEventListener('pointercancel', cima);
   };
+}
+
+/* ---------- as pedrinhas ---------- */
+
+const COR_PEDRINHA = ['#f2a9c4', '#c6a15b', '#9fc3cf', '#ebd9a8', '#a58bc4'];
+
+/** Uma pedrinha desenhada: uma pedra lisa de rio, um brilho. */
+export function pedrinha(x: number, y: number, s: number, i = 0): string {
+  return `<g><ellipse cx="${x}" cy="${y}" rx="${s}" ry="${s * 0.78}" fill="${COR_PEDRINHA[i % COR_PEDRINHA.length]}"/><ellipse cx="${x - s * 0.3}" cy="${y - s * 0.3}" rx="${s * 0.3}" ry="${s * 0.18}" fill="#fbf8f1" opacity="0.6"/></g>`;
+}
+
+/** `n` pedrinhas sobem de um ponto da cena, com um tique cada: ela ganhou. */
+export function pedrinhasSobem(tela: TelaSvg, n: number, x: number, y: number): void {
+  let s = '';
+  for (let i = 0; i < n; i++) s += `<g class="sobe" style="animation-delay:${i * 120}ms">${pedrinha(x + (i - (n - 1) / 2) * 22, y, 9, i)}</g>`;
+  const g = svgEl(`<g>${s}</g>`);
+  tela.svg.appendChild(g);
+  for (let i = 0; i < n; i++) void esperar(i * 120).then(() => toc(520 + i * 40, 0.14));
+  void esperar(1600).then(() => g.remove());
+}
+
+/** Uma pedrinha rola para fora, devagar, sem som de erro: um combinado não aconteceu. */
+export function pedrinhaRola(tela: TelaSvg, x: number, y: number): void {
+  const g = svgEl(`<g>${pedrinha(x, y, 9, 1)}</g>`);
+  tela.svg.appendChild(g);
+  toc(260, 0.1);
+  requestAnimationFrame(() => mover(g, 120, 300, 1400, 0.8));
+  void esperar(1500).then(() => g.remove());
 }

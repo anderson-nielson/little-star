@@ -31,6 +31,7 @@ import { telaUkulele } from './telas/ukulele';
 import { telaLira } from './telas/lira';
 import { telaBonecas } from './telas/bonecas';
 import { telaBilhete } from './telas/bilhete';
+import { telaRelogio } from './telas/relogio';
 
 declare const __VERSAO__: string;
 
@@ -61,6 +62,7 @@ registrar('ukulele', telaUkulele);
 registrar('lira', telaLira);
 registrar('bonecas', telaBonecas);
 registrar('bilhete', telaBilhete);
+registrar('relogio', telaRelogio);
 
 const app = document.getElementById('app')!;
 montar(app);

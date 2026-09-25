@@ -99,3 +99,37 @@ continua sendo um contador disfarçado; o canteiro já recompensa).
 A primeira semana continua abrindo a casa em quatro sessões; o que é novo entra junto com o
 que já estava: ukulele, lira, bonecas e bilhete na sessão 2; árvore e horta na 3; cozinha na 4.
 As aventuras novas abrem uma por vez, depois de terminar a anterior.
+
+## Pedrinhas, medalhas e o relógio
+
+Pedido da família depois da v2: a Stella está aprendendo a ver as horas e precisa aprender a
+dormir sozinha no quarto dela; e o jogo precisa somar pontos que se ganham e se perdem com as
+tarefas, com as atitudes mais autônomas e com o aprendizado, mas leve.
+
+Isso mexe numa decisão da v1 ("nada diminui, nenhum número aparece"). O jeito de fazer leve:
+
+- **Pedrinhas num pote de vidro**, no chão do quarto. Nada de número na tela: ela vê o pote
+  encher. Tocar no pote faz as pedrinhas tilintarem, uma nota por pedrinha.
+- **Ganha** pelo que faz de verdade e pelo que aprende: 1 por tarefa contada na roda (mais 1
+  quando os pais confirmam), 2 por dormir sozinha no quarto dela e mais 2 pela noite toda, 3
+  por letra traçada, 1 por som do dia, palavra inteira, hora no relógio, colheita, comidinha
+  ou aventura. As pedrinhas sobem da cena com um tique cada.
+- **Perde** 1 quando um combinado não acontece: tarefa não contada na roda, não dormiu
+  sozinha. A pedrinha rola para fora devagar, com um toque surdo, e ninguém diz nada. Nunca
+  fica abaixo de zero. Aprender nunca tira pedrinha (o jogo não tem erro). Dormir a noite toda
+  é bônus: não dormir não tira.
+- **Medalhas**: com 12 pedrinhas o pote enche e vira uma medalha de feltro na parede da sala.
+  Medalha não se perde. É a lembrança que fica.
+- **Os pais** dão ou tiram uma pedrinha no cantinho, com motivo, para as atitudes de fora do
+  jogo (se vestiu sozinha, esperou a vez, um combinado que não aconteceu). A orientação está lá
+  escrita: dizer para ela na hora; o jogo só guarda. Dá para desligar o pote inteiro, ou só o
+  "rolar" (fica só ganhando) se virar tensão.
+- **Dormir sozinha**: a pergunta da manhã virou duas, "dormiu no seu quarto, sozinha?" (mãe)
+  e "e dormiu a noite toda?" (pai). Antes de apagar a luz, a mãe faz o combinado em voz alta
+  (frase opcional para gravar).
+- **O relógio** da sala: um mostrador grande com os números, o ponteiro das horas que ela gira
+  com o dedo e encaixa na hora cheia, e o relógio diz a hora ("são três horas", gravação ou
+  a voz do aparelho). O céu da janelinha muda com a hora; a hora de dormir tem uma lua, as
+  sete da manhã um sol. Tocar no Theo: ele pede uma hora; ela gira até lá e ganha uma
+  pedrinha. Ajuda: o número pedido acende; depois o ponteiro anda sozinho. Só horas cheias
+  por enquanto; meia hora e minutos ficam para quando as cheias estiverem firmes.
