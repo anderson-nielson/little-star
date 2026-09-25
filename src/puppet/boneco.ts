@@ -6,7 +6,9 @@
  */
 export type Ponto = [number, number];
 export type Pose = 'parado' | 'acena' | 'sentado' | 'pulo' | 'aponta' | 'segura' | 'giro' | 'reverencia' | 'deitado' | 'abraca';
-export type Cabelo = 'liso' | 'cacheado' | 'coque' | 'curto' | 'rabo' | 'entradas';
+export type Cabelo = 'liso' | 'cacheado' | 'cachinhos' | 'coque' | 'curto' | 'rabo' | 'entradas' | 'testa-alta';
+export type Barba = 'baixa' | 'leve' | 'cheia';
+export type Oculos = 'oval' | 'redondo' | 'fino';
 
 export interface Figura {
   x: number;
@@ -25,10 +27,13 @@ export interface Figura {
   tutu?: string;
   sapato?: string;
   contorno?: string;
-  /** óculos ovais */
-  oculos?: boolean;
-  /** barba baixa, na cor dada */
+  /** encorpado: multiplica a largura de ombros, membros e roupa (1 = magro) */
+  forte?: number;
+  /** óculos: ovais, redondos ou finos com hastes */
+  oculos?: boolean | Oculos;
+  /** barba, na cor dada */
   barba?: string;
+  barbaEstilo?: Barba;
   /** sem rosto (a boneca de pano tem dois pontos e um fio) */
   pano?: boolean;
   /** a boneca de pano: sem cabelo, um gorro */
@@ -48,7 +53,7 @@ export const CORES = {
   peleMae: '#F0D2B6',
   pelePai: '#EACBB0',
   cabeloStella: '#e2c27a',
-  cabeloTheo: '#d8bf8a',
+  cabeloTheo: '#c9a86a',
   cabeloMae: '#4a3222',
   cabeloPai: '#a67c52',
   rosaDoce: '#f2a9c4',
@@ -90,8 +95,9 @@ export function boneco(o: Figura): Desenho {
   const crianca = !!o.crianca;
   const hr = h * (crianca ? 0.115 : 0.085);
   const lg = h * (crianca ? 0.34 : 0.42);
-  const sw = h * (crianca ? 0.17 : 0.16);
-  const w = crianca ? 1.15 : 1;
+  const forte = o.forte ?? 1;
+  const sw = h * (crianca ? 0.17 : 0.16) * forte;
+  const w = (crianca ? 1.15 : 1) * forte;
   const esc = h / 100;
   const L = {
     coxa: [3.6 * w * esc, 2.6 * w * esc],
@@ -140,17 +146,21 @@ export function boneco(o: Figura): Desenho {
   }
 
   /* roupa */
-  const tl: Ponto = [sL[0] + 2 * esc, sL[1] + 3 * esc];
-  const tr: Ponto = [sR[0] - 2 * esc, sR[1] + 3 * esc];
+  /* o vestido pende de alças finas; a camiseta cobre os ombros */
+  const camiseta = !o.vestido && !o.pano;
+  const tl: Ponto = camiseta ? [sL[0] - 0.5 * esc, sL[1] - 2 * esc] : [sL[0] + 2 * esc, sL[1] + 3 * esc];
+  const tr: Ponto = camiseta ? [sR[0] + 0.5 * esc, sR[1] - 2 * esc] : [sR[0] - 2 * esc, sR[1] + 3 * esc];
   let roupaPath = '';
   if (o.vestido) {
     const baixo = sentado ? hipY + 0.06 * h : deitado ? hipY + 0.1 * h : hipY + 0.16 * h;
     const lv = crianca ? 0.2 * h : 0.14 * h;
     roupaPath = `<path d="M${tl}L${tr}L${x + lv} ${baixo}Q${x} ${baixo + 0.02 * h} ${x - lv} ${baixo}z" fill="${roupa}"/>`;
   } else {
-    roupaPath = `<path d="M${tl}L${tr}Q${x + 0.06 * h} ${hipY - 0.1 * h} ${x + 0.08 * h} ${hipY + 0.03 * h}L${x - 0.08 * h} ${hipY + 0.03 * h}Q${x - 0.06 * h} ${hipY - 0.1 * h} ${tl}z" fill="${roupa}"/>`;
+    /* a camiseta: cai reta dos ombros, um pouco mais larga na bainha */
+    const lw = Math.max(0.08 * h, (sw / 2 - 1.5 * esc) * 1.1);
+    roupaPath = `<path d="M${tl}L${tr}Q${x + lw * 0.92} ${hipY - 0.1 * h} ${x + lw} ${hipY + 0.03 * h}L${x - lw} ${hipY + 0.03 * h}Q${x - lw * 0.92} ${hipY - 0.1 * h} ${tl}z" fill="${roupa}"/>`;
     if (o.calca && !sentado && !pulo)
-      roupaPath += `<path d="M${x - 0.085 * h} ${hipY}L${x + 0.085 * h} ${hipY}L${x + 0.075 * h} ${hipY + lg * 0.55}L${x + 0.01 * h} ${hipY + lg * 0.55}L${x} ${hipY + 0.1 * h}L${x - 0.01 * h} ${hipY + lg * 0.55}L${x - 0.075 * h} ${hipY + lg * 0.55}z" fill="${o.calca}"/>`;
+      roupaPath += `<path d="M${x - lw * 0.98} ${hipY}L${x + lw * 0.98} ${hipY}L${x + lw * 0.88} ${hipY + lg * 0.55}L${x + 0.01 * h} ${hipY + lg * 0.55}L${x} ${hipY + 0.1 * h}L${x - 0.01 * h} ${hipY + lg * 0.55}L${x - lw * 0.88} ${hipY + lg * 0.55}z" fill="${o.calca}"/>`;
   }
   const tutu = o.tutu ? `<ellipse cx="${x}" cy="${hipY + 0.02 * h}" rx="${0.2 * h}" ry="${0.06 * h}" fill="${o.tutu}" opacity="0.92"/>` : '';
 
@@ -160,11 +170,13 @@ export function boneco(o: Figura): Desenho {
     const lb = 0.15 * h;
     const e: Ponto = [s[0] + Math.cos(a1) * la, s[1] + Math.sin(a1) * la];
     const wri: Ponto = [e[0] + Math.cos(a2) * lb, e[1] + Math.sin(a2) * lb];
-    return { d: limb(s, e, L.braco[0]!, L.braco[1]!) + limb(e, wri, L.ante[0]!, L.ante[1]!), w: wri };
+    const m: Ponto = [s[0] + Math.cos(a1) * la * 0.36, s[1] + Math.sin(a1) * la * 0.36];
+    const manga = o.vestido || o.pano ? '' : limb(s, m, L.braco[0]! * 1.3, L.braco[0]! * 1.15);
+    return { d: limb(s, e, L.braco[0]!, L.braco[1]!) + limb(e, wri, L.ante[0]!, L.ante[1]!), manga, w: wri };
   };
   const PI = Math.PI;
-  let bL: { d: string; w: Ponto };
-  let bR: { d: string; w: Ponto };
+  let bL: { d: string; manga: string; w: Ponto };
+  let bR: { d: string; manga: string; w: Ponto };
   switch (pose) {
     case 'acena':
       bL = braco(sL, PI * 0.42, PI * 0.35);
@@ -227,32 +239,61 @@ export function boneco(o: Figura): Desenho {
     }
     c += circ([hx - hr * 1.15, hy + hr * 0.35], hr * 0.36) + circ([hx + hr * 1.15, hy + hr * 0.35], hr * 0.36);
     cabeloFrente = `<path d="${c}" fill="${cabelo}"/>`;
+  } else if (o.cabeloTipo === 'cachinhos') {
+    /* cabelo curto e cacheado de menino: cachos só na metade de cima, sem cair nas laterais */
+    let c = '';
+    for (let i = 0; i <= 8; i++) {
+      const an = PI * (1.06 + (0.88 * i) / 8);
+      c += circ([hx + Math.cos(an) * hr * 0.86, hy + Math.sin(an) * hr * 0.86], hr * 0.33);
+    }
+    for (let i = 0; i <= 5; i++) {
+      const an = PI * (1.15 + (0.7 * i) / 5);
+      c += circ([hx + Math.cos(an) * hr * 0.5, hy + Math.sin(an) * hr * 0.5], hr * 0.34);
+    }
+    cabeloFrente = `<path d="${c}" fill="${cabelo}"/>`;
   } else if (o.cabeloTipo === 'coque') {
     cabeloFrente = franja + `<path d="${circ([hx + dir * hr * 0.5, hy - hr * 1.05], hr * 0.42)}" fill="${cabelo}"/>`;
   } else if (o.cabeloTipo === 'rabo') {
     cabeloAtras = `<path d="${circ([hx - dir * hr * 0.9, hy + hr * 0.9], hr * 0.5)}" fill="${cabelo}"/>`;
     cabeloFrente = franja;
-  } else if (o.cabeloTipo === 'entradas') {
-    /* cabelo curto com entradas na testa: o gorro de cabelo e duas curvas de pele nas têmporas */
-    cabeloFrente =
-      `<path d="M${hx - hr * 1.02} ${hy - hr * 0.05}A${hr * 1.02} ${hr * 1.02} 0 0 1 ${hx + hr * 1.02} ${hy - hr * 0.05}Q${hx} ${hy - hr * 0.5} ${hx - hr * 1.02} ${hy - hr * 0.05}z" fill="${cabelo}"/>` +
-      `<ellipse cx="${hx - hr * 0.48}" cy="${hy - hr * 0.6}" rx="${hr * 0.27}" ry="${hr * 0.2}" fill="${pele}"/><ellipse cx="${hx + hr * 0.48}" cy="${hy - hr * 0.6}" rx="${hr * 0.27}" ry="${hr * 0.2}" fill="${pele}"/>`;
+  } else if (o.cabeloTipo === 'entradas' || o.cabeloTipo === 'testa-alta') {
+    /* cabelo curto de homem: cobre os lados até a altura da orelha e a linha da testa fecha por cima */
+    const P = (x: number, y: number) => `${f(hx + x * hr)} ${f(hy + y * hr)}`;
+    const R = 1.07;
+    const a0 = PI - Math.asin(0.18 / R);
+    let d = '';
+    for (let i = 0; i <= 24; i++) {
+      const an = a0 + ((3 * PI - 2 * a0) * i) / 24;
+      d += (i ? 'L' : 'M') + P(Math.cos(an) * R, Math.sin(an) * R);
+    }
+    d +=
+      o.cabeloTipo === 'entradas'
+        ? /* as entradas: sobe nas têmporas, desce no meio da testa */
+          `Q${P(0.98, -0.3)} ${P(0.7, -0.58)}Q${P(0.5, -0.76)} ${P(0.34, -0.6)}Q${P(0.18, -0.42)} ${P(0, -0.42)}Q${P(-0.18, -0.42)} ${P(-0.34, -0.6)}Q${P(-0.5, -0.76)} ${P(-0.7, -0.58)}Q${P(-0.98, -0.3)} ${P(-R, 0.18)}z`
+        : /* a testa alta: a linha do cabelo é uma curva só, bem em cima */
+          `Q${P(0.98, -0.35)} ${P(0.62, -0.68)}Q${P(0, -0.86)} ${P(-0.62, -0.68)}Q${P(-0.98, -0.35)} ${P(-R, 0.18)}z`;
+    cabeloFrente = `<path d="${d}" fill="${cabelo}"/>`;
   } else {
     cabeloFrente = franja;
   }
   /* barba baixa: uma faixa que segue o queixo, abaixo da boca */
   let barba = '';
   if (o.barba) {
+    const estilo = o.barbaEstilo ?? 'baixa';
+    /* de onde a barba começa nas laterais (fração de pi) e até onde sobe por dentro */
+    const inicio = estilo === 'cheia' ? 0.0 : 0.08;
+    const interna = estilo === 'cheia' ? 0.42 : 0.6;
     const pts: string[] = [];
-    for (let i = 0; i <= 16; i++) {
-      const a = Math.PI * (0.08 + (0.84 * i) / 16);
-      pts.push(`${f(hx + Math.cos(a) * hr * 1.03)} ${f(hy + Math.sin(a) * hr * 1.03)}`);
+    const n = 18;
+    for (let i = 0; i <= n; i++) {
+      const a = Math.PI * (inicio + ((1 - 2 * inicio) * i) / n);
+      pts.push(`${f(hx + Math.cos(a) * hr * 1.04)} ${f(hy + Math.sin(a) * hr * 1.04)}`);
     }
-    for (let i = 16; i >= 0; i--) {
-      const a = Math.PI * (0.08 + (0.84 * i) / 16);
-      pts.push(`${f(hx + Math.cos(a) * hr * 1.03)} ${f(Math.max(hy + hr * 0.6, hy + Math.sin(a) * hr * 0.6))}`);
+    for (let i = n; i >= 0; i--) {
+      const a = Math.PI * (inicio + ((1 - 2 * inicio) * i) / n);
+      pts.push(`${f(hx + Math.cos(a) * hr * 1.04)} ${f(Math.max(hy + hr * interna, hy + Math.sin(a) * hr * interna))}`);
     }
-    barba = `<path d="M${pts.join('L')}z" fill="${o.barba}" opacity="0.9"/>`;
+    barba = `<path d="M${pts.join('L')}z" fill="${o.barba}" opacity="${estilo === 'leve' ? 0.45 : 0.95}"/>`;
   }
 
   /* rosto */
@@ -267,9 +308,16 @@ export function boneco(o: Figura): Desenho {
         : '');
 
   /* óculos ovais, por cima dos olhos */
-  const oculos = o.oculos
-    ? `<g fill="none" stroke="${CORES.tinta}" stroke-width="${Math.max(0.9, hr * 0.08)}" opacity="0.7"><ellipse cx="${hx - ox}" cy="${olhoY - hr * 0.02}" rx="${hr * 0.3}" ry="${hr * 0.24}"/><ellipse cx="${hx + ox}" cy="${olhoY - hr * 0.02}" rx="${hr * 0.3}" ry="${hr * 0.24}"/><path d="M${hx - ox + hr * 0.3} ${olhoY - hr * 0.04}h${(ox - hr * 0.3) * 2}"/></g>`
-    : '';
+  let oculos = '';
+  if (o.oculos) {
+    const estilo: Oculos = o.oculos === true ? 'oval' : o.oculos;
+    const rx = estilo === 'redondo' ? hr * 0.27 : hr * 0.3;
+    const ry = estilo === 'redondo' ? hr * 0.27 : hr * 0.22;
+    const w = Math.max(0.8, hr * (estilo === 'fino' ? 0.05 : 0.075));
+    const cy = olhoY - hr * 0.02;
+    const hastes = estilo === 'fino' ? `<path d="M${hx - ox - rx} ${cy}L${hx - hr * 1.02} ${cy - hr * 0.06}M${hx + ox + rx} ${cy}L${hx + hr * 1.02} ${cy - hr * 0.06}"/>` : '';
+    oculos = `<g fill="none" stroke="${CORES.tinta}" stroke-width="${w}" opacity="0.7"><ellipse cx="${hx - ox}" cy="${cy}" rx="${rx}" ry="${ry}"/><ellipse cx="${hx + ox}" cy="${cy}" rx="${rx}" ry="${ry}"/><path d="M${hx - ox + rx} ${cy - hr * 0.03}h${(ox - rx) * 2}"/>${hastes}</g>`;
+  }
   const contorno = o.contorno ? `stroke="${o.contorno}" stroke-width="1" stroke-linejoin="round"` : '';
   const sapato = o.sapato ?? pele;
   const svg =
@@ -278,9 +326,12 @@ export function boneco(o: Figura): Desenho {
     `<path d="${pes}" fill="${sapato}"/>` +
     tutu +
     `<path d="${bL.d}" fill="${pele}" ${contorno}/>` +
+    (bL.manga ? `<path d="${bL.manga}" fill="${roupa}"/>` : '') +
+    `<path d="${ombros}" fill="${pele}"/>` +
     roupaPath +
-    `<path d="${ombros}${pescoco}" fill="${pele}"/>` +
+    `<path d="${pescoco}" fill="${pele}"/>` +
     `<path d="${bR.d}" fill="${pele}" ${contorno}/>` +
+    (bR.manga ? `<path d="${bR.manga}" fill="${roupa}"/>` : '') +
     `<circle cx="${f(hx)}" cy="${f(hy)}" r="${f(hr)}" fill="${pele}" ${contorno}/>` +
     barba +
     cabeloFrente +
@@ -302,11 +353,11 @@ export const familia = {
   stellaPalco: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
     boneco({ x, y, h, pose, crianca: true, pele: C.peleStella, cabelo: C.cabeloStella, roupa: C.rosaDoce, cabeloTipo: 'coque', tutu: '#F7C3D8', sapato: '#EFB9CE', contorno: C.luz, ...extra }),
   theo: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
-    boneco({ x, y, h, pose, crianca: true, pele: C.peleStella, cabelo: C.cabeloTheo, roupa: C.azul, calca: C.musgoTinta, cabeloTipo: 'cacheado', sapato: C.musgoTinta, ...extra }),
+    boneco({ x, y, h, pose, crianca: true, pele: C.peleStella, cabelo: C.cabeloTheo, roupa: C.azul, calca: C.musgoTinta, cabeloTipo: 'cachinhos', forte: 1.35, sapato: C.musgoTinta, ...extra }),
   mae: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
     boneco({ x, y, h, pose, pele: C.peleMae, cabelo: C.cabeloMae, roupa: '#D9B4A6', cabeloTipo: 'liso', vestido: true, sapato: C.madeira, ...extra }),
   pai: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
-    boneco({ x, y, h, pose, pele: C.pelePai, cabelo: C.cabeloPai, roupa: C.mata2, calca: '#3f3a4a', cabeloTipo: 'entradas', oculos: true, barba: C.cabeloPai, sapato: '#3f3a4a', ...extra }),
+    boneco({ x, y, h, pose, pele: C.pelePai, cabelo: C.cabeloPai, roupa: C.mata2, calca: '#3f3a4a', cabeloTipo: 'entradas', oculos: true, barba: C.cabeloPai, forte: 1.18, sapato: '#3f3a4a', ...extra }),
   /** bonecas Waldorf de pano: rosto quase liso */
   boneca: (x: number, y: number, h: number, i: number, extra: Extra = {}): Desenho => {
     const roupas = [C.rosaDoce, C.luz, C.azul, '#D9B4A6', '#a58bc4'];
@@ -314,6 +365,13 @@ export const familia = {
     const tipos: Cabelo[] = ['coque', 'liso', 'cacheado', 'rabo', 'curto'];
     return boneco({ x, y, h, pose: 'parado', crianca: true, pano: true, pele: '#F3DCC8', cabelo: cabelos[i % 5]!, roupa: roupas[i % 5]!, cabeloTipo: tipos[i % 5]!, vestido: true, ...extra });
   },
+};
+
+/** As opções de pai para a família escolher (?styleguide=pai). */
+export const OPCOES_DE_PAI: Record<string, { rotulo: string; extra: Extra }> = {
+  A: { rotulo: 'A. Entradas, barba baixa, óculos ovais', extra: { cabeloTipo: 'entradas', cabelo: '#a67c52', barba: '#a67c52', barbaEstilo: 'baixa', oculos: 'oval' } },
+  B: { rotulo: 'B. Entradas, barba por fazer, óculos redondos', extra: { cabeloTipo: 'entradas', cabelo: '#8f6a45', barba: '#8f6a45', barbaEstilo: 'leve', oculos: 'redondo' } },
+  C: { rotulo: 'C. Testa alta, barba cheia, óculos finos com haste', extra: { cabeloTipo: 'testa-alta', cabelo: '#b08a5e', barba: '#9a7548', barbaEstilo: 'cheia', oculos: 'fino' } },
 };
 
 /** Proporções decididas: Stella 1, Theo 1,5, pais 2. */

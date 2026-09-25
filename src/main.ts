@@ -57,8 +57,8 @@ window.addEventListener('pointerdown', destravar, { passive: true });
 const q = new URLSearchParams(location.search);
 const debug = q.get('debug') === '1';
 
-if (q.get('styleguide') === '1') {
-  void ir('styleguide');
+if (q.get('styleguide')) {
+  void ir('styleguide', { pai: q.get('styleguide') === 'pai' ? '1' : '' });
 } else {
   if (debug) {
     /* atalhos de depuração: ?debug=1&sessoes=7&tela=jardim&hora=20:10&zerar=1 */
