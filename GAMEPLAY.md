@@ -220,7 +220,7 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
   5. Terminou: o S vira o rabo do gatinho de novo, que abana, e a família comemora.
   6. **Segunda vez, sem a estrela guia**, se a primeira foi até o fim. Se não foi, com ela.
   7. A letra voa para a parede do quarto.
-- **Ordem das letras na v1**: A, E, L, S, T, O, M, U, I. As cinco primeiras são as do nome
+- **Ordem das letras na v1**: A, E, L, S, T, O, M, U, I, V. As cinco primeiras são as do nome
   dela, que ela já reconhece (resposta da família); com elas a porta do quarto ganha STELLA.
   Depois as outras (antes: vogais primeiro, depois as
   consoantes que se esticam, depois o T do Theo e do nome dela). Uma letra nova por semana,
@@ -240,24 +240,41 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
 - **Para quê**: juntar sons em palavras, o passo em que ela sente que leu.
 - **Como, em qualquer lugar da casa**: tocar num objeto que tem palavra (gato, sol, lua, mala,
   bola, pinha) faz a palavra aparecer grande em cima dele, em letra bastão, só com letras que
-  ela já aprendeu ou está aprendendo. A voz diz a palavra.
-- **O escorregador de sons** (na palavra que apareceu):
-  1. Embaixo da palavra aparece uma fita reta, da esquerda para a direita, com a estrela
-     guia no começo.
-  2. Ela **traça** a fita. Quando o dedo passa embaixo de cada letra, a letra acende e soa,
-     esticada: "lll... uuu... aaa".
-  3. Se ela passar de novo, mais rápido, os sons se juntam: "lua". A palavra pula, o objeto
-     reage (a lua brilha), e o sininho toca.
-  4. É a técnica que as salas de fônico usam, o dedo embaixo da palavra, e é a mesma fita que
-     ela já conhece do caderno.
+  ela já aprendeu ou está aprendendo. A voz diz a palavra. O Theo está no canto, mostrando.
+- **O escorregador de sons**, sempre nas mesmas quatro etapas, na ordem do fônico. O que
+  fazer é mostrado, nunca dito:
+  1. **Ouvir.** A voz diz a palavra inteira. Embaixo da palavra há uma fita reta, da esquerda
+     para a direita. A estrela guia percorre a fita parando embaixo de cada letra, e cada
+     letra acende e soa, esticada: "lll... uuu... aaa". A figura ainda está adormecida
+     (fraquinha).
+  2. **Os sons.** A mãozinha faz o gesto de traçar a fita. Ela **traça**: quando o dedo passa
+     embaixo de cada letra, a letra acende e soa. No fim, o sininho, e a primeira das três
+     estrelinhas embaixo da fita acende.
+  3. **Juntar.** A estrela guia corre a fita inteira de uma vez, rápido, e a voz diz "lua":
+     é o modelo. A mãozinha convida de novo. Ela traça, os sons se juntam, a voz diz a
+     palavra, a palavra fica dourada, a figura acorda (a lua brilha), a segunda estrelinha
+     acende. Depois as sílabas batem como palmas: as letras se juntam em grupos ("LU... A"),
+     cada grupo pula com uma nota da lira, e a terceira estrelinha acende. Centelhas, uma
+     pedrinha.
+  4. **Pronta.** A próxima palavra da fila aparece num círculo de luz no canto de baixo: tocar
+     nela leva para lá. Traçar a fita de novo repete a palavra. Se não houver próxima, a
+     mãozinha mostra a casinha.
+  5. É a técnica que as salas de fônico usam, o dedo embaixo da palavra, e é a mesma fita que
+     ela já conhece do caderno. Tocar na fita no meio da mostra passa a vez para ela.
+- **O avanço se vê em dois lugares**: as três estrelinhas embaixo da fita (as etapas desta
+  palavra) e o colar no alto (as palavras desta fase: as já lidas cheias de ouro, a de agora
+  com a estrela, as outras vazias). A fila são a palavra de cada letra que ela já traçou, mais
+  as palavras feitas só de letras traçadas, na ordem do fônico. As palavras lidas inteiras
+  ficam guardadas e aparecem no cantinho dos pais.
 - **Palavras da v1** (só com as letras da v1, de sílaba aberta, em que cada letra soa como o
-  som ensinado): LUA, ASA, ELA, OLÁ, MALA, SALA, LAMA, MOLA, TATU, TUTU, TELA, LATA, MATA,
-  MESA, LIMA e o nome STELLA. Os objetos de palavra na casa são a mala, a lata e a lua da
-  janela à noite; GATO e CAMA aparecem como palavra só no caderno.
-- **Dura**: o quanto ela quiser; cada palavra leva uns 15 segundos.
-- **Ajuda**: A1, a estrela guia percorre a fita no ritmo certo. A2, a voz junta os sons
-  sozinha no fim.
-- **Cresce**: nada. É brincadeira de casa, e é para ser.
+  som ensinado): LUA, AVÓ, ELA, OLÁ, UVA, MALA, SALA, LAMA, MOLA, TATU, TUTU, TELA, LATA,
+  MATA, LIMA, VELA, LUVA e o nome STELLA. ASA e MESA saíram: S entre vogais soa Z. Os objetos
+  de palavra na casa são a mala, a lata e a lua da janela à noite; GATO e CAMA aparecem como
+  palavra só no caderno.
+- **Dura**: o quanto ela quiser; cada palavra leva uns 30 segundos.
+- **Ajuda**: A1, a estrela guia percorre a fita no ritmo certo. A2, a fita enche sozinha até
+  o fim e os sons se juntam.
+- **Cresce**: o colar das palavras lidas.
 
 ### 6.7 A caixa de areia em estrela
 
@@ -522,8 +539,8 @@ inteiro; o que sai volta na v2, sem pressa.
 - O laço completo: chegada, roda, som do dia, brincadeira do dia, livre, bichos, despedida.
 - O laço da noite.
 - Três tarefas na roda (cama, dentes, brinquedos), a estrela da noite e o prato colorido.
-- Caderno com 9 letras (A, E, L, S, T, O, M, U, I), uma por semana.
-- Som do dia e palavras em destaque com o escorregador de sons (16 palavras).
+- Caderno com 10 letras (A, E, L, S, T, O, M, U, I, V), uma por semana.
+- Som do dia e palavras em destaque com o escorregador de sons (18 palavras).
 - Caixa de areia (dedo, pá e balde).
 - Pinhas e a mesa da estação.
 - Piano livre e *Brilha, brilha estrelinha*.

@@ -7,23 +7,32 @@ import { parseMusica } from '@/audio/musica';
 import { readdirSync, readFileSync } from 'node:fs';
 import { TODAS_AS_FIGURAS } from '@/puppet/figuras';
 
-const LETRAS_V1 = ['A', 'E', 'L', 'S', 'T', 'O', 'M', 'U', 'I'];
+const LETRAS_V1 = ['A', 'E', 'L', 'S', 'T', 'O', 'M', 'U', 'I', 'V'];
 
 describe('as palavras do fônico', () => {
   it('só usam as letras da v1 (mais o nome dela)', () => {
     for (const p of palavras) {
       if (p.palavra === 'STELLA') continue;
-      for (const l of p.palavra.replace('Á', 'A')) expect(LETRAS_V1, p.palavra).toContain(l);
+      for (const l of p.palavra.replace('Á', 'A').replace('Ó', 'O')) expect(LETRAS_V1, p.palavra).toContain(l);
     }
   });
-  it('nenhuma tem L no fim da sílaba (soa U), nem TE ou TI (soa tchi), nem O átono final', () => {
+  it('nenhuma tem L no fim da sílaba (soa U), S entre vogais (soa Z), TE ou TI (soa tchi), nem O átono final', () => {
     for (const p of palavras) {
       if (p.palavra === 'STELLA') continue;
+      expect(p.palavra, `${p.palavra} tem S entre vogais`).not.toMatch(/[AEIOUÁ]S[AEIOUÁ]/);
       expect(p.palavra, `${p.palavra} termina em L`).not.toMatch(/L$/);
       expect(p.palavra, `${p.palavra} tem L antes de consoante`).not.toMatch(/L[^AEIOUÁ]/);
       expect(p.palavra, `${p.palavra} tem TI`).not.toMatch(/TI/);
       expect(p.palavra, `${p.palavra} termina em O átono`).not.toMatch(/O$/);
       expect(p.palavra, `${p.palavra} termina em E átono`).not.toMatch(/E$/);
+    }
+  });
+  it('a palavra de cada letra traz no máximo uma consoante que ela ainda não traçou', () => {
+    const vistas: string[] = [];
+    for (const l of letras) {
+      const novas = [...l.palavra.replace('Á', 'A').replace('Ó', 'O')].filter((x) => x !== l.id && !vistas.includes(x) && !'AEIOU'.includes(x));
+      expect(novas.length, `${l.palavra} traz ${novas.join('')} antes da hora`).toBeLessThanOrEqual(1);
+      vistas.push(l.id);
     }
   });
   it('cada palavra tem figura com nome e sílabas que a recompõem', () => {
