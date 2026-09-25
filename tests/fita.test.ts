@@ -23,7 +23,7 @@ describe('o traçado da letra pela fita', () => {
   const tracos = (id: string) => (letras as unknown as { id: string; tracos: TracoDado[] }[]).find((l) => l.id === id)!.tracos;
 
   it('um dedo que segue a fita com 40 px de erro (0,1 da caixa) completa a letra', () => {
-    for (const id of ['A', 'E', 'O', 'S', 'L', 'M', 'U', 'I', 'T']) {
+    for (const id of ['A', 'E', 'L', 'S', 'T', 'O', 'M', 'U', 'I']) {
       const t = new Tracado(tracos(id), 0.14);
       seguir(t, 0.1);
       expect(t.completa, `letra ${id}`).toBe(true);

@@ -112,7 +112,7 @@ export function telaPais(): Tela {
     /* letras */
     painel.append(h('h2', {}, 'As letras'));
     const letraAtual = (letras as { id: string }[])[Math.min(e.letraIndice, letras.length - 1)]!.id;
-    painel.append(h('p', {}, `Ordem: A, E, O, S, L, M, U, I, T. Uma por semana por padrão. Letra da vez: ${letraAtual}. Já traçadas: ${e.letras.join(', ') || 'nenhuma'}.`));
+    painel.append(h('p', {}, `Ordem: A, E, L, S, T (as do nome dela), depois O, M, U, I. Uma por semana por padrão. Letra da vez: ${letraAtual}. Já traçadas: ${e.letras.join(', ') || 'nenhuma'}.`));
     const bRitmo = h('button', { type: 'button', class: e.pais.ritmoLetras === 'semanal' ? 'ligado' : '' }, e.pais.ritmoLetras === 'semanal' ? 'Uma por semana' : 'Quando ela terminar');
     bRitmo.addEventListener('click', () => {
       mudar((x) => void (x.pais.ritmoLetras = x.pais.ritmoLetras === 'semanal' ? 'livre' : 'semanal'));
@@ -231,8 +231,8 @@ export function telaPais(): Tela {
     /* instalar */
     painel.append(h('h2', {}, 'Instalar e prender no jogo'));
     painel.append(
-      h('p', {}, 'Passo 1: instale o jogo na tela inicial (no Safari, Compartilhar e Adicionar à Tela de Início; no Chrome, o menu e Instalar). Instalado, ele abre em tela cheia, em retrato, sem barra de endereço, e as gravações ficam mais seguras.'),
-      h('p', {}, 'Passo 2: prenda a criança no app. No iPhone, Acesso Guiado (Ajustes, Acessibilidade, Acesso Guiado; depois três toques no botão lateral com o jogo aberto). No Android, Fixação de tela (Ajustes, Segurança, Fixar tela). O gesto de voltar do aparelho, dentro do jogo, volta para a casa.'),
+      h('p', {}, 'Passo 1: instale o jogo na tela inicial. No Samsung Galaxy, abra no Chrome, toque no menu (três pontos) e em Instalar aplicativo, ou Adicionar à tela inicial. No iPhone, Safari, Compartilhar e Adicionar à Tela de Início. Instalado, ele abre em tela cheia, em retrato, sem barra de endereço, e as gravações ficam mais seguras.'),
+      h('p', {}, 'Passo 2: prenda a criança no app. No Samsung Galaxy, ligue Fixar janelas (Configurações, Segurança e privacidade, Outras configurações de segurança, Fixar janelas), abra o jogo, toque no botão de apps recentes e no ícone do app, e escolha Fixar este app. No iPhone, Acesso Guiado (Ajustes, Acessibilidade). O gesto de voltar do aparelho, dentro do jogo, volta para a casa.'),
       h('p', {}, 'Jogue junto, no colo, pelo menos nas primeiras semanas. Descreva, não avalie. Faça o som, não o nome da letra. Termine na despedida e faça o convite de verdade.'),
     );
 

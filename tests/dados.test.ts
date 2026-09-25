@@ -7,7 +7,7 @@ import { parseMusica } from '@/audio/musica';
 import { readdirSync, readFileSync } from 'node:fs';
 import { TODAS_AS_FIGURAS } from '@/puppet/figuras';
 
-const LETRAS_V1 = ['A', 'E', 'O', 'S', 'L', 'M', 'U', 'I', 'T'];
+const LETRAS_V1 = ['A', 'E', 'L', 'S', 'T', 'O', 'M', 'U', 'I'];
 
 describe('as palavras do fônico', () => {
   it('só usam as letras da v1 (mais o nome dela)', () => {

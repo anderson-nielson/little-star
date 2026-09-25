@@ -8,7 +8,7 @@
 |---|---|---|---|
 | P1 | Hora da tela | O jogo não assume hora. A roda e o prato perguntam sobre o que houve **desde a última sessão**, e as frases não dizem "hoje". De manhã, a primeira pergunta é sobre a noite. A partir de 30 min antes da hora de dormir só existe o laço da noite. | `src/core/laco.ts`, `src/data/frases.json` |
 | P2 | Aparelho | PWA instalável nos dois; retrato pelo manifesto; instruções de Acesso Guiado e Fixação de tela no cantinho dos pais. O gesto de voltar do aparelho volta para a casa. | `vite.config.ts`, `src/core/roteador.ts`, `src/telas/pais.ts` |
-| P3 | Letras e escola | Ordem do jogo: A, E, O, S, L, M, U, I, T, uma por semana, com as imagens do jogo. Os pais podem adiantar, segurar ou deixar livre. As imagens são dados e trocam pela da escola. | `src/data/letras.json`, cantinho dos pais |
+| P3 | Letras e escola | Ordem do jogo: A, E, L, S, T (as do nome dela, que ela já reconhece), depois O, M, U, I; uma por semana, com as imagens do jogo. Os pais podem adiantar, segurar ou deixar livre. | `src/data/letras.json`, cantinho dos pais |
 | P4 | Palavras | Trocadas por palavras de sílaba aberta em que cada letra soa como o som ensinado: LUA, ASA, ELA, OLÁ, MALA, SALA, LAMA, MOLA, TATU, TUTU, TELA, LATA, MATA, MESA, LIMA e STELLA. Um teste impede L no fim da sílaba, TI e vogal átona final. | `src/data/palavras.json`, `tests/dados.test.ts` |
 | P5 | Casa | Numa tela só, sem rolagem. Tocar num objeto abre a atividade. | `src/telas/casa.ts` |
 | P6 | Quem marca | O toque dela basta; o objeto da roda só aceita o toque depois que a pergunta acabou de ser falada. A confirmação dos pais é brilho a mais. | `src/telas/roda.ts`, `src/telas/pais.ts` |
@@ -19,6 +19,20 @@
 | P11 | Jardim | Um obstáculo a cada 2 compassos a 100 bpm (uns 30 em dois minutos); nas duas primeiras aventuras, a cada 4. Janela do pulo 0,7 s. Em dados. | `src/telas/jardim.ts` (`JARDIM`) |
 | P12 | Semana | Cores da tradição Waldorf (dom dourado, seg roxo, ter vermelho, qua amarelo, qui laranja, sex verde, sáb azul). Brincadeira do dia: dom família, seg palavras, ter caderno, qua pinhas, qui areia, sex piano, sáb jardim. | `src/ui/tokens.css`, `src/core/laco.ts` |
 | P13 | O resto | Mãe de rabo de cavalo e vestido rosa-velho, pai de camisa verde-mata; gatinho cinza-areia, coelhinho branco; nomes candidatos Mimi, Luna, Bolota e Pipoca, Nino, Flor; nome do jogo Little Star; comidas iniciais tomate, cenoura, banana, brócolis, uva, pão (trocáveis); festas das estações ficam para a v2. | dados e cantinho dos pais |
+
+## As respostas que chegaram depois
+
+O Anderson respondeu P1 a P7 na página das telas enquanto a v1 era implementada. O que mudou:
+
+| # | Resposta | O que mudou |
+|---|---|---|
+| P1 | "Raro. Quase nunca." | A casa se abre em quatro sessões, não em seis (`ABERTURAS`), para o Jardim não levar dois meses. O limite diário importa pouco; o convite da despedida importa muito. |
+| P2 | "Samsung Galaxy" | Android: as instruções do cantinho dos pais falam primeiro de Chrome, Instalar aplicativo e Fixar janelas. A voz do aparelho em português vem do Google TTS. |
+| P3 | "Não, mas ela conhece as letras do nome dela e do Theo" | A escola ainda não apresentou letras, então a ordem é do jogo, e começa pelas que ela já reconhece: A, E, L, S, T, e a porta ganha STELLA na quinta letra. Depois O, M, U, I. A palavra de cada letra usa só letras já vistas (no máximo uma nova). |
+| P4 | "Pode" | As palavras de sílaba aberta ficam. |
+| P5 | "Sim" | A casa numa tela só fica. |
+| P6 | "Decide" | O toque dela basta, com a trava depois da pergunta. |
+| P7 | "Não sei" | As vozes ficam como estão: gravadas no app, com dono por frase, 50 obrigatórias. Sem gravação, a cena acontece sem voz. Quando der, as primeiras a gravar são os nove sons das letras, os nomes dos bichos e o tchau. |
 
 ## O que mudou em relação à SPEC e ao GAMEPLAY
 

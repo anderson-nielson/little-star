@@ -12,19 +12,19 @@ export type Parte = 'chegada' | 'roda' | 'prato' | 'som' | 'casa' | 'bichos' | '
 
 export type Brincadeira = 'piano' | 'caderno' | 'palavras' | 'areia' | 'pinhas' | 'jardim' | 'familia';
 
-/** O que cada sessão da primeira semana abre. Da 7 em diante, tudo. */
+/** O que cada sessão das primeiras abre. Da quinta em diante, tudo. */
 export const ABERTURAS: Record<number, string[]> = {
   1: ['casa', 'piano', 'gato'],
-  2: ['roda', 'caderno', 'som', 'bichos'],
-  3: ['quintal', 'areia', 'coelho'],
-  4: ['prato', 'palavras'],
-  5: ['pinhas'],
-  6: ['jardim'],
+  2: ['roda', 'caderno', 'som', 'bichos', 'quintal', 'areia', 'coelho'],
+  3: ['prato', 'palavras', 'pinhas'],
+  4: ['jardim'],
 };
+/** A partir desta sessão está tudo aberto. Tela é rara na casa dela: quatro sessões bastam. */
+export const SESSAO_COMPLETA = 4;
 
 export function aberto(sessoes: number, coisa: string): boolean {
-  for (let s = 1; s <= Math.min(sessoes, 6); s++) if (ABERTURAS[s]?.includes(coisa)) return true;
-  return sessoes >= 7;
+  for (let s = 1; s <= Math.min(sessoes, SESSAO_COMPLETA); s++) if (ABERTURAS[s]?.includes(coisa)) return true;
+  return sessoes > SESSAO_COMPLETA;
 }
 
 /** A brincadeira do dia: na primeira semana, a coisa nova; depois, o ritmo da semana. */
@@ -32,10 +32,8 @@ export function brincadeiraDoDia(e: Estado, agora: Date): Brincadeira {
   const s = e.sessoes;
   if (s <= 1) return 'piano';
   if (s === 2) return 'caderno';
-  if (s === 3) return 'areia';
-  if (s === 4) return 'palavras';
-  if (s === 5) return 'pinhas';
-  if (s === 6) return 'jardim';
+  if (s === 3) return 'pinhas';
+  if (s === 4) return 'jardim';
   const semana: Brincadeira[] = ['familia', 'palavras', 'caderno', 'pinhas', 'areia', 'piano', 'jardim'];
   return semana[diaDaSemana(agora)] ?? 'piano';
 }

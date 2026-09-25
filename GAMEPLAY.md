@@ -220,7 +220,9 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
   5. Terminou: o S vira o rabo do gatinho de novo, que abana, e a família comemora.
   6. **Segunda vez, sem a estrela guia**, se a primeira foi até o fim. Se não foi, com ela.
   7. A letra voa para a parede do quarto.
-- **Ordem das letras na v1**: A, E, O, S, L, M, U, I, T (vogais primeiro, depois as
+- **Ordem das letras na v1**: A, E, L, S, T, O, M, U, I. As cinco primeiras são as do nome
+  dela, que ela já reconhece (resposta da família); com elas a porta do quarto ganha STELLA.
+  Depois as outras (antes: vogais primeiro, depois as
   consoantes que se esticam, depois o T do Theo e do nome dela). Uma letra nova por semana,
   por padrão. Os pais podem adiantar ou segurar, para andar junto com a escola.
 - **Imagens**: A, o telhado da casa verde. E, a estante com três prateleiras. O, a boca
@@ -411,15 +413,16 @@ A hora de dormir existe desde a sessão 1, porque depende do relógio e não do 
 não existem são puladas em silêncio, para a ordem que ela aprende no primeiro dia ser a
 mesma que cresce depois.
 
+Tela é rara na casa dela (resposta da família), então a casa se abre em quatro sessões,
+não em seis:
+
 | Sessão | Laço |
 |---|---|
 | 1 | chegada, casa (o piano brilha), despedida com a cestinha do gatinho |
-| 2 | chegada, roda, som do dia, casa (o caderno brilha), bichos (só o gatinho), despedida |
-| 3 | chegada, roda, som, casa (a caixa de areia brilha; o coelhinho aparece na grama e ganha nome), bichos, despedida |
-| 4 | chegada, roda, prato, som, casa (a mala brilha: palavras), bichos, despedida |
-| 5 | o mesmo, com as pinhas brilhando |
-| 6 | o mesmo, com a porta brilhando: o Jardim e o palco |
-| 7 em diante | o laço inteiro, com a brincadeira do dia da semana |
+| 2 | chegada, roda, som do dia, casa (o caderno brilha; o quintal e a caixa de areia abrem; o coelhinho aparece na grama e ganha nome), bichos, despedida |
+| 3 | chegada, roda, prato, som, casa (as pinhas brilham; a mala abre as palavras), bichos, despedida |
+| 4 | o mesmo, com a porta brilhando: o Jardim e o palco |
+| 5 em diante | o laço inteiro, com a brincadeira do dia da semana |
 
 Na segunda abertura do mesmo dia, roda, prato e som não voltam: chegada, casa, bichos,
 despedida. Um toque na porta fechada da despedida reabre assim.
@@ -515,7 +518,7 @@ inteiro; o que sai volta na v2, sem pressa.
 - O laço completo: chegada, roda, som do dia, brincadeira do dia, livre, bichos, despedida.
 - O laço da noite.
 - Três tarefas na roda (cama, dentes, brinquedos), a estrela da noite e o prato colorido.
-- Caderno com 9 letras (A, E, O, S, L, M, U, I, T), uma por semana.
+- Caderno com 9 letras (A, E, L, S, T, O, M, U, I), uma por semana.
 - Som do dia e palavras em destaque com o escorregador de sons (16 palavras).
 - Caixa de areia (dedo, pá e balde).
 - Pinhas e a mesa da estação.

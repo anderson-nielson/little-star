@@ -59,12 +59,13 @@ describe('o laço da sessão', () => {
     expect(proximaParte(partes, 'despedida')).toBeNull();
   });
 
-  it('a primeira semana abre uma coisa por sessão e da sétima em diante tudo', () => {
+  it('as primeiras sessões abrem a casa aos poucos e da quinta em diante tudo', () => {
     expect(aberto(1, 'piano')).toBe(true);
     expect(aberto(1, 'roda')).toBe(false);
     expect(aberto(2, 'roda')).toBe(true);
-    expect(aberto(5, 'jardim')).toBe(false);
-    expect(aberto(6, 'jardim')).toBe(true);
+    expect(aberto(2, 'coelho')).toBe(true);
+    expect(aberto(3, 'jardim')).toBe(false);
+    expect(aberto(4, 'jardim')).toBe(true);
     expect(aberto(9, 'qualquer coisa')).toBe(true);
   });
 
@@ -72,6 +73,8 @@ describe('o laço da sessão', () => {
     const e = estadoNovo();
     e.sessoes = 2;
     expect(brincadeiraDoDia(e, dia(15))).toBe('caderno');
+    e.sessoes = 4;
+    expect(brincadeiraDoDia(e, dia(15))).toBe('jardim');
     e.sessoes = 10;
     expect(brincadeiraDoDia(e, new Date(2026, 8, 15))).toBe('caderno'); // terça
     expect(brincadeiraDoDia(e, new Date(2026, 8, 19))).toBe('jardim'); // sábado
