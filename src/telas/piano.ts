@@ -53,9 +53,10 @@ export function telaPiano(): Tela {
   pararFundo();
   const luz = svg.querySelector('.luz') as SVGGElement;
 
-  /* seguir a estrelinha: a melodia de Brilha, brilha */
-  const brilha = musica('brilha');
-  const sequencia = brilha.notasMelodia.map((n) => TECLAS.indexOf(n.midi)).filter((i) => i >= 0);
+  /* seguir a estrelinha: Brilha, brilha, e depois Ciranda, cirandinha; a partitura alterna */
+  const cancoes = ['brilha', 'ciranda'];
+  let cancao = 0;
+  let sequencia = musica(cancoes[0]!).notasMelodia.map((n) => TECLAS.indexOf(n.midi)).filter((i) => i >= 0);
   let seguindo = false;
   let passo = 0;
   const ajuda = new Ajuda();
@@ -66,6 +67,8 @@ export function telaPiano(): Tela {
     if (!seguindo) return;
     if (passo >= sequencia.length) {
       seguindo = false;
+      cancao = (cancao + 1) % cancoes.length;
+      sequencia = musica(cancoes[cancao]!).notasMelodia.map((n) => TECLAS.indexOf(n.midi)).filter((i) => i >= 0);
       tela.comemorar(195, 300);
       svg.querySelectorAll('.boneca').forEach((b, i) => {
         mover(b, 0, -14, 300 + i * 80);

@@ -3,10 +3,31 @@ import { chaveDoDia } from './relogio';
 export const VERSAO_DO_SAVE = 1;
 const CHAVE = 'little-star.save';
 
-export type Tarefa = 'cama' | 'dentes' | 'brinquedos';
+export type Tarefa = 'cama' | 'dentes' | 'brinquedos' | 'banho' | 'quarto' | 'gentil';
 export type CorDeComida = 'vermelho' | 'laranja' | 'amarelo' | 'verde' | 'roxo' | 'marrom';
 export const CORES_DE_COMIDA: CorDeComida[] = ['vermelho', 'laranja', 'amarelo', 'verde', 'roxo', 'marrom'];
-export const TAREFAS: Tarefa[] = ['cama', 'dentes', 'brinquedos'];
+/** todas as tarefas da roda; os pais ligam e desligam cada uma no cantinho */
+export const TAREFAS: Tarefa[] = ['cama', 'dentes', 'brinquedos', 'banho', 'quarto', 'gentil'];
+export type Semente = 'cenoura' | 'tomate' | 'milho' | 'alface';
+export type Quem = 'mae' | 'pai' | 'theo';
+
+/** um canteiro da horta: o que foi plantado, quando, e os dias em que foi regado */
+export interface Canteiro {
+  semente: Semente;
+  plantado: string;
+  regas: string[];
+}
+export interface Bilhete {
+  para: Quem;
+  letras: string;
+  dia: string;
+}
+/** o figurino de uma boneca: as cores que ela escolheu */
+export interface Figurino {
+  roupa: string;
+  cabelo: string;
+  gorro: string;
+}
 
 export interface Hoje {
   dia: string;
@@ -53,6 +74,12 @@ export interface Pais {
   /** semanal: uma letra por semana; livre: avança quando ela termina */
   ritmoLetras: 'semanal' | 'livre';
   instalacaoVista: boolean;
+  /** quais tarefas a roda pergunta */
+  tarefas: Record<Tarefa, boolean>;
+  /** auto: entra sozinho quando os primeiros sons estão firmes (três letras traçadas) */
+  espanhol: 'auto' | 'ligado' | 'desligado';
+  /** as festas das estações mudam a casa */
+  festas: boolean;
 }
 
 export interface Estado {
@@ -77,6 +104,21 @@ export interface Estado {
   ajudaA2: Record<string, number>;
   registro: { partes: Record<string, number>; a1: Record<string, number>; a2: Record<string, number>; semResposta: number };
   pais: Pais;
+  /** a horta do quintal: quatro canteiros */
+  horta: (Canteiro | null)[];
+  /** o que ela colheu e ainda não virou comidinha */
+  colheita: Semente[];
+  /** comidinhas feitas com a mãe (pratinhos na mesa das bonecas) */
+  comidinhas: number;
+  bilhetes: Bilhete[];
+  /** figurino por boneca (índice na estante) */
+  figurinos: Record<string, Figurino>;
+  /** a boneca que vai junto nas aventuras; -1 é nenhuma */
+  companheira: number;
+  /** partes do coreto do lago já acesas (até 6) */
+  coreto: number;
+  /** aventuras terminadas por tipo */
+  aventurasPor: Record<string, number>;
 }
 
 export function hojeVazio(dia: string): Hoje {
@@ -115,6 +157,14 @@ export function estadoNovo(agora = new Date()): Estado {
     bichos: { gato: null, coelho: null, carinho: 0 },
     ajudaA2: {},
     registro: { partes: {}, a1: {}, a2: {}, semResposta: 0 },
+    horta: [null, null, null, null],
+    colheita: [],
+    comidinhas: 0,
+    bilhetes: [],
+    figurinos: {},
+    companheira: -1,
+    coreto: 0,
+    aventurasPor: {},
     pais: {
       horaDormir: '20:00',
       limiteMin: 15,
@@ -124,6 +174,9 @@ export function estadoNovo(agora = new Date()): Estado {
       comidasNovas: [],
       ritmoLetras: 'semanal',
       instalacaoVista: false,
+      tarefas: { cama: true, dentes: true, brinquedos: true, banho: true, quarto: false, gentil: false },
+      espanhol: 'auto',
+      festas: true,
     },
   };
 }
@@ -160,7 +213,8 @@ export function migrar(bruto: Record<string, unknown>): Estado {
   }
   /* campos novos com valor padrão, para um save antigo não quebrar a tela */
   const base = estadoNovo();
-  return { ...base, ...(atual as unknown as Estado), pais: { ...base.pais, ...((atual.pais as Pais | undefined) ?? {}) } };
+  const pais = (atual.pais as Partial<Pais> | undefined) ?? {};
+  return { ...base, ...(atual as unknown as Estado), pais: { ...base.pais, ...pais, tarefas: { ...base.pais.tarefas, ...(pais.tarefas ?? {}) } } };
 }
 
 function storage(): Storage | null {

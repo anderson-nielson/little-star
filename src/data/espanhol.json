@@ -1,0 +1,11 @@
+{
+  "lua": "luna", "asa": "ala", "ela": "ella", "ola": "hola", "mala": "maleta", "sala": "sala", "lama": "barro", "mola": "resorte",
+  "tatu": "armadillo", "tutu": "tutú", "tela": "pantalla", "lata": "lata", "mata": "bosque", "mesa": "mesa", "lima": "lima", "stella": "Stella",
+  "abelha": "abeja", "arvore": "árbol", "elefante": "elefante", "egua": "yegua", "ovo": "huevo", "olho": "ojo", "onda": "ola",
+  "sapo": "sapo", "sol": "sol", "sino": "campana", "sapato": "zapato", "lobo": "lobo", "leao": "león", "mao": "mano", "macaco": "mono",
+  "uva": "uva", "urso": "oso", "unha": "uña", "ilha": "isla", "ima": "imán", "ioio": "yoyó", "tartaruga": "tortuga",
+  "tomate": "tomate", "morango": "fresa", "cenoura": "zanahoria", "mamao": "papaya", "banana": "banana", "milho": "maíz",
+  "brocolis": "brócoli", "alface": "lechuga", "beterraba": "remolacha", "pao": "pan", "arroz": "arroz y frijoles",
+  "gato": "gato", "coelho": "conejo", "pinha": "piña", "cama": "cama", "estrela": "estrella", "boneca": "muñeca", "rosa": "rosa",
+  "cinco": "cinco", "seis": "seis", "sete": "siete", "oito": "ocho", "muy_bien": "¡Muy bien, Stella!", "hola": "¡Hola, Stella!"
+}

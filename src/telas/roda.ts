@@ -1,5 +1,6 @@
 import { mover, telaSvg } from './comum';
 import { estado, mudar, type Tarefa } from '@/core/estado';
+import { tarefasAtivas } from '@/core/laco';
 import { sessao } from '@/core/sessao';
 import { esperar } from '@/core/util';
 import { familia } from '@/puppet/boneco';
@@ -38,7 +39,7 @@ export function telaRoda(): Tela {
       cena: () => {},
     });
   }
-  objetos.push(
+  const todas: Objeto[] = [
     {
       id: 'cama',
       pergunta: 'pergunta_cama',
@@ -71,7 +72,44 @@ export function telaRoda(): Tela {
         svg.querySelectorAll('[data-obj="brinquedos"] .brinquedo').forEach((b, i) => mover(b, (195 - [150, 243, 200][i]!) * 0.8, 40, 700, 0.8));
       },
     },
-  );
+    {
+      id: 'banho',
+      pergunta: 'pergunta_banho',
+      comemora: 'comemora_banho',
+      desenho: `<g data-obj="banho"><ellipse cx="195" cy="566" rx="52" ry="20" fill="#fbf8f1" stroke="#c6a15b"/><rect x="143" y="548" width="104" height="18" rx="6" fill="#fbf8f1"/><path d="M150 548q0 -16 10 -16h6" fill="none" stroke="#c9a189" stroke-width="4"/><g class="bolhas" opacity="0"><circle cx="180" cy="530" r="7" fill="#dbe7ee" opacity="0.85"/><circle cx="200" cy="518" r="9" fill="#dbe7ee" opacity="0.85"/><circle cx="220" cy="532" r="6" fill="#dbe7ee" opacity="0.85"/></g><circle cx="230" cy="540" r="7" fill="#ebd9a8"/></g>`,
+      cena: (svg) => {
+        const b = svg.querySelector('[data-obj="banho"] .bolhas') as SVGElement | null;
+        if (b) {
+          b.style.transition = 'opacity 500ms';
+          b.style.opacity = '1';
+          mover(b, 0, -30, 1600);
+        }
+      },
+    },
+    {
+      id: 'quarto',
+      pergunta: 'pergunta_quarto',
+      comemora: 'comemora_quarto',
+      desenho: `<g data-obj="quarto"><rect x="140" y="566" width="110" height="10" rx="3" fill="#ebcdc3"/><rect x="160" y="530" width="26" height="8" rx="2" fill="#c9a189"/><g class="coisa"><rect x="146" y="546" width="20" height="14" rx="3" fill="#fbf8f1" stroke="#c6a15b"/></g><g class="coisa"><ellipse cx="228" cy="556" rx="14" ry="8" fill="#a58bc4"/></g><g class="coisa"><path d="M190 560l6 -10l6 10z" fill="#7FA5B8"/></g></g>`,
+      cena: (svg) => {
+        svg.querySelectorAll('[data-obj="quarto"] .coisa').forEach((c, i) => mover(c, [17, -55, -22][i]!, [-18, -26, -30][i]!, 700, 0.85));
+      },
+    },
+    {
+      id: 'gentil',
+      pergunta: 'pergunta_gentil',
+      comemora: 'comemora_gentil',
+      desenho: `<g data-obj="gentil"><g class="ela">${familia.stella(178, 586, 56).svg}</g><g class="ele">${familia.theo(216, 586, 78, 'parado', { dir: -1 }).svg}</g></g>`,
+      cena: (svg) => {
+        const ela = svg.querySelector('[data-obj="gentil"] .ela');
+        const ele = svg.querySelector('[data-obj="gentil"] .ele');
+        if (ela) mover(ela, 10, 0, 700);
+        if (ele) mover(ele, -8, 0, 700);
+      },
+    },
+  ];
+  const ativas = tarefasAtivas(e);
+  objetos.push(...todas.filter((o) => ativas.includes(o.id as Tarefa)));
 
   let s = `<rect width="390" height="780" fill="#c9dbb2"/>` + veu(0, 0, 390, 780, '#8fae6b', 6, 0.22);
   s += arco(120, 130, 150, 160, '#f3d9cf') + veu(120, 130, 150, 160, '#ebcdc3', 3, 0.3) + nuvem(200, 180, 12);
@@ -116,7 +154,7 @@ export function telaRoda(): Tela {
     const g = camada.firstElementChild as SVGGElement;
     g.classList.add('respira');
     camadaLuz.innerHTML = contornoLuz(195, 552, 66, 50);
-    const dono = { cama: 'mae', dentes: 'pai', brinquedos: 'theo', noite: 'mae' }[obj.id];
+    const dono = { cama: 'mae', dentes: 'pai', brinquedos: 'theo', noite: 'mae', banho: 'pai', quarto: 'mae', gentil: 'theo' }[obj.id];
     svg.querySelectorAll('.quem').forEach((q) => ((q as SVGElement).style.opacity = q.getAttribute('data-quem') === dono ? '1' : '0.75'));
     /* a pergunta: só depois dela o objeto aceita o toque */
     if (temVoz(obj.pergunta)) await falar(obj.pergunta);

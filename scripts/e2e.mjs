@@ -71,8 +71,8 @@ await espera(2200);
 await toque(195, 552);
 await espera(5200);
 await shot('05-roda-lembranca');
-/* deixa a roda seguir sozinha até o prato */
-await espera(21000);
+/* deixa a roda seguir sozinha até o prato (quatro tarefas, umas 9 s cada) */
+await espera(30000);
 await shot('06-prato');
 await conta('prato', '[data-cor]', 6);
 await toque(195, 372);
@@ -156,6 +156,58 @@ await abrir('sessoes=8&hora=21:30');
 await espera(1200);
 await shot('21-dormindo');
 
+/* 5b. a v2: a horta, a árvore, a cozinha, o quarto, as aventuras novas e as festas */
+for (const [nome, tela, q] of [
+  ['24-horta', 'horta', ''],
+  ['25-arvore', 'arvore', ''],
+  ['26-cozinha', 'cozinha', ''],
+  ['27-ukulele', 'ukulele', ''],
+  ['28-lira', 'lira', ''],
+  ['29-bonecas', 'bonecas', ''],
+  ['30-bilhete', 'bilhete', ''],
+  ['31-arvore-grande', 'arvoregrande', ''],
+  ['32-lago', 'lago', ''],
+]) {
+  await abrir(`sessoes=8&hora=15:00&tela=${tela}${q}`);
+  if (nome === '30-bilhete') await page.evaluate(() => globalThis.littleStar.mudar((e) => void (e.letras = ['A', 'E', 'L'])));
+  if (nome === '30-bilhete') await page.evaluate(() => globalThis.littleStar.ir('bilhete'));
+  await espera(2600);
+  if (tela === 'arvoregrande' || tela === 'lago') {
+    for (let i = 0; i < 4; i++) {
+      await toque(200, 480);
+      await espera(800);
+    }
+  }
+  await shot(nome);
+  await conta(nome, 'svg.cena, canvas.cena');
+}
+/* a horta: plantar e regar num toque cada */
+await abrir('sessoes=8&hora=15:00&tela=horta');
+await espera(1200);
+await toque(150, 520);
+await espera(1400);
+await toque(150, 520);
+await espera(2600);
+const horta = await page.evaluate(() => globalThis.littleStar.estado().horta);
+if (!horta[1] || horta[1].regas.length !== 1) erros.push(`horta: esperava a cova 2 plantada e regada, achou ${JSON.stringify(horta)}`);
+/* a porta escolhe entre as aventuras abertas */
+await abrir('sessoes=8&hora=15:00&tela=casa');
+await page.evaluate(() => globalThis.littleStar.mudar((e) => { e.aventuras = 2; e.aventurasPor = { jardim: 1, arvore: 1 }; }));
+await page.evaluate(() => globalThis.littleStar.ir('casa'));
+await espera(1500);
+await toque(165, 564);
+await espera(800);
+await shot('33-porta-escolha');
+await conta('porta: três aventuras', '[data-aventura]', 3);
+/* a casa na festa junina e no Advento */
+await abrir('sessoes=8&hora=15:00&dia=2026-06-20&tela=casa');
+await espera(1200);
+await shot('34-casa-junina');
+await conta('junina: fogueira', '.fogueira');
+await abrir('sessoes=8&hora=15:00&dia=2026-12-13&tela=casa');
+await espera(1200);
+await shot('35-casa-advento');
+
 /* 6. o cantinho dos pais e o styleguide */
 await abrir('sessoes=8&hora=15:00&tela=pais');
 await espera(800);
@@ -175,4 +227,4 @@ if (erros.length) {
   console.error('Passeio com erros:\n' + erros.join('\n'));
   process.exit(1);
 }
-console.log('passeio ok: 23 capturas em docs/shots/');
+console.log('passeio ok: 35 capturas em docs/shots/');

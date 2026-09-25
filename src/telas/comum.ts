@@ -1,5 +1,5 @@
 import { cena, esperar, pontoNoSvg, svgEl } from '@/core/util';
-import { segurar, tocavel, travar } from '@/core/toque';
+import { reivindicarDedo, segurar, soltarDedo, tocavel, travar } from '@/core/toque';
 import { ir } from '@/core/roteador';
 import { sessao } from '@/core/sessao';
 import { casinha, centelhas, lua, maozinha } from '@/puppet/objetos';
@@ -118,4 +118,103 @@ export function sumir(el: Element, ms = 600): void {
 export function relogioDeAjuda(tela: TelaSvg, tick: (dt: number) => void): void {
   const id = window.setInterval(() => tick(1), 1000);
   tela.aoDestruir(() => window.clearInterval(id));
+}
+
+/**
+ * Um elemento do svg que se arrasta com o primeiro dedo. `aoSoltar` recebe o
+ * deslocamento e devolve true se o elemento fica onde soltou; senão volta.
+ */
+export function arrastavel(svg: SVGSVGElement, el: SVGGElement, aoSoltar: (dx: number, dy: number) => boolean | void): void {
+  let id = -1;
+  let x0 = 0;
+  let y0 = 0;
+  el.addEventListener('pointerdown', (ev) => {
+    if (!reivindicarDedo(ev.pointerId)) return;
+    id = ev.pointerId;
+    [x0, y0] = pontoNoSvg(svg, ev.clientX, ev.clientY);
+    el.style.transition = 'none';
+    try {
+      el.setPointerCapture(ev.pointerId);
+    } catch {
+      /* sem captura, a janela libera o dedo */
+    }
+  });
+  el.addEventListener('pointermove', (ev) => {
+    if (ev.pointerId !== id) return;
+    const [x, y] = pontoNoSvg(svg, ev.clientX, ev.clientY);
+    el.style.transform = `translate(${x - x0}px, ${y - y0}px)`;
+  });
+  const fim = (ev: PointerEvent) => {
+    if (ev.pointerId !== id) return;
+    soltarDedo(id);
+    id = -1;
+    const [x, y] = pontoNoSvg(svg, ev.clientX, ev.clientY);
+    const ficou = aoSoltar(x - x0, y - y0);
+    if (!ficou) mover(el, 0, 0, 400);
+  };
+  el.addEventListener('pointerup', fim);
+  el.addEventListener('pointercancel', fim);
+  el.classList.add('alvo');
+}
+
+/**
+ * Cordas para dedilhar: o dedo desce em qualquer lugar e, ao passar por cima
+ * de cada corda (posições x no espaço da cena), ela soa. Um toque parado numa
+ * corda também soa. `aoTocar` recebe o índice da corda.
+ */
+export function dedilhar(svg: SVGSVGElement, xs: number[], faixaY: [number, number], aoTocar: (i: number) => void): () => void {
+  let id = -1;
+  let ultimoX: number | null = null;
+  const cordaEm = (x: number) => {
+    let melhor = -1;
+    let d = Infinity;
+    xs.forEach((cx, i) => {
+      const dd = Math.abs(cx - x);
+      if (dd < d) {
+        d = dd;
+        melhor = i;
+      }
+    });
+    return d < 26 ? melhor : -1;
+  };
+  const baixo = (ev: PointerEvent) => {
+    const [x, y] = pontoNoSvg(svg, ev.clientX, ev.clientY);
+    if (y < faixaY[0] || y > faixaY[1]) return;
+    if (!reivindicarDedo(ev.pointerId)) return;
+    id = ev.pointerId;
+    ultimoX = x;
+    const i = cordaEm(x);
+    if (i >= 0) aoTocar(i);
+    try {
+      svg.setPointerCapture(ev.pointerId);
+    } catch {
+      /* a janela libera o dedo */
+    }
+  };
+  const move = (ev: PointerEvent) => {
+    if (ev.pointerId !== id || ultimoX === null) return;
+    const [x] = pontoNoSvg(svg, ev.clientX, ev.clientY);
+    const a = Math.min(ultimoX, x);
+    const b = Math.max(ultimoX, x);
+    xs.forEach((cx, i) => {
+      if (cx > a && cx <= b && Math.abs(x - ultimoX!) > 1) aoTocar(i);
+    });
+    ultimoX = x;
+  };
+  const cima = (ev: PointerEvent) => {
+    if (ev.pointerId !== id) return;
+    soltarDedo(id);
+    id = -1;
+    ultimoX = null;
+  };
+  svg.addEventListener('pointerdown', baixo);
+  svg.addEventListener('pointermove', move);
+  svg.addEventListener('pointerup', cima);
+  svg.addEventListener('pointercancel', cima);
+  return () => {
+    svg.removeEventListener('pointerdown', baixo);
+    svg.removeEventListener('pointermove', move);
+    svg.removeEventListener('pointerup', cima);
+    svg.removeEventListener('pointercancel', cima);
+  };
 }

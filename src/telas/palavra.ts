@@ -1,9 +1,12 @@
-import { telaSvg } from './comum';
+import { mover, telaSvg } from './comum';
 import { ir } from '@/core/roteador';
 import { esperar, pontoNoSvg } from '@/core/util';
 import { reivindicarDedo, soltarDedo, travar } from '@/core/toque';
 import { Ajuda } from '@/core/ajuda';
-import { mudar } from '@/core/estado';
+import { estado, mudar } from '@/core/estado';
+import { espanholAtivo } from '@/core/laco';
+import { falarEspanhol } from '@/audio/espanhol';
+import { familia } from '@/puppet/boneco';
 import { arco, centelha, veu } from '@/puppet/objetos';
 import { figura, nomeDaFigura } from '@/puppet/figuras';
 import { falar, temVoz } from '@/audio/vozes';
@@ -52,6 +55,8 @@ export function telaPalavra(params: Record<string, string>): Tela {
   s += `<line class="cheio" x1="${X0}" y1="${YF}" x2="${X0}" y2="${YF}" stroke="#f2a9c4" stroke-width="26" stroke-linecap="round"/>`;
   s += `<line class="cheio-luz" x1="${X0}" y1="${YF}" x2="${X0}" y2="${YF}" stroke="#ebd9a8" stroke-width="6" stroke-linecap="round" opacity="0.7"/>`;
   s += `<g class="guia">${centelha(X0, YF, 34, '#c6a15b')}</g>`;
+  const espanhol = espanholAtivo(estado());
+  if (espanhol) s += `<g class="estrellita">${familia.boneca(330, 700, 44, 0).svg}</g>`;
   const tela = telaSvg(s, { casinha: () => void ir(volta), lua: true });
   const svg = tela.svg;
   const guia = svg.querySelector('.guia') as SVGGElement;
@@ -122,6 +127,16 @@ export function telaPalavra(params: Record<string, string>): Tela {
       for (const [k] of p.silabas.entries()) {
         lira(67 + k * 2);
         await esperar(450);
+      }
+      /* a Estrellita diz o outro nome da coisa */
+      if (espanhol) {
+        const est = svg.querySelector('.estrellita');
+        if (est) {
+          mover(est, 0, -8, 200);
+          void esperar(260).then(() => mover(est, 0, 0, 300));
+        }
+        await esperar(300);
+        await falarEspanhol(p.figura);
       }
       mudar((x) => {
         x.registro.partes.palavra = (x.registro.partes.palavra ?? 0) + 1;

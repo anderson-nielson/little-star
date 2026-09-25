@@ -1,0 +1,5 @@
+[
+  { "id": "lanterna", "nome": "Festa da Lanterna", "de": [5, 20], "ate": [5, 31] },
+  { "id": "junina", "nome": "Festa junina", "de": [6, 12], "ate": [6, 30] },
+  { "id": "primavera", "nome": "Festa da Primavera", "de": [9, 21], "ate": [9, 30] }
+]
