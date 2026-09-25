@@ -1,4 +1,4 @@
-import type { Estado } from './estado';
+import { TAREFAS, type Estado, type Tarefa } from './estado';
 import { diaDaSemana, periodo } from './relogio';
 
 /**
@@ -10,14 +10,14 @@ import { diaDaSemana, periodo } from './relogio';
  */
 export type Parte = 'chegada' | 'roda' | 'prato' | 'som' | 'casa' | 'bichos' | 'despedida' | 'noite' | 'dormindo';
 
-export type Brincadeira = 'piano' | 'caderno' | 'palavras' | 'areia' | 'pinhas' | 'jardim' | 'familia';
+export type Brincadeira = 'piano' | 'caderno' | 'palavras' | 'areia' | 'pinhas' | 'jardim' | 'familia' | 'cozinha';
 
 /** O que cada sessão das primeiras abre. Da quinta em diante, tudo. */
 export const ABERTURAS: Record<number, string[]> = {
   1: ['casa', 'piano', 'gato'],
-  2: ['roda', 'caderno', 'som', 'bichos', 'quintal', 'areia', 'coelho'],
-  3: ['prato', 'palavras', 'pinhas'],
-  4: ['jardim'],
+  2: ['roda', 'caderno', 'som', 'bichos', 'quintal', 'areia', 'coelho', 'ukulele', 'lira', 'bonecas', 'bilhete'],
+  3: ['prato', 'palavras', 'pinhas', 'arvore', 'horta'],
+  4: ['jardim', 'cozinha'],
 };
 /** A partir desta sessão está tudo aberto. Tela é rara na casa dela: quatro sessões bastam. */
 export const SESSAO_COMPLETA = 4;
@@ -34,8 +34,48 @@ export function brincadeiraDoDia(e: Estado, agora: Date): Brincadeira {
   if (s === 2) return 'caderno';
   if (s === 3) return 'pinhas';
   if (s === 4) return 'jardim';
-  const semana: Brincadeira[] = ['familia', 'palavras', 'caderno', 'pinhas', 'areia', 'piano', 'jardim'];
+  /* segunda é o dia do pão no jardim Waldorf: a comidinha com a mãe (as palavras moram nela) */
+  const semana: Brincadeira[] = ['familia', 'cozinha', 'caderno', 'pinhas', 'areia', 'piano', 'jardim'];
   return semana[diaDaSemana(agora)] ?? 'piano';
+}
+
+/* ---------- as aventuras da porta ---------- */
+
+export type Aventura = 'jardim' | 'arvore' | 'lago';
+export const AVENTURAS: Aventura[] = ['jardim', 'arvore', 'lago'];
+
+/** As aventuras que a porta oferece: o Jardim primeiro; cada uma terminada abre a seguinte. */
+export function aventurasAbertas(e: Estado): Aventura[] {
+  if (!aberto(e.sessoes, 'jardim')) return [];
+  const a: Aventura[] = ['jardim'];
+  if (e.aventuras >= 1) a.push('arvore');
+  if (e.aventuras >= 2) a.push('lago');
+  return a;
+}
+
+/** A aventura que brilha na porta hoje: elas se revezam, a nova primeiro. */
+export function aventuraDoDia(e: Estado): Aventura {
+  const abertas = aventurasAbertas(e);
+  if (abertas.length === 0) return 'jardim';
+  const nova = abertas.find((a) => !(e.aventurasPor[a] ?? 0));
+  return nova ?? abertas[e.aventuras % abertas.length]!;
+}
+
+/* ---------- o espanhol ---------- */
+
+/** Com este tanto de letras traçadas, os primeiros sons estão firmes e o espanhol entra sozinho. */
+export const LETRAS_PARA_ESPANHOL = 3;
+
+export function espanholAtivo(e: Estado): boolean {
+  if (e.pais.espanhol === 'ligado') return true;
+  if (e.pais.espanhol === 'desligado') return false;
+  return e.letras.length >= LETRAS_PARA_ESPANHOL;
+}
+
+/* ---------- a roda ---------- */
+
+export function tarefasAtivas(e: Estado): Tarefa[] {
+  return TAREFAS.filter((t) => e.pais.tarefas[t]);
 }
 
 export function partesDaSessao(e: Estado, agora: Date): Parte[] {

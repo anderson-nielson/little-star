@@ -13,7 +13,7 @@ declare const __VERSAO__: string;
 const NUMEROS = ['dois', 'três', 'quatro', 'cinco', 'seis', 'sete', 'oito', 'nove'];
 const DONO = { mae: 'Andrea', pai: 'Anderson', theo: 'Theo', qualquer: 'Qualquer um' };
 const NOME_COR: Record<CorDeComida, string> = { vermelho: 'Vermelho', laranja: 'Laranja', amarelo: 'Amarelo', verde: 'Verde', roxo: 'Roxo', marrom: 'Branco ou marrom' };
-const NOME_TAREFA: Record<Tarefa, string> = { cama: 'Arrumou a cama', dentes: 'Escovou os dentes', brinquedos: 'Guardou os brinquedos' };
+const NOME_TAREFA: Record<Tarefa, string> = { cama: 'Arrumou a cama', dentes: 'Escovou os dentes', brinquedos: 'Guardou os brinquedos', banho: 'Tomou banho', quarto: 'Arrumou o quarto', gentil: 'Foi gentil com alguém' };
 
 /**
  * O cantinho dos pais: o único lugar com texto. Chega-se segurando a lua

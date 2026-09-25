@@ -132,6 +132,7 @@ export function telaCasa(): Tela {
     pinhas: [326, 750, 40, 22],
     jardim: [hx + hw / 2, bottom - 36, 44, 44],
     familia: [hx + 80, y3 - 50, 70, 60],
+    cozinha: [hx + hw / 2 + 34, y3 - 40, 32, 34],
   };
   const luz = alvoDaBrincadeira[brinc];
   if (luz) s += `<g class="luz-do-dia">${contornoLuz(...luz)}</g>`;
