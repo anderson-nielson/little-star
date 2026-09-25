@@ -12,6 +12,7 @@ convite para o mundo.
 - `docs/decisoes.md`: as decisões tomadas para a v1, com o que muda na SPEC e no GAMEPLAY.
 - `docs/revisao-gameplay.md`: a revisão que antecedeu o código.
 - `docs/referencia/little-star-telas.html`: as cinco telas desenhadas antes do código.
+- `docs/porquinho.md` e `docs/referencia/porquinho.html`: o porquinho de mola do condomínio, quatro alternativas com a mola simulada.
 - `docs/shots/`: capturas do passeio automático.
 
 ## Rodar

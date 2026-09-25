@@ -1,0 +1,781 @@
+<title>Porquinho de mola</title>
+<meta name="description" content="Quatro jeitos de levar o porquinho de mola do condomínio para o Little Star, três deles com a mola simulada para brincar no celular.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500&display=swap">
+<style>
+  :root {
+    --noite: #10142a; --noite-2: #1b2140; --marfim: #f6f0e4; --papel: #fbf8f1; --tinta: #1a1c2b;
+    --rosa: #ebcdc3; --rosa-clara: #f6e3dc; --rosa-doce: #f2a9c4; --veludo: #6e1a27;
+    --ouro: #c6a15b; --ouro-tinta: #8f6f2c; --luz: #ebd9a8; --mata: #2c4a42; --mata-2: #35564d;
+    --musgo: #8FAE6B; --musgo-claro: #C9DBB2; --musgo-tinta: #4F6B3A;
+    --areia: #EEDDB4; --estrela-vermelha: #D2463C;
+    --fundo: var(--marfim); --superficie: var(--papel); --texto: var(--tinta);
+    --texto-2: rgba(26, 28, 43, 0.68); --fio: rgba(79, 107, 58, 0.28); --acento: var(--musgo-tinta);
+    --acento-2: var(--rosa-doce); --realce: rgba(242, 169, 196, 0.22);
+    --sombra-tela: 0 18px 40px rgba(26, 28, 43, 0.12);
+    --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --sans: 'Jost', 'Avenir Next', 'Century Gothic', system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --fundo: var(--noite); --superficie: var(--noite-2); --texto: var(--marfim);
+      --texto-2: rgba(246, 240, 228, 0.68); --fio: rgba(198, 161, 91, 0.34); --acento: var(--luz);
+      --acento-2: var(--rosa-doce); --realce: rgba(242, 169, 196, 0.16);
+      --sombra-tela: 0 18px 40px rgba(0, 0, 0, 0.45);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --fundo: var(--noite); --superficie: var(--noite-2); --texto: var(--marfim);
+    --texto-2: rgba(246, 240, 228, 0.68); --fio: rgba(198, 161, 91, 0.34); --acento: var(--luz);
+    --acento-2: var(--rosa-doce); --realce: rgba(242, 169, 196, 0.16);
+    --sombra-tela: 0 18px 40px rgba(0, 0, 0, 0.45);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fundo); color: var(--texto); font-family: var(--sans); font-size: 1rem; line-height: 1.55; }
+  .pagina { max-width: 1080px; margin: 0 auto; padding-inline: 20px; padding-block: 32px 96px; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.12; text-wrap: balance; margin: 0; }
+  h1 { font-size: clamp(2.4rem, 6vw, 3.6rem); }
+  h2 { font-size: 2rem; }
+  h3 { font-size: 1.35rem; }
+  p { margin: 0; max-width: 62ch; }
+  .rotulo { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--texto-2); }
+  code { font-size: 0.92em; }
+
+  header.capa { display: grid; gap: 14px; padding-bottom: 28px; border-bottom: 1px solid var(--fio); }
+  header .linha { display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: baseline; color: var(--texto-2); font-size: 0.92rem; }
+  .indice { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+  .indice a { color: var(--texto); text-decoration: none; border: 1px solid var(--fio); border-radius: 999px; padding: 6px 14px; font-size: 0.92rem; }
+  .indice a:hover, .indice a:focus-visible { border-color: var(--acento); outline: none; }
+
+  section.intro { padding-block: 40px; border-bottom: 1px solid var(--fio); display: grid; gap: 18px; }
+  section.intro ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; max-width: 62ch; }
+  section.intro li::marker { color: var(--acento); }
+
+  section.tela { display: grid; grid-template-columns: minmax(280px, 400px) 1fr; gap: 32px 44px; padding-block: 56px; border-bottom: 1px solid var(--fio); align-items: start; }
+  section.tela .cabeca { grid-column: 1 / -1; display: grid; gap: 6px; }
+  section.tela .cabeca .rotulo { color: var(--acento); }
+  .aparelho { position: relative; width: 100%; max-width: 400px; aspect-ratio: 390 / 780; border-radius: 34px; overflow: hidden; box-shadow: var(--sombra-tela); border: 1px solid var(--fio); background: var(--musgo-claro); margin-inline: auto; touch-action: none; user-select: none; -webkit-user-select: none; }
+  .aparelho svg { display: block; width: 100%; height: 100%; }
+  .fala { margin-top: 12px; text-align: center; font-family: var(--serif); font-style: italic; font-size: 1.15rem; color: var(--texto-2); }
+  .fala b { font-style: normal; font-weight: 500; color: var(--texto); }
+  .controles { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; align-items: center; font-size: 0.9rem; color: var(--texto-2); }
+  .controles label { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+  .botao { font: inherit; font-weight: 500; border-radius: 999px; padding: 9px 20px; border: 1px solid var(--fio); background: transparent; color: var(--texto); cursor: pointer; min-height: 44px; }
+  .botao:focus-visible { outline: 2px solid var(--acento); outline-offset: 2px; }
+  .notas { display: grid; gap: 22px; }
+  .notas h3 { margin-bottom: 6px; }
+  .notas ol, .notas ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
+  .notas li::marker { color: var(--acento); }
+  .decisoes li b, .aprende li b { font-weight: 500; }
+  .aprende { background: var(--realce); border-radius: 20px; padding: 16px 18px; }
+
+  table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--fio); vertical-align: top; }
+  th { font-weight: 500; color: var(--texto-2); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  .tabela { overflow-x: auto; }
+
+  section.fecho { padding-block: 56px 0; display: grid; gap: 18px; }
+  .pergunta { display: grid; gap: 8px; padding: 18px 0; border-top: 1px solid var(--fio); }
+  .pergunta .num { font-family: var(--serif); font-size: 1.5rem; color: var(--acento); line-height: 1; }
+  .pergunta .cab { display: flex; gap: 14px; align-items: baseline; }
+  .pergunta .cab p { font-weight: 500; }
+  .pergunta small { color: var(--texto-2); }
+
+  @media (max-width: 760px) {
+    section.tela { grid-template-columns: 1fr; gap: 24px; padding-block: 40px; }
+    h2 { font-size: 1.7rem; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .pulsa { animation: pulsa 1.6s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+    @keyframes pulsa { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+    .sobe { animation: sobe 1.8s ease-out forwards; transform-box: fill-box; transform-origin: center; }
+    @keyframes sobe { 0% { opacity: 0; transform: translateY(10px) scale(0.6); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(-46px) scale(1.1); } }
+  }
+</style>
+
+<div class="pagina">
+  <header class="capa">
+    <span class="rotulo">Little Star · uma coisa dela de verdade</span>
+    <h1>O porquinho de mola</h1>
+    <p>A Stella adora se balançar no porquinho do condomínio. Isso é um brinquedo de mola: uma mola grossa presa no chão, um porquinho em cima, e o corpo dela fazendo a mola ir e voltar. Aqui estão quatro jeitos de trazer isso para o jogo, no espírito do que já existe (a casa aponta para fora da tela, nada é errado, sem texto para ela ler). Três telas têm a mola simulada de verdade: <b>arraste o porquinho e solte, ou toque de um lado para empurrar</b>. Funciona no celular.</p>
+    <div class="linha">
+      <span>Retrato, 390 × 780</span>
+      <span>Alvos de 72 px</span>
+      <span>Som sintetizado, liga no primeiro toque</span>
+      <span>Nada aqui é código do jogo</span>
+    </div>
+    <nav class="indice" aria-label="Telas">
+      <a href="#balanco">1. Balançar</a>
+      <a href="#ritmo">2. No ritmo</a>
+      <a href="#contar">3. Contar</a>
+      <a href="#fora">4. Lá fora</a>
+      <a href="#resumo">O que aprende</a>
+      <a href="#perguntas">Perguntas</a>
+    </nav>
+  </header>
+
+  <section class="intro">
+    <h2>O que tem de aprendizado num porquinho de mola</h2>
+    <p>Antes de qualquer tela, o brinquedo de verdade já ensina bastante, e o jogo só precisa nomear e celebrar o que ela faz lá:</p>
+    <ul>
+      <li><b>Corpo.</b> Equilíbrio, força do tronco, o sistema vestibular. Ela descobre que o balanço vem do peso dela indo para a frente e para trás, não da mão de quem empurra.</li>
+      <li><b>Causa e efeito.</b> Empurrão forte, balanço grande. Parou de se mexer, o balanço morre sozinho. É a primeira física que existe: mola, impulso, cansar.</li>
+      <li><b>Ritmo.</b> A mola tem o tempo dela. Quem empurra fora de hora atrapalha; quem empurra na hora certa faz crescer. Waldorf vive disso, e a Stella já conhece da roda da escola.</li>
+      <li><b>Contar.</b> Um balanço, dois, três. Contar com o corpo, no tempo, antes de contar com o dedo.</li>
+      <li><b>Palavra.</b> PORQUINHO ainda não cabe nas letras dela (P, R, Q, NH). Mas MOLA cabe, e já está na lista de palavras do jogo.</li>
+    </ul>
+  </section>
+
+  <!-- ============ TELA 1 ============ -->
+  <section class="tela" id="balanco">
+    <div class="cabeca">
+      <span class="rotulo">Tela 1 · brincar por brincar</span>
+      <h2>O porquinho no quintal: arrasta, solta, empurra</h2>
+    </div>
+    <div>
+      <div class="aparelho"><svg viewBox="0 0 390 780" id="svg-balanco" role="img" aria-label="O porquinho de mola no quintal da casa verde, com a Stella em cima; ao lado o coelhinho e o pinheiro"></svg></div>
+      <p class="fala">A mola responde ao dedo. <b>Arraste</b> o porquinho para um lado e solte; ou <b>toque</b> de um lado dele para empurrar. Cada passagem pelo meio toca uma nota da lira; balanço maior, nota mais alta.</p>
+      <div class="controles"><span>Sem objetivo. Ela para quando quiser.</span></div>
+    </div>
+    <div class="notas">
+      <div>
+        <h3>O que a Stella faz</h3>
+        <ol>
+          <li>O porquinho mora no quintal, perto da caixa de areia. Tocar nele leva para esta tela; a Stella já sobe.</li>
+          <li>Arrastar e soltar dá o balanço. Tocar de um lado empurra para o outro, como empurrar de verdade. Empurrar contra o movimento freia, e isso também é física, não erro.</li>
+          <li>O cabelo e as pernas do porquinho vêm atrasados, como o tutu do Ponta. A lira toca uma nota pentatônica por passagem: nenhuma combinação soa feia.</li>
+          <li>O balanço morre sozinho em uns dez segundos. Nada pede para continuar.</li>
+        </ol>
+      </div>
+      <div class="aprende">
+        <h3>O que aprende</h3>
+        <ul>
+          <li><b>Causa e efeito com uma mola.</b> Força do arrasto, tamanho do balanço, o tempo até parar.</li>
+          <li><b>A hora certa de empurrar</b>, sem ninguém explicar: empurrar junto com o movimento cresce, contra encolhe.</li>
+        </ul>
+      </div>
+      <div class="decisoes">
+        <h3>O que estou decidindo aqui</h3>
+        <ul>
+          <li><b>Mola de verdade, não animação.</b> Um oscilador amortecido, como o pulo do Jardim: a mola tem período de 1,2 s e perde metade do balanço em uns sete ciclos. Nada de looping.</li>
+          <li><b>Um objeto novo no quintal</b>, aberto no livre como a areia e as pinhas. Sem brincadeira do dia própria: entra na quinta, junto com a areia, se vocês quiserem.</li>
+          <li><b>O porquinho é rosa</b> porque é o rosa dela, mas se o de verdade for de outra cor, fica a de verdade (pergunta 1).</li>
+          <li><b>Esta tela é a base das outras duas.</b> Ritmo e contar são a mesma mola com uma camada a mais.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TELA 2 ============ -->
+  <section class="tela" id="ritmo">
+    <div class="cabeca">
+      <span class="rotulo">Tela 2 · o tempo da mola</span>
+      <h2>No ritmo: o coelhinho pula, ela empurra junto</h2>
+    </div>
+    <div>
+      <div class="aparelho"><svg viewBox="0 0 390 780" id="svg-ritmo" role="img" aria-label="O porquinho de mola com a Stella, o coelhinho pulando no compasso e o Theo batendo palma"></svg></div>
+      <p class="fala">Toque no porquinho para começar. A lira toca a 100 batidas por minuto; o coelhinho pula a cada dois tempos, no período da mola. <b>Empurre junto com o pulo</b> e o balanço cresce com centelhas. Fora de hora, só cresce um pouquinho.</p>
+      <div class="controles"><button class="botao" type="button" id="ritmo-parar">Parar a lira</button></div>
+    </div>
+    <div class="notas">
+      <div>
+        <h3>O que a Stella faz</h3>
+        <ol>
+          <li>O Theo está ao lado batendo palma no tempo; o coelhinho pula a cada dois tempos. A mola tem o mesmo período: 1,2 s.</li>
+          <li>Ela toca no porquinho. Se o toque cai junto com o pulo do coelhinho (janela de 0,36 s, generosa como a do Jardim), o empurrão é o dobro e sobem centelhas.</li>
+          <li>Fora da janela o empurrão é normal. Nada avisa que errou; só não cresce tanto.</li>
+          <li>Depois de uns dez balanços grandes, o Theo comemora e a lira encerra a frase. Ou ela para quando quiser.</li>
+        </ol>
+      </div>
+      <div class="aprende">
+        <h3>O que aprende</h3>
+        <ul>
+          <li><b>Pulsação.</b> Sentir o tempo e agir no tempo, que é a base de música, de dança e de escrever com ritmo.</li>
+          <li><b>Antecipar.</b> Para acertar o pulo do coelhinho ela precisa tocar um pouquinho antes, e o corpo aprende isso sem ninguém dizer.</li>
+        </ul>
+      </div>
+      <div class="decisoes">
+        <h3>O que estou decidindo aqui</h3>
+        <ul>
+          <li><b>O relógio é o áudio</b>, como no Jardim: os pulos, as palmas e a janela do toque saem do <code>audio.agora()</code>. Nada pisca mais que uma vez por segundo: o pulo é a cada 1,2 s.</li>
+          <li><b>Sem placar.</b> A resposta é o balanço maior e as centelhas; não conta acertos.</li>
+          <li><b>Abre pela sexta</b>, o dia do piano: música é a brincadeira do dia e o porquinho vira um jeito de tocar junto.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TELA 3 ============ -->
+  <section class="tela" id="contar">
+    <div class="cabeca">
+      <span class="rotulo">Tela 3 · contar com o corpo</span>
+      <h2>Contar: cada balanço, uma pedrinha no pote</h2>
+    </div>
+    <div>
+      <div class="aparelho"><svg viewBox="0 0 390 780" id="svg-contar" role="img" aria-label="O porquinho de mola com a Stella e, ao lado, o pote de vidro que recebe uma pedrinha a cada balanço"></svg></div>
+      <p class="fala">Cada volta completa (o porquinho passa pelo meio indo para a frente) solta uma pedrinha para o pote, com um tique e a voz contando: <b>um, dois, três, quatro, cinco</b>. No cinco, centelhas, e o pote esvazia para começar de novo.</p>
+      <div class="controles"><label><input type="checkbox" id="voz-contar" checked> Contar com a voz do aparelho</label></div>
+    </div>
+    <div class="notas">
+      <div>
+        <h3>O que a Stella faz</h3>
+        <ol>
+          <li>Mesma mola. Ela arrasta ou empurra; enquanto o balanço for grande, cada volta completa vale uma pedrinha.</li>
+          <li>A pedrinha sobe do porquinho até o pote com um tique. A voz (gravada pela família, ou a do aparelho) diz o número. Nenhum número aparece escrito: ela vê o pote encher.</li>
+          <li>Se o balanço morre antes do cinco, as pedrinhas ficam onde estão. Ela empurra de novo e a conta continua.</li>
+          <li>No cinco, comemoração, e o pote esvazia devagar. Pode contar de novo quantas vezes quiser.</li>
+        </ol>
+      </div>
+      <div class="aprende">
+        <h3>O que aprende</h3>
+        <ul>
+          <li><b>Correspondência um a um.</b> Um balanço, uma pedrinha, um nome. É o que a contagem de verdade exige e o que a escola vai pedir daqui a pouco.</li>
+          <li><b>A sequência até cinco, dita em voz alta.</b> Depois dez, quando ela quiser (opção no cantinho dos pais).</li>
+        </ul>
+      </div>
+      <div class="decisoes">
+        <h3>O que estou decidindo aqui</h3>
+        <ul>
+          <li><b>Pedrinhas, não números.</b> O pote já existe no quarto e já é o jeito do jogo de mostrar quantidade. Aqui as pedrinhas são só da contagem e não entram no pote de verdade.</li>
+          <li><b>Só conta volta completa com balanço grande</b> (amplitude acima de um limite), para não contar os tremidinhos do fim.</li>
+          <li><b>Os números são palavras inteiras</b>, então a voz do aparelho pode dizê-los enquanto a família não grava. Os sons das letras continuam só gravados.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TELA 4 ============ -->
+  <section class="tela" id="fora">
+    <div class="cabeca">
+      <span class="rotulo">Tela 4 · a que custa menos e vale mais</span>
+      <h2>Lá fora: o convite da despedida e a roda que pergunta</h2>
+    </div>
+    <div>
+      <div class="aparelho"><svg viewBox="0 0 390 780" id="svg-fora" role="img" aria-label="A despedida na porta da casa verde: a família acena e aponta o porquinho de mola do condomínio, logo ali fora; no topo, o balão de narração com o convite"></svg></div>
+      <p class="fala">Voz da mãe, na despedida: <b>"Vamos balançar no porquinho de verdade?"</b> Na sessão seguinte, a roda pergunta: <b>"Você balançou no porquinho?"</b> Ela toca; a lembrança voa para o quarto.</p>
+    </div>
+    <div class="notas">
+      <div>
+        <h3>O que a Stella faz</h3>
+        <ol>
+          <li>Nada de novo na tela. O porquinho aparece no fim da despedida, do lado de fora da porta, e a família o aponta. O convite para o mundo, que já existe, ganha mais uma frase possível.</li>
+          <li>Na roda da sessão seguinte, um objeto a mais: o porquinho. A pergunta é sobre o que houve desde a última vez.</li>
+          <li>Ela toca se foi. Cena de quatro segundos: ela balança no porquinho, a família comemora, uma pedrinha para o pote.</li>
+          <li>A lembrança: um porquinho de madeira aparece na mesa da estação, do lado das pinhas.</li>
+        </ol>
+      </div>
+      <div class="aprende">
+        <h3>O que aprende</h3>
+        <ul>
+          <li><b>Que o jogo olha para a vida dela</b>, e não o contrário. É o pilar "reconhecida" e o jeito Waldorf de fazer tela: apontar para fora.</li>
+          <li><b>Lembrar e contar</b> o que fez, que é o mesmo músculo da roda de todo dia.</li>
+        </ul>
+      </div>
+      <div class="decisoes">
+        <h3>O que estou decidindo aqui</h3>
+        <ul>
+          <li><b>É só dado.</b> Uma frase nova em <code>frases.json</code> (convite e pergunta, com dono), um objeto na roda ligado no cantinho dos pais como banho e quarto, uma figura na mesa da estação. Dá para entrar em uma rodada.</li>
+          <li><b>Eu faria esta primeiro</b>, junto com a tela 1. As telas 2 e 3 vêm depois, se ela pedir mais porquinho.</li>
+          <li><b>O porquinho de madeira</b> na mesa da estação segue o gosto Waldorf: brinquedo de madeira, poucos traços, sem olho grande.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="fecho" id="resumo">
+    <h2>As quatro, lado a lado</h2>
+    <div class="tabela">
+      <table>
+        <thead><tr><th>Tela</th><th>Aprende</th><th>Custa</th><th>Quando</th></tr></thead>
+        <tbody>
+          <tr><td>1. Balançar</td><td>Causa e efeito, a hora de empurrar</td><td>Uma tela nova, a mola, o desenho do porquinho e da Stella montada</td><td>Livre no quintal; quinta junto com a areia</td></tr>
+          <tr><td>2. No ritmo</td><td>Pulsação, antecipar</td><td>Tela 1 mais a lira no relógio do áudio e a janela do toque</td><td>Sexta, o dia da música</td></tr>
+          <tr><td>3. Contar</td><td>Um a um, a sequência até cinco</td><td>Tela 1 mais o pote e as vozes dos números</td><td>Livre, quando ela quiser</td></tr>
+          <tr><td>4. Lá fora</td><td>O jogo olha para a vida dela</td><td>Só dado: frases, um objeto na roda, uma figura na mesa</td><td>Despedida e roda</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Minha ordem: 4 e 1 na mesma rodada; 3 na seguinte, porque contar é o que a escola vai pedir; 2 por último, e só se o balanço virar coisa que ela procura no jogo.</p>
+  </section>
+
+  <section class="fecho" id="perguntas">
+    <h2>Perguntas para você</h2>
+    <div class="pergunta"><div class="cab"><span class="num">1</span><p>De que cor é o porquinho de verdade, e tem alça na cabeça?</p></div><small>O desenho segue o de verdade, como a casa verde. Aqui está rosa, com alça de madeira.</small></div>
+    <div class="pergunta"><div class="cab"><span class="num">2</span><p>Ela se balança sozinha ou alguém empurra?</p></div><small>Se ela já faz o balanço com o corpo, a tela 1 pode tirar o toque de empurrar e deixar só o arrastar e soltar, que é mais parecido com o que ela faz.</small></div>
+    <div class="pergunta"><div class="cab"><span class="num">3</span><p>O Theo balança junto ou fica perto?</p></div><small>Na tela 2 ele bate palma. Se ele empurra de verdade, ele pode empurrar no jogo também, no tempo, e ela só acompanha.</small></div>
+    <div class="pergunta"><div class="cab"><span class="num">4</span><p>Contar até cinco ou até dez?</p></div><small>Cinco dá uma mão; dez dá as duas. Começo em cinco e deixo dez como opção no cantinho.</small></div>
+    <div class="pergunta"><div class="cab"><span class="num">5</span><p>Onde o porquinho mora no jogo: no quintal da casa ou fora da porta, no condomínio?</p></div><small>No quintal ele fica sempre à vista e a tela 1 abre com um toque. Fora da porta ele é mais fiel e liga melhor com a tela 4.</small></div>
+  </section>
+</div>
+
+<script>
+/* ---------- desenho: marionete e objetos, os mesmos das telas de referência ---------- */
+const COR = {
+  noite:'#10142a', marfim:'#f6f0e4', papel:'#fbf8f1', tinta:'#1a1c2b', rosa:'#ebcdc3', rosaClara:'#f6e3dc',
+  rosaDoce:'#f2a9c4', veludo:'#6e1a27', ouro:'#c6a15b', ouroTinta:'#8f6f2c', luz:'#ebd9a8', mata:'#2c4a42', mata2:'#35564d',
+  musgo:'#8FAE6B', musgoClaro:'#C9DBB2', musgoTinta:'#4F6B3A', areia:'#EEDDB4', vermelho:'#D2463C',
+  ceuDia:'#dbe7ee', ceuTarde:'#f3d9cf', lago:'#9fc3cf', madeira:'#c9a189', terra:'#8a6a4a', cabeloStella:'#e2c27a', cabeloTheo:'#d8bf8a',
+  peleStella:'#F2D5BC', peleMae:'#F0D2B6', pelePai:'#EACBB0', cabeloMae:'#4a3222', cabeloPai:'#b08a5e'
+};
+const CENTELHA = 'M10 0c.7 6.2 3.8 9.3 10 10-6.2.7-9.3 3.8-10 10-.7-6.2-3.8-9.3-10-10 6.2-.7 9.3-3.8 10-10z';
+const f = n => Math.round(n * 10) / 10;
+function circ(c, r) { return `M${f(c[0]-r)} ${f(c[1])}a${r} ${r} 0 1 0 ${f(2*r)} 0a${r} ${r} 0 1 0 ${f(-2*r)} 0z`; }
+function limb(a, b, wa, wb) {
+  const dx = b[0]-a[0], dy = b[1]-a[1], l = Math.hypot(dx, dy) || 1, nx = -dy/l, ny = dx/l;
+  return `M${f(a[0]+nx*wa)} ${f(a[1]+ny*wa)}L${f(b[0]+nx*wb)} ${f(b[1]+ny*wb)}L${f(b[0]-nx*wb)} ${f(b[1]-ny*wb)}L${f(a[0]-nx*wa)} ${f(a[1]-ny*wa)}z` + circ(a, wa) + circ(b, wb);
+}
+function centelha(x, y, s, cor, cls = '') { return `<path class="${cls}" d="${CENTELHA}" fill="${cor}" transform="translate(${x-s/2} ${y-s/2}) scale(${s/20})"/>`; }
+function pol(cx, cy, r, ang) { return [cx + Math.cos(ang) * r, cy + Math.sin(ang) * r]; }
+
+function boneco(o) {
+  const { x, y, h, pele, cabelo, roupa, dir = 1 } = o;
+  const crianca = !!o.crianca;
+  const hr = h * (crianca ? 0.115 : 0.085);
+  const lg = h * (crianca ? 0.34 : 0.42);
+  const sw = h * (crianca ? 0.17 : 0.16);
+  const w = crianca ? 1.15 : 1;
+  const L = { coxa:[3.6*w, 2.6*w], perna:[2.5*w, 1.6*w], braco:[2.1*w, 1.6*w], ante:[1.6*w, 1.2*w], pesc:[1.5, 1.4] };
+  const esc = h / 100;
+  Object.keys(L).forEach(k => L[k] = L[k].map(v => v * esc));
+  let hipY, shY, headC, sentado = o.pose === 'sentado', pulo = o.pose === 'pulo', montado = o.pose === 'montado';
+  const tor = h - lg - 2*hr - 0.03*h;
+  if (sentado || montado) { hipY = y - lg*0.45; } else if (pulo) { hipY = y - lg - h*0.12; } else { hipY = y - lg; }
+  shY = hipY - tor; headC = [x + (dir*0.01*h), shY - 0.025*h - hr];
+  const sL = [x - sw/2, shY], sR = [x + sw/2, shY];
+  let paths = '';
+  const legs = [];
+  if (montado) {
+    /* montada: coxa para a frente, canela para baixo, pé no estribo */
+    legs.push([[x-0.02*h, hipY+0.02*h],[x+dir*0.16*h, hipY+0.1*h],[x+dir*0.2*h, y+0.1*h],[x+dir*0.27*h, y+0.12*h]]);
+    legs.push([[x+0.04*h, hipY+0.02*h],[x+dir*0.2*h, hipY+0.12*h],[x+dir*0.24*h, y+0.12*h],[x+dir*0.31*h, y+0.14*h]]);
+  } else if (sentado) {
+    legs.push([[x-0.05*h, hipY+0.02*h],[x+dir*0.18*h, hipY+0.02*h],[x+dir*0.2*h, y-0.02*h],[x+dir*0.26*h, y]]);
+    legs.push([[x+0.05*h, hipY+0.02*h],[x+dir*0.2*h, hipY+0.05*h],[x+dir*0.22*h, y-0.02*h],[x+dir*0.28*h, y]]);
+  } else if (pulo) {
+    legs.push([[x-0.04*h, hipY+0.02*h],[x-0.14*h, hipY+0.16*h],[x-0.2*h, hipY+0.3*h],[x-0.25*h, hipY+0.33*h]]);
+    legs.push([[x+0.04*h, hipY+0.02*h],[x+0.14*h, hipY+0.16*h],[x+0.2*h, hipY+0.3*h],[x+0.25*h, hipY+0.33*h]]);
+  } else {
+    legs.push([[x-0.04*h, hipY+0.02*h],[x-0.05*h, hipY+lg*0.52],[x-0.06*h, y-0.02*h],[x-0.06*h+dir*0.06*h, y]]);
+    legs.push([[x+0.04*h, hipY+0.02*h],[x+0.05*h, hipY+lg*0.52],[x+0.06*h, y-0.02*h],[x+0.06*h+dir*0.06*h, y]]);
+  }
+  let pernas = '', pes = '';
+  legs.forEach(([hq, k, a, t]) => { pernas += limb(hq, k, L.coxa[0], L.coxa[1]) + limb(k, a, L.perna[0], L.perna[1]); pes += limb(a, t, L.perna[1], L.perna[1]*0.6); });
+  let roupaPath = '';
+  const tl = [sL[0]+2*esc, sL[1]+3*esc], tr = [sR[0]-2*esc, sR[1]+3*esc];
+  if (o.vestido) {
+    const baixo = (sentado || montado) ? hipY + 0.06*h : hipY + 0.16*h;
+    const lv = crianca ? 0.2*h : 0.14*h;
+    roupaPath = `<path d="M${tl}L${tr}L${x+lv} ${baixo}Q${x} ${baixo+0.02*h} ${x-lv} ${baixo}z" fill="${roupa}"/>`;
+  } else {
+    roupaPath = `<path d="M${tl}L${tr}Q${x+0.06*h} ${hipY-0.1*h} ${x+0.08*h} ${hipY+0.03*h}L${x-0.08*h} ${hipY+0.03*h}Q${x-0.06*h} ${hipY-0.1*h} ${tl}z" fill="${roupa}"/>`;
+    if (o.calca) roupaPath += `<path d="M${x-0.085*h} ${hipY}L${x+0.085*h} ${hipY}L${x+0.075*h} ${hipY+lg*0.55}L${x+0.01*h} ${hipY+lg*0.55}L${x} ${hipY+0.1*h}L${x-0.01*h} ${hipY+lg*0.55}L${x-0.075*h} ${hipY+lg*0.55}z" fill="${o.calca}"/>`;
+  }
+  function braco(s, a1, a2, dirb) {
+    const la = 0.17*h, lb = 0.15*h;
+    const e = [s[0] + Math.cos(a1)*la*dirb, s[1] + Math.sin(a1)*la];
+    const wri = [e[0] + Math.cos(a2)*lb*dirb, e[1] + Math.sin(a2)*lb];
+    return { d: limb(s, e, L.braco[0], L.braco[1]) + limb(e, wri, L.ante[0], L.ante[1]), w: wri };
+  }
+  let bL, bR;
+  const p = o.pose;
+  if (p === 'acena') { bL = braco(sL, Math.PI*0.42, Math.PI*0.35, 1); bR = braco(sR, -Math.PI*0.62, -Math.PI*0.5, 1); }
+  else if (p === 'palma') { bL = braco(sL, Math.PI*0.2, -Math.PI*0.35, 1); bR = braco(sR, Math.PI*0.8, -Math.PI*0.65, 1); }
+  else if (p === 'pulo') { bL = braco(sL, -Math.PI*0.72, -Math.PI*0.6, 1); bR = braco(sR, -Math.PI*0.28, -Math.PI*0.4, 1); }
+  else if (p === 'sentado') { bL = braco(sL, Math.PI*0.45, Math.PI*0.05*dir, 1); bR = braco(sR, Math.PI*0.42, Math.PI*0.08*dir, 1); }
+  else if (p === 'montado') { bL = braco(sL, Math.PI*0.3*dir, Math.PI*0.02*dir, 1); bR = braco(sR, Math.PI*0.28*dir, Math.PI*0.05*dir, 1); }
+  else if (p === 'aponta') { bL = braco(sL, Math.PI*0.45, Math.PI*0.45, 1); bR = braco(sR, dir > 0 ? -Math.PI*0.1 : Math.PI*1.1, dir > 0 ? -Math.PI*0.05 : Math.PI*1.05, 1); }
+  else { bL = braco(sL, Math.PI*0.44, Math.PI*0.4, 1); bR = braco(sR, Math.PI*0.56, Math.PI*0.6, 1); }
+  const pescoco = limb([x, shY], [headC[0], headC[1] + hr*0.6], L.pesc[0]*esc, L.pesc[1]*esc);
+  const ombros = limb(sL, sR, 2.2*esc, 2.2*esc);
+  let cabeloAtras = '', cabeloFrente = '';
+  const [hx, hy] = headC;
+  if (o.cabeloTipo === 'liso') {
+    cabeloAtras = `<path d="M${hx-hr*1.05} ${hy-hr*0.2}Q${hx-hr*1.15} ${hy+hr*2.1} ${hx-hr*0.7} ${hy+hr*2.2}L${hx+hr*0.7} ${hy+hr*2.2}Q${hx+hr*1.15} ${hy+hr*2.1} ${hx+hr*1.05} ${hy-hr*0.2}z" fill="${cabelo}"/>`;
+    cabeloFrente = `<path d="M${hx-hr*1.05} ${hy-hr*0.1}A${hr*1.05} ${hr*1.05} 0 0 1 ${hx+hr*1.05} ${hy-hr*0.1}Q${hx+hr*0.6} ${hy-hr*0.55} ${hx} ${hy-hr*0.2}Q${hx-hr*0.7} ${hy-hr*0.6} ${hx-hr*1.05} ${hy-hr*0.1}z" fill="${cabelo}"/>`;
+  } else if (o.cabeloTipo === 'cacheado') {
+    let c = '';
+    for (let i = 0; i < 11; i++) { const an = Math.PI * (1 + i/10); const [cx2, cy2] = pol(hx, hy, hr*0.95, an); c += circ([cx2, cy2], hr*0.42); }
+    c += circ([hx-hr*1.15, hy+hr*0.35], hr*0.36) + circ([hx+hr*1.15, hy+hr*0.35], hr*0.36);
+    cabeloFrente = `<path d="${c}" fill="${cabelo}"/>`;
+  } else if (o.cabeloTipo === 'curto') {
+    cabeloFrente = `<path d="M${hx-hr*1.02} ${hy-hr*0.05}A${hr*1.02} ${hr*1.02} 0 0 1 ${hx+hr*1.02} ${hy-hr*0.05}Q${hx} ${hy-hr*0.6} ${hx-hr*1.02} ${hy-hr*0.05}z" fill="${cabelo}"/>`;
+  } else if (o.cabeloTipo === 'rabo') {
+    cabeloAtras = `<path d="${circ([hx-dir*hr*0.9, hy+hr*0.9], hr*0.5)}" fill="${cabelo}"/>`;
+    cabeloFrente = `<path d="M${hx-hr*1.02} ${hy-hr*0.05}A${hr*1.02} ${hr*1.02} 0 0 1 ${hx+hr*1.02} ${hy-hr*0.05}Q${hx} ${hy-hr*0.6} ${hx-hr*1.02} ${hy-hr*0.05}z" fill="${cabelo}"/>`;
+  }
+  const olhoY = hy + hr*0.1, ox = hr*0.35;
+  const rosto = `<path d="M${hx-ox-hr*0.14} ${olhoY}q${hr*0.14} ${-hr*0.16} ${hr*0.28} 0M${hx+ox-hr*0.14} ${olhoY}q${hr*0.14} ${-hr*0.16} ${hr*0.28} 0" fill="none" stroke="${COR.tinta}" stroke-width="${Math.max(0.9, hr*0.09)}" stroke-linecap="round" opacity="0.75"/>` +
+    `<path d="M${hx-hr*0.22} ${hy+hr*0.5}q${hr*0.22} ${hr*0.18} ${hr*0.44} 0" fill="none" stroke="${COR.veludo}" stroke-width="${Math.max(0.8, hr*0.07)}" stroke-linecap="round" opacity="0.7"/>` +
+    (crianca ? `<circle cx="${hx-hr*0.55}" cy="${hy+hr*0.42}" r="${hr*0.14}" fill="${COR.rosaDoce}" opacity="0.5"/><circle cx="${hx+hr*0.55}" cy="${hy+hr*0.42}" r="${hr*0.14}" fill="${COR.rosaDoce}" opacity="0.5"/>` : '');
+  const contorno = o.contorno ? `stroke="${o.contorno}" stroke-width="1" stroke-linejoin="round"` : '';
+  paths += `<g data-cabelo>${cabeloAtras}</g>`;
+  paths += `<path d="${pernas}" fill="${pele}" ${contorno}/>`;
+  paths += `<path d="${pes}" fill="${o.sapato || pele}"/>`;
+  paths += `<path d="${bL.d}" fill="${pele}" ${contorno}/>`;
+  paths += roupaPath;
+  paths += `<path d="${ombros}${pescoco}" fill="${pele}"/>`;
+  paths += `<path d="${bR.d}" fill="${pele}" ${contorno}/>`;
+  paths += `<circle cx="${hx}" cy="${hy}" r="${hr}" fill="${pele}" ${contorno}/>`;
+  paths += cabeloFrente + rosto;
+  return { svg: `<g>${paths}</g>`, maoL: bL.w, maoR: bR.w, cabeca: headC, hr };
+}
+const P = {
+  stella: (x, y, h, pose, extra = {}) => boneco({ x, y, h, pose, crianca: true, pele: COR.peleStella, cabelo: COR.cabeloStella, roupa: COR.rosaDoce, cabeloTipo: 'liso', vestido: true, sapato: '#EFB9CE', ...extra }),
+  theo: (x, y, h, pose, extra = {}) => boneco({ x, y, h, pose, crianca: true, pele: COR.peleStella, cabelo: COR.cabeloTheo, roupa: '#7FA5B8', calca: COR.musgoTinta, cabeloTipo: 'cacheado', sapato: COR.musgoTinta, ...extra }),
+  mae: (x, y, h, pose, extra = {}) => boneco({ x, y, h, pose, pele: COR.peleMae, cabelo: COR.cabeloMae, roupa: '#D9B4A6', cabeloTipo: 'rabo', vestido: true, sapato: COR.madeira, ...extra }),
+  pai: (x, y, h, pose, extra = {}) => boneco({ x, y, h, pose, pele: COR.pelePai, cabelo: COR.cabeloPai, roupa: COR.mata2, calca: '#3f3a4a', cabeloTipo: 'curto', sapato: '#3f3a4a', ...extra }),
+};
+function coelho(x, y, s, cor = '#e9e2d6') {
+  return `<g><ellipse cx="${x}" cy="${y-s*0.45}" rx="${s*0.55}" ry="${s*0.42}" fill="${cor}"/><circle cx="${x-s*0.55}" cy="${y-s*0.35}" r="${s*0.16}" fill="${COR.rosaClara}"/><circle cx="${x+s*0.45}" cy="${y-s*0.85}" r="${s*0.3}" fill="${cor}"/><path d="M${x+s*0.32} ${y-s*1.1}q${-s*0.1} ${-s*0.7} ${s*0.14} ${-s*0.75}q${s*0.16} ${0.05*s} ${s*0.02} ${s*0.75}zM${x+s*0.56} ${y-s*1.1}q${s*0.05} ${-s*0.7} ${s*0.26} ${-s*0.7}q${s*0.1} ${0.1*s} ${-s*0.1} ${s*0.7}z" fill="${cor}"/><path d="M${x+s*0.42} ${y-s*1.08}q${-s*0.06} ${-s*0.55} ${s*0.06} ${-s*0.6}M${x+s*0.64} ${y-s*1.08}q${s*0.05} ${-s*0.55} ${s*0.14} ${-s*0.55}" fill="none" stroke="${COR.rosaDoce}" stroke-width="${s*0.06}" opacity="0.6"/><path d="M${x+s*0.5} ${y-s*0.86}q${s*0.07} ${-s*0.07} ${s*0.14} 0" fill="none" stroke="${COR.tinta}" stroke-width="${s*0.05}" stroke-linecap="round" opacity="0.7"/></g>`;
+}
+function pinha(x, y, s) {
+  let d = '';
+  for (let i = 0; i < 4; i++) for (let j = 0; j < 3; j++) { const yy = y - s*0.9 + i*s*0.28, xx = x - s*0.3 + j*s*0.3 + (i%2)*s*0.15; d += `<ellipse cx="${xx}" cy="${yy}" rx="${s*0.16}" ry="${s*0.2}" fill="#a8714a" opacity="${0.75+0.06*i}"/>`; }
+  return `<g>${d}</g>`;
+}
+function pinheiro(x, y, h, comPinhas = true) {
+  const w = h * 0.34;
+  let g = `<rect x="${x-w*0.08}" y="${y-h*0.22}" width="${w*0.16}" height="${h*0.22}" fill="${COR.madeira}"/>`;
+  for (let i = 0; i < 4; i++) {
+    const yy = y - h*0.2 - i*h*0.2, ww = w * (1 - i*0.2), hh = h*0.3;
+    g += `<path d="M${x} ${yy-hh}L${x+ww/2} ${yy}Q${x} ${yy-hh*0.12} ${x-ww/2} ${yy}z" fill="${i%2 ? COR.mata2 : COR.mata}" opacity="0.92"/>`;
+  }
+  if (comPinhas) g += pinha(x-w*0.22, y-h*0.42, 5) + pinha(x+w*0.2, y-h*0.6, 5) + pinha(x+w*0.05, y-h*0.28, 5);
+  return `<g>${g}</g>`;
+}
+function casinha(x = 34, y = 34) {
+  return `<g aria-label="voltar para casa"><circle cx="${x}" cy="${y}" r="26" fill="${COR.marfim}" opacity="0.8"/><path d="M${x-15} ${y+2}L${x} ${y-13}L${x+15} ${y+2}V${y+14}H${x-15}z" fill="${COR.musgo}" stroke="${COR.musgoTinta}" stroke-width="1.4" stroke-linejoin="round"/><path d="M${x-4} ${y+14}V${y+5}H${x+4}V${y+14}" fill="${COR.rosaDoce}"/></g>`;
+}
+function lua(x, y) { return `<path d="M${x} ${y-9}a9 9 0 1 0 8 13a7 7 0 1 1-8-13z" fill="${COR.luz}" opacity="0.55"/>`; }
+function maozinha(x, y, s = 1, rot = 0) {
+  return `<g transform="translate(${x} ${y}) rotate(${rot}) scale(${s})" class="pulsa"><path d="M-6 26V2a3.2 3.2 0 0 1 6.4 0v10l2.6-1.4a3 3 0 0 1 4.4 2.2v1.4l2.2-.6a2.8 2.8 0 0 1 3.6 2.6V26z" fill="${COR.rosaClara}" stroke="${COR.musgoTinta}" stroke-width="1.6" stroke-linejoin="round"/></g>`;
+}
+function centelhas(cx, cy, n = 6, r = 30) {
+  let s = '';
+  for (let i = 0; i < n; i++) { const [x, y] = pol(cx, cy, r * (0.6 + (i%3)*0.25), -Math.PI/2 + (i - n/2) * 0.5); s += centelha(x, y, 8 + (i%2)*4, i%2 ? COR.rosaDoce : COR.ouro, 'sobe'); }
+  return s;
+}
+function veu(x, y, w, h, cor, n = 4, op = 0.28) {
+  let s = '';
+  for (let i = 0; i < n; i++) { const cx = x + w*(0.2 + 0.6*((i*0.37)%1)), cy = y + h*(0.3 + 0.4*((i*0.61)%1)); s += `<ellipse cx="${cx}" cy="${cy}" rx="${w*0.45}" ry="${h*0.5}" fill="${cor}" opacity="${op}"/>`; }
+  return s;
+}
+function nuvem(x, y, s) { return `<path d="${circ([x, y], s) + circ([x+s*0.9, y+s*0.2], s*0.75) + circ([x-s*0.9, y+s*0.25], s*0.7)}" fill="${COR.papel}" opacity="0.7"/>`; }
+function caixaDeAreia(cx, cy, R, ach = 0.5) {
+  const r = R * 0.42; let star = '', dentro = '';
+  const ponto = (i, k) => { const [px, py] = pol(cx, cy, (i % 2 ? r : R) * k, -Math.PI / 2 + (i * Math.PI) / 5); return `${f(px)} ${f(py * ach + cy * (1 - ach))}`; };
+  for (let i = 0; i < 10; i++) { star += (i ? 'L' : 'M') + ponto(i, 1); dentro += (i ? 'L' : 'M') + ponto(i, 0.78); }
+  return `<path d="${star}z" fill="${COR.vermelho}"/><path d="${dentro}z" fill="${COR.areia}"/>`;
+}
+function pote(x, y, s) {
+  /* pote de vidro com boca larga; s = altura */
+  const w = s * 0.72;
+  return `<path d="M${x-w/2} ${y-s*0.86}q0 ${-s*0.08} ${s*0.06} ${-s*0.08}h${w-s*0.12}q${s*0.06} 0 ${s*0.06} ${s*0.08}v${s*0.06}q${-s*0.06} ${s*0.06} ${-s*0.06} ${s*0.14}v${s*0.5}q0 ${s*0.16} ${-s*0.16} ${s*0.16}h${-(w-s*0.44)}q${-s*0.16} 0 ${-s*0.16} ${-s*0.16}v${-s*0.5}q0 ${-s*0.08} ${-s*0.06} ${-s*0.14}z" fill="${COR.lago}" opacity="0.28"/>` +
+    `<path d="M${x-w/2} ${y-s*0.86}q0 ${-s*0.08} ${s*0.06} ${-s*0.08}h${w-s*0.12}q${s*0.06} 0 ${s*0.06} ${s*0.08}v${s*0.06}q${-s*0.06} ${s*0.06} ${-s*0.06} ${s*0.14}v${s*0.5}q0 ${s*0.16} ${-s*0.16} ${s*0.16}h${-(w-s*0.44)}q${-s*0.16} 0 ${-s*0.16} ${-s*0.16}v${-s*0.5}q0 ${-s*0.08} ${-s*0.06} ${-s*0.14}z" fill="none" stroke="${COR.luz}" stroke-width="2"/>`;
+}
+function porquinhoDeMadeira(x, y, s) {
+  return `<g><ellipse cx="${x}" cy="${y-s*0.45}" rx="${s*0.55}" ry="${s*0.34}" fill="${COR.madeira}"/><circle cx="${x+s*0.5}" cy="${y-s*0.6}" r="${s*0.26}" fill="${COR.madeira}"/><ellipse cx="${x+s*0.72}" cy="${y-s*0.55}" rx="${s*0.12}" ry="${s*0.09}" fill="${COR.terra}" opacity="0.6"/><path d="M${x+s*0.36} ${y-s*0.8}l${-s*0.04} ${-s*0.22} ${s*0.18} ${s*0.1}z" fill="${COR.madeira}"/><path d="M${x-s*0.35} ${y-s*0.12}v${s*0.12}M${x-s*0.1} ${y-s*0.12}v${s*0.12}M${x+s*0.15} ${y-s*0.12}v${s*0.12}M${x+s*0.4} ${y-s*0.12}v${s*0.12}" stroke="${COR.madeira}" stroke-width="${s*0.1}" stroke-linecap="round"/></g>`;
+}
+
+/* ---------- o porquinho de mola ---------- */
+const PIV = [195, 560];     /* topo da mola em repouso */
+const BASE = [195, 640];    /* base no chão */
+const LMOLA = 80;
+function corpoDoPorquinho(cor = COR.rosa, corClara = COR.rosaDoce) {
+  const [px, py] = PIV;
+  const cx = px, cy = py - 44;           /* centro do corpo */
+  const hx = px + 66, hy = py - 66;      /* centro da cabeça */
+  let s = '';
+  /* pernas penduradas (vêm atrasadas) */
+  s += `<g data-pernas><path d="M${cx-46} ${cy+26}v26M${cx-22} ${cy+30}v26M${cx+26} ${cy+30}v26M${cx+50} ${cy+26}v26" stroke="${cor}" stroke-width="12" stroke-linecap="round"/></g>`;
+  /* rabinho */
+  s += `<path d="M${cx-74} ${cy-6}q-16 -14 -6 -22q10 -6 6 8q-3 9 -12 6" fill="none" stroke="${cor}" stroke-width="5" stroke-linecap="round"/>`;
+  /* estribos e alça, de madeira */
+  s += `<path d="M${cx-58} ${cy+38}h22M${cx+38} ${cy+38}h22" stroke="${COR.madeira}" stroke-width="8" stroke-linecap="round"/>`;
+  s += `<path d="M${hx-30} ${hy-34}h60" stroke="${COR.madeira}" stroke-width="9" stroke-linecap="round"/><circle cx="${hx-30}" cy="${hy-34}" r="7" fill="${COR.ouro}"/><circle cx="${hx+30}" cy="${hy-34}" r="7" fill="${COR.ouro}"/>`;
+  /* corpo e cabeça */
+  s += `<ellipse cx="${cx}" cy="${cy}" rx="78" ry="42" fill="${cor}" stroke="${COR.luz}" stroke-width="1.5"/>`;
+  s += `<path d="M${hx-16} ${hy-24}l-10 -24 22 12zM${hx+16} ${hy-24}l10 -24 -22 12z" fill="${cor}"/>`;
+  s += `<circle cx="${hx}" cy="${hy}" r="34" fill="${cor}" stroke="${COR.luz}" stroke-width="1.5"/>`;
+  s += `<ellipse cx="${hx+26}" cy="${hy+8}" rx="15" ry="11" fill="${corClara}"/><circle cx="${hx+21}" cy="${hy+8}" r="2.4" fill="${COR.veludo}" opacity="0.5"/><circle cx="${hx+31}" cy="${hy+8}" r="2.4" fill="${COR.veludo}" opacity="0.5"/>`;
+  s += `<path d="M${hx-14} ${hy-6}q6 -7 12 0M${hx+6} ${hy-6}q6 -7 12 0" fill="none" stroke="${COR.tinta}" stroke-width="2" stroke-linecap="round" opacity="0.7"/>`;
+  s += `<circle cx="${hx-8}" cy="${hy+12}" r="4" fill="${corClara}" opacity="0.6"/>`;
+  return s;
+}
+function riderSvg(corPorco) {
+  const st = P.stella(PIV[0] - 8, PIV[1] - 64, 132, 'montado', { dir: 1 });
+  return `<g data-porco>${corpoDoPorquinho(corPorco)}</g><g data-stella>${st.svg}</g>`;
+}
+function molaPath(th) {
+  const [bx, by] = BASE;
+  const tx = bx + LMOLA * Math.sin(th), ty = by - LMOLA * Math.cos(th);
+  const cx = bx + LMOLA * 0.55 * Math.sin(th * 0.5), cy = by - LMOLA * 0.55 * Math.cos(th * 0.5);
+  const N = 9; let d = '';
+  for (let i = 0; i <= N; i++) {
+    const t = i / N, mt = 1 - t;
+    const x = mt*mt*bx + 2*mt*t*cx + t*t*tx, y = mt*mt*by + 2*mt*t*cy + t*t*ty;
+    const dx = 2*mt*(cx-bx) + 2*t*(tx-cx), dy = 2*mt*(cy-by) + 2*t*(ty-cy);
+    const l = Math.hypot(dx, dy) || 1, nx = -dy/l, ny = dx/l;
+    const off = (i === 0 || i === N) ? 0 : (i % 2 ? 16 : -16);
+    d += (i ? 'L' : 'M') + f(x + nx*off) + ' ' + f(y + ny*off);
+  }
+  return { d, tx, ty };
+}
+function baseDaMola() {
+  return `<ellipse cx="${BASE[0]}" cy="${BASE[1]+4}" rx="58" ry="10" fill="${COR.terra}" opacity="0.35"/><path d="M${BASE[0]-30} ${BASE[1]}q30 -14 60 0z" fill="${COR.madeira}"/>`;
+}
+
+/* ---------- som: lira pentatônica, tique, voz ---------- */
+let AC = null;
+function audio() {
+  if (!AC) { try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { AC = null; } }
+  if (AC && AC.state === 'suspended') AC.resume();
+  return AC;
+}
+const PENTA = [293.66, 329.63, 392.0, 440.0, 493.88, 587.33, 659.25];
+function pluck(freq, vol = 0.16, dur = 1.1, quando = 0) {
+  const ac = audio(); if (!ac) return;
+  const t = quando || ac.currentTime;
+  const o = ac.createOscillator(); o.type = 'triangle'; o.frequency.value = freq;
+  const lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.setValueAtTime(freq * 4, t); lp.frequency.exponentialRampToValueAtTime(freq * 1.2, t + dur);
+  const g = ac.createGain(); g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.012); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  o.connect(lp).connect(g).connect(ac.destination); o.start(t); o.stop(t + dur + 0.05);
+}
+function tique(quando = 0) {
+  const ac = audio(); if (!ac) return;
+  const t = quando || ac.currentTime;
+  const o = ac.createOscillator(); o.type = 'sine'; o.frequency.setValueAtTime(1400, t); o.frequency.exponentialRampToValueAtTime(700, t + 0.08);
+  const g = ac.createGain(); g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.12, t + 0.004); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.12);
+  o.connect(g).connect(ac.destination); o.start(t); o.stop(t + 0.15);
+}
+function palma(quando = 0) {
+  const ac = audio(); if (!ac) return;
+  const t = quando || ac.currentTime;
+  const n = ac.createBufferSource(); const buf = ac.createBuffer(1, 2205, ac.sampleRate); const ch = buf.getChannelData(0);
+  for (let i = 0; i < ch.length; i++) ch[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / ch.length, 3);
+  n.buffer = buf; const bp = ac.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 1800; bp.Q.value = 0.8;
+  const g = ac.createGain(); g.gain.value = 0.08; n.connect(bp).connect(g).connect(ac.destination); n.start(t);
+}
+function fala(txt) {
+  if (!('speechSynthesis' in window)) return;
+  try { const u = new SpeechSynthesisUtterance(txt); u.lang = 'pt-BR'; u.rate = 0.85; u.pitch = 1.1; speechSynthesis.cancel(); speechSynthesis.speak(u); } catch (e) {}
+}
+
+/* ---------- a simulação: oscilador amortecido, um por tela ---------- */
+const SIMS = [];
+function criaSim(cfg) {
+  const svg = document.getElementById(cfg.svgId);
+  const T = cfg.periodo || 1.2, w0 = 2 * Math.PI / T, zeta = cfg.zeta ?? 0.022;
+  const st = { th: 0, om: 0, thAnt: 0, ativo: false, tocou: false, ultimo: 0, drag: null, amp: 0 };
+  svg.innerHTML = cfg.fundo() + `<path data-mola fill="none" stroke="${COR.ouroTinta}" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>` + baseDaMola() +
+    `<g data-rider>${riderSvg(cfg.corPorco)}</g>` + (cfg.frente ? cfg.frente() : '') + `<g data-dica>${maozinha(PIV[0]+10, PIV[1]-150, 1.1, -20)}</g><g data-fx></g>`;
+  const rider = svg.querySelector('[data-rider]'), mola = svg.querySelector('[data-mola]');
+  const cab = svg.querySelector('[data-cabelo]'), pernas = svg.querySelector('[data-pernas]'), dica = svg.querySelector('[data-dica]');
+  const fx = svg.querySelector('[data-fx]');
+  const cabeca = P.stella(PIV[0] - 8, PIV[1] - 64, 132, 'montado').cabeca;
+  const sim = { st, svg, fx, cfg, w0,
+    empurra(dir, forca) { st.om += dir * forca; st.ativo = true; },
+    centelhas(x = PIV[0] + 20, y = PIV[1] - 120) { const g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); g.innerHTML = centelhas(x, y, 6, 34); fx.appendChild(g); setTimeout(() => g.remove(), 1900); }
+  };
+  function desenha() {
+    const { d, tx, ty } = molaPath(st.th);
+    mola.setAttribute('d', d);
+    rider.setAttribute('transform', `translate(${f(tx - PIV[0])} ${f(ty - PIV[1])}) rotate(${f(st.th * 57.2958)} ${PIV[0]} ${PIV[1]})`);
+    cab.setAttribute('transform', `rotate(${f(-st.om * 7)} ${f(cabeca[0])} ${f(cabeca[1])})`);
+    pernas.setAttribute('transform', `rotate(${f(-st.om * 4)} ${PIV[0]} ${PIV[1] - 30})`);
+  }
+  function passo(dt) {
+    if (!st.drag) {
+      const acc = -w0 * w0 * st.th - 2 * zeta * w0 * st.om;
+      st.om += acc * dt; st.th += st.om * dt;
+      if (Math.abs(st.th) < 0.002 && Math.abs(st.om) < 0.01) { st.th = 0; st.om = 0; }
+    }
+    st.amp = Math.hypot(st.th, st.om / w0);
+    if (st.thAnt !== 0 && Math.sign(st.th) !== Math.sign(st.thAnt) && st.th !== 0 && st.amp > 0.04) {
+      const idx = Math.min(PENTA.length - 1, Math.floor(st.amp * 12));
+      if (cfg.somNoMeio !== false) pluck(PENTA[idx], 0.1 + Math.min(0.1, st.amp * 0.2));
+      if (cfg.aoCruzar) cfg.aoCruzar(sim, Math.sign(st.th), st.amp);
+    }
+    st.thAnt = st.th;
+    if (cfg.tick) cfg.tick(sim, dt);
+  }
+  let visivel = false, ultimoT = performance.now();
+  function quadro(t) {
+    const dt = Math.min(0.05, (t - ultimoT) / 1000); ultimoT = t;
+    if (visivel) { passo(dt); desenha(); }
+    requestAnimationFrame(quadro);
+  }
+  requestAnimationFrame(quadro);
+  new IntersectionObserver(es => { visivel = es[0].isIntersecting; ultimoT = performance.now(); }, { threshold: 0.1 }).observe(svg);
+
+  /* toque: arrastar e soltar dá o balanço; tocar de um lado empurra para o outro */
+  const local = e => { const r = svg.getBoundingClientRect(); return [(e.clientX - r.left) * 390 / r.width, (e.clientY - r.top) * 780 / r.height]; };
+  svg.addEventListener('pointerdown', e => {
+    audio(); e.preventDefault();
+    const [x, y] = local(e);
+    if (y < 330 || y > 700) return;
+    svg.setPointerCapture(e.pointerId);
+    st.drag = { x0: x, t0: performance.now(), x, t: performance.now(), moveu: false, thAnt: st.th, vel: 0 };
+    if (!st.tocou) { st.tocou = true; dica.setAttribute('opacity', '0'); }
+    if (cfg.aoTocar) cfg.aoTocar(sim);
+  });
+  svg.addEventListener('pointermove', e => {
+    if (!st.drag) return;
+    const [x] = local(e); const agora = performance.now();
+    if (!st.drag.moveu && Math.abs(x - st.drag.x0) > 10) st.drag.moveu = true;
+    if (st.drag.moveu) {
+      const th = Math.max(-0.55, Math.min(0.55, (x - PIV[0]) / 150));
+      const dt = Math.max(0.008, (agora - st.drag.t) / 1000);
+      st.drag.vel = 0.6 * st.drag.vel + 0.4 * (th - st.th) / dt;
+      st.th = th; st.om = 0; st.drag.x = x; st.drag.t = agora;
+    }
+  });
+  function solta(e) {
+    if (!st.drag) return;
+    const d = st.drag; st.drag = null;
+    if (d.moveu) { st.om = Math.max(-4, Math.min(4, d.vel)); st.ativo = true; if (cfg.aoSoltar) cfg.aoSoltar(sim); }
+    else { const dir = d.x0 < PIV[0] ? 1 : -1; const forca = cfg.forcaDoToque ? cfg.forcaDoToque(sim) : 1.4; sim.empurra(dir, forca); }
+  }
+  svg.addEventListener('pointerup', solta); svg.addEventListener('pointercancel', solta);
+  SIMS.push(sim);
+  return sim;
+}
+
+/* ---------- fundos ---------- */
+function ceuEQuintal(hora = 'tarde') {
+  let s = `<rect width="390" height="780" fill="${hora === 'tarde' ? COR.ceuTarde : COR.ceuDia}"/>`;
+  s += veu(0, 0, 390, 420, hora === 'tarde' ? COR.rosaClara : COR.papel, 4, 0.35);
+  s += nuvem(300, 120, 22) + nuvem(80, 160, 16);
+  s += `<rect x="0" y="600" width="390" height="180" fill="${COR.musgo}"/>` + veu(0, 600, 390, 180, COR.musgoClaro, 4, 0.35);
+  s += `<path d="M0 604q195 -18 390 0v8q-195 -12 -390 0z" fill="${COR.musgoClaro}" opacity="0.7"/>`;
+  s += casinha(40, 44) + lua(352, 40);
+  return s;
+}
+function quintalComPinheiro() {
+  return ceuEQuintal('tarde') + pinheiro(330, 606, 280) + `<g transform="translate(0 0)">${caixaDeAreia(70, 672, 62)}</g>`;
+}
+
+/* ---------- TELA 1: balançar ---------- */
+criaSim({
+  svgId: 'svg-balanco',
+  fundo: quintalComPinheiro,
+  frente: () => coelho(112, 640, 26),
+});
+
+/* ---------- TELA 2: no ritmo ---------- */
+const RITMO = { bpm: 100, t0: null, proximaBatida: 0, batida: 0, tocando: false, theoPalma: null, coelhoY: null, ultimoPulo: -1, grandes: 0 };
+const MELODIA = [0, 1, 2, 3, 4, 3, 2, 1];
+const simRitmo = criaSim({
+  svgId: 'svg-ritmo',
+  fundo: () => ceuEQuintal('dia') + pinheiro(340, 606, 250),
+  frente: () => `<g data-theo>${P.theo(300, 640, 200, 'palma', { dir: -1 }).svg}</g><g data-coelho>${coelho(96, 640, 26)}</g>`,
+  somNoMeio: false,
+  aoTocar(sim) {
+    if (RITMO.tocando) return;
+    const ac = audio(); if (!ac) return;
+    RITMO.tocando = true; RITMO.t0 = ac.currentTime + 0.1; RITMO.proximaBatida = RITMO.t0; RITMO.batida = 0; RITMO.grandes = 0;
+    document.getElementById('ritmo-parar').textContent = 'Parar a lira';
+  },
+  forcaDoToque(sim) {
+    if (!RITMO.tocando || !AC) return 1.2;
+    const T = 120 / RITMO.bpm; /* dois tempos */
+    const fase = ((AC.currentTime - RITMO.t0) % T + T) % T;
+    const dist = Math.min(fase, T - fase);
+    if (dist < 0.18) { sim.centelhas(); palma(); return 2.4; }
+    return 1.2;
+  },
+  aoCruzar(sim, dir, amp) {
+    if (dir > 0 && amp > 0.3) { RITMO.grandes++; if (RITMO.grandes === 10) { sim.centelhas(150, 420); sim.centelhas(240, 400); RITMO.grandes = 0; } }
+  },
+  tick(sim, dt) {
+    const theo = sim.svg.querySelector('[data-theo]'), coel = sim.svg.querySelector('[data-coelho]');
+    if (!RITMO.tocando || !AC) { theo.removeAttribute('transform'); coel.removeAttribute('transform'); return; }
+    const beat = 60 / RITMO.bpm;
+    /* agenda as notas da lira meio segundo à frente, no relógio do áudio */
+    while (RITMO.proximaBatida < AC.currentTime + 0.5) {
+      const nota = MELODIA[RITMO.batida % MELODIA.length];
+      pluck(PENTA[nota], 0.09, 0.6, RITMO.proximaBatida);
+      if (RITMO.batida % 2 === 0) palma(RITMO.proximaBatida);
+      RITMO.batida++; RITMO.proximaBatida += beat;
+    }
+    const T = beat * 2, fase = ((AC.currentTime - RITMO.t0) % T + T) % T;
+    const pulo = Math.max(0, Math.sin(Math.PI * Math.min(1, fase / 0.4))) * 26;
+    coel.setAttribute('transform', `translate(0 ${f(-pulo)})`);
+    const braco = fase < 0.15 ? 1 : 0;
+    theo.setAttribute('transform', `translate(0 ${f(-braco * 3)})`);
+  },
+});
+document.getElementById('ritmo-parar').addEventListener('click', e => {
+  if (RITMO.tocando) { RITMO.tocando = false; e.target.textContent = 'Tocar a lira'; }
+  else { simRitmo.cfg.aoTocar(simRitmo); }
+});
+
+/* ---------- TELA 3: contar ---------- */
+const CONTA = { n: 0, pedrinhas: [], voando: [], cheio: false };
+const NUMEROS = ['um', 'dois', 'três', 'quatro', 'cinco'];
+const POTE = [318, 690];
+const SLOTS = [[-14, -12], [0, -12], [14, -12], [-7, -26], [7, -26]];
+criaSim({
+  svgId: 'svg-contar',
+  fundo: () => ceuEQuintal('tarde') + `<g transform="translate(0 0)">${caixaDeAreia(70, 672, 62)}</g>`,
+  frente: () => `${pote(POTE[0], POTE[1], 84)}<g data-pedrinhas></g>`,
+  aoCruzar(sim, dir, amp) {
+    if (dir <= 0 || amp < 0.14 || CONTA.cheio || !AC) return;
+    CONTA.n++;
+    const g = sim.svg.querySelector('[data-pedrinhas]');
+    const p = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    p.setAttribute('r', '7'); p.setAttribute('fill', CONTA.n % 2 ? COR.ouro : COR.rosaDoce); p.setAttribute('stroke', COR.luz); p.setAttribute('stroke-width', '1');
+    g.appendChild(p);
+    const slot = SLOTS[CONTA.n - 1];
+    CONTA.voando.push({ el: p, t: 0, de: [PIV[0] + 10, PIV[1] - 90], para: [POTE[0] + slot[0], POTE[1] + slot[1]] });
+    tique();
+    setTimeout(() => { pluck(PENTA[CONTA.n - 1], 0.14, 0.9); if (document.getElementById('voz-contar').checked) fala(NUMEROS[CONTA.n - 1]); }, 420);
+    if (CONTA.n === 5) {
+      CONTA.cheio = true;
+      setTimeout(() => { sim.centelhas(POTE[0], POTE[1] - 70); sim.centelhas(PIV[0] + 40, PIV[1] - 130); }, 700);
+      setTimeout(() => { g.querySelectorAll('circle').forEach(c => { c.style.transition = 'opacity 900ms ease'; c.setAttribute('opacity', '0'); }); }, 2600);
+      setTimeout(() => { g.innerHTML = ''; CONTA.n = 0; CONTA.cheio = false; }, 3600);
+    }
+  },
+  tick(sim, dt) {
+    CONTA.voando = CONTA.voando.filter(v => {
+      v.t = Math.min(1, v.t + dt / 0.5);
+      const e = 1 - Math.pow(1 - v.t, 3);
+      const x = v.de[0] + (v.para[0] - v.de[0]) * e, y = v.de[1] + (v.para[1] - v.de[1]) * e - Math.sin(Math.PI * v.t) * 80;
+      v.el.setAttribute('cx', f(x)); v.el.setAttribute('cy', f(y));
+      return v.t < 1;
+    });
+  },
+});
+
+/* ---------- TELA 4: lá fora ---------- */
+(function telaFora() {
+  const svg = document.getElementById('svg-fora');
+  let s = `<rect width="390" height="780" fill="${COR.ceuTarde}"/>` + veu(0, 0, 390, 420, COR.rosaClara, 4, 0.35) + nuvem(90, 110, 20) + nuvem(320, 150, 16);
+  /* a casa verde, vista da porta, na esquerda */
+  s += `<rect x="0" y="300" width="190" height="320" fill="${COR.musgo}"/>` + veu(0, 300, 190, 320, COR.musgoClaro, 3, 0.3);
+  s += `<path d="M-10 300L95 200L200 300z" fill="${COR.musgoTinta}" opacity="0.85"/>`;
+  s += `<path d="M40 620V430a55 55 0 0 1 110 0v190z" fill="${COR.rosaDoce}" stroke="${COR.ouro}" stroke-width="2"/>`;
+  s += `<path d="M52 620V436a43 43 0 0 1 86 0v184z" fill="${COR.papel}" opacity="0.5"/>`;
+  /* a calçada do condomínio e a praça */
+  s += `<rect x="0" y="600" width="390" height="180" fill="${COR.musgo}"/>` + veu(0, 600, 390, 180, COR.musgoClaro, 4, 0.35);
+  s += `<path d="M0 640q195 -10 390 0v22q-195 -8 -390 0z" fill="${COR.areia}" opacity="0.9"/>`;
+  s += pinheiro(355, 606, 200, false);
+  /* o porquinho lá fora, menor, quieto */
+  s += `<g transform="translate(140 214) scale(0.68)">` + `<path d="${molaPath(0.06).d}" fill="none" stroke="${COR.ouroTinta}" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>` + baseDaMola() + `<g transform="rotate(3.4 195 560)">${corpoDoPorquinho()}</g></g>`;
+  s += coelho(300, 660, 24);
+  /* a família na porta, Stella apontando o porquinho */
+  s += P.mae(70, 620, 190, 'acena', { dir: 1 }).svg + P.pai(120, 620, 200, 'parado', { dir: 1 }).svg;
+  s += P.theo(170, 636, 150, 'acena', { dir: 1 }).svg;
+  s += P.stella(215, 650, 110, 'aponta', { dir: 1 }).svg;
+  s += centelha(262, 486, 12, COR.ouro, 'pulsa');
+  s += casinha(40, 44) + lua(352, 40);
+  /* balão de narração do topo, para quem joga junto ler */
+  s += `<g><rect x="30" y="84" width="330" height="64" rx="18" fill="${COR.papel}" opacity="0.92" stroke="${COR.ouro}" stroke-width="1"/><text x="195" y="111" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-style="italic" font-size="19" fill="${COR.tinta}">Vamos balançar no porquinho</text><text x="195" y="135" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-style="italic" font-size="19" fill="${COR.tinta}">de verdade?</text></g>`;
+  /* a lembrança: o porquinho de madeira na mesa da estação, no cantinho */
+  s += `<g transform="translate(322 250)"><circle r="46" fill="${COR.papel}" opacity="0.85" stroke="${COR.ouro}" stroke-width="1"/><g transform="translate(0 16)"><rect x="-36" y="-8" width="72" height="8" rx="3" fill="${COR.madeira}"/><rect x="-32" y="-12" width="64" height="6" rx="2" fill="${COR.musgo}" opacity="0.9"/>${pinha(-18, -12, 6)}${porquinhoDeMadeira(10, -12, 18)}</g></g>`;
+  svg.innerHTML = s;
+})();
+</script>
