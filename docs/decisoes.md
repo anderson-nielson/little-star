@@ -239,3 +239,17 @@ aparecia sem aviso.
   esperando por ela (com "nova" no que nunca tocou) e o que ainda está fechado, com a etapa em
   que abre.
 - Sem número, sem barra, sem "faltam 3": continua a língua de sinais da seção 5 do GAMEPLAY.
+
+## O varal de bandeirinhas
+
+O pedido: um placar no alto da casa mostrando o que já foi explorado e o que não. Para não
+contrariar a língua de sinais (sem número, sem barra), virou um varal no céu, acima do telhado.
+Aprovado pela família depois de ver os prints em oito cenários (dia, tarde, noite, festa, celular pequeno).
+
+- Cada coisa **aberta** pendura uma bandeirinha redonda com o desenho dela. Dourada com
+  centelha: brincou hoje. Clarinha: aberta, ainda não hoje. Fio rosa balançando: nunca tocou.
+  Um anel dourado marca onde a luz está.
+- O que ainda está fechado **não** pendura bandeirinha: o varal cresce com a casa.
+- Tocar numa bandeirinha: a mãozinha mostra onde aquilo mora na casa.
+- Com a casa toda aberta são 15 bandeirinhas pequenas: servem para ver, não para mirar.
+  Arquivo: `src/telas/casa.ts` (`varal`, `MINI`).

@@ -2,7 +2,7 @@ import { mover, pedrinha, relogioDeAjuda, telaSvg } from './comum';
 import { PEDRINHAS } from '@/core/pedrinhas';
 import { estado, mudar } from '@/core/estado';
 import { sessao } from '@/core/sessao';
-import { aberto, aventuraDoDia, aventurasAbertas, brincouHoje, COISAS, etapa, luzDaCasa, marcarBrincada, novidade, type Aventura, type Coisa } from '@/core/laco';
+import { aberto, aventuraDoDia, aventurasAbertas, brincouHoje, COISAS, disponivel, etapa, luzDaCasa, marcarBrincada, novidade, type Aventura, type Coisa } from '@/core/laco';
 import { ceuDaHora, chaveDoDia, COR_DO_DIA, diaDaSemana, estacao } from '@/core/relogio';
 import { climaDoDia } from '@/core/festas';
 import { estagio, regadoHoje } from '@/core/horta';
@@ -220,9 +220,24 @@ export function telaCasa(): Tela {
     s += `<g class="feito-hoje">${centelha(cx + rx - 4, cy - ry + 4, 12, '#c6a15b')}</g>`;
   }
 
+  /* o varal no céu: uma bandeirinha para cada coisa aberta da casa. Dourada e com
+     centelha, ela já brincou hoje; clarinha, ainda espera; balançando, nunca tocou.
+     O que ainda está fechado não pendura bandeirinha: o varal cresce com a casa. */
+  s += varal(e, luzEm);
+
   const tela = telaSvg(s, { lua: true });
   const svg = tela.svg;
   tocarFundo(noite ? 'ninar_brahms' : e.sessoes % 2 ? 'gymnopedie' : 'preludio_bach', { bpm: noite ? 60 : undefined });
+
+  /* tocar numa bandeirinha: a mãozinha mostra onde aquilo mora na casa */
+  tela.alvo('[data-varal]', (_ev, el) => {
+    tiquinho();
+    mover(el, 0, -3, 160);
+    void esperar(180).then(() => mover(el, 0, 0, 300));
+    const [cx, cy] = alvoDaCoisa[el.getAttribute('data-varal') as Coisa];
+    tela.mao([cx + 10, cy + 10]);
+    void esperar(2500).then(() => tela.mao(null));
+  });
 
   /* ajuda: a mãozinha aponta a brincadeira do dia depois de 6 s parada */
   const ajuda = new Ajuda((n) => {
@@ -420,4 +435,63 @@ export function telaCasa(): Tela {
   if (sessao.atual !== 'casa') sessao.atual = 'casa';
   mudar((x) => void x);
   return tela;
+}
+
+/* ---------- o varal de bandeirinhas ---------- */
+
+/** Um desenho pequeno de cada coisa, para caber numa bandeirinha de raio 10. */
+const MINI: Record<Coisa, (x: number, y: number) => string> = {
+  piano: (x, y) => `<rect x="${x - 6}" y="${y - 5}" width="12" height="10" rx="2" fill="#f2a9c4"/><rect x="${x - 6}" y="${y}" width="12" height="3.5" fill="#fbf8f1"/>`,
+  caderno: (x, y) => `<rect x="${x - 5}" y="${y - 5.5}" width="10" height="11" rx="1.5" fill="#fbf8f1" stroke="#c6a15b" stroke-width="0.8"/><text x="${x}" y="${y + 3}" text-anchor="middle" font-family="Jost, sans-serif" font-size="8" font-weight="500" fill="#f2a9c4">A</text>`,
+  palavras: (x, y) => `<rect x="${x - 6}" y="${y - 3}" width="12" height="8" rx="2" fill="#c48f5a"/><rect x="${x - 2.5}" y="${y - 6}" width="5" height="3.5" rx="1" fill="none" stroke="#c48f5a" stroke-width="1.5"/>`,
+  areia: (x, y) => `<path d="M${x} ${y - 7}l2 4.6l5 .4l-3.8 3.2l1.2 5l-4.4 -2.7l-4.4 2.7l1.2 -5l-3.8 -3.2l5 -.4z" fill="#ebd9a8" stroke="#c9a189" stroke-width="0.8"/>`,
+  pinhas: (x, y) => `<ellipse cx="${x}" cy="${y + 1}" rx="4" ry="6" fill="#a97e63"/><path d="M${x - 3.5} ${y - 1}h7M${x - 3.5} ${y + 2.5}h7" stroke="#6b4a2a" stroke-width="0.8"/>`,
+  jardim: (x, y) => `<path d="M${x - 5} ${y + 6}v-6a5 5 0 0 1 10 0v6z" fill="#6e1a27"/><circle cx="${x + 2.4}" cy="${y + 2}" r="0.9" fill="#c6a15b"/>`,
+  familia: (x, y) => `<circle cx="${x - 3.5}" cy="${y - 2}" r="2.6" fill="#e2b9a0"/><circle cx="${x + 3.5}" cy="${y - 2}" r="2.6" fill="#e2b9a0"/><path d="M${x - 7} ${y + 6}a3.5 4 0 0 1 7 0zM${x} ${y + 6}a3.5 4 0 0 1 7 0z" fill="#8fae6b"/>`,
+  cozinha: (x, y) => `<path d="M${x - 6} ${y - 2}h12v4a4 4 0 0 1 -4 4h-4a4 4 0 0 1 -4 -4z" fill="#d97f74"/><path d="M${x - 8} ${y - 1}h2M${x + 6} ${y - 1}h2" stroke="#d97f74" stroke-width="1.5"/><path d="M${x - 2} ${y - 5}q1 -2 0 -3M${x + 2} ${y - 5}q1 -2 0 -3" stroke="#c9a189" stroke-width="0.8" fill="none"/>`,
+  ukulele: (x, y) => `<rect x="${x - 1}" y="${y - 7}" width="2" height="7" fill="#c9a189"/><circle cx="${x}" cy="${y + 1}" r="3" fill="#f2a9c4"/><circle cx="${x}" cy="${y + 4.5}" r="3.8" fill="#f2a9c4"/><circle cx="${x}" cy="${y + 2.5}" r="1" fill="#6e1a27" opacity="0.6"/>`,
+  lira: (x, y) => `<path d="M${x - 5} ${y + 6}V${y - 1}a5 5 0 0 1 10 0v7" fill="none" stroke="#c9a189" stroke-width="1.6"/><path d="M${x - 2} ${y - 3}v8M${x} ${y - 4}v9M${x + 2} ${y - 3}v8" stroke="#c6a15b" stroke-width="0.7"/>`,
+  bonecas: (x, y) => `<circle cx="${x}" cy="${y - 3}" r="3" fill="#e2b9a0"/><path d="M${x - 3.4} ${y - 4}a3.5 3.5 0 0 1 6.8 0" fill="#c48f5a"/><path d="M${x - 4.5} ${y + 6}l2 -6h5l2 6z" fill="#f2a9c4"/>`,
+  bilhete: (x, y) => `<rect x="${x - 6}" y="${y - 4}" width="12" height="8.5" rx="1" fill="#fbf8f1" stroke="#c6a15b" stroke-width="0.8"/><path d="M${x - 6} ${y - 4}l6 4.5l6 -4.5" fill="none" stroke="#c6a15b" stroke-width="0.8"/>`,
+  relogio: (x, y) => `<circle cx="${x}" cy="${y}" r="6" fill="#fbf8f1" stroke="#c9a189" stroke-width="1.4"/><path d="M${x} ${y}V${y - 4}M${x} ${y}h3" stroke="#6e1a27" stroke-width="1.2" stroke-linecap="round"/>`,
+  horta: (x, y) => `<path d="M${x - 6} ${y + 4}h12v2.5h-12z" fill="#8a6a4a"/><path d="M${x} ${y + 4}v-6" stroke="#8fae6b" stroke-width="1.4"/><path d="M${x} ${y - 1}q-5 -1 -5 -5q5 0 5 5zM${x} ${y - 1}q5 -1 5 -5q-5 0 -5 5z" fill="#8fae6b"/>`,
+  arvore: (x, y) => `<path d="M${x} ${y - 7}l5 7h-2.5l3.5 5h-12l3.5 -5h-2.5z" fill="#4f6b3a"/><rect x="${x - 1}" y="${y + 5}" width="2" height="2.5" fill="#8a6a4a"/>`,
+};
+
+/**
+ * O varal de bandeirinhas no alto da casa. Cada coisa aberta pendura uma bandeirinha
+ * redonda: dourada com centelha se ela já brincou hoje, clarinha se ainda espera, e
+ * balançando com fio rosa se ela nunca tocou. Sem número, sem barra: é só olhar.
+ */
+function varal(e: ReturnType<typeof estado>, luzEm: Coisa | null): string {
+  const abertas = COISAS.filter((c) => disponivel(e, c));
+  if (!abertas.length) return '';
+  const x0 = 24;
+  const x1 = 318;
+  const passo = Math.min(26, (x1 - x0) / abertas.length);
+  const largura = passo * (abertas.length - 1);
+  const inicio = (x0 + x1) / 2 - largura / 2;
+  const ya = 20;
+  const flecha = 6;
+  const yDo = (x: number) => {
+    const t = (x - (inicio - passo / 2)) / (largura + passo);
+    return ya + 4 * flecha * t * (1 - t);
+  };
+  let s = `<path d="M${inicio - passo / 2 - 6} ${ya}Q${(x0 + x1) / 2} ${ya + 2 * flecha} ${inicio + largura + passo / 2 + 6} ${ya}" fill="none" stroke="#c9a189" stroke-width="1.2" opacity="0.8"/>`;
+  abertas.forEach((c, i) => {
+    const x = inicio + i * passo;
+    const yl = yDo(x);
+    const y = yl + 13;
+    const hoje = brincouHoje(e, c);
+    const nova = novidade(e, c) && !hoje;
+    const fundo = hoje ? '#ebd9a8' : '#fbf8f1';
+    const fio = hoje ? '#c6a15b' : nova ? '#f2a9c4' : '#c9a189';
+    s += `<g data-varal="${c}"${nova ? ' class="respira"' : ''}><rect x="${x - passo / 2}" y="${yl - 4}" width="${passo}" height="28" fill="transparent"/>`;
+    s += `<path d="M${x} ${yl}v3" stroke="#c9a189" stroke-width="1"/><circle cx="${x}" cy="${y}" r="9.6" fill="${fundo}" opacity="${hoje ? 1 : 0.85}" stroke="${fio}" stroke-width="${nova ? 1.6 : 1}"/>`;
+    s += `<g opacity="${hoje ? 1 : 0.5}">${MINI[c](x, y)}</g>`;
+    if (hoje) s += centelha(x + 7, y - 7, 8, '#c6a15b');
+    if (c === luzEm) s += contornoLuz(x, y, 12.5, 12.5);
+    s += `</g>`;
+  });
+  return s;
 }
