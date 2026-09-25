@@ -107,7 +107,7 @@ export function telaPais(): Tela {
     painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Aberto, esperando ela', h('span', { class: 'sub' }, esperando.length ? nomes(esperando) : 'Nada: hoje ela já foi em tudo'))));
     if (fechadas.length)
       painel.append(
-        h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Ainda fechado', h('span', { class: 'sub' }, fechadas.map((c) => `${NOME_COISA[c]} (${c === 'bilhete' && etapa(e) >= sessaoQueAbre(c) ? 'depois da primeira letra' : `etapa ${sessaoQueAbre(c)}`})`).join(', ')))),
+        h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Ainda fechado', h('span', { class: 'sub' }, fechadas.map((c) => `${NOME_COISA[c]} (etapa ${sessaoQueAbre(c)})`).join(', ')))),
       );
 
     /* rotina */

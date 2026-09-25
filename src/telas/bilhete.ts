@@ -1,5 +1,6 @@
 import { mover, telaSvg } from './comum';
 import { estado, mudar, type Quem } from '@/core/estado';
+import { carimbosDoBilhete } from '@/core/laco';
 import { ir } from '@/core/roteador';
 import { esperar } from '@/core/util';
 import { travar } from '@/core/toque';
@@ -16,14 +17,14 @@ const SOM_DA_LETRA: Record<string, string> = { A: 'som_a', E: 'som_e', O: 'som_o
 const MAXIMO = 8;
 
 /**
- * O bilhetinho: as letras que ela já sabe são carimbos. Ela toca nos carimbos,
- * as letras vão para o papel rosa, e entrega para a mãe, o pai ou o Theo, que
+ * O bilhetinho: as vogais (que ela já sabe) e as letras que ela traçou são
+ * carimbos. Ela toca nos carimbos, as letras vão para o papel rosa, e entrega para a mãe, o pai ou o Theo, que
  * lê em voz alta o que ela "escreveu", mesmo que seja SSTAEL. Os bilhetes
  * ficam guardados e os pais veem no cantinho.
  */
 export function telaBilhete(): Tela {
   const e = estado();
-  const letras = e.letras.slice(0, 9);
+  const letras = carimbosDoBilhete(e.letras);
   let texto = '';
   let s = `<rect width="390" height="780" fill="#f6e3dc"/>` + veu(0, 0, 390, 780, '#ebcdc3', 5, 0.25);
   /* o papel rosa */

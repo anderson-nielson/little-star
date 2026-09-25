@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { estadoNovo, abrirDia } from '@/core/estado';
-import { partesDaSessao, proximaParte, brincadeiraDoDia, aberto, etapa, luzDaCasa, marcarBrincada, novidade, disponivel, sessaoQueAbre, COISAS, passouDoLimite, podeReabrir } from '@/core/laco';
+import { partesDaSessao, proximaParte, brincadeiraDoDia, aberto, etapa, luzDaCasa, marcarBrincada, novidade, disponivel, sessaoQueAbre, carimbosDoBilhete, COISAS, passouDoLimite, podeReabrir } from '@/core/laco';
 
 const dia = (h: number, m = 0, d = 15) => new Date(2026, 8, d, h, m);
 
@@ -166,15 +166,21 @@ describe('a luz da casa', () => {
     expect(novidade(e, 'piano')).toBe(false);
   });
 
-  it('o bilhete só espera por ela depois da primeira letra; a família sempre', () => {
+  it('o bilhete abre com a etapa, sem esperar letra traçada; a família sempre', () => {
     let e = estadoNovo(dia(15));
-    for (let d = 1; d <= 2; d++) e = abrirDia(e, dia(15, 0, d));
     expect(disponivel(e, 'bilhete')).toBe(false);
-    e.letras = ['S'];
+    for (let d = 1; d <= 2; d++) e = abrirDia(e, dia(15, 0, d));
     expect(disponivel(e, 'bilhete')).toBe(true);
     expect(disponivel(e, 'familia')).toBe(true);
     expect(disponivel(e, 'jardim')).toBe(false);
     expect(sessaoQueAbre('jardim')).toBe(4);
     expect(sessaoQueAbre('familia')).toBe(1);
+  });
+
+  it('os carimbos do bilhete: as vogais sempre, depois as letras traçadas, no máximo nove', () => {
+    expect(carimbosDoBilhete([])).toEqual(['A', 'E', 'I', 'O', 'U']);
+    expect(carimbosDoBilhete(['A'])).toEqual(['A', 'E', 'I', 'O', 'U']);
+    expect(carimbosDoBilhete(['A', 'E', 'L', 'S'])).toEqual(['A', 'E', 'I', 'O', 'U', 'L', 'S']);
+    expect(carimbosDoBilhete(['A', 'E', 'L', 'S', 'T', 'O', 'M', 'U', 'I', 'V'])).toEqual(['A', 'E', 'I', 'O', 'U', 'L', 'S', 'T', 'M']);
   });
 });
