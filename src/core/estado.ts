@@ -51,6 +51,8 @@ export interface Hoje {
   segundos: number;
   /** quantas vezes abriu o jogo hoje */
   aberturas: number;
+  /** as coisas da casa em que ela brincou hoje (a luz passa adiante) */
+  brincadas: string[];
 }
 
 export interface Flor {
@@ -101,6 +103,8 @@ export interface Estado {
   /** sessões terminadas até a despedida (ou até dormir): a casa abre por elas também */
   sessoesCompletas: number;
   hoje: Hoje;
+  /** as coisas da casa que ela já tocou alguma vez: o que nunca tocou balança devagar */
+  visitadas: string[];
   lembrancas: string[];
   flores: Flor[];
   estrelas: number;
@@ -152,6 +156,7 @@ export function hojeVazio(dia: string): Hoje {
     rotinaNoite: [],
     segundos: 0,
     aberturas: 0,
+    brincadas: [],
   };
 }
 
@@ -163,6 +168,7 @@ export function estadoNovo(agora = new Date()): Estado {
     sessoes: 0,
     sessoesCompletas: 0,
     hoje: hojeVazio(chaveDoDia(agora)),
+    visitadas: [],
     lembrancas: [],
     flores: [],
     estrelas: 0,

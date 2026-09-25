@@ -199,3 +199,20 @@ bichos, despedida) abre a etapa seguinte na hora. Duas saídas visíveis: quando
 piano acaba, a mãozinha aponta a casinha; e tocar na família na sala faz eles chamarem para
 os bichos e para a despedida. A segunda abertura no mesmo dia pula só o que já aconteceu hoje
 (roda, prato, som), não mais tudo.
+
+## A luz da casa passa adiante
+
+O pedido: a Stella, a mãe e o pai deviam saber, na casa, o que já foi explorado e o que ainda
+pode ser. Antes, a luz ficava na brincadeira do dia mesmo depois de ela brincar, e coisa nova
+aparecia sem aviso.
+
+- **A luz anda.** `luzDaCasa()` em `src/core/laco.ts`: a brincadeira do dia, enquanto não foi;
+  depois a coisa aberta que ela nunca tocou; depois o que está aberto e ainda não foi hoje; por
+  fim a família na sala, que chama para o fim. Tudo feito, apaga. A mãozinha segue a luz.
+- **O que já foi hoje** guarda em `hoje.brincadas` (zera no dia seguinte) e ganha uma centelha
+  de ouro parada na casa. O que ela já tocou alguma vez fica em `visitadas`, para sempre.
+- **Coisa nova balança devagar** (`respira`, como o coelhinho novo) até o primeiro toque.
+- **Cantinho dos pais**, em "A casa hoje": onde a luz está, o que ela brincou, o que está aberto
+  esperando por ela (com "nova" no que nunca tocou) e o que ainda está fechado, com a etapa em
+  que abre.
+- Sem número, sem barra, sem "faltam 3": continua a língua de sinais da seção 5 do GAMEPLAY.

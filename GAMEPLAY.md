@@ -113,6 +113,12 @@ faz cresce **num lugar só**, sempre o mesmo, para ela entender de onde veio.
 
 Nada disso diminui. Nenhum número aparece. Os pais veem um resumo no cantinho dos pais.
 
+Na casa, a luz dourada diz onde ela ainda pode ir: começa na brincadeira do dia; feita, passa
+para a coisa aberta que ela nunca tocou; depois para o que ainda não foi hoje; quando tudo já
+foi, fica na família, que chama para o fim. O que ela já brincou hoje ganha uma centelha de
+ouro parada, que amanhã não está mais lá. No cantinho dos pais, "A casa hoje" lista o que ela
+brincou, o que está aberto esperando por ela e o que ainda não abriu.
+
 ---
 
 ## 5. A língua sem palavras do jogo
@@ -123,6 +129,8 @@ aprende uma música. Toda tela usa só estes.
 | Sinal | Quer dizer |
 |---|---|
 | Contorno de luz pulsando devagar | Pode tocar aqui |
+| Uma coisa da casa balançando devagar | Isto é novo, você nunca tocou |
+| Centelha de ouro parada numa coisa da casa | Aqui você já brincou hoje |
 | Mãozinha desenhada fazendo o gesto | Faça isso |
 | Estrela guia correndo por uma fita | O caminho é este |
 | Sininho no tom da música | Deu certo |
