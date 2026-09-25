@@ -7,6 +7,7 @@ import { esperar } from '@/core/util';
 import { familia } from '@/puppet/boneco';
 import { arco, gato, nuvem, pinha, pinheiro, veu } from '@/puppet/objetos';
 import { falar, temVoz } from '@/audio/vozes';
+import { anunciar } from '@/core/narracao';
 import { tocarFundo, pararFundo } from '@/audio/musica';
 import { liraDesce, sininho } from '@/audio/synth';
 import { travar } from '@/core/toque';
@@ -128,6 +129,7 @@ export function telaDespedida(): Tela {
     mudar((x) => {
       x.hoje.despedidaFeita = true;
     });
+    anunciar('despedida');
     await esperar(2500);
     pararFundo();
     /* o jogo descansa. Um toque depois de um tempo reabre, como segunda vez no dia */

@@ -7,6 +7,7 @@ import { familia } from '@/puppet/boneco';
 import { arco, veu } from '@/puppet/objetos';
 import { tocarFundo } from '@/audio/musica';
 import { falar, temVoz } from '@/audio/vozes';
+import { anunciar } from '@/core/narracao';
 import { falarPalavra } from '@/audio/fala';
 import { notaAgora, sininho, toc } from '@/audio/synth';
 import type { Tela } from '@/core/roteador';
@@ -88,6 +89,7 @@ export function telaBilhete(): Tela {
     await falarPalavra([...texto].join(' '), 0.6);
     await falarPalavra(texto, 0.7);
     tela.comemorar(alvoX, 640);
+    anunciar('bilhete');
     /* o abraço */
     const g = el as SVGGElement;
     g.innerHTML = quem === 'theo' ? familia.theo(alvoX, 742, 96, 'abraca').svg : quem === 'mae' ? familia.mae(alvoX, 740, 120, 'abraca').svg : familia.pai(alvoX, 740, 126, 'abraca').svg;

@@ -1,4 +1,5 @@
 import type { Estado } from './estado';
+import { anunciar } from './narracao';
 
 /**
  * As pedrinhas: o pote de vidro no quarto. Ela ganha pedrinhas pelo que faz de
@@ -42,7 +43,10 @@ function anotar(e: Estado, delta: number, motivo: string): void {
 
 /** Ganha `n` pedrinhas. Devolve quantas medalhas nasceram (o pote encheu). */
 export function ganhar(e: Estado, n: number, motivo: string): number {
-  if (!e.pais.pedrinhas || n <= 0) return 0;
+  if (n <= 0) return 0;
+  /* a narração para quem joga junto ouve todo avanço, com o pote ligado ou não */
+  anunciar(motivo);
+  if (!e.pais.pedrinhas) return 0;
   e.pedrinhas += n;
   anotar(e, n, motivo);
   let medalhas = 0;
@@ -51,6 +55,7 @@ export function ganhar(e: Estado, n: number, motivo: string): number {
     e.medalhas += 1;
     medalhas += 1;
   }
+  if (medalhas) anunciar('medalha');
   return medalhas;
 }
 

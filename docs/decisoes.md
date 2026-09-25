@@ -134,6 +134,38 @@ Isso mexe numa decisão da v1 ("nada diminui, nenhum número aparece"). O jeito 
   pedrinha. Ajuda: o número pedido acende; depois o ponteiro anda sozinho. Só horas cheias
   por enquanto; meia hora e minutos ficam para quando as cheias estiverem firmes.
 
+## A narração para quem joga junto
+
+O pedido: a cada avanço, um balão suave no topo da tela, como em história em quadrinhos,
+para a mãe, o pai ou o Theo (quem estiver jogando junto no celular) lerem para a Stella.
+Coisas boas que estão acontecendo, as forças dela, e o carinho, o amor e a segurança que a
+família tem por ela. O pano de fundo: ela tem ciúmes do Theo e compete com ele, e o jogo em
+parte existe para mostrar que não precisa ser assim.
+
+- **Um balão, um avanço.** Tudo o que o jogo já conta como avanço passa por `ganhar()` em
+  `src/core/pedrinhas.ts`; a narração escuta ali, com o pote ligado ou desligado. Fora das
+  pedrinhas, quatro momentos também narram: a chegada, o bilhete entregue, os bichos
+  cuidados, a despedida e a boa-noite. A pedrinha que rola não narra: continua em silêncio,
+  como decidido antes.
+- **O que a frase faz.** Três coisas, sempre: nomeia o que ela fez de verdade ("você
+  traçou uma letra inteira, do começo ao fim"), diz o carinho e a segurança da família, e
+  coloca o Theo como quem torce por ela e faz junto ("ele mostra, você descobre"). Nada de
+  comparação, nada de "melhor que", nada de "tem que". Um teste garante que todo avanço tem
+  pelo menos três frases, que o Theo e a família aparecem em cada um, que nenhuma frase
+  passa de 160 caracteres e que as palavras proibidas não entram.
+- **Para o adulto, não para ela.** É a exceção à regra "sem texto para ela ler": o texto é
+  de quem lê, com rótulo "para ler para a Stella". Frases curtas para caber na voz de quem
+  está ao lado. Elas se revezam pelo histórico das pedrinhas, para não repetir a mesma na
+  sequência.
+- **Suave.** Só `opacity` e `transform`; entra depois das centelhas, some sozinho no tempo
+  de ler (4,5 s mais 60 ms por letra, teto de 14 s), fecha com um toque. Um de cada vez;
+  se outro chegar, o primeiro fica pelo menos 3,5 s. Não aparece no cantinho dos pais, no
+  styleguide nem com ela dormindo.
+- **Desliga no cantinho.** `pais.narracao`, ligado por padrão. Se ela estiver jogando
+  sozinha, o texto não serve e vira ruído.
+- Onde vive: `src/data/narracao.json` (as frases), `src/core/narracao.ts` (o canal e a
+  escolha, puro), `src/ui/balao.ts` (o balão), `tests/narracao.test.ts`.
+
 ## Opções, no cantinho dos pais
 
 O Anderson sentiu falta de um botão de opções com o que é do aparelho: buscar versão nova,
