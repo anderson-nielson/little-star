@@ -1,4 +1,4 @@
-# Little Star: especificação (v2.1)
+# Little Star: especificação (v2.2)
 
 > Jogo de celular para a Stella, 5 anos. Irmão pequeno do **Ponta**
 > (`anderson-nielson/grande-ballet`): mesma família visual, mesmo piano, outro jogo.
@@ -80,6 +80,39 @@ passa a ser "para ganhar enfeite" em vez de "porque é bom e a mamãe fica feliz
 - **Nunca castigo, nunca perda, nunca comparação.** Não fez hoje? Nada murcha, nada some,
   nenhuma sequência se quebra. Amanhã é outro dia.
 
+### 3.1 O jeito Waldorf da casa
+
+A escola da Stella é Waldorf e a casa também, no ritmo e na estética. Isso muda o jogo em
+quatro pontos.
+
+**A tensão, dita com franqueza.** A pedagogia Waldorf pede pouca ou nenhuma tela antes dos 7
+anos. Um jogo de celular vai contra isso, e fingir que não seria desonesto. O que dá para
+fazer é um jogo que **aponta para fora da tela**:
+- As tarefas são de verdade; o jogo só celebra o que ela fez no mundo.
+- Toda sessão termina com um convite concreto para o mundo real, dito pela família: "vamos
+  escrever o S na areia de verdade?", "vamos regar a árvore?".
+- Sessões curtas e raras por desenho: nada no jogo pede para voltar amanhã, nada acumula
+  pressa. O limite diário (seção 4) vem ligado por padrão, com 15 minutos.
+- Ele é pensado para ser jogado **junto** com um adulto ou com o Theo, no colo, e não como
+  babá eletrônica. As vozes gravadas da família reforçam isso.
+
+**Ritmo.** Waldorf vive de ritmo: o do dia, o da semana e o das estações. O jogo também.
+- **O dia** já tem manhã, tarde e noite (seções 7 e 8.3).
+- **A semana** tem uma cor e uma atividade por dia, como no jardim Waldorf: segunda o pão
+  (comidinha), terça a pintura (aquarela na mesinha do quarto), quarta o jardim (a árvore),
+  quinta a areia, sexta a música, sábado e domingo em família (o palco). Nada é trancado:
+  só a casa sugere, com a cor da toalha da mesa e o objeto que brilha.
+- **As estações e as festas** mudam a casa e o quintal devagar, no calendário do hemisfério
+  sul: outono com folhas no quintal e a Festa da Lanterna, inverno com a festa junina e a
+  fogueira, primavera com flores na árvore, verão com a caixa de areia cheia de conchinhas e
+  o Advento com a espiral de velas. As festas vêm de dados e os pais podem ligar ou desligar.
+
+**Estética.** A estética Waldorf e a do Ponta conversam bem: as duas fogem do plástico, do
+grito e do excesso. O que muda está na seção 13.
+
+**Letras.** A escola usa o **método fônico**, e em Waldorf a letra nasce de uma imagem e de
+uma história. O jogo segue as duas coisas (seção 9).
+
 ## 4. Como uma criança de 5 anos usa um celular
 
 Esta seção é a que mais distingue este jogo do Ponta. Tudo aqui vira requisito.
@@ -124,7 +157,7 @@ Travar em retrato também evita a tela girar sozinha quando ela deita o celular.
 **Tempo de tela**
 - Sessões curtas por desenho: cada atividade fecha em 1 a 3 minutos e devolve ela para a casa,
   onde parar é natural.
-- **Limite diário opcional**, definido pelos pais (sugestão: 20 a 30 minutos). Quando acaba,
+- **Limite diário**, definido pelos pais, ligado por padrão em 15 minutos (seção 3.1). Quando acaba,
   a Stella do jogo boceja, a família diz "vamos brincar lá fora?", a porta fecha com um laço.
   É uma despedida, não um bloqueio seco.
 - **Hora de dormir** (seção 8.3) fecha o jogo à noite.
@@ -226,7 +259,14 @@ Segurança sem sermão: na árvore, a família está sempre embaixo olhando, e o
 nos galhos baixos. O jogo não ensina a subir mais alto do que ela sobe de verdade; mostra que
 subir é gostoso quando tem alguém perto.
 
-**Os bichos da casa.** A Stella ama coelhinhos e gatinhos, e os dois moram no jogo:
+**Os bichos da casa.** A Stella ama coelhinhos e gatinhos. Ela não tem nenhum, é um sonho
+dela, e convive com vários e ama. No jogo o sonho se realiza, e com ele vem o cuidado:
+- Cuidar dos dois é parte do dia: pôr água, dar comida, fazer carinho, escovar o pelo do
+  gatinho, dar folha de cenoura ao coelhinho. Nenhum bicho fica triste, doente ou com fome
+  se ela não vier: eles só ficam contentes quando ela vem. Cuidar é carinho, não obrigação.
+- Isso ensina como se trata um bicho de verdade (devagar, com a mão aberta, sem apertar),
+  para quando ela encontrar os bichos que conhece, e para o dia em que o sonho vier de
+  verdade, se vier.
 - **Um gatinho** mora na casa. Dorme na cama dela, se enrosca no pé do piano, segue ela de
   cômodo em cômodo. Tocar nele faz ele ronronar (som sintetizado, grave e macio) e se esticar.
   Ele participa das tarefas: pula na cama arrumada, dorme em cima da roupa dobrada, e na hora
@@ -311,7 +351,22 @@ caminho antes, a Stella segue com o dedo, e a letra nasce onde o dedo passa.
 
 ### 9.3 O caminho das letras
 
-A ordem segue o que faz sentido para ela, não o alfabeto:
+A escola dela usa o **método fônico** e é Waldorf. O jogo segue as duas coisas e fala a mesma
+língua da sala de aula, para não confundir:
+
+- **Som antes de nome.** A letra se apresenta pelo som que faz ("sss"), não pelo nome ("esse").
+  O nome da letra quase não aparece.
+- **A letra nasce de uma imagem**, como em Waldorf. Antes de traçar, uma pequena história de
+  duas frases desenha a imagem, e a letra sai de dentro dela: o **S** é o rabo do gatinho
+  que se enrola; o **M** são as montanhas atrás da casa; o **L** é a Stella deitada na grama
+  com o braço para cima, olhando o céu; o **T** é o tronco da árvore grande com o galho de
+  cima; o **A** é o telhado da casa verde; o **O** é a boca aberta cantando "óóó". A imagem
+  fica desenhada fraquinha atrás da fita enquanto ela traça.
+- **Primeiro as vogais e as consoantes que se esticam.** No fônico, "sss", "mmm", "lll", "fff",
+  "vvv" e "nnn" se seguram no ar e se juntam fácil com a vogal. S e L estão no nome dela, o
+  que ajuda muito. Consoantes de estalo (P, T, B, D, G, C) vêm depois, com uma exceção
+  afetiva: o T de Theo.
+- **Juntar os sons** é o passo depois das letras: "sss... ooo... lll": SOL (9.5).
 
 O **Theo** é o professor do caderno, como o Charlie que explica as coisas para a Lola: ele
 senta ao lado dela, desenha a letra primeiro (a estrela guia sai do lápis dele) e comemora
@@ -320,11 +375,12 @@ quando ela termina. Irmão mais velho ensinando é uma cena que ela reconhece.
 1. **Traços antes das letras**: linha em pé, linha deitada, linha inclinada, bolinha, curva,
    ponte. Cada traço é uma coisa do mundo dela (a chuva cai: linha em pé; a onda do lago:
    curva; a ponte do jardim).
-2. **As letras do nome dela**: S, T, E, L, A. Em **letra de forma maiúscula (bastão)**, que é
-   a letra com que a alfabetização começa no Brasil. Ao terminar as cinco, ela monta o nome
+2. **As vogais e as letras do nome dela**: A, E, O, S, L, depois T. As vogais primeiro porque
+   no fônico tudo se apoia nelas. Em **letra de forma maiúscula (bastão)**, que é
+   a letra com que a alfabetização começa no Brasil. Ao terminar as letras dela, monta o nome
    STELLA inteiro, e ele aparece na porta do quarto.
-3. **As letras da família**: A de Andrea e de Anderson, T de Theo (que ela já sabe), M de mãe,
-   P de pai. Cada letra terminada ganha a voz da pessoa.
+3. **As letras da família**: M de mamãe (que se estica, "mmm"), P de papai, T de Theo, e o
+   A de Andrea e de Anderson que ela já sabe. Cada letra terminada ganha a voz da pessoa.
 4. **Palavras curtas de carinho**, montadas com letras que ela já conhece: MAMÃE, PAPAI, THEO,
    AMO. Depois, as outras letras do alfabeto, uma de cada vez.
 
@@ -347,22 +403,27 @@ sons**, que é o passo antes de ler.
 surgir em cima dele, grande, em letra bastão:
 
 ```
-   G A T O          a primeira letra em rosa-doce, maior;
-   ‾‾‾‾‾‾‾          as outras em musgo-tinta; um fio embaixo
+   S O L            a letra que soa acende em rosa-doce;
+   ‾‾‾‾‾            as outras em musgo-tinta; um fio embaixo
 ```
 
-A voz diz, sempre na mesma ordem e devagar:
-1. **A palavra inteira**: "gato".
-2. **O som da primeira letra, esticado**: "ggg... gato". O som, não o nome da letra ("gê").
-3. **As sílabas, batidas**: "GA... TO". Cada sílaba acende sua parte da palavra e toca uma
-   nota do piano, como uma palma. Duas sílabas, duas notas. Ritmo é algo que ela já sente
-   no piano e no balé, e sílaba é ritmo.
+A voz diz, sempre na mesma ordem e devagar, no jeito do método fônico:
+1. **A palavra inteira**: "sol".
+2. **Som por som, esticados**, cada letra acendendo quando soa: "sss... ooo... lll".
+   O som, nunca o nome da letra ("esse", "ó", "ele").
+3. **Os sons se juntando**, cada vez mais rápido, até virar palavra: "sss-ooo-lll... sol!".
+   Juntar os sons é o coração do fônico, e é onde ela vai sentir que leu.
+4. **As sílabas, batidas como palmas** (só em palavra de duas sílabas ou mais): "BO... LA",
+   cada sílaba com uma nota do piano. Bater o ritmo da palavra é bem Waldorf e ela já sente
+   isso no piano e no balé.
 
 Tocar de novo repete. Nunca toca sozinho sem ela pedir, e nunca durante uma aventura.
 
-**Quais palavras.** Curtas, com sílabas simples (consoante e vogal), do mundo dela, e com as
-letras que ela está traçando no caderno:
-- Da casa: GATO, BOLA, CAMA, LUA, MALA, SOFÁ, PIPOCA, BONECA.
+**Quais palavras.** Curtas, em que cada letra tem um som só, do mundo dela, com as letras
+que ela está traçando. As primeiras são de três sons com consoantes que se esticam, as mais
+fáceis de juntar no fônico:
+- Primeiras: SOL, MAR, LUA, MEL, SAL, ASA, OLÁ.
+- Da casa: GATO, BOLA, CAMA, MALA, SOFÁ, PIPOCA, BONECA.
 - Da família: MAMÃE, PAPAI, THEO, STELLA (que é mais difícil e tudo bem: é o nome dela).
 - Dos bichos: GATO, COELHO (o LH é difícil, entra depois), PATO, SAPO, VACA.
 - Das aventuras: FITA, TUTU, SAPATILHA (a longa e divertida de bater: SA-PA-TI-LHA).
@@ -376,7 +437,8 @@ lll"), para ela ouvir a diferença sem ouvir "errado".
 o `src/audio/voz.ts` do Ponta, em velocidade 0,7). **O som isolado da letra não pode**: a voz
 sintética lê "g" como "gê", e ensinaria o contrário. Os sons das letras (umas 25 gravações
 curtas) precisam ser gravados por gente, de preferência a mãe ou o pai (seção 15.4).
-Sem gravação, o passo 2 é pulado.
+Sem gravação, os passos 2 e 3 são pulados. Com o fônico, essa gravação passou a ser a mais
+importante do jogo; ver a lista na seção 15.4.
 
 **Ligação com o espanhol.** Depois das sílabas, a Estrellita pode dizer a palavra em espanhol
 ("gato... ¡gato!", "conejo"). A palavra escrita fica sempre em português.
@@ -480,6 +542,21 @@ Mesmas formas do Ponta, com mais rosa, mais luz e mais tamanho.
   certa.
 - Zero imagem raster. Tudo SVG e Canvas 2D gerado por código.
 
+**Waldorf**
+- **Cores de aquarela, em véu.** O jardim Waldorf pinta em aquarela molhada, cor sobre cor,
+  sem contorno preto. O jogo imita isso sem raster e sem `blur`: formas de cor lisas e
+  transparentes (opacidade 0,3 a 0,6) sobrepostas, pintadas uma vez num canvas de fundo que
+  não se redesenha a cada quadro. Céu, paredes e grama são véus assim.
+- **Nada de contorno preto.** Traço é sempre `--luz`, `--ouro` ou um tom mais escuro da
+  própria cor. Já era assim no Ponta.
+- **Materiais naturais no desenho**: madeira, lã, feltro, algodão. Brinquedos do quarto são de
+  madeira (arco-íris de encaixe, bloquinhos), as bonecas são **bonecas Waldorf de pano**, de
+  rosto quase liso (dois pontos de olho, um fio de boca), o que casa com o rosto econômico
+  da marionete do Ponta.
+- **Formas redondas e orgânicas.** Nada de canto vivo nos objetos da casa; o arco do
+  proscênio já é esse espírito.
+- **A cor do dia da semana** (seção 3.1) aparece na toalha da mesa e no véu do céu de manhã.
+
 **Ajustado para ela**
 - **Verde musgo e rosa.** A casa é verde musgo vivo e leve (tokens novos, ponto de partida
   a acertar no styleguide: `--musgo` `#8FAE6B`, `--musgo-claro` `#C9DBB2`, `--musgo-tinta`
@@ -521,6 +598,13 @@ direita, baixo simples na esquerda, andamento calmo.
 | Palco | Tchaikovsky, *Dança da Fada Açucarada* (O Quebra-Nozes) |
 | Hora de dormir | Brahms, *Canção de ninar* |
 | Piano do quarto | *Brilha, brilha estrelinha*, *Estrellita*, *Ciranda cirandinha* |
+
+**A lira da casa.** O jardim Waldorf usa lira e flauta pentatônicas, no "clima da quinta": só
+as notas ré, mi, sol, lá, si, sem dissonância, sem começo nem fim marcados. Em casa, fora das
+aventuras, a música de fundo alterna o piano calmo com uma **lira pentatônica** sintetizada
+(corda dedilhada, o mesmo Karplus-Strong do ukulele, bem suave). A lira também marca as
+passagens do dia: uma escala subindo de manhã, descendo à noite. Tocar na lira pendurada no
+quarto toca uma nota da pentatônica: nenhuma combinação soa feia.
 
 Regras:
 - Piano sempre; efeitos sintetizados no tom da música, como as respostas do Ponta.
@@ -608,17 +692,20 @@ letras da família, mais espanhol.
 3. **O verde da casa.** Se tiver uma foto da fachada, acerto o tom do `--musgo` por ela.
 4. **Tarefas.** A lista da seção 8.1 está certa? Falta alguma (vestir sozinha, comer fruta,
    guardar o sapato)?
-5. **Letras.** Na escola ela já está vendo letra bastão? Já reconhece o S do nome?
+5. **Letras.** A escola já apresentou alguma letra? Com que imagem e em que ordem? Seguir a
+   mesma imagem da sala (o M das montanhas, por exemplo) evita que ela aprenda duas.
 6. **Bonecas.** Tem alguma boneca preferida dela que vale entrar no jogo (nome, cor, jeito)?
 7. **O celular.** Qual aparelho ela usa (modelo, iPhone ou Android)? Vale testar nele a voz
    em espanhol e o desempenho.
-8. **Bichos.** Ela tem gato ou coelho de verdade? Se tiver, o do jogo pode ser ele (cor,
-   nome, jeito). Se não, quais nomes ela daria?
-9. **Sons das letras.** Quem grava? A escola usa algum método (fônico, silábico) que vale
-   seguir para não confundir?
+8. **Bichos.** Que cor ela sonha para o gatinho e para o coelhinho? Tem algum bicho
+   conhecido (de avó, de vizinho) que pode inspirar um dos dois?
+9. **Sons das letras.** Quem grava? Vale perguntar à professora se ela usa algum gesto ou
+   imagem por som, para o jogo repetir.
 10. **O quintal.** Uma foto da caixa de areia e da árvore ajuda a acertar a forma e o
     vermelho. Que árvore é (mangueira, pitangueira, jabuticabeira)?
 11. **Nome do jogo.** "Little Star", "Estrelinha" ou "Estrellita"?
+12. **Semana e festas.** A casa tem um ritmo da semana (dia do pão, da pintura)? Quais festas
+   vocês celebram? O jogo copia o ritmo de vocês em vez de inventar um.
 
 ## 18. Fora de escopo
 
