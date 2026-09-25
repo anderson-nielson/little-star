@@ -1,4 +1,4 @@
-import { pedrinhasSobem, relogioDeAjuda, telaSvg } from './comum';
+import { convidarParaCasa, pedrinhasSobem, relogioDeAjuda, telaSvg, trilha } from './comum';
 import { estado, mudar } from '@/core/estado';
 import { ganhar, PEDRINHAS } from '@/core/pedrinhas';
 import { horaParaMinutos } from '@/core/relogio';
@@ -114,6 +114,11 @@ export function telaRelogio(): Tela {
   const luz = svg.querySelector('.luz') as SVGGElement;
   const balao = svg.querySelector('.balao') as SVGGElement;
   const pedidaEl = svg.querySelector('.pedida') as SVGTextElement;
+  /* três pedidas do Theo por visita, em contas entre a janelinha e o relógio; depois, a casinha convida */
+  const PEDIDAS = 3;
+  const contas = trilha(tela, PEDIDAS, 148);
+  contas.agora(0);
+  let convidou = false;
 
   let hora = horaReal;
   /* o ponteiro dos minutos só marca minutos de verdade na chegada; na brincadeira fica nas doze */
@@ -123,7 +128,8 @@ export function telaRelogio(): Tela {
   let ocupado = false;
   const ajuda = new Ajuda((n) => {
     luz.innerHTML = '';
-    if (pedida === null) return;
+    /* sem pedida, a mãozinha mostra o Theo (até a casinha convidar para ir embora) */
+    if (pedida === null) return tela.mao(n >= 1 && !convidou ? [120, 660] : null);
     const num = svg.querySelector(`[data-hora="${pedida}"]`) as SVGTextElement | null;
     if (n >= 1 && num) {
       num.setAttribute('fill', '#f2a9c4');
@@ -191,8 +197,15 @@ export function telaRelogio(): Tela {
       });
       pedrinhasSobem(tela, PEDRINHAS.relogio, CX, CY + R + 30);
       if (medalha) sininho();
+      const feitas = contas.cheias;
+      contas.encher(feitas);
+      if (feitas + 1 < PEDIDAS) contas.agora(feitas + 1);
       await dizer(meta);
       ajuda.reset();
+      if (contas.cheias >= PEDIDAS && !convidou) {
+        convidou = true;
+        convidarParaCasa(tela);
+      }
     } else {
       /* ainda não: o Theo repete a hora, sem "errado" */
       ajuda.tentativa();
@@ -213,6 +226,7 @@ export function telaRelogio(): Tela {
     if (!reivindicarDedo(ev.pointerId)) return;
     dedo = ev.pointerId;
     ajuda.tocou();
+    if (pedida === null) tela.mao(null);
     minutos = 0;
     hora = horaDoAngulo(angulo(ev));
     desenhar();
@@ -248,6 +262,7 @@ export function telaRelogio(): Tela {
     if (ocupado) return;
     ocupado = true;
     travar(800);
+    tela.mao(null);
     const opcoes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].filter((h) => h !== Math.round(hora));
     pedida = opcoes[Math.floor(Math.random() * opcoes.length)]!;
     pedidaEl.textContent = String(pedida);

@@ -133,6 +133,8 @@ aprende uma música. Toda tela usa só estes.
 | Centelha de ouro parada numa coisa da casa | Aqui você já brincou hoje |
 | Mãozinha desenhada fazendo o gesto | Faça isso |
 | Estrela guia correndo por uma fita | O caminho é este |
+| Trilha de contas no alto, entre a casinha e a lua | Quanto já foi (contas de ouro) e quanto falta; a estrelinha é a de agora |
+| A casinha acende e a mãozinha aponta para ela | Por hoje acabou; pode voltar para casa (ou continuar brincando) |
 | Sininho no tom da música | Deu certo |
 | Centelhas rosa e ouro subindo | Alguém da família está feliz com você |
 | Lira subindo | Começou uma coisa nova |
@@ -289,24 +291,35 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
 - **Para quê**: brincar livre com a letra, em outro material. A areia apaga, e apagar é parte
   da brincadeira.
 - **Quando**: brincadeira do dia na quinta; sempre aberta no quintal.
-- **Como**, três jeitos, e ela escolhe tocando no balde, na pá ou no dedo:
+- **Como**, três jeitos, e ela escolhe tocando no dedo, na pá ou no balde. Cada jeito tem uma
+  volta pequena que se vê na trilha do alto, e só a trilha do jeito escolhido aparece:
   - **Dedo**: a areia fica lisa. As letras que ela já sabe aparecem pontilhadas na areia,
     uma de cada vez, do tamanho que cabe na estrela (o A cabe grande, o T cabe menor). A
-    letra diz o som dela ao chegar e a mãozinha percorre o caminho uma vez. Ela traça, o
-    sulco fica, e a letra enche de ouro por onde o dedo passou: um sininho a cada traço, e
-    quando a letra fica inteira, centelhas, o som da letra de novo, a areia se alisa
-    sozinha e a próxima letra chega. Ou ela desenha o que quiser, e o sulco fica também.
-    Tocar o rastelo do Theo alisa tudo e traz outra letra.
-  - **Pá, cavar tesouro**: ela toca na areia e cava. Aparece uma letra de madeira enterrada.
-    A letra diz o som e aparece a figura de uma palavra que começa com ela ("mmm, mala").
-    Às vezes, no lugar da letra, uma pinha.
-  - **Balde, castelo**: cada toque vira um baldinho de areia; o gatinho derruba o castelo
-    quando ela quiser (tocando no gatinho). Sem objetivo.
+    trilha tem uma conta por letra que ela sabe, com a estrelinha na de agora. A letra diz o
+    som dela ao chegar e a mãozinha percorre o caminho deixando um rastro de luz. Ela traça,
+    o sulco fica, e a letra enche de ouro por onde o dedo passou: um sininho a cada traço, e
+    quando a letra fica inteira, centelhas, a conta da trilha enche, o som da letra de novo,
+    a areia se alisa sozinha e a próxima letra chega. Ou ela desenha o que quiser, e o sulco
+    fica também. Tocar o rastelo do Theo alisa tudo e traz outra letra.
+  - **Pá, cavar tesouro**: três montinhos de areia com um brilho mostram onde tem tesouro. Ela
+    toca num montinho e cava: aparece uma letra de madeira, que diz o som, e em cima dela a
+    figura de uma palavra que começa com ela ("mmm, mala"). Às vezes, no lugar da letra, uma
+    pinha. Cada tesouro enche uma conta. Cavar fora do montinho faz um buraquinho sem nada, e
+    a mãozinha lembra onde falta. Com os três achados, o rastelo acende: ele alisa a areia e
+    enterra outros três.
+  - **Balde, castelo**: três baldes fazem um castelo, no lugar onde ela tocou: a base, o meio
+    e a torre com a bandeirinha. Cada balde enche uma conta. Com o castelo inteiro, o gatinho
+    acende e a mãozinha aponta para ele; tocando no gatinho, ele derruba tudo e a trilha
+    esvazia para outro castelo.
 - **Dura**: 3 a 5 minutos.
+- **Acaba**: quando todas as letras dela enchem a trilha (ou os três tesouros da pá), a casinha
+  acende e a mãozinha aponta para ela. Ela pode continuar; mas fica claro que acabou e para
+  onde ir.
 - **Ajuda**: no dedo, A1, a mãozinha repete o traço a partir de onde ela parou; A2, o traço
-  fica generoso, como no caderno. Na pá e no balde, a mãozinha mostra onde tocar quando ela
-  escolhe a ferramenta; no primeiro castelo, aponta o gatinho. Nada disso é obrigatório:
-  desenhar fora da letra continua sendo brincadeira.
+  fica generoso, como no caderno. Na pá, a mãozinha mostra um montinho quando ela escolhe a
+  ferramenta e sempre que ela cava fora. No balde, mostra onde vai o próximo balde; com o
+  castelo pronto, aponta o gatinho. Nada disso é obrigatório: desenhar fora da letra continua
+  sendo brincadeira.
 - **Cresce**: pinhas achadas vão para a mesa da estação; cada letra inteira na areia ganha
   uma frase no balão de quem joga junto.
 

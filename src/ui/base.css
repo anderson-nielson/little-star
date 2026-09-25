@@ -429,3 +429,36 @@ body {
 .balao-fechar:active {
   opacity: 0.6;
 }
+/* o balão recolhido: uma bolinha de papel com três pontinhos, entre a trilha e a lua.
+   O alvo tem 72 px; o desenho é menor, para não brigar com a cena. */
+.balao-bolinha {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + var(--e1));
+  left: 50%;
+  width: var(--alvo);
+  height: var(--alvo);
+  margin-left: calc(min(100vw, var(--coluna)) / 2 - var(--alvo) * 2);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  z-index: var(--z-hud);
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity var(--d-lento) var(--ease-entra-sai), transform var(--d-lento) var(--ease-sai);
+  pointer-events: none;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.balao-bolinha.visivel {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+.balao-bolinha-miolo {
+  position: absolute;
+  inset: 16px;
+  border-radius: 50%;
+  background: var(--papel) radial-gradient(circle, var(--ouro-tinta) 2.5px, transparent 3px) center / 12px 12px repeat-x;
+  border: var(--fio-w) solid var(--fio-ouro);
+  box-shadow: 0 4px 14px rgba(16, 20, 42, 0.12);
+}
