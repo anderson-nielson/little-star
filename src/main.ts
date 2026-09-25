@@ -5,6 +5,7 @@ import { sessao } from './core/sessao';
 import { estado, mudar, estadoNovo, substituir } from './core/estado';
 import { audio } from './audio/engine';
 import { prepararVozes } from './audio/vozes';
+import { iniciarAparelho, versao } from './core/aparelho';
 import { telaChegada } from './telas/chegada';
 import { telaCasa } from './telas/casa';
 import { telaRoda } from './telas/roda';
@@ -32,8 +33,6 @@ import { telaLira } from './telas/lira';
 import { telaBonecas } from './telas/bonecas';
 import { telaBilhete } from './telas/bilhete';
 import { telaRelogio } from './telas/relogio';
-
-declare const __VERSAO__: string;
 
 registrar('chegada', telaChegada);
 registrar('casa', telaCasa);
@@ -100,9 +99,8 @@ if (q.get('styleguide')) {
   void prepararVozes().then(() => sessao.comecar(debug ? (q.get('tela') ?? undefined) : undefined));
 }
 
-if (import.meta.env.PROD && 'serviceWorker' in navigator) {
-  import('virtual:pwa-register').then(({ registerSW }) => registerSW({ immediate: true })).catch(() => {});
-}
+/* o service worker (só na build) e o convite de instalação do Android */
+iniciarAparelho();
 
 /* para o passeio automático e para a depuração no console */
-(window as unknown as { littleStar: unknown }).littleStar = { ir, estado, mudar, sessao, versao: __VERSAO__ };
+(window as unknown as { littleStar: unknown }).littleStar = { ir, estado, mudar, sessao, versao: versao() };

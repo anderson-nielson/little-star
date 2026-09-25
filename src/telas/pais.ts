@@ -1,15 +1,16 @@
 import { SESSAO_COMPLETA, tarefasAtivas } from '@/core/laco';
 import { ajustar, PEDRINHAS } from '@/core/pedrinhas';
-import { apagarTudo, CORES_DE_COMIDA, estado, estadoNovo, mudar, substituir, TAREFAS, type CorDeComida, type Tarefa } from '@/core/estado';
+import { apagarTudo, CORES_DE_COMIDA, estado, estadoNovo, hojeVazio, mudar, substituir, TAREFAS, type CorDeComida, type Tarefa } from '@/core/estado';
 import { sessao } from '@/core/sessao';
 import { h } from '@/core/util';
 import { frases, Gravador, apagarGravacao, exportarGravacoes, falar, guardarGravacao, importarGravacoes, podeGravar, prepararVozes, temVoz, type Frase } from '@/audio/vozes';
 import { audio } from '@/audio/engine';
+import { sininho } from '@/audio/synth';
+import { falarPalavra, podeFalar } from '@/audio/fala';
+import { armazenamentoProtegido, buscarNovaVersao, espacoUsado, estaInstalado, estaOnline, instalar, limparEReiniciar, nomeDoAparelho, novaVersaoAChegar, podeInstalar, protegerArmazenamento, reiniciar, telaCheia, textoDaBusca, textoDeEspaco, versao } from '@/core/aparelho';
 import comidasJson from '@/data/comidas.json';
 import letras from '@/data/letras.json';
 import type { Tela } from '@/core/roteador';
-
-declare const __VERSAO__: string;
 
 const NUMEROS = ['dois', 'três', 'quatro', 'cinco', 'seis', 'sete', 'oito', 'nove'];
 const DONO = { mae: 'Andrea', pai: 'Anderson', theo: 'Theo', qualquer: 'Qualquer um' };
@@ -47,7 +48,10 @@ export function telaPais(): Tela {
   function abrir(): void {
     painel.innerHTML = '';
     const e = estado();
-    painel.append(h('div', { class: 'fechar' }, h('button', { type: 'button', class: 'primario', onClick: voltar }, 'Voltar para a casa')), h('h1', {}, 'Cantinho dos pais'));
+    painel.append(
+      h('div', { class: 'fechar' }, h('button', { type: 'button', onClick: abrirOpcoes }, 'Opções'), h('button', { type: 'button', class: 'primario', onClick: voltar }, 'Voltar para a casa')),
+      h('h1', {}, 'Cantinho dos pais'),
+    );
 
     /* hoje */
     painel.append(h('h2', {}, 'Hoje'));
@@ -390,7 +394,156 @@ export function telaPais(): Tela {
       substituir(estadoNovo());
       sessao.comecar();
     });
-    painel.append(h('p', {}, 'Apaga lembranças, flores, letras e pinhas. As gravações de voz ficam.'), bApagarTudo, h('p', { style: 'margin-top:24px' }, `Little Star ${__VERSAO__}. Piano: Salamander Grand Piano (Alexander Holm, CC BY 3.0).`));
+    painel.append(h('p', {}, 'Apaga lembranças, flores, letras e pinhas. As gravações de voz ficam.'), bApagarTudo, h('p', { style: 'margin-top:24px' }, `Little Star ${versao()}. Piano: Salamander Grand Piano (Alexander Holm, CC BY 3.0). Versão nova, reiniciar e o resto do aparelho ficam em Opções, lá em cima.`));
+  }
+
+  /**
+   * Opções: o aparelho, não a Stella. Versão nova, reiniciar, limpar, instalar,
+   * proteger as gravações e testar som e voz. Nada aqui mexe no progresso,
+   * fora "Recomeçar o dia", que pede dois toques.
+   */
+  function abrirOpcoes(): void {
+    painel.innerHTML = '';
+    painel.scrollTop = 0;
+    painel.append(
+      h('div', { class: 'fechar' }, h('button', { type: 'button', class: 'primario', onClick: abrir }, 'Voltar ao cantinho')),
+      h('h1', {}, 'Opções'),
+      h('p', {}, 'O que é do aparelho, e não da Stella: versão, reiniciar, instalar, proteger as gravações. Nada aqui mexe no progresso dela, fora o que avisa antes.'),
+    );
+
+    /* versão */
+    painel.append(h('h2', {}, 'Versão'));
+    const instalado = estaInstalado();
+    const aparelho = nomeDoAparelho(navigator.userAgent);
+    const situacao = h('span', { class: 'sub' }, `${aparelho}, ${instalado ? 'instalado na tela inicial' : 'aberto no navegador'}, ${estaOnline() ? 'com internet' : 'sem internet'}`);
+    painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, `Little Star ${versao()}`, situacao)));
+    const estadoVersao = h('div', { class: 'estado', id: 'estado-versao' });
+    if (novaVersaoAChegar()) estadoVersao.textContent = textoDaBusca('nova');
+    const bBuscar = h('button', { type: 'button', class: 'ligado', id: 'buscar-versao' }, 'Buscar nova versão');
+    bBuscar.addEventListener('click', async () => {
+      bBuscar.disabled = true;
+      estadoVersao.textContent = 'Perguntando ao servidor...';
+      const r = await buscarNovaVersao();
+      estadoVersao.textContent = textoDaBusca(r);
+      bBuscar.disabled = false;
+    });
+    painel.append(
+      h('p', {}, 'O jogo publicado ganha versão nova a cada mudança. Instalado, ele busca sozinho quando abre; se ficou aberto por dias, ou se vocês souberam de algo novo, busquem aqui.'),
+      h('div', { class: 'acoes' }, bBuscar),
+      estadoVersao,
+    );
+
+    /* reiniciar */
+    painel.append(h('h2', {}, 'Reiniciar'));
+    const bReiniciar = h('button', { type: 'button', id: 'reiniciar' }, 'Reiniciar o jogo');
+    bReiniciar.addEventListener('click', () => reiniciar());
+    painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Reiniciar o jogo', h('span', { class: 'sub' }, 'Fecha e abre de novo. Progresso e gravações ficam. Para som que sumiu, tela que travou, versão nova que não chegou.')), bReiniciar));
+
+    let confirmandoDia = false;
+    const bDia = h('button', { type: 'button', id: 'recomecar-dia' }, 'Recomeçar o dia');
+    bDia.addEventListener('click', () => {
+      if (!confirmandoDia) {
+        confirmandoDia = true;
+        bDia.textContent = 'Tem certeza? Toque de novo';
+        bDia.classList.add('perigo');
+        return;
+      }
+      mudar((x) => void (x.hoje = hojeVazio(x.hoje.dia)));
+      sessao.comecar();
+    });
+    painel.append(
+      h(
+        'div',
+        { class: 'linha' },
+        h('span', { class: 'nome' }, 'Recomeçar o dia', h('span', { class: 'sub' }, 'Zera o que já aconteceu hoje (chegada, roda, prato, som do dia, tempo de tela) e a família recebe de novo. O que cresceu fica: lembranças, flores, letras, pedrinhas. Bom para mostrar o jogo inteiro a alguém; a roda pode dar pedrinha de novo.')),
+        bDia,
+      ),
+    );
+
+    let confirmandoLimpar = false;
+    const bLimpar = h('button', { type: 'button', id: 'limpar-cache' }, 'Limpar e reabrir');
+    bLimpar.addEventListener('click', () => {
+      if (!confirmandoLimpar) {
+        confirmandoLimpar = true;
+        bLimpar.textContent = 'Tem certeza? Toque de novo';
+        bLimpar.classList.add('perigo');
+        return;
+      }
+      bLimpar.disabled = true;
+      void limparEReiniciar();
+    });
+    painel.append(
+      h(
+        'div',
+        { class: 'linha' },
+        h('span', { class: 'nome' }, 'Limpar os arquivos do jogo', h('span', { class: 'sub' }, 'Joga fora a cópia guardada no aparelho e baixa tudo de novo (precisa de internet). Para quando o jogo fica preso numa versão antiga. Progresso e gravações ficam.')),
+        bLimpar,
+      ),
+    );
+
+    /* instalar e tela */
+    painel.append(h('h2', {}, 'Na tela do aparelho'));
+    if (instalado) painel.append(h('p', {}, 'O jogo está instalado e abre em tela cheia. É assim que ele deve ser jogado.'));
+    else {
+      const estadoInstalar = h('div', { class: 'estado' });
+      if (podeInstalar()) {
+        const bInstalar = h('button', { type: 'button', class: 'ligado', id: 'instalar' }, 'Instalar na tela inicial');
+        bInstalar.addEventListener('click', async () => {
+          const r = await instalar();
+          estadoInstalar.textContent = r === 'instalado' ? 'Instalado. Feche esta aba e abra o jogo pelo ícone novo.' : r === 'recusado' ? 'Tudo bem. O botão fica aqui para quando quiserem.' : 'O navegador não ofereceu a instalação agora. O caminho manual está em "Instalar e prender no jogo", no cantinho.';
+        });
+        painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Instalar', h('span', { class: 'sub' }, 'Ganha ícone, abre em tela cheia sem barra de endereço, e as gravações ficam mais seguras.')), bInstalar), estadoInstalar);
+      } else {
+        painel.append(h('p', {}, `Aberto no navegador. Para instalar no ${aparelho}, siga "Instalar e prender no jogo", no cantinho: no Chrome, menu e Instalar aplicativo; no Safari, Compartilhar e Adicionar à Tela de Início.`));
+      }
+      const bCheia = h('button', { type: 'button', id: 'tela-cheia' }, 'Tela cheia');
+      bCheia.addEventListener('click', async () => {
+        const ok = await telaCheia();
+        if (!ok) estadoInstalar.textContent = 'Este navegador não deixa tela cheia por aqui. Instalado, o jogo já abre assim.';
+      });
+      painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Tela cheia agora', h('span', { class: 'sub' }, 'Sem instalar: esconde a barra do navegador até fechar a aba.')), bCheia));
+    }
+
+    /* as gravações */
+    painel.append(h('h2', {}, 'As gravações no aparelho'));
+    const estadoGuarda = h('div', { class: 'estado', id: 'estado-guarda' });
+    const bProteger = h('button', { type: 'button', id: 'proteger' }, 'Proteger as gravações');
+    const mostrarGuarda = async () => {
+      const [protegido, espaco] = await Promise.all([armazenamentoProtegido(), espacoUsado()]);
+      const guarda = protegido === true ? 'O celular prometeu não apagar as gravações' : protegido === false ? 'O celular ainda pode apagar as gravações se faltar espaço ou o jogo ficar semanas fechado' : 'Este navegador não diz se pode apagar as gravações';
+      estadoGuarda.textContent = `${guarda}. ${textoDeEspaco(espaco)}.`;
+      bProteger.disabled = protegido === true || protegido === null;
+      bProteger.textContent = protegido === true ? 'Protegidas' : 'Proteger as gravações';
+      if (protegido === true) bProteger.classList.add('ligado');
+    };
+    bProteger.addEventListener('click', async () => {
+      const r = await protegerArmazenamento();
+      if (r === false) estadoGuarda.textContent = 'O celular não prometeu desta vez. Instalar o jogo na tela inicial costuma resolver; e exportar as gravações é a garantia.';
+      else await mostrarGuarda();
+    });
+    void mostrarGuarda();
+    painel.append(
+      h('p', {}, 'As vozes moram só neste aparelho. Pedir proteção faz o celular prometer não apagá-las por falta de espaço. Exportar um arquivo de vez em quando continua sendo a garantia; fica em "Guardar as vozes", no cantinho.'),
+      h('div', { class: 'acoes' }, bProteger),
+      estadoGuarda,
+    );
+
+    /* testar */
+    painel.append(h('h2', {}, 'Testar'));
+    const estadoTeste = h('div', { class: 'estado' });
+    const bSom = h('button', { type: 'button', id: 'testar-som' }, 'Tocar o sininho');
+    bSom.addEventListener('click', async () => {
+      const ok = await audio.tentarDestravar();
+      sininho(0.4);
+      estadoTeste.textContent = ok ? 'Se não ouviu: o botão do silencioso do aparelho e o volume de mídia.' : 'O som ainda está travado. Toque de novo.';
+    });
+    const bVoz = h('button', { type: 'button', id: 'testar-voz', disabled: !podeFalar() }, 'Ouvir a voz do aparelho');
+    bVoz.addEventListener('click', async () => {
+      estadoTeste.textContent = 'Falando "olá, estrela"...';
+      await falarPalavra('olá, estrela');
+      estadoTeste.textContent = 'Foi a voz do aparelho em português; ela fala as palavras inteiras e o espanhol quando não há gravação de vocês. Sem voz? No Android, instale o Google TTS em português; no iPhone, Ajustes, Acessibilidade, Conteúdo Falado, Vozes.';
+    });
+    painel.append(h('p', {}, podeFalar() ? 'O sininho testa o áudio do jogo. A voz do aparelho é a que fala palavras inteiras quando não há gravação de vocês.' : 'O sininho testa o áudio do jogo. Este navegador não tem voz sintética; as palavras inteiras dependem das gravações de vocês.'), h('div', { class: 'acoes' }, bSom, bVoz), estadoTeste);
   }
 
   return { el };
