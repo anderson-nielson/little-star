@@ -365,7 +365,7 @@ body {
   width: calc(100% - 2 * var(--e4));
   max-width: calc(var(--coluna) - 2 * var(--e4));
   z-index: var(--z-hud);
-  padding: var(--e3) var(--e4) var(--e4);
+  padding: var(--e3) var(--alvo) var(--e4) var(--e4);
   background: var(--papel);
   color: var(--txt);
   border: var(--fio-w) solid var(--fio-ouro);
@@ -375,7 +375,6 @@ body {
   transform: translate(-50%, -8px);
   transition: opacity var(--d-lento) var(--ease-entra-sai), transform var(--d-lento) var(--ease-sai);
   pointer-events: none;
-  cursor: pointer;
 }
 .balao.visivel {
   opacity: 1;
@@ -409,4 +408,24 @@ body {
   font-size: var(--t-h2);
   font-weight: 500;
   line-height: 1.25;
+}
+/* o "x" que fecha: alvo de um dedo no canto de cima, à direita */
+.balao-fechar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: var(--alvo);
+  height: var(--alvo);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ouro-tinta);
+  font-family: var(--serif);
+  font-size: var(--t-h1);
+  line-height: 1;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.balao-fechar:active {
+  opacity: 0.6;
 }
