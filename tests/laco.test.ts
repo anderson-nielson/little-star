@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { estadoNovo, abrirDia } from '@/core/estado';
-import { partesDaSessao, proximaParte, brincadeiraDoDia, aberto } from '@/core/laco';
+import { partesDaSessao, proximaParte, brincadeiraDoDia, aberto, etapa } from '@/core/laco';
 
 const dia = (h: number, m = 0, d = 15) => new Date(2026, 8, d, h, m);
 
@@ -18,12 +18,30 @@ describe('o laço da sessão', () => {
     expect(partesDaSessao(e, dia(15, 0, 8))).toEqual(['chegada', 'roda', 'prato', 'som', 'casa', 'bichos', 'despedida']);
   });
 
-  it('a segunda abertura no mesmo dia pula roda, prato e som', () => {
+  it('a segunda abertura no mesmo dia pula o que já aconteceu hoje', () => {
     let e = estadoNovo(dia(15));
     for (let d = 1; d <= 8; d++) e = abrirDia(e, dia(15, 0, d));
+    e.hoje.rodaFeita = true;
+    e.hoje.pratoFeito = true;
+    e.hoje.somFeito = true;
     e = abrirDia(e, dia(16, 0, 8));
     expect(e.hoje.aberturas).toBe(2);
     expect(partesDaSessao(e, dia(16, 0, 8))).toEqual(['chegada', 'casa', 'bichos', 'despedida']);
+  });
+
+  it('uma sessão terminada abre a etapa seguinte no mesmo dia', () => {
+    let e = estadoNovo(dia(15));
+    e = abrirDia(e, dia(15));
+    expect(etapa(e)).toBe(1);
+    expect(partesDaSessao(e, dia(15))).toEqual(['chegada', 'casa', 'despedida']);
+    e.sessoesCompletas = 1;
+    e = abrirDia(e, dia(16));
+    expect(etapa(e)).toBe(2);
+    expect(partesDaSessao(e, dia(16))).toEqual(['chegada', 'roda', 'som', 'casa', 'bichos', 'despedida']);
+    expect(brincadeiraDoDia(e, dia(16))).toBe('caderno');
+    /* dias de jogo continuam valendo: o que for maior */
+    e.sessoes = 5;
+    expect(etapa(e)).toBe(5);
   });
 
   it('o que já aconteceu hoje não volta, e nada do que cresceu se perde num dia novo', () => {

@@ -1,4 +1,4 @@
-import { SESSAO_COMPLETA, tarefasAtivas } from '@/core/laco';
+import { etapa, SESSAO_COMPLETA, tarefasAtivas } from '@/core/laco';
 import { ajustar, PEDRINHAS } from '@/core/pedrinhas';
 import { apagarTudo, CORES_DE_COMIDA, estado, estadoNovo, hojeVazio, mudar, substituir, TAREFAS, type CorDeComida, type Tarefa } from '@/core/estado';
 import { sessao } from '@/core/sessao';
@@ -121,14 +121,14 @@ export function telaPais(): Tela {
     }
 
     /* a casa: a sequência, logo no topo, porque é a primeira dúvida de quem testa */
-    const inteira = e.sessoes > SESSAO_COMPLETA;
+    const inteira = etapa(e) > SESSAO_COMPLETA;
     const primeiraVez = !e.pais.instalacaoVista;
     painel.append(h('h2', {}, 'Como a casa abre'));
     painel.append(
       h(
         'p',
         {},
-        `A casa abre aos poucos, em dias de jogo (não em dias do calendário; no mesmo dia continua a mesma sessão). Sessão 1: o quarto e o piano, e o gatinho na despedida. Sessão 2: a roda do dia, o caderno, o som do dia, os bichos, a caixa de areia, o coelhinho, o ukulele, a lira, as bonecas, o bilhetinho e o relógio. Sessão 3: o prato, as palavras, as pinhas, subir na árvore e a horta. Sessão 4: a porta (o Jardim) e a cozinha. Daí em diante tudo; a Árvore Grande e o Lago abrem depois de terminar a aventura anterior. Coisa fechada mostra um lacinho e a mãozinha aponta o que está aberto. ${inteira ? `Agora está tudo aberto (sessão ${e.sessoes}).` : `Esta é a sessão ${e.sessoes}.`}`,
+        `A casa abre aos poucos, uma etapa por sessão terminada (piano, casinha verde, bichos, despedida) ou por dia novo de jogo, o que vier primeiro. Etapa 1: o quarto e o piano, e o gatinho na despedida. Etapa 2: a roda do dia, o caderno, o som do dia, os bichos, a caixa de areia, o coelhinho, o ukulele, a lira, as bonecas, o bilhetinho e o relógio. Etapa 3: o prato, as palavras, as pinhas, subir na árvore e a horta. Etapa 4: a porta (o Jardim) e a cozinha. Daí em diante tudo; a Árvore Grande e o Lago abrem depois de terminar a aventura anterior. Coisa fechada mostra um lacinho e a mãozinha aponta o que está aberto. Para terminar uma sessão, toque na família na sala: eles chamam para os bichos e para a despedida. ${inteira ? `Agora está tudo aberto (etapa ${etapa(e)}).` : `Esta é a etapa ${etapa(e)}.`}`,
       ),
     );
     painel.append(h('p', {}, 'Dentro de cada sessão o laço é sempre o mesmo: chegada, roda, prato, som do dia, casa (a brincadeira do dia brilha em dourado), bichos, despedida. A casinha verde no canto volta para a casa; a lua, segurada, abre este cantinho.'));

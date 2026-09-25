@@ -128,6 +128,7 @@ export function telaDespedida(): Tela {
     liraDesce();
     mudar((x) => {
       x.hoje.despedidaFeita = true;
+      x.sessoesCompletas += 1;
     });
     anunciar('despedida');
     await esperar(2500);

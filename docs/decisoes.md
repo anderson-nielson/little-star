@@ -190,3 +190,12 @@ mora ali), num botão **Opções** no alto, ao lado de "Voltar para a casa". O q
 
 Onde vive: `src/core/aparelho.ts` (sem DOM, com teste em `tests/aparelho.test.ts`),
 `src/telas/pais.ts` (`abrirOpcoes`), `src/main.ts` (o registro do service worker saiu daqui).
+## A casa abre por sessão terminada, não só por dia
+
+Quem testava ficava preso no piano: na sessão 1 só ele existe, e a sessão 2 só vinha em outro
+dia. Agora a etapa da casa é o maior entre os dias de jogo e as sessões terminadas (uma
+despedida, ou dormir, conta uma). Uma volta inteira no mesmo dia (piano, casinha verde,
+bichos, despedida) abre a etapa seguinte na hora. Duas saídas visíveis: quando a música do
+piano acaba, a mãozinha aponta a casinha; e tocar na família na sala faz eles chamarem para
+os bichos e para a despedida. A segunda abertura no mesmo dia pula só o que já aconteceu hoje
+(roda, prato, som), não mais tudo.
