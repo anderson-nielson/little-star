@@ -1,6 +1,6 @@
 import { mover, pedrinhaRola, pedrinhasSobem, telaSvg } from './comum';
 import { estado, mudar, type Tarefa } from '@/core/estado';
-import { tarefasAtivas } from '@/core/laco';
+import { etapa, tarefasAtivas } from '@/core/laco';
 import { ganhar, PEDRINHAS, perder } from '@/core/pedrinhas';
 import { sessao } from '@/core/sessao';
 import { esperar } from '@/core/util';
@@ -31,7 +31,7 @@ export function telaRoda(): Tela {
   const manha = sessao.agora().getHours() < 12;
 
   const objetos: Objeto[] = [];
-  if (manha && e.hoje.noite === null && e.sessoes > 1) {
+  if (manha && e.hoje.noite === null && etapa(e) > 1) {
     /* dormiu sozinha no quarto dela: a caminha com a lua */
     objetos.push({
       id: 'noite',
@@ -41,7 +41,7 @@ export function telaRoda(): Tela {
       cena: () => {},
     });
   }
-  if (manha && e.hoje.noiteToda === null && e.sessoes > 1) {
+  if (manha && e.hoje.noiteToda === null && etapa(e) > 1) {
     /* dormiu a noite toda: da lua ao sol */
     objetos.push({
       id: 'noite_toda',

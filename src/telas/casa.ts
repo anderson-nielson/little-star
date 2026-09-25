@@ -2,7 +2,7 @@ import { mover, pedrinha, relogioDeAjuda, telaSvg } from './comum';
 import { PEDRINHAS } from '@/core/pedrinhas';
 import { estado, mudar } from '@/core/estado';
 import { sessao } from '@/core/sessao';
-import { aberto, aventuraDoDia, aventurasAbertas, brincadeiraDoDia, type Aventura, type Brincadeira } from '@/core/laco';
+import { aberto, aventuraDoDia, aventurasAbertas, brincadeiraDoDia, etapa, type Aventura, type Brincadeira } from '@/core/laco';
 import { ceuDaHora, chaveDoDia, COR_DO_DIA, diaDaSemana, estacao } from '@/core/relogio';
 import { climaDoDia } from '@/core/festas';
 import { estagio, regadoHoje } from '@/core/horta';
@@ -12,7 +12,7 @@ import { familia, figurinoDe } from '@/puppet/boneco';
 import { arco, caixaDeAreia, centelha, coelho, contornoLuz, flor, gato, nuvem, pinha, pinheiro, veu } from '@/puppet/objetos';
 import { tocarFundo } from '@/audio/musica';
 import { falar, temVoz } from '@/audio/vozes';
-import { ronronar, tiquinho } from '@/audio/synth';
+import { ronronar, sininho, tiquinho } from '@/audio/synth';
 import { Ajuda } from '@/core/ajuda';
 import { travar } from '@/core/toque';
 import letras from '@/data/letras.json';
@@ -36,7 +36,7 @@ export function telaCasa(): Tela {
   const corEst = COR_ESTACAO[estacao(agora)]!;
   const clima = climaDoDia(agora, e.pais.festas);
   const hoje = chaveDoDia(agora);
-  const s7 = e.sessoes;
+  const s7 = etapa(e);
 
   const W = 390;
   const hx = 22;
@@ -363,9 +363,19 @@ export function telaCasa(): Tela {
   });
   tela.alvo('[data-alvo="canteiro"]', (_ev, el) => enfeite(el));
   tela.alvo('[data-alvo="mesa-cozinha"]', (_ev, el) => enfeite(el));
+  /* tocar na família: eles acenam e chamam para o fim da sessão (os bichos, ou a despedida) */
   tela.alvo('[data-alvo="tapete"]', () => {
-    tiquinho();
+    sininho();
     tela.comemorar(hx + 80, y3 - 90);
+    const fam = svg.querySelector('[data-alvo="tapete"]');
+    if (fam) {
+      mover(fam, 0, -4, 250);
+      void esperar(280).then(() => mover(fam, 0, 0, 350));
+    }
+    travar(1500);
+    void esperar(1200).then(() => {
+      if (tela.el.isConnected) void sessao.avancar();
+    });
   });
 
   /* a casa livre já durou demais: a família chama para os bichos, com o gatinho vindo até ela */

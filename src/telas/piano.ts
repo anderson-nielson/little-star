@@ -74,6 +74,11 @@ export function telaPiano(): Tela {
         mover(b, 0, -14, 300 + i * 80);
         void esperar(400 + i * 80).then(() => mover(b, 0, 0, 400));
       });
+      /* acabou a música: a mãozinha mostra o caminho de volta para a casa */
+      void esperar(2000).then(() => {
+        if (!seguindo) tela.mao([56, 66], 20);
+        void esperar(5000).then(() => !seguindo && tela.mao(null));
+      });
       return;
     }
     const i = sequencia[passo]!;

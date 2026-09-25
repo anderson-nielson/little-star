@@ -22,6 +22,15 @@ export const ABERTURAS: Record<number, string[]> = {
 /** A partir desta sessão está tudo aberto. Tela é rara na casa dela: quatro sessões bastam. */
 export const SESSAO_COMPLETA = 4;
 
+/**
+ * A etapa da casa: cresce com os dias de jogo e também com cada sessão terminada
+ * (piano, casinha, bichos, despedida), para quem joga duas vezes no mesmo dia
+ * não ficar preso na primeira sala.
+ */
+export function etapa(e: Estado): number {
+  return Math.max(e.sessoes, e.sessoesCompletas + 1);
+}
+
 export function aberto(sessoes: number, coisa: string): boolean {
   for (let s = 1; s <= Math.min(sessoes, SESSAO_COMPLETA); s++) if (ABERTURAS[s]?.includes(coisa)) return true;
   return sessoes > SESSAO_COMPLETA;
@@ -29,7 +38,7 @@ export function aberto(sessoes: number, coisa: string): boolean {
 
 /** A brincadeira do dia: na primeira semana, a coisa nova; depois, o ritmo da semana. */
 export function brincadeiraDoDia(e: Estado, agora: Date): Brincadeira {
-  const s = e.sessoes;
+  const s = etapa(e);
   if (s <= 1) return 'piano';
   if (s === 2) return 'caderno';
   if (s === 3) return 'pinhas';
@@ -46,7 +55,7 @@ export const AVENTURAS: Aventura[] = ['jardim', 'arvore', 'lago'];
 
 /** As aventuras que a porta oferece: o Jardim primeiro; cada uma terminada abre a seguinte. */
 export function aventurasAbertas(e: Estado): Aventura[] {
-  if (!aberto(e.sessoes, 'jardim')) return [];
+  if (!aberto(etapa(e), 'jardim')) return [];
   const a: Aventura[] = ['jardim'];
   if (e.aventuras >= 1) a.push('arvore');
   if (e.aventuras >= 2) a.push('lago');
@@ -83,14 +92,13 @@ export function partesDaSessao(e: Estado, agora: Date): Parte[] {
   if (p === 'dormindo') return ['dormindo'];
   if (p === 'noite') return ['noite'];
   const partes: Parte[] = ['chegada'];
-  const segundaVez = e.hoje.aberturas > 1;
-  if (!segundaVez) {
-    if (aberto(e.sessoes, 'roda') && !e.hoje.rodaFeita) partes.push('roda');
-    if (aberto(e.sessoes, 'prato') && e.pais.pratoLigado && !e.hoje.pratoFeito) partes.push('prato');
-    if (aberto(e.sessoes, 'som') && !e.hoje.somFeito) partes.push('som');
-  }
+  const et = etapa(e);
+  /* o que já aconteceu hoje não volta; o que abriu depois da primeira abertura de hoje entra */
+  if (aberto(et, 'roda') && !e.hoje.rodaFeita) partes.push('roda');
+  if (aberto(et, 'prato') && e.pais.pratoLigado && !e.hoje.pratoFeito) partes.push('prato');
+  if (aberto(et, 'som') && !e.hoje.somFeito) partes.push('som');
   partes.push('casa');
-  if (aberto(e.sessoes, 'bichos') || e.bichos.gato) partes.push('bichos');
+  if (aberto(et, 'bichos') || e.bichos.gato) partes.push('bichos');
   partes.push('despedida');
   return partes;
 }

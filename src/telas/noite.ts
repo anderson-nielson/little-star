@@ -124,6 +124,7 @@ export function telaNoite(): Tela {
     if (temVoz('boa_noite_theo')) await falar('boa_noite_theo');
     liraDesce();
     mudar((x) => {
+      if (!x.hoje.despedidaFeita) x.sessoesCompletas += 1;
       x.hoje.despedidaFeita = true;
     });
     await esperar(1500);

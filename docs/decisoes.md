@@ -133,3 +133,13 @@ Isso mexe numa decisão da v1 ("nada diminui, nenhum número aparece"). O jeito 
   sete da manhã um sol. Tocar no Theo: ele pede uma hora; ela gira até lá e ganha uma
   pedrinha. Ajuda: o número pedido acende; depois o ponteiro anda sozinho. Só horas cheias
   por enquanto; meia hora e minutos ficam para quando as cheias estiverem firmes.
+
+## A casa abre por sessão terminada, não só por dia
+
+Quem testava ficava preso no piano: na sessão 1 só ele existe, e a sessão 2 só vinha em outro
+dia. Agora a etapa da casa é o maior entre os dias de jogo e as sessões terminadas (uma
+despedida, ou dormir, conta uma). Uma volta inteira no mesmo dia (piano, casinha verde,
+bichos, despedida) abre a etapa seguinte na hora. Duas saídas visíveis: quando a música do
+piano acaba, a mãozinha aponta a casinha; e tocar na família na sala faz eles chamarem para
+os bichos e para a despedida. A segunda abertura no mesmo dia pula só o que já aconteceu hoje
+(roda, prato, som), não mais tudo.

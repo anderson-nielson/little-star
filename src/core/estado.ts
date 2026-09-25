@@ -96,6 +96,8 @@ export interface Estado {
   ultimaSessao: number;
   /** dias de jogo (dias diferentes em que abriu) */
   sessoes: number;
+  /** sessões terminadas até a despedida (ou até dormir): a casa abre por elas também */
+  sessoesCompletas: number;
   hoje: Hoje;
   lembrancas: string[];
   flores: Flor[];
@@ -157,6 +159,7 @@ export function estadoNovo(agora = new Date()): Estado {
     criadoEm: agora.getTime(),
     ultimaSessao: 0,
     sessoes: 0,
+    sessoesCompletas: 0,
     hoje: hojeVazio(chaveDoDia(agora)),
     lembrancas: [],
     flores: [],
