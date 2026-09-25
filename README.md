@@ -56,6 +56,6 @@ As mesmas do Ponta, resumidas para este jogo:
 5. Nada é errado. Toque em algo que não faz nada ganha um sininho baixinho. Falhar não existe: tem "de novo", e de novo é divertido.
 6. Alvos de 72 px, um dedo só, borda de 24 px morta, uma ação por vez, toque vale ao soltar.
 7. Nada pisca mais de uma vez por segundo. Só `transform` e `opacity` em tempo real. Sem `blur`.
-8. Sem texto para ela ler. O único texto do jogo está no cantinho dos pais.
+8. Sem texto para ela ler. O texto do jogo está no cantinho dos pais e no balão de narração do topo, que é para quem joga junto ler em voz alta para ela (e se desliga no cantinho).
 
 Piano: Salamander Grand Piano V3, de Alexander Holm, CC BY 3.0 (`public/piano/CREDITOS.txt`).

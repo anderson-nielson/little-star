@@ -479,6 +479,10 @@ Para a primeira vez, com a Stella no colo. Uns 10 minutos.
 - **A roda é de verdade.** Se ela disser que arrumou a cama e não arrumou, tudo bem: vira
   conversa ("vamos lá ver?"), não acusação.
 - **Termine na despedida.** Quando a porta fechar, fechar o celular e fazer o convite.
+- **Leia o balão em voz alta.** A cada avanço dela, um balão no topo traz uma frase para
+  quem está ao lado ler para ela: o que ela fez, o carinho da família, o Theo torcendo.
+  Leia com a sua voz, no seu jeito; a frase é só um começo. Se ela estiver jogando sozinha,
+  desligue no cantinho, porque o texto é para quem lê, não para ela.
 
 ---
 
