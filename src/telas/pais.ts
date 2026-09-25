@@ -116,26 +116,27 @@ export function telaPais(): Tela {
       painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, NOME_COR[c]), sel));
     }
 
-    /* a casa */
-    painel.append(h('h2', {}, 'A casa'));
+    /* a casa: a sequência, logo no topo, porque é a primeira dúvida de quem testa */
     const inteira = e.sessoes > SESSAO_COMPLETA;
+    const primeiraVez = !e.pais.instalacaoVista;
+    painel.append(h('h2', {}, 'Como a casa abre'));
     painel.append(
       h(
         'p',
         {},
-        inteira
-          ? `A casa está inteira aberta (sessão ${e.sessoes}). Cada dia uma brincadeira brilha, mas todas respondem.`
-          : `Nas primeiras ${SESSAO_COMPLETA} sessões a casa abre aos poucos: só o que brilha responde. Esta é a sessão ${e.sessoes}. Se preferirem, abram tudo já.`,
+        `A casa abre aos poucos, em dias de jogo (não em dias do calendário; no mesmo dia continua a mesma sessão). Sessão 1: o quarto e o piano, e o gatinho na despedida. Sessão 2: a roda do dia, o caderno, o som do dia, os bichos, a caixa de areia, o coelhinho, o ukulele, a lira, as bonecas, o bilhetinho e o relógio. Sessão 3: o prato, as palavras, as pinhas, subir na árvore e a horta. Sessão 4: a porta (o Jardim) e a cozinha. Daí em diante tudo; a Árvore Grande e o Lago abrem depois de terminar a aventura anterior. Coisa fechada mostra um lacinho e a mãozinha aponta o que está aberto. ${inteira ? `Agora está tudo aberto (sessão ${e.sessoes}).` : `Esta é a sessão ${e.sessoes}.`}`,
       ),
     );
+    painel.append(h('p', {}, 'Dentro de cada sessão o laço é sempre o mesmo: chegada, roda, prato, som do dia, casa (a brincadeira do dia brilha em dourado), bichos, despedida. A casinha verde no canto volta para a casa; a lua, segurada, abre este cantinho.'));
     if (!inteira) {
-      const bCasa = h('button', { type: 'button' }, 'Abrir a casa inteira agora');
+      const bCasa = h('button', { type: 'button', class: primeiraVez ? 'primario' : '' }, 'Abrir a casa inteira agora');
       bCasa.addEventListener('click', () => {
         mudar((x) => void (x.sessoes = SESSAO_COMPLETA + 1));
         abrir();
       });
-      painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Cômodos'), h('div', { class: 'acoes' }, bCasa)));
+      painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Para testar tudo', h('span', { class: 'sub' }, 'Para a Stella, o aos poucos é melhor. Para vocês conhecerem o jogo, abram.')), h('div', { class: 'acoes' }, bCasa)));
     }
+    if (primeiraVez) mudar((x) => void (x.pais.instalacaoVista = true));
 
     /* as pedrinhas */
     painel.append(h('h2', {}, 'O pote de pedrinhas'));
