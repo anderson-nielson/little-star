@@ -531,7 +531,8 @@ inteiro; o que sai volta na v2, sem pressa.
 - O gatinho e o coelhinho, com cuidar.
 - A semana com as cores e a brincadeira do dia. A primeira semana que se abre aos poucos.
 - Cantinho dos pais: gravar vozes, hora de dormir, limite, confirmar, lista de comidas,
-  resumo, ritmo das letras.
+  resumo, ritmo das letras. Em Opções: versão nova, reiniciar, recomeçar o dia, limpar e
+  baixar de novo, instalar, proteger as gravações, testar som e voz.
 
 **Entrou na v2** (tudo o que ficava para depois; ver `docs/decisoes.md`, "A v2")
 - Horta no quintal, comidinha com a mãe na segunda-feira, e as tarefas banho, quarto e ser

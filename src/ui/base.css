@@ -243,11 +243,28 @@ body {
   gap: var(--e2);
 }
 .pais .fechar {
+  /* fixa no alto e cobre o recuo do topo, para o texto que rola não aparecer por cima */
   position: sticky;
-  top: 0;
+  top: calc(-1 * (env(safe-area-inset-top, 0px) + var(--e5)));
+  margin-top: calc(-1 * (env(safe-area-inset-top, 0px) + var(--e5)));
+  padding: calc(env(safe-area-inset-top, 0px) + var(--e5)) 0 var(--e2);
   display: flex;
   justify-content: flex-end;
+  gap: var(--e2);
   margin-bottom: var(--e3);
+  background: var(--papel);
+}
+.pais .estado {
+  margin: var(--e2) 0 var(--e3);
+  padding: var(--e3) var(--e4);
+  border-radius: var(--r-folha);
+  background: var(--toque);
+  color: var(--txt);
+  font-size: var(--t-rotulo);
+  max-width: 60ch;
+}
+.pais .estado:empty {
+  display: none;
 }
 .pais .conta {
   display: grid;

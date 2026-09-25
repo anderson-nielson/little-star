@@ -728,7 +728,10 @@ número 7" escrito por extenso), que uma criança de 5 anos não resolve. Ali: h
 limite diário, confirmar tarefas, gravar vozes (com exportar e importar, porque o aparelho
 pode apagá-las), comidas de cada cor, prato ligado ou não, ritmo das letras, resumo,
 instruções de instalação e de Acesso Guiado, apagar tudo, e a chave do balão de narração
-(seção 6).
+(seção 6). Um botão **Opções**, no alto, guarda o que é do aparelho e não da Stella: a versão
+e a busca por versão nova, reiniciar o jogo, recomeçar o dia, limpar os arquivos guardados e
+baixar de novo, instalar na tela inicial e tela cheia, proteger as gravações
+(`navigator.storage.persist`) e quanto o jogo ocupa, e testar o sininho e a voz do aparelho.
 
 ### 15.4 Vozes gravadas
 - Gravadas no próprio app (`MediaRecorder`) pelo cantinho dos pais: uma lista de frases, cada

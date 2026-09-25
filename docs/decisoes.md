@@ -166,3 +166,27 @@ parte existe para mostrar que não precisa ser assim.
 - Onde vive: `src/data/narracao.json` (as frases), `src/core/narracao.ts` (o canal e a
   escolha, puro), `src/ui/balao.ts` (o balão), `tests/narracao.test.ts`.
 
+## Opções, no cantinho dos pais
+
+O Anderson sentiu falta de um botão de opções com o que é do aparelho: buscar versão nova,
+reiniciar e afins. Fica dentro do cantinho dos pais (a regra 8 continua: o único texto do jogo
+mora ali), num botão **Opções** no alto, ao lado de "Voltar para a casa". O que decidi:
+
+- **Versão nova** pergunta ao service worker (`registration.update()`). Cada build muda o
+  arquivo do service worker, então "arquivo diferente" é "versão nova". O registro continua em
+  `autoUpdate`: a versão nova instala, assume e o jogo reabre sozinho; o texto avisa e oferece
+  Reiniciar se não reabrir. Sem internet, o botão diz isso e não tenta.
+- **Reiniciar o jogo** é um `location.reload()`. **Recomeçar o dia** zera só o `hoje` (a família
+  recebe de novo, a roda pergunta de novo) e pede dois toques, porque a roda pode dar pedrinha
+  de novo. **Limpar e reabrir** tira o service worker e os caches e recarrega: para o jogo preso
+  numa versão antiga. Save e gravações moram no localStorage e no IndexedDB, não no cache, e
+  ficam.
+- **Instalar** usa o `beforeinstallprompt` do Chrome quando ele existe; senão aponta para as
+  instruções manuais. **Tela cheia** para quem joga no navegador sem instalar.
+- **Proteger as gravações** pede `navigator.storage.persist()` e mostra se o celular prometeu,
+  mais o espaço que o jogo ocupa. Exportar continua sendo a garantia.
+- **Testar** toca o sininho (e destrava o áudio) e faz a voz do aparelho dizer "olá, estrela",
+  com o caminho para instalar uma voz em português quando não há.
+
+Onde vive: `src/core/aparelho.ts` (sem DOM, com teste em `tests/aparelho.test.ts`),
+`src/telas/pais.ts` (`abrirOpcoes`), `src/main.ts` (o registro do service worker saiu daqui).
