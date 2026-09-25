@@ -1,9 +1,11 @@
-# Little Star: especificação (v2.4)
+# Little Star: especificação (v3)
 
 > Jogo de celular para a Stella, 5 anos. Irmão pequeno do **Ponta**
 > (`anderson-nielson/grande-ballet`): mesma família visual, mesmo piano, outro jogo.
 > Nada de código ainda. As decisões já tomadas estão marcadas como **Decidido**; o que
 > depende da família está na seção 17.
+> **Como se joga**, toque a toque, com o laço de cada sessão, a semana e o escopo revisto
+> da v1, está em `GAMEPLAY.md`. Em jogabilidade, vale aquele.
 
 Sumário
 1. Para quem é
@@ -731,27 +733,22 @@ limite diário, confirmar tarefas, gravar vozes, ver os bilhetes, volume, apagar
 A v1 é pequena de propósito. Melhor pouco e muito bem-feito, testado com ela, do que tudo pela
 metade.
 
-**v1: a casa, o nome e uma aventura**
-1. **Styleguide vivo** com a Stella pequena, a família e duas bonecas nas poses básicas.
-2. **A casa** com quarto, cozinha e porta, céu pela hora, recepção da família.
-3. **Três tarefas**: cama, dentes, brinquedos. E a hora de dormir.
-   **Comer colorido** com o canteiro de flores (8.4), que é prioridade da família.
-4. **Caderno**: os traços básicos e as letras S, T, E, L, A, montando STELLA na porta.
-5. **Piano** livre e *Brilha, brilha estrelinha*.
-6. **Uma aventura**: o Jardim, com o palco no fim.
-7. **Palavras em destaque**: 12 palavras da casa com palavra, som e sílabas (9.5).
-8. **Espanhol**: 20 palavras da casa e a Estrellita na estante.
-9. **O gatinho** na casa e **o coelhinho** no jardim.
-10. **O quintal**: a caixa de areia em estrela (escrever na areia, que reusa o traçado do
-    caderno) e a árvore para subir sem pressa.
-11. **Cantinho dos pais** com gravação de voz.
+O escopo da v1 foi revisto junto com o gameplay e está em `GAMEPLAY.md` seção 13. Ele vale
+sobre as listas antigas deste documento (por exemplo, o espanhol e a Árvore Grande foram para
+a v2, e as letras da v1 seguem a ordem do fônico).
 
-Depois de cada marco: testar com a Stella, olhar onde ela trava, onde ri, onde desiste, e
-medir antes de mexer (quanto tempo até o primeiro toque certo, quantos toques perdidos na
-borda, em que letra ela para).
+**Marcos da v1**, cada um testado com a Stella antes do próximo:
+1. **Styleguide vivo**: a Stella pequena, a família, o gatinho, o coelhinho e duas bonecas
+   de pano, nas poses básicas; os tokens de musgo, rosa, areia e vermelho da caixa.
+2. **A casa e o laço**: chegada, livre, bichos, despedida, com o piano. Já é jogável.
+3. **A roda do dia e o prato colorido**, com o cantinho dos pais e a gravação de voz.
+4. **Letras e sons**: som do dia, caderno, escorregador de sons.
+5. **O quintal**: caixa de areia, pinhas, mesa da estação.
+6. **A aventura do Jardim e o palco.**
+7. **A semana, a primeira semana e o laço da noite.**
 
-**v2**: as outras tarefas, a Árvore Grande e o Lago, o ukulele, vestir as bonecas, bilhetinho,
-letras da família, mais espanhol.
+Depois de cada marco: testar com a Stella seguindo `GAMEPLAY.md` seção 12, olhar onde ela
+trava, onde ri, onde desiste, e medir antes de mexer.
 
 ## 17. Perguntas para a família
 
