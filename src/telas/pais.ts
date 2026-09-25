@@ -1,4 +1,4 @@
-import { SESSAO_COMPLETA } from '@/core/laco';
+import { SESSAO_COMPLETA, tarefasAtivas } from '@/core/laco';
 import { apagarTudo, CORES_DE_COMIDA, estado, estadoNovo, mudar, substituir, TAREFAS, type CorDeComida, type Tarefa } from '@/core/estado';
 import { sessao } from '@/core/sessao';
 import { h } from '@/core/util';
@@ -54,7 +54,7 @@ export function telaPais(): Tela {
       h('p', {}, 'A Stella contou o que fez; confirmar aqui acende a lembrança com um brilho a mais e toca a voz de quem confirmou. Sem confirmação, a cena e o carinho acontecem igual.'),
     );
     const conf = e.pais.confirmacoes[e.hoje.dia] ?? [];
-    for (const t of TAREFAS) {
+    for (const t of tarefasAtivas(e)) {
       const ligado = conf.includes(t);
       const b = h('button', { type: 'button', class: ligado ? 'ligado' : '' }, ligado ? 'Confirmado' : 'Confirmar');
       b.addEventListener('click', () => {
@@ -131,6 +131,66 @@ export function telaPais(): Tela {
       painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Cômodos'), h('div', { class: 'acoes' }, bCasa)));
     }
 
+    /* a roda */
+    painel.append(h('h2', {}, 'A roda do dia'));
+    painel.append(h('p', {}, 'Quais tarefas a família pergunta. Cada uma vale uma vez por dia, sem prazo e sem contador. Poucas por vez: a roda é para contar, não para cobrar.'));
+    for (const t of TAREFAS) {
+      const ligada = e.pais.tarefas[t];
+      const b = h('button', { type: 'button', class: ligada ? 'ligado' : '' }, ligada ? 'Na roda' : 'Fora');
+      b.addEventListener('click', () => {
+        mudar((x) => void (x.pais.tarefas[t] = !x.pais.tarefas[t]));
+        abrir();
+      });
+      painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, NOME_TAREFA[t]), b));
+    }
+
+    /* espanhol */
+    painel.append(h('h2', {}, 'Espanhol'));
+    painel.append(
+      h('p', {}, 'A Estrellita, a boneca da estante, diz o outro nome das coisas: nas palavras, na comidinha, na horta e no palco. A escrita fica sempre em português. No automático, ela começa a falar quando a Stella já traçou três letras, para os primeiros sons estarem firmes. Se o celular não tiver voz em espanhol, grave as palavras no grupo Espanhol das vozes.'),
+    );
+    const modos: ['auto' | 'ligado' | 'desligado', string][] = [
+      ['auto', 'Automático'],
+      ['ligado', 'Sempre'],
+      ['desligado', 'Nunca'],
+    ];
+    painel.append(
+      h(
+        'div',
+        { class: 'linha' },
+        h('span', { class: 'nome' }, 'A Estrellita fala'),
+        h(
+          'div',
+          { class: 'acoes' },
+          ...modos.map(([m, rotulo]) => {
+            const b = h('button', { type: 'button', class: e.pais.espanhol === m ? 'ligado' : '' }, rotulo);
+            b.addEventListener('click', () => {
+              mudar((x) => void (x.pais.espanhol = m));
+              abrir();
+            });
+            return b;
+          }),
+        ),
+      ),
+    );
+
+    /* festas */
+    painel.append(h('h2', {}, 'As estações e as festas'));
+    painel.append(h('p', {}, 'A casa e o quintal mudam devagar com a estação (folhas no outono, flores na primavera, conchinhas no verão) e com as festas: Festa da Lanterna no fim de maio, festa junina, Festa da Primavera e o Advento com a espiral de velas.'));
+    const bFestas = h('button', { type: 'button', class: e.pais.festas ? 'ligado' : '' }, e.pais.festas ? 'Ligadas' : 'Desligadas');
+    bFestas.addEventListener('click', () => {
+      mudar((x) => void (x.pais.festas = !x.pais.festas));
+      abrir();
+    });
+    painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Festas'), bFestas));
+
+    /* bilhetes */
+    if (e.bilhetes.length) {
+      painel.append(h('h2', {}, 'Os bilhetinhos dela'));
+      const NOME_QUEM = { mae: 'para a mãe', pai: 'para o pai', theo: 'para o Theo' };
+      for (const b of e.bilhetes.slice(-12).reverse()) painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, b.letras, h('span', { class: 'sub' }, `${NOME_QUEM[b.para]}, ${b.dia}`))));
+    }
+
     /* letras */
     painel.append(h('h2', {}, 'As letras'));
     const letraAtual = (letras as { id: string }[])[Math.min(e.letraIndice, letras.length - 1)]!.id;
@@ -166,7 +226,7 @@ export function telaPais(): Tela {
     const desenharVozes = () => {
       grade.innerHTML = '';
       for (const g of grupos) {
-        grade.append(h('h2', {}, { chegada: 'Chegada', roda: 'Roda do dia', prato: 'Prato', sons: 'Sons das letras', letras: 'Caderno', bichos: 'Nomes dos bichos', despedida: 'Despedida', noite: 'Boa noite', palco: 'Palco' }[g] ?? g));
+        grade.append(h('h2', {}, { chegada: 'Chegada', roda: 'Roda do dia', prato: 'Prato', sons: 'Sons das letras', letras: 'Caderno', bichos: 'Nomes dos bichos', despedida: 'Despedida', noite: 'Boa noite', palco: 'Palco', cozinha: 'Comidinha', horta: 'Horta', bilhete: 'Bilhetinho', espanhol: 'Espanhol (a Estrellita)', aventuras: 'Aventuras' }[g] ?? g));
         for (const f of frases.filter((x) => x.grupo === g)) grade.append(linhaVoz(f));
       }
     };
@@ -244,6 +304,10 @@ export function telaPais(): Tela {
         h('div', {}, h('b', {}, String(e.estrelas)), 'noites na caminha'),
         h('div', {}, h('b', {}, String(e.pinhas.length)), 'pinhas'),
         h('div', {}, h('b', {}, String(e.aventuras)), 'aventuras'),
+        h('div', {}, h('b', {}, String(e.comidinhas)), 'comidinhas com a mãe'),
+        h('div', {}, h('b', {}, String(e.horta.filter(Boolean).length)), 'canteiros plantados'),
+        h('div', {}, h('b', {}, String(e.coreto)), 'luzes no coreto'),
+        h('div', {}, h('b', {}, String(e.bilhetes.length)), 'bilhetinhos'),
         h('div', {}, h('b', {}, String(a1)), 'vezes que a mãozinha ajudou'),
         h('div', {}, h('b', {}, String(a2)), 'vezes que o jogo fez junto'),
       ),

@@ -22,6 +22,15 @@ import { telaDespedida } from './telas/despedida';
 import { telaNoite, telaDormindo } from './telas/noite';
 import { telaPais } from './telas/pais';
 import { telaStyleguide } from './telas/styleguide';
+import { telaHorta } from './telas/horta';
+import { telaArvore } from './telas/arvore';
+import { telaCozinha } from './telas/cozinha';
+import { telaArvoreGrande } from './telas/arvoregrande';
+import { telaLago } from './telas/lago';
+import { telaUkulele } from './telas/ukulele';
+import { telaLira } from './telas/lira';
+import { telaBonecas } from './telas/bonecas';
+import { telaBilhete } from './telas/bilhete';
 
 declare const __VERSAO__: string;
 
@@ -43,6 +52,15 @@ registrar('noite', telaNoite);
 registrar('dormindo', telaDormindo);
 registrar('pais', telaPais);
 registrar('styleguide', telaStyleguide);
+registrar('horta', telaHorta);
+registrar('arvore', telaArvore);
+registrar('cozinha', telaCozinha);
+registrar('arvoregrande', telaArvoreGrande);
+registrar('lago', telaLago);
+registrar('ukulele', telaUkulele);
+registrar('lira', telaLira);
+registrar('bonecas', telaBonecas);
+registrar('bilhete', telaBilhete);
 
 const app = document.getElementById('app')!;
 montar(app);
@@ -66,10 +84,12 @@ if (q.get('styleguide')) {
     const s = Number(q.get('sessoes'));
     if (s > 0) mudar((e) => void (e.sessoes = s - 1));
     const hora = q.get('hora');
-    if (hora) {
-      const [hh, mm] = hora.split(':').map(Number);
+    const dia = q.get('dia');
+    if (hora || dia) {
+      const [hh, mm] = (hora ?? '15:00').split(':').map(Number);
+      const [ano, mes, d0] = (dia ?? '').split('-').map(Number);
       sessao.agora = () => {
-        const d = new Date();
+        const d = dia ? new Date(ano ?? 2026, (mes ?? 1) - 1, d0 ?? 1) : new Date();
         d.setHours(hh ?? 12, mm ?? 0, 0, 0);
         return d;
       };

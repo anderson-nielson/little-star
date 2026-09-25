@@ -1,11 +1,13 @@
 import { mover, relogioDeAjuda, telaSvg } from './comum';
 import { estado, mudar } from '@/core/estado';
 import { sessao } from '@/core/sessao';
-import { aberto, brincadeiraDoDia, type Brincadeira } from '@/core/laco';
-import { ceuDaHora, COR_DO_DIA, diaDaSemana, estacao } from '@/core/relogio';
+import { aberto, aventuraDoDia, aventurasAbertas, brincadeiraDoDia, type Aventura, type Brincadeira } from '@/core/laco';
+import { ceuDaHora, chaveDoDia, COR_DO_DIA, diaDaSemana, estacao } from '@/core/relogio';
+import { climaDoDia } from '@/core/festas';
+import { estagio, regadoHoje } from '@/core/horta';
 import { ir } from '@/core/roteador';
-import { cor as tok, esperar } from '@/core/util';
-import { familia } from '@/puppet/boneco';
+import { cor as tok, esperar, svgEl } from '@/core/util';
+import { familia, figurinoDe } from '@/puppet/boneco';
 import { arco, caixaDeAreia, centelha, coelho, contornoLuz, flor, gato, nuvem, pinha, pinheiro, veu } from '@/puppet/objetos';
 import { tocarFundo } from '@/audio/musica';
 import { falar, temVoz } from '@/audio/vozes';
@@ -31,6 +33,8 @@ export function telaCasa(): Tela {
   const brinc = brincadeiraDoDia(e, agora);
   const corDia = tok('--' + COR_DO_DIA[diaDaSemana(agora)]!) || '#7FA5B8';
   const corEst = COR_ESTACAO[estacao(agora)]!;
+  const clima = climaDoDia(agora, e.pais.festas);
+  const hoje = chaveDoDia(agora);
   const s7 = e.sessoes;
 
   const W = 390;
@@ -48,6 +52,27 @@ export function telaCasa(): Tela {
     : `<circle cx="70" cy="70" r="20" fill="#ebd9a8" opacity="0.9"/>` + nuvem(280, 60, 14) + nuvem(150, 40, 10);
   /* quintal */
   s += `<rect x="0" y="600" width="390" height="180" fill="#c9dbb2"/>` + veu(0, 600, W, 180, '#8fae6b', 5, 0.32);
+  /* a estação e as festas mudam o quintal devagar */
+  if (clima.folhas) for (let i = 0; i < 7; i++) s += `<path d="M${30 + i * 52} ${612 + (i % 3) * 8}q8 -12 16 0q-8 12 -16 0z" fill="${i % 2 ? '#d97f74' : '#e8a24a'}" opacity="0.85"/>`;
+  if (clima.festa === 'junina') {
+    s += `<path d="M${hx + hw} ${top + 30}Q300 260 350 420" fill="none" stroke="#c9a189" stroke-width="1.5"/>`;
+    for (let i = 0; i < 6; i++) {
+      const t = (i + 0.5) / 6;
+      const bx = hx + hw + (350 - hx - hw) * t;
+      const by = top + 30 + (420 - top - 30) * t * t;
+      s += `<path d="M${bx - 6} ${by}h12l-6 12z" fill="${['#d2463c', '#ebd9a8', '#7FA5B8', '#f2a9c4', '#8fae6b', '#e8a24a'][i]}"/>`;
+    }
+    s += `<g class="fogueira"><path d="M230 700l30 -10l30 10z" fill="#8a6a4a"/><path d="M245 700q0 -30 15 -44q15 14 15 44z" fill="#e8a24a" opacity="0.9"/><path d="M252 700q0 -18 8 -28q8 10 8 28z" fill="#ebd9a8" opacity="0.9"/></g>`;
+  }
+  if (clima.festa === 'lanterna') for (let i = 0; i < 4; i++) s += `<g class="respira" style="animation-delay:${i * 400}ms"><path d="M${hx + 40 + i * 70} ${top + 8}v10" stroke="#c9a189" stroke-width="1.5"/><rect x="${hx + 32 + i * 70}" y="${top + 18}" width="16" height="20" rx="6" fill="#e8a24a" opacity="0.9"/><rect x="${hx + 36 + i * 70}" y="${top + 24}" width="8" height="8" rx="3" fill="#ebd9a8"/></g>`;
+  if (clima.velas > 0) {
+    s += `<path d="M60 700m0 0c-20 -6 -24 -30 -4 -36c22 -6 36 12 24 28c-10 14 -30 8 -28 -6c2 -10 14 -8 14 -2" fill="none" stroke="#35564d" stroke-width="5" stroke-linecap="round"/>`;
+    for (let i = 0; i < 4; i++) {
+      const vx = 42 + i * 14;
+      s += `<rect x="${vx - 3}" y="${672 - (i % 2) * 8}" width="6" height="16" fill="#ebd9a8"/>`;
+      if (i < clima.velas) s += `<ellipse cx="${vx}" cy="${668 - (i % 2) * 8}" rx="3" ry="5" fill="#e8a24a" opacity="0.9"/>`;
+    }
+  }
   /* casa */
   s += `<path d="M${hx - 14} ${top + 10}L${hx + hw / 2} ${top - 60}L${hx + hw + 14} ${top + 10}z" fill="#4f6b3a"/>`;
   s += `<rect x="${hx}" y="${top}" width="${hw}" height="${bottom - top}" fill="#8fae6b"/>` + veu(hx, top, hw, bottom - top, '#c9dbb2', 4, 0.22);
@@ -68,6 +93,10 @@ export function telaCasa(): Tela {
   e.letras.slice(0, 9).forEach((l, i) => {
     s += `<text x="${hx + 78 + (i % 5) * 20}" y="${y1 + 34 + Math.floor(i / 5) * 22}" font-family="Jost, sans-serif" font-size="20" font-weight="500" fill="#f2a9c4">${l}</text>`;
   });
+  /* o ukulele e a lira na parede, o envelope do bilhetinho na porta do quarto */
+  if (aberto(s7, 'ukulele')) s += `<g data-alvo="ukulele"><circle cx="${hx + 82}" cy="${y1 + 80}" r="30" fill="transparent"/><rect x="${hx + 79}" y="${y1 + 60}" width="6" height="20" rx="2" fill="#c9a189"/><circle cx="${hx + 82}" cy="${y1 + 86}" r="10" fill="#f2a9c4"/><circle cx="${hx + 82}" cy="${y1 + 84}" r="3" fill="#6e1a27" opacity="0.6"/></g>`;
+  if (aberto(s7, 'lira')) s += `<g data-alvo="lira"><circle cx="${hx + 118}" cy="${y1 + 80}" r="30" fill="transparent"/><path d="M${hx + 108} ${y1 + 96}V${y1 + 74}a10 10 0 0 1 20 0v22" fill="none" stroke="#c9a189" stroke-width="3"/><path d="M${hx + 112} ${y1 + 70}v24M${hx + 118} ${y1 + 68}v28M${hx + 124} ${y1 + 70}v24" stroke="#c6a15b" stroke-width="1"/></g>`;
+  if (aberto(s7, 'bilhete') && e.letras.length > 0) s += `<g data-alvo="bilhete"><circle cx="${hx + 39}" cy="${y1 + 110}" r="26" fill="transparent"/><rect x="${hx + 27}" y="${y1 + 102}" width="24" height="16" rx="2" fill="#fbf8f1" stroke="#c6a15b"/><path d="M${hx + 27} ${y1 + 102}l12 9l12 -9" fill="none" stroke="#c6a15b"/></g>`;
   /* cama, com o gatinho dormindo */
   s += `<g data-alvo="cama"><rect x="${hx + 70}" y="${y1 + 118}" width="70" height="26" rx="6" fill="#fbf8f1"/><rect x="${hx + 70}" y="${y1 + 126}" width="70" height="18" rx="4" fill="#f2a9c4" opacity="0.8"/><rect x="${hx + 66}" y="${y1 + 104}" width="8" height="40" rx="2" fill="#c9a189"/><rect x="${hx + 136}" y="${y1 + 112}" width="8" height="32" rx="2" fill="#c9a189"/>`;
   s += `</g>`;
@@ -76,7 +105,7 @@ export function telaCasa(): Tela {
   if (lembr > 0) s += `<ellipse cx="${hx + 84}" cy="${y1 + 122}" rx="10" ry="5" fill="#fbf8f1" stroke="#ebcdc3"/>`;
   /* estante de bonecas */
   s += `<g data-alvo="estante"><rect x="${hx + 200}" y="${y1 + 40}" width="76" height="60" fill="none" stroke="#c9a189" stroke-width="2"/><line x1="${hx + 200}" y1="${y1 + 70}" x2="${hx + 276}" y2="${y1 + 70}" stroke="#c9a189" stroke-width="2"/>`;
-  for (let i = 0; i < Math.min(e.bonecas, 5); i++) s += `<g class="boneca">${familia.boneca(hx + 214 + (i % 3) * 24, y1 + 68 + Math.floor(i / 3) * 30, 22, i).svg}</g>`;
+  for (let i = 0; i < Math.min(e.bonecas, 5); i++) s += `<g class="boneca">${familia.boneca(hx + 214 + (i % 3) * 24, y1 + 68 + Math.floor(i / 3) * 30, 22, i, figurinoDe(e.figurinos[String(i)])).svg}</g>`;
   s += `</g>`;
   /* mesa da estação com as pinhas dela */
   s += `<g data-alvo="mesa"><rect x="${hx + 206}" y="${y1 + 128}" width="66" height="6" rx="2" fill="#c9a189"/><rect x="${hx + 206}" y="${y1 + 122}" width="66" height="8" fill="${corEst}" opacity="0.85"/><line x1="${hx + 212}" y1="${y1 + 134}" x2="${hx + 212}" y2="${y1 + 146}" stroke="#c9a189" stroke-width="3"/><line x1="${hx + 266}" y1="${y1 + 134}" x2="${hx + 266}" y2="${y1 + 146}" stroke="#c9a189" stroke-width="3"/>`;
@@ -102,7 +131,9 @@ export function telaCasa(): Tela {
   s += `<g data-alvo="tapete"><ellipse cx="${hx + 80}" cy="${y3 - 22}" rx="62" ry="14" fill="#ebcdc3" opacity="0.8"/>`;
   s += familia.mae(hx + 40, y3 - 20, 96).svg + familia.pai(hx + 120, y3 - 20, 104, 'parado', { dir: -1 }).svg + familia.theo(hx + 82, y3 - 22, 74, 'acena').svg + `</g>`;
   /* cozinha: fogão e mesa com a toalha do dia */
-  s += `<rect x="${hx + hw / 2 + 14}" y="${y3 - 60}" width="40" height="46" rx="3" fill="#fbf8f1" stroke="#c6a15b" stroke-width="1"/><circle cx="${hx + hw / 2 + 26}" cy="${y3 - 50}" r="5" fill="none" stroke="#1a1c2b" stroke-width="1.2" opacity="0.5"/><circle cx="${hx + hw / 2 + 42}" cy="${y3 - 50}" r="5" fill="none" stroke="#1a1c2b" stroke-width="1.2" opacity="0.5"/>`;
+  s += `<g data-alvo="fogao"><circle cx="${hx + hw / 2 + 34}" cy="${y3 - 37}" r="34" fill="transparent"/><rect x="${hx + hw / 2 + 14}" y="${y3 - 60}" width="40" height="46" rx="3" fill="#fbf8f1" stroke="#c6a15b" stroke-width="1"/><circle cx="${hx + hw / 2 + 26}" cy="${y3 - 50}" r="5" fill="none" stroke="#1a1c2b" stroke-width="1.2" opacity="0.5"/><circle cx="${hx + hw / 2 + 42}" cy="${y3 - 50}" r="5" fill="none" stroke="#1a1c2b" stroke-width="1.2" opacity="0.5"/>`;
+  if (e.colheita.length) s += `<path d="M${hx + hw / 2 + 58} ${y3 - 24}q10 -4 20 0l-2 10h-16z" fill="#c9a189"/>` + e.colheita.slice(0, 3).map((c, i) => `<circle cx="${hx + hw / 2 + 62 + i * 6}" cy="${y3 - 26}" r="3" fill="${{ cenoura: '#e8a24a', tomate: '#d2463c', milho: '#ebd9a8', alface: '#8fae6b' }[c]}"/>`).join('');
+  s += `</g>`;
   s += `<g data-alvo="mesa-cozinha"><rect x="${hx + hw / 2 + 70}" y="${y3 - 52}" width="60" height="10" rx="2" fill="${corDia}"/><rect x="${hx + hw / 2 + 70}" y="${y3 - 42}" width="60" height="4" fill="#c9a189"/><line x1="${hx + hw / 2 + 76}" y1="${y3 - 38}" x2="${hx + hw / 2 + 76}" y2="${y3 - 14}" stroke="#c9a189" stroke-width="3"/><line x1="${hx + hw / 2 + 124}" y1="${y3 - 38}" x2="${hx + hw / 2 + 124}" y2="${y3 - 14}" stroke="#c9a189" stroke-width="3"/><ellipse cx="${hx + hw / 2 + 100}" cy="${y3 - 54}" rx="12" ry="4" fill="#fbf8f1" stroke="#c6a15b" stroke-width="1"/>`;
   s += `<g data-alvo="lata"><rect x="${hx + hw / 2 + 20}" y="${y3 - 76}" width="12" height="16" rx="2" fill="#b6a58c"/></g></g>`;
   /* térreo e porta */
@@ -110,6 +141,7 @@ export function telaCasa(): Tela {
   const jardimAberto = aberto(s7, 'jardim');
   s += `<g data-alvo="porta"><path d="M${hx + hw / 2 - 34} ${bottom}v-66a34 34 0 0 1 68 0v66z" fill="#6e1a27"/><path d="M${hx + hw / 2 - 26} ${bottom}v-60a26 26 0 0 1 52 0v60z" fill="#ebcdc3" opacity="0.35"/><circle cx="${hx + hw / 2 + 16}" cy="${bottom - 30}" r="3" fill="#c6a15b"/>`;
   if (noite) s += `<path d="M${hx + hw / 2} ${bottom - 84}a8 8 0 1 0 7 12a6 6 0 1 1-7-12z" fill="#ebd9a8"/>`;
+  if (clima.festa === 'primavera') for (let i = 0; i < 5; i++) s += flor(hx + hw / 2 - 40 + i * 20, bottom - 70 + Math.abs(i - 2) * 6, ['#f2a9c4', '#ebd9a8', '#d97f74', '#ebd9a8', '#f2a9c4'][i]!, 6);
   s += `</g>`;
   const coelhoNovo = !e.bichos.coelho && aberto(s7, 'coelho');
   if (e.bichos.coelho || coelhoNovo) s += `<g data-alvo="coelho" class="${coelhoNovo ? 'respira' : ''}">${coelho(hx + hw / 2 + 50, bottom, coelhoNovo ? 20 : 16)}</g>`;
@@ -119,8 +151,25 @@ export function telaCasa(): Tela {
     s += flor(66 + i * 15, 648 + (i % 2) * 3, COR_FLOR[fl.cor] ?? '#f2a9c4', fl.girassol ? 11 : 9, fl.girassol);
   });
   s += `</g>`;
-  if (aberto(s7, 'areia')) s += `<g data-alvo="areia">${caixaDeAreia(110, 720, 52)}<path d="M96 722q10 -8 20 0" fill="none" stroke="#d9c69a" stroke-width="2"/><rect x="128" y="710" width="10" height="12" rx="2" fill="#f2a9c4"/></g>`;
-  s += `<g data-alvo="pinhas">${pinheiro(350, 745, 330)}`;
+  if (aberto(s7, 'areia')) s += `<g data-alvo="areia">${caixaDeAreia(110, 720, 52)}<path d="M96 722q10 -8 20 0" fill="none" stroke="#d9c69a" stroke-width="2"/><rect x="128" y="710" width="10" height="12" rx="2" fill="#f2a9c4"/>${clima.conchas ? `<path d="M104 730q4 -6 8 0q-4 4 -8 0zM118 734q4 -6 8 0q-4 4 -8 0z" fill="#fbf8f1" stroke="#c6a15b" stroke-width="0.8"/>` : ''}</g>`;
+  /* a horta: quatro covinhas que mostram o que está crescendo */
+  if (aberto(s7, 'horta')) {
+    s += `<g data-alvo="horta"><circle cx="236" cy="670" r="38" fill="transparent"/><path d="M192 648h88M192 660h88" stroke="#c9a189" stroke-width="2.5"/><path d="M198 642v22M236 642v22M274 642v22" stroke="#c9a189" stroke-width="3" stroke-linecap="round"/><rect x="192" y="664" width="88" height="16" rx="6" fill="#8a6a4a" opacity="0.75"/>`;
+    e.horta.forEach((c, i) => {
+      const cx = 202 + i * 23;
+      if (!c) return;
+      const est = estagio(c, hoje);
+      const cor = { cenoura: '#e8a24a', tomate: '#d2463c', milho: '#ebd9a8', alface: '#8fae6b' }[c.semente];
+      s += est === 'semente' ? `<circle cx="${cx}" cy="666" r="2" fill="#6b4a2a"/>` : `<path d="M${cx} 668v-${est === 'broto' ? 6 : 10}" stroke="#8fae6b" stroke-width="2"/>`;
+      if (est === 'pronta') s += `<circle cx="${cx}" cy="656" r="4" fill="${cor}"/>`;
+      if (!regadoHoje(c, hoje) && est !== 'pronta') s += `<circle cx="${cx + 5}" cy="652" r="2" fill="#9fc3cf"/>`;
+    });
+    s += `</g>`;
+  }
+  s += `<g data-alvo="arvore">${pinheiro(350, 745, 330)}`;
+  if (clima.flores) s += flor(322, 640, '#f2a9c4', 5) + flor(372, 600, '#ebd9a8', 5) + flor(340, 560, '#f2a9c4', 4);
+  if (clima.fitinha) s += `<path d="M330 700q20 -10 40 0" fill="none" stroke="#7FA5B8" stroke-width="3"/>`;
+  s += `</g><g data-alvo="pinhas"><circle cx="340" cy="758" r="36" fill="transparent"/>`;
   if (aberto(s7, 'pinhas')) s += pinha(316, 752, 6) + pinha(368, 758, 6, 1) + pinha(340, 768, 5, 2);
   s += `</g>`;
   /* contorno de luz na brincadeira do dia */
@@ -165,8 +214,43 @@ export function telaCasa(): Tela {
   tela.alvo('[data-alvo="janela"]', () => (noite && aberto(s7, 'palavras') ? vai('palavra', { palavra: 'LUA', volta: 'casa' }) : tiquinho()));
   tela.alvo('[data-alvo="areia"]', () => vai('areia'));
   tela.alvo('[data-alvo="pinhas"]', () => (aberto(s7, 'pinhas') ? vai('pinhas') : tiquinho()));
+  tela.alvo('[data-alvo="arvore"]', () => (aberto(s7, 'arvore') ? vai('arvore') : tiquinho()));
+  tela.alvo('[data-alvo="horta"]', () => vai('horta'));
   tela.alvo('[data-alvo="mesa"]', () => (aberto(s7, 'pinhas') ? vai('pinhas', { mesa: '1' }) : tiquinho()));
-  tela.alvo('[data-alvo="porta"]', () => (jardimAberto ? vai('jardim') : tiquinho()));
+  tela.alvo('[data-alvo="fogao"]', () => (aberto(s7, 'cozinha') ? vai('cozinha') : tiquinho()));
+  tela.alvo('[data-alvo="ukulele"]', () => vai('ukulele'));
+  tela.alvo('[data-alvo="lira"]', () => vai('lira'));
+  tela.alvo('[data-alvo="bilhete"]', () => vai('bilhete'));
+  /* a porta: uma aventura só vai direto; mais de uma, ela escolhe entre figuras */
+  const TELA_DA_AVENTURA: Record<Aventura, string> = { jardim: 'jardim', arvore: 'arvoregrande', lago: 'lago' };
+  const abrirPorta = () => {
+    const abertas = aventurasAbertas(e);
+    if (!jardimAberto || abertas.length === 0) return tiquinho();
+    if (abertas.length === 1) return vai('jardim');
+    if (svg.querySelector('.escolha')) return;
+    const doDia = aventuraDoDia(e);
+    const cy = bottom - 150;
+    const icone: Record<Aventura, (x: number) => string> = {
+      jardim: (x) => coelho(x - 6, cy + 22, 22),
+      arvore: (x) => pinha(x, cy + 6, 18, 1) + gato(x + 22, cy + 22, 8, '#c8b8a6', true),
+      lago: (x) => `<path d="M${x - 16} ${cy + 8}q16 12 32 0q-2 -10 -16 -10q-14 0 -16 10z" fill="#fbf8f1"/><path d="M${x + 8} ${cy + 4}q10 -10 4 -22" stroke="#fbf8f1" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M${x + 12} ${cy - 20}l8 3l-8 3z" fill="#e8a24a"/>`,
+    };
+    const g = svgEl(
+      `<g class="escolha">${abertas
+        .map((a, i) => {
+          const x = hx + hw / 2 + (i - (abertas.length - 1) / 2) * 104;
+          return `<g data-aventura="${a}"><circle cx="${x}" cy="${cy}" r="44" fill="#fbf8f1" stroke="#c6a15b" stroke-width="1.5"/>${icone[a](x)}${a === doDia ? contornoLuz(x, cy, 48, 48) : ''}</g>`;
+        })
+        .join('')}</g>`,
+    );
+    svg.appendChild(g);
+    tela.alvo('[data-aventura]', (_ev, el2) => vai(TELA_DA_AVENTURA[el2.getAttribute('data-aventura') as Aventura]));
+    /* sem escolha em 14 s, vai a do dia */
+    void esperar(14000).then(() => {
+      if (g.isConnected && tela.el.isConnected) vai(TELA_DA_AVENTURA[doDia]);
+    });
+  };
+  tela.alvo('[data-alvo="porta"]', () => abrirPorta());
   tela.alvo('[data-alvo="gato"]', (_ev, el) => {
     ronronar();
     mover(el, 0, -4, 300);
@@ -219,11 +303,12 @@ export function telaCasa(): Tela {
     }
   };
   tela.alvo('[data-alvo="estante"]', () => {
-    tiquinho();
     svg.querySelectorAll('.boneca').forEach((b, i) => {
       mover(b, 0, -5, 250 + i * 60);
       void esperar(300 + i * 60).then(() => mover(b, 0, 0, 300));
     });
+    if (aberto(s7, 'bonecas')) vai('bonecas');
+    else tiquinho();
   });
   tela.alvo('[data-alvo="cama"]', (_ev, el) => {
     tiquinho();

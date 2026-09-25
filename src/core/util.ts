@@ -56,9 +56,11 @@ const NS = 'http://www.w3.org/2000/svg';
 
 /** Um elemento SVG a partir de texto. */
 export function svgEl(html: string): SVGElement {
+  /* dentro de um <svg> o parser de HTML cria os elementos no namespace certo;
+     um <g> solto viraria um elemento HTML desconhecido, invisível na cena */
   const t = document.createElement('template');
-  t.innerHTML = html.trim();
-  return t.content.firstElementChild as SVGElement;
+  t.innerHTML = `<svg xmlns="${NS}">${html.trim()}</svg>`;
+  return (t.content.firstElementChild as SVGSVGElement).firstElementChild as SVGElement;
 }
 
 /** Um SVG de cena inteira (viewBox 390 x 780 por padrão) com o conteúdo dado. */

@@ -3,12 +3,14 @@ import { estado, mudar } from '@/core/estado';
 import { ir } from '@/core/roteador';
 import { esperar } from '@/core/util';
 import { travar } from '@/core/toque';
-import { familia } from '@/puppet/boneco';
+import { familia, figurinoDe } from '@/puppet/boneco';
 import { centelha, veu } from '@/puppet/objetos';
 import { audio } from '@/audio/engine';
 import { musica, pararFundo, Sequenciador } from '@/audio/musica';
 import { aplauso, lira, sininho } from '@/audio/synth';
 import { falar, temVoz } from '@/audio/vozes';
+import { falarEspanhol } from '@/audio/espanhol';
+import { espanholAtivo } from '@/core/laco';
 import type { Tela } from '@/core/roteador';
 
 const DURACAO = 40;
@@ -30,7 +32,9 @@ export function telaPalco(): Tela {
   /* plateia: primeira fila */
   s += `<rect x="0" y="610" width="390" height="170" fill="#1b2140"/>`;
   s += familia.mae(90, 720, 96, 'parado', { contorno: '#ebd9a8' }).svg + familia.pai(300, 720, 104, 'parado', { contorno: '#ebd9a8' }).svg + familia.theo(195, 722, 76, 'acena', { contorno: '#ebd9a8' }).svg;
-  for (let i = 0; i < Math.min(e.bonecas, 4); i++) s += familia.boneca(40 + i * 100 + 20, 690, 32, i, { contorno: '#ebd9a8' }).svg;
+  for (let i = 0; i < Math.min(e.bonecas, 4); i++) s += familia.boneca(40 + i * 100 + 20, 690, 32, i, { contorno: '#ebd9a8', ...figurinoDe(e.figurinos[String(i)]) }).svg;
+  /* a boneca companheira assiste da coxia, pertinho */
+  if (e.companheira >= 0) s += familia.boneca(70, 470, 40, e.companheira, { contorno: '#ebd9a8', ...figurinoDe(e.figurinos[String(e.companheira)]) }).svg;
   /* cortinas */
   s += `<g class="cortina-e"><rect x="0" y="0" width="200" height="620" fill="#6e1a27"/><rect x="0" y="0" width="200" height="620" fill="url(#veludo)" opacity="0.5"/></g><g class="cortina-d"><rect x="190" y="0" width="200" height="620" fill="#6e1a27"/></g>`;
   s += `<defs><linearGradient id="veludo" x1="0" x2="1"><stop offset="0" stop-color="#4a0f19"/><stop offset="0.35" stop-color="#8a2534"/><stop offset="0.6" stop-color="#5a1420"/><stop offset="0.85" stop-color="#7d202e"/><stop offset="1" stop-color="#4a0f19"/></linearGradient></defs>`;
@@ -84,6 +88,11 @@ export function telaPalco(): Tela {
     const cd = svg.querySelector('.cortina-d') as SVGElement;
     mover(ce, -200, 0, 1800);
     mover(cd, 200, 0, 1800);
+    /* às vezes a Estrellita conta a entrada em espanhol */
+    if (espanholAtivo(e) && e.aventuras % 2 === 1) {
+      if (temVoz('es_contagem')) await falar('es_contagem');
+      else for (const n of ['cinco', 'seis', 'sete', 'oito']) await falarEspanhol(n, 0.9);
+    }
     seq.iniciar(audio.agora() + 1.6);
     await esperar(DURACAO * 1000);
     if (!vivo) return;
@@ -95,6 +104,7 @@ export function telaPalco(): Tela {
     travar(6000);
     if (temVoz('brava')) await falar('brava');
     else await esperar(1200);
+    if (espanholAtivo(e)) await falarEspanhol('muy_bien');
     sininho();
     mudar((x) => {
       if (x.bonecas < 5) x.bonecas += 1;

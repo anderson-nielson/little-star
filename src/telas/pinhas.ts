@@ -1,10 +1,10 @@
-import { mover, telaSvg } from './comum';
+import { arrastavel, mover, telaSvg } from './comum';
 import { estado, mudar } from '@/core/estado';
 import { sessao } from '@/core/sessao';
 import { estacao } from '@/core/relogio';
 import { ir } from '@/core/roteador';
-import { esperar, pontoNoSvg, semente } from '@/core/util';
-import { reivindicarDedo, soltarDedo, travar } from '@/core/toque';
+import { esperar, semente } from '@/core/util';
+import { travar } from '@/core/toque';
 import { coelho, gato, pinha, pinheiro, veu } from '@/puppet/objetos';
 import { tocarFundo } from '@/audio/musica';
 import { lira, sininho, toc } from '@/audio/synth';
@@ -19,35 +19,6 @@ const COR_ESTACAO: Record<string, string> = { verao: '#ebd9a8', outono: '#e8a24a
  */
 export function telaPinhas(params: Record<string, string>): Tela {
   return params.mesa === '1' ? mesaDaEstacao() : embaixoDoPinheiro();
-}
-
-function arrastavel(svg: SVGSVGElement, el: SVGGElement, aoSoltar: (dx: number, dy: number) => boolean | void): void {
-  let id = -1;
-  let x0 = 0;
-  let y0 = 0;
-  el.addEventListener('pointerdown', (ev) => {
-    if (!reivindicarDedo(ev.pointerId)) return;
-    id = ev.pointerId;
-    [x0, y0] = pontoNoSvg(svg, ev.clientX, ev.clientY);
-    el.style.transition = 'none';
-    el.setPointerCapture(ev.pointerId);
-  });
-  el.addEventListener('pointermove', (ev) => {
-    if (ev.pointerId !== id) return;
-    const [x, y] = pontoNoSvg(svg, ev.clientX, ev.clientY);
-    el.style.transform = `translate(${x - x0}px, ${y - y0}px)`;
-  });
-  const fim = (ev: PointerEvent) => {
-    if (ev.pointerId !== id) return;
-    soltarDedo(id);
-    id = -1;
-    const [x, y] = pontoNoSvg(svg, ev.clientX, ev.clientY);
-    const ficou = aoSoltar(x - x0, y - y0);
-    if (!ficou) mover(el, 0, 0, 400);
-  };
-  el.addEventListener('pointerup', fim);
-  el.addEventListener('pointercancel', fim);
-  el.classList.add('alvo');
 }
 
 function embaixoDoPinheiro(): Tela {

@@ -73,3 +73,29 @@ arco-íris semanal (é um contador disfarçado; o canteiro já recompensa).
 - **A cena não corta mais.** Em telas mais curtas que 1:2 (quase todo Android com a barra do navegador), o `slice` cortava o alto e o pé da cena e jogava a casinha e a lua para dentro da borda morta de 24 px: não dava para sair do piano. A cena agora usa `meet`; sobram faixas finas nos lados, na cor do fundo da própria tela.
 - **A casa fechada confundiu os pais.** Nas primeiras quatro sessões só o que brilha responde (aberturas graduais). Isso segue igual para a Stella, mas o cantinho dos pais ganhou o botão "Abrir a casa inteira agora".
 - **A família, versão escolhida.** Theo: cachinhos curtos só em cima, camiseta com mangas, mais encorpado. Pai: opção C, testa alta, barba cheia, óculos finos sem hastes (de frente, a haste parecia um brinco). As três opções ficam em `?styleguide=pai`.
+
+## A v2: o que ficou de fora entrou
+
+Tudo o que a seção "O que ficou de fora da v1" listava, menos o arco-íris semanal (que
+continua sendo um contador disfarçado; o canteiro já recompensa).
+
+| O que | Como ficou | Onde |
+|---|---|---|
+| Horta | Quatro covas no quintal. Um toque faz a coisa certa: cova vazia planta, planta com sede rega, planta pronta colhe. Cresce com dias e regas (pronta com dois de cada) e nunca murcha. O que ela colhe vai para a comidinha. | `src/core/horta.ts`, `src/telas/horta.ts` |
+| Comidinha | Segunda-feira, o dia do pão. Na cozinha com a mãe: toca em cada legume, que vai para a bacia, se lava e cai na tigela; mexe três vezes com a colher; o Theo come rindo e a mãe prova. Cada comida diz o nome, e a Estrellita o nome em espanhol. | `src/telas/cozinha.ts` |
+| Mais tarefas na roda | Banho, quarto e ser gentil. Os pais ligam e desligam cada tarefa no cantinho; banho já vem ligado, quarto e gentil não, para a roda continuar curta. | `src/telas/roda.ts`, `src/telas/pais.ts` |
+| Subir na árvore | Tocar num galho mais alto e ela sobe até ele, sem pressa. Do alto vê a casa verde de cima, o Theo acenando e, à noite, as estrelas das noites bem dormidas. O Theo sobe junto só nos galhos baixos. | `src/telas/arvore.ts` |
+| A Árvore Grande | O gatinho subiu ao topo e não sabe descer. Ela sobe sozinha; o esquilo de gorrinho rola pinhas; toque = pular e girar para pegar a pinha. Sem pulo, a pinha quica com um "toc" e cai na cestinha do Theo. Toda pinha chega em casa. Abre depois da primeira aventura terminada. Música: a Marcha. | `src/telas/arvoregrande.ts` |
+| O Lago dos Cisnes | Cinco faixas de vitórias-régias e cisnes que vão e voltam (nunca somem pela beirada). Toque = pular para a frente, e o pulo espera a plataforma chegar. Caiu na água? O Theo pesca com a rede, sem perder nada. Cada travessia acende uma luz do coreto. Abre depois da segunda aventura. Música: a Dança dos pequenos cisnes. | `src/telas/lago.ts` |
+| A porta | Com mais de uma aventura aberta, três figuras (coelhinho, pinha com o gatinho, cisne) para escolher; a do dia brilha e vai sozinha depois de 14 s. | `src/telas/casa.ts` |
+| Espanhol | A Estrellita (a primeira boneca da estante) diz o outro nome das coisas: nas palavras em destaque, na comidinha, na horta e no palco (às vezes conta a entrada em espanhol, e diz "¡Muy bien!"). Entra sozinho com três letras traçadas, ou como os pais mandarem. Gravação `es_<id>` se houver; senão, a voz do aparelho em espanhol; sem voz, silêncio. | `src/audio/espanhol.ts`, `src/data/espanhol.json` |
+| Ukulele | Quatro cordas para dedilhar (Karplus-Strong), três acordes em três cores. As bonecas balançam. | `src/telas/ukulele.ts` |
+| Lira | Sete cordas na pentatônica, pendurada na parede do quarto. | `src/telas/lira.ts` |
+| Vestir bonecas | Roupa, cabelo e gorro por cores; a Estrellita só troca o gorro. Tocar na Stella leva a boneca escolhida no bolso do tutu: ela assiste ao palco da coxia. | `src/telas/bonecas.ts` |
+| Bilhetinho | As letras que ela sabe são carimbos; vão para o papel rosa; ela entrega para a mãe, o pai ou o Theo, que lê em voz alta (a voz do aparelho lê letra a letra e depois junto) e abraça. Os pais veem os bilhetes no cantinho. | `src/telas/bilhete.ts` |
+| Festas das estações | Outono: folhas no quintal e a Festa da Lanterna (20 a 31 de maio). Inverno: fitinha no pinheiro e a festa junina com fogueira e bandeirinhas (12 a 30 de junho). Primavera: flores no pinheiro e guirlanda na porta (21 a 30 de setembro). Verão: conchinhas na areia. Advento: a espiral de velas, uma por domingo. Os pais podem desligar. | `src/core/festas.ts`, `src/data/festas.json` |
+| Piano | O seguir a estrelinha alterna *Brilha, brilha* e *Ciranda, cirandinha*. | `src/telas/piano.ts` |
+
+A primeira semana continua abrindo a casa em quatro sessões; o que é novo entra junto com o
+que já estava: ukulele, lira, bonecas e bilhete na sessão 2; árvore e horta na 3; cozinha na 4.
+As aventuras novas abrem uma por vez, depois de terminar a anterior.

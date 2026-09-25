@@ -1,0 +1,11 @@
+{
+  "id": "ciranda",
+  "titulo": "Ciranda, cirandinha",
+  "compositor": "tradicional brasileira",
+  "tom": "dó maior",
+  "bpm": 96,
+  "compasso": 2,
+  "fonte": "Cantiga de roda em domínio público, em dó maior para caber nas teclas brancas do piano do quarto.",
+  "melodia": "G4:0.5 G4:0.5 E4:0.5 E4:0.5 | G4:0.5 G4:0.5 E4:1 | F4:0.5 F4:0.5 D4:0.5 D4:0.5 | F4:0.5 F4:0.5 D4:1 | G4:0.5 G4:0.5 E4:0.5 E4:0.5 | G4:0.5 G4:0.5 E4:1 | F4:0.5 D4:0.5 E4:0.5 F4:0.5 | E4:0.5 D4:0.5 C4:1",
+  "baixo": "C3:1 G3:1 | C3:1 G3:1 | G2:1 D3:1 | G2:1 D3:1 | C3:1 G3:1 | C3:1 G3:1 | F3:1 G3:1 | C3:1 C3:1"
+}

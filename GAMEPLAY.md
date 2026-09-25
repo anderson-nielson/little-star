@@ -377,7 +377,7 @@ resto da casa fica aberto no livre.
 
 | Dia | Cor do dia (toalha da mesa, véu do céu) | Brincadeira do dia |
 |---|---|---|
-| Segunda | Roxo | Palavras: o escorregador de sons (a cozinha e a horta ficam para a v2) |
+| Segunda | Roxo | Comidinha com a mãe, com as palavras em destaque (e a horta no quintal) |
 | Terça | Vermelho | Caderno: a letra da semana |
 | Quarta | Amarelo | Pinhas e a mesa da estação |
 | Quinta | Laranja | Caixa de areia |
@@ -529,13 +529,15 @@ inteiro; o que sai volta na v2, sem pressa.
 - Cantinho dos pais: gravar vozes, hora de dormir, limite, confirmar, lista de comidas,
   resumo, ritmo das letras.
 
-**Fica para a v2**
-- Horta, comidinha completa e mais tarefas (banho, quarto, ser gentil).
-- A aventura da Árvore Grande e a do Lago dos Cisnes. Subir no pinheiro livre.
-- Espanhol (a Estrellita e as palavras em dois nomes). Na v1 ela já está na estante, e diz
-  só "¡hola, Stella!".
-- Ukulele e lira tocável.
-- Bilhetinho, vestir bonecas, festas das estações.
+**Entrou na v2** (tudo o que ficava para depois; ver `docs/decisoes.md`, "A v2")
+- Horta no quintal, comidinha com a mãe na segunda-feira, e as tarefas banho, quarto e ser
+  gentil na roda (os pais ligam e desligam).
+- Subir no pinheiro livre; a Árvore Grande e o Lago dos Cisnes, que abrem uma por vez depois
+  de cada aventura terminada, e a escolha na porta.
+- Espanhol pela Estrellita, que entra sozinho quando os primeiros sons estão firmes (três
+  letras traçadas), ou como os pais mandarem.
+- Ukulele e lira tocável; vestir bonecas e a boneca companheira; o bilhetinho; as festas das
+  estações; *Ciranda, cirandinha* no piano.
 
 Por que o espanhol saiu da v1: ela está começando o fônico em português, e ouvir a mesma
 coisa escrita soar diferente em outra língua agora pode confundir. Quando os primeiros sons

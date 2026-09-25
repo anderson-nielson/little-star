@@ -307,7 +307,7 @@ export function telaJardim(): Tela {
     const escala = hS / 160;
     const alt = alturaDoPulo(t);
     const sentada = t < tropeco;
-    const img = sentada ? stellaSenta : noAr(t) ? stellaPula : stellaCorre[Math.floor(t * 6) % 2]!;
+    const img = sentada ? stellaSenta : noAr(t) ? stellaPula : stellaCorre[Math.abs(Math.floor(t * 6)) % 2]!;
     const wImg = F * escala;
     const hImg = F * escala;
     ctx.drawImage(img, stellaX() - wImg / 2, ch - alt - hImg * 0.95, wImg, hImg);
@@ -367,6 +367,7 @@ export function telaJardim(): Tela {
     seq.parar();
     mudar((x) => {
       x.aventuras += 1;
+      x.aventurasPor.jardim = (x.aventurasPor.jardim ?? 0) + 1;
       if (ajuda.nivel >= 1) x.registro.a1.jardim = (x.registro.a1.jardim ?? 0) + 1;
       if (ajuda.nivel >= 2) x.registro.a2.jardim = (x.registro.a2.jardim ?? 0) + 1;
     });

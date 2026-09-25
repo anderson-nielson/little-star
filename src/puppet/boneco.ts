@@ -368,6 +368,14 @@ export const familia = {
   },
 };
 
+/** O figurino escolhido para uma boneca vira cores da marionete; sem figurino, nada muda. */
+export function figurinoDe(f: { roupa: string; cabelo: string; gorro: string } | undefined): Extra {
+  if (!f) return {};
+  const x: Extra = { roupa: f.roupa, cabelo: f.cabelo };
+  if (f.gorro && f.gorro !== 'nenhum') x.gorro = f.gorro;
+  return x;
+}
+
 /** As opções de pai para a família escolher (?styleguide=pai). */
 export const OPCOES_DE_PAI: Record<string, { rotulo: string; extra: Extra }> = {
   A: { rotulo: 'A. Entradas, barba baixa, óculos ovais', extra: { cabeloTipo: 'entradas', cabelo: '#a67c52', barba: '#a67c52', barbaEstilo: 'baixa', oculos: 'oval' } },
