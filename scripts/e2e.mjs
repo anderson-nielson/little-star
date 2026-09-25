@@ -208,6 +208,25 @@ await abrir('sessoes=8&hora=15:00&dia=2026-12-13&tela=casa');
 await espera(1200);
 await shot('35-casa-advento');
 
+/* 5c. o relógio e a roda de manhã, com as duas perguntas da noite */
+await abrir('sessoes=8&hora=15:00&tela=relogio');
+await espera(1500);
+await shot('36-relogio');
+await conta('relógio: números', '.numero', 12);
+await toque(90, 640);
+await espera(1200);
+await abrir('zerar=1&sessoes=8&hora=09:00');
+await espera(1200);
+await toque(195, 400);
+await espera(1800);
+await conta('roda de manhã: dormiu sozinha', '[data-obj="noite"]');
+await shot('37-roda-manha');
+await espera(2200);
+await toque(195, 552);
+await espera(4000);
+const pedrinhas = await page.evaluate(() => globalThis.littleStar.estado().pedrinhas);
+if (pedrinhas < 2) erros.push(`pedrinhas: dormir sozinha devia dar 2, o pote tem ${pedrinhas}`);
+
 /* 6. o cantinho dos pais e o styleguide */
 await abrir('sessoes=8&hora=15:00&tela=pais');
 await espera(800);
@@ -227,4 +246,4 @@ if (erros.length) {
   console.error('Passeio com erros:\n' + erros.join('\n'));
   process.exit(1);
 }
-console.log('passeio ok: 35 capturas em docs/shots/');
+console.log('passeio ok: 37 capturas em docs/shots/');

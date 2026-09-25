@@ -1,4 +1,5 @@
-import { mover, telaSvg } from './comum';
+import { mover, pedrinhasSobem, telaSvg } from './comum';
+import { ganhar, PEDRINHAS } from '@/core/pedrinhas';
 import { ir } from '@/core/roteador';
 import { esperar, pontoNoSvg } from '@/core/util';
 import { reivindicarDedo, soltarDedo, travar } from '@/core/toque';
@@ -70,6 +71,7 @@ export function telaPalavra(params: Record<string, string>): Tela {
   });
   const ajuda = new Ajuda();
   let passadas = 0;
+  let pedrinhaDada = false;
   let u = 0;
   let ultimaLetra = -1;
   let inicioPassada = 0;
@@ -140,7 +142,10 @@ export function telaPalavra(params: Record<string, string>): Tela {
       }
       mudar((x) => {
         x.registro.partes.palavra = (x.registro.partes.palavra ?? 0) + 1;
+        if (!pedrinhaDada) ganhar(x, PEDRINHAS.palavra, 'palavra');
       });
+      if (!pedrinhaDada) pedrinhasSobem(tela, PEDRINHAS.palavra, 195, 420);
+      pedrinhaDada = true;
     }
     await esperar(600);
     u = 0;

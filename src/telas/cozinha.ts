@@ -1,4 +1,5 @@
-import { mover, relogioDeAjuda, telaSvg } from './comum';
+import { mover, pedrinhasSobem, relogioDeAjuda, telaSvg } from './comum';
+import { ganhar, PEDRINHAS } from '@/core/pedrinhas';
 import { estado, mudar, type Semente } from '@/core/estado';
 import { espanholAtivo } from '@/core/laco';
 import { ir } from '@/core/roteador';
@@ -185,7 +186,9 @@ export function telaCozinha(): Tela {
       x.lembrancas.push(`comidinha:${x.hoje.dia}`);
       x.colheita = x.colheita.filter((c) => !daHorta.includes(c));
       x.registro.partes.cozinha = (x.registro.partes.cozinha ?? 0) + 1;
+      ganhar(x, PEDRINHAS.comidinha, 'comidinha');
     });
+    pedrinhasSobem(tela, PEDRINHAS.comidinha, 250, 560);
     await esperar(2500);
     if (vivo) void ir('casa');
   };

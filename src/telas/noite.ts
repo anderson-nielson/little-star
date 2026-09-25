@@ -115,6 +115,8 @@ export function telaNoite(): Tela {
     const g = svg.querySelector('.gato');
     if (g) mover(g, -60, -110, 1400);
     await esperar(800);
+    /* o combinado: dormir no quarto dela, a noite toda; amanhã a gente conta */
+    if (temVoz('noite_combinado')) await falar('noite_combinado');
     if (temVoz('boa_noite_mae')) await falar('boa_noite_mae');
     else await esperar(1200);
     if (temVoz('boa_noite_pai')) await falar('boa_noite_pai');

@@ -1,4 +1,5 @@
-import { mover, relogioDeAjuda, telaSvg } from './comum';
+import { mover, pedrinha, relogioDeAjuda, telaSvg } from './comum';
+import { PEDRINHAS } from '@/core/pedrinhas';
 import { estado, mudar } from '@/core/estado';
 import { sessao } from '@/core/sessao';
 import { aberto, aventuraDoDia, aventurasAbertas, brincadeiraDoDia, type Aventura, type Brincadeira } from '@/core/laco';
@@ -97,6 +98,14 @@ export function telaCasa(): Tela {
   if (aberto(s7, 'ukulele')) s += `<g data-alvo="ukulele"><circle cx="${hx + 82}" cy="${y1 + 80}" r="30" fill="transparent"/><rect x="${hx + 79}" y="${y1 + 60}" width="6" height="20" rx="2" fill="#c9a189"/><circle cx="${hx + 82}" cy="${y1 + 86}" r="10" fill="#f2a9c4"/><circle cx="${hx + 82}" cy="${y1 + 84}" r="3" fill="#6e1a27" opacity="0.6"/></g>`;
   if (aberto(s7, 'lira')) s += `<g data-alvo="lira"><circle cx="${hx + 118}" cy="${y1 + 80}" r="30" fill="transparent"/><path d="M${hx + 108} ${y1 + 96}V${y1 + 74}a10 10 0 0 1 20 0v22" fill="none" stroke="#c9a189" stroke-width="3"/><path d="M${hx + 112} ${y1 + 70}v24M${hx + 118} ${y1 + 68}v28M${hx + 124} ${y1 + 70}v24" stroke="#c6a15b" stroke-width="1"/></g>`;
   if (aberto(s7, 'bilhete') && e.letras.length > 0) s += `<g data-alvo="bilhete"><circle cx="${hx + 39}" cy="${y1 + 110}" r="26" fill="transparent"/><rect x="${hx + 27}" y="${y1 + 102}" width="24" height="16" rx="2" fill="#fbf8f1" stroke="#c6a15b"/><path d="M${hx + 27} ${y1 + 102}l12 9l12 -9" fill="none" stroke="#c6a15b"/></g>`;
+  /* o pote de pedrinhas no chão do quarto, e as medalhas de feltro na parede da sala */
+  if (e.pais.pedrinhas) {
+    /* na prateleira de baixo da estante, no lugar que sobra ao lado das bonecas */
+    s += `<g data-alvo="pote"><circle cx="${hx + 262}" cy="${y1 + 88}" r="26" fill="transparent"/><path d="M${hx + 252} ${y1 + 80}h20v12a10 10 0 0 1 -20 0z" fill="#dbe7ee" opacity="0.55" stroke="#c6a15b" stroke-width="1"/><rect x="${hx + 254}" y="${y1 + 76}" width="16" height="4" rx="2" fill="#c9a189"/>`;
+    const n = Math.min(e.pedrinhas, PEDRINHAS.pote);
+    for (let i = 0; i < n; i++) s += pedrinha(hx + 256 + (i % 4) * 4, y1 + 98 - Math.floor(i / 4) * 4.5, 2.2, i);
+    s += `</g>`;
+  }
   /* cama, com o gatinho dormindo */
   s += `<g data-alvo="cama"><rect x="${hx + 70}" y="${y1 + 118}" width="70" height="26" rx="6" fill="#fbf8f1"/><rect x="${hx + 70}" y="${y1 + 126}" width="70" height="18" rx="4" fill="#f2a9c4" opacity="0.8"/><rect x="${hx + 66}" y="${y1 + 104}" width="8" height="40" rx="2" fill="#c9a189"/><rect x="${hx + 136}" y="${y1 + 112}" width="8" height="32" rx="2" fill="#c9a189"/>`;
   s += `</g>`;
@@ -128,6 +137,13 @@ export function telaCasa(): Tela {
   s += `<rect x="${hx + hw / 2 + 2}" y="${y2}" width="${hw / 2 - 12}" height="${y3 - y2 - 8}" fill="#fbf8f1" opacity="0.6"/>`;
   s += `<line x1="${hx + hw / 2 - 3}" y1="${y2}" x2="${hx + hw / 2 - 3}" y2="${y3 - 8}" stroke="#c6a15b" stroke-width="1" opacity="0.6"/>`;
   s += `<line x1="${hx + 10}" y1="${y3 - 8}" x2="${hx + hw - 10}" y2="${y3 - 8}" stroke="#c6a15b" stroke-width="1" opacity="0.6"/>`;
+  for (let i = 0; i < Math.min(e.medalhas, 7); i++) s += `<g class="medalha"><path d="M${hx + 62 + i * 16} ${y2 + 8}l-4 12h8z" fill="#f2a9c4"/><circle cx="${hx + 62 + i * 16}" cy="${y2 + 24}" r="6" fill="#c6a15b"/><circle cx="${hx + 62 + i * 16}" cy="${y2 + 24}" r="3" fill="#ebd9a8"/></g>`;
+  /* o relógio da sala: ela está aprendendo a ver as horas */
+  if (aberto(s7, 'relogio')) {
+    const hh = agora.getHours() % 12;
+    const ang = ((hh + agora.getMinutes() / 60) * 30 - 90) * (Math.PI / 180);
+    s += `<g data-alvo="relogio"><circle cx="${hx + 34}" cy="${y2 + 30}" r="28" fill="transparent"/><circle cx="${hx + 34}" cy="${y2 + 30}" r="15" fill="#fbf8f1" stroke="#c9a189" stroke-width="2.5"/><path d="M${hx + 34} ${y2 + 30}V${y2 + 19}" stroke="#c6a15b" stroke-width="1.5"/><path d="M${hx + 34} ${y2 + 30}L${(hx + 34 + Math.cos(ang) * 8).toFixed(1)} ${(y2 + 30 + Math.sin(ang) * 8).toFixed(1)}" stroke="#6e1a27" stroke-width="2.5" stroke-linecap="round"/></g>`;
+  }
   s += `<g data-alvo="tapete"><ellipse cx="${hx + 80}" cy="${y3 - 22}" rx="62" ry="14" fill="#ebcdc3" opacity="0.8"/>`;
   s += familia.mae(hx + 40, y3 - 20, 96).svg + familia.pai(hx + 120, y3 - 20, 104, 'parado', { dir: -1 }).svg + familia.theo(hx + 82, y3 - 22, 74, 'acena').svg + `</g>`;
   /* cozinha: fogão e mesa com a toalha do dia */
@@ -221,6 +237,15 @@ export function telaCasa(): Tela {
   tela.alvo('[data-alvo="ukulele"]', () => vai('ukulele'));
   tela.alvo('[data-alvo="lira"]', () => vai('lira'));
   tela.alvo('[data-alvo="bilhete"]', () => vai('bilhete'));
+  tela.alvo('[data-alvo="relogio"]', () => vai('relogio'));
+  tela.alvo('[data-alvo="pote"]', (_ev, el) => {
+    /* as pedrinhas tilintam: uma nota por pedrinha */
+    const n = Math.min(estado().pedrinhas, PEDRINHAS.pote);
+    if (!n) return tiquinho();
+    for (let i = 0; i < n; i++) void esperar(i * 70).then(() => tiquinho());
+    mover(el, 0, -3, 150);
+    void esperar(170).then(() => mover(el, 0, 0, 260));
+  });
   /* a porta: uma aventura só vai direto; mais de uma, ela escolhe entre figuras */
   const TELA_DA_AVENTURA: Record<Aventura, string> = { jardim: 'jardim', arvore: 'arvoregrande', lago: 'lago' };
   const abrirPorta = () => {

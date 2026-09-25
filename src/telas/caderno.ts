@@ -1,3 +1,4 @@
+import { ganhar, PEDRINHAS } from '@/core/pedrinhas';
 import { estado, mudar } from '@/core/estado';
 import { sessao } from '@/core/sessao';
 import { chaveDaSemana } from '@/core/relogio';
@@ -359,7 +360,10 @@ export function telaCaderno(): Tela {
     sininho();
     imagemOpacidade = 1;
     mudar((x) => {
-      if (!x.letras.includes(letra.id)) x.letras.push(letra.id);
+      if (!x.letras.includes(letra.id)) {
+        x.letras.push(letra.id);
+        ganhar(x, PEDRINHAS.letra, 'letra');
+      }
       if (ajuda.nivel >= 1) x.registro.a1.caderno = (x.registro.a1.caderno ?? 0) + 1;
       if (ajuda.nivel >= 2) {
         x.registro.a2.caderno = (x.registro.a2.caderno ?? 0) + 1;

@@ -1,4 +1,5 @@
 import { SESSAO_COMPLETA, tarefasAtivas } from '@/core/laco';
+import { ajustar, PEDRINHAS } from '@/core/pedrinhas';
 import { apagarTudo, CORES_DE_COMIDA, estado, estadoNovo, mudar, substituir, TAREFAS, type CorDeComida, type Tarefa } from '@/core/estado';
 import { sessao } from '@/core/sessao';
 import { h } from '@/core/util';
@@ -60,8 +61,13 @@ export function telaPais(): Tela {
       b.addEventListener('click', () => {
         mudar((x) => {
           const lista = new Set(x.pais.confirmacoes[x.hoje.dia] ?? []);
-          if (lista.has(t)) lista.delete(t);
-          else lista.add(t);
+          if (lista.has(t)) {
+            lista.delete(t);
+            ajustar(x, -PEDRINHAS.confirmacao, `desconfirmou_${t}`);
+          } else {
+            lista.add(t);
+            ajustar(x, PEDRINHAS.confirmacao, `confirmou_${t}`);
+          }
           x.pais.confirmacoes[x.hoje.dia] = [...lista];
         });
         abrir();
@@ -129,6 +135,52 @@ export function telaPais(): Tela {
         abrir();
       });
       painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Cômodos'), h('div', { class: 'acoes' }, bCasa)));
+    }
+
+    /* as pedrinhas */
+    painel.append(h('h2', {}, 'O pote de pedrinhas'));
+    painel.append(
+      h(
+        'p',
+        {},
+        `Ela ganha pedrinhas pelo que faz de verdade e pelo que aprende: ${PEDRINHAS.tarefa} por tarefa contada (${PEDRINHAS.confirmacao} a mais quando vocês confirmam), ${PEDRINHAS.dormiuSozinha} por dormir sozinha no quarto dela e mais ${PEDRINHAS.noiteToda} pela noite toda, ${PEDRINHAS.letra} por letra traçada, ${PEDRINHAS.som} por som, palavra, hora no relógio, colheita, comidinha ou aventura. Um combinado que não aconteceu (tarefa não contada na roda, não dormiu sozinha) faz ${PEDRINHAS.tarefaNaoFeita} pedrinha rolar para fora, em silêncio. Nunca fica abaixo de zero, e aprender nunca tira pedrinha. Com ${PEDRINHAS.pote} pedrinhas o pote enche e vira uma medalha de feltro na parede da sala; medalha não se perde.`,
+      ),
+    );
+    painel.append(
+      h(
+        'div',
+        { class: 'resumo' },
+        h('div', {}, h('b', {}, String(e.pedrinhas)), 'pedrinhas no pote'),
+        h('div', {}, h('b', {}, String(e.medalhas)), 'medalhas na parede'),
+      ),
+    );
+    const motivo = h('input', { type: 'text', placeholder: 'Por quê (opcional): se vestiu sozinha, dividiu o brinquedo...', id: 'motivo-pedrinha' }) as HTMLInputElement;
+    const bMais = h('button', { type: 'button', class: 'ligado' }, 'Deu uma pedrinha');
+    const bMenos = h('button', { type: 'button' }, 'Rolou uma pedrinha');
+    bMais.addEventListener('click', () => {
+      mudar((x) => ajustar(x, 1, motivo.value.trim() || 'pais_deram'));
+      abrir();
+    });
+    bMenos.addEventListener('click', () => {
+      mudar((x) => ajustar(x, -1, motivo.value.trim() || 'pais_tiraram'));
+      abrir();
+    });
+    painel.append(h('p', {}, 'Para as atitudes de fora do jogo: se vestir sozinha, esperar a vez, um combinado que não aconteceu. Digam para ela na hora, com o motivo; o jogo só guarda.'), h('div', { class: 'linha' }, motivo, h('div', { class: 'acoes' }, bMais, bMenos)));
+    const bPed = h('button', { type: 'button', class: e.pais.pedrinhas ? 'ligado' : '' }, e.pais.pedrinhas ? 'Ligado' : 'Desligado');
+    bPed.addEventListener('click', () => {
+      mudar((x) => void (x.pais.pedrinhas = !x.pais.pedrinhas));
+      abrir();
+    });
+    const bPerde = h('button', { type: 'button', class: e.pais.perdePedrinhas ? 'ligado' : '' }, e.pais.perdePedrinhas ? 'Rola' : 'Nunca rola');
+    bPerde.addEventListener('click', () => {
+      mudar((x) => void (x.pais.perdePedrinhas = !x.pais.perdePedrinhas));
+      abrir();
+    });
+    painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'O pote'), bPed), h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Pedrinha rola quando um combinado não acontece', h('span', { class: 'sub' }, 'Se virar tensão, deixe em "Nunca rola": só ganha.')), bPerde));
+    if (e.pedrinhasHistorico.length) {
+      const NOMES: Record<string, string> = { dormiu_sozinha: 'dormiu sozinha no quarto', noite_toda: 'dormiu a noite toda', nao_dormiu_sozinha: 'não dormiu sozinha', letra: 'letra traçada', som: 'som do dia', palavra: 'palavra inteira', relogio: 'hora no relógio', colheita: 'colheita', comidinha: 'comidinha', aventura: 'aventura', pais_deram: 'vocês deram', pais_tiraram: 'vocês tiraram', cama: 'arrumou a cama', dentes: 'escovou os dentes', brinquedos: 'guardou os brinquedos', banho: 'tomou banho', quarto: 'arrumou o quarto', gentil: 'foi gentil' };
+      const nome = (m: string) => NOMES[m] ?? (m.startsWith('nao_') ? 'não: ' + (NOMES[m.slice(4)] ?? m.slice(4)) : m.startsWith('confirmou_') ? 'vocês confirmaram: ' + (NOMES[m.slice(10)] ?? m.slice(10)) : m.startsWith('desconfirmou_') ? 'desconfirmaram' : m);
+      painel.append(h('p', {}, 'Últimas: ' + e.pedrinhasHistorico.slice(-14).reverse().map((r) => `${r.delta > 0 ? '+' : ''}${r.delta} ${nome(r.motivo)} (${r.dia.slice(5)})`).join(' · ')));
     }
 
     /* a roda */
@@ -226,7 +278,7 @@ export function telaPais(): Tela {
     const desenharVozes = () => {
       grade.innerHTML = '';
       for (const g of grupos) {
-        grade.append(h('h2', {}, { chegada: 'Chegada', roda: 'Roda do dia', prato: 'Prato', sons: 'Sons das letras', letras: 'Caderno', bichos: 'Nomes dos bichos', despedida: 'Despedida', noite: 'Boa noite', palco: 'Palco', cozinha: 'Comidinha', horta: 'Horta', bilhete: 'Bilhetinho', espanhol: 'Espanhol (a Estrellita)', aventuras: 'Aventuras' }[g] ?? g));
+        grade.append(h('h2', {}, { chegada: 'Chegada', roda: 'Roda do dia', prato: 'Prato', sons: 'Sons das letras', letras: 'Caderno', bichos: 'Nomes dos bichos', despedida: 'Despedida', noite: 'Boa noite', palco: 'Palco', cozinha: 'Comidinha', horta: 'Horta', bilhete: 'Bilhetinho', espanhol: 'Espanhol (a Estrellita)', aventuras: 'Aventuras', relogio: 'Relógio (as horas)' }[g] ?? g));
         for (const f of frases.filter((x) => x.grupo === g)) grade.append(linhaVoz(f));
       }
     };
@@ -308,6 +360,7 @@ export function telaPais(): Tela {
         h('div', {}, h('b', {}, String(e.horta.filter(Boolean).length)), 'canteiros plantados'),
         h('div', {}, h('b', {}, String(e.coreto)), 'luzes no coreto'),
         h('div', {}, h('b', {}, String(e.bilhetes.length)), 'bilhetinhos'),
+        h('div', {}, h('b', {}, String(e.medalhas)), 'medalhas'),
         h('div', {}, h('b', {}, String(a1)), 'vezes que a mãozinha ajudou'),
         h('div', {}, h('b', {}, String(a2)), 'vezes que o jogo fez junto'),
       ),
