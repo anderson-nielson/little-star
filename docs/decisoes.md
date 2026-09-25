@@ -134,6 +134,62 @@ Isso mexe numa decisão da v1 ("nada diminui, nenhum número aparece"). O jeito 
   pedrinha. Ajuda: o número pedido acende; depois o ponteiro anda sozinho. Só horas cheias
   por enquanto; meia hora e minutos ficam para quando as cheias estiverem firmes.
 
+## A narração para quem joga junto
+
+O pedido: a cada avanço, um balão suave no topo da tela, como em história em quadrinhos,
+para a mãe, o pai ou o Theo (quem estiver jogando junto no celular) lerem para a Stella.
+Coisas boas que estão acontecendo, as forças dela, e o carinho, o amor e a segurança que a
+família tem por ela. O pano de fundo: ela tem ciúmes do Theo e compete com ele, e o jogo em
+parte existe para mostrar que não precisa ser assim.
+
+- **Um balão, um avanço.** Tudo o que o jogo já conta como avanço passa por `ganhar()` em
+  `src/core/pedrinhas.ts`; a narração escuta ali, com o pote ligado ou desligado. Fora das
+  pedrinhas, quatro momentos também narram: a chegada, o bilhete entregue, os bichos
+  cuidados, a despedida e a boa-noite. A pedrinha que rola não narra: continua em silêncio,
+  como decidido antes.
+- **O que a frase faz.** Três coisas, sempre: nomeia o que ela fez de verdade ("você
+  traçou uma letra inteira, do começo ao fim"), diz o carinho e a segurança da família, e
+  coloca o Theo como quem torce por ela e faz junto ("ele mostra, você descobre"). Nada de
+  comparação, nada de "melhor que", nada de "tem que". Um teste garante que todo avanço tem
+  pelo menos três frases, que o Theo e a família aparecem em cada um, que nenhuma frase
+  passa de 160 caracteres e que as palavras proibidas não entram.
+- **Para o adulto, não para ela.** É a exceção à regra "sem texto para ela ler": o texto é
+  de quem lê, com rótulo "para ler para a Stella". Frases curtas para caber na voz de quem
+  está ao lado. Elas se revezam pelo histórico das pedrinhas, para não repetir a mesma na
+  sequência.
+- **Suave.** Só `opacity` e `transform`; entra depois das centelhas, some sozinho no tempo
+  de ler (4,5 s mais 60 ms por letra, teto de 14 s), fecha com um toque. Um de cada vez;
+  se outro chegar, o primeiro fica pelo menos 3,5 s. Não aparece no cantinho dos pais, no
+  styleguide nem com ela dormindo.
+- **Desliga no cantinho.** `pais.narracao`, ligado por padrão. Se ela estiver jogando
+  sozinha, o texto não serve e vira ruído.
+- Onde vive: `src/data/narracao.json` (as frases), `src/core/narracao.ts` (o canal e a
+  escolha, puro), `src/ui/balao.ts` (o balão), `tests/narracao.test.ts`.
+
+## Opções, no cantinho dos pais
+
+O Anderson sentiu falta de um botão de opções com o que é do aparelho: buscar versão nova,
+reiniciar e afins. Fica dentro do cantinho dos pais (a regra 8 continua: o único texto do jogo
+mora ali), num botão **Opções** no alto, ao lado de "Voltar para a casa". O que decidi:
+
+- **Versão nova** pergunta ao service worker (`registration.update()`). Cada build muda o
+  arquivo do service worker, então "arquivo diferente" é "versão nova". O registro continua em
+  `autoUpdate`: a versão nova instala, assume e o jogo reabre sozinho; o texto avisa e oferece
+  Reiniciar se não reabrir. Sem internet, o botão diz isso e não tenta.
+- **Reiniciar o jogo** é um `location.reload()`. **Recomeçar o dia** zera só o `hoje` (a família
+  recebe de novo, a roda pergunta de novo) e pede dois toques, porque a roda pode dar pedrinha
+  de novo. **Limpar e reabrir** tira o service worker e os caches e recarrega: para o jogo preso
+  numa versão antiga. Save e gravações moram no localStorage e no IndexedDB, não no cache, e
+  ficam.
+- **Instalar** usa o `beforeinstallprompt` do Chrome quando ele existe; senão aponta para as
+  instruções manuais. **Tela cheia** para quem joga no navegador sem instalar.
+- **Proteger as gravações** pede `navigator.storage.persist()` e mostra se o celular prometeu,
+  mais o espaço que o jogo ocupa. Exportar continua sendo a garantia.
+- **Testar** toca o sininho (e destrava o áudio) e faz a voz do aparelho dizer "olá, estrela",
+  com o caminho para instalar uma voz em português quando não há.
+
+Onde vive: `src/core/aparelho.ts` (sem DOM, com teste em `tests/aparelho.test.ts`),
+`src/telas/pais.ts` (`abrirOpcoes`), `src/main.ts` (o registro do service worker saiu daqui).
 ## A casa abre por sessão terminada, não só por dia
 
 Quem testava ficava preso no piano: na sessão 1 só ele existe, e a sessão 2 só vinha em outro

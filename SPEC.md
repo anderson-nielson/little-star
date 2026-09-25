@@ -222,6 +222,14 @@ marionete por dados). Nada de copiar personagens, colagem ou estilo visual do de
   É o recurso mais forte do jogo e vale o trabalho de gravar (seção 15.4).
 - **O nome dela** aparece no título, na porta do quarto e no caderno, em letra de forma
   grande, para ela aprender a reconhecer.
+- **A narração para quem joga junto.** A cada avanço dela (uma tarefa contada, uma letra,
+  um som, a chegada, um bilhete, a medalha) um balão de história em quadrinhos aparece
+  suave no topo da tela com uma frase curta para a mãe, o pai ou o Theo lerem em voz alta.
+  Ela não lê; quem está ao lado lê para ela. Toda frase faz três coisas: nomeia o que ela
+  fez de verdade (a força dela), diz o carinho e a segurança da família, e coloca o Theo
+  como quem torce por ela e faz junto, nunca como medida. Sem comparação, sem "melhor que",
+  sem cobrança. As frases vivem em `src/data/narracao.json` e se revezam; o balão some
+  sozinho no tempo de ler e fecha com um toque. Desliga-se no cantinho dos pais.
 
 ## 7. A casa verde, o quintal e o quarto rosa
 
@@ -719,7 +727,11 @@ Segurar 2 segundos na lua do canto de cima, depois uma conta simples (por exempl
 número 7" escrito por extenso), que uma criança de 5 anos não resolve. Ali: hora de dormir,
 limite diário, confirmar tarefas, gravar vozes (com exportar e importar, porque o aparelho
 pode apagá-las), comidas de cada cor, prato ligado ou não, ritmo das letras, resumo,
-instruções de instalação e de Acesso Guiado, apagar tudo.
+instruções de instalação e de Acesso Guiado, apagar tudo, e a chave do balão de narração
+(seção 6). Um botão **Opções**, no alto, guarda o que é do aparelho e não da Stella: a versão
+e a busca por versão nova, reiniciar o jogo, recomeçar o dia, limpar os arquivos guardados e
+baixar de novo, instalar na tela inicial e tela cheia, proteger as gravações
+(`navigator.storage.persist`) e quanto o jogo ocupa, e testar o sininho e a voz do aparelho.
 
 ### 15.4 Vozes gravadas
 - Gravadas no próprio app (`MediaRecorder`) pelo cantinho dos pais: uma lista de frases, cada

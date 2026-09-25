@@ -88,6 +88,8 @@ export interface Pais {
   pedrinhas: boolean;
   /** um combinado não cumprido faz uma pedrinha rolar para fora */
   perdePedrinhas: boolean;
+  /** o balão no topo da tela, para quem joga junto ler para ela */
+  narracao: boolean;
 }
 
 export interface Estado {
@@ -199,6 +201,7 @@ export function estadoNovo(agora = new Date()): Estado {
       festas: true,
       pedrinhas: true,
       perdePedrinhas: true,
+      narracao: true,
     },
   };
 }

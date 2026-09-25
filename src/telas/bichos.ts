@@ -1,6 +1,7 @@
 import { mover, telaSvg } from './comum';
 import { estado, mudar } from '@/core/estado';
 import { sessao } from '@/core/sessao';
+import { anunciar } from '@/core/narracao';
 import { esperar, pontoNoSvg } from '@/core/util';
 import { reivindicarDedo, soltarDedo, travar } from '@/core/toque';
 import { coelho, gato, veu } from '@/puppet/objetos';
@@ -50,7 +51,10 @@ export function telaBichos(): Tela {
     mudar((x) => {
       x.bichos.carinho += 1;
     });
-    if (feitos >= (temCoelho ? 4 : 3)) void esperar(2500).then(terminar);
+    if (feitos >= (temCoelho ? 4 : 3)) {
+      anunciar('bichos');
+      void esperar(2500).then(terminar);
+    }
   };
 
   /* água: tocar enche */

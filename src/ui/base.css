@@ -243,11 +243,28 @@ body {
   gap: var(--e2);
 }
 .pais .fechar {
+  /* fixa no alto e cobre o recuo do topo, para o texto que rola não aparecer por cima */
   position: sticky;
-  top: 0;
+  top: calc(-1 * (env(safe-area-inset-top, 0px) + var(--e5)));
+  margin-top: calc(-1 * (env(safe-area-inset-top, 0px) + var(--e5)));
+  padding: calc(env(safe-area-inset-top, 0px) + var(--e5)) 0 var(--e2);
   display: flex;
   justify-content: flex-end;
+  gap: var(--e2);
   margin-bottom: var(--e3);
+  background: var(--papel);
+}
+.pais .estado {
+  margin: var(--e2) 0 var(--e3);
+  padding: var(--e3) var(--e4);
+  border-radius: var(--r-folha);
+  background: var(--toque);
+  color: var(--txt);
+  font-size: var(--t-rotulo);
+  max-width: 60ch;
+}
+.pais .estado:empty {
+  display: none;
 }
 .pais .conta {
   display: grid;
@@ -338,4 +355,58 @@ body {
   display: grid;
   place-items: end center;
   padding-bottom: var(--e1);
+}
+
+/* ---------- o balão de narração (texto para quem joga junto, não para ela) ---------- */
+.balao {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + var(--e3));
+  left: 50%;
+  width: calc(100% - 2 * var(--e4));
+  max-width: calc(var(--coluna) - 2 * var(--e4));
+  z-index: var(--z-hud);
+  padding: var(--e3) var(--e4) var(--e4);
+  background: var(--papel);
+  color: var(--txt);
+  border: var(--fio-w) solid var(--fio-ouro);
+  border-radius: var(--r-folha);
+  box-shadow: 0 6px 24px rgba(16, 20, 42, 0.12);
+  opacity: 0;
+  transform: translate(-50%, -8px);
+  transition: opacity var(--d-lento) var(--ease-entra-sai), transform var(--d-lento) var(--ease-sai);
+  pointer-events: none;
+  cursor: pointer;
+}
+.balao.visivel {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  pointer-events: auto;
+}
+/* o rabinho do balão, apontando para a cena */
+.balao::after {
+  content: '';
+  position: absolute;
+  left: var(--e6);
+  bottom: -9px;
+  width: 16px;
+  height: 16px;
+  background: var(--papel);
+  border-right: var(--fio-w) solid var(--fio-ouro);
+  border-bottom: var(--fio-w) solid var(--fio-ouro);
+  transform: rotate(45deg);
+}
+.balao-rotulo {
+  display: block;
+  font-size: var(--t-micro);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ouro-tinta);
+  margin-bottom: var(--e1);
+}
+.balao-texto {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: var(--t-h2);
+  font-weight: 500;
+  line-height: 1.25;
 }
