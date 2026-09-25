@@ -35,7 +35,9 @@ export interface OpcoesTela {
 export function telaSvg(conteudo: string, o: OpcoesTela = {}): TelaSvg {
   const el = document.createElement('div');
   el.className = 'tela';
-  if (o.fundo) el.style.background = o.fundo;
+  /* o fundo da tela segue a cor da cena, para as faixas dos lados não aparecerem */
+  const corDeFundo = o.fundo ?? /^<rect width="390" height="780" fill="(#[0-9a-fA-F]{3,8})"/.exec(conteudo)?.[1];
+  if (corDeFundo) el.style.background = corDeFundo;
   const svg = cena(conteudo + (o.casinha ? casinha() : '') + (o.lua ? lua() : ''));
   el.appendChild(svg);
   const camadaMao = svgEl('<g class="camada-mao"></g>');

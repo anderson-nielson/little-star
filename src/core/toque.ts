@@ -11,6 +11,21 @@ export const BORDA_MORTA = 24;
 let dedoAtivo: number | null = null;
 let ocupadoAte = 0;
 
+/*
+ * Rede de segurança: no toque, cada dedo novo tem um pointerId novo. Se o
+ * dedo soltasse fora do alvo onde desceu, o alvo nunca via o pointerup e o
+ * "primeiro dedo" ficava preso para sempre: a tela inteira parava de responder.
+ * A janela sempre vê o fim do toque, então é ela quem libera o dedo.
+ */
+const liberarDedo = (ev: Event) => {
+  if ((ev as PointerEvent).pointerId === dedoAtivo) dedoAtivo = null;
+};
+if (typeof window !== 'undefined') {
+  /* na fase de borbulha: depois do alvo, que precisa ver o dedo ainda ativo */
+  window.addEventListener('pointerup', liberarDedo);
+  window.addEventListener('pointercancel', liberarDedo);
+}
+
 export function naBorda(x: number, y: number): boolean {
   return x < BORDA_MORTA || y < BORDA_MORTA || x > window.innerWidth - BORDA_MORTA || y > window.innerHeight - BORDA_MORTA;
 }
@@ -51,6 +66,12 @@ export function tocavel(el: Element, aoTocar: (ev: PointerEvent) => void, o: Opc
     x0 = e.clientX;
     y0 = e.clientY;
     valido = true;
+    /* o alvo segura o dedo: o pointerup chega nele mesmo que o dedo escorregue para fora */
+    try {
+      el.setPointerCapture(e.pointerId);
+    } catch {
+      /* alguns elementos não capturam; a rede de segurança acima cobre */
+    }
     el.classList.add('pressionado');
     o.aoPressionar?.();
   };

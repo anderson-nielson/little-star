@@ -1,3 +1,4 @@
+import { SESSAO_COMPLETA } from '@/core/laco';
 import { apagarTudo, CORES_DE_COMIDA, estado, estadoNovo, mudar, substituir, TAREFAS, type CorDeComida, type Tarefa } from '@/core/estado';
 import { sessao } from '@/core/sessao';
 import { h } from '@/core/util';
@@ -107,6 +108,27 @@ export function telaPais(): Tela {
       const sel = h('select', { id: 'comida-' + c }, ...comidas[c].map((o) => h('option', { value: o.id, selected: o.id === e.pais.comidas[c] }, o.nome))) as HTMLSelectElement;
       sel.addEventListener('change', () => mudar((x) => void (x.pais.comidas[c] = sel.value)));
       painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, NOME_COR[c]), sel));
+    }
+
+    /* a casa */
+    painel.append(h('h2', {}, 'A casa'));
+    const inteira = e.sessoes > SESSAO_COMPLETA;
+    painel.append(
+      h(
+        'p',
+        {},
+        inteira
+          ? `A casa está inteira aberta (sessão ${e.sessoes}). Cada dia uma brincadeira brilha, mas todas respondem.`
+          : `Nas primeiras ${SESSAO_COMPLETA} sessões a casa abre aos poucos: só o que brilha responde. Esta é a sessão ${e.sessoes}. Se preferirem, abram tudo já.`,
+      ),
+    );
+    if (!inteira) {
+      const bCasa = h('button', { type: 'button' }, 'Abrir a casa inteira agora');
+      bCasa.addEventListener('click', () => {
+        mudar((x) => void (x.sessoes = SESSAO_COMPLETA + 1));
+        abrir();
+      });
+      painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Cômodos'), h('div', { class: 'acoes' }, bCasa)));
     }
 
     /* letras */

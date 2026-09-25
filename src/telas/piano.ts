@@ -11,8 +11,16 @@ import { pararFundo } from '@/audio/musica';
 import { notaAgora, sininho } from '@/audio/synth';
 import type { Tela } from '@/core/roteador';
 
-/** dó a dó: 8 teclas grandes */
+/** dó a dó: 8 teclas brancas grandes */
 const TECLAS = [60, 62, 64, 65, 67, 69, 71, 72];
+/** as pretas, sustenidos e bemóis: cada uma na divisa entre a branca i e a i + 1 */
+const PRETAS: [number, number][] = [
+  [61, 0],
+  [63, 1],
+  [66, 3],
+  [68, 4],
+  [70, 5],
+];
 
 /**
  * O piano rosa: livre (cada tecla toca o piano de verdade, as bonecas dançam)
@@ -33,6 +41,10 @@ export function telaPiano(): Tela {
   TECLAS.forEach((m, i) => {
     const x = 30 + i * tw;
     s += `<g data-tecla="${i}"><rect x="${x + 2}" y="${420}" width="${tw - 4}" height="290" rx="8" fill="#fbf8f1" stroke="#ebcdc3"/><circle cx="${x + tw / 2}" cy="690" r="6" fill="${['#d2463c', '#e8a24a', '#ebd9a8', '#8fae6b', '#7FA5B8', '#8a5aa8', '#f2a9c4', '#d2463c'][i]}" opacity="0.7"/></g>`;
+  });
+  PRETAS.forEach(([m, i]) => {
+    const x = 30 + (i + 1) * tw;
+    s += `<g data-preta="${m}"><rect x="${x - 15}" y="420" width="30" height="172" rx="7" fill="#1a1c2b"/><rect x="${x - 11}" y="428" width="22" height="152" rx="5" fill="#3a3a4a"/></g>`;
   });
   s += `<g class="luz"></g>`;
   if (e.bichos.gato) s += gato(340, 335, 12, '#c8b8a6', true);
@@ -96,6 +108,20 @@ export function telaPiano(): Tela {
           mostrarProxima();
         } else ajuda.tentativa();
       }
+    },
+    true,
+  );
+
+  tela.alvo(
+    '[data-preta]',
+    (_ev, el) => {
+      const m = Number(el.getAttribute('data-preta'));
+      notaAgora(m, 1.4, 0.5);
+      const r = el.querySelector('rect:last-child') as SVGRectElement;
+      r.setAttribute('fill', '#5a5a6a');
+      void esperar(180).then(() => r.setAttribute('fill', '#3a3a4a'));
+      ajuda.tocou();
+      if (seguindo) ajuda.tentativa();
     },
     true,
   );

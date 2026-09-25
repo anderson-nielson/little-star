@@ -66,7 +66,10 @@ export function cena(conteudo: string, viewBox = '0 0 390 780'): SVGSVGElement {
   const svg = document.createElementNS(NS, 'svg');
   svg.setAttribute('viewBox', viewBox);
   svg.setAttribute('class', 'cena');
-  svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+  /* meet, nunca slice: em telas mais curtas que 1:2 o slice cortava o alto da cena e
+     jogava a casinha e a lua para dentro da borda morta. Sobram faixas finas nos lados,
+     que ficam da cor do fundo da tela. */
+  svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
   svg.innerHTML = conteudo;
   return svg;
 }
