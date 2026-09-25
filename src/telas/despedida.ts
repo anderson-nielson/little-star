@@ -9,7 +9,7 @@ import { arco, gato, nuvem, pinha, pinheiro, veu } from '@/puppet/objetos';
 import { falar, temVoz } from '@/audio/vozes';
 import { anunciar } from '@/core/narracao';
 import { tocarFundo, pararFundo } from '@/audio/musica';
-import { liraDesce, sininho } from '@/audio/synth';
+import { liraDesce, sininho, tiquinho } from '@/audio/synth';
 import { travar } from '@/core/toque';
 import type { Tela } from '@/core/roteador';
 
@@ -133,13 +133,23 @@ export function telaDespedida(): Tela {
     anunciar('despedida');
     await esperar(2500);
     pararFundo();
-    /* o jogo descansa. Um toque depois de um tempo reabre, como segunda vez no dia */
+    /* o jogo descansa: o tempo de tela para de contar. Um toque depois de um tempo reabre,
+       como segunda vez no dia; passado o limite do dia, a porta fica fechada e só responde */
+    sessao.descansar();
     await esperar(4000);
     if (!vivo) return;
-    sessao.inicioLivre = 0;
+    let respondeuAte = 0;
     tela.alvo('svg', () => {
       travar(800);
-      sessao.comecar();
+      if (sessao.reabrir()) return;
+      /* o dia de tela acabou. Ninguém reabre uma porta que vai fechar de novo: o laço
+         brilha, a família diz tchau de dentro, e amanhã ela está aqui. Nada parece quebrado. */
+      const agora = performance.now();
+      if (agora < respondeuAte) return;
+      respondeuAte = agora + 2500;
+      tela.comemorar(195, 470);
+      if (temVoz('tchau')) void falar('tchau');
+      else tiquinho();
     }, true);
   };
 

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { estadoNovo, abrirDia } from '@/core/estado';
-import { partesDaSessao, proximaParte, brincadeiraDoDia, aberto, etapa } from '@/core/laco';
+import { partesDaSessao, proximaParte, brincadeiraDoDia, aberto, etapa, passouDoLimite, podeReabrir } from '@/core/laco';
 
 const dia = (h: number, m = 0, d = 15) => new Date(2026, 8, d, h, m);
 
@@ -97,5 +97,29 @@ describe('o laço da sessão', () => {
     expect(brincadeiraDoDia(e, new Date(2026, 8, 15))).toBe('caderno'); // terça
     expect(brincadeiraDoDia(e, new Date(2026, 8, 19))).toBe('jardim'); // sábado
     expect(brincadeiraDoDia(e, new Date(2026, 8, 20))).toBe('familia'); // domingo
+  });
+});
+
+describe('a porta fechada da despedida', () => {
+  it('um toque reabre enquanto ainda há dia de tela', () => {
+    const e = abrirDia(estadoNovo(dia(15)), dia(15));
+    e.hoje.segundos = 10 * 60;
+    expect(passouDoLimite(e)).toBe(false);
+    expect(podeReabrir(e, dia(15))).toBe(true);
+  });
+
+  it('passado o limite do dia, a porta fica fechada: reabrir iria da chegada direto para outra despedida', () => {
+    const e = abrirDia(estadoNovo(dia(15)), dia(15));
+    e.hoje.segundos = 15 * 60;
+    expect(passouDoLimite(e)).toBe(true);
+    expect(podeReabrir(e, dia(19, 15))).toBe(false);
+  });
+
+  it('a rotina da noite nunca é barrada pelo limite', () => {
+    const e = abrirDia(estadoNovo(dia(15)), dia(15));
+    e.hoje.segundos = 40 * 60;
+    expect(podeReabrir(e, dia(19, 45))).toBe(true);
+    expect(podeReabrir(e, dia(20, 30))).toBe(true);
+    expect(partesDaSessao(e, dia(19, 45))).toEqual(['noite']);
   });
 });

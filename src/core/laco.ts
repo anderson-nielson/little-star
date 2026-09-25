@@ -116,3 +116,15 @@ export const LIVRE_MAXIMO = 5 * 60;
 export function passouDoLimite(e: Estado): boolean {
   return e.hoje.segundos >= e.pais.limiteMin * 60;
 }
+
+/**
+ * Um toque na porta fechada da despedida reabre o jogo? Só se ainda houver
+ * dia de tela; passado o limite, reabrir levaria da chegada direto para outra
+ * despedida, um ciclo que parece travado. A rotina da noite nunca é barrada:
+ * na meia hora antes de dormir (e depois dela) o toque sempre abre.
+ */
+export function podeReabrir(e: Estado, agora: Date): boolean {
+  const p = periodo(agora, e.pais.horaDormir);
+  if (p === 'noite' || p === 'dormindo') return true;
+  return !passouDoLimite(e);
+}
