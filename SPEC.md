@@ -14,7 +14,7 @@ Sumário
 6. A família
 7. A casa verde e o quarto rosa
 8. O dia da Stella (as tarefas de verdade)
-9. Escrever: o dedo desenha a letra
+9. Escrever e ouvir: letras e sons
 10. Espanhol: cada coisa tem dois nomes
 11. Piano, ukulele e bonecas
 12. As aventuras
@@ -30,7 +30,7 @@ Sumário
 ## 1. Para quem é
 
 A Stella tem 5 anos. É pequena e loirinha, de cabelo bem liso passando do ombro, ama rosa (ama, ama, ama), toca piano e um ukulele
-rosa, tem muitas bonecas, curte espanhol e quer aprender a escrever. Ainda não está
+rosa, tem muitas bonecas, ama coelhinhos e gatinhos, curte espanhol e quer aprender a escrever. Ainda não está
 alfabetizada. A mãe é a Andrea, o pai é o Anderson, o irmão é o Theo, de 10 anos.
 
 O que 5 anos quer dizer na prática:
@@ -201,6 +201,19 @@ com o caderno, janela com o céu. A porta do quarto é rosa, na parede verde. É
 
 **A porta**, de onde saem as aventuras e onde a família recebe na volta.
 
+**Os bichos da casa.** A Stella ama coelhinhos e gatinhos, e os dois moram no jogo:
+- **Um gatinho** mora na casa. Dorme na cama dela, se enrosca no pé do piano, segue ela de
+  cômodo em cômodo. Tocar nele faz ele ronronar (som sintetizado, grave e macio) e se esticar.
+  Ele participa das tarefas: pula na cama arrumada, dorme em cima da roupa dobrada, e na hora
+  de dormir se enrola aos pés dela.
+- **Um coelhinho** mora no jardim, na frente da casa verde. Ele recebe a Stella na porta e é o
+  companheiro da aventura do Jardim (12.1).
+- Os dois são desenhados com a mesma economia da marionete: poucas formas, contorno de luz,
+  orelhas e rabo que se mexem com atraso, como o tutu. Nada de olho enorme de desenho de
+  loja: olhos em arco fino, como os retratos do Ponta.
+- O nome dos dois fica com a Stella: na primeira vez ela escolhe entre três nomes ditos em voz
+  alta (seção 17).
+
 O céu das janelas segue a hora de verdade: manhã clara, tarde rosa, noite azul com estrelas.
 
 ## 8. O dia da Stella (as tarefas de verdade)
@@ -247,7 +260,7 @@ Cada tarefa vale uma vez por dia. Sem prazo, sem sequência, sem contador.
   Stella dormindo e a canção de ninar baixinha.
 - De manhã, a família dá bom dia e, se os pais marcaram "dormiu sozinha", a estrela nova brilha.
 
-## 9. Escrever: o dedo desenha a letra
+## 9. Escrever e ouvir: letras e sons
 
 A melhor ideia do Ponta cabe aqui inteira: **o dedo percorre uma fita**. No Ponta a fita é o
 caminho do gesto de dança; aqui a fita é o traço da letra. A estrela guia do Ponta mostra o
@@ -298,6 +311,50 @@ entregue. Quem recebe lê em voz alta (com a voz gravada) o que ela "escreveu", 
 "SSTAEL". Escrever vira um jeito de dar carinho, que é o motivo mais forte para aprender.
 
 Os bilhetes ficam guardados, e os pais podem vê-los no cantinho dos pais.
+
+### 9.5 Palavras em destaque: os sons das letras
+
+O Ponta tinha a pronúncia em áudio dos termos franceses: tocar em "Ouvir" e o celular dizia
+*pirouette*. Aqui a mesma ideia serve para outra coisa: **ela ouvir que a palavra é feita de
+sons**, que é o passo antes de ler.
+
+**Como aparece.** Tocar num objeto da casa (o gato, a cama, a bola, a lua) faz a palavra
+surgir em cima dele, grande, em letra bastão:
+
+```
+   G A T O          a primeira letra em rosa-doce, maior;
+   ‾‾‾‾‾‾‾          as outras em musgo-tinta; um fio embaixo
+```
+
+A voz diz, sempre na mesma ordem e devagar:
+1. **A palavra inteira**: "gato".
+2. **O som da primeira letra, esticado**: "ggg... gato". O som, não o nome da letra ("gê").
+3. **As sílabas, batidas**: "GA... TO". Cada sílaba acende sua parte da palavra e toca uma
+   nota do piano, como uma palma. Duas sílabas, duas notas. Ritmo é algo que ela já sente
+   no piano e no balé, e sílaba é ritmo.
+
+Tocar de novo repete. Nunca toca sozinho sem ela pedir, e nunca durante uma aventura.
+
+**Quais palavras.** Curtas, com sílabas simples (consoante e vogal), do mundo dela, e com as
+letras que ela está traçando no caderno:
+- Da casa: GATO, BOLA, CAMA, LUA, MALA, SOFÁ, PIPOCA, BONECA.
+- Da família: MAMÃE, PAPAI, THEO, STELLA (que é mais difícil e tudo bem: é o nome dela).
+- Dos bichos: GATO, COELHO (o LH é difícil, entra depois), PATO, SAPO, VACA.
+- Das aventuras: FITA, TUTU, SAPATILHA (a longa e divertida de bater: SA-PA-TI-LHA).
+
+**Achar o som.** Um joguinho curto no caderno, depois de algumas letras traçadas: o Theo diz
+"ssss" e mostra três coisas (sapo, gato, lua). Ela toca na que começa com "ssss". Qualquer
+toque é recebido: a certa ganha festa; as outras dizem o próprio nome e o próprio som ("lua,
+lll"), para ela ouvir a diferença sem ouvir "errado".
+
+**Quem fala.** Palavra inteira e sílabas podem vir da voz do aparelho (`speechSynthesis`, como
+o `src/audio/voz.ts` do Ponta, em velocidade 0,7). **O som isolado da letra não pode**: a voz
+sintética lê "g" como "gê", e ensinaria o contrário. Os sons das letras (umas 25 gravações
+curtas) precisam ser gravados por gente, de preferência a mãe ou o pai (seção 15.4).
+Sem gravação, o passo 2 é pulado.
+
+**Ligação com o espanhol.** Depois das sílabas, a Estrellita pode dizer a palavra em espanhol
+("gato... ¡gato!", "conejo"). A palavra escrita fica sempre em português.
 
 ## 10. Espanhol: cada coisa tem dois nomes
 
@@ -353,8 +410,9 @@ quando pular. Nenhuma tem vida, relógio ou pontos. Cada uma termina no palco.
 
 ### 12.1 O Jardim (inspirado em Pitfall)
 A Stella corre pelo jardim. **Toque = pular** (um *sauté*) poças e pedrinhas. Fitas de cetim
-nas árvores são cipós: ela balança sozinha quando chega nelas. Um sapo de coroa olha do
-laguinho, e só olha. Flores fechadas abrem com o ukulele. Tropeçou? Senta, ri, levanta.
+nas árvores são cipós: ela balança sozinha quando chega nelas. O coelhinho pula junto ao
+lado dela, e quando ela pula no tempo, os dois pulam juntos. Um sapo de coroa olha do
+laguinho, e só olha. Coelhinhos do mato espiam das tocas e aplaudem com as orelhas. Flores fechadas abrem com o ukulele. Tropeçou? Senta, ri, levanta.
 
 ### 12.2 A Escadaria do teatro (inspirado em Donkey Kong)
 Andaimes dos bastidores, subindo na vertical, o que em retrato fica ótimo. No alto, um ratinho
@@ -468,12 +526,15 @@ limite diário, confirmar tarefas, gravar vozes, ver os bilhetes, volume, apagar
   pessoa grava as suas. Ficam **só no aparelho** (IndexedDB), nunca vão para servidor.
 - Alternativa: vocês gravam no celular e eu empacoto como arquivos do jogo. Mais trabalho,
   mas sobrevive a trocar de aparelho.
+- **Sons das letras** (seção 9.5): umas 25 gravações de um segundo, uma por som ("sss",
+  "mmm", "lll", "a", "é"...). É a gravação mais importante para a leitura; a lista vai pronta,
+  com a palavra de exemplo ao lado de cada som.
 - Enquanto não houver gravação, a cena acontece sem voz (nunca uma voz sintética fingindo ser
   a mãe).
 
 ### 15.5 Dados e testes
 - Conteúdo em `src/data/`: tarefas, lembranças, letras (traços em pontos), palavras em
-  espanhol, bonecas, aventuras, músicas, frases. Letra nova, palavra nova ou boneca nova não
+  espanhol, palavras em destaque (sílabas e som inicial), bonecas, bichos, aventuras, músicas, frases. Letra nova, palavra nova ou boneca nova não
   exige código.
 - Save em `localStorage` e IndexedDB, versionado.
 - Testes: a lógica do dia (tarefa vale uma vez por dia, nada se perde de um dia para o outro,
@@ -492,8 +553,10 @@ metade.
 4. **Caderno**: os traços básicos e as letras S, T, E, L, A, montando STELLA na porta.
 5. **Piano** livre e *Brilha, brilha estrelinha*.
 6. **Uma aventura**: o Jardim, com o palco no fim.
-7. **Espanhol**: 20 palavras da casa e a Estrellita na estante.
-8. **Cantinho dos pais** com gravação de voz.
+7. **Palavras em destaque**: 12 palavras da casa com palavra, som e sílabas (9.5).
+8. **Espanhol**: 20 palavras da casa e a Estrellita na estante.
+9. **O gatinho** na casa e **o coelhinho** no jardim.
+10. **Cantinho dos pais** com gravação de voz.
 
 Depois de cada marco: testar com a Stella, olhar onde ela trava, onde ri, onde desiste, e
 medir antes de mexer (quanto tempo até o primeiro toque certo, quantos toques perdidos na
@@ -515,7 +578,11 @@ letras da família, mais espanhol.
 6. **Bonecas.** Tem alguma boneca preferida dela que vale entrar no jogo (nome, cor, jeito)?
 7. **O celular.** Qual aparelho ela usa (modelo, iPhone ou Android)? Vale testar nele a voz
    em espanhol e o desempenho.
-8. **Nome do jogo.** "Little Star", "Estrelinha" ou "Estrellita"?
+8. **Bichos.** Ela tem gato ou coelho de verdade? Se tiver, o do jogo pode ser ele (cor,
+   nome, jeito). Se não, quais nomes ela daria?
+9. **Sons das letras.** Quem grava? A escola usa algum método (fônico, silábico) que vale
+   seguir para não confundir?
+10. **Nome do jogo.** "Little Star", "Estrelinha" ou "Estrellita"?
 
 ## 18. Fora de escopo
 
