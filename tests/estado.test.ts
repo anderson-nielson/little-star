@@ -9,6 +9,8 @@ describe('o estado', () => {
     expect(e.pais.horaDormir).toBe('19:30');
     expect(e.pais.limiteMin).toBe(15);
     expect(e.flores).toEqual([]);
+    expect(e.hoje.brincadas).toEqual([]);
+    expect(e.visitadas).toEqual([]);
   });
   it('cada tarefa vale uma vez por dia e nada se perde', () => {
     let e = estadoNovo(new Date(2026, 8, 1, 10));

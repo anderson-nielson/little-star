@@ -48,6 +48,53 @@ export function brincadeiraDoDia(e: Estado, agora: Date): Brincadeira {
   return semana[diaDaSemana(agora)] ?? 'piano';
 }
 
+/* ---------- o que a casa tem para explorar ---------- */
+
+/** Tudo o que se brinca a partir da casa. A ordem é a ordem em que a luz passa por elas. */
+export type Coisa = Brincadeira | 'ukulele' | 'lira' | 'bonecas' | 'bilhete' | 'relogio' | 'horta' | 'arvore';
+export const COISAS: Coisa[] = ['piano', 'caderno', 'areia', 'ukulele', 'lira', 'bonecas', 'bilhete', 'relogio', 'palavras', 'pinhas', 'arvore', 'horta', 'jardim', 'cozinha', 'familia'];
+
+/** Em que sessão a coisa abre. A família está na sala desde a primeira. */
+export function sessaoQueAbre(coisa: Coisa): number {
+  for (let s = 1; s <= SESSAO_COMPLETA; s++) if (ABERTURAS[s]?.includes(coisa)) return s;
+  return 1;
+}
+
+/** Aberta e com o que precisa: o bilhete pede uma letra traçada. */
+export function disponivel(e: Estado, coisa: Coisa): boolean {
+  if (coisa === 'familia') return true;
+  if (coisa === 'bilhete') return aberto(etapa(e), 'bilhete') && e.letras.length > 0;
+  return aberto(etapa(e), coisa);
+}
+
+export function brincouHoje(e: Estado, coisa: Coisa): boolean {
+  return e.hoje.brincadas.includes(coisa);
+}
+
+/** Disponível e nunca tocada: a coisa nova balança devagar até o primeiro toque. */
+export function novidade(e: Estado, coisa: Coisa): boolean {
+  return disponivel(e, coisa) && !e.visitadas.includes(coisa);
+}
+
+/** Guarda que ela brincou: hoje, e para sempre. Muda o estado no lugar, dentro de `mudar()`. */
+export function marcarBrincada(e: Estado, coisa: Coisa): void {
+  if (!e.hoje.brincadas.includes(coisa)) e.hoje.brincadas.push(coisa);
+  if (!e.visitadas.includes(coisa)) e.visitadas.push(coisa);
+}
+
+/**
+ * Onde a luz da casa fica: na brincadeira do dia, enquanto não foi; depois, na coisa nova
+ * que ela nunca tocou; depois, no que está aberto e ainda não foi hoje; e, quando tudo já
+ * foi, na família, que chama para o fim. `null` quando até a família já foi.
+ */
+export function luzDaCasa(e: Estado, agora: Date): Coisa | null {
+  const doDia = brincadeiraDoDia(e, agora);
+  if (disponivel(e, doDia) && !brincouHoje(e, doDia)) return doDia;
+  const nova = COISAS.find((c) => novidade(e, c) && !brincouHoje(e, c));
+  if (nova) return nova;
+  return COISAS.find((c) => disponivel(e, c) && !brincouHoje(e, c)) ?? null;
+}
+
 /* ---------- as aventuras da porta ---------- */
 
 export type Aventura = 'jardim' | 'arvore' | 'lago';
