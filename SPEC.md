@@ -1,4 +1,4 @@
-# Little Star: especificação (v2)
+# Little Star: especificação (v2.1)
 
 > Jogo de celular para a Stella, 5 anos. Irmão pequeno do **Ponta**
 > (`anderson-nielson/grande-ballet`): mesma família visual, mesmo piano, outro jogo.
@@ -12,7 +12,7 @@ Sumário
 4. Como uma criança de 5 anos usa um celular
 5. A estrutura do jogo
 6. A família
-7. A casa e o quarto rosa
+7. A casa verde e o quarto rosa
 8. O dia da Stella (as tarefas de verdade)
 9. Escrever: o dedo desenha a letra
 10. Espanhol: cada coisa tem dois nomes
@@ -29,9 +29,9 @@ Sumário
 
 ## 1. Para quem é
 
-A Stella tem 5 anos. É pequena e loirinha, ama rosa (ama, ama, ama), toca piano e um ukulele
+A Stella tem 5 anos. É pequena e loirinha, de cabelo bem liso passando do ombro, ama rosa (ama, ama, ama), toca piano e um ukulele
 rosa, tem muitas bonecas, curte espanhol e quer aprender a escrever. Ainda não está
-alfabetizada. A mãe é a Andrea, o pai é o Anderson, o irmão é o Theo.
+alfabetizada. A mãe é a Andrea, o pai é o Anderson, o irmão é o Theo, de 10 anos.
 
 O que 5 anos quer dizer na prática:
 
@@ -47,7 +47,7 @@ O que 5 anos quer dizer na prática:
 
 ## 2. A ideia em uma frase
 
-A Stella mora numa casinha rosa com a mãe, o pai e o Theo. De lá ela sai em aventuras curtas
+A Stella mora numa casa verde com a mãe, o pai e o Theo. De lá ela sai em aventuras curtas
 de bailarina que lembram os jogos do Atari. Aprende letras desenhando com o dedo, aprende
 palavras em espanhol tocando nas coisas, e cada coisa boa que ela faz no dia de verdade
 aparece no quarto dela.
@@ -161,12 +161,18 @@ Travar em retrato também evita a tela girar sozinha quando ela deita o celular.
 Quatro personagens desenhados pela mesma marionete do Ponta (membros afilados, cores por
 dados), com proporções próprias.
 
+**A referência é *Charlie e Lola*.** A família diz que a Stella e o Theo lembram os dois
+irmãos do desenho: o irmão mais velho, paciente, que explica o mundo para a irmã pequena, e
+ela, cheia de opinião e imaginação. O jogo pega **a relação**, não o desenho: o Theo é quem
+mostra, explica e anima; a Stella é quem descobre. O traço continua o do Ponta (vetor, fio,
+marionete por dados). Nada de copiar personagens, colagem ou estilo visual do desenho.
+
 | Quem | Jeito | Onde aparece |
 |---|---|---|
-| **Stella** | Pequena, loirinha, tutu rosa. A protagonista. | Tudo. |
+| **Stella** | 5 anos, pequena, loirinha, cabelo bem liso passando do ombro, solto no dia a dia e em coque no palco. Tutu rosa. | Tudo. |
 | **Mãe Andrea** | Aconchego. Recebe, abraça, cozinha junto, põe para dormir. | Porta, cozinha, hora de dormir, primeira fila do palco. |
 | **Pai Anderson** | Parceria e brincadeira. Gira a Stella no ar, ri junto. | Volta das aventuras, brinquedos, caderno, aplauso. |
-| **Theo** | Irmão e companheiro de aventura. | Nas aventuras (segura a escada, pesca do lago), brinca de boneca e de música. |
+| **Theo** | 10 anos, o dobro da altura dela, cabelo castanho bem claro, quase loiro, muito cacheado. O irmão que explica e cuida, como o Charlie. | Guia do caderno (ele já sabe escrever e mostra as letras), companheiro nas aventuras (segura a escada, pesca do lago), brinca de boneca e de música. |
 
 **Como o amor aparece**, sempre sem texto:
 - **Abraço** tem animação própria: quem abraça se abaixa até a altura dela. Centelhas rosa e
@@ -179,13 +185,17 @@ dados), com proporções próprias.
 - **O nome dela** aparece no título, na porta do quarto e no caderno, em letra de forma
   grande, para ela aprender a reconhecer.
 
-## 7. A casa e o quarto rosa
+## 7. A casa verde e o quarto rosa
+
+A casa de verdade da Stella é **verde**, um verde musgo mais vivo e leve, e a do jogo também.
+Por fora e nos cômodos comuns, verde musgo claro; lá dentro, o quarto dela é o pedaço rosa da
+casa. O rosa fica mais especial justamente por ser o cantinho dela.
 
 A casa é vista em corte, como uma casa de bonecas, e rola na vertical: quarto em cima, sala e
 cozinha no meio, porta embaixo. Ela desliza para cima e para baixo, ou toca num cômodo.
 
 **O quarto da Stella**, todo rosa: cama, estante de bonecas, piano, ukulele na parede, mesinha
-com o caderno, janela com o céu. É aqui que as tarefas viram lembrança.
+com o caderno, janela com o céu. A porta do quarto é rosa, na parede verde. É aqui que as tarefas viram lembrança.
 
 **A cozinha**, onde a mãe e a Stella fazem comidinha e onde moram as palavras em espanhol.
 
@@ -264,6 +274,10 @@ caminho antes, a Stella segue com o dedo, e a letra nasce onde o dedo passa.
 ### 9.3 O caminho das letras
 
 A ordem segue o que faz sentido para ela, não o alfabeto:
+
+O **Theo** é o professor do caderno, como o Charlie que explica as coisas para a Lola: ele
+senta ao lado dela, desenha a letra primeiro (a estrela guia sai do lápis dele) e comemora
+quando ela termina. Irmão mais velho ensinando é uma cena que ela reconhece.
 
 1. **Traços antes das letras**: linha em pé, linha deitada, linha inclinada, bolinha, curva,
    ponte. Cada traço é uma coisa do mundo dela (a chuva cai: linha em pé; a onda do lago:
@@ -380,11 +394,20 @@ Mesmas formas do Ponta, com mais rosa, mais luz e mais tamanho.
 - Zero imagem raster. Tudo SVG e Canvas 2D gerado por código.
 
 **Ajustado para ela**
-- **Rosa domina.** `--rosa`, `--rosa-clara` e `--rosa-doce` na maior parte da tela, com dia
-  claro e marfim. Proporção: rosas 55%, dia e marfim 20%, mata (jardim) 8%, noite (palco e
-  noite) 8%, veludo 5%, ouro 4%.
+- **Verde musgo e rosa.** A casa é verde musgo vivo e leve (tokens novos, ponto de partida
+  a acertar no styleguide: `--musgo` `#8FAE6B`, `--musgo-claro` `#C9DBB2`, `--musgo-tinta`
+  `#4F6B3A` para traço e texto). O rosa (`--rosa`, `--rosa-clara`, `--rosa-doce`) é da Stella:
+  o quarto, o tutu, o ukulele, o caderno, tudo o que é dela. Verde e rosa claros se
+  complementam e mantêm a calma. Proporção: musgo 35%, rosas 30%, dia e marfim 15%, noite
+  (palco e noite) 8%, mata (jardim fundo) 4%, veludo 4%, ouro 4%. O `--mata` escuro do Ponta
+  fica só para sombra de jardim e fundo de aventura.
 - **A Stella** é a do Ponta (pele `#F2D5BC`), mais loira e com proporção de 5 anos: cabeça
-  maior, pernas curtas, bochecha. Collant e tutu rosa.
+  maior, pernas curtas, bochecha. Cabelo bem liso passando do ombro, desenhado como uma
+  cortina de fios que balança com o movimento (dois ou três paths com atraso, como o tutu do
+  Ponta). No palco, coque. Collant e tutu rosa.
+- **O Theo** tem o dobro da altura dela e cabelo castanho bem claro, quase loiro, muito
+  cacheado: um cacho feito de círculos agrupados, como o coque crespo da Paula no Ponta, só
+  que em volta da cabeça toda e mais solto.
 - **Tamanho**: a Stella ocupa uns 20% da altura da tela; objetos tocáveis têm pelo menos 72 px.
 - **Contraste**: tudo o que se toca tem contorno em `--luz` ou `--ouro` e um leve pulsar de
   opacidade quando a mãozinha aponta.
@@ -483,9 +506,9 @@ letras da família, mais espanhol.
 
 1. **Vozes.** Andrea, Anderson e Theo topam gravar? No app ou arquivos enviados? Alguém fala
    espanhol para gravar as palavras?
-2. **Como vocês são.** Cabelo, cor, altura relativa, óculos, roupa preferida de cada um.
-   Quantos anos tem o Theo?
-3. **O cabelo da Stella.** Coque de bailarina, marias-chiquinhas ou solto?
+2. **Mãe e pai.** Cabelo, cor, altura relativa, óculos, roupa preferida. (Stella e Theo já
+   estão descritos.)
+3. **O verde da casa.** Se tiver uma foto da fachada, acerto o tom do `--musgo` por ela.
 4. **Tarefas.** A lista da seção 8.1 está certa? Falta alguma (vestir sozinha, comer fruta,
    guardar o sapato)?
 5. **Letras.** Na escola ela já está vendo letra bastão? Já reconhece o S do nome?
