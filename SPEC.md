@@ -1,4 +1,4 @@
-# Little Star: especificação (v2.2)
+# Little Star: especificação (v2.3)
 
 > Jogo de celular para a Stella, 5 anos. Irmão pequeno do **Ponta**
 > (`anderson-nielson/grande-ballet`): mesma família visual, mesmo piano, outro jogo.
@@ -30,7 +30,7 @@ Sumário
 ## 1. Para quem é
 
 A Stella tem 5 anos. É pequena e loirinha, de cabelo bem liso passando do ombro, ama rosa (ama, ama, ama), toca piano e um ukulele
-rosa, tem muitas bonecas, ama coelhinhos e gatinhos, ama subir em árvore, tem uma caixa de areia vermelha em forma de estrela, curte espanhol e quer aprender a escrever. Ainda não está
+rosa, tem muitas bonecas, ama coelhinhos e gatinhos, ama subir em árvore, ama pinhas (muito), tem uma caixa de areia vermelha em forma de estrela, curte espanhol e quer aprender a escrever. Ainda não está
 alfabetizada. A mãe é a Andrea, o pai é o Anderson, o irmão é o Theo, de 10 anos.
 
 O que 5 anos quer dizer na prática:
@@ -249,7 +249,8 @@ Nele moram duas coisas que são dela de verdade:
     mala"). É a brincadeira de achar o som (9.5) com terra e surpresa.
   - **Faz castelo.** Toques empilham baldinhos de areia, o gatinho derruba, todo mundo ri.
     Só brincadeira, sem objetivo.
-- **A árvore grande.** Uma árvore alta no canto do quintal, de galhos largos. Ela ama subir
+- **A árvore grande.** Um pinheiro alto no canto do quintal, de galhos largos e cheio de
+  pinhas (se a árvore de verdade for outra, fica a de verdade, com um pinheiro ao lado). Ela ama subir
   em árvore, então subir aqui é uma atividade em si, sem pressa e sem obstáculo: cada toque
   num galho mais alto e ela sobe até ele. Lá de cima ela vê o céu da hora de verdade, a casa
   verde de cima, o Theo acenando embaixo. À noite, do galho mais alto se vê a estrela nova de
@@ -258,6 +259,19 @@ Nele moram duas coisas que são dela de verdade:
 Segurança sem sermão: na árvore, a família está sempre embaixo olhando, e o Theo sobe junto
 nos galhos baixos. O jogo não ensina a subir mais alto do que ela sobe de verdade; mostra que
 subir é gostoso quando tem alguém perto.
+
+**As pinhas.** A Stella ama pinhas, muito. Elas estão pelo jogo todo, como tesouro:
+- **Catar pinhas** no chão do quintal, embaixo do pinheiro, é uma atividade própria e calma.
+  Cada pinha é um pouco diferente (comprida, redondinha, pequenininha, a grande da araucária)
+  e ela toca para pegar e pôr na cestinha. O coelhinho cheira, o gatinho empurra com a pata.
+- **A mesa da estação.** No quarto, uma mesinha com um pano da cor da estação, como a mesa da
+  estação dos jardins Waldorf. As pinhas que ela cata vão para lá, e ela arruma do jeito que
+  quiser: em fila, em roda, em estrela. No outono ganham folhas, no inverno uma fitinha, no
+  Advento uma velinha ao lado.
+- **Pinha no caderno e na areia.** PINHA é palavra de destaque (tem o NH, que entra depois das
+  primeiras), e em espanhol a Estrellita diz "piña". Na caixa de areia, uma pinha pode estar
+  enterrada entre as letras.
+- **Pinha nas aventuras**: na Árvore Grande (12.2), pinha é presente, não perigo.
 
 **Os bichos da casa.** A Stella ama coelhinhos e gatinhos. Ela não tem nenhum, é um sonho
 dela, e convive com vários e ama. No jogo o sonho se realiza, e com ele vem o cuidado:
@@ -505,11 +519,14 @@ laguinho, e só olha. Coelhinhos do mato espiam das tocas e aplaudem com as orel
 A árvore do quintal vira aventura. Ela sobe na vertical, galho por galho, o que em retrato
 fica ótimo. **O gatinho subiu até o topo e não sabe descer**, e a Stella vai buscar (no Donkey
 Kong também se sobe para buscar alguém lá em cima). Galhos inclinados são as plataformas;
-cipós e troncos ela sobe sozinha. Lá em cima, um esquilo brincalhão, com um gorrinho de
-soldadinho do Quebra-Nozes, rola pinhas galho abaixo. **Toque = pular a pinha.** O Theo segura
-os galhos baixos. No topo, o gatinho pula no colo dela, o esquilo vira amigo e desce junto
-para dançar no palco. Pinha pegou? Ela escorrega até o galho de baixo como num escorregador,
-ri, e continua no mesmo galho.
+cipós e troncos ela sobe sozinha. A árvore é o pinheiro do quintal. Lá em cima, um esquilo
+brincalhão, com um gorrinho de soldadinho do Quebra-Nozes, rola pinhas galho abaixo, como os
+barris do Donkey Kong. Só que ela ama pinhas, então **pinha é presente**: **toque = pular**, e
+no pulo ela gira no ar e pega a pinha lá de cima, que vai para a cestinha. Se não pular, a
+pinha quica nela com um "toc" engraçado, ela ri, e a pinha cai na cestinha do Theo lá
+embaixo. De um jeito ou de outro, toda pinha chega em casa; pular só deixa mais bonito. No
+topo, o gatinho pula no colo dela, o esquilo vira amigo e desce junto para dançar no palco, e
+as pinhas da aventura vão para a mesa da estação.
 
 ### 12.3 O Lago dos Cisnes (inspirado em Frostbite e Freeway)
 Atravessar o lago de baixo para cima pulando em vitórias-régias e cisnes que nadam em faixas.
@@ -526,7 +543,7 @@ abraço na coxia, volta para casa.
 - O pulo **procura** o obstáculo: um toque até ~500 ms antes ainda vira o pulo certo.
 - Se ela não toca, a Stella não fica presa: depois de duas tentativas no mesmo obstáculo, a
   mãozinha mostra o toque; depois de três, ela passa sozinha com uma ajudinha (o Theo empurra
-  a vitória-régia, o esquilo para de rolar pinha).
+  a vitória-régia, o esquilo manda a pinha devagarinho).
 - Toda aventura termina, mesmo sem nenhum toque. O palco sempre chega.
 
 ## 13. Estética
@@ -702,8 +719,9 @@ letras da família, mais espanhol.
 9. **Sons das letras.** Quem grava? Vale perguntar à professora se ela usa algum gesto ou
    imagem por som, para o jogo repetir.
 10. **O quintal.** Uma foto da caixa de areia e da árvore ajuda a acertar a forma e o
-    vermelho. Que árvore é (mangueira, pitangueira, jabuticabeira)?
-11. **Nome do jogo.** "Little Star", "Estrelinha" ou "Estrellita"?
+    vermelho. Que árvore é? Tem pinheiro ou araucária por perto, de onde vêm as pinhas dela?
+11. **Nome do jogo.** A menina do jogo é a Stella, decidido. E o jogo: "Little Star",
+    "Estrelinha" ou "Estrellita"?
 12. **Semana e festas.** A casa tem um ritmo da semana (dia do pão, da pintura)? Quais festas
    vocês celebram? O jogo copia o ritmo de vocês em vez de inventar um.
 
