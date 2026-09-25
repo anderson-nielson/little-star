@@ -4,7 +4,7 @@
     "som": "som_a",
     "historia": "hist_a",
     "imagem": "telhado",
-    "palavra": "ASA",
+    "palavra": "AVÓ",
     "figuras": [
       "asa",
       "abelha",
@@ -155,7 +155,7 @@
         ],
         [
           0.15,
-          0.0
+          0
         ],
         [
           0.2,
@@ -301,7 +301,7 @@
     "som": "som_u",
     "historia": "hist_u",
     "imagem": "balanco",
-    "palavra": "TUTU",
+    "palavra": "UVA",
     "figuras": [
       "uva",
       "urso",
@@ -361,6 +361,34 @@
         [
           0.5,
           0.94
+        ]
+      ]
+    ]
+  },
+  {
+    "id": "V",
+    "som": "som_v",
+    "historia": "hist_v",
+    "imagem": "vale",
+    "palavra": "VELA",
+    "figuras": [
+      "vaca",
+      "vela",
+      "vaso"
+    ],
+    "tracos": [
+      [
+        [
+          0.12,
+          0.06
+        ],
+        [
+          0.5,
+          0.94
+        ],
+        [
+          0.88,
+          0.06
         ]
       ]
     ]

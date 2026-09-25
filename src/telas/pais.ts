@@ -267,7 +267,7 @@ export function telaPais(): Tela {
     /* letras */
     painel.append(h('h2', {}, 'As letras'));
     const letraAtual = (letras as { id: string }[])[Math.min(e.letraIndice, letras.length - 1)]!.id;
-    painel.append(h('p', {}, `Ordem: A, E, L, S, T (as do nome dela), depois O, M, U, I. Uma por semana por padrão. Letra da vez: ${letraAtual}. Já traçadas: ${e.letras.join(', ') || 'nenhuma'}.`));
+    painel.append(h('p', {}, `Ordem: A, E, L, S, T (as do nome dela), depois O, M, U, I, V. Uma por semana por padrão. Letra da vez: ${letraAtual}. Já traçadas: ${e.letras.join(', ') || 'nenhuma'}. Palavras lidas inteiras no escorregador de sons: ${e.palavras.join(', ') || 'nenhuma ainda'}.`));
     const bRitmo = h('button', { type: 'button', class: e.pais.ritmoLetras === 'semanal' ? 'ligado' : '' }, e.pais.ritmoLetras === 'semanal' ? 'Uma por semana' : 'Quando ela terminar');
     bRitmo.addEventListener('click', () => {
       mudar((x) => void (x.pais.ritmoLetras = x.pais.ritmoLetras === 'semanal' ? 'livre' : 'semanal'));
