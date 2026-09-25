@@ -1,0 +1,851 @@
+<title>Telas da Little Star</title>
+<meta name="description" content="Cinco telas da v1 do Little Star para aprovar ou ajustar antes do código, com as perguntas abertas da revisão.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500&display=swap">
+<style>
+  :root {
+    /* tokens do Ponta, mais os novos do Little Star */
+    --noite: #10142a; --noite-2: #1b2140; --marfim: #f6f0e4; --papel: #fbf8f1; --tinta: #1a1c2b;
+    --rosa: #ebcdc3; --rosa-clara: #f6e3dc; --rosa-doce: #f2a9c4; --veludo: #6e1a27;
+    --ouro: #c6a15b; --ouro-tinta: #8f6f2c; --luz: #ebd9a8; --mata: #2c4a42; --mata-2: #35564d;
+    --musgo: #8FAE6B; --musgo-claro: #C9DBB2; --musgo-tinta: #4F6B3A;
+    --areia: #EEDDB4; --estrela-vermelha: #D2463C;
+    /* página */
+    --fundo: var(--marfim); --superficie: var(--papel); --texto: var(--tinta);
+    --texto-2: rgba(26, 28, 43, 0.68); --fio: rgba(79, 107, 58, 0.28); --acento: var(--musgo-tinta);
+    --acento-2: var(--rosa-doce); --realce: rgba(242, 169, 196, 0.22); --ok: #2f7a4d; --ajuste: #b86a2f;
+    --sombra-tela: 0 18px 40px rgba(26, 28, 43, 0.12);
+    --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --sans: 'Jost', 'Avenir Next', 'Century Gothic', system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --fundo: var(--noite); --superficie: var(--noite-2); --texto: var(--marfim);
+      --texto-2: rgba(246, 240, 228, 0.68); --fio: rgba(198, 161, 91, 0.34); --acento: var(--luz);
+      --acento-2: var(--rosa-doce); --realce: rgba(242, 169, 196, 0.16); --ok: #7fc39a; --ajuste: #e3a56a;
+      --sombra-tela: 0 18px 40px rgba(0, 0, 0, 0.45);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --fundo: var(--noite); --superficie: var(--noite-2); --texto: var(--marfim);
+    --texto-2: rgba(246, 240, 228, 0.68); --fio: rgba(198, 161, 91, 0.34); --acento: var(--luz);
+    --acento-2: var(--rosa-doce); --realce: rgba(242, 169, 196, 0.16); --ok: #7fc39a; --ajuste: #e3a56a;
+    --sombra-tela: 0 18px 40px rgba(0, 0, 0, 0.45);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fundo); color: var(--texto); font-family: var(--sans); font-size: 1rem; line-height: 1.55; }
+  .pagina { max-width: 1080px; margin: 0 auto; padding-inline: 20px; padding-block: 32px 96px; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.12; text-wrap: balance; margin: 0; }
+  h1 { font-size: clamp(2.4rem, 6vw, 3.6rem); }
+  h2 { font-size: 2rem; }
+  h3 { font-size: 1.35rem; }
+  p { margin: 0; max-width: 62ch; }
+  .rotulo { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--texto-2); }
+  .centelha { width: 1em; height: 1em; fill: currentColor; vertical-align: -0.12em; }
+
+  header.capa { display: grid; gap: 14px; padding-bottom: 28px; border-bottom: 1px solid var(--fio); }
+  header .linha { display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: baseline; color: var(--texto-2); font-size: 0.92rem; }
+  .indice { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+  .indice a { color: var(--texto); text-decoration: none; border: 1px solid var(--fio); border-radius: 999px; padding: 6px 14px; font-size: 0.92rem; }
+  .indice a:hover, .indice a:focus-visible { border-color: var(--acento); outline: none; }
+
+  .legenda { display: grid; gap: 6px 18px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 28px; padding: 18px 0; border-bottom: 1px solid var(--fio); font-size: 0.92rem; }
+  .legenda div { display: flex; gap: 10px; align-items: baseline; }
+  .legenda svg { width: 22px; height: 22px; flex: none; }
+
+  section.tela { display: grid; grid-template-columns: minmax(280px, 400px) 1fr; gap: 32px 44px; padding-block: 56px; border-bottom: 1px solid var(--fio); align-items: start; }
+  section.tela .cabeca { grid-column: 1 / -1; display: grid; gap: 6px; }
+  section.tela .cabeca .rotulo { color: var(--acento); }
+  .aparelho { position: relative; width: 100%; max-width: 400px; aspect-ratio: 390 / 780; border-radius: 34px; overflow: hidden; box-shadow: var(--sombra-tela); border: 1px solid var(--fio); background: var(--musgo-claro); margin-inline: auto; }
+  .aparelho svg { display: block; width: 100%; height: 100%; }
+  .fala { margin-top: 12px; text-align: center; font-family: var(--serif); font-style: italic; font-size: 1.15rem; color: var(--texto-2); }
+  .fala b { font-style: normal; font-weight: 500; color: var(--texto); }
+  .notas { display: grid; gap: 22px; }
+  .notas h3 { margin-bottom: 6px; }
+  .notas ol, .notas ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
+  .notas li::marker { color: var(--acento); }
+  .decisoes li b { font-weight: 500; }
+
+  .parecer { border-top: 1px solid var(--fio); padding-top: 18px; display: grid; gap: 12px; }
+  .botoes { display: flex; flex-wrap: wrap; gap: 10px; }
+  .botao { font: inherit; font-weight: 500; border-radius: 999px; padding: 9px 20px; border: 1px solid var(--fio); background: transparent; color: var(--texto); cursor: pointer; min-height: 44px; }
+  .botao:focus-visible { outline: 2px solid var(--acento); outline-offset: 2px; }
+  .botao.ok.ativo { background: var(--ok); border-color: var(--ok); color: var(--marfim); }
+  .botao.ajuste.ativo { background: var(--ajuste); border-color: var(--ajuste); color: var(--marfim); }
+  textarea { font: inherit; width: 100%; min-height: 84px; resize: vertical; border: 1px solid var(--fio); border-radius: 12px; padding: 10px 12px; background: var(--superficie); color: var(--texto); }
+  textarea:focus-visible { outline: 2px solid var(--acento); outline-offset: 1px; }
+  .estado { font-size: 0.82rem; color: var(--texto-2); min-height: 1.2em; }
+  .estado.erro { color: var(--ajuste); }
+
+  section.perguntas { padding-block: 56px 0; display: grid; gap: 18px; }
+  .pergunta { display: grid; gap: 8px; padding: 18px 0; border-top: 1px solid var(--fio); }
+  .pergunta .num { font-family: var(--serif); font-size: 1.5rem; color: var(--acento); line-height: 1; }
+  .pergunta .cab { display: flex; gap: 14px; align-items: baseline; }
+  .pergunta .cab p { font-weight: 500; }
+  .pergunta small { color: var(--texto-2); }
+  .aviso-db { font-size: 0.9rem; color: var(--texto-2); padding: 12px 14px; border: 1px dashed var(--fio); border-radius: 12px; }
+  .aviso-db[hidden] { display: none; }
+
+  @media (max-width: 760px) {
+    section.tela { grid-template-columns: 1fr; gap: 24px; padding-block: 40px; }
+    h2 { font-size: 1.7rem; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .pulsa { animation: pulsa 1.6s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+    @keyframes pulsa { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+    .respira { animation: respira 2.4s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+    @keyframes respira { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+  }
+</style>
+
+<div class="pagina">
+  <header class="capa">
+    <span class="rotulo">Little Star, irmão pequeno do Ponta</span>
+    <h1>Cinco telas para aprovar ou ajustar</h1>
+    <p>Nada aqui é código: são desenhos das telas que mais decidem a v1, na mesma família visual do Ponta (fio no lugar de caixa, centelha de quatro pontas, marionete de membros afilados, aquarela em véu). Em cada uma, o que a Stella faz, o que eu estou decidindo e um lugar para você dizer <b>aprovar</b> ou <b>ajustar</b>. No fim, as perguntas da revisão, com campo de resposta.</p>
+    <div class="linha">
+      <span>Retrato, 390 × 780</span>
+      <span>Alvos de 72 px</span>
+      <span>Sem texto para ela ler; o único texto é o nome dela</span>
+      <span>A revisão completa está em <code>docs/revisao-gameplay.md</code></span>
+    </div>
+    <nav class="indice" aria-label="Telas">
+      <a href="#casa">1. A casa verde</a>
+      <a href="#roda">2. A roda do dia</a>
+      <a href="#caderno">3. O caderno: a letra S</a>
+      <a href="#prato">4. O prato colorido</a>
+      <a href="#jardim">5. A aventura do Jardim</a>
+      <a href="#perguntas">Perguntas</a>
+    </nav>
+  </header>
+
+  <div class="legenda" aria-label="Sinais do jogo">
+    <div><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="8" fill="none" stroke="#c6a15b" stroke-width="1.5" class="pulsa"/></svg><span>Contorno de luz pulsando: pode tocar aqui</span></div>
+    <div><svg viewBox="0 0 22 22" aria-hidden="true"><path d="M8 19V9a1.6 1.6 0 0 1 3.2 0v4l1-.6a1.5 1.5 0 0 1 2.2 1.1v.6l.9-.3a1.4 1.4 0 0 1 1.9 1.3V19" fill="#f6e3dc" stroke="#4F6B3A" stroke-width="1.2"/></svg><span>Mãozinha desenhada: faça este gesto</span></div>
+    <div><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 0c.7 6.2 3.8 9.3 10 10-6.2.7-9.3 3.8-10 10-.7-6.2-3.8-9.3-10-10 6.2-.7 9.3-3.8 10-10z" fill="#c6a15b"/></svg><span>Estrela guia (a centelha do Ponta): o caminho é este</span></div>
+    <div><svg viewBox="0 0 22 22" aria-hidden="true"><path d="M4 11l7-6 7 6v7H4z" fill="#8FAE6B" stroke="#4F6B3A" stroke-width="1.2"/><path d="M9.5 18v-4h3v4" fill="#f2a9c4"/></svg><span>Casinha verde no canto: voltar para casa (proposta, no lugar da porta)</span></div>
+  </div>
+
+  <!-- ============ TELA 1 ============ -->
+  <section class="tela" id="casa">
+    <div class="cabeca">
+      <span class="rotulo">Tela 1 · o centro de tudo</span>
+      <h2>A casa verde, inteira numa tela</h2>
+    </div>
+    <div>
+      <div class="aparelho"><svg viewBox="0 0 390 780" id="svg-casa" role="img" aria-label="A casa verde em corte, com quarto rosa, sala, cozinha, porta e o quintal com a caixa de areia em estrela e o pinheiro"></svg></div>
+      <p class="fala">Sexta-feira, fim de tarde. O piano brilha porque é a brincadeira do dia. <b>Sem voz</b>: a casa espera.</p>
+    </div>
+    <div class="notas">
+      <div>
+        <h3>O que a Stella faz</h3>
+        <ol>
+          <li>Vê a casa inteira, sem rolar. Toca num cômodo ou num objeto grande e a câmera aproxima devagar.</li>
+          <li>O objeto da brincadeira do dia pulsa com contorno de luz (hoje o piano, toalha azul de sexta).</li>
+          <li>O que ela fez de verdade está visível: uma letra na parede, uma flor no canteiro, pinhas na mesa da estação.</li>
+          <li>O coelhinho espera na porta; o gatinho dorme no pé do piano.</li>
+        </ol>
+      </div>
+      <div class="decisoes">
+        <h3>O que estou decidindo aqui</h3>
+        <ul>
+          <li><b>Casa sem rolagem.</b> A SPEC descreve uma casa que rola. Rolar é gesto rápido ou arrasto longo, que a seção 1 do GAMEPLAY proíbe. Em retrato os três andares e o quintal cabem.</li>
+          <li><b>O quintal é parte da casa</b>, não outra tela: caixa de areia em estrela, canteiro e pinheiro ficam sempre à vista.</li>
+          <li><b>Verde musgo por fora e nos cômodos comuns; rosa só no quarto.</b> O rosa fica especial por ser o cantinho dela.</li>
+          <li><b>A lua do cantinho dos pais</b> fica quase invisível no canto de cima; segurar dois segundos abre a conta.</li>
+          <li><b>A Stella em casa está de vestido rosa</b>, não de tutu. Tutu só no palco (pergunta P8).</li>
+        </ul>
+      </div>
+      <div class="parecer" data-tela="casa">
+        <span class="rotulo">Seu parecer</span>
+        <div class="botoes">
+          <button class="botao ok" type="button" data-status="aprovada">Aprovar</button>
+          <button class="botao ajuste" type="button" data-status="ajustar">Ajustar</button>
+        </div>
+        <label class="rotulo" for="nota-casa">O que ajustar ou observações</label>
+        <textarea id="nota-casa" placeholder="Por exemplo: a casa de verdade não tem cozinha à direita..."></textarea>
+        <span class="estado" id="estado-casa"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TELA 2 ============ -->
+  <section class="tela" id="roda">
+    <div class="cabeca">
+      <span class="rotulo">Tela 2 · reconhecida pelas coisas simples</span>
+      <h2>A roda do dia</h2>
+    </div>
+    <div>
+      <div class="aparelho"><svg viewBox="0 0 390 780" id="svg-roda" role="img" aria-label="A família sentada em roda no tapete da sala, com a caminha, a escova e a caixa de brinquedos no meio; a caminha está acesa"></svg></div>
+      <p class="fala">Voz da mãe: <b>"Você arrumou a cama?"</b> A caminha acende. Se ela tocar, o lençol se estica e a lembrança voa para o quarto.</p>
+    </div>
+    <div class="notas">
+      <div>
+        <h3>O que a Stella faz</h3>
+        <ol>
+          <li>A família senta no tapete. No meio, os três objetos da v1: caminha, escova de dentes, caixa de brinquedos.</li>
+          <li>Um objeto acende de cada vez e alguém pergunta com a voz gravada. O adulto real pode perguntar junto.</li>
+          <li>Ela toca no objeto se fez. Cena de quatro segundos, comemoração, lembrança para o quarto.</li>
+          <li>Se não tocar em seis segundos, o objeto apaga devagar e o próximo acende. Nada é dito.</li>
+          <li>Por último vem o prato colorido (tela 4).</li>
+        </ol>
+      </div>
+      <div class="decisoes">
+        <h3>O que estou decidindo aqui</h3>
+        <ul>
+          <li><b>O objeto só aceita o toque depois que a pergunta acabou de ser falada.</b> Antes disso, tocar só faz ele brilhar. Separa "tocar em tudo" de "responder" (achado J7).</li>
+          <li><b>Toque, não arrasto.</b> A SPEC 8.1 fala em esticar o lençol com um arrasto; a roda é para contar, e o arrasto fica para as brincadeiras.</li>
+          <li><b>As perguntas não dizem "hoje"</b>: perguntam sobre o que houve desde a última sessão (pergunta P1).</li>
+          <li><b>A voltinha da mãozinha</b> aparece só em A1, depois de seis segundos parada.</li>
+          <li><b>Sem contador, sem sequência.</b> Os objetos nunca mostram quantas vezes foram feitos.</li>
+        </ul>
+      </div>
+      <div class="parecer" data-tela="roda">
+        <span class="rotulo">Seu parecer</span>
+        <div class="botoes">
+          <button class="botao ok" type="button" data-status="aprovada">Aprovar</button>
+          <button class="botao ajuste" type="button" data-status="ajustar">Ajustar</button>
+        </div>
+        <label class="rotulo" for="nota-roda">O que ajustar ou observações</label>
+        <textarea id="nota-roda" placeholder="Por exemplo: a roda devia ficar para o fim da sessão..."></textarea>
+        <span class="estado" id="estado-roda"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TELA 3 ============ -->
+  <section class="tela" id="caderno">
+    <div class="cabeca">
+      <span class="rotulo">Tela 3 · escrever pela fita</span>
+      <h2>O caderno: a letra S nasce do rabo do gatinho</h2>
+    </div>
+    <div>
+      <div class="aparelho"><svg viewBox="0 0 390 780" id="svg-caderno" role="img" aria-label="Página do caderno com a letra S em fita rosa pontilhada, o gatinho desenhado fraquinho atrás, a estrela guia no meio do traço e o Theo sentado ao lado com o lápis"></svg></div>
+      <p class="fala">Voz do Theo: <b>"O gatinho acordou e enrolou o rabo, assim. Sss."</b> A estrela guia percorre a fita; onde o dedo dela passa, a fita enche de rosa.</p>
+    </div>
+    <div class="notas">
+      <div>
+        <h3>O que a Stella faz</h3>
+        <ol>
+          <li>O Theo conta a história em duas frases e desenha o gatinho com traços lentos. A imagem fica fraquinha atrás.</li>
+          <li>A fita rosa do S aparece por cima do rabo. A estrela guia sai do lápis do Theo e percorre a fita no sentido certo, enquanto a voz diz "sss".</li>
+          <li>Ela traça com o dedo. Folga de 40 px para cada lado. Tirar o dedo não apaga nada.</li>
+          <li>Terminou: o S vira rabo de novo, o gatinho abana, a família comemora e a letra voa para a parede do quarto.</li>
+        </ol>
+      </div>
+      <div class="decisoes">
+        <h3>O que estou decidindo aqui</h3>
+        <ul>
+          <li><b>A letra ocupa metade da tela</b> e é uma fita de cetim desenhada em SVG, não uma fonte: forma redonda, começo marcado por uma bolinha que pulsa.</li>
+          <li><b>O Theo fica na página, não fora dela</b>: sentado no canto, com o lápis de onde a estrela sai. É a cena de irmão que ensina.</li>
+          <li><b>Nada de texto</b> além da própria letra. A palavra de exemplo aparece só depois, no escorregador de sons.</li>
+          <li><b>A moldura é o arco do proscênio</b>, herdado do Ponta, que vira moldura do caderno.</li>
+          <li><b>Ordem das letras</b>: A, E, O, S, L, M, U, I, T. Depende do que a escola já apresentou (pergunta P3).</li>
+        </ul>
+      </div>
+      <div class="parecer" data-tela="caderno">
+        <span class="rotulo">Seu parecer</span>
+        <div class="botoes">
+          <button class="botao ok" type="button" data-status="aprovada">Aprovar</button>
+          <button class="botao ajuste" type="button" data-status="ajustar">Ajustar</button>
+        </div>
+        <label class="rotulo" for="nota-caderno">O que ajustar ou observações</label>
+        <textarea id="nota-caderno" placeholder="Por exemplo: a escola usa outra imagem para o S..."></textarea>
+        <span class="estado" id="estado-caderno"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TELA 4 ============ -->
+  <section class="tela" id="prato">
+    <div class="cabeca">
+      <span class="rotulo">Tela 4 · a parte em que é mais fácil errar</span>
+      <h2>O prato colorido</h2>
+    </div>
+    <div>
+      <div class="aparelho"><svg viewBox="0 0 390 780" id="svg-prato" role="img" aria-label="Mesa da cozinha com um prato vazio no centro e seis comidas coloridas em volta; a cenoura está sendo arrastada para o prato e uma janelinha redonda mostra uma flor laranja nascendo no canteiro"></svg></div>
+      <p class="fala">Voz da mãe: <b>"O que você provou?"</b> A cenoura vai para o prato, diz o próprio nome, e uma flor laranja nasce no canteiro.</p>
+    </div>
+    <div class="notas">
+      <div>
+        <h3>O que a Stella faz</h3>
+        <ol>
+          <li>Um prato vazio, seis cores de comida em volta. Cada cor mostra uma comida que ela conhece (a lista vem de vocês).</li>
+          <li>Ela arrasta (ou só toca) cada cor que provou. A comida vai para o prato e diz o próprio nome.</li>
+          <li>A cada cor no prato, uma flor daquela cor nasce devagar no canteiro, mostrada na janelinha redonda.</li>
+          <li>Comida nunca provada antes: vocês marcam no cantinho dos pais e ela vira girassol.</li>
+        </ol>
+      </div>
+      <div class="decisoes">
+        <h3>O que estou decidindo aqui</h3>
+        <ul>
+          <li><b>Seis cores, uma comida por cor por vez</b>, e a comida troca conforme a lista de vocês. Nunca aparece quantidade, nunca "limpou o prato".</li>
+          <li><b>Arrastar curto com ajuda</b>: soltou passando de 40% do caminho, a comida vai sozinha. Toque simples também vale.</li>
+          <li><b>A janelinha do canteiro</b> liga na hora a cor provada à flor, para ela entender de onde a flor veio.</li>
+          <li><b>A mãe está na cena comendo junto</b> (uma cenoura na mão). Ver quem ela ama comer é o que mais ajuda.</li>
+          <li><b>O prato pode ser desligado</b> no cantinho dos pais sem afetar o resto do jogo.</li>
+        </ul>
+      </div>
+      <div class="parecer" data-tela="prato">
+        <span class="rotulo">Seu parecer</span>
+        <div class="botoes">
+          <button class="botao ok" type="button" data-status="aprovada">Aprovar</button>
+          <button class="botao ajuste" type="button" data-status="ajustar">Ajustar</button>
+        </div>
+        <label class="rotulo" for="nota-prato">O que ajustar ou observações</label>
+        <textarea id="nota-prato" placeholder="Por exemplo: trocar o pão pelo arroz e feijão..."></textarea>
+        <span class="estado" id="estado-prato"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TELA 5 ============ -->
+  <section class="tela" id="jardim">
+    <div class="cabeca">
+      <span class="rotulo">Tela 5 · a parte "de jogo"</span>
+      <h2>A aventura do Jardim, em retrato</h2>
+    </div>
+    <div>
+      <div class="aparelho"><svg viewBox="0 0 390 780" id="svg-jardim" role="img" aria-label="Faixa horizontal no meio da tela: a Stella salta uma poça com o coelhinho ao lado, fitas de cetim penduradas nas árvores, um sapo de coroa olha do laguinho; céu em cima e terra embaixo"></svg></div>
+      <p class="fala">Valsa das Flores. <b>Toque em qualquer lugar da faixa = pular.</b> O pulo procura a poça: tocou até 0,7 s antes, ela espera e pula na hora certa.</p>
+    </div>
+    <div class="notas">
+      <div>
+        <h3>O que a Stella faz</h3>
+        <ol>
+          <li>A Stella corre sozinha da esquerda para a direita, na faixa do meio. O coelhinho corre junto.</li>
+          <li>Poças e pedrinhas chegam no tempo forte da música. Ela toca em qualquer lugar da faixa e a Stella dá um <i>sauté</i>.</li>
+          <li>Tocou longe de qualquer poça: pulinho de alegria. Tropeçou: senta, ri, levanta. A fase nunca volta.</li>
+          <li>Fitas de cetim nas árvores balançam ela sozinha sobre o laguinho. Flores fechadas abrem quando ela passa.</li>
+          <li>Dois minutos de música e o palco chega, sempre, com ou sem toque.</li>
+        </ol>
+      </div>
+      <div class="decisoes">
+        <h3>O que estou decidindo aqui</h3>
+        <ul>
+          <li><b>Retrato com faixa no meio</b>: céu em véu em cima, terra embaixo. A Stella tem 20% da altura da tela.</li>
+          <li><b>Um obstáculo a cada quatro compassos</b>, não a cada tempo forte: uns 30 pulos em dois minutos. Em dados, ajustável (pergunta P11).</li>
+          <li><b>Toda a faixa é alvo</b>; a borda de 24 px e a casinha do canto não pulam.</li>
+          <li><b>Ajuda A2</b>: o coelhinho pula na frente e a poça vira vitória-régia; ela passa por cima sem pular.</li>
+          <li><b>Sem vida, sem tempo, sem pontos.</b> O único tesouro visível é a cesta de pinhas, e ela fica para a Árvore Grande (v2).</li>
+        </ul>
+      </div>
+      <div class="parecer" data-tela="jardim">
+        <span class="rotulo">Seu parecer</span>
+        <div class="botoes">
+          <button class="botao ok" type="button" data-status="aprovada">Aprovar</button>
+          <button class="botao ajuste" type="button" data-status="ajustar">Ajustar</button>
+        </div>
+        <label class="rotulo" for="nota-jardim">O que ajustar ou observações</label>
+        <textarea id="nota-jardim" placeholder="Por exemplo: a faixa está estreita demais..."></textarea>
+        <span class="estado" id="estado-jardim"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PERGUNTAS ============ -->
+  <section class="perguntas" id="perguntas">
+    <span class="rotulo">O que só a família responde</span>
+    <h2>Perguntas da revisão, por ordem de impacto</h2>
+    <p>Responda o que der aqui mesmo. As primeiras mudam desenho antes de qualquer código. O detalhe de cada uma está na seção 6 de <code>docs/revisao-gameplay.md</code>.</p>
+    <div class="aviso-db" id="aviso-db" hidden>Nesta cópia as respostas não são gravadas. Use o link do artefato publicado para responder.</div>
+    <div id="lista-perguntas"></div>
+  </section>
+</div>
+
+<script>
+/* ---------- desenho: marionete e objetos, no espírito do Ponta ---------- */
+const COR = {
+  noite:'#10142a', marfim:'#f6f0e4', papel:'#fbf8f1', tinta:'#1a1c2b', rosa:'#ebcdc3', rosaClara:'#f6e3dc',
+  rosaDoce:'#f2a9c4', veludo:'#6e1a27', ouro:'#c6a15b', ouroTinta:'#8f6f2c', luz:'#ebd9a8', mata:'#2c4a42', mata2:'#35564d',
+  musgo:'#8FAE6B', musgoClaro:'#C9DBB2', musgoTinta:'#4F6B3A', areia:'#EEDDB4', vermelho:'#D2463C',
+  ceuDia:'#dbe7ee', ceuTarde:'#f3d9cf', lago:'#9fc3cf', madeira:'#c9a189', cabeloStella:'#e2c27a', cabeloTheo:'#d8bf8a',
+  peleStella:'#F2D5BC', peleMae:'#F0D2B6', pelePai:'#EACBB0', cabeloMae:'#c9a05f', cabeloPai:'#5a4030'
+};
+const CENTELHA = 'M10 0c.7 6.2 3.8 9.3 10 10-6.2.7-9.3 3.8-10 10-.7-6.2-3.8-9.3-10-10 6.2-.7 9.3-3.8 10-10z';
+const f = n => Math.round(n * 10) / 10;
+function circ(c, r) { return `M${f(c[0]-r)} ${f(c[1])}a${r} ${r} 0 1 0 ${f(2*r)} 0a${r} ${r} 0 1 0 ${f(-2*r)} 0z`; }
+/* membro afilado: trapézio + círculo nas pontas, um path só (igual ao Ponta) */
+function limb(a, b, wa, wb) {
+  const dx = b[0]-a[0], dy = b[1]-a[1], l = Math.hypot(dx, dy) || 1, nx = -dy/l, ny = dx/l;
+  return `M${f(a[0]+nx*wa)} ${f(a[1]+ny*wa)}L${f(b[0]+nx*wb)} ${f(b[1]+ny*wb)}L${f(b[0]-nx*wb)} ${f(b[1]-ny*wb)}L${f(a[0]-nx*wa)} ${f(a[1]-ny*wa)}z` + circ(a, wa) + circ(b, wb);
+}
+function centelha(x, y, s, cor, cls = '') { return `<path class="${cls}" d="${CENTELHA}" fill="${cor}" transform="translate(${x-s/2} ${y-s/2}) scale(${s/20})"/>`; }
+function pol(cx, cy, r, ang) { return [cx + Math.cos(ang) * r, cy + Math.sin(ang) * r]; }
+
+/* marionete: x = centro, y = chão, h = altura. crianca aumenta a cabeça.
+   pose: parado | acena | sentado | pulo | aponta | deitado */
+function boneco(o) {
+  const { x, y, h, pele, cabelo, roupa, dir = 1 } = o;
+  const crianca = !!o.crianca;
+  const hr = h * (crianca ? 0.115 : 0.085);        // raio da cabeça
+  const lg = h * (crianca ? 0.34 : 0.42);           // pernas
+  const sw = h * (crianca ? 0.17 : 0.16);           // ombros
+  const w = crianca ? 1.15 : 1;                     // membros um pouco mais gordinhos na criança
+  const L = { coxa:[3.6*w, 2.6*w], perna:[2.5*w, 1.6*w], braco:[2.1*w, 1.6*w], ante:[1.6*w, 1.2*w], pesc:[1.5, 1.4] };
+  const esc = h / 100;
+  Object.keys(L).forEach(k => L[k] = L[k].map(v => v * esc));
+  let hipY, shY, headC, sentado = o.pose === 'sentado', pulo = o.pose === 'pulo';
+  const tor = h - lg - 2*hr - 0.03*h;
+  if (sentado) { hipY = y - lg*0.45; } else if (pulo) { hipY = y - lg - h*0.12; } else { hipY = y - lg; }
+  shY = hipY - tor; headC = [x + (dir*0.01*h), shY - 0.025*h - hr];
+  const sL = [x - sw/2, shY], sR = [x + sw/2, shY];
+  let paths = '';
+  // pernas
+  const legs = [];
+  if (sentado) {
+    legs.push([[x-0.05*h, hipY+0.02*h],[x+dir*0.18*h, hipY+0.02*h],[x+dir*0.2*h, y-0.02*h],[x+dir*0.26*h, y]]);
+    legs.push([[x+0.05*h, hipY+0.02*h],[x+dir*0.2*h, hipY+0.05*h],[x+dir*0.22*h, y-0.02*h],[x+dir*0.28*h, y]]);
+  } else if (pulo) {
+    legs.push([[x-0.04*h, hipY+0.02*h],[x-0.14*h, hipY+0.16*h],[x-0.2*h, hipY+0.3*h],[x-0.25*h, hipY+0.33*h]]);
+    legs.push([[x+0.04*h, hipY+0.02*h],[x+0.14*h, hipY+0.16*h],[x+0.2*h, hipY+0.3*h],[x+0.25*h, hipY+0.33*h]]);
+  } else {
+    legs.push([[x-0.04*h, hipY+0.02*h],[x-0.05*h, hipY+lg*0.52],[x-0.06*h, y-0.02*h],[x-0.06*h+dir*0.06*h, y]]);
+    legs.push([[x+0.04*h, hipY+0.02*h],[x+0.05*h, hipY+lg*0.52],[x+0.06*h, y-0.02*h],[x+0.06*h+dir*0.06*h, y]]);
+  }
+  let pernas = '', pes = '';
+  legs.forEach(([hq, k, a, t]) => { pernas += limb(hq, k, L.coxa[0], L.coxa[1]) + limb(k, a, L.perna[0], L.perna[1]); pes += limb(a, t, L.perna[1], L.perna[1]*0.6); });
+  // roupa: vestido ou collant/camisa
+  let roupaPath = '';
+  const tl = [sL[0]+2*esc, sL[1]+3*esc], tr = [sR[0]-2*esc, sR[1]+3*esc];
+  if (o.vestido) {
+    const baixo = sentado ? hipY + 0.06*h : hipY + 0.16*h;
+    const lv = crianca ? 0.2*h : 0.14*h;
+    roupaPath = `<path d="M${tl}L${tr}L${x+lv} ${baixo}Q${x} ${baixo+0.02*h} ${x-lv} ${baixo}z" fill="${roupa}"/>`;
+  } else {
+    roupaPath = `<path d="M${tl}L${tr}Q${x+0.06*h} ${hipY-0.1*h} ${x+0.08*h} ${hipY+0.03*h}L${x-0.08*h} ${hipY+0.03*h}Q${x-0.06*h} ${hipY-0.1*h} ${tl}z" fill="${roupa}"/>`;
+    if (o.calca) roupaPath += `<path d="M${x-0.085*h} ${hipY}L${x+0.085*h} ${hipY}L${x+0.075*h} ${hipY+lg*0.55}L${x+0.01*h} ${hipY+lg*0.55}L${x} ${hipY+0.1*h}L${x-0.01*h} ${hipY+lg*0.55}L${x-0.075*h} ${hipY+lg*0.55}z" fill="${o.calca}"/>`;
+  }
+  // tutu
+  let tutu = '';
+  if (o.tutu) tutu = `<ellipse cx="${x}" cy="${hipY+0.02*h}" rx="${0.2*h}" ry="${0.06*h}" fill="${o.tutu}" opacity="0.92"/>`;
+  // braços
+  function braco(s, a1, a2, dirb) {
+    const la = 0.17*h, lb = 0.15*h;
+    const e = [s[0] + Math.cos(a1)*la*dirb, s[1] + Math.sin(a1)*la];
+    const wri = [e[0] + Math.cos(a2)*lb*dirb, e[1] + Math.sin(a2)*lb];
+    return { d: limb(s, e, L.braco[0], L.braco[1]) + limb(e, wri, L.ante[0], L.ante[1]), w: wri };
+  }
+  let bL, bR;
+  const p = o.pose;
+  if (p === 'acena') { bL = braco(sL, Math.PI*0.42, Math.PI*0.35, 1); bR = braco(sR, -Math.PI*0.62, -Math.PI*0.5, 1); }
+  else if (p === 'pulo') { bL = braco(sL, -Math.PI*0.72, -Math.PI*0.6, 1); bR = braco(sR, -Math.PI*0.28, -Math.PI*0.4, 1); }
+  else if (p === 'sentado') { bL = braco(sL, Math.PI*0.45, Math.PI*0.05*dir, 1); bR = braco(sR, Math.PI*0.42, Math.PI*0.08*dir, 1); }
+  else if (p === 'aponta') { bL = braco(sL, Math.PI*0.45, Math.PI*0.45, 1); bR = braco(sR, dir > 0 ? -Math.PI*0.1 : Math.PI*1.1, dir > 0 ? -Math.PI*0.05 : Math.PI*1.05, 1); }
+  else if (p === 'segura') { bL = braco(sL, Math.PI*0.4, -Math.PI*0.15, 1); bR = braco(sR, Math.PI*0.4, Math.PI*1.15, 1); }
+  else { bL = braco(sL, Math.PI*0.44, Math.PI*0.4, 1); bR = braco(sR, Math.PI*0.56, Math.PI*0.6, 1); }
+  const pescoco = limb([x, shY], [headC[0], headC[1] + hr*0.6], L.pesc[0]*esc, L.pesc[1]*esc);
+  const ombros = limb(sL, sR, 2.2*esc, 2.2*esc);
+  // cabelo
+  let cabeloAtras = '', cabeloFrente = '';
+  const [hx, hy] = headC;
+  if (o.cabeloTipo === 'liso') {
+    cabeloAtras = `<path d="M${hx-hr*1.05} ${hy-hr*0.2}Q${hx-hr*1.15} ${hy+hr*2.1} ${hx-hr*0.7} ${hy+hr*2.2}L${hx+hr*0.7} ${hy+hr*2.2}Q${hx+hr*1.15} ${hy+hr*2.1} ${hx+hr*1.05} ${hy-hr*0.2}z" fill="${cabelo}"/>`;
+    cabeloFrente = `<path d="M${hx-hr*1.05} ${hy-hr*0.1}A${hr*1.05} ${hr*1.05} 0 0 1 ${hx+hr*1.05} ${hy-hr*0.1}Q${hx+hr*0.6} ${hy-hr*0.55} ${hx} ${hy-hr*0.2}Q${hx-hr*0.7} ${hy-hr*0.6} ${hx-hr*1.05} ${hy-hr*0.1}z" fill="${cabelo}"/>`;
+  } else if (o.cabeloTipo === 'cacheado') {
+    let c = '';
+    for (let i = 0; i < 11; i++) { const an = Math.PI * (1 + i/10); const [cx2, cy2] = pol(hx, hy, hr*0.95, an); c += circ([cx2, cy2], hr*0.42); }
+    c += circ([hx-hr*1.15, hy+hr*0.35], hr*0.36) + circ([hx+hr*1.15, hy+hr*0.35], hr*0.36);
+    cabeloFrente = `<path d="${c}" fill="${cabelo}"/>`;
+  } else if (o.cabeloTipo === 'coque') {
+    cabeloFrente = `<path d="M${hx-hr*1.02} ${hy-hr*0.05}A${hr*1.02} ${hr*1.02} 0 0 1 ${hx+hr*1.02} ${hy-hr*0.05}Q${hx} ${hy-hr*0.7} ${hx-hr*1.02} ${hy-hr*0.05}z" fill="${cabelo}"/><path d="${circ([hx+dir*hr*0.5, hy-hr*1.05], hr*0.42)}" fill="${cabelo}"/>`;
+  } else if (o.cabeloTipo === 'curto') {
+    cabeloFrente = `<path d="M${hx-hr*1.02} ${hy-hr*0.05}A${hr*1.02} ${hr*1.02} 0 0 1 ${hx+hr*1.02} ${hy-hr*0.05}Q${hx} ${hy-hr*0.6} ${hx-hr*1.02} ${hy-hr*0.05}z" fill="${cabelo}"/>`;
+  } else if (o.cabeloTipo === 'rabo') {
+    cabeloAtras = `<path d="${circ([hx-dir*hr*0.9, hy+hr*0.9], hr*0.5)}" fill="${cabelo}"/>`;
+    cabeloFrente = `<path d="M${hx-hr*1.02} ${hy-hr*0.05}A${hr*1.02} ${hr*1.02} 0 0 1 ${hx+hr*1.02} ${hy-hr*0.05}Q${hx} ${hy-hr*0.6} ${hx-hr*1.02} ${hy-hr*0.05}z" fill="${cabelo}"/>`;
+  }
+  // rosto econômico: olhos em arco fino e boca em fio
+  const olhoY = hy + hr*0.1, ox = hr*0.35;
+  const rosto = `<path d="M${hx-ox-hr*0.14} ${olhoY}q${hr*0.14} ${-hr*0.16} ${hr*0.28} 0M${hx+ox-hr*0.14} ${olhoY}q${hr*0.14} ${-hr*0.16} ${hr*0.28} 0" fill="none" stroke="${COR.tinta}" stroke-width="${Math.max(0.9, hr*0.09)}" stroke-linecap="round" opacity="0.75"/>` +
+    `<path d="M${hx-hr*0.22} ${hy+hr*0.5}q${hr*0.22} ${hr*0.18} ${hr*0.44} 0" fill="none" stroke="${COR.veludo}" stroke-width="${Math.max(0.8, hr*0.07)}" stroke-linecap="round" opacity="0.7"/>` +
+    (crianca ? `<circle cx="${hx-hr*0.55}" cy="${hy+hr*0.42}" r="${hr*0.14}" fill="${COR.rosaDoce}" opacity="0.5"/><circle cx="${hx+hr*0.55}" cy="${hy+hr*0.42}" r="${hr*0.14}" fill="${COR.rosaDoce}" opacity="0.5"/>` : '');
+  const contorno = o.contorno ? `stroke="${o.contorno}" stroke-width="1" stroke-linejoin="round"` : '';
+  paths += cabeloAtras;
+  paths += `<path d="${pernas}" fill="${pele}" ${contorno}/>`;
+  paths += `<path d="${pes}" fill="${o.sapato || pele}"/>`;
+  paths += tutu;
+  paths += `<path d="${bL.d}" fill="${pele}" ${contorno}/>`;
+  paths += roupaPath;
+  paths += `<path d="${ombros}${pescoco}" fill="${pele}"/>`;
+  paths += `<path d="${bR.d}" fill="${pele}" ${contorno}/>`;
+  paths += `<circle cx="${hx}" cy="${hy}" r="${hr}" fill="${pele}" ${contorno}/>`;
+  paths += cabeloFrente + rosto;
+  return { svg: `<g>${paths}</g>`, maoL: bL.w, maoR: bR.w, cabeca: headC, hr };
+}
+
+/* personagens da família */
+const P = {
+  stella: (x, y, h, pose, extra = {}) => boneco({ x, y, h, pose, crianca: true, pele: COR.peleStella, cabelo: COR.cabeloStella, roupa: COR.rosaDoce, cabeloTipo: 'liso', vestido: true, sapato: '#EFB9CE', ...extra }),
+  theo: (x, y, h, pose, extra = {}) => boneco({ x, y, h, pose, crianca: true, pele: COR.peleStella, cabelo: COR.cabeloTheo, roupa: '#7FA5B8', calca: COR.musgoTinta, cabeloTipo: 'cacheado', sapato: COR.musgoTinta, ...extra }),
+  mae: (x, y, h, pose, extra = {}) => boneco({ x, y, h, pose, pele: COR.peleMae, cabelo: COR.cabeloMae, roupa: '#D9B4A6', cabeloTipo: 'rabo', vestido: true, sapato: COR.madeira, ...extra }),
+  pai: (x, y, h, pose, extra = {}) => boneco({ x, y, h, pose, pele: COR.pelePai, cabelo: COR.cabeloPai, roupa: COR.mata2, calca: '#3f3a4a', cabeloTipo: 'curto', sapato: '#3f3a4a', ...extra }),
+};
+
+/* bichos */
+function gato(x, y, s, cor = '#c8b8a6', deitado = false) {
+  if (deitado) return `<g><ellipse cx="${x}" cy="${y-s*0.35}" rx="${s*0.9}" ry="${s*0.38}" fill="${cor}"/><path d="M${x+s*0.8} ${y-s*0.4}q${s*0.7} ${-s*0.3} ${s*0.5} ${s*0.35}" fill="none" stroke="${cor}" stroke-width="${s*0.16}" stroke-linecap="round"/><circle cx="${x-s*0.75}" cy="${y-s*0.55}" r="${s*0.36}" fill="${cor}"/><path d="M${x-s*1.0} ${y-s*0.82}l${-s*0.06} ${-s*0.3} ${s*0.25} ${s*0.16}zM${x-s*0.6} ${y-s*0.86}l${s*0.06} ${-s*0.3} ${-s*0.25} ${s*0.16}z" fill="${cor}"/><path d="M${x-s*0.9} ${y-s*0.55}q${s*0.08} ${-s*0.08} ${s*0.16} 0M${x-s*0.66} ${y-s*0.55}q${s*0.08} ${-s*0.08} ${s*0.16} 0" fill="none" stroke="${COR.tinta}" stroke-width="${s*0.06}" stroke-linecap="round" opacity="0.7"/></g>`;
+  return `<g><ellipse cx="${x}" cy="${y-s*0.5}" rx="${s*0.5}" ry="${s*0.55}" fill="${cor}"/><path d="M${x+s*0.4} ${y-s*0.2}q${s*0.8} ${0} ${s*0.6} ${-s*0.7}" fill="none" stroke="${cor}" stroke-width="${s*0.16}" stroke-linecap="round"/><circle cx="${x}" cy="${y-s*1.1}" r="${s*0.38}" fill="${cor}"/><path d="M${x-s*0.32} ${y-s*1.35}l${-s*0.08} ${-s*0.32} ${s*0.28} ${s*0.14}zM${x+s*0.32} ${y-s*1.35}l${s*0.08} ${-s*0.32} ${-s*0.28} ${s*0.14}z" fill="${cor}"/><path d="M${x-s*0.2} ${y-s*1.1}q${s*0.08} ${-s*0.08} ${s*0.16} 0M${x+s*0.04} ${y-s*1.1}q${s*0.08} ${-s*0.08} ${s*0.16} 0" fill="none" stroke="${COR.tinta}" stroke-width="${s*0.06}" stroke-linecap="round" opacity="0.7"/></g>`;
+}
+function coelho(x, y, s, cor = '#e9e2d6', pulo = false) {
+  const dy = pulo ? -s*0.5 : 0;
+  return `<g transform="translate(0 ${dy})"><ellipse cx="${x}" cy="${y-s*0.45}" rx="${s*0.55}" ry="${s*0.42}" fill="${cor}"/><circle cx="${x-s*0.55}" cy="${y-s*0.35}" r="${s*0.16}" fill="${COR.rosaClara}"/><circle cx="${x+s*0.45}" cy="${y-s*0.85}" r="${s*0.3}" fill="${cor}"/><path d="M${x+s*0.32} ${y-s*1.1}q${-s*0.1} ${-s*0.7} ${s*0.14} ${-s*0.75}q${s*0.16} ${0.05*s} ${s*0.02} ${s*0.75}zM${x+s*0.56} ${y-s*1.1}q${s*0.05} ${-s*0.7} ${s*0.26} ${-s*0.7}q${s*0.1} ${0.1*s} ${-s*0.1} ${s*0.7}z" fill="${cor}"/><path d="M${x+s*0.42} ${y-s*1.08}q${-s*0.06} ${-s*0.55} ${s*0.06} ${-s*0.6}M${x+s*0.64} ${y-s*1.08}q${s*0.05} ${-s*0.55} ${s*0.14} ${-s*0.55}" fill="none" stroke="${COR.rosaDoce}" stroke-width="${s*0.06}" opacity="0.6"/><path d="M${x+s*0.5} ${y-s*0.86}q${s*0.07} ${-s*0.07} ${s*0.14} 0" fill="none" stroke="${COR.tinta}" stroke-width="${s*0.05}" stroke-linecap="round" opacity="0.7"/></g>`;
+}
+function pinha(x, y, s) {
+  let d = '';
+  for (let i = 0; i < 4; i++) for (let j = 0; j < 3; j++) { const yy = y - s*0.9 + i*s*0.28, xx = x - s*0.3 + j*s*0.3 + (i%2)*s*0.15; d += `<ellipse cx="${xx}" cy="${yy}" rx="${s*0.16}" ry="${s*0.2}" fill="#a8714a" opacity="${0.75+0.06*i}"/>`; }
+  return `<g>${d}</g>`;
+}
+function flor(x, y, cor, s = 10) {
+  let pet = '';
+  for (let i = 0; i < 5; i++) { const [px, py] = pol(x, y - s*1.6, s*0.42, i * Math.PI * 2 / 5 - Math.PI/2); pet += circ([px, py], s*0.34); }
+  return `<g><path d="M${x} ${y}V${y-s*1.4}" stroke="${COR.musgoTinta}" stroke-width="${s*0.12}" fill="none"/><path d="${pet}" fill="${cor}"/><circle cx="${x}" cy="${y-s*1.6}" r="${s*0.22}" fill="${COR.luz}"/></g>`;
+}
+function pinheiro(x, y, h, comPinhas = true) {
+  const w = h * 0.34;
+  let g = `<rect x="${x-w*0.08}" y="${y-h*0.22}" width="${w*0.16}" height="${h*0.22}" fill="${COR.madeira}"/>`;
+  for (let i = 0; i < 4; i++) {
+    const yy = y - h*0.2 - i*h*0.2, ww = w * (1 - i*0.2), hh = h*0.3;
+    g += `<path d="M${x} ${yy-hh}L${x+ww/2} ${yy}Q${x} ${yy-hh*0.12} ${x-ww/2} ${yy}z" fill="${i%2 ? COR.mata2 : COR.mata}" opacity="0.92"/>`;
+  }
+  if (comPinhas) g += pinha(x-w*0.22, y-h*0.42, 5) + pinha(x+w*0.2, y-h*0.6, 5) + pinha(x+w*0.05, y-h*0.28, 5);
+  return `<g>${g}</g>`;
+}
+function casinha(x = 34, y = 34) {
+  return `<g aria-label="voltar para casa"><circle cx="${x}" cy="${y}" r="26" fill="${COR.marfim}" opacity="0.8"/><path d="M${x-15} ${y+2}L${x} ${y-13}L${x+15} ${y+2}V${y+14}H${x-15}z" fill="${COR.musgo}" stroke="${COR.musgoTinta}" stroke-width="1.4" stroke-linejoin="round"/><path d="M${x-4} ${y+14}V${y+5}H${x+4}V${y+14}" fill="${COR.rosaDoce}"/></g>`;
+}
+function lua(x, y) { return `<path d="M${x} ${y-9}a9 9 0 1 0 8 13a7 7 0 1 1-8-13z" fill="${COR.luz}" opacity="0.55"/>`; }
+function maozinha(x, y, s = 1, rot = 0) {
+  return `<g transform="translate(${x} ${y}) rotate(${rot}) scale(${s})" class="pulsa"><path d="M-6 26V2a3.2 3.2 0 0 1 6.4 0v10l2.6-1.4a3 3 0 0 1 4.4 2.2v1.4l2.2-.6a2.8 2.8 0 0 1 3.6 2.6V26z" fill="${COR.rosaClara}" stroke="${COR.musgoTinta}" stroke-width="1.6" stroke-linejoin="round"/></g>`;
+}
+function contornoLuz(cx, cy, rx, ry) { return `<ellipse class="pulsa" cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="none" stroke="${COR.ouro}" stroke-width="2"/>`; }
+function centelhas(cx, cy, n = 6, r = 30) {
+  let s = '';
+  for (let i = 0; i < n; i++) { const [x, y] = pol(cx, cy, r * (0.6 + (i%3)*0.25), -Math.PI/2 + (i - n/2) * 0.5); s += centelha(x, y, 8 + (i%2)*4, i%2 ? COR.rosaDoce : COR.ouro); }
+  return s;
+}
+/* véu de aquarela: formas lisas e transparentes sobrepostas */
+function veu(x, y, w, h, cor, n = 4, op = 0.28) {
+  let s = '';
+  for (let i = 0; i < n; i++) { const cx = x + w*(0.2 + 0.6*((i*0.37)%1)), cy = y + h*(0.3 + 0.4*((i*0.61)%1)); s += `<ellipse cx="${cx}" cy="${cy}" rx="${w*0.45}" ry="${h*0.5}" fill="${cor}" opacity="${op}"/>`; }
+  return s;
+}
+function nuvem(x, y, s) { return `<path d="${circ([x, y], s) + circ([x+s*0.9, y+s*0.2], s*0.75) + circ([x-s*0.9, y+s*0.25], s*0.7)}" fill="${COR.papel}" opacity="0.7"/>`; }
+
+/* ---------- TELA 1: a casa ---------- */
+function telaCasa() {
+  const H = 780, W = 390;
+  let s = `<rect width="${W}" height="${H}" fill="${COR.ceuTarde}"/>`;
+  s += veu(0, 0, W, 200, COR.rosa, 5, 0.35) + veu(0, 40, W, 160, COR.ceuDia, 3, 0.35);
+  s += `<circle cx="70" cy="70" r="20" fill="${COR.luz}" opacity="0.9"/>` + nuvem(280, 60, 14) + nuvem(150, 40, 10);
+  s += lua(356, 34);
+  // grama do quintal
+  s += `<rect x="0" y="600" width="${W}" height="180" fill="${COR.musgoClaro}"/>` + veu(0, 600, W, 180, COR.musgo, 5, 0.32);
+  // casa: telhado + corpo
+  const hx = 22, hw = 300, top = 140, bottom = 600;
+  s += `<path d="M${hx-14} ${top+10}L${hx+hw/2} ${top-60}L${hx+hw+14} ${top+10}z" fill="${COR.musgoTinta}"/>`;
+  s += `<rect x="${hx}" y="${top}" width="${hw}" height="${bottom-top}" fill="${COR.musgo}"/>` + veu(hx, top, hw, bottom-top, COR.musgoClaro, 4, 0.22);
+  // andares (fios, não caixas)
+  const y1 = top + 8, y2 = 310, y3 = 470;
+  // quarto rosa
+  s += `<rect x="${hx+10}" y="${y1}" width="${hw-20}" height="${y2-y1-8}" fill="${COR.rosaClara}"/>` + veu(hx+10, y1, hw-20, y2-y1, COR.rosa, 3, 0.3);
+  s += `<line x1="${hx+10}" y1="${y2-8}" x2="${hx+hw-10}" y2="${y2-8}" stroke="${COR.ouro}" stroke-width="1" opacity="0.6"/>`;
+  // janela do quarto com arco do proscênio e céu de tarde
+  s += `<path d="M${hx+130} ${y1+70}a28 28 0 0 1 56 0v46h-56z" fill="${COR.ceuTarde}" stroke="${COR.ouro}" stroke-width="1.2"/>` + centelha(hx+158, y1+62, 8, COR.ouro) + centelha(hx+172, y1+80, 5, COR.ouro);
+  // porta do quarto com o nome dela
+  s += `<rect x="${hx+16}" y="${y1+40}" width="46" height="${y2-8-(y1+40)}" rx="6" fill="${COR.rosaDoce}"/><text x="${hx+39}" y="${y1+64}" text-anchor="middle" font-family="Jost, sans-serif" font-size="10" font-weight="500" letter-spacing="1.5" fill="${COR.veludo}">STELLA</text>`;
+  // letras na parede (A e E já traçadas)
+  s += `<text x="${hx+95}" y="${y1+52}" font-family="Jost, sans-serif" font-size="22" fill="${COR.rosaDoce}" font-weight="500">A</text><text x="${hx+115}" y="${y1+52}" font-family="Jost, sans-serif" font-size="22" fill="${COR.rosaDoce}" font-weight="500">E</text>`;
+  // cama
+  s += `<rect x="${hx+70}" y="${y1+118}" width="70" height="26" rx="6" fill="${COR.papel}"/><rect x="${hx+70}" y="${y1+126}" width="70" height="18" rx="4" fill="${COR.rosaDoce}" opacity="0.8"/><rect x="${hx+66}" y="${y1+104}" width="8" height="40" rx="2" fill="${COR.madeira}"/><rect x="${hx+136}" y="${y1+112}" width="8" height="32" rx="2" fill="${COR.madeira}"/>`;
+  // estante com bonecas de pano e mesa da estação
+  s += `<rect x="${hx+200}" y="${y1+40}" width="76" height="60" fill="none" stroke="${COR.madeira}" stroke-width="2"/><line x1="${hx+200}" y1="${y1+70}" x2="${hx+276}" y2="${y1+70}" stroke="${COR.madeira}" stroke-width="2"/>`;
+  s += P.stella(hx+216, y1+68, 22, 'parado', { cabeloTipo:'coque', roupa: COR.rosaDoce }).svg + P.stella(hx+240, y1+68, 22, 'parado', { cabelo:'#5a3a2a', roupa: COR.luz }).svg + P.stella(hx+262, y1+98, 22, 'parado', { roupa:'#A9C8E6', cabelo:'#17110F', cabeloTipo:'cacheado' }).svg;
+  // mesa da estação com pinhas
+  s += `<rect x="${hx+206}" y="${y1+128}" width="66" height="6" rx="2" fill="${COR.madeira}"/><rect x="${hx+206}" y="${y1+122}" width="66" height="8" fill="#e8a24a" opacity="0.8"/><line x1="${hx+212}" y1="${y1+134}" x2="${hx+212}" y2="${y1+146}" stroke="${COR.madeira}" stroke-width="3"/><line x1="${hx+266}" y1="${y1+134}" x2="${hx+266}" y2="${y1+146}" stroke="${COR.madeira}" stroke-width="3"/>` + pinha(hx+222, y1+124, 4) + pinha(hx+240, y1+124, 4) + pinha(hx+256, y1+124, 4);
+  // piano rosa (brincadeira do dia) com gatinho dormindo
+  s += `<rect x="${hx+150}" y="${y1+104}" width="44" height="42" rx="4" fill="${COR.rosaDoce}"/><rect x="${hx+150}" y="${y1+122}" width="44" height="10" fill="${COR.papel}"/><path d="M${hx+156} ${y1+122}v10M${hx+162} ${y1+122}v10M${hx+168} ${y1+122}v10M${hx+174} ${y1+122}v10M${hx+180} ${y1+122}v10M${hx+186} ${y1+122}v10" stroke="${COR.rosa}" stroke-width="1"/>`;
+  s += contornoLuz(hx+172, y1+124, 27, 28);
+  s += gato(hx+156, y1+150, 9, '#c8b8a6', true);
+  // Stella no quarto
+  s += P.stella(hx+40+62, y2-10, 62, 'acena').svg;
+  // sala (esq) e cozinha (dir)
+  s += `<rect x="${hx+10}" y="${y2}" width="${hw/2-12}" height="${y3-y2-8}" fill="${COR.musgoClaro}" opacity="0.7"/>`;
+  s += `<rect x="${hx+hw/2+2}" y="${y2}" width="${hw/2-12}" height="${y3-y2-8}" fill="${COR.papel}" opacity="0.6"/>`;
+  s += `<line x1="${hx+hw/2-3}" y1="${y2}" x2="${hx+hw/2-3}" y2="${y3-8}" stroke="${COR.ouro}" stroke-width="1" opacity="0.6"/>`;
+  s += `<line x1="${hx+10}" y1="${y3-8}" x2="${hx+hw-10}" y2="${y3-8}" stroke="${COR.ouro}" stroke-width="1" opacity="0.6"/>`;
+  // tapete oval e família na sala
+  s += `<ellipse cx="${hx+80}" cy="${y3-22}" rx="62" ry="14" fill="${COR.rosa}" opacity="0.8"/>`;
+  s += P.mae(hx+40, y3-20, 96, 'parado').svg + P.pai(hx+120, y3-20, 104, 'parado', { dir:-1 }).svg + P.theo(hx+82, y3-22, 76, 'acena').svg;
+  // cozinha: fogão e mesa com toalha azul (sexta)
+  s += `<rect x="${hx+hw/2+14}" y="${y3-60}" width="40" height="46" rx="3" fill="${COR.papel}" stroke="${COR.ouro}" stroke-width="1"/><circle cx="${hx+hw/2+26}" cy="${y3-50}" r="5" fill="none" stroke="${COR.tinta}" stroke-width="1.2" opacity="0.5"/><circle cx="${hx+hw/2+42}" cy="${y3-50}" r="5" fill="none" stroke="${COR.tinta}" stroke-width="1.2" opacity="0.5"/>`;
+  s += `<rect x="${hx+hw/2+70}" y="${y3-52}" width="60" height="10" rx="2" fill="#7FA5B8"/><rect x="${hx+hw/2+70}" y="${y3-42}" width="60" height="4" fill="${COR.madeira}"/><line x1="${hx+hw/2+76}" y1="${y3-38}" x2="${hx+hw/2+76}" y2="${y3-14}" stroke="${COR.madeira}" stroke-width="3"/><line x1="${hx+hw/2+124}" y1="${y3-38}" x2="${hx+hw/2+124}" y2="${y3-14}" stroke="${COR.madeira}" stroke-width="3"/><ellipse cx="${hx+hw/2+100}" cy="${y3-54}" rx="12" ry="4" fill="${COR.papel}" stroke="${COR.ouro}" stroke-width="1"/>`;
+  // térreo: porta com arco
+  s += `<rect x="${hx+10}" y="${y3}" width="${hw-20}" height="${bottom-y3-2}" fill="${COR.musgoClaro}" opacity="0.5"/>`;
+  s += `<path d="M${hx+hw/2-34} ${bottom}v-66a34 34 0 0 1 68 0v66z" fill="${COR.veludo}"/><path d="M${hx+hw/2-26} ${bottom}v-60a26 26 0 0 1 52 0v60z" fill="${COR.rosa}" opacity="0.35"/><circle cx="${hx+hw/2+16}" cy="${bottom-30}" r="3" fill="${COR.ouro}"/>`;
+  s += contornoLuz(hx+hw/2, bottom-36, 44, 44).replace('class="pulsa"', 'opacity="0.35"');
+  s += coelho(hx+hw/2+50, bottom, 16);
+  // quintal: canteiro, caixa de areia estrela, pinheiro
+  s += `<ellipse cx="120" cy="650" rx="70" ry="10" fill="#8a6a4a" opacity="0.55"/>` + flor(90, 648, '#e8a24a') + flor(112, 650, COR.vermelho) + flor(136, 648, '#8a5aa8') + flor(158, 650, COR.luz);
+  // caixa de areia em estrela de cinco pontas, vista de cima
+  const cx = 110, cy = 720, R = 52, r = 22;
+  let star = '';
+  for (let i = 0; i < 10; i++) { const [px, py] = pol(cx, cy, i%2 ? r : R, -Math.PI/2 + i*Math.PI/5); star += (i ? 'L' : 'M') + f(px) + ' ' + f(py*0.6 + cy*0.4); }
+  let starIn = '';
+  for (let i = 0; i < 10; i++) { const [px, py] = pol(cx, cy, (i%2 ? r : R)*0.78, -Math.PI/2 + i*Math.PI/5); starIn += (i ? 'L' : 'M') + f(px) + ' ' + f(py*0.6 + cy*0.4); }
+  s += `<path d="${star}z" fill="${COR.vermelho}"/><path d="${starIn}z" fill="${COR.areia}"/>`;
+  s += `<path d="M${cx-14} ${cy+2}q10 -8 20 0" fill="none" stroke="#d9c69a" stroke-width="2"/><rect x="${cx+18}" y="${cy-10}" width="10" height="12" rx="2" fill="${COR.rosaDoce}"/>`;
+  // pinheiro com pinhas caídas
+  s += pinheiro(330, 740, 380) + pinha(300, 745, 5) + pinha(352, 752, 5) + pinha(326, 760, 4);
+  return s;
+}
+
+/* ---------- TELA 2: roda do dia ---------- */
+function telaRoda() {
+  const W = 390, H = 780;
+  let s = `<rect width="${W}" height="${H}" fill="${COR.musgoClaro}"/>` + veu(0, 0, W, H, COR.musgo, 6, 0.22);
+  // janela com céu, arco
+  s += `<path d="M120 200a75 75 0 0 1 150 0v90H120z" fill="${COR.ceuTarde}" stroke="${COR.ouro}" stroke-width="1.5"/>` + veu(120, 130, 150, 160, COR.rosa, 3, 0.3) + nuvem(200, 180, 12);
+  s += `<line x1="0" y1="330" x2="${W}" y2="330" stroke="${COR.ouro}" stroke-width="1" opacity="0.5"/>`;
+  s += `<rect x="0" y="330" width="${W}" height="450" fill="${COR.papel}" opacity="0.45"/>`;
+  // tapete
+  s += `<ellipse cx="195" cy="560" rx="170" ry="120" fill="${COR.rosa}"/><ellipse cx="195" cy="560" rx="150" ry="104" fill="none" stroke="${COR.ouro}" stroke-width="1" opacity="0.5"/>`;
+  // família sentada em roda
+  s += P.theo(70, 505, 88, 'sentado', { dir: 1 }).svg;
+  s += P.mae(300, 505, 110, 'sentado', { dir: -1 }).svg;
+  s += P.pai(322, 640, 116, 'sentado', { dir: -1 }).svg;
+  s += P.stella(80, 660, 78, 'sentado', { dir: 1 }).svg;
+  s += gato(150, 690, 12);
+  // objetos no meio: caminha (acesa), escova, caixa
+  // caminha
+  s += `<g class="respira"><rect x="150" y="540" width="90" height="34" rx="8" fill="${COR.papel}"/><rect x="150" y="552" width="90" height="22" rx="6" fill="${COR.rosaDoce}" opacity="0.85"/><rect x="146" y="520" width="10" height="54" rx="3" fill="${COR.madeira}"/><rect x="234" y="532" width="10" height="42" rx="3" fill="${COR.madeira}"/><ellipse cx="172" cy="546" rx="12" ry="6" fill="${COR.papel}" stroke="${COR.rosa}"/></g>`;
+  s += contornoLuz(195, 552, 62, 46);
+  s += centelhas(195, 500, 5, 26);
+  // escova de dentes
+  s += `<g opacity="0.75"><rect x="214" y="626" width="70" height="12" rx="6" fill="${COR.rosaDoce}" transform="rotate(-20 249 632)"/><rect x="262" y="616" width="26" height="14" rx="3" fill="${COR.papel}" stroke="${COR.ouro}" transform="rotate(-20 275 623)"/></g>`;
+  // caixa de brinquedos
+  s += `<g opacity="0.75"><rect x="112" y="596" width="66" height="44" rx="6" fill="${COR.madeira}"/><rect x="108" y="590" width="74" height="12" rx="4" fill="#b08a70"/><circle cx="130" cy="588" r="7" fill="${COR.rosaDoce}"/><rect x="150" y="576" width="12" height="14" fill="#7FA5B8"/><circle cx="168" cy="586" r="6" fill="${COR.luz}"/></g>`;
+  // mãozinha apontando a caminha (A1)
+  s += maozinha(214, 574, 1.1, -15);
+  s += casinha();
+  return s;
+}
+
+/* ---------- TELA 3: caderno ---------- */
+function telaCaderno() {
+  const W = 390, H = 780;
+  let s = `<rect width="${W}" height="${H}" fill="${COR.rosaClara}"/>` + veu(0, 0, W, H, COR.rosa, 5, 0.25);
+  // página do caderno com moldura em arco do proscênio
+  s += `<path d="M36 720V210a159 159 0 0 1 318 0v510z" fill="${COR.papel}"/><path d="M36 720V210a159 159 0 0 1 318 0v510" fill="none" stroke="${COR.ouro}" stroke-width="1.5"/>`;
+  s += `<line x1="36" y1="720" x2="354" y2="720" stroke="${COR.ouro}" stroke-width="1.5"/>`;
+  // gatinho fraquinho atrás, com o rabo que vira S
+  s += `<g opacity="0.2" transform="translate(560 0) scale(-1 1)">${gato(280, 640, 72, COR.musgoTinta)}</g>`;
+  // fita do S: pontilhada; o primeiro trecho já enchido de rosa
+  const S = 'M262 300C262 250 200 236 168 262C134 290 168 340 210 366C262 398 276 460 236 500C206 530 150 522 128 486';
+  s += `<path d="${S}" fill="none" stroke="${COR.rosaDoce}" stroke-width="26" stroke-linecap="round" stroke-dasharray="1 30" opacity="0.55"/>`;
+  s += `<path d="${S}" fill="none" stroke="${COR.rosaDoce}" stroke-width="26" stroke-linecap="round" pathLength="100" stroke-dasharray="42 100"/>`;
+  s += `<path d="${S}" fill="none" stroke="${COR.luz}" stroke-width="6" stroke-linecap="round" pathLength="100" stroke-dasharray="42 100" opacity="0.7"/>`;
+  // bolinha de partida e estrela guia no ponto onde o traço está
+  s += `<circle class="respira" cx="262" cy="300" r="12" fill="${COR.ouro}" opacity="0.9"/>`;
+  s += centelha(210, 366, 34, COR.ouro, 'respira') + centelha(232, 384, 12, COR.rosaDoce);
+  // dedinho traçando (mãozinha) um pouco atrás da estrela
+  s += maozinha(196, 372, 1, 20);
+  // Theo sentado no canto com lápis
+  const t = P.theo(84, 712, 118, 'aponta', { dir: 1 });
+  s += t.svg;
+  s += `<line x1="${t.maoR[0]}" y1="${t.maoR[1]}" x2="${t.maoR[0]+30}" y2="${t.maoR[1]-24}" stroke="${COR.ouroTinta}" stroke-width="4" stroke-linecap="round"/>`;
+  s += centelha(t.maoR[0]+38, t.maoR[1]-30, 10, COR.ouro);
+  s += casinha();
+  return s;
+}
+
+/* ---------- TELA 4: prato colorido ---------- */
+function telaPrato() {
+  const W = 390, H = 780;
+  let s = `<rect width="${W}" height="${H}" fill="${COR.papel}"/>` + veu(0, 0, W, 330, COR.musgoClaro, 4, 0.35);
+  s += `<line x1="0" y1="330" x2="${W}" y2="330" stroke="${COR.ouro}" stroke-width="1" opacity="0.5"/>`;
+  // toalha azul (sexta) e mesa
+  s += `<rect x="0" y="330" width="${W}" height="450" fill="#7FA5B8" opacity="0.35"/>` + veu(0, 330, W, 450, '#7FA5B8', 4, 0.2);
+  // mãe à esquerda, com cenoura na mão
+  const m = P.mae(60, 340, 240, 'segura', { dir: 1 });
+  s += m.svg;
+  s += `<path d="M${m.maoL[0]} ${m.maoL[1]-4}l22 -10" stroke="#e8a24a" stroke-width="9" stroke-linecap="round"/><path d="M${m.maoL[0]+22} ${m.maoL[1]-16}l4 -10M${m.maoL[0]+26} ${m.maoL[1]-14}l10 -6" stroke="${COR.musgo}" stroke-width="3" stroke-linecap="round"/>`;
+  // janelinha redonda do canteiro
+  s += `<circle cx="310" cy="150" r="56" fill="${COR.ceuDia}" stroke="${COR.ouro}" stroke-width="1.5"/><path d="M254 150a56 56 0 0 0 112 0z" fill="${COR.musgoClaro}"/><ellipse cx="310" cy="176" rx="40" ry="7" fill="#8a6a4a" opacity="0.5"/>` + flor(290, 176, COR.vermelho, 8) + flor(330, 176, '#8a5aa8', 8) + `<g class="respira">${flor(310, 178, '#e8a24a', 11)}</g>` + centelhas(310, 140, 4, 22);
+  // prato
+  s += `<ellipse cx="195" cy="540" rx="118" ry="112" fill="${COR.marfim}" stroke="${COR.ouro}" stroke-width="1.5"/><ellipse cx="195" cy="540" rx="84" ry="80" fill="none" stroke="${COR.ouro}" stroke-width="1" opacity="0.5"/>`;
+  // comidas em volta: 6 cores
+  const foods = [
+    { a: -Math.PI/2, apagado: true, draw: (x, y) => `<circle cx="${x}" cy="${y}" r="22" fill="${COR.vermelho}"/><path d="M${x-8} ${y-20}q8 -6 16 0" stroke="${COR.musgoTinta}" stroke-width="3" fill="none"/>` }, // tomate, já provado
+    { a: -Math.PI/2 + Math.PI/3, draw: (x, y) => `<path d="M${x-8} ${y-24}l16 0 -8 50z" fill="#e8a24a"/><path d="M${x-8} ${y-24}l-6 -10M${x} ${y-24}v-12M${x+8} ${y-24}l6 -10" stroke="${COR.musgo}" stroke-width="3" stroke-linecap="round"/>`, arrasta: true }, // cenoura
+    { a: -Math.PI/2 + 2*Math.PI/3, draw: (x, y) => `<path d="M${x-24} ${y-6}q24 -20 48 0q-24 22 -48 0z" fill="${COR.luz}" stroke="#d9b24a" stroke-width="2"/>` }, // banana
+    { a: Math.PI/2, draw: (x, y) => `<path d="${circ([x, y-10], 16) + circ([x-14, y-2], 12) + circ([x+14, y-2], 12)}" fill="${COR.musgoTinta}"/><rect x="${x-4}" y="${y+4}" width="8" height="18" rx="3" fill="${COR.musgoClaro}"/>` }, // brócolis
+    { a: Math.PI/2 + Math.PI/3, draw: (x, y) => { let g = ''; for (let i = 0; i < 6; i++) { const [px, py] = [x + ((i%3)-1)*13, y - 8 + Math.floor(i/3)*12]; g += circ([px, py], 8); } return `<path d="${g + circ([x, y+16], 8)}" fill="#8a5aa8"/>`; } }, // uva
+    { a: Math.PI/2 + 2*Math.PI/3, draw: (x, y) => `<ellipse cx="${x}" cy="${y}" rx="24" ry="14" fill="#c48f5a"/><path d="M${x-14} ${y-6}q6 -4 12 0M${x+2} ${y-6}q6 -4 12 0" stroke="${COR.luz}" stroke-width="2.5" fill="none"/>` }, // pão
+  ];
+  foods.forEach(fd => {
+    const [x, y] = pol(195, 540, 168, fd.a);
+    if (fd.arrasta) {
+      s += `<g opacity="0.3">${fd.draw(x, y)}</g>`;
+      // rastro pontilhado até o prato e a cenoura no meio do caminho
+      const [mx, my] = [x - (x-195)*0.55, y - (y-540)*0.55];
+      s += `<path d="M${x} ${y}L${mx} ${my}" stroke="${COR.ouro}" stroke-width="2" stroke-dasharray="3 8" stroke-linecap="round"/>`;
+      s += fd.draw(mx, my) + maozinha(mx+10, my+14, 1, -10);
+    } else if (fd.apagado) {
+      s += `<g opacity="0.3">${fd.draw(x, y)}</g>`;
+    } else {
+      s += `<circle cx="${x}" cy="${y}" r="38" fill="${COR.papel}" opacity="0.7"/>` + fd.draw(x, y);
+    }
+  });
+  // uma cor já no prato (banana? não: tomate provado)
+  s += `<g transform="translate(-30 -20) scale(0.9)"><circle cx="${195/0.9+30}" cy="${540/0.9+20}" r="22" fill="${COR.vermelho}"/></g>`;
+  s += casinha();
+  return s;
+}
+
+/* ---------- TELA 5: jardim ---------- */
+function telaJardim() {
+  const W = 390, H = 780;
+  let s = `<rect width="${W}" height="${H}" fill="${COR.ceuDia}"/>` + veu(0, 0, W, 280, COR.papel, 4, 0.3) + veu(0, 100, W, 200, COR.rosa, 3, 0.18);
+  s += `<circle cx="320" cy="90" r="24" fill="${COR.luz}"/>` + nuvem(90, 110, 16) + nuvem(240, 70, 11);
+  // faixa de jogo: fundo de mata em véu, chão de grama
+  const top = 270, chao = 520;
+  s += `<rect x="0" y="${top}" width="${W}" height="${chao-top}" fill="${COR.musgoClaro}"/>` + veu(0, top, W, 160, COR.mata2, 5, 0.22) + veu(0, top+80, W, 170, COR.musgo, 4, 0.3);
+  // árvores ao fundo com fitas de cetim
+  for (const tx of [40, 150, 330]) s += `<rect x="${tx-6}" y="${top+70}" width="12" height="${chao-top-70}" fill="${COR.madeira}" opacity="0.7"/><ellipse cx="${tx}" cy="${top+60}" rx="52" ry="40" fill="${COR.mata2}" opacity="0.75"/>`;
+  s += `<path d="M150 ${top+80}q-10 60 8 110" stroke="${COR.rosaDoce}" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M330 ${top+80}q12 50 -4 100" stroke="${COR.rosaDoce}" stroke-width="6" fill="none" stroke-linecap="round"/>`;
+  // chão
+  s += `<rect x="0" y="${chao}" width="${W}" height="${H-chao}" fill="${COR.musgo}"/>` + veu(0, chao, W, H-chao, COR.musgoTinta, 4, 0.16) + pinha(60, chao+120, 6) + pinha(250, chao+170, 6) + pinha(340, chao+110, 5);
+  s += `<line x1="0" y1="${chao}" x2="${W}" y2="${chao}" stroke="${COR.musgoTinta}" stroke-width="1" opacity="0.6"/>`;
+  // poça (obstáculo) no tempo forte
+  s += `<ellipse cx="200" cy="${chao+2}" rx="44" ry="10" fill="${COR.lago}"/><ellipse cx="200" cy="${chao+2}" rx="30" ry="5" fill="${COR.papel}" opacity="0.5"/>`;
+  // laguinho com sapo de coroa à direita
+  s += `<ellipse cx="350" cy="${chao+4}" rx="50" ry="12" fill="${COR.lago}"/>`;
+  s += `<ellipse cx="345" cy="${chao-6}" rx="16" ry="10" fill="${COR.musgoTinta}"/><circle cx="337" cy="${chao-14}" r="4" fill="${COR.musgoClaro}"/><circle cx="353" cy="${chao-14}" r="4" fill="${COR.musgoClaro}"/><path d="M336 ${chao-24}l4 8 5 -8 5 8 4 -8v10h-18z" fill="${COR.ouro}"/>`;
+  // flores fechadas e abertas
+  s += flor(80, chao, COR.rosaDoce, 9) + flor(110, chao, COR.luz, 8) + `<path d="M290 ${chao}v-18" stroke="${COR.musgoTinta}" stroke-width="2"/><ellipse cx="290" cy="${chao-22}" rx="5" ry="8" fill="${COR.rosaDoce}"/>`;
+  // Stella em sauté sobre a poça (20% da altura: 156 px), tutu não; vestido rosa
+  const st = P.stella(200, chao-26, 156, 'pulo', { contorno: COR.luz });
+  s += st.svg;
+  s += centelhas(200, chao-206, 3, 18);
+  // coelhinho pulando junto
+  s += coelho(120, chao, 26, '#e9e2d6', true);
+  // mãozinha fraquinha: toque em qualquer lugar da faixa
+  s += `<g opacity="0.55">${maozinha(300, top+60, 1.1, 0)}</g>`;
+  // pedrinha vindo
+  s += `<ellipse cx="386" cy="${chao-4}" rx="14" ry="8" fill="#b6a58c"/>`;
+  // terra embaixo com raízes (calma)
+  s += `<path d="M60 ${chao+40}q30 40 0 70M200 ${chao+60}q-20 50 10 90M330 ${chao+30}q20 60 -10 90" stroke="${COR.mata2}" stroke-width="3" fill="none" opacity="0.35"/>`;
+  s += casinha();
+  return s;
+}
+
+document.getElementById('svg-casa').innerHTML = telaCasa();
+document.getElementById('svg-roda').innerHTML = telaRoda();
+document.getElementById('svg-caderno').innerHTML = telaCaderno();
+document.getElementById('svg-prato').innerHTML = telaPrato();
+document.getElementById('svg-jardim').innerHTML = telaJardim();
+
+/* ---------- perguntas ---------- */
+const PERGUNTAS = [
+  ['P1', 'Em que hora do dia ela costuma ter tela?', 'Manhã, tarde ou depois do jantar? Se for sempre à noite, ela só veria o laço da noite, e a roda teria de perguntar sobre o dia que passou.'],
+  ['P2', 'Qual é o aparelho?', 'Modelo, iPhone ou Android, dela ou emprestado. Decide voz, instalação, Acesso Guiado e desempenho.'],
+  ['P3', 'A escola já apresentou alguma letra?', 'Quais, em que ordem, com que imagem e gesto? Se não, o jogo vai na frente e a ordem é a do jogo.'],
+  ['P4', 'Posso trocar SOL, MEL, SAL e SETE?', 'No português falado, L no fim da sílaba soa U (sou, meu, sau) e TE soa "tchi". Proposta: LUA, ASA, ELA, OLÁ, MALA, SALA, LAMA, MOLA, TATU, TUTU, TELA, LATA, MATA e o nome STELLA.'],
+  ['P5', 'Casa numa tela só, sem rolagem (tela 1)?', 'Ou a casa que rola, como a SPEC 7 descreve?'],
+  ['P6', 'Quem marca a tarefa quando ela joga sozinha?', 'O toque dela basta para a lembrança nascer, ou a lembrança espera a confirmação de vocês? Proponho o toque dela, com a trava de só aceitar depois da pergunta falada.'],
+  ['P7', 'Vozes: quem grava, onde, e quantas frases?', 'Contei de 80 a 110 frases curtas na v1 inteira. Proponho 45 obrigatórias, cada frase com um dono, e o resto opcional. No app ou em arquivos que eu empacoto?'],
+  ['P8', 'Roupa da Stella em casa', 'Vestido rosa em casa e tutu só no palco (como nas telas), ou tutu sempre? O que ela usa de verdade?'],
+  ['P9', 'Proporções', 'Theo 1,5 vezes a Stella e pais 2 vezes (como nas telas), ou Theo o dobro como a SPEC?'],
+  ['P10', 'Voltar é a casinha verde?', 'Proposta no lugar da porta, que já é a saída para a aventura.'],
+  ['P11', 'Jardim: um obstáculo a cada 4 compassos?', 'Uns 30 pulos em 2 minutos. Um por tempo forte daria 120.'],
+  ['P12', 'Cores da semana', 'A escola dela tem cor por dia? Qual sequência? Senão uso a tradicional: dom dourado, seg roxo, ter vermelho, qua amarelo, qui laranja, sex verde, sáb azul.'],
+  ['P13', 'Da SPEC 17, ainda abertas', 'Cabelo, altura e roupa dos pais; foto da fachada; foto da caixa de areia e da árvore; boneca preferida; cor do gatinho e do coelhinho; nome do jogo; lista de comidas; festas da casa.'],
+];
+const lista = document.getElementById('lista-perguntas');
+lista.innerHTML = PERGUNTAS.map(([id, t, d]) => `
+  <div class="pergunta" data-pergunta="${id}">
+    <div class="cab"><span class="num">${id}</span><p>${t}</p></div>
+    <small>${d}</small>
+    <label class="rotulo" for="resp-${id}">Sua resposta</label>
+    <textarea id="resp-${id}" placeholder="Pode ser curto."></textarea>
+    <span class="estado" id="estado-${id}"></span>
+  </div>`).join('');
+
+/* ---------- gravar pareceres e respostas ---------- */
+const hora = () => new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+function estado(id, txt, erro = false) { const el = document.getElementById('estado-' + id); if (el) { el.textContent = txt; el.classList.toggle('erro', erro); } }
+function pintaBotoes(id, status) {
+  const box = document.querySelector(`[data-tela="${id}"]`); if (!box) return;
+  box.querySelectorAll('.botao').forEach(b => b.classList.toggle('ativo', b.dataset.status === status));
+}
+const debounce = (fn, ms) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
+
+(async () => {
+  let db = null;
+  try { db = window.claude && window.claude.use ? await window.claude.use('db') : null; } catch (e) { db = null; }
+  const aviso = document.getElementById('aviso-db');
+  if (!db) { aviso.hidden = false; }
+
+  const telas = {}, respostas = {};
+  if (db) {
+    db.collection('telas').onSnapshot(snap => {
+      snap.docs.forEach(d => {
+        const v = d.data(); telas[d.id] = v;
+        pintaBotoes(d.id, v.status);
+        const ta = document.getElementById('nota-' + d.id);
+        if (ta && document.activeElement !== ta && typeof v.nota === 'string' && ta.value !== v.nota) ta.value = v.nota;
+        if (v.quando) estado(d.id, 'Gravado ' + v.quando);
+      });
+    }, () => {});
+    db.collection('perguntas').onSnapshot(snap => {
+      snap.docs.forEach(d => {
+        const v = d.data(); respostas[d.id] = v;
+        const ta = document.getElementById('resp-' + d.id);
+        if (ta && document.activeElement !== ta && typeof v.resposta === 'string' && ta.value !== v.resposta) ta.value = v.resposta;
+        if (v.quando) estado(d.id, 'Gravado ' + v.quando);
+      });
+    }, () => {});
+  }
+
+  async function gravaTela(id, patch) {
+    const atual = telas[id] || {};
+    const novo = { status: atual.status || null, nota: atual.nota || '', ...patch, quando: hora() };
+    telas[id] = novo;
+    pintaBotoes(id, novo.status);
+    if (!db) { estado(id, 'Não gravado nesta cópia'); return; }
+    estado(id, 'Gravando...');
+    try { await db.doc('telas/' + id).set(novo); estado(id, 'Gravado ' + novo.quando); }
+    catch (e) { estado(id, 'Não deu para gravar. Tente de novo.', true); }
+  }
+  async function gravaResposta(id, resposta) {
+    const novo = { resposta, quando: hora() };
+    respostas[id] = novo;
+    if (!db) { estado(id, 'Não gravado nesta cópia'); return; }
+    estado(id, 'Gravando...');
+    try { await db.doc('perguntas/' + id).set(novo); estado(id, 'Gravado ' + novo.quando); }
+    catch (e) { estado(id, 'Não deu para gravar. Tente de novo.', true); }
+  }
+
+  document.querySelectorAll('.parecer').forEach(box => {
+    const id = box.dataset.tela;
+    box.querySelectorAll('.botao').forEach(b => b.addEventListener('click', () => {
+      const atual = telas[id] && telas[id].status;
+      gravaTela(id, { status: atual === b.dataset.status ? null : b.dataset.status });
+    }));
+    const ta = document.getElementById('nota-' + id);
+    const salva = debounce(() => { if ((telas[id] && telas[id].nota) !== ta.value) gravaTela(id, { nota: ta.value }); }, 900);
+    ta.addEventListener('input', salva);
+    ta.addEventListener('blur', () => { if ((telas[id] && telas[id].nota || '') !== ta.value) gravaTela(id, { nota: ta.value }); });
+  });
+  document.querySelectorAll('.pergunta').forEach(box => {
+    const id = box.dataset.pergunta;
+    const ta = document.getElementById('resp-' + id);
+    const salva = debounce(() => { if ((respostas[id] && respostas[id].resposta) !== ta.value) gravaResposta(id, ta.value); }, 900);
+    ta.addEventListener('input', salva);
+    ta.addEventListener('blur', () => { if ((respostas[id] && respostas[id].resposta || '') !== ta.value) gravaResposta(id, ta.value); });
+  });
+})();
+</script>
