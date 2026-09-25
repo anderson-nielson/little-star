@@ -561,9 +561,11 @@ A escrita fica em português. Espanhol é para ouvir e falar, não para traçar.
   simples (*Brilha, brilha estrelinha*, *Estrellita*, *Ciranda cirandinha*). A melodia espera
   por ela; tecla "errada" também soa bonita.
 
-**Ukulele rosa** na parede. Passar o dedo nas 4 cordas dá um acorde (corda dedilhada
-sintetizada, algoritmo Karplus-Strong, sem arquivo de áudio). Três acordes, três cores de
-botão grande para ela acompanhar o piano ou a canção. Nas aventuras, um acorde abre as flores
+**Ukulele rosa** na parede, com o corpo em oito e as 4 cordas afinadas em sol, dó, mi, lá (a
+afinação padrão). Passar o dedo nas cordas soltas dá a afinação; um botão de cor dá um acorde
+(corda dedilhada sintetizada, algoritmo Karplus-Strong, sem arquivo de áudio). Três acordes
+(dó, fá, sol7, nas posições de verdade), três cores de botão grande para ela acompanhar o
+piano ou a canção. Nas aventuras, um acorde abre as flores
 do jardim.
 
 **Bonecas** na estante do quarto, que é a coleção dela.
