@@ -12,7 +12,7 @@ Sumário
 4. Como uma criança de 5 anos usa um celular
 5. A estrutura do jogo
 6. A família
-7. A casa verde e o quarto rosa
+7. A casa verde, o quintal e o quarto rosa
 8. O dia da Stella (as tarefas de verdade)
 9. Escrever e ouvir: letras e sons
 10. Espanhol: cada coisa tem dois nomes
@@ -30,7 +30,7 @@ Sumário
 ## 1. Para quem é
 
 A Stella tem 5 anos. É pequena e loirinha, de cabelo bem liso passando do ombro, ama rosa (ama, ama, ama), toca piano e um ukulele
-rosa, tem muitas bonecas, ama coelhinhos e gatinhos, curte espanhol e quer aprender a escrever. Ainda não está
+rosa, tem muitas bonecas, ama coelhinhos e gatinhos, ama subir em árvore, tem uma caixa de areia vermelha em forma de estrela, curte espanhol e quer aprender a escrever. Ainda não está
 alfabetizada. A mãe é a Andrea, o pai é o Anderson, o irmão é o Theo, de 10 anos.
 
 O que 5 anos quer dizer na prática:
@@ -141,14 +141,14 @@ Travar em retrato também evita a tela girar sozinha quando ela deita o celular.
 ```
                  Título (Brilha, brilha estrelinha)
                                |
-                       A CASA (centro de tudo)
-      +------------+-----------+-----------+------------+
-      |            |           |           |            |
-   Quarto      Cozinha     Caderno      Porta      Hora de dormir
- (tarefas,   (comidinha,   (letras)   (aventuras)   (só à noite)
-  bonecas,   palavras em
-  piano,      espanhol)
-  ukulele)
+                A CASA VERDE E O QUINTAL (centro de tudo)
+   +----------+----------+----------+-----------+----------+----------+
+   |          |          |          |           |          |          |
+ Quarto    Cozinha    Caderno   Caixa de     Árvore     Porta    Hora de
+(tarefas, (comidinha, (letras)   areia      grande   (aventuras) dormir
+ bonecas,  palavras             (letras    (subir,              (só à
+ piano,    em espanhol)          na areia,  ver o                noite)
+ ukulele)                        tesouros)  céu)
 ```
 
 - Não existe menu. A casa é o menu, e tudo nela é um objeto que se toca.
@@ -172,7 +172,7 @@ marionete por dados). Nada de copiar personagens, colagem ou estilo visual do de
 | **Stella** | 5 anos, pequena, loirinha, cabelo bem liso passando do ombro, solto no dia a dia e em coque no palco. Tutu rosa. | Tudo. |
 | **Mãe Andrea** | Aconchego. Recebe, abraça, cozinha junto, põe para dormir. | Porta, cozinha, hora de dormir, primeira fila do palco. |
 | **Pai Anderson** | Parceria e brincadeira. Gira a Stella no ar, ri junto. | Volta das aventuras, brinquedos, caderno, aplauso. |
-| **Theo** | 10 anos, o dobro da altura dela, cabelo castanho bem claro, quase loiro, muito cacheado. O irmão que explica e cuida, como o Charlie. | Guia do caderno (ele já sabe escrever e mostra as letras), companheiro nas aventuras (segura a escada, pesca do lago), brinca de boneca e de música. |
+| **Theo** | 10 anos, o dobro da altura dela, cabelo castanho bem claro, quase loiro, muito cacheado. O irmão que explica e cuida, como o Charlie. | Guia do caderno (ele já sabe escrever e mostra as letras), companheiro nas aventuras (segura os galhos da árvore, pesca do lago), brinca de boneca e de música. |
 
 **Como o amor aparece**, sempre sem texto:
 - **Abraço** tem animação própria: quem abraça se abaixa até a altura dela. Centelhas rosa e
@@ -185,7 +185,7 @@ marionete por dados). Nada de copiar personagens, colagem ou estilo visual do de
 - **O nome dela** aparece no título, na porta do quarto e no caderno, em letra de forma
   grande, para ela aprender a reconhecer.
 
-## 7. A casa verde e o quarto rosa
+## 7. A casa verde, o quintal e o quarto rosa
 
 A casa de verdade da Stella é **verde**, um verde musgo mais vivo e leve, e a do jogo também.
 Por fora e nos cômodos comuns, verde musgo claro; lá dentro, o quarto dela é o pedaço rosa da
@@ -200,6 +200,31 @@ com o caderno, janela com o céu. A porta do quarto é rosa, na parede verde. É
 **A cozinha**, onde a mãe e a Stella fazem comidinha e onde moram as palavras em espanhol.
 
 **A porta**, de onde saem as aventuras e onde a família recebe na volta.
+
+**O quintal.** A casa verde tem quintal na frente, visto no mesmo corte, embaixo da porta.
+Nele moram duas coisas que são dela de verdade:
+
+- **A caixa de areia vermelha em forma de estrela.** Uma estrela de cinco pontas, vermelha,
+  cheia de areia clara, vista de cima quando ela toca. É o símbolo do jogo no mundo dela:
+  a Little Star tem uma estrela no quintal. Ali ela:
+  - **Escreve na areia.** O caderno tem uma irmã: as mesmas letras da seção 9, traçadas com o
+    dedo na areia, que fica marcada no sulco. Um toque com a mão toda (ou o Theo passando o
+    rastelo) alisa a areia de novo. Escrever na areia não tem página certa nem erro, e apagar
+    é parte da brincadeira.
+  - **Cava tesouros.** Toca na areia, cava, e encontra uma letra de brinquedo enterrada. A
+    letra sai, diz o próprio som ("mmm") e a palavra de um objeto que aparece junto (M, "mmm,
+    mala"). É a brincadeira de achar o som (9.5) com terra e surpresa.
+  - **Faz castelo.** Toques empilham baldinhos de areia, o gatinho derruba, todo mundo ri.
+    Só brincadeira, sem objetivo.
+- **A árvore grande.** Uma árvore alta no canto do quintal, de galhos largos. Ela ama subir
+  em árvore, então subir aqui é uma atividade em si, sem pressa e sem obstáculo: cada toque
+  num galho mais alto e ela sobe até ele. Lá de cima ela vê o céu da hora de verdade, a casa
+  verde de cima, o Theo acenando embaixo. À noite, do galho mais alto se vê a estrela nova de
+  cada noite. A árvore também é o começo da aventura 12.2.
+
+Segurança sem sermão: na árvore, a família está sempre embaixo olhando, e o Theo sobe junto
+nos galhos baixos. O jogo não ensina a subir mais alto do que ela sobe de verdade; mostra que
+subir é gostoso quando tem alguém perto.
 
 **Os bichos da casa.** A Stella ama coelhinhos e gatinhos, e os dois moram no jogo:
 - **Um gatinho** mora na casa. Dorme na cama dela, se enrosca no pé do piano, segue ela de
@@ -414,11 +439,15 @@ nas árvores são cipós: ela balança sozinha quando chega nelas. O coelhinho p
 lado dela, e quando ela pula no tempo, os dois pulam juntos. Um sapo de coroa olha do
 laguinho, e só olha. Coelhinhos do mato espiam das tocas e aplaudem com as orelhas. Flores fechadas abrem com o ukulele. Tropeçou? Senta, ri, levanta.
 
-### 12.2 A Escadaria do teatro (inspirado em Donkey Kong)
-Andaimes dos bastidores, subindo na vertical, o que em retrato fica ótimo. No alto, um ratinho
-do Quebra-Nozes rola novelos de lã. **Toque = pular o novelo**; as escadas ela sobe sozinha.
-O Theo segura a escada lá embaixo. No topo o ratinho vira amigo e vai dançar no palco.
-Novelo pegou? Ela vira bolinha de lã, rola, desenrola e continua no mesmo andar.
+### 12.2 A Árvore Grande (inspirado em Donkey Kong)
+A árvore do quintal vira aventura. Ela sobe na vertical, galho por galho, o que em retrato
+fica ótimo. **O gatinho subiu até o topo e não sabe descer**, e a Stella vai buscar (no Donkey
+Kong também se sobe para buscar alguém lá em cima). Galhos inclinados são as plataformas;
+cipós e troncos ela sobe sozinha. Lá em cima, um esquilo brincalhão, com um gorrinho de
+soldadinho do Quebra-Nozes, rola pinhas galho abaixo. **Toque = pular a pinha.** O Theo segura
+os galhos baixos. No topo, o gatinho pula no colo dela, o esquilo vira amigo e desce junto
+para dançar no palco. Pinha pegou? Ela escorrega até o galho de baixo como num escorregador,
+ri, e continua no mesmo galho.
 
 ### 12.3 O Lago dos Cisnes (inspirado em Frostbite e Freeway)
 Atravessar o lago de baixo para cima pulando em vitórias-régias e cisnes que nadam em faixas.
@@ -435,7 +464,7 @@ abraço na coxia, volta para casa.
 - O pulo **procura** o obstáculo: um toque até ~500 ms antes ainda vira o pulo certo.
 - Se ela não toca, a Stella não fica presa: depois de duas tentativas no mesmo obstáculo, a
   mãozinha mostra o toque; depois de três, ela passa sozinha com uma ajudinha (o Theo empurra
-  a vitória-régia, o ratinho para de rolar novelo).
+  a vitória-régia, o esquilo para de rolar pinha).
 - Toda aventura termina, mesmo sem nenhum toque. O palco sempre chega.
 
 ## 13. Estética
@@ -456,7 +485,10 @@ Mesmas formas do Ponta, com mais rosa, mais luz e mais tamanho.
   a acertar no styleguide: `--musgo` `#8FAE6B`, `--musgo-claro` `#C9DBB2`, `--musgo-tinta`
   `#4F6B3A` para traço e texto). O rosa (`--rosa`, `--rosa-clara`, `--rosa-doce`) é da Stella:
   o quarto, o tutu, o ukulele, o caderno, tudo o que é dela. Verde e rosa claros se
-  complementam e mantêm a calma. Proporção: musgo 35%, rosas 30%, dia e marfim 15%, noite
+  complementam e mantêm a calma. A **caixa de areia** tem o vermelho dela, um vermelho vivo e
+  quente (`--estrela-vermelha`, ponto de partida `#D2463C`), a única área grande de vermelho
+  do jogo, com areia clara (`--areia` `#EEDDB4`, parente do `--luz`). No Ponta vermelho era
+  proibido porque significava erro; aqui não existe erro, e o vermelho é só a caixa dela. Proporção: musgo 35%, rosas 30%, dia e marfim 15%, noite
   (palco e noite) 8%, mata (jardim fundo) 4%, veludo 4%, ouro 4%. O `--mata` escuro do Ponta
   fica só para sombra de jardim e fundo de aventura.
 - **A Stella** é a do Ponta (pele `#F2D5BC`), mais loira e com proporção de 5 anos: cabeça
@@ -484,7 +516,7 @@ direita, baixo simples na esquerda, andamento calmo.
 | Casa de dia | Satie, *Gymnopédie nº 1* (já pronta no Ponta) ou Schumann, *Träumerei* |
 | Caderno (letras) | Bach, *Prelúdio em dó maior* (BWV 846), calmo e contínuo |
 | Jardim | Tchaikovsky, *Valsa das Flores* (O Quebra-Nozes) |
-| Escadaria | Tchaikovsky, *Marcha* (O Quebra-Nozes), ou a Marcha dos soldadinhos do Ponta |
+| Árvore Grande | Tchaikovsky, *Marcha* (O Quebra-Nozes), ou a Marcha dos soldadinhos do Ponta |
 | Lago | Tchaikovsky, *Dança dos pequenos cisnes* (O Lago dos Cisnes) |
 | Palco | Tchaikovsky, *Dança da Fada Açucarada* (O Quebra-Nozes) |
 | Hora de dormir | Brahms, *Canção de ninar* |
@@ -556,13 +588,15 @@ metade.
 7. **Palavras em destaque**: 12 palavras da casa com palavra, som e sílabas (9.5).
 8. **Espanhol**: 20 palavras da casa e a Estrellita na estante.
 9. **O gatinho** na casa e **o coelhinho** no jardim.
-10. **Cantinho dos pais** com gravação de voz.
+10. **O quintal**: a caixa de areia em estrela (escrever na areia, que reusa o traçado do
+    caderno) e a árvore para subir sem pressa.
+11. **Cantinho dos pais** com gravação de voz.
 
 Depois de cada marco: testar com a Stella, olhar onde ela trava, onde ri, onde desiste, e
 medir antes de mexer (quanto tempo até o primeiro toque certo, quantos toques perdidos na
 borda, em que letra ela para).
 
-**v2**: as outras tarefas, a Escadaria e o Lago, o ukulele, vestir as bonecas, bilhetinho,
+**v2**: as outras tarefas, a Árvore Grande e o Lago, o ukulele, vestir as bonecas, bilhetinho,
 letras da família, mais espanhol.
 
 ## 17. Perguntas para a família
@@ -582,7 +616,9 @@ letras da família, mais espanhol.
    nome, jeito). Se não, quais nomes ela daria?
 9. **Sons das letras.** Quem grava? A escola usa algum método (fônico, silábico) que vale
    seguir para não confundir?
-10. **Nome do jogo.** "Little Star", "Estrelinha" ou "Estrellita"?
+10. **O quintal.** Uma foto da caixa de areia e da árvore ajuda a acertar a forma e o
+    vermelho. Que árvore é (mangueira, pitangueira, jabuticabeira)?
+11. **Nome do jogo.** "Little Star", "Estrelinha" ou "Estrellita"?
 
 ## 18. Fora de escopo
 
