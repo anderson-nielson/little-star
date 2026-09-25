@@ -458,7 +458,11 @@ não em seis:
 | 5 em diante | o laço inteiro, com a brincadeira do dia da semana |
 
 Na segunda abertura do mesmo dia, roda, prato e som não voltam: chegada, casa, bichos,
-despedida. Um toque na porta fechada da despedida reabre assim.
+despedida. Um toque na porta fechada da despedida reabre assim, enquanto ainda há dia de
+tela. Passado o limite diário, a porta fica fechada: o toque faz o laço brilhar e a família
+dizer tchau de dentro, e amanhã a casa está aberta de novo (reabrir levaria da chegada direto
+para outra despedida, um ciclo que parece travado). Enquanto a porta está fechada, o tempo de
+tela não conta. Na meia hora antes de dormir, o toque abre a rotina da noite, sempre.
 
 ---
 

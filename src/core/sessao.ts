@@ -1,5 +1,5 @@
 import { abrirDia, estado, mudar } from './estado';
-import { LIVRE_MAXIMO, partesDaSessao, passouDoLimite, proximaParte, type Parte } from './laco';
+import { LIVRE_MAXIMO, partesDaSessao, passouDoLimite, podeReabrir, proximaParte, type Parte } from './laco';
 import { ir, telaAtual } from './roteador';
 
 /**
@@ -11,10 +11,13 @@ class Sessao {
   partes: Parte[] = [];
   atual: Parte = 'chegada';
   inicioLivre = 0;
+  /** a porta fechou e o jogo descansa: o tempo de tela não conta */
+  descansando = false;
   private relogio: number | null = null;
   agora: () => Date = () => new Date();
 
   comecar(telaForcada?: string): void {
+    this.descansando = false;
     mudar((e) => abrirDia(e, this.agora()));
     this.partes = partesDaSessao(estado(), this.agora());
     this.atual = this.partes[0] ?? 'casa';
@@ -30,7 +33,25 @@ class Sessao {
     return p;
   }
 
+  /** A porta fechou. O jogo descansa até um toque; enquanto isso, nada conta como tempo de tela. */
+  descansar(): void {
+    this.descansando = true;
+    this.inicioLivre = 0;
+  }
+
+  /**
+   * Um toque na porta fechada. Reabre como segunda vez no dia quando ainda há
+   * dia de tela, ou como rotina da noite quando é hora; devolve false quando
+   * o dia de tela acabou e a porta fica fechada.
+   */
+  reabrir(): boolean {
+    if (!podeReabrir(estado(), this.agora())) return false;
+    this.comecar();
+    return true;
+  }
+
   async irPara(p: Parte): Promise<void> {
+    this.descansando = false;
     this.atual = p;
     if (p === 'casa' && !this.inicioLivre) this.inicioLivre = Date.now();
     mudar((e) => {
@@ -73,6 +94,7 @@ class Sessao {
     if (this.relogio !== null) return;
     this.relogio = window.setInterval(() => {
       if (document.visibilityState !== 'visible') return;
+      if (this.descansando) return;
       const t = telaAtual();
       if (t === 'dormindo' || t === 'pais' || t === 'styleguide') return;
       mudar((e) => {

@@ -50,7 +50,7 @@ Aplicado nos dois documentos:
 - **Instalação e Acesso Guiado** como passo 1, no cantinho dos pais (T2).
 - **Exportar e importar gravações** (T3).
 - **Primeiro dia**: a cestinha com o gatinho na despedida, com três nomes ditos em voz; sem toque em 20 s, fica o primeiro (J14).
-- **Segunda sessão no mesmo dia**: um toque na porta fechada reabre, pulando roda, prato e som.
+- **Segunda sessão no mesmo dia**: um toque na porta fechada reabre, pulando roda, prato e som. Só enquanto há dia de tela: passado o limite, a porta fica fechada e responde (laço brilha, tchau), porque reabrir levaria da chegada direto para outra despedida. O descanso na porta fechada não conta como tempo de tela; a rotina da noite abre sempre.
 
 ## O que ficou de fora da v1, de propósito
 
