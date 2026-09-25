@@ -44,15 +44,33 @@ export function fraseDaHora(hora: number): string {
 }
 
 /**
- * O relógio da sala, grande: ela gira o ponteiro das horas e o relógio diz
- * a hora. O céu da janelinha muda com a hora. Tocar no Theo: ele pede uma
- * hora ("mostra as sete horas"); ela gira até lá e ganha uma pedrinha. Ajuda:
- * o número pedido acende; depois, o ponteiro anda sozinho.
+ * A hora de verdade, dita como a gente diz para uma criança: "são seis horas",
+ * "passou das seis", "são seis e meia", "são quase sete horas". Nunca arredonda
+ * a hora para cima como se fosse cheia.
+ */
+export function fraseDaHoraReal(hora: number, minutos: number): string {
+  const h = ((Math.floor(hora) - 1 + 12) % 12) + 1;
+  if (minutos < 5) return fraseDaHora(h);
+  if (minutos < 25) return h === 1 ? 'passou da uma' : `passou das ${HORAS[h - 1]}`;
+  if (minutos <= 35) return h === 1 ? 'é uma e meia' : `são ${HORAS[h - 1]} e meia`;
+  const prox = (h % 12) + 1;
+  return prox === 1 ? 'é quase uma hora' : `são quase ${HORAS[prox - 1]} horas`;
+}
+
+/**
+ * O relógio da sala, grande: ela gira o ponteiro das horas (o curto) e o
+ * relógio diz a hora; o dos minutos (o comprido) fica nas doze. Ao chegar, o
+ * relógio mostra a hora de verdade com os dois ponteiros e diz como está
+ * ("passou das seis"). O céu da janelinha muda com a hora. Tocar no Theo:
+ * ele pede uma hora ("mostra as sete horas"); ela gira até lá e ganha uma
+ * pedrinha. Ajuda: o número pedido acende; depois, o ponteiro anda sozinho.
  */
 export function telaRelogio(): Tela {
   const e = estado();
   const agora = sessao.agora();
-  const horaReal = ((agora.getHours() + 11) % 12) + 1 + agora.getMinutes() / 60;
+  const minutosReais = agora.getMinutes();
+  const horaCheiaReal = ((agora.getHours() + 11) % 12) + 1;
+  const horaReal = horaCheiaReal + minutosReais / 60;
   const dormir = Math.round(horaParaMinutos(e.pais.horaDormir) / 60) % 12 || 12;
 
   let s = `<rect width="390" height="780" fill="#fbf8f1"/>` + veu(0, 0, 390, 780, '#f6e3dc', 5, 0.3);
@@ -74,9 +92,13 @@ export function telaRelogio(): Tela {
   s += `<path d="M${CX + Math.cos(lua) * R * 0.6} ${CY + Math.sin(lua) * R * 0.6 - 8}a8 8 0 1 0 7 12a6 6 0 1 1-7-12z" fill="#ebd9a8"/>`;
   const sol = ((7 * 30 - 90) * Math.PI) / 180;
   s += `<circle cx="${CX + Math.cos(sol) * R * 0.6}" cy="${CY + Math.sin(sol) * R * 0.6}" r="8" fill="#ebd9a8"/>`;
-  /* ponteiro dos minutos parado nas doze; o das horas gira */
-  s += `<line x1="${CX}" y1="${CY}" x2="${CX}" y2="${CY - R * 0.72}" stroke="#c6a15b" stroke-width="5" stroke-linecap="round" opacity="0.6"/>`;
-  s += `<g class="ponteiro"><line x1="${CX}" y1="${CY + 14}" x2="${CX}" y2="${CY - R * 0.5}" stroke="#6e1a27" stroke-width="12" stroke-linecap="round"/><circle cx="${CX}" cy="${CY - R * 0.5}" r="16" fill="#f2a9c4"/></g>`;
+  /*
+   * Como num relógio de verdade: o ponteiro das horas é o curto e grosso (é
+   * ele que ela gira); o dos minutos é o comprido e fino, bem visível, e fica
+   * nas doze durante a brincadeira das horas cheias.
+   */
+  s += `<g class="ponteiro"><line x1="${CX}" y1="${CY + 12}" x2="${CX}" y2="${CY - R * 0.42}" stroke="#6e1a27" stroke-width="13" stroke-linecap="round"/><circle cx="${CX}" cy="${CY - R * 0.42}" r="11" fill="#f2a9c4"/></g>`;
+  s += `<g class="minutos"><line x1="${CX}" y1="${CY + 12}" x2="${CX}" y2="${CY - R * 0.68}" stroke="#c6a15b" stroke-width="6" stroke-linecap="round"/></g>`;
   s += `<circle cx="${CX}" cy="${CY}" r="10" fill="#6e1a27"/>`;
   s += `<g class="luz"></g>`;
   /* o Theo, que pergunta as horas */
@@ -87,12 +109,15 @@ export function telaRelogio(): Tela {
   const svg = tela.svg;
   tocarFundo('preludio_bach');
   const ponteiro = svg.querySelector('.ponteiro') as SVGGElement;
+  const ponteiroMinutos = svg.querySelector('.minutos') as SVGGElement;
   const ceu = svg.querySelector('.ceu') as SVGGElement;
   const luz = svg.querySelector('.luz') as SVGGElement;
   const balao = svg.querySelector('.balao') as SVGGElement;
   const pedidaEl = svg.querySelector('.pedida') as SVGTextElement;
 
   let hora = horaReal;
+  /* o ponteiro dos minutos só marca minutos de verdade na chegada; na brincadeira fica nas doze */
+  let minutos = minutosReais;
   let pedida: number | null = null;
   let dedo = -1;
   let ocupado = false;
@@ -123,6 +148,9 @@ export function telaRelogio(): Tela {
     ponteiro.style.transformBox = 'view-box';
     ponteiro.style.transformOrigin = `${CX}px ${CY}px`;
     ponteiro.style.transform = `rotate(${anguloDaHora(hora)}deg)`;
+    ponteiroMinutos.style.transformBox = 'view-box';
+    ponteiroMinutos.style.transformOrigin = `${CX}px ${CY}px`;
+    ponteiroMinutos.style.transform = `rotate(${minutos * 6}deg)`;
     /* o céu: manhã clara, tarde rosa, noite azul, pela hora do ponteiro (de tarde/noite se for depois do meio-dia real) */
     const h = Math.round(hora) % 12;
     const tarde = agora.getHours() >= 12;
@@ -185,6 +213,7 @@ export function telaRelogio(): Tela {
     if (!reivindicarDedo(ev.pointerId)) return;
     dedo = ev.pointerId;
     ajuda.tocou();
+    minutos = 0;
     hora = horaDoAngulo(angulo(ev));
     desenhar();
     try {
@@ -222,6 +251,8 @@ export function telaRelogio(): Tela {
     const opcoes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].filter((h) => h !== Math.round(hora));
     pedida = opcoes[Math.floor(Math.random() * opcoes.length)]!;
     pedidaEl.textContent = String(pedida);
+    minutos = 0;
+    desenhar();
     balao.style.transition = 'opacity 400ms';
     balao.style.opacity = '1';
     ajuda.reset();
@@ -230,10 +261,11 @@ export function telaRelogio(): Tela {
     ocupado = false;
   });
 
-  /* ao entrar, o relógio mostra a hora de verdade e diz */
+  /* ao entrar, o relógio mostra a hora de verdade, com os dois ponteiros, e diz como está */
   void esperar(900).then(async () => {
     if (temVoz('relogio_agora')) await falar('relogio_agora');
-    await dizer(horaReal);
+    if (minutosReais < 5 && temVoz(`hora_${horaCheiaReal}`)) await falar(`hora_${horaCheiaReal}`);
+    else await falarPalavra(fraseDaHoraReal(horaCheiaReal, minutosReais), 0.8);
   });
   return tela;
 }

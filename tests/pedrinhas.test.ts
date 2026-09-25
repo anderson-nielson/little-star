@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { estadoNovo, migrar, VERSAO_DO_SAVE } from '@/core/estado';
 import { ajustar, ganhar, PEDRINHAS, perder } from '@/core/pedrinhas';
-import { acertou, anguloDaHora, fraseDaHora, horaDoAngulo } from '@/telas/relogio';
+import { acertou, anguloDaHora, fraseDaHora, fraseDaHoraReal, horaDoAngulo } from '@/telas/relogio';
 
 describe('o pote de pedrinhas', () => {
   it('ganha e anota o motivo; o pote cheio vira medalha e nunca se perde', () => {
@@ -69,5 +69,14 @@ describe('o relógio', () => {
     expect(fraseDaHora(1)).toBe('é uma hora');
     expect(fraseDaHora(3)).toBe('são três horas');
     expect(fraseDaHora(12)).toBe('são doze horas');
+  });
+  it('a hora de verdade nunca arredonda para cima: passou, e meia, quase', () => {
+    expect(fraseDaHoraReal(6, 2)).toBe('são seis horas');
+    expect(fraseDaHoraReal(6, 12)).toBe('passou das seis');
+    expect(fraseDaHoraReal(6, 30)).toBe('são seis e meia');
+    expect(fraseDaHoraReal(6, 40)).toBe('são quase sete horas');
+    expect(fraseDaHoraReal(12, 50)).toBe('é quase uma hora');
+    expect(fraseDaHoraReal(1, 10)).toBe('passou da uma');
+    expect(fraseDaHoraReal(1, 33)).toBe('é uma e meia');
   });
 });
