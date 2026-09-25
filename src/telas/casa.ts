@@ -223,17 +223,38 @@ export function telaCasa(): Tela {
     travar(500);
     void ir(nome, params);
   };
+  /* coisa ainda fechada: um lacinho rosa aparece nela por um instante e a mãozinha
+     vai até a brincadeira de hoje. Nada parece quebrado, e ela sabe para onde ir. */
+  const fechado = (el: Element) => {
+    tiquinho();
+    const caixa = (el as SVGGraphicsElement).getBBox();
+    const cx = caixa.x + caixa.width / 2;
+    const cy = caixa.y + Math.min(caixa.height / 2, 30);
+    const laco = svgEl(`<g class="surge"><path d="M${cx} ${cy}q-14 -11 -12 2q2 8 12 -2q14 -11 12 2q-2 8 -12 -2z" fill="#f2a9c4"/><path d="M${cx} ${cy}l-6 14M${cx} ${cy}l6 14" stroke="#f2a9c4" stroke-width="3" stroke-linecap="round"/><circle cx="${cx}" cy="${cy}" r="3" fill="#ebd9a8"/></g>`);
+    svg.appendChild(laco);
+    void esperar(1400).then(() => laco.remove());
+    if (luz) {
+      tela.mao([luz[0] + 10, luz[1] + 10]);
+      void esperar(3000).then(() => tela.mao(null));
+    }
+  };
+  /* coisa que é só enfeite: balança um pouco, além do sininho */
+  const enfeite = (el: Element) => {
+    tiquinho();
+    mover(el, 0, -3, 160);
+    void esperar(180).then(() => mover(el, 0, 0, 300));
+  };
   tela.alvo('[data-alvo="piano"]', () => vai('piano'));
   tela.alvo('[data-alvo="caderno"]', () => vai('caderno'));
   tela.alvo('[data-alvo="mala"]', () => vai('palavra', { palavra: 'MALA', volta: 'casa' }));
-  tela.alvo('[data-alvo="lata"]', () => (aberto(s7, 'palavras') ? vai('palavra', { palavra: 'LATA', volta: 'casa' }) : tiquinho()));
-  tela.alvo('[data-alvo="janela"]', () => (noite && aberto(s7, 'palavras') ? vai('palavra', { palavra: 'LUA', volta: 'casa' }) : tiquinho()));
+  tela.alvo('[data-alvo="lata"]', (_ev, el) => (aberto(s7, 'palavras') ? vai('palavra', { palavra: 'LATA', volta: 'casa' }) : fechado(el)));
+  tela.alvo('[data-alvo="janela"]', (_ev, el) => (noite && aberto(s7, 'palavras') ? vai('palavra', { palavra: 'LUA', volta: 'casa' }) : aberto(s7, 'palavras') ? enfeite(el) : fechado(el)));
   tela.alvo('[data-alvo="areia"]', () => vai('areia'));
-  tela.alvo('[data-alvo="pinhas"]', () => (aberto(s7, 'pinhas') ? vai('pinhas') : tiquinho()));
-  tela.alvo('[data-alvo="arvore"]', () => (aberto(s7, 'arvore') ? vai('arvore') : tiquinho()));
+  tela.alvo('[data-alvo="pinhas"]', (_ev, el) => (aberto(s7, 'pinhas') ? vai('pinhas') : fechado(el)));
+  tela.alvo('[data-alvo="arvore"]', (_ev, el) => (aberto(s7, 'arvore') ? vai('arvore') : fechado(el)));
   tela.alvo('[data-alvo="horta"]', () => vai('horta'));
-  tela.alvo('[data-alvo="mesa"]', () => (aberto(s7, 'pinhas') ? vai('pinhas', { mesa: '1' }) : tiquinho()));
-  tela.alvo('[data-alvo="fogao"]', () => (aberto(s7, 'cozinha') ? vai('cozinha') : tiquinho()));
+  tela.alvo('[data-alvo="mesa"]', (_ev, el) => (aberto(s7, 'pinhas') ? vai('pinhas', { mesa: '1' }) : fechado(el)));
+  tela.alvo('[data-alvo="fogao"]', (_ev, el) => (aberto(s7, 'cozinha') ? vai('cozinha') : fechado(el)));
   tela.alvo('[data-alvo="ukulele"]', () => vai('ukulele'));
   tela.alvo('[data-alvo="lira"]', () => vai('lira'));
   tela.alvo('[data-alvo="bilhete"]', () => vai('bilhete'));
@@ -248,9 +269,9 @@ export function telaCasa(): Tela {
   });
   /* a porta: uma aventura só vai direto; mais de uma, ela escolhe entre figuras */
   const TELA_DA_AVENTURA: Record<Aventura, string> = { jardim: 'jardim', arvore: 'arvoregrande', lago: 'lago' };
-  const abrirPorta = () => {
+  const abrirPorta = (el: Element) => {
     const abertas = aventurasAbertas(e);
-    if (!jardimAberto || abertas.length === 0) return tiquinho();
+    if (!jardimAberto || abertas.length === 0) return fechado(el);
     if (abertas.length === 1) return vai('jardim');
     if (svg.querySelector('.escolha')) return;
     const doDia = aventuraDoDia(e);
@@ -275,7 +296,7 @@ export function telaCasa(): Tela {
       if (g.isConnected && tela.el.isConnected) vai(TELA_DA_AVENTURA[doDia]);
     });
   };
-  tela.alvo('[data-alvo="porta"]', () => abrirPorta());
+  tela.alvo('[data-alvo="porta"]', (_ev, el) => abrirPorta(el));
   tela.alvo('[data-alvo="gato"]', (_ev, el) => {
     ronronar();
     mover(el, 0, -4, 300);
@@ -333,15 +354,15 @@ export function telaCasa(): Tela {
       void esperar(300 + i * 60).then(() => mover(b, 0, 0, 300));
     });
     if (aberto(s7, 'bonecas')) vai('bonecas');
-    else tiquinho();
+    else fechado(svg.querySelector('[data-alvo="estante"]')!);
   });
   tela.alvo('[data-alvo="cama"]', (_ev, el) => {
     tiquinho();
     mover(el, 0, -2, 200);
     void esperar(220).then(() => mover(el, 0, 0, 300));
   });
-  tela.alvo('[data-alvo="canteiro"]', () => tiquinho());
-  tela.alvo('[data-alvo="mesa-cozinha"]', () => tiquinho());
+  tela.alvo('[data-alvo="canteiro"]', (_ev, el) => enfeite(el));
+  tela.alvo('[data-alvo="mesa-cozinha"]', (_ev, el) => enfeite(el));
   tela.alvo('[data-alvo="tapete"]', () => {
     tiquinho();
     tela.comemorar(hx + 80, y3 - 90);
