@@ -25,7 +25,7 @@ export function telaStyleguide(params: Record<string, string> = {}): Tela {
   p.append(h('h2', {}, 'A família: Stella 1, Theo 1,5, pais 2'));
   p.append(h('div', { class: 'fila', html: svg(familia.stella(60, 150, 70).svg) + svg(familia.theo(60, 150, 105).svg) + svg(familia.mae(60, 150, 140).svg) + svg(familia.pai(60, 150, 148).svg) }));
   p.append(h('h2', {}, 'Poses da Stella'));
-  const poses: Pose[] = ['parado', 'acena', 'sentado', 'pulo', 'giro', 'aponta', 'segura', 'abraca', 'reverencia', 'deitado'];
+  const poses: Pose[] = ['parado', 'acena', 'sentado', 'pulo', 'giro', 'aponta', 'segura', 'abraca', 'reverencia', 'deitado', 'anda', 'salto', 'escorrega'];
   p.append(h('div', { class: 'fila', html: poses.map((po) => svg(familia.stella(60, 150, 100, po).svg)).join('') + svg(familia.stellaPalco(60, 150, 100, 'giro').svg) }));
   p.append(h('h2', {}, 'Bonecas de pano, bichos e objetos'));
   p.append(
