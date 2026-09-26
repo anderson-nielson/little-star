@@ -169,7 +169,7 @@ export function telaRelogio(): Tela {
   const dizer = async (h: number) => {
     const hh = ((Math.round(h) - 1 + 12) % 12) + 1;
     if (temVoz(`hora_${hh}`)) await falar(`hora_${hh}`);
-    else await falarPalavra(fraseDaHora(hh), 0.8);
+    else await falarPalavra(fraseDaHora(hh), 0.9);
   };
 
   const conferir = async () => {
@@ -271,7 +271,7 @@ export function telaRelogio(): Tela {
     balao.style.opacity = '1';
     ajuda.reset();
     if (temVoz('relogio_pergunta')) await falar('relogio_pergunta');
-    else await falarPalavra(`mostra ${pedida === 1 ? 'uma hora' : HORAS[pedida - 1] + ' horas'}`, 0.8);
+    else await falarPalavra(`mostra ${pedida === 1 ? 'uma hora' : HORAS[pedida - 1] + ' horas'}`, 0.9);
     ocupado = false;
   });
 
@@ -279,7 +279,7 @@ export function telaRelogio(): Tela {
   void esperar(900).then(async () => {
     if (temVoz('relogio_agora')) await falar('relogio_agora');
     if (minutosReais < 5 && temVoz(`hora_${horaCheiaReal}`)) await falar(`hora_${horaCheiaReal}`);
-    else await falarPalavra(fraseDaHoraReal(horaCheiaReal, minutosReais), 0.8);
+    else await falarPalavra(fraseDaHoraReal(horaCheiaReal, minutosReais), 0.9);
   });
   return tela;
 }

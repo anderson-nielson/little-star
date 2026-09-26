@@ -531,7 +531,7 @@ toque é recebido: a certa ganha festa; as outras dizem o próprio nome e o pró
 lll"), para ela ouvir a diferença sem ouvir "errado".
 
 **Quem fala.** Palavra inteira e sílabas podem vir da voz do aparelho (`speechSynthesis`, como
-o `src/audio/voz.ts` do Ponta, em velocidade 0,7). **O som isolado da letra não pode**: a voz
+o `src/audio/voz.ts` do Ponta, em velocidade 0,85 e tom alto, alegre: lenta e grave ela soava desanimada). **O som isolado da letra não pode**: a voz
 sintética lê "g" como "gê", e ensinaria o contrário. Os sons das letras (umas 25 gravações
 curtas) são gravados por gente, de preferência a mãe ou o pai (seção 15.4).
 Sem gravação, o som é **montado pelo próprio jogo** (`src/audio/fonemas.ts`): um sintetizador

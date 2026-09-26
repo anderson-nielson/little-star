@@ -25,7 +25,7 @@ export function podeFalarEspanhol(): boolean {
 }
 
 /** Diz a palavra em espanhol. Devolve se conseguiu dizer. */
-export async function falarEspanhol(id: string, velocidade = 0.75): Promise<boolean> {
+export async function falarEspanhol(id: string, velocidade = 0.85): Promise<boolean> {
   if (temVoz('es_' + id)) return falar('es_' + id);
   const texto = ES[id];
   if (!texto || !podeFalar() || audio.mudo) return false;
@@ -38,7 +38,7 @@ export async function falarEspanhol(id: string, velocidade = 0.75): Promise<bool
       u.lang = v.lang;
       u.voice = v;
       u.rate = velocidade;
-      u.pitch = 1.15;
+      u.pitch = 1.35;
       let acabou = false;
       const fim = (ok: boolean) => {
         if (acabou) return;
