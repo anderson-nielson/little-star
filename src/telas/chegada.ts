@@ -27,7 +27,7 @@ export function telaChegada(): Tela {
 
   const W = 390;
   let s = `<rect width="390" height="780" fill="${CEU[ceu]}"/>` + veu(0, 0, W, 300, noite ? '#1b2140' : '#ebcdc3', 5, 0.3);
-  s += noite ? `<circle cx="80" cy="80" r="16" fill="#ebd9a8" opacity="0.9"/>` : `<circle cx="70" cy="80" r="22" fill="#ebd9a8" opacity="0.9"/>` + nuvem(280, 70, 14) + nuvem(150, 50, 10);
+  s += noite ? `<circle cx="200" cy="92" r="16" fill="#ebd9a8" opacity="0.9"/>` : `<circle cx="200" cy="92" r="22" fill="#ebd9a8" opacity="0.9"/>` + nuvem(280, 70, 14) + nuvem(150, 50, 10);
   s += `<rect x="0" y="560" width="390" height="220" fill="#c9dbb2"/>` + veu(0, 560, W, 220, '#8fae6b', 5, 0.32);
   /* a casa por fora */
   s += `<path d="M40 300L195 160L350 300z" fill="#4f6b3a"/><rect x="60" y="300" width="270" height="260" fill="#8fae6b"/>` + veu(60, 300, 270, 260, '#c9dbb2', 4, 0.22);

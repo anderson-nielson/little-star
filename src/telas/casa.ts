@@ -7,7 +7,7 @@ import { ceuDaHora, chaveDoDia, COR_DO_DIA, diaDaSemana, estacao } from '@/core/
 import { climaDoDia } from '@/core/festas';
 import { estagio, regadoHoje } from '@/core/horta';
 import { ir } from '@/core/roteador';
-import { cor as tok, esperar, svgEl } from '@/core/util';
+import { cor as tok, doTopo, esperar, svgEl } from '@/core/util';
 import { familia, figurinoDe } from '@/puppet/boneco';
 import { arco, balancinho, caixaDeAreia, centelha, coelho, contornoLuz, flor, gato, nuvem, pinha, pinheiro, veu } from '@/puppet/objetos';
 import { tocarFundo } from '@/audio/musica';
@@ -53,11 +53,14 @@ export function telaCasa(): Tela {
   const y3 = 470;
 
   let s = `<rect width="390" height="780" fill="${CEU[ceu]}"/>` + veu(0, 0, W, 200, noite ? '#1b2140' : '#ebcdc3', 5, 0.35);
+  /* o sol (ou a lua) e as nuvens moram no céu à direita da casa, entre a lua dos pais
+     e o pinheiro. O alto da tela é do cabeçalho: a casinha, o varal e as opções. */
   s += noite
-    ? `<circle cx="44" cy="112" r="14" fill="#ebd9a8" opacity="0.9"/>${centelha(150, 50, 8, '#ebd9a8')}${centelha(230, 40, 6, '#ebd9a8')}`
-    : `<circle cx="44" cy="108" r="18" fill="#ebd9a8" opacity="0.9"/>` + nuvem(280, 60, 14) + nuvem(150, 40, 10);
+    ? `<circle cx="360" cy="200" r="13" fill="#ebd9a8" opacity="0.9"/>${centelha(340, 262, 7, '#ebd9a8')}${centelha(374, 318, 6, '#ebd9a8')}`
+    : `<circle cx="360" cy="200" r="15" fill="#ebd9a8" opacity="0.9"/>` + nuvem(352, 286, 9);
   /* quintal */
-  s += `<rect x="0" y="600" width="390" height="180" fill="#c9dbb2"/>` + veu(0, 600, W, 180, '#8fae6b', 5, 0.32);
+  /* a grama vai além da cena: em tela mais larga ou mais alta, as sobras são quintal, não faixa lisa */
+  s += `<rect x="-400" y="600" width="1190" height="800" fill="#c9dbb2"/>` + veu(-80, 600, W + 160, 180, '#8fae6b', 5, 0.32, true);
   /* a estação e as festas mudam o quintal devagar */
   if (clima.folhas) for (let i = 0; i < 7; i++) s += `<path d="M${30 + i * 52} ${612 + (i % 3) * 8}q8 -12 16 0q-8 12 -16 0z" fill="${i % 2 ? '#d97f74' : '#e8a24a'}" opacity="0.85"/>`;
   if (clima.festa === 'junina') {
@@ -80,10 +83,11 @@ export function telaCasa(): Tela {
     }
   }
   /* casa */
-  s += `<path d="M${hx - 14} ${top + 10}L${hx + hw / 2} ${top - 60}L${hx + hw + 14} ${top + 10}z" fill="#4f6b3a"/>`;
-  s += `<rect x="${hx}" y="${top}" width="${hw}" height="${bottom - top}" fill="#8fae6b"/>` + veu(hx, top, hw, bottom - top, '#c9dbb2', 4, 0.22);
+  /* o telhado para abaixo do varal: a segunda corda não encosta na cumeeira */
+  s += `<path d="M${hx - 14} ${top + 10}L${hx + hw / 2} ${top - 46}L${hx + hw + 14} ${top + 10}z" fill="#4f6b3a"/>`;
+  s += `<rect x="${hx}" y="${top}" width="${hw}" height="${bottom - top}" fill="#8fae6b"/>` + veu(hx, top, hw, bottom - top, '#c9dbb2', 4, 0.22, true);
   /* quarto rosa */
-  s += `<rect x="${hx + 10}" y="${y1}" width="${hw - 20}" height="${y2 - y1 - 8}" fill="#f6e3dc"/>` + veu(hx + 10, y1, hw - 20, y2 - y1, '#ebcdc3', 3, 0.3);
+  s += `<rect x="${hx + 10}" y="${y1}" width="${hw - 20}" height="${y2 - y1 - 8}" fill="#f6e3dc"/>` + veu(hx + 10, y1, hw - 20, y2 - y1 - 8, '#ebcdc3', 3, 0.3, true);
   s += `<line x1="${hx + 10}" y1="${y2 - 8}" x2="${hx + hw - 10}" y2="${y2 - 8}" stroke="#c6a15b" stroke-width="1" opacity="0.6"/>`;
   /* janela do quarto: céu da hora, lua e estrelas das noites bem dormidas */
   s += `<g data-alvo="janela">${arco(hx + 130, y1 + 42, 56, 74, CEU[ceu]!)}`;
@@ -223,17 +227,18 @@ export function telaCasa(): Tela {
     s += `<g class="feito-hoje">${centelha(cx + rx - 4, cy - ry + 4, 12, '#c6a15b')}</g>`;
   }
 
-  /* o varal no céu: uma bandeirinha para cada coisa aberta da casa. Dourada e com
-     centelha, ela já brincou hoje; clarinha, ainda espera; balançando, nunca tocou.
-     O que ainda está fechado não pendura bandeirinha: o varal cresce com a casa. */
-  s += varal(e, luzEm);
-
-  /* na casa, a casinha só responde: ela já está em casa */
+  /* o varal mora no cabeçalho, logo abaixo da linha da casinha: uma bandeirinha para
+     cada coisa aberta da casa. Dourada e com centelha, ela já brincou hoje; clarinha,
+     ainda espera; balançando, nunca tocou. O que ainda está fechado não pendura
+     bandeirinha: o varal cresce com a casa. A cena guarda FOLGA_DO_VARAL em cima
+     para o varal não cobrir o telhado. */
   const tela = telaSvg(s, {
     casinha: () => {
       tiquinho();
-      tela.comemorar(40, 44);
+      tela.comemorar(...doTopo(tela.svg, 40, 44));
     },
+    topo: varal(e, luzEm),
+    folga: FOLGA_DO_VARAL,
   });
   const svg = tela.svg;
   tocarFundo(noite ? 'ninar_brahms' : e.sessoes % 2 ? 'gymnopedie' : 'preludio_bach', { bpm: noite ? 60 : undefined });
@@ -464,7 +469,10 @@ export function telaCasa(): Tela {
 
 /* ---------- o varal de bandeirinhas ---------- */
 
-/** Um desenho pequeno de cada coisa, para caber numa bandeirinha de raio 10. */
+/** Quanto a casa reserva em cima para as duas cordas do varal (unidades da cena). */
+const FOLGA_DO_VARAL = 126;
+
+/** Um desenho pequeno de cada coisa, feito para raio 10 e ampliado na bandeirinha. */
 const MINI: Record<Coisa, (x: number, y: number) => string> = {
   piano: (x, y) => `<rect x="${x - 6}" y="${y - 5}" width="12" height="10" rx="2" fill="#f2a9c4"/><rect x="${x - 6}" y="${y}" width="12" height="3.5" fill="#fbf8f1"/>`,
   caderno: (x, y) => `<rect x="${x - 5}" y="${y - 5.5}" width="10" height="11" rx="1.5" fill="#fbf8f1" stroke="#c6a15b" stroke-width="0.8"/><text x="${x}" y="${y + 3}" text-anchor="middle" font-family="Jost, sans-serif" font-size="8" font-weight="500" fill="#f2a9c4">A</text>`,
@@ -492,21 +500,21 @@ function varal(e: ReturnType<typeof estado>, luzEm: Coisa | null): string {
   const abertas = COISAS.filter((c) => disponivel(e, c));
   if (!abertas.length) return '';
   /* até 8 por fileira; com mais, o varal ganha uma segunda corda logo abaixo.
-     Bandeirinhas grandes: é um dedo de 5 anos que vai escolher. As cordas ficam
-     entre a casinha (até x 76) e a lua (a partir de x 322), e a primeira desce
-     além da borda morta do toque (24 px). */
+     Bandeirinhas grandes: é um dedo de 5 anos que vai escolher. As cordas correm
+     de lado a lado, embaixo da linha da casinha, da bolinha, da lua e das opções
+     (que vai até y 80), sem nada por cima delas. */
   const porFileira = abertas.length > 8 ? Math.ceil(abertas.length / 2) : abertas.length;
   const fileiras = [abertas.slice(0, porFileira), abertas.slice(porFileira)].filter((f) => f.length);
-  const x0 = 84;
-  const x1 = 318;
+  const x0 = 18;
+  const x1 = 372;
   const meio = (x0 + x1) / 2;
-  const raio = 12;
-  const escala = 1.2;
-  const passo = Math.min(38, (x1 - x0) / porFileira);
-  const flecha = 3;
+  const raio = 19;
+  const escala = 1.9;
+  const passo = Math.min(46, (x1 - x0) / porFileira);
+  const flecha = 4;
   let s = '';
   fileiras.forEach((fila, f) => {
-    const ya = 20 + f * 32;
+    const ya = 86 + f * 48;
     const largura = passo * (fila.length - 1);
     const inicio = meio - largura / 2;
     const yDo = (x: number) => {

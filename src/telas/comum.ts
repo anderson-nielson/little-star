@@ -1,4 +1,4 @@
-import { cena, esperar, pontoNoSvg, svgEl } from '@/core/util';
+import { cena, doTopo, encaixar, esperar, pontoNoSvg, svgEl } from '@/core/util';
 import { ocupado, reivindicarDedo, segurar, soltarDedo, tocavel, travar } from '@/core/toque';
 import { ir } from '@/core/roteador';
 import { sessao } from '@/core/sessao';
@@ -26,6 +26,10 @@ export interface OpcoesTela {
   /** a lua do cantinho dos pais, no canto da direita. Toda tela tem; `false` só no styleguide */
   lua?: boolean;
   fundo?: string;
+  /** o que mais mora no cabeçalho, em unidades do cabeçalho (o varal da casa) */
+  topo?: string;
+  /** quanto a cena reserva em cima para esse cabeçalho, em unidades da cena */
+  folga?: number;
 }
 
 /**
@@ -40,7 +44,11 @@ export function telaSvg(conteudo: string, o: OpcoesTela = {}): TelaSvg {
   if (corDeFundo) el.style.background = corDeFundo;
   const comCasinha = o.casinha ?? true;
   const comLua = o.lua ?? true;
-  const svg = cena(conteudo + (comCasinha ? casinha() : '') + (comLua ? lua() : ''));
+  /* o cabeçalho num grupo só: colado no alto da tela, do mesmo tamanho em toda tela */
+  const svg = cena(conteudo + `<g class="topo">${comCasinha ? casinha() : ''}${comLua ? lua() : ''}${o.topo ?? ''}</g>`);
+  svg.dataset.encaixe = '1';
+  if (o.folga) svg.dataset.topo = String(o.folga);
+  encaixar(svg);
   el.appendChild(svg);
   /* a mãozinha só mostra: nunca fica na frente do que ela vai tocar */
   const camadaMao = svgEl('<g class="camada-mao" style="pointer-events:none"></g>');
@@ -119,7 +127,9 @@ export function telaSvg(conteudo: string, o: OpcoesTela = {}): TelaSvg {
  * morta. Devolve como tirar os ouvintes.
  */
 export function cantos(el: HTMLElement, aoCasa: () => void, aoPais: () => void = () => void ir('pais')): () => void {
-  const hud = cena(casinha() + lua());
+  const hud = cena(`<g class="topo">${casinha()}${lua()}</g>`);
+  hud.dataset.encaixe = '1';
+  encaixar(hud);
   hud.style.pointerEvents = 'none';
   el.appendChild(hud);
   const casa = hud.querySelector('.casinha') as SVGGElement;
@@ -232,7 +242,7 @@ export function convidarParaCasa(tela: TelaSvg, x = 40, y = 44): () => void {
   tela.svg.querySelector('.casinha')?.after(luz);
   let vivo = true;
   void esperar(1200).then(() => {
-    if (vivo) tela.mao([x + 16, y + 26], -30);
+    if (vivo) tela.mao(doTopo(tela.svg, x + 16, y + 26), -30);
   });
   void esperar(5200).then(() => {
     if (vivo) tela.mao(null);

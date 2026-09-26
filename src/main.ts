@@ -10,7 +10,7 @@ import { aoAnunciar, narracao, vezesNoHistorico } from './core/narracao';
 import { montarBalao } from './ui/balao';
 import { montarOpcoes } from './ui/opcoes';
 import { aoTrocarTela, telaAtual } from './core/roteador';
-import { esperar } from './core/util';
+import { encaixar, esperar, medida } from './core/util';
 import { telaChegada } from './telas/chegada';
 import { telaCasa } from './telas/casa';
 import { telaRoda } from './telas/roda';
@@ -72,6 +72,20 @@ registrar('gangorra', telaGangorra);
 
 const app = document.getElementById('app')!;
 montar(app);
+
+/* o cabeçalho fica colado no alto da tela, com a mesma escala em toda tela. A casinha e
+   a lua são SVG (`encaixar`); o botão das opções e a bolinha do balão são HTML e usam
+   estas variáveis para cair na mesma linha. Girar ou redimensionar reencaixa tudo. */
+const medirCena = () => {
+  const m = medida();
+  if (!m) return;
+  app.style.setProperty('--cena-k', m.kb.toFixed(4));
+  app.style.setProperty('--cena-x', `${(m.fora + m.dxb).toFixed(1)}px`);
+  app.style.setProperty('--cena-dx', `${m.dxb.toFixed(1)}px`);
+  document.querySelectorAll<SVGSVGElement>('svg.cena[data-encaixe]').forEach(encaixar);
+};
+medirCena();
+new ResizeObserver(medirCena).observe(app);
 
 /* o som desligado nas opções vale desde o primeiro toque */
 audio.definirMudo(estado().pais.mudo);

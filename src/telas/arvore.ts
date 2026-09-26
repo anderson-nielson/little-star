@@ -38,7 +38,7 @@ export function telaArvore(): Tela {
   const gatoNoTopo = Boolean(e.bichos.gato) && aventurasAbertas(e).includes('arvore');
 
   let s = `<rect width="390" height="780" fill="${CEU[ceu]}"/>` + veu(0, 0, 390, 400, noite ? '#1b2140' : '#ebcdc3', 5, 0.3);
-  s += noite ? `<circle cx="60" cy="70" r="14" fill="#ebd9a8"/>` + [90, 150, 230, 330, 300].map((x, i) => centelha(x, 40 + i * 22, 7, '#ebd9a8')).join('') : `<circle cx="60" cy="70" r="22" fill="#ebd9a8" opacity="0.9"/>` + nuvem(300, 60, 14) + nuvem(120, 120, 9);
+  s += noite ? `<circle cx="205" cy="76" r="14" fill="#ebd9a8"/>` + [90, 150, 230, 330, 300].map((x, i) => centelha(x, 40 + i * 22, 7, '#ebd9a8')).join('') : `<circle cx="205" cy="76" r="22" fill="#ebd9a8" opacity="0.9"/>` + nuvem(300, 60, 14) + nuvem(120, 120, 9);
   /* a casa verde vista de longe, pequena */
   s += `<g class="vista" opacity="0"><path d="M300 150l30 -26l30 26z" fill="#4f6b3a"/><rect x="304" y="150" width="52" height="40" fill="#8fae6b"/><rect x="322" y="172" width="14" height="18" rx="6" fill="#6e1a27"/></g>`;
   /* estrelas das noites bem dormidas, só visíveis do topo */

@@ -21,15 +21,19 @@ export function centelhas(cx: number, cy: number, n = 6, r = 30, cls = 'sobe'): 
   return s;
 }
 
-/** Véu de aquarela: formas lisas e transparentes sobrepostas, sem blur. */
-export function veu(x: number, y: number, w: number, h: number, cor: string, n = 4, op = 0.28): string {
-  let s = '';
+/**
+ * Véu de aquarela: formas lisas e transparentes sobrepostas, sem blur. As elipses
+ * passam da caixa; com `recorta`, ficam dentro dela (um svg aninhado corta a sobra),
+ * para o véu de um cômodo não manchar o céu e o telhado.
+ */
+export function veu(x: number, y: number, w: number, h: number, cor: string, n = 4, op = 0.28, recorta = false): string {
+  let s = recorta ? `<svg x="${x}" y="${y}" width="${w}" height="${h}" viewBox="${x} ${y} ${w} ${h}" overflow="hidden">` : '';
   for (let i = 0; i < n; i++) {
     const cx = x + w * (0.2 + 0.6 * ((i * 0.37) % 1));
     const cy = y + h * (0.3 + 0.4 * ((i * 0.61) % 1));
     s += `<ellipse cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" rx="${(w * 0.45).toFixed(1)}" ry="${(h * 0.5).toFixed(1)}" fill="${cor}" opacity="${op}"/>`;
   }
-  return s;
+  return recorta ? s + '</svg>' : s;
 }
 
 export function nuvem(x: number, y: number, s: number): string {
@@ -41,8 +45,8 @@ export function casinha(x = 40, y = 44): string {
   return `<g class="casinha" data-alvo="casa" aria-label="voltar para casa"><circle cx="${x}" cy="${y}" r="36" fill="${C.marfim}" opacity="0.85"/><path d="M${x - 17} ${y + 2}L${x} ${y - 15}L${x + 17} ${y + 2}V${y + 16}H${x - 17}z" fill="#8FAE6B" stroke="${C.musgoTinta}" stroke-width="1.6" stroke-linejoin="round"/><path d="M${x - 4.5} ${y + 16}V${y + 6}H${x + 4.5}V${y + 16}" fill="${C.rosaDoce}"/></g>`;
 }
 
-/** A lua do cantinho dos pais: quase invisível, no canto de cima, logo abaixo do botão das opções. */
-export function lua(x = 352, y = 104): string {
+/** A lua do cantinho dos pais: quase invisível, na linha da casinha, logo à esquerda do botão das opções. */
+export function lua(x = 294, y = 44): string {
   return `<g class="lua-pais" data-alvo="pais"><circle cx="${x}" cy="${y}" r="30" fill="transparent"/><path d="M${x} ${y - 9}a9 9 0 1 0 8 13a7 7 0 1 1-8-13z" fill="${C.luz}" opacity="0.5"/></g>`;
 }
 
