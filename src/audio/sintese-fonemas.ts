@@ -139,14 +139,19 @@ function garganta(ctx: BaseAudioContext): PeriodicWave {
   const n = 48;
   const re = new Float32Array(n);
   const im = new Float32Array(n);
-  for (let k = 1; k < n; k++) im[k] = 1 / Math.pow(k, 1.6);
+  /* caindo menos que numa voz cansada: os agudos a mais deixam o som claro e animado */
+  for (let k = 1; k < n; k++) im[k] = 1 / Math.pow(k, 1.25);
   const w = ctx.createPeriodicWave(re, im);
   gargantas.set(ctx, w);
   return w;
 }
 
-/** A altura da voz: um tom de conversa com criança, que sobe um pouco e desce no fim. */
-export const F0 = 230;
+/**
+ * A altura da voz: o tom alegre de quem brinca com criança. Começa alto, sobe
+ * e fica lá em cima; nunca desce no fim, que é a entonação de quem está
+ * triste ou cansado (o primeiro sintetizador descia e soava "pra baixo").
+ */
+export const F0 = 275;
 let f0 = F0;
 
 /** Muda a altura da voz (Hz). Só para testar de fora do jogo. */
@@ -158,13 +163,13 @@ function voz(ctx: BaseAudioContext, t: number, dur: number): OscillatorNode {
   const o = ctx.createOscillator();
   o.setPeriodicWave(garganta(ctx));
   o.frequency.setValueAtTime(f0, t);
-  o.frequency.linearRampToValueAtTime(f0 * 1.05, t + dur * 0.3);
-  o.frequency.linearRampToValueAtTime(f0 * 0.9, t + dur);
+  o.frequency.linearRampToValueAtTime(f0 * 1.12, t + dur * 0.35);
+  o.frequency.linearRampToValueAtTime(f0 * 1.15, t + dur);
   /* um tremor leve, para não soar como apito */
   const lfo = ctx.createOscillator();
-  lfo.frequency.value = 5.2;
+  lfo.frequency.value = 5.8;
   const prof = ctx.createGain();
-  prof.gain.value = f0 * 0.012;
+  prof.gain.value = f0 * 0.009;
   lfo.connect(prof);
   prof.connect(o.frequency);
   lfo.start(t);
@@ -186,7 +191,8 @@ function envelope(ctx: BaseAudioContext, t: number, dur: number, nivel: number, 
 /** A boca: três filtros em paralelo, um por formante. Devolve a entrada e os filtros (para escorregar). */
 function boca(ctx: BaseAudioContext, f: Formantes, g: Formantes, saida: AudioNode, t: number): { entrada: GainNode; filtros: BiquadFilterNode[]; ganhos: GainNode[] } {
   const entrada = ctx.createGain();
-  const larguras = [90, 110, 170];
+  /* ressonâncias largas: estreitas, a vogal apitava e soava assustadora */
+  const larguras = [130, 160, 220];
   const filtros: BiquadFilterNode[] = [];
   const ganhos: GainNode[] = [];
   f.forEach((fr, i) => {
@@ -338,7 +344,7 @@ function estalo(ctx: BaseAudioContext, saida: AudioNode, t0: number, r: Estalo):
  * consoantes que se seguram logo atrás e F e R (que são sopro) mais baixos,
  * como na fala. Refazer a medida quando mudar uma receita (scripts/fonemas.mjs).
  */
-const VOLUME: Record<string, number> = { som_a: 0.364, som_e: 0.224, som_e2: 0.109, som_i: 0.08, som_o: 0.213, som_o2: 0.102, som_u: 0.102, som_m: 0.022, som_n: 0.024, som_l: 0.074, som_lh: 0.072, som_nh: 0.035, som_s: 0.242, som_z: 0.273, som_x: 0.537, som_j: 0.377, som_f: 0.53, som_v: 0.4, som_r: 0.56, som_p: 0.437, som_b: 0.412, som_t: 0.436, som_d: 0.411, som_c: 0.437, som_g: 0.412 };
+const VOLUME: Record<string, number> = { som_a: 0.175, som_e: 0.103, som_e2: 0.098, som_i: 0.041, som_o: 0.089, som_o2: 0.095, som_u: 0.045, som_m: 0.023, som_n: 0.025, som_l: 0.034, som_lh: 0.043, som_nh: 0.032, som_s: 0.244, som_z: 0.283, som_x: 0.542, som_j: 0.399, som_f: 0.53, som_v: 0.423, som_r: 0.576, som_p: 0.164, som_b: 0.159, som_t: 0.164, som_d: 0.159, som_c: 0.164, som_g: 0.159 };
 
 /**
  * Agenda o som `id` no contexto, começando em `t`, e devolve quanto dura.
