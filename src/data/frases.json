@@ -119,5 +119,21 @@
   { "id": "hora_12", "texto": "são doze horas", "dono": "theo", "grupo": "relogio", "obrigatoria": false },
   { "id": "gato_topo", "texto": "O gatinho subiu na árvore e não sabe descer!", "dono": "theo", "grupo": "aventuras", "obrigatoria": false },
   { "id": "lago_pescou", "texto": "Peguei você!", "dono": "theo", "grupo": "aventuras", "obrigatoria": false },
-  { "id": "brava", "texto": "Brava, Stella!", "dono": "pai", "grupo": "palco", "obrigatoria": true }
+  { "id": "brava", "texto": "Brava, Stella!", "dono": "pai", "grupo": "palco", "obrigatoria": true },
+  { "id": "pergunta_parquinho", "texto": "Você brincou no parquinho?", "dono": "theo", "grupo": "roda", "obrigatoria": false },
+  { "id": "comemora_parquinho", "texto": "Balançou, escorregou, gangorrou! Que força.", "dono": "theo", "grupo": "roda", "obrigatoria": false },
+  { "id": "convite_parquinho", "texto": "Vamos ao parquinho de verdade?", "dono": "mae", "grupo": "despedida", "obrigatoria": false },
+  { "id": "theo_forca", "texto": "Olha a Stella, que força!", "dono": "theo", "grupo": "parquinho", "obrigatoria": false },
+  { "id": "theo_coragem", "texto": "Que coragem, Stella!", "dono": "theo", "grupo": "parquinho", "obrigatoria": false },
+  { "id": "theo_esperta", "texto": "Que esperta, empurrou com o pé!", "dono": "theo", "grupo": "parquinho", "obrigatoria": false },
+  { "id": "num_1", "texto": "um", "dono": "qualquer", "grupo": "parquinho", "obrigatoria": false },
+  { "id": "num_2", "texto": "dois", "dono": "qualquer", "grupo": "parquinho", "obrigatoria": false },
+  { "id": "num_3", "texto": "três", "dono": "qualquer", "grupo": "parquinho", "obrigatoria": false },
+  { "id": "num_4", "texto": "quatro", "dono": "qualquer", "grupo": "parquinho", "obrigatoria": false },
+  { "id": "num_5", "texto": "cinco", "dono": "qualquer", "grupo": "parquinho", "obrigatoria": false },
+  { "id": "num_6", "texto": "seis", "dono": "qualquer", "grupo": "parquinho", "obrigatoria": false },
+  { "id": "num_7", "texto": "sete", "dono": "qualquer", "grupo": "parquinho", "obrigatoria": false },
+  { "id": "num_8", "texto": "oito", "dono": "qualquer", "grupo": "parquinho", "obrigatoria": false },
+  { "id": "num_9", "texto": "nove", "dono": "qualquer", "grupo": "parquinho", "obrigatoria": false },
+  { "id": "num_10", "texto": "dez", "dono": "qualquer", "grupo": "parquinho", "obrigatoria": false }
 ]

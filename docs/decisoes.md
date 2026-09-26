@@ -199,3 +199,43 @@ bichos, despedida) abre a etapa seguinte na hora. Duas saídas visíveis: quando
 piano acaba, a mãozinha aponta a casinha; e tocar na família na sala faz eles chamarem para
 os bichos e para a despedida. A segunda abertura no mesmo dia pula só o que já aconteceu hoje
 (roda, prato, som), não mais tudo.
+
+## O parquinho do condomínio
+
+A Stella vai ao parquinho do condomínio e faz sempre a mesma volta: se balança sozinha no
+balanço, contando até dez em voz alta, depois vai ao escorregador, depois à gangorra. O Theo
+vai junto e não brinca no lugar dela: cuida, olha, e se orgulha da força, da coragem e da
+esperteza dela. O estudo está em `docs/parquinho.md` e nas telas de
+`docs/referencia/parquinho.html`. O que entrou no jogo:
+
+- **Fora da porta, pelo balancinho.** Um balanço pequeno na beirada do quintal (etapa 3, com a
+  árvore e a horta) leva ao parquinho. Três telas, uma por brinquedo; os outros dois aparecem
+  pequenos na cena e se tocam para ir. Nada é trancado; a mãozinha aponta o próximo da volta
+  dela quando ela para.
+- **O balanço é um pêndulo** (`src/core/parquinho.ts`, puro e testado): seno e amortecimento,
+  período de 2,4 s, perde metade da altura em uns oito ciclos. Arrastar e soltar dá o primeiro
+  balanço. **O impulso é dela**: cada toque estica as pernas a favor do movimento, vale mais
+  perto do ponto mais baixo, e a energia tem teto em qualquer ângulo. Ninguém empurra; não
+  existe toque errado. Uma nota da lira por passagem embaixo; balanço alto, o Theo bate palma.
+- **Contar até dez** é uma camada do balanço, ligada no cantinho (`contarNoBalanco`, vem
+  ligada): cada ida completa com balanço alto solta uma pedrinha para um pote na cena, com
+  tique e a voz contando. Nenhum número escrito. Os números são palavras inteiras, então a voz
+  do aparelho diz enquanto a família não grava `num_1` a `num_10`. No dez, uma pedrinha de
+  verdade (`PEDRINHAS.balanco`) e o Theo admira ("Olha a Stella, que força!").
+- **O escorregador**: cada toque sobe um degrau, com uma nota mais alta; no alto ela espera; um
+  toque e desce como cena, cabelo para trás, lira descendo. O Theo fica embaixo, na saída
+  ("Que coragem, Stella!"). Ela volta andando sozinha.
+- **A gangorra**: ela numa ponta, o Theo de pé na outra segurando a tábua. Só o pé no chão faz
+  subir; no ar, sininho baixinho. A descida é macia porque ele segura (amortecimento quase
+  crítico), e nunca bate. Cinco subidas, centelhas e "Que esperta, empurrou com o pé!".
+- **A roda pergunta** "Você brincou no parquinho?" (o balancinho, dono Theo; tarefa
+  `parquinho`, ligada por padrão). Não ir não tira pedrinha: parquinho não é combinado. A
+  lembrança é um balancinho de madeira na mesa da estação.
+- **A despedida convida** para o parquinho de verdade quando ela foi ao do jogo no dia
+  (`hoje.parquinho`): "Vamos ao parquinho de verdade?", com o balancinho no balão. É o jeito
+  Waldorf de fazer tela: apontar para fora.
+- **A narração** ganhou `balanco`, `parquinho`, `escorregador` e `gangorra`, com o Theo como
+  quem torce por ela em todas.
+- **Um detalhe de implementação**: a classe `.alvo` do CSS muda a origem da transformação
+  (`transform-box: fill-box`), então os grupos que giram (o balanço, a tábua) nunca a levam; os
+  alvos do toque são retângulos parados por cima.

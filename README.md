@@ -4,8 +4,8 @@ A casa verde da Stella: um jogo de celular para 5 anos, irmão pequeno do
 [Ponta](https://github.com/anderson-nielson/grande-ballet). Sem texto para ler,
 sem pontos, sem vida, sem relógio. A família recebe, a Stella conta o que fez de
 verdade, aprende uma letra pelo som e pela imagem, brinca na areia, no piano e
-no jardim, cuida do gatinho e do coelhinho, e a família se despede com um
-convite para o mundo.
+no jardim, vai ao parquinho do condomínio, cuida do gatinho e do coelhinho, e a
+família se despede com um convite para o mundo.
 
 - `SPEC.md`: o que existe no jogo e por quê.
 - `GAMEPLAY.md`: como se joga, toque a toque, e o laço de cada sessão.

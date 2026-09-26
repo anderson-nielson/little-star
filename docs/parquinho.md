@@ -61,3 +61,12 @@ seguinte, juntos, porque a volta dela é inteira ou não é.
    está tudo em madeira e corda, com o escorregador claro.
 6. Ela conta em voz alta sozinha ou alguém puxa a contagem? Se ela puxa, a voz do jogo pode
    vir um pouquinho depois da dela, para ela liderar.
+
+## O que entrou no jogo
+
+Tudo o que está acima, em uma rodada: `src/core/parquinho.ts` (a física, pura e testada em
+`tests/parquinho.test.ts`), `src/telas/parquinho.ts` (as três telas), o balancinho no quintal
+e na mesa da estação (`casa.ts`), o objeto da roda (`roda.ts`), o convite da despedida
+(`despedida.ts`), a opção "Contar até dez no balanço" no cantinho dos pais (`pais.ts`), as
+frases do Theo e os números em `frases.json`, e a narração em `narracao.json`. As decisões
+estão em `docs/decisoes.md`, seção "O parquinho do condomínio".

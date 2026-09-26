@@ -5,7 +5,7 @@ import { anunciar, aoAnunciar, AVANCOS_NARRADOS, frasesDe, narracao, vezesNoHist
 import { tempoDeLeitura, LEITURA_MAXIMA } from '@/ui/balao';
 
 /** todo motivo que o jogo dá a `ganhar`, mais os momentos sem pedrinha */
-const MOTIVOS_DO_JOGO = ['cama', 'dentes', 'brinquedos', 'banho', 'quarto', 'gentil', 'dormiu_sozinha', 'noite_toda', 'letra', 'areia', 'palavra', 'som', 'relogio', 'colheita', 'comidinha', 'aventura', 'medalha', 'chegada', 'bilhete', 'bichos', 'despedida', 'boa_noite'];
+const MOTIVOS_DO_JOGO = ['cama', 'dentes', 'brinquedos', 'banho', 'quarto', 'gentil', 'dormiu_sozinha', 'noite_toda', 'letra', 'areia', 'palavra', 'som', 'relogio', 'colheita', 'comidinha', 'aventura', 'medalha', 'chegada', 'bilhete', 'bichos', 'despedida', 'boa_noite', 'balanco', 'parquinho', 'escorregador', 'gangorra'];
 
 describe('a narração para quem joga junto', () => {
   it('todo avanço do jogo tem pelo menos três frases, e elas se revezam sem repetir de imediato', () => {

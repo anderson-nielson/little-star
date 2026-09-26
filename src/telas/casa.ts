@@ -9,7 +9,7 @@ import { estagio, regadoHoje } from '@/core/horta';
 import { ir } from '@/core/roteador';
 import { cor as tok, esperar, svgEl } from '@/core/util';
 import { familia, figurinoDe } from '@/puppet/boneco';
-import { arco, caixaDeAreia, centelha, coelho, contornoLuz, flor, gato, nuvem, pinha, pinheiro, veu } from '@/puppet/objetos';
+import { arco, balancinho, caixaDeAreia, centelha, coelho, contornoLuz, flor, gato, nuvem, pinha, pinheiro, veu } from '@/puppet/objetos';
 import { tocarFundo } from '@/audio/musica';
 import { falar, temVoz } from '@/audio/vozes';
 import { ronronar, sininho, tiquinho } from '@/audio/synth';
@@ -121,6 +121,8 @@ export function telaCasa(): Tela {
   e.pinhas.slice(0, 8).forEach((p) => {
     s += pinha(hx + 210 + p.x * 58, y1 + 124, 4, p.tipo);
   });
+  /* a lembrança do parquinho: um balancinho de madeira ao lado das pinhas */
+  if (e.lembrancas.some((l) => l.startsWith('parquinho:'))) s += balancinho(hx + 262, y1 + 123, 12);
   s += `</g>`;
   /* piano rosa */
   s += `<g data-alvo="piano"><rect x="${hx + 150}" y="${y1 + 104}" width="44" height="42" rx="4" fill="#f2a9c4"/><rect x="${hx + 150}" y="${y1 + 122}" width="44" height="10" fill="#fbf8f1"/><path d="M${hx + 156} ${y1 + 122}v10M${hx + 162} ${y1 + 122}v10M${hx + 168} ${y1 + 122}v10M${hx + 174} ${y1 + 122}v10M${hx + 180} ${y1 + 122}v10M${hx + 186} ${y1 + 122}v10" stroke="#ebcdc3" stroke-width="1"/></g>`;
@@ -182,6 +184,8 @@ export function telaCasa(): Tela {
     });
     s += `</g>`;
   }
+  /* o parquinho do condomínio, logo ali fora: o balancinho na beirada do quintal */
+  if (aberto(s7, 'parquinho')) s += `<g data-alvo="parquinho"><circle cx="236" cy="735" r="34" fill="transparent"/>${balancinho(236, 758, 44, 8)}</g>`;
   s += `<g data-alvo="arvore">${pinheiro(350, 745, 330)}`;
   if (clima.flores) s += flor(322, 640, '#f2a9c4', 5) + flor(372, 600, '#ebd9a8', 5) + flor(340, 560, '#f2a9c4', 4);
   if (clima.fitinha) s += `<path d="M330 700q20 -10 40 0" fill="none" stroke="#7FA5B8" stroke-width="3"/>`;
@@ -259,6 +263,7 @@ export function telaCasa(): Tela {
   tela.alvo('[data-alvo="lira"]', () => vai('lira'));
   tela.alvo('[data-alvo="bilhete"]', () => vai('bilhete'));
   tela.alvo('[data-alvo="relogio"]', () => vai('relogio'));
+  tela.alvo('[data-alvo="parquinho"]', () => vai('parquinho'));
   tela.alvo('[data-alvo="pote"]', (_ev, el) => {
     /* as pedrinhas tilintam: uma nota por pedrinha */
     const n = Math.min(estado().pedrinhas, PEDRINHAS.pote);

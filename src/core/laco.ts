@@ -16,7 +16,7 @@ export type Brincadeira = 'piano' | 'caderno' | 'palavras' | 'areia' | 'pinhas' 
 export const ABERTURAS: Record<number, string[]> = {
   1: ['casa', 'piano', 'gato'],
   2: ['roda', 'caderno', 'som', 'bichos', 'quintal', 'areia', 'coelho', 'ukulele', 'lira', 'bonecas', 'bilhete', 'relogio'],
-  3: ['prato', 'palavras', 'pinhas', 'arvore', 'horta'],
+  3: ['prato', 'palavras', 'pinhas', 'arvore', 'horta', 'parquinho'],
   4: ['jardim', 'cozinha'],
 };
 /** A partir desta sessão está tudo aberto. Tela é rara na casa dela: quatro sessões bastam. */
