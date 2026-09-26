@@ -357,25 +357,28 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
 - **Quando**: brincadeira do dia no sábado; a porta de casa abre para ela em qualquer dia a
   partir da primeira semana.
 - **Como**:
-  1. A porta abre, a Stella e o coelhinho saem correndo pelo jardim, na faixa do meio da tela.
-     Ela corre sozinha; a tela rola devagar. Música: *Valsa das Flores*.
-  2. Poças e pedrinhas chegam **no tempo da música**: um obstáculo a cada dois compassos,
-     sempre no tempo forte (uns 30 em dois minutos; nas duas primeiras aventuras, a cada
-     quatro). Assim, pular no tempo da música é pular na hora certa.
-  3. **Toque em qualquer lugar = pular.** O pulo "procura" o obstáculo: tocou em até 0,7
-     segundo antes, a Stella espera e pula na hora exata. Tocou longe de qualquer obstáculo,
-     ela dá um pulinho de alegria (não é pulo perdido). Pulo no tempo forte ganha um acorde.
-  4. Fitas de cetim penduradas nas árvores: quando ela chega numa, balança sozinha sobre o
-     laguinho (o sapo de coroa olha). Flores fechadas abrem quando ela passa.
-  5. Tropeçou numa poça: senta, ri, o coelhinho volta, ela levanta. A fase não volta para trás.
-  6. Dura dois minutos de música. Chega no fim sempre, com ou sem toque.
+  1. O coelhinho fugiu para o fim do jardim. A porta abre e a Stella sai para buscar, na faixa
+     do meio da tela. Ela anda sozinha, balançando os bracinhos; a tela rola devagar. Música:
+     *Valsa das Flores*. Lá em cima, um mapinha: a casinha, o coelhinho e a cabecinha dela
+     andando entre os dois (rosa na ida, ouro na volta).
+  2. Poças, pedras e troncos no caminho, um a cada dois compassos de caminhada (uns oito na
+     ida; nas duas primeiras aventuras, a cada quatro).
+  3. **Toque em qualquer lugar = pular.** O pulo sai na hora do toque, braços e pernas
+     abertos como no balé. Se um obstáculo chega em até 0,7 segundo, o pulo estica até ela
+     passar. Tocou longe de qualquer obstáculo, ela dá um pulinho de alegria.
+  4. Não pulou na hora: escorrega (na poça, respinga), senta, ri, levanta e segue. O caminho
+     não volta para trás.
+  5. No fim do jardim, abraça o coelhinho, vira e volta pelo mesmo caminho, com ele pulando
+     atrás. As flores que abriram na ida ficam abertas na volta.
+  6. Entra pela porta de casa e vai para o palco. Chega sempre, com ou sem toque (pior caso,
+     uns dois minutos).
   7. **O palco**: cortina de veludo abre, luz de ribalta. Na plateia, a mãe, o pai, o Theo e as
      bonecas. Ela dança sozinha a *Dança da Fada Açucarada*; cada toque faz um giro (metade de
      baixo da tela) ou um salto (metade de cima). Reverência, aplauso, a família abraça na
      coxia. Uma boneca de pano nova espera por ela na estante.
 - **Dura**: 3 a 4 minutos, com o palco.
-- **Ajuda**: A1, a mãozinha aparece no obstáculo seguinte. A2, o coelhinho pula na frente e a
-  poça vira vitória-régia: ela passa por cima sem pular.
+- **Ajuda**: A1 (dois escorregões seguidos), a mãozinha aparece no obstáculo seguinte. A2
+  (quatro), a poça vira vitória-régia e a pedra vira tufo de flor: ela passa sem pular.
 - **Cresce**: uma boneca por aventura terminada, até completar a estante.
 
 ### 6.11 Os bichos

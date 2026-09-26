@@ -5,7 +5,7 @@
  * pernas curtas. Tudo por dados de cor: trocar roupa é trocar variável.
  */
 export type Ponto = [number, number];
-export type Pose = 'parado' | 'acena' | 'sentado' | 'pulo' | 'aponta' | 'segura' | 'giro' | 'reverencia' | 'deitado' | 'abraca';
+export type Pose = 'parado' | 'acena' | 'sentado' | 'pulo' | 'aponta' | 'segura' | 'giro' | 'reverencia' | 'deitado' | 'abraca' | 'anda' | 'salto' | 'escorrega' | 'balanco' | 'palma';
 export type Cabelo = 'liso' | 'cacheado' | 'cachinhos' | 'coque' | 'curto' | 'rabo' | 'entradas' | 'testa-alta';
 export type Barba = 'baixa' | 'leve' | 'cheia';
 export type Oculos = 'oval' | 'redondo' | 'fino';
@@ -39,6 +39,8 @@ export interface Figura {
   pano?: boolean;
   /** a boneca de pano: sem cabelo, um gorro */
   gorro?: string;
+  /** na pose 'anda', onde está o passo: 0 a 1 é uma passada inteira (as duas pernas) */
+  passo?: number;
 }
 
 export interface Desenho {
@@ -107,15 +109,29 @@ export function boneco(o: Figura): Desenho {
     braco: [2.1 * w * esc, 1.6 * w * esc],
     ante: [1.6 * w * esc, 1.2 * w * esc],
   };
-  const sentado = pose === 'sentado';
+  /* no balanço: sentada, segurando as cordas para cima, pernas para a frente */
+  const noBalanco = pose === 'balanco';
+  const sentado = pose === 'sentado' || noBalanco;
   const pulo = pose === 'pulo' || pose === 'giro';
   const reverencia = pose === 'reverencia';
   const deitado = pose === 'deitado';
+  const anda = pose === 'anda';
+  const salto = pose === 'salto';
+  const escorrega = pose === 'escorrega';
+  /* andar: a perna balança da anca, o joelho dobra quando a perna volta; braço oposto à perna */
+  const balanco = Math.sin((o.passo ?? 0) * Math.PI * 2);
+  const perna = (hx: number, hy: number, coxaAng: number, canelaAng: number): [Ponto, Ponto, Ponto, Ponto] => {
+    const k: Ponto = [hx + dir * Math.sin(coxaAng) * lg * 0.52, hy + Math.cos(coxaAng) * lg * 0.52];
+    const a: Ponto = [k[0] + dir * Math.sin(canelaAng) * lg * 0.46, k[1] + Math.cos(canelaAng) * lg * 0.46];
+    return [[hx, hy], k, a, [a[0] + dir * 0.06 * h, a[1] + 0.01 * h]];
+  };
   const tor = h - lg - 2 * hr - 0.03 * h;
   let hipY: number;
   if (sentado) hipY = y - lg * 0.45;
   else if (pulo) hipY = y - lg - h * 0.12;
   else if (deitado) hipY = y - h * 0.12;
+  else if (anda) hipY = y - lg * (0.96 + 0.04 * Math.cos(balanco * Math.PI * 0.5) ** 2) - h * 0.01;
+  else if (salto || escorrega) hipY = y - lg - h * 0.04;
   else hipY = y - lg;
   const shY = reverencia ? hipY - tor * 0.55 : hipY - tor;
   const cabeca: Ponto = reverencia ? [x + dir * tor * 0.55, shY - hr * 0.6] : [x + dir * 0.01 * h, shY - 0.025 * h - hr];
@@ -124,7 +140,10 @@ export function boneco(o: Figura): Desenho {
 
   /* pernas */
   const legs: [Ponto, Ponto, Ponto, Ponto][] = [];
-  if (sentado) {
+  if (noBalanco) {
+    legs.push([[x - 0.03 * h, hipY + 0.02 * h], [x + dir * 0.17 * h, hipY + 0.06 * h], [x + dir * 0.22 * h, y + 0.08 * h], [x + dir * 0.29 * h, y + 0.1 * h]]);
+    legs.push([[x + 0.04 * h, hipY + 0.02 * h], [x + dir * 0.2 * h, hipY + 0.09 * h], [x + dir * 0.26 * h, y + 0.1 * h], [x + dir * 0.33 * h, y + 0.12 * h]]);
+  } else if (sentado) {
     legs.push([[x - 0.05 * h, hipY + 0.02 * h], [x + dir * 0.18 * h, hipY + 0.02 * h], [x + dir * 0.2 * h, y - 0.02 * h], [x + dir * 0.26 * h, y]]);
     legs.push([[x + 0.05 * h, hipY + 0.02 * h], [x + dir * 0.2 * h, hipY + 0.05 * h], [x + dir * 0.22 * h, y - 0.02 * h], [x + dir * 0.28 * h, y]]);
   } else if (pose === 'pulo') {
@@ -133,6 +152,18 @@ export function boneco(o: Figura): Desenho {
   } else if (pose === 'giro') {
     legs.push([[x - 0.04 * h, hipY + 0.02 * h], [x - 0.03 * h, hipY + lg * 0.5], [x - 0.02 * h, hipY + lg], [x + 0.03 * h, hipY + lg + 0.03 * h]]);
     legs.push([[x + 0.04 * h, hipY + 0.02 * h], [x + 0.16 * h, hipY + 0.1 * h], [x + 0.06 * h, hipY + 0.2 * h], [x + 0.02 * h, hipY + 0.24 * h]]);
+  } else if (anda) {
+    const s = balanco;
+    legs.push(perna(x - 0.035 * h, hipY + 0.02 * h, s * 0.42, s * 0.42 - Math.max(0, -s) * 0.7));
+    legs.push(perna(x + 0.035 * h, hipY + 0.02 * h, -s * 0.42, -s * 0.42 - Math.max(0, s) * 0.7));
+  } else if (salto) {
+    /* o sauté corrido: a perna da frente dobrada para cima, a de trás esticada para trás */
+    legs.push(perna(x - 0.035 * h, hipY + 0.02 * h, -0.75, -1.55));
+    legs.push(perna(x + 0.035 * h, hipY + 0.02 * h, 1.15, 0.15));
+  } else if (escorrega) {
+    /* os pés fogem para a frente */
+    legs.push(perna(x - 0.035 * h, hipY + 0.02 * h, 1.05, 1.35));
+    legs.push(perna(x + 0.035 * h, hipY + 0.02 * h, 1.35, 1.6));
   } else if (deitado) {
     legs.push([[x - 0.02 * h, hipY], [x - 0.22 * h, hipY + 0.02 * h], [x - 0.4 * h, hipY + 0.03 * h], [x - 0.44 * h, hipY - 0.02 * h]]);
     legs.push([[x + 0.02 * h, hipY + 0.03 * h], [x - 0.2 * h, hipY + 0.05 * h], [x - 0.38 * h, hipY + 0.06 * h], [x - 0.42 * h, hipY + 0.01 * h]]);
@@ -161,7 +192,7 @@ export function boneco(o: Figura): Desenho {
     /* a camiseta: cai reta dos ombros, um pouco mais larga na bainha */
     const lw = Math.max(0.08 * h, (sw / 2 - 1.5 * esc) * 1.1);
     roupaPath = `<path d="M${tl}L${tr}Q${x + lw * 0.92} ${hipY - 0.1 * h} ${x + lw} ${hipY + 0.03 * h}L${x - lw} ${hipY + 0.03 * h}Q${x - lw * 0.92} ${hipY - 0.1 * h} ${tl}z" fill="${roupa}"/>`;
-    if (o.calca && !sentado && !pulo)
+    if (o.calca && !sentado && !pulo && !anda && !salto && !escorrega)
       roupaPath += `<path d="M${x - lw * 0.98} ${hipY}L${x + lw * 0.98} ${hipY}L${x + lw * 0.88} ${hipY + lg * 0.55}L${x + 0.01 * h} ${hipY + lg * 0.55}L${x} ${hipY + 0.1 * h}L${x - 0.01 * h} ${hipY + lg * 0.55}L${x - lw * 0.88} ${hipY + lg * 0.55}z" fill="${o.calca}"/>`;
   }
   const tutu = o.tutu ? `<ellipse cx="${x}" cy="${hipY + 0.02 * h}" rx="${0.2 * h}" ry="${0.06 * h}" fill="${o.tutu}" opacity="0.92"/>` : '';
@@ -200,6 +231,14 @@ export function boneco(o: Figura): Desenho {
       bL = braco(sL, PI * 0.45, PI * 0.45);
       bR = braco(sR, dir > 0 ? -PI * 0.1 : PI * 1.1, dir > 0 ? -PI * 0.05 : PI * 1.05);
       break;
+    case 'balanco':
+      bL = braco(sL, -PI * 0.5, -PI * 0.5);
+      bR = braco(sR, -PI * 0.5, -PI * 0.5);
+      break;
+    case 'palma':
+      bL = braco(sL, PI * 0.2, -PI * 0.35);
+      bR = braco(sR, PI * 0.8, -PI * 0.65);
+      break;
     case 'segura':
       bL = braco(sL, PI * 0.4, -PI * 0.15);
       bR = braco(sR, PI * 0.4, PI * 1.15);
@@ -211,6 +250,20 @@ export function boneco(o: Figura): Desenho {
     case 'reverencia':
       bL = braco(sL, PI * 0.35, PI * 0.5);
       bR = braco(sR, PI * 0.5, PI * 0.5);
+      break;
+    case 'anda':
+      bL = braco(sL, PI * 0.5 + dir * balanco * 0.42, PI * 0.5 + dir * (balanco * 0.42 - 0.3));
+      bR = braco(sR, PI * 0.5 - dir * balanco * 0.42, PI * 0.5 - dir * (balanco * 0.42 + 0.3));
+      break;
+    case 'salto':
+      /* braços abertos para cima, um para a frente e outro para trás, como no balé */
+      bL = braco(sL, -PI * 0.5 - dir * PI * 0.32, -PI * 0.5 - dir * PI * 0.22);
+      bR = braco(sR, -PI * 0.5 + dir * PI * 0.22, -PI * 0.5 + dir * PI * 0.12);
+      break;
+    case 'escorrega':
+      /* os braços voam, procurando equilíbrio */
+      bL = braco(sL, -PI * 0.85, -PI * 0.6);
+      bR = braco(sR, -PI * 0.2, -PI * 0.45);
       break;
     case 'deitado':
       bL = braco(sL, -PI * 0.55, -PI * 0.5);
@@ -322,7 +375,7 @@ export function boneco(o: Figura): Desenho {
   const contorno = o.contorno ? `stroke="${o.contorno}" stroke-width="1" stroke-linejoin="round"` : '';
   const sapato = o.sapato ?? pele;
   const svg =
-    `<g>${cabeloAtras}` +
+    `<g><g class="cabelo-atras">${cabeloAtras}</g>` +
     `<path d="${pernas}" fill="${pele}" ${contorno}/>` +
     `<path d="${pes}" fill="${sapato}"/>` +
     tutu +

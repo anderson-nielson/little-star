@@ -1,137 +1,158 @@
 {
-  "_": "A narração para quem joga junto. Um balão no topo da tela, para a mãe, o pai ou o Theo lerem em voz alta para a Stella. Cada avanço tem várias frases; elas se revezam. Toda frase fala do que ela fez de verdade, do carinho da família, e do Theo como quem torce por ela, nunca como medida.",
+  "_": "A narração para quem joga junto. Um balão no topo da tela, para a mamãe, o papai ou o mano (o Theo, como a Stella chama) lerem em voz alta para ela. Cada avanço tem várias frases; elas se revezam. Toda frase fala do que ela fez de verdade, do carinho da família, e do mano como quem torce por ela, nunca como medida. Frases curtas, concretas, para 5 anos; nada de comparação, nada de nomear a corrida.",
   "chegada": [
-    "Stella, olha: a mamãe, o papai e o Theo estavam esperando você chegar. Eles ficam felizes só de ver você.",
-    "Todo mundo na porta é seu. Você não precisa fazer nada para ser bem-vinda nesta casa.",
-    "O Theo veio correndo para a porta quando ouviu você. Ele gosta quando você está por perto.",
-    "Esta casa tem lugar para você e para o Theo, sempre. Ninguém tira o lugar de ninguém."
+    "Stella, olha: a mamãe, o papai e o mano estavam esperando você. Todo mundo ficou feliz de ver você chegar.",
+    "O mano veio correndo pra porta quando ouviu você. Ele gosta quando você está por perto.",
+    "A porta abriu e a família toda está aqui. Esta casa é sua, Stella.",
+    "Bem-vinda de volta, estrelinha. A gente sempre gosta quando você chega."
   ],
   "cama": [
-    "Você arrumou a sua cama sozinha. A mamãe olhou e pensou: como ela está crescida.",
-    "Cama arrumada é você cuidando do seu cantinho. A família nota, mesmo quando não diz.",
-    "O Theo também aprendeu a arrumar a cama com a sua idade. Hoje ele viu a sua e ficou orgulhoso de você.",
-    "Cuidar da cama é um jeito de cuidar de você. E a gente cuida de você todos os dias, porque te ama."
+    "Você arrumou a sua cama sozinha. Que grande você está ficando!",
+    "Cama arrumada é você cuidando do seu cantinho. A família viu e gostou.",
+    "O mano viu a sua cama arrumadinha e ficou orgulhoso de você.",
+    "Cuidar da cama é um jeito de cuidar de você. E a gente cuida de você todo dia, porque te ama."
   ],
   "dentes": [
-    "Você escovou os dentes. É você cuidando de você mesma, e isso deixa o papai tranquilo.",
-    "Dentes escovados, sorriso limpo. A mamãe adora esse sorriso, do jeitinho que ele é.",
-    "Escovar os dentes cansa às vezes, e você fez mesmo assim. Isso é força de verdade.",
-    "O papai e o Theo escovam os dentes todo dia, e agora você também. Cada um no seu tempo, e todos juntos."
+    "Você escovou os dentes. Sorriso limpo, sorriso brilhando!",
+    "A mamãe e o papai adoram esse seu sorriso, do jeitinho que ele é.",
+    "Escovar os dentes dá preguiça às vezes, e você fez mesmo assim. Isso é força.",
+    "O mano também escova os dentes todo dia. Agora vocês dois têm o sorriso brilhando."
   ],
   "brinquedos": [
-    "Você guardou os brinquedos. Depois, quando quiser brincar de novo, vai achar tudo no lugar.",
+    "Você guardou os brinquedos. Quando quiser brincar de novo, vai achar tudo no lugar.",
     "Guardar o que a gente usou é cuidar da casa de todo mundo. Obrigada, Stella.",
-    "O Theo viu você guardando e disse que a sala ficou bonita. Ele repara nas coisas boas que você faz.",
-    "Uma coisa de cada vez, sem pressa, e o quarto ficou arrumado. Você sabe fazer isso."
+    "O mano viu você guardando e disse que a sala ficou bonita. Ele repara nas coisas boas que você faz.",
+    "Uma coisa de cada vez, sem pressa, e ficou tudo arrumado. Você sabe fazer isso."
   ],
   "banho": [
-    "Banho tomado, cabelo cheiroso. A mamãe adora dar um abraço em você depois do banho.",
-    "Você tomou banho. Cuidar do seu corpo é um jeito de cuidar de você, e a gente fica feliz.",
-    "O papai lembra de quando você tinha medo do chuveiro. Olha só como você cresceu.",
-    "Hora do banho feita. A família toda cuida de você, e você já cuida de você também.",
-    "O Theo também toma banho todo dia, e ninguém faz corrida. Cada um se cuida do seu jeito, e os dois ficam cheirosos."
+    "Banho tomado, cabelo cheiroso! A mamãe adora um abraço em você depois do banho.",
+    "Você tomou banho sozinha. Cuidar de você é coisa de gente grande.",
+    "Cheirosa assim, dá vontade de apertar. O papai já vem com o abraço.",
+    "O mano também toma banho todo dia. Os dois ficam cheirosos, cada um do seu jeito."
   ],
   "quarto": [
     "O quarto rosa ficou arrumado por você. É o seu cantinho, e você cuidou dele.",
-    "Arrumar o quarto dá trabalho, e você fez. A mamãe percebeu.",
-    "O Theo tem o quarto dele, você tem o seu. Cada um cuida do seu, e os dois são da mesma casa.",
-    "Quando o quarto está arrumado, fica mais gostoso de dormir nele. Você fez isso por você."
+    "Arrumar o quarto dá trabalho, e você fez. A mamãe viu.",
+    "O mano tem o quarto dele, você tem o seu. Os dois ficam bonitos quando cada um cuida do seu.",
+    "Quarto arrumado é mais gostoso de dormir. Você fez isso por você."
   ],
   "gentil": [
     "Você foi gentil com alguém. Isso é uma das coisas mais bonitas que a gente vê em você.",
     "Ser gentil é uma força sua, Stella. A família inteira sente quando você é assim.",
-    "Quando você é gentil com o Theo, ele fica feliz de ter você como irmã. E você ganha um amigo para a vida toda.",
-    "Emprestar, abraçar, esperar a vez: é você cuidando de quem está perto. A gente aprende com você."
+    "Quando você é gentil com o mano, ele fica feliz de ter você como irmã.",
+    "Emprestar, abraçar, esperar a vez: é você cuidando de quem está perto. Que coração grande!"
   ],
   "dormiu_sozinha": [
     "Você dormiu no seu quarto, sozinha. Isso é coragem de gente grande, e a mamãe e o papai ficaram muito felizes.",
-    "Dormir sozinha não é fácil, e você conseguiu. A família está sempre do outro lado da parede, e você sabe disso.",
-    "O Theo também dormiu sozinho quando tinha a sua idade, e você conseguiu também. Cada um no seu tempo, e você chegou lá.",
+    "Dormir sozinha não é fácil, e você conseguiu. A família está sempre pertinho, do outro lado da parede.",
+    "O mano ficou sabendo que você dormiu sozinha e disse: que corajosa!",
     "Uma estrela nova na janela por uma noite corajosa. A gente cuida de você mesmo enquanto você dorme."
   ],
   "noite_toda": [
     "Você dormiu a noite inteira. O seu corpo descansou, e a mamãe olhou você dormindo com muito amor.",
-    "Uma noite inteira de sono é presente para você e para a casa toda. Que bom, Stella.",
-    "Você dorme cada vez melhor. É você ficando mais forte, do seu jeito, no seu tempo.",
+    "Uma noite inteira de sono! Que bom, Stella. A casa toda descansou junto com você.",
     "O papai passou de mansinho no seu quarto de noite e você estava dormindo tranquila. Ele sorriu.",
-    "O Theo dormiu no quarto dele, você no seu, e a casa inteira descansou. Cada um no seu cantinho, todos juntos."
+    "O mano dormiu no quarto dele, você no seu, e a casa inteira descansou. Cada um no seu cantinho, todos juntos."
   ],
   "letra": [
-    "Você traçou uma letra inteira, do começo ao fim. Ninguém fez por você.",
-    "O Theo estava do lado vendo você desenhar a letra. Ele é quem mostra, e você é quem descobre.",
+    "Você traçou uma letra inteira, do começo ao fim. Foi você quem fez!",
+    "O mano estava do lado vendo você desenhar a letra. Ele mostra, você descobre.",
     "Cada letra que você aprende é sua para sempre. A mamãe guarda cada uma no coração.",
-    "O Theo também começou por uma letra, um dia. Agora vocês dois escrevem, cada um do seu jeito.",
-    "O papai viu o seu traço e pensou: ela persiste, ela vai até o fim. Isso é força."
+    "Você foi até o fim do traço, sem desistir. O papai viu e ficou orgulhoso."
   ],
   "areia": [
-    "Você escreveu uma letra na areia da estrela, com o dedo. O Theo escrevia assim também, e a mamãe adorava ver.",
-    "A letra ficou marcada na areia, do começo ao fim, e foi você quem fez. O papai, a mamãe e o Theo viram.",
-    "Na areia a letra nasce e depois some, e você faz de novo quando quiser. O Theo e a família gostam de ver você tentar."
+    "Você escreveu uma letra na areia, com o dedo. A mamãe adora ver você escrevendo.",
+    "A letra ficou marcada na areia, do começo ao fim, e foi você quem fez. O mano viu e bateu palma.",
+    "Na areia a letra nasce e depois some, e você faz de novo quando quiser. Que gostoso ver você tentar."
   ],
   "palavra": [
     "Você leu uma palavra inteira com o dedo. Isso é você aprendendo a ler, Stella.",
-    "As letras que você conhece viraram uma palavra. É você juntando as coisas sozinha.",
-    "O Theo ficou orgulhoso: a irmã dele está lendo. Vocês dois têm muito o que contar um para o outro.",
+    "As letras que você conhece viraram uma palavra. Foi você quem juntou.",
+    "O mano ficou orgulhoso: a irmã dele está lendo!",
     "Ler é como abrir uma porta. Você abriu uma hoje, e a família viu."
   ],
   "som": [
-    "Você achou o som escondido na figura. Você tem um ouvido atento, e isso é seu.",
-    "O Theo disse o som e você encontrou. Ele mostra, você descobre. É assim que vocês brincam juntos.",
-    "Ouvir com atenção é uma das suas forças. A mamãe percebe isso quando conversa com você.",
+    "Você achou o som escondido na figura. Que ouvido bom você tem, Stella!",
+    "O mano disse o som e você encontrou. Ele mostra, você descobre. É assim que vocês brincam juntos.",
+    "Ouvir com calma é uma força sua. A mamãe percebe isso quando conversa com você.",
     "Cada som que você aprende é um pedacinho do mundo que fica seu."
   ],
   "relogio": [
-    "Você acertou a hora no relógio. Você está aprendendo a ler o tempo, como o Theo e o papai.",
-    "O Theo pediu uma hora e você girou o ponteiro até lá. Ele adora brincar assim com você.",
-    "Saber as horas é coisa de quem está crescendo. E você está, no seu ritmo, com a família junto.",
+    "Você acertou a hora no relógio. Está aprendendo a ver as horas, como o mano e o papai.",
+    "O mano pediu uma hora e você girou o ponteiro até lá. Ele adora brincar assim com você.",
+    "Saber as horas é coisa de quem está crescendo. E você está, com a família junto.",
     "Você olhou, pensou e girou o ponteiro certo. Pensar com calma é uma força sua."
   ],
   "colheita": [
     "Você plantou, regou dia após dia, e agora colheu. Cuidar e esperar: você sabe fazer os dois.",
     "A horta cresceu porque você cuidou dela. As coisas boas levam tempo, e você teve paciência.",
-    "A mamãe vai cozinhar o que você colheu. O que você faz de verdade chega até a mesa da família.",
-    "O Theo viu a sua horta e quis ajudar a regar. Quando um cuida, o outro cuida junto."
+    "A mamãe vai cozinhar o que você colheu. O que você plantou vai chegar na mesa da família.",
+    "O mano viu a sua horta e quis ajudar a regar. Quando um cuida, o outro cuida junto."
   ],
   "comidinha": [
-    "Você fez uma comidinha com a mamãe. Cozinhar juntas é um dos jeitos que ela tem de dizer que te ama.",
-    "O Theo comeu a sua comidinha rindo. Ele gosta do que você faz, e gosta de você.",
-    "Lavar, cortar, mexer: você fez tudo. Cuidar de quem a gente ama também é assim.",
+    "Você fez uma comidinha com a mamãe. Cozinhar juntas é um jeito gostoso de dizer eu te amo.",
+    "O mano comeu a sua comidinha rindo. Ele gosta do que você faz, e gosta de você.",
+    "Lavar, cortar, mexer: você fez tudo. Que cozinheira!",
     "A mamãe provou e sorriu. Você faz coisas boas para a família, e a família faz coisas boas para você."
   ],
   "aventura": [
-    "Você foi na aventura e voltou. Coragem é isso: ir, tentar, e saber que a casa está esperando.",
-    "O papai girou você no ar quando você voltou. Ele fica feliz de ver você corajosa.",
-    "O Theo segurou o galho e pescou você quando precisou. Irmão é quem está junto na aventura, não quem compete.",
-    "Toda aventura termina na casa verde, com a família na porta. Você sempre tem para onde voltar."
+    "Você dançou no palco, do começo ao fim, e fez a reverência. A família inteira bateu palma.",
+    "Brava, Stella! O papai, a mamãe e o mano ficaram de boca aberta vendo você dançar.",
+    "O mano estava na plateia e bateu palma mais alto que todo mundo. Ele torce por você.",
+    "Saltar, girar e terminar com reverência. Que bailarina! Ganhou uma boneca nova na estante."
   ],
   "medalha": [
     "O pote encheu e virou uma medalha na parede. São muitas coisas boas que você fez, uma de cada vez.",
     "Uma medalha na parede é a lembrança de tudo que você fez de verdade. Medalha não se perde nunca.",
-    "A mamãe, o papai e o Theo viram a medalha na parede. Cada um deles sabe o quanto você se esforçou.",
-    "O Theo também tem as medalhas dele, e você tem as suas. Não é corrida: é cada um com a sua história."
+    "A mamãe, o papai e o mano viram a medalha na parede. Cada um deles sabe o quanto você se esforçou.",
+    "O mano também tem as medalhas dele, e você tem as suas. Cada um com a sua história."
   ],
   "bilhete": [
-    "Você escreveu um bilhete com as suas letras. A mamãe, o papai e o Theo guardam cada bilhete seu com carinho.",
-    "Escrever para alguém é um jeito de dizer que você gosta dessa pessoa. E ela sentiu.",
-    "O Theo lê os seus bilhetes com o maior cuidado. Ele gosta de receber coisas suas.",
-    "As letras que você aprendeu já servem para dizer 'eu te amo'. Que bonito, Stella."
+    "Você escreveu um bilhete com as suas letras. A mamãe, o papai e o mano guardam cada bilhete seu com carinho.",
+    "Escrever para alguém é um jeito de dizer que você gosta dessa pessoa. Quem recebeu ficou feliz.",
+    "O mano lê os seus bilhetes com o maior cuidado. Ele gosta de receber coisas suas.",
+    "As letras que você aprendeu já servem para dizer eu te amo. Que bonito, Stella."
   ],
   "bichos": [
     "Você cuidou do gatinho e do coelhinho. Eles confiam em você porque você é carinhosa.",
     "Água, comida, carinho: você sabe cuidar de quem é pequeno. Isso é uma força sua.",
-    "O Theo também ajuda a cuidar dos bichos. Quando vocês cuidam juntos, os bichos ficam mais felizes.",
+    "O mano também ajuda a cuidar dos bichos. Quando vocês cuidam juntos, os bichos ficam mais felizes.",
     "Cuidar dos bichos com calma, sem pressa: é assim que a mamãe e o papai cuidam de você também."
   ],
   "despedida": [
     "A família se despede de você com um abraço. Amanhã ela estará aqui de novo, esperando você.",
     "Foi um dia bom na casa verde. O que você fez hoje fica guardado, e ninguém tira.",
-    "A mamãe, o papai e o Theo dão tchau. Eles te amam quando você joga e quando você não joga.",
-    "Hora de fechar o jogo e ir brincar lá fora. O Theo talvez queira ir junto."
+    "A mamãe, o papai e o mano dão tchau. Eles te amam sempre, com o jogo ligado ou desligado.",
+    "Hora de fechar o jogo e ir brincar lá fora. Chama o mano pra ir junto!"
   ],
   "boa_noite": [
     "Você fez toda a rotina da noite. Agora é hora de descansar, e a família fica por perto.",
-    "Boa noite, Stella. A mamãe e o papai estão aqui do lado, e o Theo também. Você está segura.",
+    "Boa noite, Stella. A mamãe e o papai estão aqui do lado, e o mano também. Você está segura.",
     "Dormir no seu quarto é coragem. E a casa inteira dorme tranquila sabendo que você está bem.",
     "O dia acabou e você fez muitas coisas boas. Amanhã a gente conta. Boa noite, estrelinha."
+  ],
+  "balanco": [
+    "Você se balançou sozinha e contou até dez, um balanço por número. O Theo contou junto, baixinho, orgulhoso de você.",
+    "Dez balanços, dez pedrinhas. A mamãe viu você lá no alto e pensou: que força essa menina tem.",
+    "No balanço, o impulso é seu: são as suas pernas que fazem subir. O papai e o Theo ficam olhando e admirando.",
+    "Contar no balanço é contar com o corpo inteiro. A família inteira ouve você contar e sorri."
+  ],
+  "parquinho": [
+    "Você brincou no parquinho de verdade: balanço, escorregador, gangorra. O Theo foi junto e cuidou de você o tempo todo.",
+    "A mamãe lembra de você lá no balanço, subindo alto. O parquinho é seu lugar de ser forte.",
+    "O papai gosta de ver você no parquinho: corajosa na escada, esperta na gangorra. E o Theo sempre por perto.",
+    "Um balancinho de madeira foi para a sua mesa, para lembrar do parquinho. A família guarda o que você faz."
+  ],
+  "escorregador": [
+    "Você subiu a escada do escorregador sozinha e desceu de uma vez. O Theo estava embaixo, esperando, e bateu palma.",
+    "Degrau por degrau, sem pressa, até o alto. A mamãe sabe que isso é coragem, e coragem com alguém perto.",
+    "Descer o escorregador dá um frio na barriga gostoso. O papai e o Theo adoram ver você chegar rindo na areia.",
+    "Você é corajosa do seu jeito: sobe, olha, e desce quando quer. A família fica por perto, sempre."
+  ],
+  "gangorra": [
+    "Na gangorra você empurrou o chão com o pé na hora certa e subiu. O Theo segurou do outro lado, com cuidado, e disse: que esperta!",
+    "Gangorra é para dois: você sobe porque o Theo segura, e ele fica feliz de fazer isso por você. É assim na nossa casa.",
+    "A mamãe viu você descobrir sozinha como subir na gangorra. Esperteza é isso: olhar, tentar, e conseguir.",
+    "Sobe e desce, sobe e desce, e o papai contando as subidas. A família inteira gosta de ver você brincar."
   ]
 }

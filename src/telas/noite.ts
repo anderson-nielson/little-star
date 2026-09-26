@@ -49,7 +49,8 @@ export function telaNoite(): Tela {
   };
   PASSOS.forEach((p, i) => {
     const [x, y] = pos[i]!;
-    s += `<g data-passo="${p}" transform="translate(${x} ${y})" opacity="${feitos.has(p) ? 0.35 : 1}">${desenhos[p]}</g>`;
+    /* o translate fica num <g> de fora: o toque e o mover() põem transform por CSS no alvo, e isso apagaria o atributo */
+    s += `<g transform="translate(${x} ${y})"><g data-passo="${p}" opacity="${feitos.has(p) ? 0.35 : 1}">${desenhos[p]}</g></g>`;
   });
   s += `<g class="luz"></g>`;
   const tela = telaSvg(s, { lua: true, fundo: '#1b2140' });

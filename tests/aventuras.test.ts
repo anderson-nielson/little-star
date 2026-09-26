@@ -45,6 +45,12 @@ describe('o ukulele', () => {
   it('tem quatro cordas, afinadas em sol, dó, mi e lá (a afinação padrão, reentrante)', () => {
     expect(AFINACAO).toEqual([67, 60, 64, 69]);
   });
+  it('tem os sete acordes do campo harmônico de dó, cada um na sua fundamental e com a sua cor', () => {
+    expect(ACORDES).toHaveLength(7);
+    const graus = [0, 2, 4, 5, 7, 9, 11];
+    ACORDES.forEach((a, i) => expect(a.notas.some((n) => n % 12 === graus[i])).toBe(true));
+    expect(new Set(ACORDES.map((a) => a.cor)).size).toBe(7);
+  });
   it('cada acorde tem quatro cordas e só notas do tom: nenhuma combinação soa feia', () => {
     const doMaior = new Set([0, 2, 4, 5, 7, 9, 11]);
     for (const a of ACORDES) {
