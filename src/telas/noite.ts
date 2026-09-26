@@ -49,7 +49,9 @@ export function telaNoite(): Tela {
   };
   PASSOS.forEach((p, i) => {
     const [x, y] = pos[i]!;
-    s += `<g data-passo="${p}" transform="translate(${x} ${y})" opacity="${feitos.has(p) ? 0.35 : 1}">${desenhos[p]}</g>`;
+    /* o translate fica num grupo de fora: o `mover` do toque troca o transform do de dentro.
+       Um quadrado invisível de 72 px faz o alvo inteiro (o livro aberto tem um vão no meio). */
+    s += `<g transform="translate(${x} ${y})"><g data-passo="${p}" opacity="${feitos.has(p) ? 0.35 : 1}"><rect x="-36" y="-36" width="72" height="72" fill="transparent"/>${desenhos[p]}</g></g>`;
   });
   s += `<g class="luz"></g>`;
   const tela = telaSvg(s, { lua: true, fundo: '#1b2140' });
@@ -112,9 +114,12 @@ export function telaNoite(): Tela {
   const dormir = async () => {
     travar(9000);
     const st = svg.querySelector('.stella') as SVGGElement;
-    st.innerHTML = familia.stella(150, 512, 90, 'deitado').svg;
-    const g = svg.querySelector('.gato');
-    if (g) mover(g, -60, -110, 1400);
+    svg.querySelector('.gato')?.remove();
+    st.style.transition = 'opacity 900ms';
+    st.style.opacity = '0';
+    await esperar(900);
+    st.innerHTML = stellaNaCama(!!e.bichos.gato);
+    st.style.opacity = '1';
     await esperar(800);
     /* o combinado: dormir no quarto dela, a noite toda; amanhã a gente conta */
     if (temVoz('noite_combinado')) await falar('noite_combinado');
@@ -138,21 +143,48 @@ export function telaNoite(): Tela {
 }
 
 /**
- * Dormindo: até de manhã, abrir o jogo mostra só a Stella dormindo e a
- * canção baixinha por 20 segundos, e depois silêncio. Nada responde ao
- * toque, a não ser a lua dos pais.
+ * A Stella deitada na cama: a cabeça no travesseiro, olhos fechados, a
+ * coberta até o pescoço. A marionete de pé, deitada de lado (girada), e a
+ * coberta por cima; só a cabeça aparece, e fica claro que ela dorme.
+ */
+export function stellaNaCama(gatinho: boolean): string {
+  let s = `<ellipse cx="102" cy="498" rx="36" ry="16" fill="#fbf8f1" opacity="0.9"/>`;
+  s += `<g transform="rotate(-90 212 506)">${familia.stella(212, 506, 110, 'parado').svg}</g>`;
+  s += `<path d="M126 488q20-12 46-4q30 8 58-2q34-10 66 0q16 4 16 22v44h-186z" fill="#a58bc4"/>`;
+  s += `<path d="M126 488q20-12 46-4q30 8 58-2q34-10 66 0" fill="none" stroke="#fbf8f1" stroke-width="5" opacity="0.5"/>`;
+  if (gatinho) s += gato(282, 492, 16, '#c8b8a6', true);
+  /* o sono: três "z" que sobem da cabeça, um de cada vez */
+  const z = (x: number, y: number, t: number, atraso: number) =>
+    `<path class="zzz" style="animation-delay:${atraso}ms" d="M${x} ${y}h${t}l-${t} ${t}h${t}" fill="none" stroke="#ebd9a8" stroke-width="${t / 5}" stroke-linecap="round" stroke-linejoin="round"/>`;
+  s += z(120, 452, 12, 0) + z(136, 430, 15, 1600) + z(154, 404, 18, 3200);
+  return s;
+}
+
+/**
+ * Dormindo: até de manhã, abrir o jogo mostra o quarto dela no escuro, a
+ * Stella dormindo com o gatinho e a canção baixinha por 20 segundos, e
+ * depois silêncio. Nada responde ao toque, a não ser a lua dos pais. O
+ * balão diz a quem está junto que o jogo também dorme e volta de manhã.
  */
 export function telaDormindo(): Tela {
   let s = `<rect width="390" height="780" fill="#10142a"/>` + veu(0, 0, 390, 780, '#1b2140', 5, 0.4);
-  s += centelha(80, 120, 10, '#ebd9a8') + centelha(300, 90, 7, '#ebd9a8') + centelha(200, 160, 6, '#ebd9a8') + centelha(340, 220, 8, '#ebd9a8');
-  s += `<path d="M120 100a16 16 0 1 0 14 22a13 13 0 1 1-14-22z" fill="#ebd9a8"/>`;
-  s += `<rect x="70" y="480" width="250" height="90" rx="14" fill="#4a3a48" opacity="0.7"/><rect x="70" y="510" width="250" height="60" rx="10" fill="#6e3a5a" opacity="0.6"/>`;
-  s += familia.stella(150, 512, 90, 'deitado').svg;
-  if (estado().bichos.gato) s += gato(250, 528, 14, '#8a8078', true);
+  /* o quarto com a luz apagada */
+  s += `<rect x="20" y="120" width="350" height="560" rx="12" fill="#4a3a48" opacity="0.3"/>`;
+  /* a janela: a lua e a estrela nova da noite */
+  s += arco(150, 150, 90, 110, '#10142a');
+  s += `<path d="M195 200a10 10 0 1 0 9 14a8 8 0 1 1-9-14z" fill="#ebd9a8"/>`;
+  s += centelha(172, 180, 6, '#ebd9a8') + centelha(222, 214, 5, '#ebd9a8') + `<g class="respira">${centelha(210, 166, 10, '#fbf8f1')}</g>`;
+  /* o abajur apagado ao lado da cama */
+  s += `<g transform="translate(330 430)" opacity="0.45"><path d="M-18 -18h36l8 22h-52z" fill="#8a8078"/><rect x="-3" y="4" width="6" height="18" fill="#6e6258"/><ellipse cx="0" cy="24" rx="14" ry="4" fill="#6e6258"/></g>`;
+  /* a cama */
+  s += `<rect x="70" y="470" width="14" height="110" rx="6" fill="#6e3a5a" opacity="0.8"/>`;
+  s += `<rect x="70" y="480" width="250" height="90" rx="14" fill="#4a3a48" opacity="0.8"/>`;
+  s += stellaNaCama(!!estado().bichos.gato);
   const tela = telaSvg(s, { lua: true, fundo: '#10142a' });
   travar(60000);
   tocarFundo('ninar_brahms', { bpm: 56 });
   audio.definirVolumes(0.35, 0.4);
+  anunciar('dormindo');
   const t = window.setTimeout(() => pararFundo(), 20000);
   tela.aoDestruir(() => {
     window.clearTimeout(t);
