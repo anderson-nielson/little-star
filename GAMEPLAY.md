@@ -501,6 +501,18 @@ Regras:
   veem no cantinho dos pais ("a letra M está difícil"). É informação para vocês, não para ela.
 - Nenhuma atividade trava. Toda atividade termina, com ou sem ajuda.
 
+### O chamado, em toda tela
+
+Por cima da ajuda de cada brincadeira, o jogo conta em toda tela o tempo sem nenhum toque.
+Passado o tempo que os pais escolheram (20 segundos de saída; 10 a 60, ou desligado, no
+cantinho dos pais), vem um chamado: um assovio "fiu-fiu" ou um "Ei, Stella!" (a voz gravada
+no grupo Chamado; sem gravação, a voz do aparelho diz "Ei!"), e a mãozinha toca no próximo
+passo. O próximo passo é o que a tela marcar, senão o contorno de luz que pulsa, senão algo
+tocável que ela ainda não tocou ali, senão o meio da cena, senão a casinha. Se a tela já tem
+a própria mãozinha, o chamado só faz o som. Qualquer toque zera a conta. Parada de vez, o
+chamado volta no máximo três vezes por tela e depois o jogo espera em silêncio. Não chama no
+cantinho dos pais, com ela dormindo, com o painel das opções aberto nem com a porta fechada.
+
 ---
 
 ## 10. Roteiro da primeira sessão, com vocês

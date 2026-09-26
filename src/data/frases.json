@@ -136,5 +136,7 @@
   { "id": "num_7", "texto": "sete", "dono": "qualquer", "grupo": "parquinho", "obrigatoria": false },
   { "id": "num_8", "texto": "oito", "dono": "qualquer", "grupo": "parquinho", "obrigatoria": false },
   { "id": "num_9", "texto": "nove", "dono": "qualquer", "grupo": "parquinho", "obrigatoria": false },
-  { "id": "num_10", "texto": "dez", "dono": "qualquer", "grupo": "parquinho", "obrigatoria": false }
+  { "id": "num_10", "texto": "dez", "dono": "qualquer", "grupo": "parquinho", "obrigatoria": false },
+
+  { "id": "chamado", "texto": "Ei, Stella!", "dono": "qualquer", "grupo": "chamado", "obrigatoria": false }
 ]
