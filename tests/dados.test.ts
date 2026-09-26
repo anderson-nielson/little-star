@@ -6,6 +6,7 @@ import nomes from '@/data/figuras-nomes.json';
 import { parseMusica } from '@/audio/musica';
 import { readdirSync, readFileSync } from 'node:fs';
 import { TODAS_AS_FIGURAS } from '@/puppet/figuras';
+import { figuraDoSom } from '@/audio/fonemas';
 
 const LETRAS_V1 = ['A', 'E', 'L', 'S', 'T', 'O', 'M', 'U', 'I', 'V'];
 
@@ -56,6 +57,13 @@ describe('as letras', () => {
         expect(TODAS_AS_FIGURAS, f).toContain(f);
         expect((nomes as Record<string, string>)[f]!.toUpperCase().replace(/[ÁÂÃ]/g, 'A').replace(/[ÉÊ]/g, 'E').replace(/[ÍÎ]/g, 'I').replace(/[ÓÔÕ]/g, 'O').replace(/[ÚÛ]/g, 'U').startsWith(l.id), `${f} começa com ${l.id}`).toBe(true);
       }
+    }
+  });
+
+  it('a figura que o caderno fala junto com o som não tem S entre vogais (ASA soa "aza")', () => {
+    for (const l of letras) {
+      const nome = (nomes as Record<string, string>)[figuraDoSom(l.som, l.figuras) ?? '']?.toLowerCase() ?? '';
+      expect(nome, l.id).not.toMatch(/[aeiouáéíóúâêôãõ]s[aeiouáéíóúâêôãõ]/);
     }
   });
 });

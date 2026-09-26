@@ -229,6 +229,8 @@ O teste no celular mostrou dois problemas na tela da palavra.
   do V, e LUVA completa. O V é a décima letra do caderno (o vale entre as duas montanhas do M).
   AVÓ traz duas letras antes da hora (V e Ó); aceito porque o Ó é o mesmo som de OLÁ e não
   havia palavra com A inicial e só uma consoante nova que soasse certo.
+  A figura ASA ainda ficou como exemplo do som no traçado do A ("aaa... asa"); trocada por
+  AVÓ, a mesma palavra da fase, e o teste dos dados agora vigia a figura falada no caderno.
 - **Não se sabia o que fazer nem se estava avançando.** A tela tinha a fita e a estrela, mas
   nenhum convite e nenhum sinal de etapa. Agora as quatro etapas do fônico são sempre as
   mesmas e cada uma é mostrada com a língua sem palavras do jogo: a estrela guia soa letra
