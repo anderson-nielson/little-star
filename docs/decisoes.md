@@ -174,6 +174,13 @@ parte existe para mostrar que não precisa ser assim.
   quatro de "aventura", que falavam de galho, pescar e girar no ar mas só disparam no
   palco de dança. O Theo passou a "mano", que é como ela o chama. O teste agora exige
   "mano" e proíbe "corrida", "compet" e "com a sua idade".
+- **Terceira passada, mais dura.** Sem apelido: "estrelinha" e "a Stella da casa verde"
+  viraram só Stella, no balão e nas falas gravadas. Sem exagero ("de boca aberta", "coragem
+  de gente grande" por uma cama arrumada), sem palha ("guarda cada uma no coração", "um
+  pedacinho do mundo que fica seu"), sem lição de moral ("esperteza é isso: olhar, tentar e
+  conseguir"), sem a segunda oração que explica a primeira. "Força" e "coragem" ficaram só
+  onde cabem. As 19 frases do parquinho e do quarto dormindo passaram pelo mesmo pente, e
+  saiu um erro de fato ("dez balanços, dez pedrinhas": o balanço vale uma).
 - Onde vive: `src/data/narracao.json` (as frases), `src/core/narracao.ts` (o canal e a
   escolha, puro), `src/ui/balao.ts` (o balão), `tests/narracao.test.ts`.
 
