@@ -165,6 +165,16 @@ parte existe para mostrar que não precisa ser assim.
   confundia; foi trocado por ficar até o "x".)
 - **Desliga no cantinho.** `pais.narracao`, ligado por padrão. Se ela estiver jogando
   sozinha, o texto não serve e vira ruído.
+- **Revisão das frases (segunda rodada).** As 90 frases passaram por uma leitura crítica:
+  29 ficaram, 42 foram ajustadas, 15 reescritas e 4 cortadas (substituídas). O que saiu:
+  frases na voz de um adulto falando da Stella em terceira pessoa ("a mamãe pensou: como
+  ela está crescida" não funciona quando a mãe lê); linguagem abstrata para 5 anos
+  ("cuidar do seu corpo é um jeito de cuidar de você"); comparação disfarçada ("o Theo
+  também fez com a sua idade"); frases que nomeiam a corrida ("não é corrida", "ninguém
+  tira o lugar de ninguém"); um fato arriscado ("você tinha medo do chuveiro"); e as
+  quatro de "aventura", que falavam de galho, pescar e girar no ar mas só disparam no
+  palco de dança. O Theo passou a "mano", que é como ela o chama. O teste agora exige
+  "mano" e proíbe "corrida", "compet" e "com a sua idade".
 - Onde vive: `src/data/narracao.json` (as frases), `src/core/narracao.ts` (o canal e a
   escolha, puro), `src/ui/balao.ts` (o balão), `tests/narracao.test.ts`.
 
