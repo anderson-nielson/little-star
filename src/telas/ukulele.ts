@@ -13,25 +13,32 @@ import type { Tela } from '@/core/roteador';
  * reentrante, o "my dog has fleas"). Solta, cada corda soa nessa nota.
  */
 export const AFINACAO = [67, 60, 64, 69];
-/** quantas casas, no máximo, um dedo de cinco anos aperta */
-export const CASAS = 3;
+/** até onde vai o braço desenhado: a casa mais alta que um acorde usa */
+export const CASAS = 4;
 
 /**
- * O campo harmônico de dó maior inteiro, um acorde em cada grau, uma cor em
- * cada botão: dó, ré menor, mi menor com sétima, fá, sol com sétima, lá menor
- * e si meio-diminuto. Todos nas posições de verdade do ukulele (cada nota é a
- * corda solta ou até três casas acima); o mi menor e o si ganham a sétima
- * justamente para caber nas três casas (0202 e 2212).
+ * O campo harmônico de dó maior, as tríades de cada grau nas posições que
+ * todo método de ukulele ensina, e a cor de cada botão:
+ *
+ *   dó 0003 · ré menor 2210 · mi menor 0432 · fá 2010 · sol 0232 ·
+ *   lá menor 2000 · si diminuto 4212
+ *
+ * (os números são as casas apertadas nas cordas sol, dó, mi, lá). `notas` é o
+ * que cada corda soa com o acorde apertado.
  */
-export const ACORDES: { nome: string; cor: string; notas: number[] }[] = [
-  { nome: 'dó', cor: '#f2a9c4', notas: [67, 60, 64, 72] },
-  { nome: 'ré menor', cor: '#eea38a', notas: [69, 62, 65, 69] },
-  { nome: 'mi menor', cor: '#e7c86e', notas: [67, 62, 64, 71] },
-  { nome: 'fá', cor: '#c6a15b', notas: [69, 60, 65, 69] },
-  { nome: 'sol', cor: '#8fae6b', notas: [67, 62, 65, 71] },
-  { nome: 'lá menor', cor: '#9cc3dd', notas: [69, 60, 64, 69] },
-  { nome: 'si', cor: '#b9a3d6', notas: [69, 62, 65, 71] },
-];
+export const ACORDES: { nome: string; cor: string; casas: number[]; notas: number[] }[] = (
+  [
+    ['dó', '#f2a9c4', [0, 0, 0, 3]],
+    ['ré menor', '#eea38a', [2, 2, 1, 0]],
+    ['mi menor', '#e7c86e', [0, 4, 3, 2]],
+    ['fá', '#c6a15b', [2, 0, 1, 0]],
+    ['sol', '#8fae6b', [0, 2, 3, 2]],
+    ['lá menor', '#9cc3dd', [2, 0, 0, 0]],
+    ['si diminuto', '#b9a3d6', [4, 2, 1, 2]],
+  ] as const
+).map(([nome, cor, casas]) => ({ nome, cor, casas: [...casas], notas: casas.map((c, i) => AFINACAO[i]! + c) }));
+/** o meio de cada casa no braço desenhado, onde o dedo aperta (casa 1 a 4) */
+const CASA_Y = [0, 241, 270, 297, 322];
 /**
  * Os sete botões num arco em volta do corpo, do dó à esquerda ao si à
  * direita, passando por baixo: a escada do campo harmônico.
@@ -85,13 +92,14 @@ export function telaUkulele(): Tela {
     const [x, y] = botao(i);
     s += `<g data-acorde="${i}" aria-label="${a.nome}"><circle cx="${x}" cy="${y}" r="${BOTAO_R}" fill="${a.cor}" opacity="0.9" stroke="#fbf8f1" stroke-width="3"/></g>`;
   });
-  s += `<g class="luz"></g>`;
+  s += `<g class="dedos"></g><g class="luz"></g>`;
   const tela = telaSvg(s);
   const svg = tela.svg;
   pararFundo();
   /* sem botão apertado, as cordas soam soltas: a afinação */
   let acorde = -1;
   const luz = svg.querySelector('.luz') as SVGGElement;
+  const dedos = svg.querySelector('.dedos') as SVGGElement;
   const notas = () => (acorde < 0 ? AFINACAO : ACORDES[acorde]!.notas);
   const cor = () => (acorde < 0 ? ROSA_ESCURO : ACORDES[acorde]!.cor);
 
@@ -113,6 +121,11 @@ export function telaUkulele(): Tela {
       acorde = Number(el.getAttribute('data-acorde'));
       const [x, y] = botao(acorde);
       luz.innerHTML = contornoLuz(x, y, BOTAO_R + 6, BOTAO_R + 6);
+      /* os dedos aparecem no braço, onde apertariam de verdade */
+      const a = ACORDES[acorde]!;
+      dedos.innerHTML = a.casas
+        .map((c, i) => (c > 0 ? `<circle cx="${CORDAS_X[i]}" cy="${CASA_Y[c]}" r="9" fill="${a.cor}" stroke="#fbf8f1" stroke-width="2.5"/>` : ''))
+        .join('');
       /* o acorde inteiro soa uma vez, de cima para baixo */
       ACORDES[acorde]!.notas.forEach((_n, i) => void esperar(i * 70).then(() => soa(i)));
     },

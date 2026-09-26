@@ -12,6 +12,8 @@ class MotorAudio {
   /** soma que mantém o relógio contínuo quando o contexto acorda */
   private deslocamento = 0;
   private ancorado = false;
+  /** o som todo desligado nas opções: o jogo segue igual, só que em silêncio */
+  mudo = false;
 
   /** Destrava o contexto no primeiro toque. Idempotente. */
   async destravar(): Promise<boolean> {
@@ -23,6 +25,7 @@ class MotorAudio {
         this.mestre = this.ctx.createGain();
         this.musica = this.ctx.createGain();
         this.efeitos = this.ctx.createGain();
+        this.mestre.gain.value = this.mudo ? 0 : 1;
         this.musica.connect(this.mestre);
         this.efeitos.connect(this.mestre);
         /* o piano gravado tem cauda: notas se sobrepõem e um acorde podia
@@ -122,6 +125,14 @@ class MotorAudio {
     if (!this.ctx) return;
     this.musica?.gain.setTargetAtTime(musica, this.ctx.currentTime, 0.02);
     this.efeitos?.gain.setTargetAtTime(efeitos, this.ctx.currentTime, 0.02);
+  }
+
+  /** Liga e desliga o som inteiro (música, efeitos, vozes gravadas e a voz do aparelho). */
+  definirMudo(sim: boolean): void {
+    this.mudo = sim;
+    if (sim && typeof speechSynthesis !== 'undefined') speechSynthesis.cancel();
+    if (!this.ctx || !this.mestre) return;
+    this.mestre.gain.setTargetAtTime(sim ? 0 : 1, this.ctx.currentTime, 0.02);
   }
 
   private volumeMusica = 0.8;

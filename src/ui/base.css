@@ -387,9 +387,10 @@ body {
 .balao {
   position: absolute;
   top: calc(env(safe-area-inset-top, 0px) + var(--e3));
-  left: 50%;
-  width: calc(100% - 2 * var(--e4));
-  max-width: calc(var(--coluna) - 2 * var(--e4));
+  /* deixa o canto de cima à direita para o botão das opções */
+  left: calc(50% - var(--opcoes-folga) / 2);
+  width: calc(100% - 2 * var(--e4) - var(--opcoes-folga));
+  max-width: calc(var(--coluna) - 2 * var(--e4) - var(--opcoes-folga));
   z-index: var(--z-hud);
   padding: var(--e3) var(--e4) var(--e6) var(--e4);
   background: var(--papel);
@@ -461,6 +462,228 @@ body {
 .balao-fechar:active {
   opacity: 0.6;
 }
+
+/* ---------- as opções: o botão pequeno do canto e o painel que corre para a esquerda ---------- */
+.opcoes {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100%;
+  max-width: var(--coluna);
+  transform: translateX(-50%);
+  z-index: var(--z-opcoes);
+  pointer-events: none;
+  overflow: hidden;
+}
+.opcoes.escondido {
+  display: none;
+}
+.opcoes-botao {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + var(--e2));
+  right: var(--e2);
+  width: var(--opcoes-botao);
+  height: var(--opcoes-botao);
+  padding: 10px;
+  border: var(--fio-w) solid var(--fio-ouro);
+  border-radius: var(--r-pilula);
+  background: var(--marfim-veu);
+  color: var(--ouro-tinta);
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: manipulation;
+  transition: transform var(--d-rapido) var(--ease-sai), opacity var(--d-rapido);
+}
+/* o alvo cresce para além do desenho: o botão é pequeno, o dedo do adulto não */
+.opcoes-botao::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+}
+.opcoes-botao > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.opcoes-botao:active {
+  transform: scale(0.94);
+}
+.opcoes.aberto .opcoes-botao {
+  opacity: 0;
+  pointer-events: none;
+}
+.opcoes-selo {
+  display: none;
+  position: absolute;
+  left: -4px;
+  bottom: -4px;
+  width: 18px;
+  height: 18px;
+  padding: 2px;
+  border-radius: var(--r-pilula);
+  background: var(--veludo);
+  color: var(--marfim);
+}
+.opcoes-selo > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.opcoes-botao.mudo .opcoes-selo {
+  display: block;
+}
+.opcoes-veu {
+  position: absolute;
+  inset: 0;
+  background: var(--veu);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--d-base) var(--ease-entra-sai);
+}
+.opcoes.aberto .opcoes-veu {
+  opacity: 1;
+  pointer-events: auto;
+}
+.opcoes-painel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(340px, 88%);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: calc(env(safe-area-inset-top, 0px) + var(--e2)) var(--e4) calc(var(--fundo-seguro) + var(--e5));
+  background: var(--papel);
+  color: var(--txt);
+  border-left: var(--fio-w) solid var(--fio-ouro);
+  box-shadow: -6px 0 24px rgba(16, 20, 42, 0.12);
+  transform: translateX(100%);
+  transition: transform var(--d-base) var(--ease-sai);
+  pointer-events: auto;
+  user-select: text;
+  -webkit-user-select: text;
+}
+.opcoes.aberto .opcoes-painel {
+  transform: none;
+}
+.opcoes-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--e2);
+}
+.opcoes-topo h1 {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: var(--t-h1);
+}
+.opcoes-fechar {
+  width: 48px;
+  height: 48px;
+  margin-right: calc(-1 * var(--e2));
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ouro-tinta);
+  font-family: var(--serif);
+  font-size: var(--t-h1);
+  line-height: 1;
+  cursor: pointer;
+}
+.opcoes-ajuda {
+  margin: 0 0 var(--e3);
+  padding: var(--e3) var(--e4);
+  border-radius: var(--r-folha);
+  background: var(--toque);
+}
+.opcoes-ajuda summary {
+  display: flex;
+  align-items: center;
+  gap: var(--e2);
+  min-height: 44px;
+  font-weight: 500;
+  cursor: pointer;
+  list-style: none;
+}
+.opcoes-ajuda summary::-webkit-details-marker {
+  display: none;
+}
+.opcoes-interrogacao {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--r-pilula);
+  background: var(--musgo-tinta);
+  color: var(--marfim);
+  font-size: var(--t-rotulo);
+}
+.opcoes-ajuda p {
+  margin: var(--e2) 0 0;
+  color: var(--txt);
+  font-size: var(--t-rotulo);
+}
+.opcoes-ajuda .opcoes-nota {
+  color: var(--txt-2);
+}
+.opcoes-painel .linha {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e3);
+  min-height: 52px;
+  padding: var(--e2) 0;
+  border-bottom: var(--fio-w) solid var(--fio);
+}
+.opcoes-painel .linha .nome {
+  flex: 1;
+}
+.opcoes-painel .linha .sub {
+  display: block;
+  font-size: var(--t-rotulo);
+  color: var(--txt-2);
+}
+.opcoes-painel .linha button {
+  flex: none;
+  font: inherit;
+  color: inherit;
+  min-height: 44px;
+  border-radius: var(--r-pilula);
+  border: var(--fio-w) solid var(--fio);
+  background: transparent;
+  padding: 0 var(--e4);
+  cursor: pointer;
+}
+.opcoes-painel .linha button.ligado {
+  background: var(--musgo);
+  border-color: var(--musgo);
+  color: var(--tinta);
+}
+.opcoes-painel .linha button.primario {
+  background: var(--musgo-tinta);
+  border-color: var(--musgo-tinta);
+  color: var(--marfim);
+}
+.opcoes-painel .linha button:disabled {
+  opacity: 0.5;
+}
+.opcoes-painel .linha button:active {
+  background: var(--toque);
+}
+.opcoes-estado {
+  margin: var(--e2) 0;
+  padding: var(--e3) var(--e4);
+  border-radius: var(--r-folha);
+  background: var(--toque);
+  font-size: var(--t-rotulo);
+}
+.opcoes-estado:empty {
+  display: none;
+}
+
 /* o balão recolhido: uma bolinha de papel com três pontinhos, logo abaixo da casinha,
    fora do varal da casa e da trilha do avanço. O alvo tem 72 px; o desenho é menor. */
 .balao-bolinha {

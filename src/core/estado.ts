@@ -94,6 +94,8 @@ export interface Pais {
   narracao: boolean;
   /** no balanço do parquinho, cada ida vale uma pedrinha no pote e a voz conta até dez */
   contarNoBalanco: boolean;
+  /** o som do jogo desligado pelo botão de opções do canto */
+  mudo: boolean;
 }
 
 export interface Estado {
@@ -214,6 +216,7 @@ export function estadoNovo(agora = new Date()): Estado {
       perdePedrinhas: true,
       narracao: true,
       contarNoBalanco: true,
+      mudo: false,
     },
   };
 }

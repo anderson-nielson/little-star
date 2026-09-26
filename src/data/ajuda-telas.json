@@ -1,0 +1,152 @@
+{
+  "chegada": {
+    "titulo": "A chegada",
+    "oque": "A casa verde abre a porta e a família recebe a Stella pelo nome. Dura uns quinze segundos.",
+    "fazer": "Esperar a porta abrir, ou tocar em qualquer lugar para adiantar."
+  },
+  "casa": {
+    "titulo": "A casa verde",
+    "oque": "É o menu do jogo: cada coisa da casa é uma brincadeira. A que pulsa com contorno de luz é a sugestão do dia; o que ela nunca tocou balança devagar. As bandeirinhas no alto mostram o que ela já brincou hoje.",
+    "fazer": "Tocar em qualquer objeto da casa. Não há ordem certa. A porta leva para as aventuras lá fora."
+  },
+  "roda": {
+    "titulo": "A roda do dia",
+    "oque": "A família senta no tapete e pergunta, uma coisa de cada vez, o que ela fez hoje: arrumar a cama, escovar os dentes, guardar os brinquedos.",
+    "fazer": "Esperar a pergunta terminar e tocar no objeto que acendeu se ela fez. Se não fez, é só seguir. Os pais podem confirmar no cantinho dos pais."
+  },
+  "prato": {
+    "titulo": "O prato colorido",
+    "oque": "Um prato vazio com seis cores em volta. Ela conta quais cores de comida provou hoje, e cada cor faz nascer uma flor no canteiro.",
+    "fazer": "Arrastar ou tocar a cor que ela provou. Vale provar, não precisa ter comido tudo."
+  },
+  "som": {
+    "titulo": "O som do dia",
+    "oque": "O Theo diz o som da semana, bem esticado, e aparecem três figuras grandes.",
+    "fazer": "Tocar na figura que começa com aquele som. As outras dizem o próprio nome e o próprio som, então qualquer toque ensina."
+  },
+  "caderno": {
+    "titulo": "O caderno de letras",
+    "oque": "A letra da semana nasce de uma imagem. A estrela guia mostra o caminho da letra.",
+    "fazer": "Traçar com o dedo por cima da fita, seguindo a estrela. Tirar o dedo não apaga, e o traço tem folga larga."
+  },
+  "palavra": {
+    "titulo": "A palavra em destaque",
+    "oque": "Uma palavra grande e uma fita embaixo. Primeiro ela ouve, depois traça som por som, depois junta os sons e a palavra fica dourada.",
+    "fazer": "Passar o dedo na fita da esquerda para a direita, primeiro devagar e depois mais rápido. A estrela guia e a mãozinha mostram o gesto."
+  },
+  "areia": {
+    "titulo": "A caixa de areia",
+    "oque": "Uma caixa em forma de estrela com ferramentas: o dedo desenha (às vezes aparece uma letra que ela já sabe, para traçar), a pá cava e acha coisas, o balde faz castelos.",
+    "fazer": "Escolher uma ferramenta e brincar. Não tem objetivo nem erro. O rastelo alisa a areia."
+  },
+  "pinhas": {
+    "titulo": "As pinhas",
+    "oque": "Embaixo do pinheiro caíram algumas pinhas.",
+    "fazer": "Arrastar cada pinha até a cestinha. As pinhas juntadas vão para a mesa da estação."
+  },
+  "pinhas.mesa": {
+    "titulo": "A mesa da estação",
+    "oque": "A mesa onde ficam as pinhas que ela juntou e as lembranças do que ela viveu.",
+    "fazer": "Arrastar as pinhas para onde quiser. Elas ficam onde ela deixar."
+  },
+  "piano": {
+    "titulo": "O piano rosa",
+    "oque": "Cada tecla toca uma nota de piano de verdade e as bonecas da estante dançam.",
+    "fazer": "Tocar livre. Tocando na partitura, liga o seguir a estrelinha: uma centelha pula para a próxima tecla e espera. Nota \"errada\" também soa bonita."
+  },
+  "jardim": {
+    "titulo": "A aventura do jardim",
+    "oque": "O coelhinho fugiu para o fim do jardim. A Stella vai buscar e volta com ele, no ritmo da música.",
+    "fazer": "Tocar em qualquer lugar da tela para pular poças, pedras e troncos. Pulou fora da hora, ela escorrega, ri e levanta. A aventura sempre termina."
+  },
+  "palco": {
+    "titulo": "O palco",
+    "oque": "A Stella dança a Dança da Fada Açucarada para a família e as bonecas.",
+    "fazer": "Tocar na parte de cima da tela para um salto, na de baixo para um giro. Sempre dá certo. No fim tem aplauso e uma boneca nova na estante."
+  },
+  "bichos": {
+    "titulo": "Os bichinhos",
+    "oque": "O gatinho e o coelhinho no tapete, no fim de cada sessão.",
+    "fazer": "Tocar na água, arrastar a comida até o bicho e passar o dedo devagar no pelo para fazer carinho. Nenhum bicho fica triste se ela não vier."
+  },
+  "despedida": {
+    "titulo": "A despedida",
+    "oque": "A família se despede na porta com um convite para fazer alguma coisa de verdade, fora do jogo. A porta fecha com um laço rosa.",
+    "fazer": "Só ouvir o convite. Depois disso o jogo descansa; mais tarde, um toque reabre."
+  },
+  "noite": {
+    "titulo": "A hora de dormir",
+    "oque": "A casa escura, a canção de ninar e a rotina da noite: banho, dentes, pijama, livro e abajur.",
+    "fazer": "Tocar em cada passo da rotina. No fim vem o boa-noite, o gatinho sobe na cama e o jogo dorme."
+  },
+  "dormindo": {
+    "titulo": "A Stella está dormindo",
+    "oque": "Depois da hora de dormir o jogo fica dormindo até de manhã, e nada responde ao toque. É de propósito.",
+    "fazer": "Nada. Para mudar a hora de dormir, entre no cantinho dos pais."
+  },
+  "horta": {
+    "titulo": "A horta",
+    "oque": "Quatro covas no quintal. O que ela planta cresce com os dias e com a rega. Nada murcha se ela não vier.",
+    "fazer": "Um toque faz a coisa certa: cova vazia, planta; planta com sede, rega; planta pronta, colhe. O que ela colhe vai para a comidinha com a mãe."
+  },
+  "arvore": {
+    "titulo": "A árvore do quintal",
+    "oque": "Subir na árvore grande, sem pressa. Lá de cima ela vê o céu da hora, a casa de cima e o Theo acenando.",
+    "fazer": "Tocar num galho mais alto para subir até ele. Se o gatinho estiver no topo, tocar nele começa a aventura da Árvore Grande."
+  },
+  "cozinha": {
+    "titulo": "A comidinha com a mãe",
+    "oque": "Os legumes da horta e do prato ficam na prateleira. Cada comida diz o próprio nome.",
+    "fazer": "Tocar em cada legume para ele ir para a bacia e cair na tigela, depois mexer com a colher. O Theo come e a mãe prova."
+  },
+  "arvoregrande": {
+    "titulo": "A aventura da Árvore Grande",
+    "oque": "Ela sobe a árvore, galho por galho, para buscar o gatinho. Lá em cima um esquilo rola pinhas.",
+    "fazer": "Tocar na tela para pular e pegar a pinha. Se não pular, a pinha cai na cestinha do Theo do mesmo jeito. Termina sempre no palco."
+  },
+  "lago": {
+    "titulo": "O Lago dos Cisnes",
+    "oque": "Atravessar o lago pulando em vitórias-régias e cisnes que nadam de um lado para o outro.",
+    "fazer": "Tocar na tela para pular para a frente; o pulo espera a plataforma chegar. Cada travessia acende uma parte do coreto do outro lado."
+  },
+  "ukulele": {
+    "titulo": "O ukulele",
+    "oque": "Quatro cordas afinadas em sol, dó, mi e lá, e sete botões de cor, cada um com um acorde.",
+    "fazer": "Passar o dedo nas cordas. Tocar num botão de cor muda o acorde. Nenhuma combinação soa feia."
+  },
+  "lira": {
+    "titulo": "A lira",
+    "oque": "Sete cordas numa escala em que nada soa feio.",
+    "fazer": "Tocar numa corda ou deslizar o dedo por várias."
+  },
+  "bonecas": {
+    "titulo": "As bonecas",
+    "oque": "A estante de bonecas em cima e a boneca escolhida grande no meio.",
+    "fazer": "Tocar numa boneca da estante para escolher e nas cores embaixo para trocar roupa, cabelo e gorro. Tocar na Stella leva a boneca junto nas aventuras."
+  },
+  "bilhete": {
+    "titulo": "O bilhetinho",
+    "oque": "Carimbos com as vogais e as letras que ela já traçou, e um papel rosa.",
+    "fazer": "Tocar nos carimbos para pôr letras no papel e entregar para a mãe, o pai ou o Theo, que leem em voz alta o que ela escreveu. Os bilhetes ficam guardados no cantinho dos pais."
+  },
+  "relogio": {
+    "titulo": "O relógio da sala",
+    "oque": "Um relógio grande que mostra a hora de verdade quando ela chega. O céu da janelinha muda com a hora.",
+    "fazer": "Girar o ponteiro curto, o das horas, e ouvir a hora. Tocar no Theo: ele pede uma hora para ela mostrar."
+  },
+  "parquinho": {
+    "titulo": "O balanço",
+    "oque": "O parquinho do condomínio. O balanço é o primeiro brinquedo da volta; depois vêm o escorregador e a gangorra.",
+    "fazer": "Arrastar a Stella para trás e soltar. Tocar nela perto do chão dá impulso com as pernas. Com a contagem ligada no cantinho dos pais, cada ida alta vale uma pedrinha e a voz conta até dez."
+  },
+  "escorregador": {
+    "titulo": "O escorregador",
+    "oque": "O segundo brinquedo do parquinho. O Theo espera embaixo, na saída.",
+    "fazer": "Cada toque sobe um degrau. Lá em cima, mais um toque e ela escorrega."
+  },
+  "gangorra": {
+    "titulo": "A gangorra",
+    "oque": "O último brinquedo do parquinho. O Theo segura a outra ponta da tábua.",
+    "fazer": "Tocar para ela empurrar com o pé e subir. Ela desce devagar, porque o Theo segura."
+  }
+}

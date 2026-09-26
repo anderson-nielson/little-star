@@ -84,29 +84,46 @@ const cordas = new Map<string, AudioBuffer>();
 
 /**
  * Corda dedilhada: ruído curto passado por um atraso realimentado com filtro
- * (Karplus-Strong), calculado uma vez por nota num buffer e reaproveitado.
+ * (Karplus-Strong), calculado uma vez por nota. O laço (atraso inteiro, média
+ * de duas amostras e um passa-tudo para a fração que sobra) dá exatamente o
+ * período da nota: sem isso cada corda sai uns cents fora, cada uma para um
+ * lado, e o acorde soa desafinado.
  */
+export function cordaAmostras(sr: number, midi: number, dur = 2.2): Float32Array {
+  const n = Math.floor(sr * dur);
+  const periodo = sr / freq(midi);
+  /* a média de duas amostras encurta o laço em meia amostra; o passa-tudo repõe a fração */
+  const atraso = Math.max(2, Math.floor(periodo + 0.4));
+  const fracao = periodo + 0.5 - atraso;
+  const c = (1 - fracao) / (1 + fracao);
+  const d = new Float32Array(n);
+  const anel = new Float32Array(atraso);
+  for (let i = 0; i < atraso; i++) anel[i] = Math.random() * 2 - 1;
+  let idx = 0;
+  let x1 = 0;
+  let y1 = 0;
+  const amortece = 0.996;
+  for (let i = 0; i < n; i++) {
+    const a = anel[idx]!;
+    const prox = anel[(idx + 1) % atraso]!;
+    const v = amortece * 0.5 * (a + prox);
+    const y = c * v + x1 - c * y1;
+    x1 = v;
+    y1 = y;
+    anel[idx] = y;
+    d[i] = a * 0.6;
+    idx = (idx + 1) % atraso;
+  }
+  return d;
+}
+
 export function cordaBuffer(ctx: BaseAudioContext, midi: number, dur = 2.2): AudioBuffer {
   const chave = `${midi}:${ctx.sampleRate}`;
   const pronto = cordas.get(chave);
   if (pronto) return pronto;
-  const sr = ctx.sampleRate;
-  const n = Math.floor(sr * dur);
-  const periodo = Math.max(2, Math.round(sr / freq(midi)));
-  const b = ctx.createBuffer(1, n, sr);
-  const d = b.getChannelData(0);
-  const anel = new Float32Array(periodo);
-  for (let i = 0; i < periodo; i++) anel[i] = Math.random() * 2 - 1;
-  let idx = 0;
-  const amortece = 0.996;
-  for (let i = 0; i < n; i++) {
-    const a = anel[idx]!;
-    const prox = anel[(idx + 1) % periodo]!;
-    const v = amortece * 0.5 * (a + prox);
-    anel[idx] = v;
-    d[i] = a * 0.6;
-    idx = (idx + 1) % periodo;
-  }
+  const d = cordaAmostras(ctx.sampleRate, midi, dur);
+  const b = ctx.createBuffer(1, d.length, ctx.sampleRate);
+  b.getChannelData(0).set(d);
   cordas.set(chave, b);
   return b;
 }

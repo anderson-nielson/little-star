@@ -1,5 +1,6 @@
 import { falar, temVoz } from './vozes';
 import { podeFalar } from './fala';
+import { audio } from './engine';
 import esJson from '@/data/espanhol.json';
 
 /**
@@ -27,7 +28,7 @@ export function podeFalarEspanhol(): boolean {
 export async function falarEspanhol(id: string, velocidade = 0.75): Promise<boolean> {
   if (temVoz('es_' + id)) return falar('es_' + id);
   const texto = ES[id];
-  if (!texto || !podeFalar()) return false;
+  if (!texto || !podeFalar() || audio.mudo) return false;
   const v = vozEs();
   if (!v) return false;
   return new Promise((r) => {
