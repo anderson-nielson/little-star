@@ -22,7 +22,7 @@ export interface Bilhete {
   letras: string;
   dia: string;
 }
-/** o figurino de uma boneca: as cores que ela escolheu */
+/** o figurino de uma boneca: a cor do vestido, o cabelo e, em `gorro`, o enfeite da cabeça (laco, gorro, flores, chapeu ou nenhum) */
 export interface Figurino {
   roupa: string;
   cabelo: string;

@@ -585,9 +585,15 @@ do jardim.
 **Bonecas** na estante do quarto, que é a coleção dela.
 - Cada aventura terminada traz uma boneca de pano nova, devagar, até cinco na estante (a
   Estrellita está lá desde o começo). Semana de tarefas não dá boneca: seria contador.
-- Ela pode **vestir** uma boneca com as cores do figurino (o sistema de figurino do Ponta:
-  collant, tutu, enfeite).
-- Ela escolhe **uma boneca companheira** que vai junto nas aventuras, no bolso do tutu.
+- Cada boneca tem um jeito que não muda: o cabelo de lã (coque de bailarina, tranças, cachos,
+  maria-chiquinha, solto). O desenho é próprio (`src/puppet/bonecaPano.ts`): cabeça grande,
+  corpo curtinho, costura na barra, bolinhas bordadas.
+- Ela pode **vestir** uma boneca: na cesta, quatro vestidos (tutus, para a Estrellita) e quatro
+  enfeites da cabeça (laço, gorrinho de lã, coroa de flores, chapéu de sol), desenhados como
+  são. Vestir faz a boneca dar um pulinho e a Stella bater palma; a Estrellita diz a cor e o
+  enfeite em espanhol.
+- Ela escolhe **uma boneca companheira** que vai junto nas aventuras: tocar na Stella faz ela
+  dar a mão para a boneca, e uma estrelinha marca na estante qual é.
 - As bonecas **assistem** ao palco ao lado da família.
 
 ## 12. As aventuras
