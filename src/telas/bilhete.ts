@@ -41,7 +41,7 @@ export function telaBilhete(): Tela {
   s += `<g data-para="mae"><circle cx="80" cy="690" r="46" fill="transparent"/>${familia.mae(80, 740, 120).svg}</g>`;
   s += `<g data-para="pai"><circle cx="195" cy="690" r="46" fill="transparent"/>${familia.pai(195, 740, 126).svg}</g>`;
   s += `<g data-para="theo"><circle cx="310" cy="700" r="46" fill="transparent"/>${familia.theo(310, 742, 96).svg}</g>`;
-  const tela = telaSvg(s, { casinha: () => void ir('casa'), lua: true });
+  const tela = telaSvg(s);
   const svg = tela.svg;
   tocarFundo('preludio_bach');
   const textoEl = svg.querySelector('.texto') as SVGTextElement;

@@ -15,7 +15,7 @@ let raiz: HTMLElement | null = null;
 let cortina: HTMLElement | null = null;
 let trocando = false;
 let aoVoltar: (() => void) | null = null;
-const aoTrocar = new Set<(nome: string) => void>();
+const aoTrocar = new Set<(nome: string, params: Record<string, string>) => void>();
 
 export function registrar(nome: string, c: Construtor): void {
   telas.set(nome, c);
@@ -44,7 +44,7 @@ export function telaAtual(): string {
 }
 
 /** Avisa quando uma tela nova entrou. Devolve como parar de ouvir. */
-export function aoTrocarTela(f: (nome: string) => void): () => void {
+export function aoTrocarTela(f: (nome: string, params: Record<string, string>) => void): () => void {
   aoTrocar.add(f);
   return () => aoTrocar.delete(f);
 }
@@ -66,5 +66,5 @@ export async function ir(nome: string, params: Record<string, string> = {}): Pro
   raiz.insertBefore(nova.el, cortina);
   cortina.classList.remove('fechada');
   trocando = false;
-  for (const f of aoTrocar) f(nome);
+  for (const f of aoTrocar) f(nome, params);
 }

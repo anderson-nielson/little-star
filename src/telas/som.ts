@@ -37,7 +37,7 @@ export function telaSom(): Tela {
   s += `<g class="theo">${familia.theo(84, 712, 118, 'aponta').svg}</g>`;
   s += `<text x="270" y="690" text-anchor="middle" font-family="Jost, sans-serif" font-size="72" font-weight="500" fill="#f2a9c4">${letra.id}</text>`;
   s += `<g class="figuras"></g><g class="luz"></g>`;
-  const tela = telaSvg(s, { casinha: () => void terminar(), lua: true });
+  const tela = telaSvg(s);
   const svg = tela.svg;
   const camada = svg.querySelector('.figuras') as SVGGElement;
   const camadaLuz = svg.querySelector('.luz') as SVGGElement;

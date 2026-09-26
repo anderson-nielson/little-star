@@ -133,6 +133,8 @@ aprende uma música. Toda tela usa só estes.
 | Centelha de ouro parada numa coisa da casa | Aqui você já brincou hoje |
 | Mãozinha desenhada fazendo o gesto | Faça isso |
 | Estrela guia correndo por uma fita | O caminho é este |
+| A casinha verde, no canto de cima à esquerda, em toda tela | Volta para a casa, sempre, mesmo no meio de uma cena (na casa, só brilha) |
+| A lua, no canto de cima à direita, em toda tela | Segurada 2 s, abre o cantinho dos pais |
 | Trilha de contas no alto, entre a casinha e a lua | Quanto já foi (contas de ouro) e quanto falta; a estrelinha é a de agora |
 | A casinha acende e a mãozinha aponta para ela | Por hoje acabou; pode voltar para casa (ou continuar brincando) |
 | Sininho no tom da música | Deu certo |
@@ -594,7 +596,7 @@ inteiro; o que sai volta na v2, sem pressa.
   de cada aventura terminada, e a escolha na porta.
 - Espanhol pela Estrellita, que entra sozinho quando os primeiros sons estão firmes (três
   letras traçadas), ou como os pais mandarem.
-- Ukulele e lira tocável; vestir bonecas e a boneca companheira; o bilhetinho; as festas das
+- Ukulele; vestir bonecas e a boneca companheira; o bilhetinho; as festas das
   estações; *Ciranda, cirandinha* no piano.
 
 Por que o espanhol saiu da v1: ela está começando o fônico em português, e ouvir a mesma

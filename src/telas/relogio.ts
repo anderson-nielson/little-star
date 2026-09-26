@@ -3,7 +3,6 @@ import { estado, mudar } from '@/core/estado';
 import { ganhar, PEDRINHAS } from '@/core/pedrinhas';
 import { horaParaMinutos } from '@/core/relogio';
 import { sessao } from '@/core/sessao';
-import { ir } from '@/core/roteador';
 import { esperar, pontoNoSvg } from '@/core/util';
 import { Ajuda } from '@/core/ajuda';
 import { reivindicarDedo, soltarDedo, travar } from '@/core/toque';
@@ -105,7 +104,7 @@ export function telaRelogio(): Tela {
   s += `<g data-alvo="theo"><circle cx="90" cy="640" r="60" fill="transparent"/>${familia.theo(90, 740, 150, 'aponta').svg}</g>`;
   s += `<g class="balao" opacity="0">${arco(160, 540, 70, 76, '#fbf8f1')}<text class="pedida" x="195" y="595" text-anchor="middle" font-family="Jost, sans-serif" font-size="40" font-weight="500" fill="#f2a9c4"></text></g>`;
   s += `<g class="stella">${familia.stella(310, 740, 100, 'acena').svg}</g>`;
-  const tela = telaSvg(s, { casinha: () => void ir('casa'), lua: true });
+  const tela = telaSvg(s);
   const svg = tela.svg;
   tocarFundo('preludio_bach');
   const ponteiro = svg.querySelector('.ponteiro') as SVGGElement;

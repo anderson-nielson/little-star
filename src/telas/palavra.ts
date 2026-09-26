@@ -95,7 +95,7 @@ export function telaPalavra(params: Record<string, string>): Tela {
   /* a mãozinha que faz o gesto na fita */
   s += `<g class="mao-fita" opacity="0">${maozinha(0, 0, 1.1, -15, '')}</g>`;
 
-  const tela = telaSvg(s, { casinha: () => void ir(volta), lua: true });
+  const tela = telaSvg(s);
   const svg = tela.svg;
   const guia = svg.querySelector('.guia') as SVGGElement;
   const cheio = svg.querySelector('.cheio') as SVGLineElement;

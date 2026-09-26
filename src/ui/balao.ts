@@ -10,6 +10,10 @@ import { h } from '@/core/util';
  * Quando ela volta a brincar (um toque na cena), o balão se recolhe numa
  * bolinha no alto: aberto, ele cobria a casinha e a trilha do avanço, e o
  * jogo parecia travado. A frase não se perde: tocar na bolinha abre de novo.
+ *
+ * O balão não segura toque nenhum, só o "x": um toque em cima dele chega na
+ * cena. Assim a casinha e a lua, que ficam por baixo dos cantos, respondem
+ * sempre, também no quarto dormindo, onde o balão fica aberto.
  */
 export interface Balao {
   mostrar: (texto: string) => void;
@@ -65,12 +69,12 @@ export function montarBalao(app: HTMLElement): Balao {
   });
   bolinha.addEventListener('pointerdown', (ev) => ev.stopPropagation());
 
-  /* só o "x" fecha; um toque no resto do balão não chega na cena */
+  /* só o "x" fecha */
+  fechar.addEventListener('pointerdown', (ev) => ev.stopPropagation());
   fechar.addEventListener('pointerup', (ev) => {
     ev.stopPropagation();
     esconder();
   });
-  el.addEventListener('pointerup', (ev) => ev.stopPropagation());
 
   /* ela tocou na cena: o balão sai da frente e vira a bolinha */
   app.addEventListener(

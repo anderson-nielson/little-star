@@ -71,17 +71,13 @@ class Sessao {
     else await this.irPara('despedida');
   }
 
-  /** Voltar para a casa, de qualquer brincadeira. */
+  /**
+   * Voltar para a casa, de qualquer tela: a casinha do canto e o "voltar" do
+   * aparelho. Sempre leva para a casa, também dos bichos, da despedida e do
+   * quarto à noite; antes, dali ela recomeçava a mesma tela e o quarto
+   * dormindo não tinha saída. A parte pulada não volta.
+   */
   async voltarParaCasa(): Promise<void> {
-    if (this.partes.includes('casa') && this.partes.indexOf(this.atual) < this.partes.indexOf('casa')) {
-      /* saiu de uma parte antes da casa: a casa vem, e a parte pulada não volta */
-      await this.irPara('casa');
-      return;
-    }
-    if (this.atual === 'bichos' || this.atual === 'despedida') {
-      await this.irPara(this.atual);
-      return;
-    }
     await this.irPara('casa');
   }
 
