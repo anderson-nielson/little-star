@@ -79,10 +79,10 @@ export function telaCaderno(): Tela {
   let W = 390;
   let H = 780;
   let dpr = 1;
-  /* a caixa da letra: metade da tela, centrada, acima do Theo */
+  /* a caixa da letra: centrada no meio da página em arco, acima do Theo */
   const caixa = () => {
-    const lado = Math.min(W * 0.62, H * 0.42);
-    return { x: (W - lado) / 2, y: H * 0.16, lado };
+    const lado = Math.min(W * 0.72, H * 0.5);
+    return { x: (W - lado) / 2, y: H * 0.46 - lado / 2, lado };
   };
   const redimensionar = () => {
     const r = canvas.getBoundingClientRect();
@@ -130,14 +130,28 @@ export function telaCaderno(): Tela {
     ctx.beginPath();
     switch (letra.imagem) {
       case 'telhado':
-        ctx.moveTo(0.05, 0.95);
-        ctx.lineTo(0.5, 0.05);
-        ctx.lineTo(0.95, 0.95);
-        ctx.moveTo(0.2, 0.62);
-        ctx.lineTo(0.8, 0.62);
-        ctx.lineTo(0.8, 0.95);
-        ctx.lineTo(0.2, 0.95);
+        /* a casa verde em A: o telhado desce até o chão pelas mesmas pernas da letra */
+        ctx.moveTo(0.12, 0.94);
+        ctx.lineTo(0.5, 0.06);
+        ctx.lineTo(0.88, 0.94);
         ctx.closePath();
+        ctx.save();
+        ctx.globalAlpha *= 0.45;
+        ctx.fillStyle = '#8FAE6B';
+        ctx.fill();
+        ctx.restore();
+        ctx.moveTo(0.27, 0.62);
+        ctx.lineTo(0.73, 0.62);
+        /* a janelinha redonda no sótão e a porta embaixo */
+        ctx.moveTo(0.56, 0.4);
+        ctx.arc(0.5, 0.4, 0.06, 0, Math.PI * 2);
+        ctx.moveTo(0.43, 0.94);
+        ctx.lineTo(0.43, 0.76);
+        ctx.arc(0.5, 0.76, 0.07, Math.PI, 0);
+        ctx.lineTo(0.57, 0.94);
+        /* o chão */
+        ctx.moveTo(0.02, 0.94);
+        ctx.lineTo(0.98, 0.94);
         break;
       case 'estante':
         ctx.rect(0.22, 0.06, 0.6, 0.88);

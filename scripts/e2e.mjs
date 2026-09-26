@@ -106,9 +106,9 @@ for (const [nome, tela, q] of [
 await abrir('sessoes=8&hora=15:00&tela=caderno');
 await espera(4500);
 const caixa = await page.evaluate(() => ({ w: innerWidth, h: innerHeight }));
-const lado = Math.min(caixa.w * 0.62, caixa.h * 0.42);
+const lado = Math.min(caixa.w * 0.72, caixa.h * 0.5);
 const cx0 = (caixa.w - lado) / 2;
-const cy0 = caixa.h * 0.16;
+const cy0 = caixa.h * 0.46 - lado / 2;
 const P = (x, y) => [cx0 + x * lado, cy0 + y * lado];
 async function traco(de, ate) {
   const a = P(...de);
