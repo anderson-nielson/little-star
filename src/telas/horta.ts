@@ -5,7 +5,6 @@ import { colher, estagio, plantar, regadoHoje, regar, type Estagio } from '@/cor
 import { espanholAtivo } from '@/core/laco';
 import { chaveDoDia } from '@/core/relogio';
 import { sessao } from '@/core/sessao';
-import { ir } from '@/core/roteador';
 import { esperar } from '@/core/util';
 import { Ajuda } from '@/core/ajuda';
 import { travar } from '@/core/toque';
@@ -61,7 +60,7 @@ export function telaHorta(): Tela {
   if (estado().bichos.coelho) s += `<g class="coelho">${coelho(250, 640, 26)}</g>`;
   /* a cestinha da colheita */
   s += `<g class="cesta"><path d="M120 720q50 -12 100 0l-10 40h-80z" fill="#c9a189"/><path d="M140 720q30 -40 60 0" fill="none" stroke="#c9a189" stroke-width="5"/><g class="na-cesta"></g></g>`;
-  const tela = telaSvg(s, { casinha: () => void ir('casa'), lua: true });
+  const tela = telaSvg(s);
   const svg = tela.svg;
   tocarFundo('gymnopedie');
   const covas = svg.querySelector('.covas') as SVGGElement;

@@ -147,7 +147,7 @@ export function telaRoda(): Tela {
   s += familia.stella(80, 660, 78, 'sentado').svg;
   if (e.bichos.gato) s += gato(150, 690, 12);
   s += `<g class="objetos"></g><g class="luz"></g>`;
-  const tela = telaSvg(s, { casinha: () => void sessao.avancar(), lua: true });
+  const tela = telaSvg(s);
   const svg = tela.svg;
   const camada = svg.querySelector('.objetos') as SVGGElement;
   const camadaLuz = svg.querySelector('.luz') as SVGGElement;

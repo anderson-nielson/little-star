@@ -218,7 +218,7 @@ marionete por dados). Nada de copiar personagens, colagem ou estilo visual do de
 - **Plateia da família.** No palco, a primeira fila é a mãe, o pai, o Theo e as bonecas.
   Aplaudem sempre.
 - **A voz da família.** Frases curtas gravadas pela Andrea, pelo Anderson e pelo Theo:
-  "Te amo, Stella." "Que cama arrumadinha." "Olha que S bonito." "Boa noite, estrelinha."
+  "Te amo, Stella." "Que cama arrumadinha." "Olha que S bonito." "Boa noite, Stella."
   É o recurso mais forte do jogo e vale o trabalho de gravar (seção 15.4).
 - **O nome dela** aparece no título, na porta do quarto e no caderno, em letra de forma
   grande, para ela aprender a reconhecer.
@@ -231,7 +231,8 @@ marionete por dados). Nada de copiar personagens, colagem ou estilo visual do de
   sem cobrança. As frases vivem em `src/data/narracao.json` e se revezam; o balão fica na
   tela até um toque no "x". Quando ela volta a tocar na cena, ele se recolhe numa bolinha no
   alto, para não cobrir a casinha nem a trilha do avanço; tocar na bolinha abre a frase de
-  novo. Desliga-se no cantinho dos pais.
+  novo. O balão não segura toque (só o "x", pendurado embaixo dele): a casinha e a lua por
+  baixo dos cantos respondem mesmo com ele aberto. Desliga-se no cantinho dos pais.
 
 ## 7. A casa verde, o quintal e o quarto rosa
 
@@ -576,8 +577,8 @@ A escrita fica em português. Espanhol é para ouvir e falar, não para traçar.
 **Ukulele rosa** na parede, com o corpo em oito e as 4 cordas afinadas em sol, dó, mi, lá (a
 afinação padrão). Passar o dedo nas cordas soltas dá a afinação; um botão de cor dá um acorde
 (corda dedilhada sintetizada, algoritmo Karplus-Strong, sem arquivo de áudio). Os sete acordes
-do campo harmônico de dó (dó, ré menor, mi menor7, fá, sol7, lá menor, si meio-diminuto, nas
-posições de verdade, até três casas), sete cores de botão num arco em volta do corpo, para ela
+do campo harmônico de dó (dó 0003, ré menor 2210, mi menor 0432, fá 2010, sol 0232, lá menor 2000,
+si diminuto 4212: as tríades nas posições dos métodos; o dedo aparece no braço), sete cores de botão num arco em volta do corpo, para ela
 acompanhar o piano ou a canção. Nas aventuras, um acorde abre as flores
 do jardim.
 
@@ -712,8 +713,7 @@ direita, baixo simples na esquerda, andamento calmo.
 as notas ré, mi, sol, lá, si, sem dissonância, sem começo nem fim marcados. Em casa, fora das
 aventuras, a música de fundo alterna o piano calmo com uma **lira pentatônica** sintetizada
 (corda dedilhada, o mesmo Karplus-Strong do ukulele, bem suave). A lira também marca as
-passagens do dia: uma escala subindo de manhã, descendo à noite. Tocar na lira pendurada no
-quarto toca uma nota da pentatônica: nenhuma combinação soa feia.
+passagens do dia: uma escala subindo de manhã, descendo à noite.
 
 Regras:
 - Piano sempre; efeitos sintetizados no tom da música, como as respostas do Ponta.

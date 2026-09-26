@@ -1,6 +1,5 @@
 import { convidarParaCasa, relogioDeAjuda, telaSvg, trilha, type Trilha } from './comum';
 import { estado, mudar } from '@/core/estado';
-import { ir } from '@/core/roteador';
 import { embaralhar, esperar, observarCaixa, pontoNoSvg, svgEl } from '@/core/util';
 import { reivindicarDedo, soltarDedo, tocavel, travar } from '@/core/toque';
 import { Tracado, pontoEm, type Ponto, type TracoDado } from '@/core/fita';
@@ -80,7 +79,7 @@ export function telaAreia(): Tela {
   if (e.bichos.gato) s += `<g class="luz-gato"></g><g data-alvo="gato">${gato(GATO[0], GATO[1], 24)}</g>`;
   /* o que ela acha cavando fica fora do recorte da estrela: a figura pode passar da borda */
   s += `<g class="achados" style="pointer-events:none"></g>`;
-  const tela = telaSvg(s, { casinha: () => void ir('casa'), lua: true });
+  const tela = telaSvg(s);
   const svg = tela.svg;
   const itens = svg.querySelector('.itens') as SVGGElement;
   const luzModo = svg.querySelector('.luz-modo') as SVGGElement;

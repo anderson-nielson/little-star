@@ -33,7 +33,7 @@ function embaixoDoPinheiro(): Tela {
   if (e.bichos.coelho) s += `<g class="coelho">${coelho(330, 700, 26)}</g>`;
   if (e.bichos.gato) s += `<g class="gato">${gato(60, 560, 14)}</g>`;
   s += `<g class="chao"></g>`;
-  const tela = telaSvg(s, { casinha: () => void ir('casa'), lua: true });
+  const tela = telaSvg(s);
   const svg = tela.svg;
   tocarFundo('gymnopedie');
   const chao = svg.querySelector('.chao') as SVGGElement;
@@ -47,7 +47,7 @@ function embaixoDoPinheiro(): Tela {
       const tipo = Math.floor((seed * 31 * (i + 1)) % 4);
       const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
       g.setAttribute('class', 'pinha');
-      g.innerHTML = pinha(x, y, 20, tipo);
+      g.innerHTML = alcance(x, y, 20) + pinha(x, y, 20, tipo);
       g.style.transformBox = 'fill-box';
       g.style.transform = 'translateY(-300px)';
       chao.appendChild(g);
@@ -101,22 +101,26 @@ function mesaDaEstacao(): Tela {
   s += `<g class="na-mesa"></g>`;
   /* a cesta com as pinhas que ainda não foram para a mesa */
   s += `<g class="cesta"><path d="M110 690q85 -16 170 0l-14 54h-142z" fill="#c9a189"/><path d="M140 690q55 -50 110 0" fill="none" stroke="#c9a189" stroke-width="6"/><g class="na-cesta"></g></g>`;
-  const tela = telaSvg(s, { casinha: () => void ir('casa'), lua: true });
+  const tela = telaSvg(s);
   const svg = tela.svg;
   tocarFundo('gymnopedie');
   const naMesa = svg.querySelector('.na-mesa') as SVGGElement;
   const naCesta = svg.querySelector('.na-cesta') as SVGGElement;
 
+  let acabou = false;
   const render = () => {
     naMesa.innerHTML = '';
     naCesta.innerHTML = '';
     const est2 = estado();
+    const ultimaNaCesta = est2.pinhas.reduce((u, p, i) => (p.y > 0 ? u : i), -1);
     est2.pinhas.forEach((p, i) => {
       const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
       const naMesaJa = p.y > 0;
       const x = naMesaJa ? 60 + p.x * 270 : 150 + (i % 6) * 16;
       const y = naMesaJa ? 320 + p.y * 160 : 700 - Math.floor(i / 6) * 8;
-      g.innerHTML = pinha(x, y, 18, p.tipo);
+      /* a de cima da cesta se pega pela cesta inteira: o dedo não precisa acertar a pinha */
+      const pega = i === ultimaNaCesta ? `<rect x="104" y="640" width="182" height="108" fill="transparent"/>` : alcance(x, y, 18);
+      g.innerHTML = pega + pinha(x, y, 18, p.tipo);
       (naMesaJa ? naMesa : naCesta).appendChild(g);
       arrastavel(svg, g, (dx, dy) => {
         const fx = x + dx;
@@ -131,6 +135,12 @@ function mesaDaEstacao(): Tela {
             }
           });
           render();
+          /* a cesta ficou vazia: a mesa está pronta, e a casa chama */
+          if (!acabou && estado().pinhas.every((q) => q.y > 0)) {
+            acabou = true;
+            tela.comemorar(195, 400);
+            void esperar(2400).then(() => ir('casa'));
+          }
           return true;
         }
         return false;
@@ -139,4 +149,9 @@ function mesaDaEstacao(): Tela {
   };
   render();
   return tela;
+}
+
+/** Um círculo invisível em volta da pinha: o dedo de 5 anos acerta a pinha, não só as escamas. */
+function alcance(x: number, y: number, s: number): string {
+  return `<circle cx="${x}" cy="${y - s * 0.35}" r="${s * 1.3}" fill="transparent"/>`;
 }

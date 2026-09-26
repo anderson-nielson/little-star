@@ -2,7 +2,7 @@
   { "id": "nome_mae", "texto": "Stella!", "dono": "mae", "grupo": "chegada", "obrigatoria": true },
   { "id": "nome_pai", "texto": "Stella!", "dono": "pai", "grupo": "chegada", "obrigatoria": true },
   { "id": "nome_theo", "texto": "Stella!", "dono": "theo", "grupo": "chegada", "obrigatoria": true },
-  { "id": "bom_dia", "texto": "Bom dia, estrelinha.", "dono": "mae", "grupo": "chegada", "obrigatoria": false },
+  { "id": "bom_dia", "texto": "Bom dia, Stella.", "dono": "mae", "grupo": "chegada", "obrigatoria": false },
 
   { "id": "pergunta_noite", "texto": "Você dormiu no seu quarto, sozinha?", "dono": "mae", "grupo": "roda", "obrigatoria": true },
   { "id": "pergunta_noite_toda", "texto": "E dormiu a noite toda?", "dono": "pai", "grupo": "roda", "obrigatoria": true },
@@ -84,11 +84,11 @@
   { "id": "convite_brincar", "texto": "Vamos brincar lá fora?", "dono": "mae", "grupo": "despedida", "obrigatoria": true },
   { "id": "convite_cozinha", "texto": "Vamos fazer comidinha de verdade?", "dono": "mae", "grupo": "despedida", "obrigatoria": false },
   { "id": "convite_letra", "texto": "Vamos desenhar essa letra no papel?", "dono": "theo", "grupo": "despedida", "obrigatoria": false },
-  { "id": "tchau", "texto": "Tchau, estrelinha. Te amo.", "dono": "mae", "grupo": "despedida", "obrigatoria": true },
+  { "id": "tchau", "texto": "Tchau, Stella. Te amo.", "dono": "mae", "grupo": "despedida", "obrigatoria": true },
   { "id": "tchau_pai", "texto": "Até já, Stella.", "dono": "pai", "grupo": "despedida", "obrigatoria": false },
   { "id": "tchau_theo", "texto": "Tchau, Stella!", "dono": "theo", "grupo": "despedida", "obrigatoria": false },
 
-  { "id": "boa_noite_mae", "texto": "Boa noite, estrelinha.", "dono": "mae", "grupo": "noite", "obrigatoria": true },
+  { "id": "boa_noite_mae", "texto": "Boa noite, Stella.", "dono": "mae", "grupo": "noite", "obrigatoria": true },
   { "id": "boa_noite_pai", "texto": "Boa noite, Stella. Te amo.", "dono": "pai", "grupo": "noite", "obrigatoria": true },
   { "id": "noite_combinado", "texto": "Você dorme aqui no seu quarto, a noite toda. Amanhã a gente conta, e ganha pedrinha.", "dono": "mae", "grupo": "noite", "obrigatoria": false },
   { "id": "boa_noite_theo", "texto": "Boa noite, Stella.", "dono": "theo", "grupo": "noite", "obrigatoria": false },

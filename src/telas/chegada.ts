@@ -38,7 +38,7 @@ export function telaChegada(): Tela {
   s += `<g class="familia" opacity="0">${familia.mae(168, 560, 112, 'acena').svg}${familia.pai(228, 560, 118, 'parado', { dir: -1 }).svg}${familia.theo(200, 562, 84, 'acena').svg}</g>`;
   s += `<g class="gatinho" opacity="0">${gato(120, 566, 12)}</g>`;
   s += coelho(300, 590, 16) + pinheiro(355, 640, 300);
-  const tela = telaSvg(s, { lua: true });
+  const tela = telaSvg(s);
   const svg = tela.svg;
   travar(600);
 

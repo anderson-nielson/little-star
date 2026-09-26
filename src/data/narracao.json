@@ -1,163 +1,163 @@
 {
-  "_": "A narração para quem joga junto. Um balão no topo da tela, para a mamãe, o papai ou o mano (o Theo, como a Stella chama) lerem em voz alta para ela. Cada avanço tem várias frases; elas se revezam. Toda frase fala do que ela fez de verdade, do carinho da família, e do mano como quem torce por ela, nunca como medida. Frases curtas, concretas, para 5 anos; nada de comparação, nada de nomear a corrida.",
+  "_": "A narração para quem joga junto. Um balão no topo da tela, para a mamãe, o papai ou o mano (o Theo, como a Stella chama) lerem em voz alta para ela. Cada avanço tem várias frases; elas se revezam. Toda frase fala do que ela fez, do carinho da família, e do mano como quem torce por ela, nunca como medida. Frases curtas e simples, para 5 anos, do jeito que um pai ou uma mãe fala: sem exagero, sem apelido (é só Stella), sem comparação, sem nomear a corrida.",
   "chegada": [
-    "Stella, olha: a mamãe, o papai e o mano estavam esperando você. Todo mundo ficou feliz de ver você chegar.",
-    "O mano veio correndo pra porta quando ouviu você. Ele gosta quando você está por perto.",
-    "A porta abriu e a família toda está aqui. Esta casa é sua, Stella.",
-    "Bem-vinda de volta, estrelinha. A gente sempre gosta quando você chega."
+    "Stella, olha: a mamãe, o papai e o mano estavam esperando você chegar.",
+    "O mano veio correndo pra porta quando ouviu você.",
+    "A porta abriu e a família toda está aqui pra você.",
+    "Que bom que você chegou, Stella. A gente estava esperando."
   ],
   "cama": [
-    "Você arrumou a sua cama sozinha. Que grande você está ficando!",
-    "Cama arrumada é você cuidando do seu cantinho. A família viu e gostou.",
-    "O mano viu a sua cama arrumadinha e ficou orgulhoso de você.",
-    "Cuidar da cama é um jeito de cuidar de você. E a gente cuida de você todo dia, porque te ama."
+    "Você arrumou a sua cama sozinha. Ficou bonita.",
+    "Cama arrumada é o seu cantinho cuidado por você. A mamãe reparou.",
+    "O mano viu a sua cama arrumadinha e gostou.",
+    "Arrumar a cama é um jeito de cuidar do seu quarto. Você fez isso hoje."
   ],
   "dentes": [
-    "Você escovou os dentes. Sorriso limpo, sorriso brilhando!",
-    "A mamãe e o papai adoram esse seu sorriso, do jeitinho que ele é.",
-    "Escovar os dentes dá preguiça às vezes, e você fez mesmo assim. Isso é força.",
-    "O mano também escova os dentes todo dia. Agora vocês dois têm o sorriso brilhando."
+    "Você escovou os dentes. Sorriso limpo pro dia inteiro.",
+    "A mamãe e o papai adoram esse seu sorriso.",
+    "Escovar os dentes dá preguiça às vezes, e você fez mesmo assim.",
+    "O mano também escovou os dentes hoje. Os dois com o sorriso brilhando."
   ],
   "brinquedos": [
     "Você guardou os brinquedos. Quando quiser brincar de novo, vai achar tudo no lugar.",
     "Guardar o que a gente usou é cuidar da casa de todo mundo. Obrigada, Stella.",
-    "O mano viu você guardando e disse que a sala ficou bonita. Ele repara nas coisas boas que você faz.",
-    "Uma coisa de cada vez, sem pressa, e ficou tudo arrumado. Você sabe fazer isso."
+    "O mano viu você guardando e disse que a sala ficou bonita.",
+    "Uma coisa de cada vez, sem pressa, e ficou tudo arrumado."
   ],
   "banho": [
-    "Banho tomado, cabelo cheiroso! A mamãe adora um abraço em você depois do banho.",
-    "Você tomou banho sozinha. Cuidar de você é coisa de gente grande.",
+    "Banho tomado, cabelo cheiroso. A mamãe adora um abraço em você depois do banho.",
+    "Você tomou banho. Isso é cuidar de você.",
     "Cheirosa assim, dá vontade de apertar. O papai já vem com o abraço.",
-    "O mano também toma banho todo dia. Os dois ficam cheirosos, cada um do seu jeito."
+    "O mano também tomou banho hoje. Os dois cheirosos."
   ],
   "quarto": [
-    "O quarto rosa ficou arrumado por você. É o seu cantinho, e você cuidou dele.",
+    "O quarto rosa ficou arrumado por você. É o seu cantinho.",
     "Arrumar o quarto dá trabalho, e você fez. A mamãe viu.",
-    "O mano tem o quarto dele, você tem o seu. Os dois ficam bonitos quando cada um cuida do seu.",
-    "Quarto arrumado é mais gostoso de dormir. Você fez isso por você."
+    "O mano tem o quarto dele, você tem o seu. Cada um cuida do seu.",
+    "Quarto arrumado é mais gostoso de dormir."
   ],
   "gentil": [
-    "Você foi gentil com alguém. Isso é uma das coisas mais bonitas que a gente vê em você.",
-    "Ser gentil é uma força sua, Stella. A família inteira sente quando você é assim.",
+    "Você foi gentil com alguém hoje. A família adora ver você assim.",
+    "Ser gentil é uma coisa bonita sua, Stella.",
     "Quando você é gentil com o mano, ele fica feliz de ter você como irmã.",
-    "Emprestar, abraçar, esperar a vez: é você cuidando de quem está perto. Que coração grande!"
+    "Emprestar, abraçar, esperar a vez. Isso é ser gentil, e você foi."
   ],
   "dormiu_sozinha": [
-    "Você dormiu no seu quarto, sozinha. Isso é coragem de gente grande, e a mamãe e o papai ficaram muito felizes.",
-    "Dormir sozinha não é fácil, e você conseguiu. A família está sempre pertinho, do outro lado da parede.",
+    "Você dormiu no seu quarto, sozinha. A mamãe e o papai ficaram felizes.",
+    "Dormir sozinha não é fácil, e você conseguiu. A família está sempre pertinho.",
     "O mano ficou sabendo que você dormiu sozinha e disse: que corajosa!",
-    "Uma estrela nova na janela por uma noite corajosa. A gente cuida de você mesmo enquanto você dorme."
+    "Uma estrela nova na janela por uma noite corajosa."
   ],
   "noite_toda": [
-    "Você dormiu a noite inteira. O seu corpo descansou, e a mamãe olhou você dormindo com muito amor.",
-    "Uma noite inteira de sono! Que bom, Stella. A casa toda descansou junto com você.",
-    "O papai passou de mansinho no seu quarto de noite e você estava dormindo tranquila. Ele sorriu.",
-    "O mano dormiu no quarto dele, você no seu, e a casa inteira descansou. Cada um no seu cantinho, todos juntos."
+    "Você dormiu a noite inteira. A mamãe olhou você dormindo e sorriu.",
+    "Uma noite inteira de sono. Que bom, Stella.",
+    "O papai passou de mansinho no seu quarto de noite e você estava dormindo tranquila.",
+    "O mano dormiu no quarto dele, você no seu, e a casa inteira descansou."
   ],
   "letra": [
-    "Você traçou uma letra inteira, do começo ao fim. Foi você quem fez!",
-    "O mano estava do lado vendo você desenhar a letra. Ele mostra, você descobre.",
-    "Cada letra que você aprende é sua para sempre. A mamãe guarda cada uma no coração.",
-    "Você foi até o fim do traço, sem desistir. O papai viu e ficou orgulhoso."
+    "Você traçou uma letra inteira, do começo ao fim.",
+    "O mano estava do lado vendo você desenhar a letra. Ele mostra, você faz.",
+    "Mais uma letra que você sabe. A mamãe viu e gostou.",
+    "Você foi até o fim do traço, sem desistir. O papai viu."
   ],
   "areia": [
     "Você escreveu uma letra na areia, com o dedo. A mamãe adora ver você escrevendo.",
-    "A letra ficou marcada na areia, do começo ao fim, e foi você quem fez. O mano viu e bateu palma.",
-    "Na areia a letra nasce e depois some, e você faz de novo quando quiser. Que gostoso ver você tentar."
+    "A letra ficou marcada na areia, e foi você quem fez. O mano viu e bateu palma.",
+    "Na areia a letra some e você faz de novo quando quiser. É gostoso ver você tentar."
   ],
   "palavra": [
-    "Você leu uma palavra inteira com o dedo. Isso é você aprendendo a ler, Stella.",
+    "Você leu uma palavra inteira com o dedo. Isso é aprender a ler, Stella.",
     "As letras que você conhece viraram uma palavra. Foi você quem juntou.",
-    "O mano ficou orgulhoso: a irmã dele está lendo!",
-    "Ler é como abrir uma porta. Você abriu uma hoje, e a família viu."
+    "O mano ficou orgulhoso: a irmã dele está lendo.",
+    "Mais uma palavra que você sabe ler. A família viu."
   ],
   "som": [
-    "Você achou o som escondido na figura. Que ouvido bom você tem, Stella!",
-    "O mano disse o som e você encontrou. Ele mostra, você descobre. É assim que vocês brincam juntos.",
-    "Ouvir com calma é uma força sua. A mamãe percebe isso quando conversa com você.",
-    "Cada som que você aprende é um pedacinho do mundo que fica seu."
+    "Você achou o som escondido na figura. Que ouvido bom, Stella.",
+    "O mano disse o som e você encontrou. É assim que vocês brincam juntos.",
+    "Ouvir com calma é uma coisa que você sabe fazer. A mamãe percebe.",
+    "Mais um som que você conhece. A família gosta de ver você aprender."
   ],
   "relogio": [
     "Você acertou a hora no relógio. Está aprendendo a ver as horas, como o mano e o papai.",
     "O mano pediu uma hora e você girou o ponteiro até lá. Ele adora brincar assim com você.",
-    "Saber as horas é coisa de quem está crescendo. E você está, com a família junto.",
-    "Você olhou, pensou e girou o ponteiro certo. Pensar com calma é uma força sua."
+    "Saber as horas é coisa de quem está crescendo.",
+    "Você olhou, pensou e girou o ponteiro certo. Pensar com calma ajuda."
   ],
   "colheita": [
-    "Você plantou, regou dia após dia, e agora colheu. Cuidar e esperar: você sabe fazer os dois.",
-    "A horta cresceu porque você cuidou dela. As coisas boas levam tempo, e você teve paciência.",
-    "A mamãe vai cozinhar o que você colheu. O que você plantou vai chegar na mesa da família.",
-    "O mano viu a sua horta e quis ajudar a regar. Quando um cuida, o outro cuida junto."
+    "Você plantou, regou dia após dia, e agora colheu.",
+    "A horta cresceu porque você cuidou dela. Isso leva tempo, e você teve paciência.",
+    "A mamãe vai cozinhar o que você colheu.",
+    "O mano viu a sua horta e quis ajudar a regar."
   ],
   "comidinha": [
-    "Você fez uma comidinha com a mamãe. Cozinhar juntas é um jeito gostoso de dizer eu te amo.",
-    "O mano comeu a sua comidinha rindo. Ele gosta do que você faz, e gosta de você.",
-    "Lavar, cortar, mexer: você fez tudo. Que cozinheira!",
-    "A mamãe provou e sorriu. Você faz coisas boas para a família, e a família faz coisas boas para você."
+    "Você fez uma comidinha com a mamãe. Cozinhar juntas é gostoso.",
+    "O mano comeu a sua comidinha rindo. Ele gostou.",
+    "Lavar, cortar, mexer: você fez tudo. Que cozinheira.",
+    "A mamãe provou e sorriu. Ficou bom."
   ],
   "aventura": [
-    "Você dançou no palco, do começo ao fim, e fez a reverência. A família inteira bateu palma.",
-    "Brava, Stella! O papai, a mamãe e o mano ficaram de boca aberta vendo você dançar.",
-    "O mano estava na plateia e bateu palma mais alto que todo mundo. Ele torce por você.",
-    "Saltar, girar e terminar com reverência. Que bailarina! Ganhou uma boneca nova na estante."
+    "Você dançou no palco do começo ao fim, e fez a reverência. A família bateu palma.",
+    "Brava, Stella! O papai, a mamãe e o mano viram você dançar.",
+    "O mano estava na plateia batendo palma. Ele torce por você.",
+    "Saltar, girar e terminar com reverência. Ganhou uma boneca nova na estante."
   ],
   "medalha": [
     "O pote encheu e virou uma medalha na parede. São muitas coisas boas que você fez, uma de cada vez.",
-    "Uma medalha na parede é a lembrança de tudo que você fez de verdade. Medalha não se perde nunca.",
-    "A mamãe, o papai e o mano viram a medalha na parede. Cada um deles sabe o quanto você se esforçou.",
-    "O mano também tem as medalhas dele, e você tem as suas. Cada um com a sua história."
+    "Uma medalha na parede é a lembrança de tudo que você fez. Medalha fica pra sempre.",
+    "A mamãe, o papai e o mano viram a medalha na parede. Eles sabem o quanto você se esforçou.",
+    "O mano tem as medalhas dele, e você tem as suas."
   ],
   "bilhete": [
-    "Você escreveu um bilhete com as suas letras. A mamãe, o papai e o mano guardam cada bilhete seu com carinho.",
-    "Escrever para alguém é um jeito de dizer que você gosta dessa pessoa. Quem recebeu ficou feliz.",
+    "Você escreveu um bilhete com as suas letras. A família guarda cada bilhete seu.",
+    "Escrever pra alguém é um jeito de dizer que gosta dessa pessoa. Quem recebeu ficou feliz.",
     "O mano lê os seus bilhetes com o maior cuidado. Ele gosta de receber coisas suas.",
-    "As letras que você aprendeu já servem para dizer eu te amo. Que bonito, Stella."
+    "As letras que você aprendeu já servem pra mandar recado. Que bonito, Stella."
   ],
   "bichos": [
-    "Você cuidou do gatinho e do coelhinho. Eles confiam em você porque você é carinhosa.",
-    "Água, comida, carinho: você sabe cuidar de quem é pequeno. Isso é uma força sua.",
+    "Você cuidou do gatinho e do coelhinho. Eles confiam em você.",
+    "Água, comida, carinho. Você sabe cuidar de quem é pequeno.",
     "O mano também ajuda a cuidar dos bichos. Quando vocês cuidam juntos, os bichos ficam mais felizes.",
-    "Cuidar dos bichos com calma, sem pressa: é assim que a mamãe e o papai cuidam de você também."
+    "Cuidar dos bichos com calma, sem pressa. É assim que a mamãe e o papai cuidam de você também."
   ],
   "despedida": [
-    "A família se despede de você com um abraço. Amanhã ela estará aqui de novo, esperando você.",
-    "Foi um dia bom na casa verde. O que você fez hoje fica guardado, e ninguém tira.",
-    "A mamãe, o papai e o mano dão tchau. Eles te amam sempre, com o jogo ligado ou desligado.",
-    "Hora de fechar o jogo e ir brincar lá fora. Chama o mano pra ir junto!"
+    "A família se despede de você com um abraço. Amanhã ela está aqui de novo.",
+    "Foi um dia bom na casa verde. O que você fez hoje fica guardado.",
+    "A mamãe, o papai e o mano dão tchau. Até amanhã, Stella.",
+    "Hora de fechar o jogo e ir brincar lá fora. Chama o mano pra ir junto."
   ],
   "boa_noite": [
-    "Você fez toda a rotina da noite. Agora é hora de descansar, e a família fica por perto.",
-    "Boa noite, Stella. A mamãe e o papai estão aqui do lado, e o mano também. Você está segura.",
-    "Dormir no seu quarto é coragem. E a casa inteira dorme tranquila sabendo que você está bem.",
-    "O dia acabou e você fez muitas coisas boas. Amanhã a gente conta. Boa noite, estrelinha."
+    "Você fez toda a rotina da noite. Agora é hora de descansar.",
+    "Boa noite, Stella. A mamãe e o papai estão aqui do lado, e o mano também.",
+    "Dormir no seu quarto é coragem. A casa inteira dorme tranquila.",
+    "O dia acabou e você fez muitas coisas boas. Amanhã a gente conta. Boa noite, Stella."
   ],
   "dormindo": [
-    "Shhh. A Stella da casa verde está dormindo, e o jogo também. Quando amanhecer, a família acorda e espera você.",
-    "A casa está dormindo com a luz apagada. De manhã ela acorda de novo, e a gente conta como foi a noite.",
+    "Shhh. A Stella está dormindo, e o jogo também. De manhã a família acorda e espera você.",
+    "A casa está dormindo com a luz apagada. O mano no quarto dele, você no seu. De manhã a gente conta como foi a noite.",
     "Olha o gatinho dormindo junto. O jogo descansa até de manhã, igual a você."
   ],
   "balanco": [
-    "Você se balançou sozinha e contou até dez, um balanço por número. O mano contou junto, baixinho, orgulhoso de você.",
-    "Dez balanços, dez pedrinhas. A mamãe viu você lá no alto e pensou: que força essa menina tem.",
-    "No balanço, o impulso é seu: são as suas pernas que fazem subir. O papai e o mano ficam olhando e admirando.",
-    "Contar no balanço é contar com o corpo inteiro. A família inteira ouve você contar e sorri."
+    "Você se balançou sozinha e contou até dez. O mano contou junto, baixinho.",
+    "Dez balanços, com as suas pernas fazendo subir. A mamãe viu você lá no alto.",
+    "No balanço, o impulso é seu. O papai e o mano ficam olhando.",
+    "Contar até dez no balanço é contar com o corpo inteiro. A família ouviu você contar."
   ],
   "parquinho": [
-    "Você brincou no parquinho de verdade: balanço, escorregador, gangorra. O mano foi junto e cuidou de você o tempo todo.",
-    "A mamãe lembra de você lá no balanço, subindo alto. O parquinho é seu lugar de ser forte.",
-    "O papai gosta de ver você no parquinho: corajosa na escada, esperta na gangorra. E o mano sempre por perto.",
-    "Um balancinho de madeira foi para a sua mesa, para lembrar do parquinho. A família guarda o que você faz."
+    "Você brincou no parquinho de verdade: balanço, escorregador, gangorra. O mano foi junto.",
+    "A mamãe lembra de você lá no balanço, subindo alto.",
+    "O papai gosta de ver você no parquinho. E o mano sempre por perto.",
+    "Um balancinho de madeira foi pra sua mesa, pra lembrar do parquinho."
   ],
   "escorregador": [
-    "Você subiu a escada do escorregador sozinha e desceu de uma vez. O mano estava embaixo, esperando, e bateu palma.",
-    "Degrau por degrau, sem pressa, até o alto. A mamãe sabe que isso é coragem, e coragem com alguém perto.",
+    "Você subiu a escada do escorregador sozinha e desceu de uma vez. O mano estava embaixo esperando, e bateu palma.",
+    "Degrau por degrau, sem pressa, até o alto. A mamãe viu.",
     "Descer o escorregador dá um frio na barriga gostoso. O papai e o mano adoram ver você chegar rindo na areia.",
-    "Você é corajosa do seu jeito: sobe, olha, e desce quando quer. A família fica por perto, sempre."
+    "Você sobe, olha, e desce quando quer. A família fica por perto."
   ],
   "gangorra": [
-    "Na gangorra você empurrou o chão com o pé na hora certa e subiu. O mano segurou do outro lado, com cuidado, e disse: que esperta!",
-    "Gangorra é para dois: você sobe porque o mano segura, e ele fica feliz de fazer isso por você. É assim na nossa casa.",
-    "A mamãe viu você descobrir sozinha como subir na gangorra. Esperteza é isso: olhar, tentar, e conseguir.",
-    "Sobe e desce, sobe e desce, e o papai contando as subidas. A família inteira gosta de ver você brincar."
+    "Na gangorra você empurrou o chão com o pé na hora certa e subiu. O mano segurou do outro lado e disse: que esperta!",
+    "Gangorra é pra dois: você sobe porque o mano segura. Ele gosta de brincar assim com você.",
+    "A mamãe viu você descobrir sozinha como subir na gangorra.",
+    "Sobe e desce, sobe e desce, e o papai contando as subidas."
   ]
 }

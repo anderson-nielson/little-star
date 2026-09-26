@@ -3,7 +3,7 @@ import { CORES_DE_COMIDA, estado, mudar, type CorDeComida } from '@/core/estado'
 import { sessao } from '@/core/sessao';
 import { cor as tok, esperar } from '@/core/util';
 import { familia } from '@/puppet/boneco';
-import { centelha, flor, pol, veu } from '@/puppet/objetos';
+import { flor, pol, veu } from '@/puppet/objetos';
 import { figura, nomeDaFigura } from '@/puppet/figuras';
 import { falar, temVoz } from '@/audio/vozes';
 import { falarPalavra } from '@/audio/fala';
@@ -48,7 +48,7 @@ export function telaPrato(): Tela {
     const jaProvou = e.hoje.prato.includes(c);
     s += `<g data-cor="${c}" data-x="${x.toFixed(1)}" data-y="${y.toFixed(1)}" opacity="${jaProvou ? 0.3 : 1}"><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="40" fill="#fbf8f1" opacity="0.75"/>${figura(id, x, y, 56)}</g>`;
   });
-  const tela = telaSvg(s, { casinha: () => void terminar(), lua: true });
+  const tela = telaSvg(s);
   const svg = tela.svg;
   const noPrato = svg.querySelector('.no-prato') as SVGGElement;
   e.hoje.prato.forEach((c, i) => {
@@ -144,7 +144,5 @@ export function telaPrato(): Tela {
   /* depois de 40 s sem nada, a roda segue: nada é cobrado */
   const fimAuto = window.setTimeout(() => void terminar(), 40000);
   tela.aoDestruir(() => window.clearTimeout(fimAuto));
-  /* uma centelha discreta indica que a casinha segue em frente */
-  svg.insertAdjacentHTML('beforeend', centelha(40, 96, 8, '#c6a15b'));
   return tela;
 }

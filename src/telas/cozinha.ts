@@ -52,7 +52,7 @@ export function telaCozinha(): Tela {
     s += `<g data-ing="${id}" data-x="${x}"><circle cx="${x}" cy="215" r="38" fill="#fbf8f1" opacity="0.8"/>${figura(id, x, 215, 56)}</g>`;
   });
   s += `</g><g class="luz"></g><g class="prato-final"></g>`;
-  const tela = telaSvg(s, { casinha: () => void ir('casa'), lua: true });
+  const tela = telaSvg(s);
   const svg = tela.svg;
   tocarFundo('preludio_bach');
   const luz = svg.querySelector('.luz') as SVGGElement;
