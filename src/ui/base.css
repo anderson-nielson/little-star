@@ -129,6 +129,32 @@ body {
     transform: translateY(-60px) scale(1.1);
   }
 }
+/* o sono: um "z" que sobe devagar e some, um de cada vez */
+.zzz {
+  animation: zzz var(--d-sono) ease-in-out infinite both;
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+}
+@keyframes zzz {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.7);
+  }
+  30% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(14px, -46px) scale(1.15);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .zzz {
+    animation: none;
+    opacity: 0.6;
+  }
+}
 .some {
   transition: opacity var(--d-lento);
   opacity: 0;
