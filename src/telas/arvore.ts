@@ -1,4 +1,5 @@
-import { mover, telaSvg } from './comum';
+import { mover, relogioDeAjuda, telaSvg } from './comum';
+import { Ajuda } from '@/core/ajuda';
 import { estado } from '@/core/estado';
 import { aventurasAbertas } from '@/core/laco';
 import { ceuDaHora } from '@/core/relogio';
@@ -65,11 +66,25 @@ export function telaArvore(): Tela {
 
   let onde = -1; /* -1 é o chão */
   let subindo = false;
+  /* a mãozinha mostra o próximo galho; no topo, o gatinho (se ele subiu) */
+  const proximo = (): [number, number] | null => {
+    if (onde < GALHOS.length - 1) {
+      const [gx, gy] = GALHOS[onde + 1]!;
+      return [gx, gy + 10];
+    }
+    return gatoNoTopo ? [236, 190] : null;
+  };
+  const ajuda = new Ajuda((n) => tela.mao(n >= 1 && !subindo ? proximo() : null));
+  relogioDeAjuda(tela, (dt) => ajuda.tick(dt));
+  /* na chegada ela ainda não sabe o que fazer: a mãozinha já mostra o primeiro galho */
+  tela.mao(proximo());
   const posDe = (i: number): [number, number] => (i < 0 ? [150, 712] : [GALHOS[i]![0] + (GALHOS[i]![0] < 195 ? 10 : -10), GALHOS[i]![1] - 2]);
 
   const irPara = async (alvo: number) => {
     if (subindo || alvo === onde) return;
     subindo = true;
+    ajuda.reset();
+    tela.mao(null);
     travar(400);
     const passo = alvo > onde ? 1 : -1;
     while (onde !== alvo) {
