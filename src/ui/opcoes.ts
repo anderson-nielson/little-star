@@ -2,7 +2,10 @@ import { h } from '@/core/util';
 import { estado, mudar } from '@/core/estado';
 import { audio } from '@/audio/engine';
 import { buscarNovaVersao, estaInstalado, instalar, novaVersaoAChegar, podeInstalar, telaCheia, temServiceWorker, textoDaBusca, versao } from '@/core/aparelho';
+import { musicas, musicasNoAr } from '@/audio/musica';
 import ajudaJson from '@/data/ajuda-telas.json';
+import sobreJson from '@/data/musicas-sobre.json';
+import musicaTelasJson from '@/data/musica-telas.json';
 
 export interface AjudaDaTela {
   titulo: string;
@@ -19,6 +22,31 @@ export function chaveDaAjuda(nome: string, params: Record<string, string> = {}):
 
 export function ajudaDaTela(nome: string, params: Record<string, string> = {}): AjudaDaTela | null {
   return AJUDA[chaveDaAjuda(nome, params)] ?? null;
+}
+
+export interface SobreMusica {
+  autor: string;
+  estilo: string;
+  ano: string;
+  significado: string;
+  curiosidade: string;
+}
+
+const SOBRE = sobreJson as Record<string, SobreMusica>;
+const MUSICA_TELAS = musicaTelasJson as Record<string, string[]>;
+
+export function sobreMusica(id: string): SobreMusica | null {
+  return SOBRE[id] ?? null;
+}
+
+/**
+ * As músicas de uma tela: primeiro a que está no ar agora (a casa troca de
+ * música pelo dia e pela hora; a roda e o prato seguem com a da casa), depois
+ * as que a tela costuma tocar, mesmo que ainda não tenham começado.
+ */
+export function musicasDaTela(nome: string, noAr: string[] = []): { id: string; tocando: boolean }[] {
+  const ids = [...new Set([...noAr, ...(MUSICA_TELAS[nome] ?? [])])].filter((id) => id in SOBRE && id in musicas);
+  return ids.map((id) => ({ id, tocando: noAr.includes(id) }));
 }
 
 /** Telas que já são texto para os pais e têm o próprio jeito de sair: sem o botão do canto. */
@@ -100,6 +128,36 @@ export function montarOpcoes(app: HTMLElement, irParaPais: () => void): Opcoes {
     return h('div', { class: 'linha' }, h('span', { class: 'nome' }, nome, h('span', { class: 'sub' }, sub)), ...acoes);
   }
 
+  function blocoDaMusica(): HTMLElement {
+    const lista = musicasDaTela(tela, musicasNoAr());
+    const titulo = lista.length === 1 ? `Música: ${musicas[lista[0]!.id]!.titulo}` : lista.length ? 'Músicas desta tela' : 'Música: nenhuma agora';
+    const detalhes = h(
+      'details',
+      { class: 'opcoes-ajuda opcoes-musica' },
+      h('summary', {}, h('span', { class: 'opcoes-interrogacao', 'aria-hidden': 'true' }, '♪'), titulo),
+    );
+    if (!lista.length) {
+      detalhes.append(h('p', {}, tela === 'ukulele' ? 'Aqui a música de fundo para: quem toca é ela, no ukulele.' : 'Nenhuma música tocando agora.'));
+      return detalhes;
+    }
+    if (tela === 'piano') detalhes.append(h('p', { class: 'opcoes-nota' }, 'A música de fundo para no piano. Estas são as canções que a estrelinha ensina, tecla por tecla.'));
+    for (const { id, tocando } of lista) {
+      const m = musicas[id]!;
+      const s = sobreMusica(id)!;
+      detalhes.append(
+        h('div', { class: 'opcoes-faixa' },
+          h('h2', {}, m.titulo, tocando ? h('span', { class: 'opcoes-no-ar' }, 'tocando agora') : null),
+          h('p', {}, h('b', {}, 'Autor. '), s.autor),
+          h('p', {}, h('b', {}, 'Estilo. '), s.estilo),
+          h('p', {}, h('b', {}, 'Quando. '), s.ano),
+          h('p', {}, h('b', {}, 'O que quer dizer. '), s.significado),
+          h('p', {}, h('b', {}, 'Uma curiosidade. '), s.curiosidade),
+        ),
+      );
+    }
+    return detalhes;
+  }
+
   function montarPainel(): void {
     painel.innerHTML = '';
     const e = estado();
@@ -119,6 +177,9 @@ export function montarOpcoes(app: HTMLElement, irParaPais: () => void): Opcoes {
       );
       painel.append(detalhes);
     }
+
+    /* a música desta tela: quem escreveu, quando, o que quer dizer */
+    painel.append(blocoDaMusica());
 
     /* o som */
     painel.append(

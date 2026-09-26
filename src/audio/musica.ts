@@ -59,6 +59,9 @@ export function parseMusica(m: Musica): MusicaParseada {
 }
 
 const ANTECIPACAO = 0.25;
+
+/** os sequenciadores tocando agora, o mais novo por último (o painel das opções mostra quem está no ar) */
+const noAr: Sequenciador[] = [];
 const INTERVALO = 60;
 const PASSOS_POR_BEAT = 4;
 
@@ -106,12 +109,15 @@ export class Sequenciador {
     this.proximoPasso = 0;
     this.gravado = pianoPronto();
     this.tocando = true;
+    if (!noAr.includes(this)) noAr.push(this);
     this.agendar();
     this.timer = window.setInterval(() => this.agendar(), INTERVALO);
   }
 
   parar(): void {
     this.tocando = false;
+    const i = noAr.indexOf(this);
+    if (i >= 0) noAr.splice(i, 1);
     if (this.timer !== null) window.clearInterval(this.timer);
     this.timer = null;
   }
@@ -182,4 +188,9 @@ export function pararFundo(): void {
 
 export function fundoAtual(): string {
   return idAtual;
+}
+
+/** As músicas tocando agora, da mais nova para a mais antiga, sem repetir. */
+export function musicasNoAr(): string[] {
+  return [...new Set(noAr.map((s) => s.musica.id).reverse())];
 }

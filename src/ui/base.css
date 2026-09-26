@@ -629,6 +629,28 @@ body {
 .opcoes-ajuda .opcoes-nota {
   color: var(--txt-2);
 }
+.opcoes-faixa + .opcoes-faixa {
+  margin-top: var(--e3);
+  padding-top: var(--e2);
+  border-top: var(--fio-w) solid var(--fio);
+}
+.opcoes-faixa h2 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--e2);
+  margin: var(--e2) 0 0;
+  font-size: var(--t-corpo);
+  font-weight: 500;
+}
+.opcoes-no-ar {
+  padding: 0 var(--e2);
+  border-radius: var(--r-pilula);
+  background: var(--musgo);
+  color: var(--tinta);
+  font-size: var(--t-rotulo);
+  font-weight: 400;
+}
 .opcoes-painel .linha {
   display: flex;
   align-items: center;

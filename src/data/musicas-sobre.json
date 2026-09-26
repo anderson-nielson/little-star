@@ -1,0 +1,65 @@
+{
+  "brilha": {
+    "autor": "Melodia popular francesa. Mozart escreveu doze variações sobre ela (K. 265).",
+    "estilo": "Canção infantil tradicional; as variações de Mozart são do classicismo.",
+    "ano": "A melodia aparece impressa em 1761, na França. Mozart escreveu as variações por volta de 1781. A letra inglesa, \"Twinkle, twinkle, little star\", é um poema de Jane Taylor de 1806.",
+    "significado": "Na França ela era \"Ah! vous dirai-je, maman\", uma menina contando um segredo para a mãe. A letra da estrelinha veio depois, em inglês, e virou a canção de ninar do mundo inteiro. É daqui que vem o nome do jogo.",
+    "curiosidade": "É a mesma melodia da canção do alfabeto em inglês (\"A, B, C, D...\") e de \"Baa, Baa, Black Sheep\". Em espanhol ela é \"Estrellita, ¿dónde estás?\"."
+  },
+  "ciranda": {
+    "autor": "Tradicional brasileira, sem autor conhecido.",
+    "estilo": "Cantiga de roda.",
+    "ano": "Sem data. Veio das rodas portuguesas e foi passando de boca em boca no Brasil.",
+    "significado": "É para cantar de mãos dadas, girando em roda. A letra fala de um anel que era de vidro e se quebrou, e de um amor que era pouco e se acabou: uma tristeza pequena que a roda deixa leve.",
+    "curiosidade": "Villa-Lobos juntou cantigas como esta no \"Guia Prático\", para as crianças aprenderem nas escolas, e escreveu também as \"Cirandas\" para piano, em 1926."
+  },
+  "cisnes": {
+    "autor": "Piotr Ilitch Tchaikovsky (1840 a 1893), Rússia.",
+    "estilo": "Balé romântico.",
+    "ano": "O Lago dos Cisnes foi composto em 1875 e 1876 e estreou em Moscou em 1877.",
+    "significado": "No segundo ato, no lago à luz da lua, quatro cisnes pequenos dançam juntos. Eles são do bando da princesa Odette, moças que um feitiço transformou em cisne e que só voltam a ser gente de noite.",
+    "curiosidade": "As quatro bailarinas dançam de braços cruzados, de mãos dadas umas com as outras, e fazem todos os passos ao mesmo tempo, sem se soltar. Na estreia o balé não fez sucesso; só virou o mais famoso do mundo em 1895, depois da morte de Tchaikovsky."
+  },
+  "fada_acucarada": {
+    "autor": "Piotr Ilitch Tchaikovsky (1840 a 1893), Rússia.",
+    "estilo": "Balé romântico.",
+    "ano": "O Quebra-Nozes estreou em São Petersburgo em dezembro de 1892.",
+    "significado": "No Reino dos Doces, a Fada Açucarada recebe Clara e o príncipe Quebra-Nozes e dança para eles. A música parece gotinhas de açúcar caindo.",
+    "curiosidade": "O som de sininhos é de uma celesta, um instrumento que Tchaikovsky conheceu em Paris em 1891. Ele encomendou uma escondido e pediu segredo, para nenhum outro compositor usar antes dele."
+  },
+  "marcha": {
+    "autor": "Piotr Ilitch Tchaikovsky (1840 a 1893), Rússia.",
+    "estilo": "Balé romântico.",
+    "ano": "O Quebra-Nozes estreou em São Petersburgo em dezembro de 1892.",
+    "significado": "É a marcha da festa de Natal, no primeiro ato: as crianças entram na sala e marcham em volta da árvore enfeitada, antes de ganhar os presentes.",
+    "curiosidade": "Tchaikovsky tirou algumas músicas do balé, entre elas esta marcha, e fez uma suíte para orquestra. A suíte foi tocada em março de 1892, antes do balé estrear, e foi um sucesso logo de cara."
+  },
+  "valsa_das_flores": {
+    "autor": "Piotr Ilitch Tchaikovsky (1840 a 1893), Rússia.",
+    "estilo": "Balé romântico, em ritmo de valsa (três tempos).",
+    "ano": "O Quebra-Nozes estreou em São Petersburgo em dezembro de 1892.",
+    "significado": "No Reino dos Doces, as flores dançam uma valsa para Clara, girando como um jardim inteiro que se abre.",
+    "curiosidade": "Começa com uma harpa sozinha, subindo e descendo, como uma flor abrindo as pétalas antes da dança. Por isso ela toca no jardim, enquanto as flores dela crescem."
+  },
+  "gymnopedie": {
+    "autor": "Erik Satie (1866 a 1925), França.",
+    "estilo": "Piano solo, calmo e simples. Às vezes chamada de avó da música ambiente.",
+    "ano": "1888, quando Satie tinha 21 anos.",
+    "significado": "O nome vem de uma festa da Grécia antiga em que os jovens dançavam. Satie escreveu na partitura \"lento e doloroso\", mas o que fica é uma calma de tarde comprida: por isso é a música da casa.",
+    "curiosidade": "Satie tocava piano num cabaré de Montmartre, em Paris. O amigo Claude Debussy gostou tanto que arranjou duas das três Gymnopédies para orquestra, em 1897."
+  },
+  "ninar_brahms": {
+    "autor": "Johannes Brahms (1833 a 1897), Alemanha.",
+    "estilo": "Canção de ninar (Lied), para voz e piano.",
+    "ano": "1868.",
+    "significado": "A letra diz \"boa noite, durma bem\" e fala de um sono protegido até de manhã. Brahms escreveu para uma amiga, Bertha Faber, quando nasceu o segundo filho dela.",
+    "curiosidade": "No acompanhamento Brahms escondeu uma canção austríaca que a Bertha cantava anos antes, em Hamburgo, quando os dois se conheceram. A canção de ninar é, no fundo, um presente com uma lembrança dentro."
+  },
+  "preludio_bach": {
+    "autor": "Johann Sebastian Bach (1685 a 1750), Alemanha.",
+    "estilo": "Barroco, para teclado.",
+    "ano": "1722. É a primeira peça do \"Cravo Bem Temperado\", livro 1.",
+    "significado": "Bach escreveu o livro para ensinar a tocar em todos os tons. Este prelúdio é só acordes desmanchados, nota a nota, sempre no mesmo desenho: bom para acompanhar quem está aprendendo e precisa de calma.",
+    "curiosidade": "Mais de cem anos depois, Charles Gounod escreveu uma melodia por cima deste prelúdio, sem mudar uma nota de Bach. Virou a \"Ave Maria\" de Bach e Gounod."
+  }
+}
