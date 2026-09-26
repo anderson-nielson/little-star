@@ -16,7 +16,7 @@
 | P8 | Roupa | Vestido rosa em casa; tutu e coque só no palco. | `src/puppet/boneco.ts` |
 | P9 | Proporções | Stella 1, Theo 1,5, pais 2 (o pai 2,1). | `src/puppet/boneco.ts` |
 | P10 | Voltar | A casinha verde no canto de cima, 72 px. A porta fica só para a aventura. | `src/puppet/objetos.ts` |
-| P11 | Jardim | Um obstáculo a cada 2 compassos a 100 bpm (uns 30 em dois minutos); nas duas primeiras aventuras, a cada 4. Janela do pulo 0,7 s. Em dados. | `src/telas/jardim.ts` (`JARDIM`) |
+| P11 | Jardim | Ida e volta: buscar o coelhinho e voltar para casa, 9 larguras de tela cada perna. Um obstáculo a cada 2 compassos de caminhada (uns 8 na ida); nas duas primeiras aventuras, a cada 4. Janela do pulo 0,7 s. Escorregão de 1,6 s. Em dados. | `src/telas/jardim.ts` (`JARDIM`) |
 | P12 | Semana | Cores da tradição Waldorf (dom dourado, seg roxo, ter vermelho, qua amarelo, qui laranja, sex verde, sáb azul). Brincadeira do dia: dom família, seg palavras, ter caderno, qua pinhas, qui areia, sex piano, sáb jardim. | `src/ui/tokens.css`, `src/core/laco.ts` |
 | P13 | O resto | Mãe de cabelo castanho escuro na altura do ombro e vestido rosa-velho; pai de testa alta, barba cheia e óculos finos sem hastes, castanho claro, camiseta verde-mata (opção C, escolhida entre três); gatinho cinza-areia, coelhinho branco; nomes candidatos Mimi, Luna, Bolota e Pipoca, Nino, Flor; nome do jogo Little Star; comidas iniciais tomate, cenoura, banana, brócolis, uva, pão (trocáveis); festas das estações ficam para a v2. | dados e cantinho dos pais |
 
