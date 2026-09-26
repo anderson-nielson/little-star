@@ -141,13 +141,13 @@ describe('a luz da casa', () => {
     let e = estadoNovo(dia(15));
     for (let d = 1; d <= 8; d++) e = abrirDia(e, dia(15, 0, d));
     e.letras = ['A'];
-    e.visitadas = COISAS.filter((c) => c !== 'lira' && c !== 'horta');
+    e.visitadas = COISAS.filter((c) => c !== 'bonecas' && c !== 'horta');
     const hoje = dia(15, 0, 8);
     const doDia = brincadeiraDoDia(e, hoje);
     expect(luzDaCasa(e, hoje)).toBe(doDia);
     marcarBrincada(e, doDia);
-    expect(luzDaCasa(e, hoje)).toBe('lira');
-    marcarBrincada(e, 'lira');
+    expect(luzDaCasa(e, hoje)).toBe('bonecas');
+    marcarBrincada(e, 'bonecas');
     expect(luzDaCasa(e, hoje)).toBe('horta');
     marcarBrincada(e, 'horta');
     const resto = COISAS.filter((c) => !e.hoje.brincadas.includes(c));

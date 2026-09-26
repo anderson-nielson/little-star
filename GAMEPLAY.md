@@ -596,7 +596,7 @@ inteiro; o que sai volta na v2, sem pressa.
   de cada aventura terminada, e a escolha na porta.
 - Espanhol pela Estrellita, que entra sozinho quando os primeiros sons estão firmes (três
   letras traçadas), ou como os pais mandarem.
-- Ukulele e lira tocável; vestir bonecas e a boneca companheira; o bilhetinho; as festas das
+- Ukulele; vestir bonecas e a boneca companheira; o bilhetinho; as festas das
   estações; *Ciranda, cirandinha* no piano.
 
 Por que o espanhol saiu da v1: ela está começando o fônico em português, e ouvir a mesma

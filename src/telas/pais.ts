@@ -15,7 +15,7 @@ import type { Tela } from '@/core/roteador';
 const NUMEROS = ['dois', 'três', 'quatro', 'cinco', 'seis', 'sete', 'oito', 'nove'];
 const DONO = { mae: 'Andrea', pai: 'Anderson', theo: 'Theo', qualquer: 'Qualquer um' };
 const NOME_COR: Record<CorDeComida, string> = { vermelho: 'Vermelho', laranja: 'Laranja', amarelo: 'Amarelo', verde: 'Verde', roxo: 'Roxo', marrom: 'Branco ou marrom' };
-const NOME_COISA: Record<Coisa, string> = { piano: 'Piano', caderno: 'Caderno de letras', palavras: 'Mala de palavras', areia: 'Caixa de areia', pinhas: 'Pinhas', jardim: 'A porta (aventuras)', familia: 'A família na sala', cozinha: 'Cozinha', ukulele: 'Ukulele', lira: 'Lira', bonecas: 'Bonecas', bilhete: 'Bilhetinho', relogio: 'Relógio', horta: 'Horta', arvore: 'Árvore do quintal', parquinho: 'Parquinho do condomínio' };
+const NOME_COISA: Record<Coisa, string> = { piano: 'Piano', caderno: 'Caderno de letras', palavras: 'Mala de palavras', areia: 'Caixa de areia', pinhas: 'Pinhas', jardim: 'A porta (aventuras)', familia: 'A família na sala', cozinha: 'Cozinha', ukulele: 'Ukulele', bonecas: 'Bonecas', bilhete: 'Bilhetinho', relogio: 'Relógio', horta: 'Horta', arvore: 'Árvore do quintal', parquinho: 'Parquinho do condomínio' };
 const NOME_TAREFA: Record<Tarefa, string> = { cama: 'Arrumou a cama', dentes: 'Escovou os dentes', brinquedos: 'Guardou os brinquedos', banho: 'Tomou banho', quarto: 'Arrumou o quarto', gentil: 'Foi gentil com alguém', parquinho: 'Brincou no parquinho' };
 
 /**
@@ -145,7 +145,7 @@ export function telaPais(): Tela {
       h(
         'p',
         {},
-        `A casa abre aos poucos, uma etapa por sessão terminada (piano, casinha verde, bichos, despedida) ou por dia novo de jogo, o que vier primeiro. Etapa 1: o quarto e o piano, e o gatinho na despedida. Etapa 2: a roda do dia, o caderno, o som do dia, os bichos, a caixa de areia, o coelhinho, o ukulele, a lira, as bonecas, o bilhetinho e o relógio. Etapa 3: o prato, as palavras, as pinhas, subir na árvore e a horta. Etapa 4: a porta (o Jardim) e a cozinha. Daí em diante tudo; a Árvore Grande e o Lago abrem depois de terminar a aventura anterior. Coisa fechada mostra um lacinho e a mãozinha aponta o que está aberto. Para terminar uma sessão, toque na família na sala: eles chamam para os bichos e para a despedida. ${inteira ? `Agora está tudo aberto (etapa ${etapa(e)}).` : `Esta é a etapa ${etapa(e)}.`}`,
+        `A casa abre aos poucos, uma etapa por sessão terminada (piano, casinha verde, bichos, despedida) ou por dia novo de jogo, o que vier primeiro. Etapa 1: o quarto e o piano, e o gatinho na despedida. Etapa 2: a roda do dia, o caderno, o som do dia, os bichos, a caixa de areia, o coelhinho, o ukulele, as bonecas, o bilhetinho e o relógio. Etapa 3: o prato, as palavras, as pinhas, subir na árvore e a horta. Etapa 4: a porta (o Jardim) e a cozinha. Daí em diante tudo; a Árvore Grande e o Lago abrem depois de terminar a aventura anterior. Coisa fechada mostra um lacinho e a mãozinha aponta o que está aberto. Para terminar uma sessão, toque na família na sala: eles chamam para os bichos e para a despedida. ${inteira ? `Agora está tudo aberto (etapa ${etapa(e)}).` : `Esta é a etapa ${etapa(e)}.`}`,
       ),
     );
     painel.append(h('p', {}, 'Dentro de cada sessão o laço é sempre o mesmo: chegada, roda, prato, som do dia, casa (a brincadeira do dia brilha em dourado), bichos, despedida. A casinha verde no canto volta para a casa; a lua, segurada, abre este cantinho.'));

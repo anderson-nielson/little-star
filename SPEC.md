@@ -713,8 +713,7 @@ direita, baixo simples na esquerda, andamento calmo.
 as notas ré, mi, sol, lá, si, sem dissonância, sem começo nem fim marcados. Em casa, fora das
 aventuras, a música de fundo alterna o piano calmo com uma **lira pentatônica** sintetizada
 (corda dedilhada, o mesmo Karplus-Strong do ukulele, bem suave). A lira também marca as
-passagens do dia: uma escala subindo de manhã, descendo à noite. Tocar na lira pendurada no
-quarto toca uma nota da pentatônica: nenhuma combinação soa feia.
+passagens do dia: uma escala subindo de manhã, descendo à noite.
 
 Regras:
 - Piano sempre; efeitos sintetizados no tom da música, como as respostas do Ponta.
