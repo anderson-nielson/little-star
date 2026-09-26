@@ -113,6 +113,12 @@ faz cresce **num lugar só**, sempre o mesmo, para ela entender de onde veio.
 
 Nada disso diminui. Nenhum número aparece. Os pais veem um resumo no cantinho dos pais.
 
+Na casa, a luz dourada diz onde ela ainda pode ir: começa na brincadeira do dia; feita, passa
+para a coisa aberta que ela nunca tocou; depois para o que ainda não foi hoje; quando tudo já
+foi, fica na família, que chama para o fim. O que ela já brincou hoje ganha uma centelha de
+ouro parada, que amanhã não está mais lá. No cantinho dos pais, "A casa hoje" lista o que ela
+brincou, o que está aberto esperando por ela e o que ainda não abriu.
+
 ---
 
 ## 5. A língua sem palavras do jogo
@@ -123,6 +129,8 @@ aprende uma música. Toda tela usa só estes.
 | Sinal | Quer dizer |
 |---|---|
 | Contorno de luz pulsando devagar | Pode tocar aqui |
+| Uma coisa da casa balançando devagar | Isto é novo, você nunca tocou |
+| Centelha de ouro parada numa coisa da casa | Aqui você já brincou hoje |
 | Mãozinha desenhada fazendo o gesto | Faça isso |
 | Estrela guia correndo por uma fita | O caminho é este |
 | Sininho no tom da música | Deu certo |
@@ -220,7 +228,7 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
   5. Terminou: o S vira o rabo do gatinho de novo, que abana, e a família comemora.
   6. **Segunda vez, sem a estrela guia**, se a primeira foi até o fim. Se não foi, com ela.
   7. A letra voa para a parede do quarto.
-- **Ordem das letras na v1**: A, E, L, S, T, O, M, U, I. As cinco primeiras são as do nome
+- **Ordem das letras na v1**: A, E, L, S, T, O, M, U, I, V. As cinco primeiras são as do nome
   dela, que ela já reconhece (resposta da família); com elas a porta do quarto ganha STELLA.
   Depois as outras (antes: vogais primeiro, depois as
   consoantes que se esticam, depois o T do Theo e do nome dela). Uma letra nova por semana,
@@ -240,24 +248,41 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
 - **Para quê**: juntar sons em palavras, o passo em que ela sente que leu.
 - **Como, em qualquer lugar da casa**: tocar num objeto que tem palavra (gato, sol, lua, mala,
   bola, pinha) faz a palavra aparecer grande em cima dele, em letra bastão, só com letras que
-  ela já aprendeu ou está aprendendo. A voz diz a palavra.
-- **O escorregador de sons** (na palavra que apareceu):
-  1. Embaixo da palavra aparece uma fita reta, da esquerda para a direita, com a estrela
-     guia no começo.
-  2. Ela **traça** a fita. Quando o dedo passa embaixo de cada letra, a letra acende e soa,
-     esticada: "lll... uuu... aaa".
-  3. Se ela passar de novo, mais rápido, os sons se juntam: "lua". A palavra pula, o objeto
-     reage (a lua brilha), e o sininho toca.
-  4. É a técnica que as salas de fônico usam, o dedo embaixo da palavra, e é a mesma fita que
-     ela já conhece do caderno.
+  ela já aprendeu ou está aprendendo. A voz diz a palavra. O Theo está no canto, mostrando.
+- **O escorregador de sons**, sempre nas mesmas quatro etapas, na ordem do fônico. O que
+  fazer é mostrado, nunca dito:
+  1. **Ouvir.** A voz diz a palavra inteira. Embaixo da palavra há uma fita reta, da esquerda
+     para a direita. A estrela guia percorre a fita parando embaixo de cada letra, e cada
+     letra acende e soa, esticada: "lll... uuu... aaa". A figura ainda está adormecida
+     (fraquinha).
+  2. **Os sons.** A mãozinha faz o gesto de traçar a fita. Ela **traça**: quando o dedo passa
+     embaixo de cada letra, a letra acende e soa. No fim, o sininho, e a primeira das três
+     estrelinhas embaixo da fita acende.
+  3. **Juntar.** A estrela guia corre a fita inteira de uma vez, rápido, e a voz diz "lua":
+     é o modelo. A mãozinha convida de novo. Ela traça, os sons se juntam, a voz diz a
+     palavra, a palavra fica dourada, a figura acorda (a lua brilha), a segunda estrelinha
+     acende. Depois as sílabas batem como palmas: as letras se juntam em grupos ("LU... A"),
+     cada grupo pula com uma nota da lira, e a terceira estrelinha acende. Centelhas, uma
+     pedrinha.
+  4. **Pronta.** A próxima palavra da fila aparece num círculo de luz no canto de baixo: tocar
+     nela leva para lá. Traçar a fita de novo repete a palavra. Se não houver próxima, a
+     mãozinha mostra a casinha.
+  5. É a técnica que as salas de fônico usam, o dedo embaixo da palavra, e é a mesma fita que
+     ela já conhece do caderno. Tocar na fita no meio da mostra passa a vez para ela.
+- **O avanço se vê em dois lugares**: as três estrelinhas embaixo da fita (as etapas desta
+  palavra) e o colar no alto (as palavras desta fase: as já lidas cheias de ouro, a de agora
+  com a estrela, as outras vazias). A fila são a palavra de cada letra que ela já traçou, mais
+  as palavras feitas só de letras traçadas, na ordem do fônico. As palavras lidas inteiras
+  ficam guardadas e aparecem no cantinho dos pais.
 - **Palavras da v1** (só com as letras da v1, de sílaba aberta, em que cada letra soa como o
-  som ensinado): LUA, ASA, ELA, OLÁ, MALA, SALA, LAMA, MOLA, TATU, TUTU, TELA, LATA, MATA,
-  MESA, LIMA e o nome STELLA. Os objetos de palavra na casa são a mala, a lata e a lua da
-  janela à noite; GATO e CAMA aparecem como palavra só no caderno.
-- **Dura**: o quanto ela quiser; cada palavra leva uns 15 segundos.
-- **Ajuda**: A1, a estrela guia percorre a fita no ritmo certo. A2, a voz junta os sons
-  sozinha no fim.
-- **Cresce**: nada. É brincadeira de casa, e é para ser.
+  som ensinado): LUA, AVÓ, ELA, OLÁ, UVA, MALA, SALA, LAMA, MOLA, TATU, TUTU, TELA, LATA,
+  MATA, LIMA, VELA, LUVA e o nome STELLA. ASA e MESA saíram: S entre vogais soa Z. Os objetos
+  de palavra na casa são a mala, a lata e a lua da janela à noite; GATO e CAMA aparecem como
+  palavra só no caderno.
+- **Dura**: o quanto ela quiser; cada palavra leva uns 30 segundos.
+- **Ajuda**: A1, a estrela guia percorre a fita no ritmo certo. A2, a fita enche sozinha até
+  o fim e os sons se juntam.
+- **Cresce**: o colar das palavras lidas.
 
 ### 6.7 A caixa de areia em estrela
 
@@ -319,25 +344,28 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
 - **Quando**: brincadeira do dia no sábado; a porta de casa abre para ela em qualquer dia a
   partir da primeira semana.
 - **Como**:
-  1. A porta abre, a Stella e o coelhinho saem correndo pelo jardim, na faixa do meio da tela.
-     Ela corre sozinha; a tela rola devagar. Música: *Valsa das Flores*.
-  2. Poças e pedrinhas chegam **no tempo da música**: um obstáculo a cada dois compassos,
-     sempre no tempo forte (uns 30 em dois minutos; nas duas primeiras aventuras, a cada
-     quatro). Assim, pular no tempo da música é pular na hora certa.
-  3. **Toque em qualquer lugar = pular.** O pulo "procura" o obstáculo: tocou em até 0,7
-     segundo antes, a Stella espera e pula na hora exata. Tocou longe de qualquer obstáculo,
-     ela dá um pulinho de alegria (não é pulo perdido). Pulo no tempo forte ganha um acorde.
-  4. Fitas de cetim penduradas nas árvores: quando ela chega numa, balança sozinha sobre o
-     laguinho (o sapo de coroa olha). Flores fechadas abrem quando ela passa.
-  5. Tropeçou numa poça: senta, ri, o coelhinho volta, ela levanta. A fase não volta para trás.
-  6. Dura dois minutos de música. Chega no fim sempre, com ou sem toque.
+  1. O coelhinho fugiu para o fim do jardim. A porta abre e a Stella sai para buscar, na faixa
+     do meio da tela. Ela anda sozinha, balançando os bracinhos; a tela rola devagar. Música:
+     *Valsa das Flores*. Lá em cima, um mapinha: a casinha, o coelhinho e a cabecinha dela
+     andando entre os dois (rosa na ida, ouro na volta).
+  2. Poças, pedras e troncos no caminho, um a cada dois compassos de caminhada (uns oito na
+     ida; nas duas primeiras aventuras, a cada quatro).
+  3. **Toque em qualquer lugar = pular.** O pulo sai na hora do toque, braços e pernas
+     abertos como no balé. Se um obstáculo chega em até 0,7 segundo, o pulo estica até ela
+     passar. Tocou longe de qualquer obstáculo, ela dá um pulinho de alegria.
+  4. Não pulou na hora: escorrega (na poça, respinga), senta, ri, levanta e segue. O caminho
+     não volta para trás.
+  5. No fim do jardim, abraça o coelhinho, vira e volta pelo mesmo caminho, com ele pulando
+     atrás. As flores que abriram na ida ficam abertas na volta.
+  6. Entra pela porta de casa e vai para o palco. Chega sempre, com ou sem toque (pior caso,
+     uns dois minutos).
   7. **O palco**: cortina de veludo abre, luz de ribalta. Na plateia, a mãe, o pai, o Theo e as
      bonecas. Ela dança sozinha a *Dança da Fada Açucarada*; cada toque faz um giro (metade de
      baixo da tela) ou um salto (metade de cima). Reverência, aplauso, a família abraça na
      coxia. Uma boneca de pano nova espera por ela na estante.
 - **Dura**: 3 a 4 minutos, com o palco.
-- **Ajuda**: A1, a mãozinha aparece no obstáculo seguinte. A2, o coelhinho pula na frente e a
-  poça vira vitória-régia: ela passa por cima sem pular.
+- **Ajuda**: A1 (dois escorregões seguidos), a mãozinha aparece no obstáculo seguinte. A2
+  (quatro), a poça vira vitória-régia e a pedra vira tufo de flor: ela passa sem pular.
 - **Cresce**: uma boneca por aventura terminada, até completar a estante.
 
 ### 6.11 Os bichos
@@ -433,7 +461,11 @@ não em seis:
 | 5 em diante | o laço inteiro, com a brincadeira do dia da semana |
 
 Na segunda abertura do mesmo dia, roda, prato e som não voltam: chegada, casa, bichos,
-despedida. Um toque na porta fechada da despedida reabre assim.
+despedida. Um toque na porta fechada da despedida reabre assim, enquanto ainda há dia de
+tela. Passado o limite diário, a porta fica fechada: o toque faz o laço brilhar e a família
+dizer tchau de dentro, e amanhã a casa está aberta de novo (reabrir levaria da chegada direto
+para outra despedida, um ciclo que parece travado). Enquanto a porta está fechada, o tempo de
+tela não conta. Na meia hora antes de dormir, o toque abre a rotina da noite, sempre.
 
 ---
 
@@ -530,8 +562,8 @@ inteiro; o que sai volta na v2, sem pressa.
 - O laço completo: chegada, roda, som do dia, brincadeira do dia, livre, bichos, despedida.
 - O laço da noite.
 - Três tarefas na roda (cama, dentes, brinquedos), a estrela da noite e o prato colorido.
-- Caderno com 9 letras (A, E, L, S, T, O, M, U, I), uma por semana.
-- Som do dia e palavras em destaque com o escorregador de sons (16 palavras).
+- Caderno com 10 letras (A, E, L, S, T, O, M, U, I, V), uma por semana.
+- Som do dia e palavras em destaque com o escorregador de sons (18 palavras).
 - Caixa de areia (dedo, pá e balde).
 - Pinhas e a mesa da estação.
 - Piano livre e *Brilha, brilha estrelinha*.

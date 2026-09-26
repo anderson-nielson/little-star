@@ -8,7 +8,7 @@ import { prepararVozes } from './audio/vozes';
 import { iniciarAparelho, versao } from './core/aparelho';
 import { aoAnunciar, narracao, vezesNoHistorico } from './core/narracao';
 import { montarBalao } from './ui/balao';
-import { telaAtual } from './core/roteador';
+import { aoTrocarTela, telaAtual } from './core/roteador';
 import { esperar } from './core/util';
 import { telaChegada } from './telas/chegada';
 import { telaCasa } from './telas/casa';
@@ -75,14 +75,18 @@ const app = document.getElementById('app')!;
 montar(app);
 definirVoltar(() => void sessao.voltarParaCasa());
 
-/* a narração para quem joga junto: a cada avanço dela, um balão no topo para ler em voz alta */
+/* a narração para quem joga junto: a cada avanço dela, um balão no topo para ler em voz alta.
+   Ele fica até o "x"; só sai sozinho nas telas onde não cabe (o cantinho dos pais, o styleguide, ela dormindo). */
 const balao = montarBalao(app);
+const SEM_BALAO = new Set(['pais', 'styleguide', 'dormindo']);
+aoTrocarTela((nome) => {
+  if (SEM_BALAO.has(nome)) balao.esconder();
+});
 const vistas = new Map<string, number>();
 aoAnunciar((avanco) => {
   const e = estado();
   if (!e.pais.narracao) return;
-  const t = telaAtual();
-  if (t === 'pais' || t === 'styleguide' || t === 'dormindo') return;
+  if (SEM_BALAO.has(telaAtual())) return;
   const noHistorico = vezesNoHistorico(e, avanco);
   const vez = noHistorico > 0 ? noHistorico - 1 : (vistas.get(avanco) ?? 0);
   vistas.set(avanco, (vistas.get(avanco) ?? 0) + 1);

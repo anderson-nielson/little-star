@@ -31,7 +31,7 @@
   { "id": "provou_marrom", "texto": "Você provou marrom!", "dono": "mae", "grupo": "prato", "obrigatoria": true },
   { "id": "girassol", "texto": "Uma comida nova! Nasceu um girassol.", "dono": "pai", "grupo": "prato", "obrigatoria": false },
 
-  { "id": "som_a", "texto": "a (como em asa)", "dono": "qualquer", "grupo": "sons", "obrigatoria": true },
+  { "id": "som_a", "texto": "a (como em avó)", "dono": "qualquer", "grupo": "sons", "obrigatoria": true },
   { "id": "som_e", "texto": "é (como em ela)", "dono": "qualquer", "grupo": "sons", "obrigatoria": true },
   { "id": "som_o", "texto": "ó (como em ovo)", "dono": "qualquer", "grupo": "sons", "obrigatoria": true },
   { "id": "som_s", "texto": "sss (como em sapo)", "dono": "qualquer", "grupo": "sons", "obrigatoria": true },
@@ -42,7 +42,7 @@
   { "id": "som_t", "texto": "t (curto, como em tatu)", "dono": "qualquer", "grupo": "sons", "obrigatoria": true },
   { "id": "som_n", "texto": "nnn (como em navio)", "dono": "qualquer", "grupo": "sons", "obrigatoria": false },
   { "id": "som_f", "texto": "fff (como em faca)", "dono": "qualquer", "grupo": "sons", "obrigatoria": false },
-  { "id": "som_v", "texto": "vvv (como em vaca)", "dono": "qualquer", "grupo": "sons", "obrigatoria": false },
+  { "id": "som_v", "texto": "vvv (como em vela)", "dono": "qualquer", "grupo": "sons", "obrigatoria": true },
   { "id": "som_r", "texto": "rrr (como em rato)", "dono": "qualquer", "grupo": "sons", "obrigatoria": false },
   { "id": "som_p", "texto": "p (curto, como em pato)", "dono": "qualquer", "grupo": "sons", "obrigatoria": false },
   { "id": "som_b", "texto": "b (curto, como em bola)", "dono": "qualquer", "grupo": "sons", "obrigatoria": false },
@@ -68,6 +68,7 @@
   { "id": "hist_u", "texto": "O balanço desce e sobe de novo.", "dono": "theo", "grupo": "letras", "obrigatoria": false },
   { "id": "hist_i", "texto": "O pinheiro fininho do inverno, bem em pé.", "dono": "theo", "grupo": "letras", "obrigatoria": false },
   { "id": "hist_t", "texto": "O tronco da árvore grande com o galho de cima.", "dono": "theo", "grupo": "letras", "obrigatoria": false },
+  { "id": "hist_v", "texto": "O vale desce entre as duas montanhas e sobe do outro lado.", "dono": "theo", "grupo": "letras", "obrigatoria": false },
 
   { "id": "nome_gato_1", "texto": "Mimi", "dono": "qualquer", "grupo": "bichos", "obrigatoria": true },
   { "id": "nome_gato_2", "texto": "Luna", "dono": "qualquer", "grupo": "bichos", "obrigatoria": true },

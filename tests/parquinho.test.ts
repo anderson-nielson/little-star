@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { AMORTECIMENTO, AMPLITUDE_PARA_CONTAR, amplitude, ANGULO_MAX, anguloDoDedo, CONTA_ATE, empurrar, impulso, novaGangorra, novoBalanco, OMEGA_MAX, parado, passo, passoGangorra, peNoChao, PERIODO, soltar, GANGORRA_MAX } from '@/core/parquinho';
 import { estadoNovo, migrar, VERSAO_DO_SAVE } from '@/core/estado';
-import { aberto, tarefasAtivas } from '@/core/laco';
+import { aberto, COISAS, tarefasAtivas } from '@/core/laco';
 import frases from '@/data/frases.json';
 
 const DT = 1 / 120;
@@ -102,14 +102,13 @@ describe('o parquinho no jogo', () => {
   it('abre na etapa 3, entra na roda por padrão e a contagem vem ligada; um save antigo ganha os dois', () => {
     expect(aberto(2, 'parquinho')).toBe(false);
     expect(aberto(3, 'parquinho')).toBe(true);
+    expect(COISAS).toContain('parquinho');
     const e = estadoNovo();
     expect(tarefasAtivas(e)).toContain('parquinho');
     expect(e.pais.contarNoBalanco).toBe(true);
-    expect(e.hoje.parquinho).toBe(0);
     const antigo = migrar({ versao: VERSAO_DO_SAVE, pais: { tarefas: { cama: false } }, hoje: { dia: '2026-09-25' } } as unknown as Record<string, unknown>);
     expect(antigo.pais.tarefas.parquinho).toBe(true);
     expect(antigo.pais.contarNoBalanco).toBe(true);
-    expect(antigo.hoje.parquinho).toBe(0);
   });
   it('tem as frases da roda, do convite, do Theo e os dez números, nenhuma obrigatória', () => {
     const ids = ['pergunta_parquinho', 'comemora_parquinho', 'convite_parquinho', 'theo_forca', 'theo_coragem', 'theo_esperta', ...Array.from({ length: 10 }, (_, i) => `num_${i + 1}`)];

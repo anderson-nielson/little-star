@@ -9,6 +9,13 @@ export const ESCORREGA_MAX = 24;
 export const BORDA_MORTA = 24;
 
 let dedoAtivo: number | null = null;
+/**
+ * Quem ficou com o dedo. Um alvo dentro de outro (o galho dentro da cena
+ * inteira) recebe o pointerdown primeiro; o de fora, na borbulha, não pode
+ * pegar o mesmo dedo de volta: a captura trocava de dono e nenhum dos dois
+ * via o pointerup, e a tela parava de responder.
+ */
+let dono: Element | null = null;
 let ocupadoAte = 0;
 
 /*
@@ -18,7 +25,10 @@ let ocupadoAte = 0;
  * A janela sempre vê o fim do toque, então é ela quem libera o dedo.
  */
 const liberarDedo = (ev: Event) => {
-  if ((ev as PointerEvent).pointerId === dedoAtivo) dedoAtivo = null;
+  if ((ev as PointerEvent).pointerId === dedoAtivo) {
+    dedoAtivo = null;
+    dono = null;
+  }
 };
 if (typeof window !== 'undefined') {
   /* na fase de borbulha: depois do alvo, que precisa ver o dedo ainda ativo */
@@ -60,9 +70,11 @@ export function tocavel(el: Element, aoTocar: (ev: PointerEvent) => void, o: Opc
   const baixo = (ev: Event) => {
     const e = ev as PointerEvent;
     if (dedoAtivo !== null && dedoAtivo !== e.pointerId) return;
+    if (dono !== null && dono !== el) return;
     if (naBorda(e.clientX, e.clientY)) return;
     if (!o.semTrava && ocupado()) return;
     dedoAtivo = e.pointerId;
+    dono = el;
     x0 = e.clientX;
     y0 = e.clientY;
     valido = true;
@@ -85,8 +97,9 @@ export function tocavel(el: Element, aoTocar: (ev: PointerEvent) => void, o: Opc
   };
   const cima = (ev: Event) => {
     const e = ev as PointerEvent;
-    if (e.pointerId !== dedoAtivo) return;
+    if (e.pointerId !== dedoAtivo || dono !== el) return;
     dedoAtivo = null;
+    dono = null;
     el.classList.remove('pressionado');
     o.aoSoltar?.();
     if (valido && ev.type === 'pointerup') aoTocar(e);
@@ -117,7 +130,10 @@ export function reivindicarDedo(id: number): boolean {
   return true;
 }
 export function soltarDedo(id: number): void {
-  if (dedoAtivo === id) dedoAtivo = null;
+  if (dedoAtivo === id) {
+    dedoAtivo = null;
+    dono = null;
+  }
 }
 
 /**

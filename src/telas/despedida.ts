@@ -1,7 +1,7 @@
 import { mover, telaSvg } from './comum';
 import { estado, mudar } from '@/core/estado';
 import { sessao } from '@/core/sessao';
-import { brincadeiraDoDia } from '@/core/laco';
+import { brincadeiraDoDia, brincouHoje } from '@/core/laco';
 import { ceuDaHora } from '@/core/relogio';
 import { esperar } from '@/core/util';
 import { familia } from '@/puppet/boneco';
@@ -9,7 +9,7 @@ import { arco, balancinho, gato, nuvem, pinha, pinheiro, veu } from '@/puppet/ob
 import { falar, temVoz } from '@/audio/vozes';
 import { anunciar } from '@/core/narracao';
 import { tocarFundo, pararFundo } from '@/audio/musica';
-import { liraDesce, sininho } from '@/audio/synth';
+import { liraDesce, sininho, tiquinho } from '@/audio/synth';
 import { travar } from '@/core/toque';
 import type { Tela } from '@/core/roteador';
 
@@ -26,7 +26,7 @@ export function telaDespedida(): Tela {
   const noite = ceu === 'ceu-noite';
   const brinc = brincadeiraDoDia(e, sessao.agora());
   /* foi ao parquinho do jogo hoje: o convite é o parquinho de verdade */
-  const foiAoParquinho = e.hoje.parquinho > 0;
+  const foiAoParquinho = brincouHoje(e, 'parquinho');
   const convite = foiAoParquinho ? 'convite_parquinho' : ({ piano: 'convite_piano', caderno: 'convite_letra', palavras: 'convite_letra', areia: 'convite_areia', pinhas: 'convite_pinha', jardim: 'convite_brincar', familia: 'convite_regar', cozinha: 'convite_cozinha' } as const)[brinc];
   const pictograma = foiAoParquinho ? 'balanco' : ({ piano: 'piano', caderno: 'letra', palavras: 'letra', areia: 'areia', pinhas: 'pinha', jardim: 'fora', familia: 'regador', cozinha: 'panela' } as const)[brinc];
   const primeiraVez = !e.bichos.gato;
@@ -136,13 +136,23 @@ export function telaDespedida(): Tela {
     anunciar('despedida');
     await esperar(2500);
     pararFundo();
-    /* o jogo descansa. Um toque depois de um tempo reabre, como segunda vez no dia */
+    /* o jogo descansa: o tempo de tela para de contar. Um toque depois de um tempo reabre,
+       como segunda vez no dia; passado o limite do dia, a porta fica fechada e só responde */
+    sessao.descansar();
     await esperar(4000);
     if (!vivo) return;
-    sessao.inicioLivre = 0;
+    let respondeuAte = 0;
     tela.alvo('svg', () => {
       travar(800);
-      sessao.comecar();
+      if (sessao.reabrir()) return;
+      /* o dia de tela acabou. Ninguém reabre uma porta que vai fechar de novo: o laço
+         brilha, a família diz tchau de dentro, e amanhã ela está aqui. Nada parece quebrado. */
+      const agora = performance.now();
+      if (agora < respondeuAte) return;
+      respondeuAte = agora + 2500;
+      tela.comemorar(195, 470);
+      if (temVoz('tchau')) void falar('tchau');
+      else tiquinho();
     }, true);
   };
 

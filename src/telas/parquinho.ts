@@ -138,9 +138,6 @@ export function telaParquinho(): Tela {
   const tela = telaSvg(s, { casinha: () => void ir('casa'), lua: true });
   const svg = tela.svg;
   tocarFundo('gymnopedie');
-  mudar((x) => {
-    x.hoje.parquinho += 1;
-  });
 
   const rider = svg.querySelector('.balanco') as SVGGElement;
   const cabelo = rider.querySelector('.cabelo-atras') as SVGGElement | null;
