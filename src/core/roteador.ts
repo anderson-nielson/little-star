@@ -55,16 +55,25 @@ export async function ir(nome: string, params: Record<string, string> = {}): Pro
   if (!c || !raiz || !cortina) throw new Error(`tela desconhecida: ${nome}`);
   if (trocando) return;
   trocando = true;
-  cortina.classList.add('fechada');
-  await esperar(ms('--d-lento') || 0);
-  atual?.destruir?.();
-  atual?.el.remove();
-  destravar();
-  const nova = c(params);
-  atual = nova;
-  nomeAtual = nome;
-  raiz.insertBefore(nova.el, cortina);
-  cortina.classList.remove('fechada');
-  trocando = false;
+  try {
+    cortina.classList.add('fechada');
+    await esperar(ms('--d-lento') || 0);
+    try {
+      atual?.destruir?.();
+    } catch (e) {
+      /* uma tela que tropeça ao sair não prende a próxima */
+      console.error(e);
+    }
+    atual?.el.remove();
+    destravar();
+    const nova = c(params);
+    atual = nova;
+    nomeAtual = nome;
+    raiz.insertBefore(nova.el, cortina);
+  } finally {
+    /* aconteça o que acontecer na tela nova, o roteador nunca fica preso */
+    cortina.classList.remove('fechada');
+    trocando = false;
+  }
   for (const f of aoTrocar) f(nome, params);
 }

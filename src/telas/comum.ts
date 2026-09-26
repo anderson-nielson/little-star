@@ -1,5 +1,5 @@
 import { cena, doTopo, encaixar, esperar, pontoNoSvg, svgEl } from '@/core/util';
-import { ocupado, reivindicarDedo, segurar, soltarDedo, tocavel, travar } from '@/core/toque';
+import { ocupado, reivindicarDedo, saida, segurar, soltarDedo, tocavel, travar } from '@/core/toque';
 import { ir } from '@/core/roteador';
 import { sessao } from '@/core/sessao';
 import { casinha, centelha, centelhas, contornoLuz, lua, maozinha } from '@/puppet/objetos';
@@ -67,15 +67,15 @@ export function telaSvg(conteudo: string, o: OpcoesTela = {}): TelaSvg {
      qualquer tela. Presa à trava, ela não respondia no quarto dormindo (trava de 60 s)
      nem durante as falas do fim de uma brincadeira, e o jogo parecia travado. */
   if (comCasinha) {
-    alvo(
-      '.casinha',
-      () => {
-        travar(400);
-        if (typeof comCasinha === 'function') comCasinha();
-        else void sessao.voltarParaCasa();
-      },
-      true,
-    );
+    const casa = svg.querySelector('.casinha');
+    if (casa)
+      limpezas.push(
+        saida(casa, () => {
+          travar(400);
+          if (typeof comCasinha === 'function') comCasinha();
+          else void sessao.voltarParaCasa();
+        }),
+      );
   }
   if (comLua) {
     const luaEl = svg.querySelector('.lua-pais');
@@ -137,14 +137,10 @@ export function cantos(el: HTMLElement, aoCasa: () => void, aoPais: () => void =
   casa.style.pointerEvents = 'auto';
   luaEl.style.pointerEvents = 'auto';
   const limpar = [
-    tocavel(
-      casa,
-      () => {
-        travar(400);
-        aoCasa();
-      },
-      { semTrava: true },
-    ),
+    saida(casa, () => {
+      travar(400);
+      aoCasa();
+    }),
     segurar(luaEl, 2000, aoPais),
   ];
   return () => {
