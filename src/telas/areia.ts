@@ -53,7 +53,8 @@ export function telaAreia(): Tela {
   s += `<path d="${caminhoDaEstrela(1)}" fill="#D2463C"/><clipPath id="areia-clip"><path d="${dentro}"/></clipPath><path class="areia" d="${dentro}" fill="${COR.areia}"/>`;
   s += `<g class="itens" clip-path="url(#areia-clip)" style="pointer-events:none"></g>`;
   /* as três ferramentas: dedo, pá, balde. E o rastelo do Theo, que alisa tudo */
-  const roda = (modo: string, x: number, miolo: string) => `<g data-modo="${modo}" transform="translate(${x} ${Y_FERRAMENTAS})"><circle class="fundo" r="36" fill="${COR.papel}" stroke="${COR.ouro}" stroke-width="1.5"/>${miolo}</g>`;
+  /* o translate fica num <g> de fora: o alvo recebe transform por CSS ao ser tocado, e isso apagaria o atributo */
+  const roda = (modo: string, x: number, miolo: string) => `<g transform="translate(${x} ${Y_FERRAMENTAS})"><g data-modo="${modo}"><circle class="fundo" r="36" fill="${COR.papel}" stroke="${COR.ouro}" stroke-width="1.5"/>${miolo}</g></g>`;
   s += roda('dedo', FERRAMENTAS.dedo, `<path d="M-6 22V-2a3.2 3.2 0 0 1 6.4 0v10l2.6-1.4a3 3 0 0 1 4.4 2.2v1.4l2.2-.6a2.8 2.8 0 0 1 3.6 2.6V22z" fill="#f6e3dc" stroke="#4f6b3a" stroke-width="1.6"/>`);
   s += roda('pa', FERRAMENTAS.pa, `<rect x="-3" y="-24" width="6" height="26" fill="#c9a189"/><path d="M-12 2h24l-4 22h-16z" fill="#7FA5B8"/>`);
   s += roda('balde', FERRAMENTAS.balde, `<path d="M-16 -10h32l-5 34h-22z" fill="#f2a9c4"/><path d="M-14 -10q14 -20 28 0" fill="none" stroke="#f2a9c4" stroke-width="3"/>`);
