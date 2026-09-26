@@ -181,6 +181,8 @@ export function dedilhar(svg: SVGSVGElement, xs: number[], faixaY: [number, numb
   const baixo = (ev: PointerEvent) => {
     const [x, y] = pontoNoSvg(svg, ev.clientX, ev.clientY);
     if (y < faixaY[0] || y > faixaY[1]) return;
+    /* um botão dentro da faixa (os acordes do ukulele) é do botão, não das cordas */
+    if ((ev.target as Element).closest?.('.alvo')) return;
     if (!reivindicarDedo(ev.pointerId)) return;
     id = ev.pointerId;
     ultimoX = x;

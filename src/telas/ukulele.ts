@@ -18,14 +18,30 @@ export const AFINACAO = [67, 60, 64, 69];
 export const CASAS = 3;
 
 /**
- * Três acordes, três cores: dó maior, fá maior e sol com sétima, nas posições
- * de verdade do ukulele (cada nota é a corda solta ou até três casas acima).
+ * O campo harmônico de dó maior inteiro, um acorde em cada grau, uma cor em
+ * cada botão: dó, ré menor, mi menor com sétima, fá, sol com sétima, lá menor
+ * e si meio-diminuto. Todos nas posições de verdade do ukulele (cada nota é a
+ * corda solta ou até três casas acima); o mi menor e o si ganham a sétima
+ * justamente para caber nas três casas (0202 e 2212).
  */
 export const ACORDES: { nome: string; cor: string; notas: number[] }[] = [
   { nome: 'dó', cor: '#f2a9c4', notas: [67, 60, 64, 72] },
+  { nome: 'ré menor', cor: '#eea38a', notas: [69, 62, 65, 69] },
+  { nome: 'mi menor', cor: '#e7c86e', notas: [67, 62, 64, 71] },
   { nome: 'fá', cor: '#c6a15b', notas: [69, 60, 65, 69] },
   { nome: 'sol', cor: '#8fae6b', notas: [67, 62, 65, 71] },
+  { nome: 'lá menor', cor: '#9cc3dd', notas: [69, 60, 64, 69] },
+  { nome: 'si', cor: '#b9a3d6', notas: [69, 62, 65, 71] },
 ];
+/**
+ * Os sete botões num arco em volta do corpo, do dó à esquerda ao si à
+ * direita, passando por baixo: a escada do campo harmônico.
+ */
+const BOTAO_R = 30;
+const botao = (i: number): [number, number] => {
+  const a = Math.PI - (i * Math.PI) / (ACORDES.length - 1);
+  return [Math.round(195 + 145 * Math.cos(a)), Math.round(570 + 145 * Math.sin(a))];
+};
 const CORDAS_X = [150, 180, 210, 240];
 const PESTANA_Y = 226;
 const CAVALETE_Y = 634;
@@ -37,8 +53,8 @@ const ROSA_ESCURO = '#e98fb2';
 
 /**
  * O ukulele rosa: quatro cordas afinadas em sol, dó, mi, lá. Passar o dedo
- * nas cordas soltas dá o som da afinação; um dos três botões de cor aperta um
- * acorde (corda dedilhada, Karplus-Strong). As bonecas da estante balançam.
+ * nas cordas soltas dá o som da afinação; um dos sete botões de cor aperta um
+ * acorde do campo harmônico de dó (corda dedilhada, Karplus-Strong). As bonecas da estante balançam.
  * Nenhuma combinação soa feia.
  */
 export function telaUkulele(): Tela {
@@ -67,7 +83,8 @@ export function telaUkulele(): Tela {
   });
   /* os botões dos acordes */
   ACORDES.forEach((a, i) => {
-    s += `<g data-acorde="${i}"><circle cx="${90 + i * 105}" cy="734" r="36" fill="${a.cor}" opacity="0.9"/></g>`;
+    const [x, y] = botao(i);
+    s += `<g data-acorde="${i}" aria-label="${a.nome}"><circle cx="${x}" cy="${y}" r="${BOTAO_R}" fill="${a.cor}" opacity="0.9" stroke="#fbf8f1" stroke-width="3"/></g>`;
   });
   s += `<g class="luz"></g>`;
   const tela = telaSvg(s, { casinha: () => void ir('casa'), lua: true });
@@ -95,7 +112,8 @@ export function telaUkulele(): Tela {
     '[data-acorde]',
     (_ev, el) => {
       acorde = Number(el.getAttribute('data-acorde'));
-      luz.innerHTML = contornoLuz(90 + acorde * 105, 734, 42, 42);
+      const [x, y] = botao(acorde);
+      luz.innerHTML = contornoLuz(x, y, BOTAO_R + 6, BOTAO_R + 6);
       /* o acorde inteiro soa uma vez, de cima para baixo */
       ACORDES[acorde]!.notas.forEach((_n, i) => void esperar(i * 70).then(() => soa(i)));
     },
