@@ -1,4 +1,4 @@
-import { mover, pedrinhaRola, pedrinhasSobem, telaSvg } from './comum';
+import { mover, pedrinhaRola, pedrinhasSobem, telaSvg, trilha } from './comum';
 import { estado, mudar, type Tarefa } from '@/core/estado';
 import { etapa, tarefasAtivas } from '@/core/laco';
 import { ganhar, PEDRINHAS, perder } from '@/core/pedrinhas';
@@ -151,6 +151,9 @@ export function telaRoda(): Tela {
   const svg = tela.svg;
   const camada = svg.querySelector('.objetos') as SVGGElement;
   const camadaLuz = svg.querySelector('.luz') as SVGGElement;
+  /* uma conta por objeto da roda: o que ela fez enche de ouro; o que não aconteceu fica
+     vazio, sem aviso, e a estrelinha passa para o próximo */
+  const contas = trilha(tela, objetos.length);
 
   let indice = -1;
   let aceitando = false;
@@ -176,6 +179,7 @@ export function telaRoda(): Tela {
       return;
     }
     const obj = objetos[indice]!;
+    contas.agora(indice);
     camada.innerHTML = obj.desenho;
     const g = camada.firstElementChild as SVGGElement;
     g.classList.add('respira');
@@ -226,6 +230,7 @@ export function telaRoda(): Tela {
       travar(4200);
       tela.mao(null);
       sininho();
+      contas.encher(indice);
       obj.cena(svg);
       let ganhas = 0;
       let medalha = 0;

@@ -1,4 +1,4 @@
-import { mover, telaSvg } from './comum';
+import { mover, telaSvg, trilha } from './comum';
 import { estado, mudar } from '@/core/estado';
 import { sessao } from '@/core/sessao';
 import { anunciar } from '@/core/narracao';
@@ -57,6 +57,11 @@ export function telaNoite(): Tela {
   const tela = telaSvg(s, { lua: true, fundo: '#1b2140' });
   const svg = tela.svg;
   const camadaLuz = svg.querySelector('.luz') as SVGGElement;
+  /* os cinco passos da rotina em contas: o que já foi hoje já vem cheio */
+  const contas = trilha(tela, PASSOS.length);
+  PASSOS.forEach((p, i) => {
+    if (feitos.has(p)) contas.encher(i, true);
+  });
   travar(500);
   tocarFundo('ninar_brahms', { bpm: 62 });
   audio.definirVolumes(0.6, 0.7);
@@ -72,8 +77,12 @@ export function telaNoite(): Tela {
     const p = proximoPasso();
     camadaLuz.innerHTML = '';
     tela.mao(null);
-    if (!p) return void dormir();
+    if (!p) {
+      contas.agora(-1);
+      return void dormir();
+    }
     const i = PASSOS.indexOf(p);
+    contas.agora(i);
     const [x, y] = pos[i]!;
     camadaLuz.innerHTML = contornoLuz(x, y + 4, 44, 40);
     /* depois de 6 s, a mãozinha */
@@ -90,6 +99,7 @@ export function telaNoite(): Tela {
       /* fora de ordem também vale: um de cada vez, mas a ordem é convite */
     }
     feitos.add(p);
+    contas.encher(PASSOS.indexOf(p));
     mudar((x) => {
       if (!x.hoje.rotinaNoite.includes(p)) x.hoje.rotinaNoite.push(p);
     });

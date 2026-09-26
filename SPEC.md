@@ -229,7 +229,9 @@ marionete por dados). Nada de copiar personagens, colagem ou estilo visual do de
   fez de verdade (a força dela), diz o carinho e a segurança da família, e coloca o Theo
   como quem torce por ela e faz junto, nunca como medida. Sem comparação, sem "melhor que",
   sem cobrança. As frases vivem em `src/data/narracao.json` e se revezam; o balão fica na
-  tela até um toque no "x". Desliga-se no cantinho dos pais.
+  tela até um toque no "x". Quando ela volta a tocar na cena, ele se recolhe numa bolinha no
+  alto, para não cobrir a casinha nem a trilha do avanço; tocar na bolinha abre a frase de
+  novo. Desliga-se no cantinho dos pais.
 
 ## 7. A casa verde, o quintal e o quarto rosa
 
