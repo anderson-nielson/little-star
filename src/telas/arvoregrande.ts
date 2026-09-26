@@ -1,382 +1,181 @@
-import { cantos } from './comum';
-import { alvoDoPulo, beatsDosObstaculos } from './jardim';
-import { estado, mudar } from '@/core/estado';
+import { relogioDeAjuda, telaSvg, trilha } from './comum';
+import { mudar } from '@/core/estado';
 import { ir } from '@/core/roteador';
-import { observarCaixa } from '@/core/util';
-import { naBorda } from '@/core/toque';
+import { esperar } from '@/core/util';
+import { travar } from '@/core/toque';
 import { Ajuda } from '@/core/ajuda';
 import { familia } from '@/puppet/boneco';
-import { CENTELHA, gato, pinha } from '@/puppet/objetos';
-import { audio } from '@/audio/engine';
-import { musica, pararFundo, Sequenciador } from '@/audio/musica';
-import { lira, ronronar, sininho, tiquinho, toc } from '@/audio/synth';
+import { gato, nuvem } from '@/puppet/objetos';
+import { tocarFundo } from '@/audio/musica';
+import { lira, PENTATONICA, ronronar, sininho } from '@/audio/synth';
 import type { Tela } from '@/core/roteador';
 
-/** Dados do balanceamento da Árvore Grande. */
+/** Dados da Árvore Grande: poucos galhos, um toque para cada. */
 export const ARVORE = {
-  duracao: 120,
-  compassosPorPinha: 2,
-  compassosPorPinhaInicio: 4,
-  janelaDoPulo: 0.7,
-  duracaoDoPulo: 0.75,
-  /** quanto ela sobe por segundo, em alturas de tela */
-  velocidade: 0.11,
+  galhos: 7,
+  /** distância entre um galho e o de cima, no espaço da cena */
+  passo: 120,
+  /** o pulo de um galho para o outro, em segundos */
+  duracaoDoPulo: 0.5,
 };
 
-function imagemDe(svgInterno: string, w: number, h: number): HTMLImageElement {
-  const img = new Image();
-  img.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">${svgInterno}</svg>`);
-  return img;
+const CHAO = 700;
+const TRONCO = 195;
+
+/** Onde fica o galho `i` (0 é o mais baixo): a ponta e a altura. Alterna os lados; o último é a copa, no meio. */
+export function galho(i: number): [number, number] {
+  const y = CHAO - 100 - i * ARVORE.passo;
+  if (i === ARVORE.galhos - 1) return [TRONCO, y];
+  return [i % 2 === 0 ? 105 : 285, y];
+}
+
+/** onde ela fica de pé: no chão (-1) ou em cima do galho, entre o tronco e a ponta */
+function pe(i: number): [number, number] {
+  if (i < 0) return [140, CHAO + 12];
+  const [gx, gy] = galho(i);
+  if (i === ARVORE.galhos - 1) return [TRONCO - 30, gy];
+  return [gx < TRONCO ? gx + 30 : gx - 30, gy];
 }
 
 /**
- * A Árvore Grande: ela sobe sozinha, galho por galho, para buscar o gatinho
- * que subiu até o topo. Lá em cima um esquilo de gorrinho rola pinhas galho
- * abaixo. Pinha é presente: toque = pular, ela gira no ar e pega a pinha; se
- * não pular, a pinha quica nela com um "toc" e cai na cestinha do Theo. De um
- * jeito ou de outro toda pinha chega em casa. Termina no palco, sempre.
+ * A Árvore Grande: o gatinho subiu até o topo e não sabe descer. Cada toque,
+ * ela pula para o galho de cima, como os degraus da escada do escorregador.
+ * Sem pressa e sem nada caindo. Lá em cima ela abraça o gatinho e vai para o
+ * palco. A família fica embaixo, olhando.
  */
 export function telaArvoreGrande(): Tela {
-  const e = estado();
-  const el = document.createElement('div');
-  el.className = 'tela';
-  el.style.background = '#dbe7ee';
-  const canvas = document.createElement('canvas');
-  canvas.className = 'cena';
-  el.appendChild(canvas);
-  const limpezas: (() => void)[] = [];
-  limpezas.push(cantos(el, () => void sair('casa'), () => void sair('pais')));
+  const N = ARVORE.galhos;
+  const topo = galho(N - 1)[1];
 
-  const ctx = canvas.getContext('2d')!;
-  let W = 390;
-  let H = 780;
-  const redimensionar = () => {
-    const r = canvas.getBoundingClientRect();
-    const dpr = Math.min(2, window.devicePixelRatio || 1);
-    W = Math.max(1, Math.round(r.width));
-    H = Math.max(1, Math.round(r.height));
-    canvas.width = Math.round(W * dpr);
-    canvas.height = Math.round(H * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  };
-  const obs = observarCaixa(canvas, redimensionar);
-  limpezas.push(() => obs?.disconnect());
+  let m = `<rect width="390" height="780" fill="#dbe7ee"/>`;
+  m += `<g class="mundo">`;
+  /* o céu que continua para cima, com nuvens pelo caminho */
+  m += `<rect x="-200" y="${topo - 400}" width="790" height="${CHAO - topo + 400}" fill="#dbe7ee"/>`;
+  for (let k = 0; k < 4; k++) m += nuvem(k % 2 ? 320 : 70, CHAO - 260 - k * 220, 12);
+  /* o chão do quintal */
+  m += `<rect x="-200" y="${CHAO}" width="790" height="400" fill="#c9dbb2"/><rect x="-200" y="${CHAO}" width="790" height="6" fill="#8fae6b"/>`;
+  /* o tronco, do chão até a copa */
+  m += `<rect x="${TRONCO - 20}" y="${topo - 20}" width="40" height="${CHAO - topo + 30}" rx="10" fill="#c9a189"/><rect x="${TRONCO - 10}" y="${topo - 20}" width="8" height="${CHAO - topo + 30}" fill="#b08a70" opacity="0.5"/>`;
+  m += `<path d="M${TRONCO - 20} ${CHAO - 16}Q${TRONCO - 24} ${CHAO} ${TRONCO - 40} ${CHAO + 4}H${TRONCO + 40}Q${TRONCO + 24} ${CHAO} ${TRONCO + 20} ${CHAO - 16}z" fill="#c9a189"/>`;
+  /* a copa lá em cima */
+  m += `<path d="M${TRONCO} ${topo - 150}L${TRONCO + 110} ${topo + 4}H${TRONCO - 110}z" fill="#2c4a42"/>`;
+  /* os galhos */
+  for (let i = 0; i < N - 1; i++) {
+    const [gx, gy] = galho(i);
+    const esq = gx < TRONCO;
+    m += `<path d="M${TRONCO} ${gy + 4}L${gx} ${gy + 10}" stroke="#b08a70" stroke-width="12" stroke-linecap="round"/>`;
+    m += `<ellipse cx="${esq ? gx + 18 : gx - 18}" cy="${gy - 50}" rx="80" ry="34" fill="${i % 2 ? '#35564d' : '#2c4a42'}" opacity="0.9"/>`;
+  }
+  m += `<path d="M${TRONCO - 70} ${topo + 6}H${TRONCO + 70}" stroke="#b08a70" stroke-width="12" stroke-linecap="round"/>`;
+  /* o gatinho esperando no topo */
+  m += `<g class="gatinho respira">${gato(TRONCO + 40, topo + 2, 26)}</g>`;
+  /* a família embaixo, olhando */
+  m += familia.mae(40, CHAO + 12, 110).svg + familia.theo(320, CHAO + 14, 84, 'acena').svg;
+  m += `<g class="stella"></g>`;
+  m += `</g>`;
 
-  const F = 200;
-  const sobe = imagemDe(familia.stella(100, 190, 160, 'sobe').svg, F, F);
-  const parada = imagemDe(familia.stella(100, 190, 160, 'parado').svg, F, F);
-  const pula = imagemDe(familia.stella(100, 190, 160, 'pulo').svg, F, F);
-  const gatinho = imagemDe(gato(100, 160, 40), F, F);
-  const pinhas = [0, 1, 2, 3].map((t) => imagemDe(pinha(50, 70, 34, t), 100, 100));
+  const tela = telaSvg(m);
+  const svg = tela.svg;
+  const mundo = svg.querySelector('.mundo') as SVGGElement;
+  const gst = svg.querySelector('.stella') as SVGGElement;
+  tocarFundo('marcha');
+  const contas = trilha(tela, N);
+  contas.agora(0);
 
-  const m = musica('marcha');
-  const cada = e.aventuras < 2 ? ARVORE.compassosPorPinhaInicio : ARVORE.compassosPorPinha;
-  const beats = beatsDosObstaculos(m.compasso, m.bpm, ARVORE.duracao, cada);
-  const seq = new Sequenciador(m, { loop: true });
-  seq.ganho = 0.36;
-  const segPorBeat = 60 / m.bpm;
-  let tInicio = 0;
-  const pinhasDaArvore = beats.map((b, i) => ({ beat: b, tipo: i % 4, passou: false, pegou: false, devagar: false }));
-  let pulo: { inicio: number; fim: number } | null = null;
+  let onde = -1;
+  let pulo: { de: [number, number]; para: [number, number]; t: number } | null = null;
+  let pos = pe(-1);
   let acabou = false;
   let vivo = true;
-  const ajuda = new Ajuda();
-  let perdidas = 0;
-  let pegas = 0;
+  tela.aoDestruir(() => {
+    vivo = false;
+  });
 
-  const tempo = () => audio.agora() - tInicio;
-  const stellaY = () => H * 0.62;
-  const stellaX = () => W * 0.5;
-  /** a pinha desce pelo tronco: chega na Stella no instante dela */
-  const py = (tPinha: number, agora: number) => stellaY() - (tPinha - agora) * ARVORE.velocidade * 2.2 * H;
+  /* a câmera acompanha: ela fica sempre na metade de baixo da tela */
+  const camDe = (y: number) => Math.max(0, 470 - y);
+  let cam = camDe(pos[1]);
 
-  const pular = (agora: number, alvo: number | null) => {
-    const dur = ARVORE.duracaoDoPulo;
-    if (alvo !== null) pulo = { inicio: alvo - dur / 2, fim: alvo + dur / 2 };
-    else pulo = { inicio: agora, fim: agora + dur * 0.6 };
-    lira(76, undefined, 0.25);
+  const desenhar = () => {
+    let pose: 'parado' | 'pulo' | 'acena' | 'abraca' = 'parado';
+    let dir: 1 | -1 = 1;
+    if (pulo) {
+      pose = 'pulo';
+      dir = pulo.para[0] >= pulo.de[0] ? 1 : -1;
+    } else if (acabou) pose = 'abraca';
+    else if (onde >= 0) pose = 'acena';
+    gst.innerHTML = familia.stella(pos[0], pos[1], 86, pose, { dir }).svg;
+    mundo.setAttribute('transform', `translate(0 ${cam.toFixed(1)})`);
   };
-  const toque = (ev: PointerEvent) => {
-    if (acabou || naBorda(ev.clientX, ev.clientY)) return;
-    const r = canvas.getBoundingClientRect();
-    const y = ev.clientY - r.top;
-    if (y < H * 0.12) {
-      tiquinho();
-      return;
-    }
-    if (!audio.pronto) void audio.tentarDestravar();
-    ajuda.tocou();
-    const agora = tempo();
-    const proximas = pinhasDaArvore.filter((o) => !o.passou).map((o) => o.beat * segPorBeat);
-    const alvo = alvoDoPulo(agora, proximas, ARVORE.janelaDoPulo, ARVORE.duracaoDoPulo);
-    if (pulo && agora < pulo.fim) return;
-    pular(agora, alvo);
+  desenhar();
+
+  const proximo = (): [number, number] => {
+    const [x, y] = pe(onde + 1);
+    return [x, y + cam - 30];
   };
-  canvas.addEventListener('pointerdown', toque);
-  canvas.style.touchAction = 'none';
+  const ajuda = new Ajuda((n) => tela.mao(n >= 1 && !pulo && !acabou ? proximo() : null));
+  relogioDeAjuda(tela, (dt) => ajuda.tick(dt));
+  /* na chegada, a mãozinha já mostra o primeiro galho */
+  tela.mao(proximo());
 
-  const noAr = (t: number) => pulo !== null && t >= pulo.inicio && t <= pulo.fim;
-  const altura = (t: number) => {
-    if (!pulo || t < pulo.inicio || t > pulo.fim) return 0;
-    const k = (t - pulo.inicio) / (pulo.fim - pulo.inicio);
-    return Math.sin(k * Math.PI) * H * 0.1;
-  };
-
-  /* o mundo da árvore, em px a partir do chão: ela sobe do pé do tronco até o gatinho lá em cima */
-  const subida = () => ARVORE.duracao * ARVORE.velocidade * H;
-  const altitude = (t: number) => Math.max(0, Math.min(t, ARVORE.duracao)) * ARVORE.velocidade * H;
-  /** onde fica na tela um ponto do mundo: a câmera acompanha a Stella */
-  const naTela = (z: number, t: number) => stellaY() + altitude(t) - z;
-
-  function desenhar(): void {
-    const t = tempo();
-    const progresso = Math.max(0, Math.min(1, t / ARVORE.duracao));
-    const topo = subida() + H * 0.24;
-    /* o céu clareia conforme ela sobe */
-    ctx.fillStyle = '#dbe7ee';
-    ctx.fillRect(0, 0, W, H);
-    ctx.globalAlpha = 0.25 + 0.3 * progresso;
-    ctx.fillStyle = '#fbf8f1';
-    ctx.beginPath();
-    ctx.ellipse(W * 0.5, H * 0.3, W * 0.7, H * 0.35, 0, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.globalAlpha = 1;
-    /* o chão do quintal: aparece no começo e vai ficando lá embaixo */
-    const chao = naTela(0, t);
-    if (chao < H) {
-      ctx.fillStyle = '#9fbf7f';
-      ctx.fillRect(0, chao, W, H - chao + 1);
-      ctx.fillStyle = '#8aad6c';
-      ctx.fillRect(0, chao, W, 6);
-    }
-    /* o tronco: do chão até a copa lá em cima */
-    const yTopo = naTela(topo, t);
-    const y0 = Math.max(0, yTopo);
-    const y1 = Math.min(H, chao);
-    if (y1 > y0) {
-      ctx.fillStyle = '#c9a189';
-      ctx.fillRect(W * 0.5 - 22, y0, 44, y1 - y0);
-      ctx.fillStyle = '#b08a70';
-      ctx.globalAlpha = 0.5;
-      ctx.fillRect(W * 0.5 - 6, y0, 8, y1 - y0);
-      ctx.globalAlpha = 1;
-    }
-    if (chao < H + 20) {
-      /* a raiz abrindo no chão */
-      ctx.fillStyle = '#c9a189';
-      ctx.beginPath();
-      ctx.moveTo(W * 0.5 - 22, chao - 14);
-      ctx.quadraticCurveTo(W * 0.5 - 26, chao, W * 0.5 - 40, chao + 4);
-      ctx.lineTo(W * 0.5 + 40, chao + 4);
-      ctx.quadraticCurveTo(W * 0.5 + 26, chao, W * 0.5 + 22, chao - 14);
-      ctx.fill();
-    }
-    /* os galhos: cada um no seu lugar do tronco, alternando os lados */
-    const passoGalho = H * 0.22;
-    const primeiro = Math.max(1, Math.floor((altitude(t) - H) / passoGalho));
-    for (let k = primeiro; k < primeiro + 8; k++) {
-      const z = H * 0.3 + k * passoGalho;
-      if (z > topo - H * 0.12) break;
-      const gy = naTela(z, t);
-      if (gy < -H * 0.1 || gy > H + H * 0.1) continue;
-      const esq = k % 2 === 0;
-      const gx = esq ? W * 0.22 : W * 0.78;
-      ctx.strokeStyle = '#b08a70';
-      ctx.lineWidth = 12;
-      ctx.lineCap = 'round';
-      ctx.beginPath();
-      ctx.moveTo(W * 0.5, gy + 8);
-      ctx.lineTo(gx, gy + 14);
-      ctx.stroke();
-      ctx.fillStyle = esq ? '#35564d' : '#2c4a42';
-      ctx.globalAlpha = 0.95;
-      ctx.beginPath();
-      ctx.ellipse(gx + (esq ? 10 : -10), gy - 10, W * 0.2, H * 0.045, 0, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.globalAlpha = 1;
-    }
-    /* lá em cima, a copa: o esquilo de gorrinho e o gatinho esperando por ela */
-    const topoY = yTopo;
-    if (topoY > -H * 0.2 && topoY < H + H * 0.2) {
-      ctx.fillStyle = '#2c4a42';
-      ctx.beginPath();
-      ctx.moveTo(W * 0.5, topoY - H * 0.12);
-      ctx.lineTo(W * 0.72, topoY + 10);
-      ctx.lineTo(W * 0.28, topoY + 10);
-      ctx.closePath();
-      ctx.fill();
-      ctx.drawImage(gatinho, W * 0.5 - 50, topoY - 110, 150, 150);
-      /* o esquilo */
-      ctx.fillStyle = '#b06a3a';
-      ctx.beginPath();
-      ctx.ellipse(W * 0.5 - 46, topoY - 8, 12, 9, 0, 0, Math.PI * 2);
-      ctx.arc(W * 0.5 - 56, topoY - 18, 7, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(W * 0.5 - 34, topoY - 8);
-      ctx.quadraticCurveTo(W * 0.5 - 18, topoY - 34, W * 0.5 - 30, topoY - 40);
-      ctx.strokeStyle = '#b06a3a';
-      ctx.lineWidth = 7;
-      ctx.stroke();
-      ctx.fillStyle = '#d2463c';
-      ctx.fillRect(W * 0.5 - 62, topoY - 30, 12, 8);
-    }
-    /* as pinhas descendo */
-    for (const o of pinhasDaArvore) {
-      if (o.passou) continue;
-      const to = o.beat * segPorBeat;
-      const y = py(to, t);
-      if (y < -60 || y > H + 60) continue;
-      const img = pinhas[o.tipo]!;
-      ctx.save();
-      ctx.translate(W * 0.5, y);
-      ctx.rotate(t * 4);
-      ctx.drawImage(img, -22, -22, 44, 44);
-      ctx.restore();
-      if (ajuda.nivel >= 1 && to - t < 2.5 && to - t > 0.2) {
-        ctx.save();
-        ctx.translate(W * 0.5 + 40, y);
-        ctx.fillStyle = '#f6e3dc';
-        ctx.strokeStyle = '#4f6b3a';
-        ctx.lineWidth = 1.6;
-        const p = new Path2D('M-6 26V2a3.2 3.2 0 0 1 6.4 0v10l2.6-1.4a3 3 0 0 1 4.4 2.2v1.4l2.2-.6a2.8 2.8 0 0 1 3.6 2.6V26z');
-        ctx.globalAlpha = 0.5 + 0.5 * Math.abs(Math.sin(t * 3));
-        ctx.fill(p);
-        ctx.stroke(p);
-        ctx.restore();
-      }
-    }
-    /* a Stella no tronco: mão ante mão, balançando de leve no ritmo; no pulo, estica os braços para a pinha */
-    const hS = H * 0.2;
-    const esc = hS / 160;
-    const alt = altura(t);
-    const subindo = t > 0 && t < ARVORE.duracao;
-    const fase = subindo ? (t / segPorBeat) % 2 : 0;
-    const lado = fase < 1 ? 1 : -1;
-    const balanca = subindo && !noAr(t) ? Math.abs(Math.sin(fase * Math.PI)) * H * 0.008 : 0;
-    ctx.save();
-    ctx.translate(stellaX(), stellaY() - alt - balanca);
-    if (noAr(t)) {
-      ctx.drawImage(pula, (-F * esc) / 2, -F * esc * 0.9, F * esc, F * esc);
-    } else {
-      ctx.scale(subindo ? lado : 1, 1);
-      ctx.drawImage(subindo ? sobe : parada, (-F * esc) / 2, -F * esc * 0.9, F * esc, F * esc);
-    }
-    ctx.restore();
-    if (noAr(t) && alt > H * 0.08) {
-      ctx.save();
-      ctx.translate(stellaX() + 30, stellaY() - alt - hS);
-      ctx.fillStyle = '#c6a15b';
-      ctx.fill(new Path2D(CENTELHA));
-      ctx.restore();
-    }
-    /* o caminho até o gatinho: um fio na beirada, com ela subindo nele */
-    const fx = W - 14;
-    const fTopo = H * 0.2;
-    const fBase = H * 0.86;
-    ctx.strokeStyle = '#fbf8f1';
-    ctx.lineWidth = 5;
-    ctx.lineCap = 'round';
-    ctx.globalAlpha = 0.8;
-    ctx.beginPath();
-    ctx.moveTo(fx, fBase);
-    ctx.lineTo(fx, fTopo);
-    ctx.stroke();
-    ctx.globalAlpha = 1;
-    const fy = fBase - (fBase - fTopo) * progresso;
-    ctx.strokeStyle = '#c6a15b';
-    ctx.beginPath();
-    ctx.moveTo(fx, fBase);
-    ctx.lineTo(fx, fy);
-    ctx.stroke();
-    ctx.drawImage(gatinho, fx - 38, fTopo - 46, 60, 60);
-    ctx.save();
-    ctx.translate(fx - 10, fy - 10);
-    ctx.fillStyle = '#c6a15b';
-    ctx.fill(new Path2D(CENTELHA));
-    ctx.restore();
-    /* embaixo, a cestinha do Theo e a dela: quantas pinhas já chegaram */
-    ctx.fillStyle = '#c9a189';
-    ctx.beginPath();
-    ctx.ellipse(W * 0.14, H * 0.93, 34, 14, 0, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = '#a8714a';
-    for (let i = 0; i < Math.min(pegas, 8); i++) {
-      ctx.beginPath();
-      ctx.ellipse(W * 0.14 - 20 + (i % 4) * 13, H * 0.93 - 6 - Math.floor(i / 4) * 8, 5, 6, 0, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  }
-
-  function simular(): void {
-    const t = tempo();
-    for (const o of pinhasDaArvore) {
-      const to = o.beat * segPorBeat;
-      if (!o.passou && t > to + 0.15) {
-        o.passou = true;
-        if (noAr(to) || o.devagar) {
-          o.pegou = true;
-          pegas += 1;
-          sininho(0.22);
-          perdidas = Math.max(0, perdidas - 1);
-        } else {
-          /* a pinha quica nela: "toc", ela ri, e cai na cestinha do Theo */
-          toc(300, 0.22);
-          perdidas += 1;
-          ajuda.tentativa();
-        }
-        ajuda.reset();
-        if (perdidas >= 2) ajuda.tentativa();
-        if (perdidas >= 4) for (const p of pinhasDaArvore) if (!p.passou) p.devagar = true;
-      }
-    }
-    if (!acabou && t >= ARVORE.duracao) void terminar();
-  }
-
-  const laco = () => {
-    if (!vivo) return;
-    simular();
-    desenhar();
-    requestAnimationFrame(laco);
-  };
-
-  const terminar = async () => {
+  const chegouNoTopo = async () => {
     acabou = true;
-    seq.parar();
+    desenhar();
+    contas.agora(-1);
     ronronar();
+    sininho();
+    tela.comemorar(TRONCO, pos[1] + cam - 80);
     mudar((x) => {
       x.aventuras += 1;
       x.aventurasPor.arvore = (x.aventurasPor.arvore ?? 0) + 1;
-      /* todas as pinhas chegam em casa: as dela e as da cestinha do Theo */
-      for (const o of pinhasDaArvore) x.pinhas.push({ tipo: o.tipo, x: Math.random(), y: 0 });
-      x.cesta += pinhasDaArvore.length;
       if (ajuda.nivel >= 1) x.registro.a1.arvore = (x.registro.a1.arvore ?? 0) + 1;
       if (ajuda.nivel >= 2) x.registro.a2.arvore = (x.registro.a2.arvore ?? 0) + 1;
     });
-    await new Promise((r) => setTimeout(r, 1200));
+    travar(2400);
+    await esperar(2400);
     if (vivo) void ir('palco');
   };
-  const sair = async (para: string) => {
-    seq.parar();
-    void ir(para);
-  };
 
-  pararFundo();
-  void audio.tentarDestravar().then(() => {
-    tInicio = audio.agora() + 0.6;
-    seq.iniciar(tInicio);
-    requestAnimationFrame(laco);
-  });
-  const tique = window.setInterval(() => ajuda.tick(1), 1000);
-  limpezas.push(() => window.clearInterval(tique));
-
-  return {
-    el,
-    destruir: () => {
-      vivo = false;
-      seq.parar();
-      canvas.removeEventListener('pointerdown', toque);
-      for (const l of limpezas) l();
-    },
+  let ultimo = performance.now();
+  const quadro = (agora: number) => {
+    if (!vivo) return;
+    const dt = Math.min(0.05, (agora - ultimo) / 1000);
+    ultimo = agora;
+    let mudou = false;
+    if (pulo) {
+      pulo.t = Math.min(1, pulo.t + dt / ARVORE.duracaoDoPulo);
+      const k = pulo.t * pulo.t * (3 - 2 * pulo.t);
+      pos = [pulo.de[0] + (pulo.para[0] - pulo.de[0]) * k, pulo.de[1] + (pulo.para[1] - pulo.de[1]) * k - Math.sin(Math.PI * pulo.t) * 30];
+      if (pulo.t >= 1) {
+        pos = pulo.para;
+        pulo = null;
+        contas.encher(onde, true);
+        contas.agora(onde + 1 < N ? onde + 1 : -1);
+        if (onde === N - 1) void chegouNoTopo();
+      }
+      mudou = true;
+    }
+    const alvo = camDe(pos[1]);
+    if (Math.abs(alvo - cam) > 0.5) {
+      cam += (alvo - cam) * Math.min(1, dt * 5);
+      mudou = true;
+    }
+    if (mudou) desenhar();
+    requestAnimationFrame(quadro);
   };
+  requestAnimationFrame(quadro);
+
+  const tocou = (ev: PointerEvent) => {
+    const t = ev.target as Element;
+    if (t.closest('.casinha') || t.closest('.lua-pais')) return;
+    if (pulo || acabou) return;
+    ajuda.tocou();
+    ajuda.reset();
+    tela.mao(null);
+    onde += 1;
+    pulo = { de: pos, para: pe(onde), t: 0 };
+    lira(PENTATONICA[Math.min(PENTATONICA.length - 1, onde)]!, undefined, 0.32);
+    travar(ARVORE.duracaoDoPulo * 1000);
+  };
+  tela.alvo('svg', tocou, true);
+  return tela;
 }
