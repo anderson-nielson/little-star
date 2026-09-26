@@ -102,7 +102,7 @@ export function telaRelogio(): Tela {
   s += `<g class="luz"></g>`;
   /* o Theo, que pergunta as horas */
   s += `<g data-alvo="theo"><circle cx="90" cy="640" r="60" fill="transparent"/>${familia.theo(90, 740, 150, 'aponta').svg}</g>`;
-  s += `<g class="balao" opacity="0">${arco(160, 540, 70, 76, '#fbf8f1')}<text class="pedida" x="195" y="595" text-anchor="middle" font-family="Jost, sans-serif" font-size="40" font-weight="500" fill="#f2a9c4"></text></g>`;
+  s += `<g class="balao-hora" opacity="0">${arco(160, 540, 70, 76, '#fbf8f1')}<text class="pedida" x="195" y="595" text-anchor="middle" font-family="Jost, sans-serif" font-size="40" font-weight="500" fill="#f2a9c4"></text></g>`;
   s += `<g class="stella">${familia.stella(310, 740, 100, 'acena').svg}</g>`;
   const tela = telaSvg(s);
   const svg = tela.svg;
@@ -111,7 +111,7 @@ export function telaRelogio(): Tela {
   const ponteiroMinutos = svg.querySelector('.minutos') as SVGGElement;
   const ceu = svg.querySelector('.ceu') as SVGGElement;
   const luz = svg.querySelector('.luz') as SVGGElement;
-  const balao = svg.querySelector('.balao') as SVGGElement;
+  const balao = svg.querySelector('.balao-hora') as SVGGElement;
   const pedidaEl = svg.querySelector('.pedida') as SVGTextElement;
   /* três pedidas do Theo por visita, em contas entre a janelinha e o relógio; depois, a casinha convida */
   const PEDIDAS = 3;
