@@ -11,13 +11,10 @@ import { falarEspanhol } from '@/audio/espanhol';
 import { familia } from '@/puppet/boneco';
 import { arco, centelha, contornoLuz, maozinha, veu } from '@/puppet/objetos';
 import { figura, nomeDaFigura } from '@/puppet/figuras';
-import { falar, temVoz } from '@/audio/vozes';
+import { falarSomDaLetra } from '@/audio/fonemas';
 import { falarPalavra } from '@/audio/fala';
 import { lira, notaAgora, sininho } from '@/audio/synth';
 import type { Tela } from '@/core/roteador';
-
-/** o som gravado de cada letra: sempre o som, nunca o nome. Á soa como A, Ó como O. */
-const SOM_DA_LETRA: Record<string, string> = { A: 'som_a', Á: 'som_a', E: 'som_e', I: 'som_i', O: 'som_o', Ó: 'som_o', U: 'som_u', S: 'som_s', L: 'som_l', M: 'som_m', T: 'som_t', V: 'som_v' };
 
 const MUSGO = '#4f6b3a';
 const ROSA_DOCE = '#f2a9c4';
@@ -139,11 +136,8 @@ export function telaPalavra(params: Record<string, string>): Tela {
   const apagaLetras = (cor = MUSGO) => letraEls.forEach((t) => t.setAttribute('fill', cor));
 
   const soar = async (i: number, rapido: boolean) => {
-    const idSom = SOM_DA_LETRA[letras[i]!];
-    /* devagar, o som isolado e esticado (gravado); rápido, uma nota do piano por letra */
-    if (!rapido && idSom && temVoz(idSom)) {
-      if (await falar(idSom)) return;
-    }
+    /* devagar, o som isolado e esticado (gravado ou montado pelo sintetizador); rápido, uma nota do piano por letra */
+    if (!rapido && (await falarSomDaLetra(letras[i]!))) return;
     notaAgora(64 + (i % 5) * 2, 0.6, 0.3);
     if (!rapido) await esperar(520);
   };

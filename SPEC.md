@@ -533,8 +533,15 @@ lll"), para ela ouvir a diferença sem ouvir "errado".
 **Quem fala.** Palavra inteira e sílabas podem vir da voz do aparelho (`speechSynthesis`, como
 o `src/audio/voz.ts` do Ponta, em velocidade 0,7). **O som isolado da letra não pode**: a voz
 sintética lê "g" como "gê", e ensinaria o contrário. Os sons das letras (umas 25 gravações
-curtas) precisam ser gravados por gente, de preferência a mãe ou o pai (seção 15.4).
-Sem gravação, os passos 2 e 3 são pulados. Com o fônico, essa gravação passou a ser a mais
+curtas) são gravados por gente, de preferência a mãe ou o pai (seção 15.4).
+Sem gravação, o som é **montado pelo próprio jogo** (`src/audio/fonemas.ts`): um sintetizador
+de formantes feito com o que o Web Audio já tem. Vogais, M, N e L são uma onda de garganta
+passando por três filtros afinados nas ressonâncias da boca; S, F, X e R são ruído filtrado
+no lugar do chiado de cada um (Z, V e J somam o zumbido da garganta); P, T, C, B, D e G são um
+estouro curto com um "â" curtinho depois. Nas frases de ensinar do caderno e da areia, o som
+sintetizado entra no meio da voz do aparelho: "sss... sssss, de sapo", em que só "de sapo" é
+voz do aparelho. A bancada para ouvir e ajustar os sons fica fora do jogo; `npm run fonemas`
+mede o volume de cada um. Com o fônico, essa gravação passou a ser a mais
 importante do jogo; ver a lista na seção 15.4.
 
 **Ligação com o espanhol.** Depois das sílabas, a Estrellita pode dizer a palavra em espanhol
@@ -766,6 +773,8 @@ baixar de novo, instalar na tela inicial e tela cheia, proteger as gravações
 - **Sons das letras** (seção 9.5): umas 25 gravações de um segundo, uma por som ("sss",
   "mmm", "lll", "a", "é"...). É a gravação mais importante para a leitura; a lista vai pronta,
   com a palavra de exemplo ao lado de cada som.
+- Os sons das letras sem gravação saem do sintetizador de fonemas (seção 9.5), que não finge
+  ser ninguém: é o som da letra, não uma voz da família.
 - Enquanto não houver gravação, a cena acontece sem voz (nunca uma voz sintética fingindo ser
   a mãe).
 

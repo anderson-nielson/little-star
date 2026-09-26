@@ -6,7 +6,7 @@ import { embaralhar, esperar, semente } from '@/core/util';
 import { familia } from '@/puppet/boneco';
 import { arco, contornoLuz, veu } from '@/puppet/objetos';
 import { figura, nomeDaFigura } from '@/puppet/figuras';
-import { falar, temVoz } from '@/audio/vozes';
+import { falarSom } from '@/audio/fonemas';
 import { falarPalavra } from '@/audio/fala';
 import { liraDesce, sininho, tiquinho } from '@/audio/synth';
 import { Ajuda } from '@/core/ajuda';
@@ -88,8 +88,7 @@ export function telaSom(): Tela {
     });
     /* o Theo diz o som */
     await esperar(400);
-    if (temVoz(letra.som)) await falar(letra.som);
-    else await esperar(900);
+    if (!(await falarSom(letra.som))) await esperar(900);
     if (!vivo) return;
     const meuTurno = rodada;
     let esperando = true;
@@ -102,7 +101,7 @@ export function telaSom(): Tela {
       if (ajuda.nivel >= 1) g.classList.add('respira');
       if (ajuda.nivel >= 2) {
         tela.mao([Number(g.getAttribute('data-x')) + 20, Number(g.getAttribute('data-y')) + 30]);
-        if (temVoz(letra.som) && ajuda.nivel === 2) void falar(letra.som);
+        if (ajuda.nivel === 2) void falarSom(letra.som);
       }
     }, 1000);
     tela.aoDestruir(() => window.clearInterval(timer));
@@ -142,7 +141,7 @@ export function telaSom(): Tela {
         void esperar(220).then(() => mover(el, 0, 0, 300));
         ajuda.tentativa();
         const dona = letras.find((l) => l.figuras.includes(id));
-        void falarPalavra(nomeDaFigura(id)).then(() => dona && temVoz(dona.som) && falar(dona.som));
+        void falarPalavra(nomeDaFigura(id)).then(() => dona && falarSom(dona.som));
       }
     }, true);
   };

@@ -611,7 +611,7 @@ estiverem firmes, o espanhol entra como brincadeira de ouvir.
 |---|---|
 | Ela não quer parar | O laço termina sozinho; o limite de 15 minutos é despedida, não bloqueio; o convite dá para onde ir. Se mesmo assim for difícil, diminuir o limite. |
 | Ela só quer o piano | Tudo bem. A brincadeira do dia é convite, não obrigação. O som do dia continua todo dia. |
-| A voz do celular fala errado | Os sons das letras são gravados por vocês. A voz sintética só diz palavras inteiras, e só se a gravação faltar. |
+| A voz do celular fala errado | Os sons das letras são gravados por vocês; sem gravação, o jogo monta o som da letra (nunca o nome) com o próprio sintetizador. A voz do celular só diz palavras inteiras, e só se a gravação faltar. |
 | Os sons gravados ficam ruins | Lista de gravação com exemplo para cada som, e o jogo toca de volta para vocês ouvirem antes de salvar. |
 | A escola ensina a letra com outra imagem | As imagens são dados; troca-se pela da escola. |
 | O prato vira pressão | Regras da SPEC 8.4. Se vocês perceberem tensão na mesa por causa do jogo, desliguem o prato no cantinho dos pais: o resto do jogo não depende dele. |

@@ -3,7 +3,8 @@ import { audio } from './engine';
 /**
  * A voz do aparelho, só para palavras inteiras e nomes de figuras, em
  * velocidade 0,7. Nunca para o som isolado de uma letra: a voz sintética lê
- * "g" como "gê" e ensinaria o contrário. Nunca para o nome dela nem dos bichos.
+ * "g" como "gê" e ensinaria o contrário (o som isolado vem de `fonemas.ts`).
+ * Nunca para o nome dela nem dos bichos.
  */
 export function podeFalar(): boolean {
   return typeof speechSynthesis !== 'undefined' && typeof SpeechSynthesisUtterance !== 'undefined';

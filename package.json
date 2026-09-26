@@ -13,7 +13,8 @@
     "lint": "eslint src tests",
     "icons": "node scripts/icons.mjs",
     "e2e": "node scripts/e2e.mjs",
-    "voando": "node scripts/voando.mjs"
+    "voando": "node scripts/voando.mjs",
+    "fonemas": "node scripts/fonemas.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.0",
