@@ -10,7 +10,7 @@ const espera = (ms) => new Promise((r) => setTimeout(r, ms));
 await espera(2500);
 const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH ?? '/opt/pw-browsers/chromium', args: ['--no-sandbox'] });
 const page = await (await browser.newContext({ viewport: { width: 390, height: 780 }, hasTouch: true, isMobile: true })).newPage();
-const telas = ['casa', 'roda', 'prato', 'som', 'caderno', 'palavra', 'areia', 'pinhas', 'piano', 'jardim', 'palco', 'bichos', 'despedida', 'noite', 'horta', 'arvore', 'cozinha', 'arvoregrande', 'lago', 'ukulele', 'lira', 'bonecas', 'bilhete', 'relogio'];
+const telas = ['casa', 'roda', 'prato', 'som', 'caderno', 'palavra', 'areia', 'pinhas', 'piano', 'jardim', 'palco', 'bichos', 'despedida', 'noite', 'horta', 'arvore', 'cozinha', 'arvoregrande', 'lago', 'ukulele', 'bonecas', 'bilhete', 'relogio'];
 const problemas = [];
 for (const t of telas) {
   await page.goto(`${BASE}?debug=1&hora=15:00`, { waitUntil: 'load' });

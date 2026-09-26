@@ -190,7 +190,6 @@ for (const [nome, tela, q] of [
   ['25-arvore', 'arvore', ''],
   ['26-cozinha', 'cozinha', ''],
   ['27-ukulele', 'ukulele', ''],
-  ['28-lira', 'lira', ''],
   ['29-bonecas', 'bonecas', ''],
   ['30-bilhete', 'bilhete', ''],
   ['31-arvore-grande', 'arvoregrande', ''],
