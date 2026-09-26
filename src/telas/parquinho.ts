@@ -113,7 +113,7 @@ function laco(tela: TelaSvg, quadro: (dt: number) => void): void {
 function dizNumero(n: number): void {
   const id = `num_${n}`;
   if (temVoz(id)) void falar(id);
-  else void falarPalavra(NUMEROS[n - 1] ?? String(n), 0.85);
+  else void falarPalavra(NUMEROS[n - 1] ?? String(n), 0.95);
 }
 
 /* ---------- TELA 1: o balanço ---------- */

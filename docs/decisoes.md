@@ -12,7 +12,7 @@
 | P4 | Palavras | Trocadas por palavras de sílaba aberta em que cada letra soa como o som ensinado: LUA, AVÓ, ELA, OLÁ, UVA, MALA, SALA, LAMA, MOLA, TATU, TUTU, TELA, LATA, MATA, LIMA, VELA, LUVA e STELLA. Um teste impede L no fim da sílaba, S entre vogais, TI e vogal átona final. | `src/data/palavras.json`, `tests/dados.test.ts` |
 | P5 | Casa | Numa tela só, sem rolagem. Tocar num objeto abre a atividade. | `src/telas/casa.ts` |
 | P6 | Quem marca | O toque dela basta; o objeto da roda só aceita o toque depois que a pergunta acabou de ser falada. A confirmação dos pais é brilho a mais. | `src/telas/roda.ts`, `src/telas/pais.ts` |
-| P7 | Vozes | Gravadas no app (MediaRecorder), guardadas só no aparelho, com exportar e importar. Cada frase tem um dono; 50 obrigatórias e o resto opcional. Sem gravação, a cena acontece sem voz. Palavras inteiras e nomes de figuras podem vir da voz do aparelho; o som isolado da letra e os nomes próprios, nunca. O som da letra sem gravação sai do sintetizador de fonemas (formantes e ruído filtrado no Web Audio), inclusive no meio das frases de ensinar ("sss... sssss... sapo", sem "de" no meio) e na leitura do bilhete, que lê som a som. A etapa de juntar da palavra usa os mesmos sons curtinhos (não mais piano). Enquanto uma voz ou som de letra fala, a música de fundo some. | `src/audio/vozes.ts`, `src/audio/fala.ts`, `src/audio/fonemas.ts`, `src/audio/sintese-fonemas.ts`, `src/data/frases.json` |
+| P7 | Vozes | Gravadas no app (MediaRecorder), guardadas só no aparelho, com exportar e importar. Cada frase tem um dono; 50 obrigatórias e o resto opcional. Sem gravação, a cena acontece sem voz. Palavras inteiras e nomes de figuras podem vir da voz do aparelho; o som isolado da letra e os nomes próprios, nunca. O som da letra sem gravação: vogal pela voz do aparelho (nome e som coincidem), consoante pelo sintetizador de fonemas (formantes e ruído filtrado no Web Audio), inclusive no meio das frases de ensinar ("sss... sssss... sapo", sem "de" no meio) e na leitura do bilhete, que lê som a som. A etapa de juntar da palavra usa os mesmos sons curtinhos (não mais piano). Enquanto uma voz ou som de letra fala, a música de fundo some. | `src/audio/vozes.ts`, `src/audio/fala.ts`, `src/audio/fonemas.ts`, `src/audio/sintese-fonemas.ts`, `src/data/frases.json` |
 | P8 | Roupa | Vestido rosa em casa; tutu e coque só no palco. | `src/puppet/boneco.ts` |
 | P9 | Proporções | Stella 1, Theo 1,5, pais 2 (o pai 2,1). | `src/puppet/boneco.ts` |
 | P10 | Voltar | A casinha verde no canto de cima, 72 px. A porta fica só para a aventura. | `src/puppet/objetos.ts` |
@@ -229,6 +229,8 @@ O teste no celular mostrou dois problemas na tela da palavra.
   do V, e LUVA completa. O V é a décima letra do caderno (o vale entre as duas montanhas do M).
   AVÓ traz duas letras antes da hora (V e Ó); aceito porque o Ó é o mesmo som de OLÁ e não
   havia palavra com A inicial e só uma consoante nova que soasse certo.
+  A figura ASA ainda ficou como exemplo do som no traçado do A ("aaa... asa"); trocada por
+  AVÓ, a mesma palavra da fase, e o teste dos dados agora vigia a figura falada no caderno.
 - **Não se sabia o que fazer nem se estava avançando.** A tela tinha a fita e a estrela, mas
   nenhum convite e nenhum sinal de etapa. Agora as quatro etapas do fônico são sempre as
   mesmas e cada uma é mostrada com a língua sem palavras do jogo: a estrela guia soa letra

@@ -1,6 +1,6 @@
 import { audio } from './engine';
 import { falar, temVoz } from './vozes';
-import { falarPalavra } from './fala';
+import { falarPalavra, temVozPt } from './fala';
 import { RECEITAS, sintetizarSom, somDaLetra } from './sintese-fonemas';
 
 export { duracaoDoSom, RECEITAS, sintetizarSom, somDaLetra } from './sintese-fonemas';
@@ -8,13 +8,26 @@ export { duracaoDoSom, RECEITAS, sintetizarSom, somDaLetra } from './sintese-fon
 /* ---------- no jogo ---------- */
 
 /**
- * Diz o som de uma letra: a gravação da família se houver; senão, o som
- * montado pelo sintetizador. Resolve quando o som termina. Devolve se soou.
- * `esticar` alonga os sons que se seguram (vogais, M, S...); os de estalo
- * são sempre curtos.
+ * As vogais vêm da voz do aparelho: nelas o nome da letra é o próprio som, e
+ * a voz de gente soa muito melhor que a vogal sintetizada, que sustentada
+ * ficava parecendo fantasma ("uuuu"). O acento diz qual vogal: á, é, ê...
+ */
+const VOGAL_FALADA: Record<string, string> = { som_a: 'á', som_e: 'é', som_e2: 'ê', som_i: 'í', som_o: 'ó', som_o2: 'ô', som_u: 'ú' };
+
+/**
+ * Diz o som de uma letra: a gravação da família se houver; a vogal pela voz
+ * do aparelho; senão, o som montado pelo sintetizador. Resolve quando o som
+ * termina. Devolve se soou. `esticar` alonga os sons que se seguram (vogais,
+ * M, S...); os de estalo são sempre curtos.
  */
 export async function falarSom(id: string, esticar = 1): Promise<boolean> {
   if (temVoz(id) && (await falar(id))) return true;
+  const vogal = VOGAL_FALADA[id];
+  if (vogal && temVozPt()) {
+    /* esticar na voz do aparelho é falar mais devagar; juntar, mais depressa */
+    await falarPalavra(vogal, esticar >= 1.3 ? 0.6 : esticar < 0.7 ? 1.15 : 0.85);
+    return true;
+  }
   const ctx = audio.ctx;
   if (!ctx || !audio.efeitos || !audio.musica || !RECEITAS[id]) return false;
   const t = ctx.currentTime + 0.02;

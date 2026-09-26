@@ -90,7 +90,7 @@ export function telaBilhete(): Tela {
       if (!(await falarSomDaLetra(l))) await esperar(300);
       await esperar(180);
     }
-    await falarPalavra(texto, 0.7);
+    await falarPalavra(texto);
     tela.comemorar(alvoX, 640);
     anunciar('bilhete');
     /* o abraço */

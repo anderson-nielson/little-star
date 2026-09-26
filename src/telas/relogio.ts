@@ -102,7 +102,7 @@ export function telaRelogio(): Tela {
   s += `<g class="luz"></g>`;
   /* o Theo, que pergunta as horas */
   s += `<g data-alvo="theo"><circle cx="90" cy="640" r="60" fill="transparent"/>${familia.theo(90, 740, 150, 'aponta').svg}</g>`;
-  s += `<g class="balao" opacity="0">${arco(160, 540, 70, 76, '#fbf8f1')}<text class="pedida" x="195" y="595" text-anchor="middle" font-family="Jost, sans-serif" font-size="40" font-weight="500" fill="#f2a9c4"></text></g>`;
+  s += `<g class="balao-hora" opacity="0">${arco(160, 540, 70, 76, '#fbf8f1')}<text class="pedida" x="195" y="595" text-anchor="middle" font-family="Jost, sans-serif" font-size="40" font-weight="500" fill="#f2a9c4"></text></g>`;
   s += `<g class="stella">${familia.stella(310, 740, 100, 'acena').svg}</g>`;
   const tela = telaSvg(s);
   const svg = tela.svg;
@@ -111,7 +111,7 @@ export function telaRelogio(): Tela {
   const ponteiroMinutos = svg.querySelector('.minutos') as SVGGElement;
   const ceu = svg.querySelector('.ceu') as SVGGElement;
   const luz = svg.querySelector('.luz') as SVGGElement;
-  const balao = svg.querySelector('.balao') as SVGGElement;
+  const balao = svg.querySelector('.balao-hora') as SVGGElement;
   const pedidaEl = svg.querySelector('.pedida') as SVGTextElement;
   /* três pedidas do Theo por visita, em contas entre a janelinha e o relógio; depois, a casinha convida */
   const PEDIDAS = 3;
@@ -169,7 +169,7 @@ export function telaRelogio(): Tela {
   const dizer = async (h: number) => {
     const hh = ((Math.round(h) - 1 + 12) % 12) + 1;
     if (temVoz(`hora_${hh}`)) await falar(`hora_${hh}`);
-    else await falarPalavra(fraseDaHora(hh), 0.8);
+    else await falarPalavra(fraseDaHora(hh), 0.9);
   };
 
   const conferir = async () => {
@@ -271,7 +271,7 @@ export function telaRelogio(): Tela {
     balao.style.opacity = '1';
     ajuda.reset();
     if (temVoz('relogio_pergunta')) await falar('relogio_pergunta');
-    else await falarPalavra(`mostra ${pedida === 1 ? 'uma hora' : HORAS[pedida - 1] + ' horas'}`, 0.8);
+    else await falarPalavra(`mostra ${pedida === 1 ? 'uma hora' : HORAS[pedida - 1] + ' horas'}`, 0.9);
     ocupado = false;
   });
 
@@ -279,7 +279,7 @@ export function telaRelogio(): Tela {
   void esperar(900).then(async () => {
     if (temVoz('relogio_agora')) await falar('relogio_agora');
     if (minutosReais < 5 && temVoz(`hora_${horaCheiaReal}`)) await falar(`hora_${horaCheiaReal}`);
-    else await falarPalavra(fraseDaHoraReal(horaCheiaReal, minutosReais), 0.8);
+    else await falarPalavra(fraseDaHoraReal(horaCheiaReal, minutosReais), 0.9);
   });
   return tela;
 }
