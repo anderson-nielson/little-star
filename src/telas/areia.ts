@@ -8,7 +8,7 @@ import { caixaDaLetra, caminhoDaEstrela, ESTRELA, type CaixaDaLetra } from '@/co
 import { anunciar } from '@/core/narracao';
 import { centelha as centelhaSvg, contornoLuz, gato, pinha as pinhaSvg } from '@/puppet/objetos';
 import { figura, nomeDaFigura } from '@/puppet/figuras';
-import { dizerComSons, falarSom, fraseDeEnsinar } from '@/audio/fonemas';
+import { dizerComSons, falarSom, figuraDoSom, fraseDeEnsinar, somInicialDaFigura } from '@/audio/fonemas';
 import { falarPalavra } from '@/audio/fala';
 import { tocarFundo } from '@/audio/musica';
 import { sininho, tiquinho, toc } from '@/audio/synth';
@@ -491,7 +491,7 @@ export function telaAreia(): Tela {
       const fig = l.figuras[Math.floor(Math.random() * l.figuras.length)]!;
       achado.innerHTML = `<g class="surge"><rect x="${x - 22}" y="${y - 30}" width="44" height="44" rx="6" fill="#c9a189"/><text x="${x}" y="${y + 6}" text-anchor="middle" font-family="Jost, sans-serif" font-size="34" font-weight="500" fill="${COR.papel}">${l.id}</text></g>`;
       sininho();
-      await falarSom(l.som);
+      await falarSom(somInicialDaFigura(fig, l.som));
       if (!vivo) return;
       achado.innerHTML += `<g class="surge"><circle cx="${x}" cy="${y - 72}" r="32" fill="${COR.papel}" opacity="0.9"/>${figura(fig, x, y - 72, 52)}</g>`;
       await falarPalavra(nomeDaFigura(fig));
@@ -584,7 +584,8 @@ export function telaAreia(): Tela {
   /* ao chegar: a letra diz o som dela e a mãozinha mostra o caminho uma vez */
   void esperar(900).then(() => {
     if (!vivo) return;
-    void dizerComSons(fraseDeEnsinar(letra.som, nomeDaFigura(letra.figuras[0]!)));
+    const fig = figuraDoSom(letra.som, letra.figuras);
+    void dizerComSons(fraseDeEnsinar(letra.som, fig && nomeDaFigura(fig)));
     iniciarDemo();
   });
 

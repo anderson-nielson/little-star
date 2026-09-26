@@ -7,8 +7,6 @@ export { duracaoDoSom, RECEITAS, sintetizarSom, somDaLetra } from './sintese-fon
 
 /* ---------- no jogo ---------- */
 
-let falando = 0;
-
 /**
  * Diz o som de uma letra: a gravação da família se houver; senão, o som
  * montado pelo sintetizador. Resolve quando o som termina. Devolve se soou.
@@ -23,13 +21,11 @@ export async function falarSom(id: string, esticar = 1): Promise<boolean> {
   const saida = ctx.createGain();
   saida.gain.value = 0.9;
   saida.connect(audio.efeitos);
-  falando += 1;
-  audio.musica.gain.setTargetAtTime(0.4, ctx.currentTime, 0.1);
+  audio.comecarFala();
   const dur = sintetizarSom(ctx, saida, id, t, esticar);
   await new Promise<void>((r) => setTimeout(r, (dur + 0.1) * 1000));
   saida.disconnect();
-  falando -= 1;
-  if (falando === 0) audio.musica.gain.setTargetAtTime(1, ctx.currentTime + 0.2, 0.4);
+  audio.terminarFala();
   return true;
 }
 
@@ -49,6 +45,16 @@ const esperar = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
  */
 export async function dizerComSons(frase: string): Promise<void> {
   const partes = frase.split(/(\{som_\w+(?::[\d.]+)?\})/).filter((p) => p.trim());
+  /* a música fica calada a frase inteira, não só em cada pedaço */
+  audio.comecarFala();
+  try {
+    await dizerPartes(partes);
+  } finally {
+    audio.terminarFala();
+  }
+}
+
+async function dizerPartes(partes: string[]): Promise<void> {
   for (const parte of partes) {
     const m = /^\{(som_\w+?)(?::([\d.]+))?\}$/.exec(parte);
     if (m) {
@@ -62,10 +68,26 @@ export async function dizerComSons(frase: string): Promise<void> {
 }
 
 /**
+ * O som com que cada figura começa, quando não é o som ensinado da letra
+ * dela: ovo, olho e onda começam com ô (fechado), não com ó; elefante com ê.
+ */
+const SOM_INICIAL_DIFERENTE: Record<string, string> = { ovo: 'som_o2', olho: 'som_o2', onda: 'som_o2', elefante: 'som_e2' };
+
+export function somInicialDaFigura(figura: string, somDaLetraDela: string): string {
+  return SOM_INICIAL_DIFERENTE[figura] ?? somDaLetraDela;
+}
+
+/** A primeira figura que começa exatamente com o som ensinado, ou null. */
+export function figuraDoSom(som: string, figuras: string[]): string | null {
+  return figuras.find((f) => somInicialDaFigura(f, som) === som) ?? null;
+}
+
+/**
  * A frase do caderno e da areia: o som curto, o som esticado e, depois de
  * uma pausa, a figura que começa com ele ("sss... sssss... sapo"). Sem "de"
  * no meio: só o som e a palavra. Nunca o nome da letra.
  */
-export function fraseDeEnsinar(som: string, figura: string): string {
-  return `{${som}}... {${som}:1.6}... ${figura}`;
+export function fraseDeEnsinar(som: string, figura: string | null): string {
+  /* sem figura que comece com esse som (o ó aberto): só o som, para não ensinar ó com ovo */
+  return figura ? `{${som}}... {${som}:1.6}... ${figura}` : `{${som}}... {${som}:1.6}`;
 }

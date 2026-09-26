@@ -116,10 +116,8 @@ async function bufferDe(id: string): Promise<AudioBuffer | null> {
   }
 }
 
-let falando = 0;
-
 /**
- * Fala uma frase gravada. A música abaixa pela metade enquanto a voz fala e
+ * Fala uma frase gravada. A música de fundo some enquanto a voz fala e
  * volta devagar. Resolve quando a fala termina, ou logo se não houver
  * gravação (a cena segue sem voz). Devolve se falou.
  */
@@ -134,14 +132,12 @@ export async function falar(id: string): Promise<boolean> {
   g.gain.value = 1;
   s.connect(g);
   g.connect(audio.efeitos);
-  falando += 1;
-  audio.musica.gain.setTargetAtTime(0.4, ctx.currentTime, 0.1);
+  audio.comecarFala();
   s.start();
   await new Promise<void>((r) => {
     s.onended = () => r();
   });
-  falando -= 1;
-  if (falando === 0) audio.musica.gain.setTargetAtTime(1, ctx.currentTime + 0.2, 0.4);
+  audio.terminarFala();
   return true;
 }
 

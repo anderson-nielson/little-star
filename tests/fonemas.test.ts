@@ -32,3 +32,22 @@ describe('a frase de ensinar', () => {
     expect(fraseDeEnsinar('som_s', 'sapo')).toBe('{som_s}... {som_s:1.6}... sapo');
   });
 });
+
+describe('o som certo em cada palavra e figura', () => {
+  it('a lista de sons de uma palavra tem um som (ou null) por letra, e cada som existe', () => {
+    for (const p of palavras as { palavra: string; sons?: (string | null)[] }[]) {
+      if (!p.sons) continue;
+      expect(p.sons.length, p.palavra).toBe([...p.palavra].length);
+      for (const s of p.sons) if (s) expect(RECEITAS[s], `${s} de ${p.palavra}`).toBeDefined();
+    }
+  });
+  it('a frase de ensinar só usa figura que começa com o som ensinado', async () => {
+    const { figuraDoSom, fraseDeEnsinar } = await import('@/audio/fonemas');
+    const o = letras.find((l) => l.id === 'O')!;
+    const e = letras.find((l) => l.id === 'E')!;
+    /* ovo, olho e onda começam com ô: o ó aberto fica sem figura */
+    expect(figuraDoSom(o.som, o.figuras)).toBeNull();
+    expect(fraseDeEnsinar(o.som, null)).toBe('{som_o}... {som_o:1.6}');
+    expect(figuraDoSom(e.som, e.figuras)).toBe('egua');
+  });
+});

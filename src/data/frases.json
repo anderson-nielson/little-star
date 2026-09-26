@@ -33,7 +33,7 @@
 
   { "id": "som_a", "texto": "a (como em avó)", "dono": "qualquer", "grupo": "sons", "obrigatoria": true },
   { "id": "som_e", "texto": "é (como em ela)", "dono": "qualquer", "grupo": "sons", "obrigatoria": true },
-  { "id": "som_o", "texto": "ó (como em ovo)", "dono": "qualquer", "grupo": "sons", "obrigatoria": true },
+  { "id": "som_o", "texto": "ó aberto (como em mola)", "dono": "qualquer", "grupo": "sons", "obrigatoria": true },
   { "id": "som_s", "texto": "sss (como em sapo)", "dono": "qualquer", "grupo": "sons", "obrigatoria": true },
   { "id": "som_l", "texto": "lll (como em lua)", "dono": "qualquer", "grupo": "sons", "obrigatoria": true },
   { "id": "som_m", "texto": "mmm (como em mala)", "dono": "qualquer", "grupo": "sons", "obrigatoria": true },

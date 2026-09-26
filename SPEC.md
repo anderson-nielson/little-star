@@ -540,7 +540,12 @@ passando por três filtros afinados nas ressonâncias da boca; S, F, X e R são 
 no lugar do chiado de cada um (Z, V e J somam o zumbido da garganta); P, T, C, B, D e G são um
 estouro curto com um "â" curtinho depois. Nas frases de ensinar do caderno e da areia, o som
 sintetizado entra no meio da voz do aparelho: "sss... sssss... sapo", em que só "sapo" é
-voz do aparelho. A bancada para ouvir e ajustar os sons fica fora do jogo; `npm run fonemas`
+voz do aparelho. Sem "de" no meio, e só com figura que começa com aquele som (ovo, olho
+e onda começam com ô, então o ó aberto é dito sem figura). Na etapa de juntar, os mesmos
+sons saem curtinhos e colados até virar a palavra. Palavras com letra que não soa como o som
+ensinado dizem o som certo (`sons` em `palavras.json`: o O fechado de OLÁ, o L mudo de
+STELLA). Enquanto qualquer voz ou som de letra fala, a música de fundo some e volta devagar
+depois. A bancada para ouvir e ajustar os sons fica fora do jogo; `npm run fonemas`
 mede o volume de cada um. Com o fônico, essa gravação passou a ser a mais
 importante do jogo; ver a lista na seção 15.4.
 

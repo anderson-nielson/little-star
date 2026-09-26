@@ -135,6 +135,29 @@ class MotorAudio {
     this.mestre.gain.setTargetAtTime(sim ? 0 : 1, this.ctx.currentTime, 0.02);
   }
 
+  private falas = 0;
+  private voltaDaMusica = 0;
+  /**
+   * Uma fala começou (voz gravada, voz do aparelho, som de letra): a música de
+   * fundo some, para ela ouvir só a voz. Cada chamada pede um `terminarFala`.
+   */
+  comecarFala(): void {
+    this.falas += 1;
+    window.clearTimeout(this.voltaDaMusica);
+    if (this.ctx && this.musica) this.musica.gain.setTargetAtTime(0, this.ctx.currentTime, 0.06);
+  }
+
+  /** A fala terminou: a música volta devagar, se nenhuma outra fala vier logo em seguida. */
+  terminarFala(): void {
+    this.falas = Math.max(0, this.falas - 1);
+    if (this.falas > 0) return;
+    window.clearTimeout(this.voltaDaMusica);
+    /* uma frase de ensinar é som, pausa, palavra: a música espera um pouco para não voltar no meio */
+    this.voltaDaMusica = window.setTimeout(() => {
+      if (this.falas === 0 && this.ctx && this.musica) this.musica.gain.setTargetAtTime(1, this.ctx.currentTime, 0.4);
+    }, 700);
+  }
+
   private volumeMusica = 0.8;
   /** Pausa do jogo: silencia a música sem suspender o contexto, para o relógio seguir contínuo. */
   silenciar(sim: boolean): void {

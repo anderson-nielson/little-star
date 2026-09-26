@@ -11,7 +11,7 @@ import { reivindicarDedo, soltarDedo, travar } from '@/core/toque';
 import { familia } from '@/puppet/boneco';
 import { nomeDaFigura } from '@/puppet/figuras';
 import { falar, temVoz } from '@/audio/vozes';
-import { dizerComSons, fraseDeEnsinar } from '@/audio/fonemas';
+import { dizerComSons, figuraDoSom, fraseDeEnsinar } from '@/audio/fonemas';
 import { tocarFundo } from '@/audio/musica';
 import { centelhasSom, sininho } from '@/audio/synth';
 import { CENTELHA } from '@/puppet/objetos';
@@ -473,7 +473,8 @@ export function telaCaderno(): Tela {
     if (!vivo) return;
     imagemOpacidade = 0.5;
     /* a frase de ensinar: o som curto, o som esticado e a figura ("sss... sssss... sapo") */
-    void dizerComSons(fraseDeEnsinar(letra.som, nomeDaFigura(letra.figuras[0]!)));
+    const fig = figuraDoSom(letra.som, letra.figuras);
+    void dizerComSons(fraseDeEnsinar(letra.som, fig && nomeDaFigura(fig)));
     fase = 'guia';
   })();
   requestAnimationFrame(laco);
