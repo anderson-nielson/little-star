@@ -14,6 +14,7 @@ import { figura, nomeDaFigura } from '@/puppet/figuras';
 import { falarSom, somDaLetra } from '@/audio/fonemas';
 import { falarPalavra } from '@/audio/fala';
 import { lira, notaAgora, sininho } from '@/audio/synth';
+import letrasJson from '@/data/letras.json';
 import type { Tela } from '@/core/roteador';
 
 const MUSGO = '#4f6b3a';
@@ -89,6 +90,11 @@ export function telaPalavra(params: Record<string, string>): Tela {
   if (espanhol) s += `<g class="estrellita">${familia.boneca(340, 600, 44, 0).svg}</g>`;
   /* a próxima palavra da fila, guardada até esta ficar pronta */
   if (proxima) s += `<g class="proxima" data-alvo="proxima" opacity="0" style="transition:opacity 600ms">${contornoLuz(PX, PY, 34, 34)}<circle cx="${PX}" cy="${PY}" r="30" fill="#f6f0e4"/>${figura(proxima.figura, PX, PY, 48)}</g>`;
+  /* o caderno com a letra da vez, também guardado até a palavra ficar pronta:
+     da palavra ela volta a escrever sem passar pela casa */
+  const letraDaVez = (letrasJson as { id: string }[])[Math.min(e0.letraIndice, letrasJson.length - 1)]?.id ?? 'A';
+  const CX = proxima ? PX - 80 : PX;
+  s += `<g class="caderno" data-alvo="caderno" opacity="0" style="transition:opacity 600ms"><circle cx="${CX}" cy="${PY}" r="30" fill="#f6f0e4" stroke="${OURO}" stroke-width="1.5"/><rect x="${CX - 17}" y="${PY - 13}" width="34" height="26" rx="2" fill="#fbf8f1" stroke="${OURO}"/><line x1="${CX}" y1="${PY - 12}" x2="${CX}" y2="${PY + 12}" stroke="#ebcdc3" stroke-width="1"/><text x="${CX + 8}" y="${PY + 7}" text-anchor="middle" font-family="Jost, sans-serif" font-size="18" font-weight="500" fill="${ROSA_DOCE}">${letraDaVez}</text></g>`;
   /* a mãozinha que faz o gesto na fita */
   s += `<g class="mao-fita" opacity="0">${maozinha(0, 0, 1.1, -15, '')}</g>`;
 
@@ -102,6 +108,7 @@ export function telaPalavra(params: Record<string, string>): Tela {
   const objeto = svg.querySelector('.objeto') as SVGGElement;
   const maoFita = svg.querySelector('.mao-fita') as SVGGElement;
   const proximaEl = svg.querySelector('.proxima') as SVGGElement | null;
+  const cadernoEl = svg.querySelector('.caderno') as SVGGElement;
 
   let vivo = true;
   tela.aoDestruir(() => {
@@ -237,6 +244,7 @@ export function telaPalavra(params: Record<string, string>): Tela {
     maoDesde = performance.now();
     tela.mao(null);
     if (nova === 'pronta' && proximaEl) proximaEl.setAttribute('opacity', '1');
+    if (nova === 'pronta') cadernoEl.setAttribute('opacity', '1');
   };
 
   /** as sílabas, batidas como palmas: as letras se juntam em grupos e cada grupo pula com uma nota */
@@ -326,12 +334,10 @@ export function telaPalavra(params: Record<string, string>): Tela {
   /* o dedo na fita */
   svg.addEventListener('pointerdown', (ev) => {
     if (ocupada) return;
-    if (!reivindicarDedo(ev.pointerId)) return;
+    /* longe da fita o dedo não é dela: soltá-lo aqui desfazia o toque na próxima palavra e no caderno */
     const [x, y] = pontoNoSvg(svg, ev.clientX, ev.clientY);
-    if (Math.abs(y - YF) > 60) {
-      soltarDedo(ev.pointerId);
-      return;
-    }
+    if (Math.abs(y - YF) > 60) return;
+    if (!reivindicarDedo(ev.pointerId)) return;
     /* ela tocou no meio da mostra: a vez é dela */
     if (etapa === 'ouvir') entrar('sons');
     dedoId = ev.pointerId;
@@ -375,6 +381,11 @@ export function telaPalavra(params: Record<string, string>): Tela {
     });
   }
 
+  tela.alvo('[data-alvo="caderno"]', () => {
+    if (etapa !== 'pronta') return;
+    void ir('caderno');
+  });
+
   /* a cena: a estrela guia, a mãozinha na fita e o convite para a próxima */
   const anim = () => {
     if (!vivo) return;
@@ -412,9 +423,8 @@ export function telaPalavra(params: Record<string, string>): Tela {
         if (u >= 1) void fimDaPassada();
       }
     } else if (etapa === 'pronta' && performance.now() - paradaDesde > 7000) {
-      /* pronta e parada: a mãozinha mostra a próxima palavra, ou o caminho de casa */
-      if (proxima) tela.mao([PX + 22, PY + 26]);
-      else tela.mao([56, 66], 20);
+      /* pronta e parada: a mãozinha mostra a próxima palavra, ou o caderno */
+      tela.mao(proxima ? [PX + 22, PY + 26] : [CX + 22, PY + 26]);
     }
   }, 1000);
   tela.aoDestruir(() => window.clearInterval(tique));

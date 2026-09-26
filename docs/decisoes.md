@@ -372,3 +372,19 @@ mesma parede confundiam. O quarto fica só com o ukulele: sai a tela da lira, o 
 a entrada na etapa 2, a ajuda e a foto do e2e. O som de corda dedilhada que marca as passagens
 do jogo (a escala subindo e descendo, as notinhas das brincadeiras) continua; é o mesmo timbre
 do ukulele, não um objeto na casa.
+
+## Ler e escrever mais perto
+
+A Stella tem adorado escrever e ouvir os sons das letras, então o caminho até isso encurta.
+
+- **A mala das palavras abre na sessão 2**, junto com o caderno, em vez da 3. A fila de
+  palavras já nasce da letra da vez, então não precisa esperar letra traçada.
+- **O caderno sai de trás da Stella.** Ela ficava de pé bem na frente dele e o toque caía nela.
+  Agora ela fica ao pé da cama, não recebe toque (é enfeite) e o caderno cresceu, com a letra
+  da vez maior e uma área de toque folgada em volta.
+- **Da palavra pronta, direto para o caderno.** Ao lado da próxima palavra aparece o caderno com
+  a letra da vez. Sem próxima, a mãozinha aponta para ele em vez da casinha. Caderno leva à
+  palavra da letra, palavra leva de volta ao caderno: dá para ficar no ciclo de escrever e ler.
+- **Conserto:** o toque no círculo da próxima palavra não funcionava. A fita soltava qualquer
+  dedo que tocasse longe dela, inclusive o que tinha acabado de apertar o círculo. Agora a fita
+  só pega o dedo que chega perto dela.
