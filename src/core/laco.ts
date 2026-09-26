@@ -60,10 +60,19 @@ export function sessaoQueAbre(coisa: Coisa): number {
   return 1;
 }
 
-/** Aberta e com o que precisa: o bilhete pede uma letra traçada. */
+/** As vogais ela já sabe: são carimbos do bilhete desde o começo. */
+export const VOGAIS = ['A', 'E', 'I', 'O', 'U'];
+
+/** Os carimbos do bilhete: as vogais sempre, e as letras que ela já traçou. No máximo nove (três por linha). */
+export function carimbosDoBilhete(letras: string[]): string[] {
+  const todos = [...VOGAIS];
+  for (const l of letras) if (!todos.includes(l)) todos.push(l);
+  return todos.slice(0, 9);
+}
+
+/** Aberta na etapa da casa. O bilhete não espera por letra: as vogais já são carimbos. */
 export function disponivel(e: Estado, coisa: Coisa): boolean {
   if (coisa === 'familia') return true;
-  if (coisa === 'bilhete') return aberto(etapa(e), 'bilhete') && e.letras.length > 0;
   return aberto(etapa(e), coisa);
 }
 

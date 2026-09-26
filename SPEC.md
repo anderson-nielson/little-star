@@ -470,8 +470,9 @@ quando ela termina. Irmão mais velho ensinando é uma cena que ela reconhece.
 
 ### 9.4 O bilhetinho
 
-Toda letra aprendida vira um **carimbo** no caderno. Ela pode "escrever" um bilhete para a
-mãe, o pai ou o Theo: toca nas letras que já sabe, elas vão para um papel rosa, e o bilhete é
+As cinco vogais, que ela já sabe, são **carimbos** desde o começo; toda letra traçada no
+caderno vira mais um carimbo. Ela pode "escrever" um bilhete para a
+mãe, o pai ou o Theo: toca nos carimbos, as letras vão para um papel rosa, e o bilhete é
 entregue. Quem recebe lê em voz alta (com a voz gravada) o que ela "escreveu", mesmo que seja
 "SSTAEL". Escrever vira um jeito de dar carinho, que é o motivo mais forte para aprender.
 

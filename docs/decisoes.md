@@ -92,7 +92,7 @@ continua sendo um contador disfarçado; o canteiro já recompensa).
 | Ukulele | Quatro cordas para dedilhar (Karplus-Strong), afinadas em sol, dó, mi, lá: soltas, dão a afinação; três botões de cor apertam dó, fá e sol7 nas posições de verdade. Corpo rosa em oito, com cintura, cravelhas e trastes. As bonecas balançam. | `src/telas/ukulele.ts` |
 | Lira | Sete cordas na pentatônica, pendurada na parede do quarto. | `src/telas/lira.ts` |
 | Vestir bonecas | Roupa, cabelo e gorro por cores; a Estrellita só troca o gorro. Tocar na Stella leva a boneca escolhida no bolso do tutu: ela assiste ao palco da coxia. | `src/telas/bonecas.ts` |
-| Bilhetinho | As letras que ela sabe são carimbos; vão para o papel rosa; ela entrega para a mãe, o pai ou o Theo, que lê em voz alta (a voz do aparelho lê letra a letra e depois junto) e abraça. Os pais veem os bilhetes no cantinho. | `src/telas/bilhete.ts` |
+| Bilhetinho | As vogais (que ela já sabe) e as letras que ela traçou são carimbos; vão para o papel rosa; ela entrega para a mãe, o pai ou o Theo, que lê em voz alta (a voz do aparelho lê letra a letra e depois junto) e abraça. Os pais veem os bilhetes no cantinho. | `src/telas/bilhete.ts` |
 | Festas das estações | Outono: folhas no quintal e a Festa da Lanterna (20 a 31 de maio). Inverno: fitinha no pinheiro e a festa junina com fogueira e bandeirinhas (12 a 30 de junho). Primavera: flores no pinheiro e guirlanda na porta (21 a 30 de setembro). Verão: conchinhas na areia. Advento: a espiral de velas, uma por domingo. Os pais podem desligar. | `src/core/festas.ts`, `src/data/festas.json` |
 | Piano | O seguir a estrelinha alterna *Brilha, brilha* e *Ciranda, cirandinha*. | `src/telas/piano.ts` |
 
