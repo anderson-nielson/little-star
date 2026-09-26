@@ -63,8 +63,9 @@ export function telaArvoreGrande(): Tela {
   limpezas.push(() => obs?.disconnect());
 
   const F = 200;
-  const sobe = [familia.stella(100, 190, 160, 'parado').svg, familia.stella(100, 190, 160, 'acena').svg].map((s) => imagemDe(s, F, F));
-  const gira = imagemDe(familia.stella(100, 190, 160, 'giro').svg, F, F);
+  const sobe = imagemDe(familia.stella(100, 190, 160, 'sobe').svg, F, F);
+  const parada = imagemDe(familia.stella(100, 190, 160, 'parado').svg, F, F);
+  const pula = imagemDe(familia.stella(100, 190, 160, 'pulo').svg, F, F);
   const gatinho = imagemDe(gato(100, 160, 40), F, F);
   const pinhas = [0, 1, 2, 3].map((t) => imagemDe(pinha(50, 70, 34, t), 100, 100));
 
@@ -121,9 +122,16 @@ export function telaArvoreGrande(): Tela {
     return Math.sin(k * Math.PI) * H * 0.1;
   };
 
+  /* o mundo da árvore, em px a partir do chão: ela sobe do pé do tronco até o gatinho lá em cima */
+  const subida = () => ARVORE.duracao * ARVORE.velocidade * H;
+  const altitude = (t: number) => Math.max(0, Math.min(t, ARVORE.duracao)) * ARVORE.velocidade * H;
+  /** onde fica na tela um ponto do mundo: a câmera acompanha a Stella */
+  const naTela = (z: number, t: number) => stellaY() + altitude(t) - z;
+
   function desenhar(): void {
     const t = tempo();
-    const progresso = Math.min(1, t / ARVORE.duracao);
+    const progresso = Math.max(0, Math.min(1, t / ARVORE.duracao));
+    const topo = subida() + H * 0.24;
     /* o céu clareia conforme ela sobe */
     ctx.fillStyle = '#dbe7ee';
     ctx.fillRect(0, 0, W, H);
@@ -133,18 +141,45 @@ export function telaArvoreGrande(): Tela {
     ctx.ellipse(W * 0.5, H * 0.3, W * 0.7, H * 0.35, 0, 0, Math.PI * 2);
     ctx.fill();
     ctx.globalAlpha = 1;
-    /* o tronco e os galhos que passam para baixo */
-    const desloc = t * ARVORE.velocidade * H;
-    ctx.fillStyle = '#c9a189';
-    ctx.fillRect(W * 0.5 - 22, 0, 44, H);
-    ctx.fillStyle = '#b08a70';
-    ctx.globalAlpha = 0.5;
-    ctx.fillRect(W * 0.5 - 6, 0, 8, H);
-    ctx.globalAlpha = 1;
+    /* o chão do quintal: aparece no começo e vai ficando lá embaixo */
+    const chao = naTela(0, t);
+    if (chao < H) {
+      ctx.fillStyle = '#9fbf7f';
+      ctx.fillRect(0, chao, W, H - chao + 1);
+      ctx.fillStyle = '#8aad6c';
+      ctx.fillRect(0, chao, W, 6);
+    }
+    /* o tronco: do chão até a copa lá em cima */
+    const yTopo = naTela(topo, t);
+    const y0 = Math.max(0, yTopo);
+    const y1 = Math.min(H, chao);
+    if (y1 > y0) {
+      ctx.fillStyle = '#c9a189';
+      ctx.fillRect(W * 0.5 - 22, y0, 44, y1 - y0);
+      ctx.fillStyle = '#b08a70';
+      ctx.globalAlpha = 0.5;
+      ctx.fillRect(W * 0.5 - 6, y0, 8, y1 - y0);
+      ctx.globalAlpha = 1;
+    }
+    if (chao < H + 20) {
+      /* a raiz abrindo no chão */
+      ctx.fillStyle = '#c9a189';
+      ctx.beginPath();
+      ctx.moveTo(W * 0.5 - 22, chao - 14);
+      ctx.quadraticCurveTo(W * 0.5 - 26, chao, W * 0.5 - 40, chao + 4);
+      ctx.lineTo(W * 0.5 + 40, chao + 4);
+      ctx.quadraticCurveTo(W * 0.5 + 26, chao, W * 0.5 + 22, chao - 14);
+      ctx.fill();
+    }
+    /* os galhos: cada um no seu lugar do tronco, alternando os lados */
     const passoGalho = H * 0.22;
-    for (let i = -1; i < 7; i++) {
-      const gy = ((i * passoGalho + desloc) % (passoGalho * 6) + passoGalho * 6) % (passoGalho * 6) - passoGalho;
-      const esq = Math.floor((i * passoGalho + desloc) / passoGalho) % 2 === 0;
+    const primeiro = Math.max(1, Math.floor((altitude(t) - H) / passoGalho));
+    for (let k = primeiro; k < primeiro + 8; k++) {
+      const z = H * 0.3 + k * passoGalho;
+      if (z > topo - H * 0.12) break;
+      const gy = naTela(z, t);
+      if (gy < -H * 0.1 || gy > H + H * 0.1) continue;
+      const esq = k % 2 === 0;
       const gx = esq ? W * 0.22 : W * 0.78;
       ctx.strokeStyle = '#b08a70';
       ctx.lineWidth = 12;
@@ -160,10 +195,9 @@ export function telaArvoreGrande(): Tela {
       ctx.fill();
       ctx.globalAlpha = 1;
     }
-    /* lá em cima: o esquilo de gorrinho e o gatinho, chegando no fim */
-    /* o topo começa bem acima da tela e desce conforme ela sobe; chega no fim */
-    const topoY = H * 0.14 - (1 - progresso) * H * 1.3;
-    if (topoY > -H * 0.2) {
+    /* lá em cima, a copa: o esquilo de gorrinho e o gatinho esperando por ela */
+    const topoY = yTopo;
+    if (topoY > -H * 0.2 && topoY < H + H * 0.2) {
       ctx.fillStyle = '#2c4a42';
       ctx.beginPath();
       ctx.moveTo(W * 0.5, topoY - H * 0.12);
@@ -171,7 +205,7 @@ export function telaArvoreGrande(): Tela {
       ctx.lineTo(W * 0.28, topoY + 10);
       ctx.closePath();
       ctx.fill();
-      ctx.drawImage(gatinho, W * 0.5 - 20, topoY - 40, 60, 48);
+      ctx.drawImage(gatinho, W * 0.5 - 50, topoY - 110, 150, 150);
       /* o esquilo */
       ctx.fillStyle = '#b06a3a';
       ctx.beginPath();
@@ -189,11 +223,10 @@ export function telaArvoreGrande(): Tela {
     }
     /* as pinhas descendo */
     for (const o of pinhasDaArvore) {
-      if (o.passou && !o.pegou) continue;
+      if (o.passou) continue;
       const to = o.beat * segPorBeat;
       const y = py(to, t);
       if (y < -60 || y > H + 60) continue;
-      if (o.passou) continue;
       const img = pinhas[o.tipo]!;
       ctx.save();
       ctx.translate(W * 0.5, y);
@@ -213,15 +246,22 @@ export function telaArvoreGrande(): Tela {
         ctx.restore();
       }
     }
-    /* a Stella subindo, no tronco; no pulo, gira */
+    /* a Stella no tronco: mão ante mão, balançando de leve no ritmo; no pulo, estica os braços para a pinha */
     const hS = H * 0.2;
     const esc = hS / 160;
     const alt = altura(t);
-    const img = noAr(t) ? gira : sobe[Math.abs(Math.floor(t * 4)) % 2]!;
+    const subindo = t > 0 && t < ARVORE.duracao;
+    const fase = subindo ? (t / segPorBeat) % 2 : 0;
+    const lado = fase < 1 ? 1 : -1;
+    const balanca = subindo && !noAr(t) ? Math.abs(Math.sin(fase * Math.PI)) * H * 0.008 : 0;
     ctx.save();
-    ctx.translate(stellaX() + (noAr(t) ? 0 : -8), stellaY() - alt);
-    if (noAr(t)) ctx.rotate(((t - (pulo?.inicio ?? 0)) / ARVORE.duracaoDoPulo) * Math.PI * 2);
-    ctx.drawImage(img, (-F * esc) / 2, -F * esc * 0.9, F * esc, F * esc);
+    ctx.translate(stellaX(), stellaY() - alt - balanca);
+    if (noAr(t)) {
+      ctx.drawImage(pula, (-F * esc) / 2, -F * esc * 0.9, F * esc, F * esc);
+    } else {
+      ctx.scale(subindo ? lado : 1, 1);
+      ctx.drawImage(subindo ? sobe : parada, (-F * esc) / 2, -F * esc * 0.9, F * esc, F * esc);
+    }
     ctx.restore();
     if (noAr(t) && alt > H * 0.08) {
       ctx.save();
@@ -230,6 +270,31 @@ export function telaArvoreGrande(): Tela {
       ctx.fill(new Path2D(CENTELHA));
       ctx.restore();
     }
+    /* o caminho até o gatinho: um fio na beirada, com ela subindo nele */
+    const fx = W - 14;
+    const fTopo = H * 0.2;
+    const fBase = H * 0.86;
+    ctx.strokeStyle = '#fbf8f1';
+    ctx.lineWidth = 5;
+    ctx.lineCap = 'round';
+    ctx.globalAlpha = 0.8;
+    ctx.beginPath();
+    ctx.moveTo(fx, fBase);
+    ctx.lineTo(fx, fTopo);
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+    const fy = fBase - (fBase - fTopo) * progresso;
+    ctx.strokeStyle = '#c6a15b';
+    ctx.beginPath();
+    ctx.moveTo(fx, fBase);
+    ctx.lineTo(fx, fy);
+    ctx.stroke();
+    ctx.drawImage(gatinho, fx - 38, fTopo - 46, 60, 60);
+    ctx.save();
+    ctx.translate(fx - 10, fy - 10);
+    ctx.fillStyle = '#c6a15b';
+    ctx.fill(new Path2D(CENTELHA));
+    ctx.restore();
     /* embaixo, a cestinha do Theo e a dela: quantas pinhas já chegaram */
     ctx.fillStyle = '#c9a189';
     ctx.beginPath();
