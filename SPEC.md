@@ -218,7 +218,7 @@ marionete por dados). Nada de copiar personagens, colagem ou estilo visual do de
 - **Plateia da família.** No palco, a primeira fila é a mãe, o pai, o Theo e as bonecas.
   Aplaudem sempre.
 - **A voz da família.** Frases curtas gravadas pela Andrea, pelo Anderson e pelo Theo:
-  "Te amo, Stella." "Que cama arrumadinha." "Olha que S bonito." "Boa noite, estrelinha."
+  "Te amo, Stella." "Que cama arrumadinha." "Olha que S bonito." "Boa noite, Stella."
   É o recurso mais forte do jogo e vale o trabalho de gravar (seção 15.4).
 - **O nome dela** aparece no título, na porta do quarto e no caderno, em letra de forma
   grande, para ela aprender a reconhecer.
