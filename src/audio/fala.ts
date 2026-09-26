@@ -2,8 +2,9 @@ import { audio } from './engine';
 
 /**
  * A voz do aparelho, só para palavras inteiras e nomes de figuras, em
- * velocidade 0,85 e tom alto (alegre). Nunca para o som isolado de uma letra: a voz sintética lê
- * "g" como "gê" e ensinaria o contrário (o som isolado vem de `fonemas.ts`).
+ * velocidade 0,85 e tom alto (alegre). Nunca para o som isolado de uma
+ * consoante: a voz sintética lê "g" como "gê" e ensinaria o contrário (o som
+ * vem de `fonemas.ts`). As vogais sim, porque nelas o nome é o próprio som.
  * Nunca para o nome dela nem dos bichos.
  */
 export function podeFalar(): boolean {
@@ -13,6 +14,11 @@ export function podeFalar(): boolean {
 function vozPt(): SpeechSynthesisVoice | null {
   const vozes = speechSynthesis.getVoices();
   return vozes.find((v) => /pt[-_]BR/i.test(v.lang)) ?? vozes.find((v) => /^pt/i.test(v.lang)) ?? null;
+}
+
+/** Se há uma voz em português para falar agora (com o som ligado). */
+export function temVozPt(): boolean {
+  return podeFalar() && !audio.mudo && vozPt() !== null;
 }
 
 export function falarPalavra(texto: string, velocidade = 0.85): Promise<void> {

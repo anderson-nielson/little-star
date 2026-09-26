@@ -534,7 +534,7 @@ lll"), para ela ouvir a diferença sem ouvir "errado".
 o `src/audio/voz.ts` do Ponta, em velocidade 0,85 e tom alto, alegre: lenta e grave ela soava desanimada). **O som isolado da letra não pode**: a voz
 sintética lê "g" como "gê", e ensinaria o contrário. Os sons das letras (umas 25 gravações
 curtas) são gravados por gente, de preferência a mãe ou o pai (seção 15.4).
-Sem gravação, o som é **montado pelo próprio jogo** (`src/audio/fonemas.ts`): um sintetizador
+Sem gravação, as vogais vêm da voz do aparelho (nelas o nome é o som: á, é, ê, í, ó, ô, ú; a vogal sintetizada sustentada soava assustadora) e as consoantes são **montadas pelo próprio jogo** (`src/audio/fonemas.ts`): um sintetizador
 de formantes feito com o que o Web Audio já tem. Vogais, M, N e L são uma onda de garganta
 passando por três filtros afinados nas ressonâncias da boca; S, F, X e R são ruído filtrado
 no lugar do chiado de cada um (Z, V e J somam o zumbido da garganta); P, T, C, B, D e G são um

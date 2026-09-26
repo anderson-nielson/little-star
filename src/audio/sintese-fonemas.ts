@@ -169,7 +169,7 @@ function voz(ctx: BaseAudioContext, t: number, dur: number): OscillatorNode {
   const lfo = ctx.createOscillator();
   lfo.frequency.value = 5.8;
   const prof = ctx.createGain();
-  prof.gain.value = f0 * 0.018;
+  prof.gain.value = f0 * 0.009;
   lfo.connect(prof);
   prof.connect(o.frequency);
   lfo.start(t);
@@ -191,7 +191,8 @@ function envelope(ctx: BaseAudioContext, t: number, dur: number, nivel: number, 
 /** A boca: três filtros em paralelo, um por formante. Devolve a entrada e os filtros (para escorregar). */
 function boca(ctx: BaseAudioContext, f: Formantes, g: Formantes, saida: AudioNode, t: number): { entrada: GainNode; filtros: BiquadFilterNode[]; ganhos: GainNode[] } {
   const entrada = ctx.createGain();
-  const larguras = [90, 110, 170];
+  /* ressonâncias largas: estreitas, a vogal apitava e soava assustadora */
+  const larguras = [130, 160, 220];
   const filtros: BiquadFilterNode[] = [];
   const ganhos: GainNode[] = [];
   f.forEach((fr, i) => {
@@ -343,7 +344,7 @@ function estalo(ctx: BaseAudioContext, saida: AudioNode, t0: number, r: Estalo):
  * consoantes que se seguram logo atrás e F e R (que são sopro) mais baixos,
  * como na fala. Refazer a medida quando mudar uma receita (scripts/fonemas.mjs).
  */
-const VOLUME: Record<string, number> = { som_a: 0.215, som_e: 0.119, som_e2: 0.135, som_i: 0.042, som_o: 0.102, som_o2: 0.129, som_u: 0.051, som_m: 0.026, som_n: 0.029, som_l: 0.039, som_lh: 0.046, som_nh: 0.036, som_s: 0.244, som_z: 0.283, som_x: 0.537, som_j: 0.395, som_f: 0.538, som_v: 0.427, som_r: 0.56, som_p: 0.176, som_b: 0.17, som_t: 0.175, som_d: 0.17, som_c: 0.176, som_g: 0.17 };
+const VOLUME: Record<string, number> = { som_a: 0.175, som_e: 0.103, som_e2: 0.098, som_i: 0.041, som_o: 0.089, som_o2: 0.095, som_u: 0.045, som_m: 0.023, som_n: 0.025, som_l: 0.034, som_lh: 0.043, som_nh: 0.032, som_s: 0.244, som_z: 0.283, som_x: 0.542, som_j: 0.399, som_f: 0.53, som_v: 0.423, som_r: 0.576, som_p: 0.164, som_b: 0.159, som_t: 0.164, som_d: 0.159, som_c: 0.164, som_g: 0.159 };
 
 /**
  * Agenda o som `id` no contexto, começando em `t`, e devolve quanto dura.
