@@ -33,7 +33,7 @@ function embaixoDoPinheiro(): Tela {
   if (e.bichos.coelho) s += `<g class="coelho">${coelho(330, 700, 26)}</g>`;
   if (e.bichos.gato) s += `<g class="gato">${gato(60, 560, 14)}</g>`;
   s += `<g class="chao"></g>`;
-  const tela = telaSvg(s, { casinha: () => void ir('casa'), lua: true });
+  const tela = telaSvg(s);
   const svg = tela.svg;
   tocarFundo('gymnopedie');
   const chao = svg.querySelector('.chao') as SVGGElement;
@@ -101,7 +101,7 @@ function mesaDaEstacao(): Tela {
   s += `<g class="na-mesa"></g>`;
   /* a cesta com as pinhas que ainda não foram para a mesa */
   s += `<g class="cesta"><path d="M110 690q85 -16 170 0l-14 54h-142z" fill="#c9a189"/><path d="M140 690q55 -50 110 0" fill="none" stroke="#c9a189" stroke-width="6"/><g class="na-cesta"></g></g>`;
-  const tela = telaSvg(s, { casinha: () => void ir('casa'), lua: true });
+  const tela = telaSvg(s);
   const svg = tela.svg;
   tocarFundo('gymnopedie');
   const naMesa = svg.querySelector('.na-mesa') as SVGGElement;

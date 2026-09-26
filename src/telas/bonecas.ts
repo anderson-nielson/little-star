@@ -1,6 +1,5 @@
 import { mover, telaSvg } from './comum';
 import { estado, mudar, type Figurino } from '@/core/estado';
-import { ir } from '@/core/roteador';
 import { esperar } from '@/core/util';
 import { travar } from '@/core/toque';
 import { familia, figurinoDe } from '@/puppet/boneco';
@@ -38,7 +37,7 @@ export function telaBonecas(): Tela {
   s += fileira(650, CABELOS, 'cabelo', `<circle cx="27" cy="650" r="8" fill="#c9a189" opacity="0.6"/>`);
   s += fileira(740, GORROS, 'gorro', `<path d="M17 748a10 10 0 0 1 20 0z" fill="#c9a189" opacity="0.6"/>`);
   s += `</g>`;
-  const tela = telaSvg(s, { casinha: () => void ir('casa'), lua: true });
+  const tela = telaSvg(s);
   const svg = tela.svg;
   tocarFundo('gymnopedie');
   const estante = svg.querySelector('.estante') as SVGGElement;

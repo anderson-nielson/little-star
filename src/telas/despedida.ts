@@ -43,7 +43,7 @@ export function telaDespedida(): Tela {
   s += pinheiro(355, 640, 300) + pinha(300, 600, 5);
   /* a cestinha do primeiro dia */
   if (primeiraVez) s += `<g class="cesta" opacity="0"><path d="M60 600q40 -10 80 0l-8 34h-64z" fill="#c9a189"/><path d="M76 600q24 -30 48 0" fill="none" stroke="#c9a189" stroke-width="5"/><g class="gato-cesta">${gato(100, 604, 12)}</g></g>`;
-  const tela = telaSvg(s, { lua: true });
+  const tela = telaSvg(s);
   const svg = tela.svg;
   travar(800);
   let vivo = true;

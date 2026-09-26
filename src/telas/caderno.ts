@@ -1,4 +1,4 @@
-import { trilha } from './comum';
+import { cantos, trilha } from './comum';
 import { ganhar, PEDRINHAS } from '@/core/pedrinhas';
 import { estado, mudar } from '@/core/estado';
 import { sessao } from '@/core/sessao';
@@ -7,7 +7,7 @@ import { ir } from '@/core/roteador';
 import { esperar, observarCaixa } from '@/core/util';
 import { Tracado, pontoEm, type Ponto, type TracoDado } from '@/core/fita';
 import { Ajuda } from '@/core/ajuda';
-import { reivindicarDedo, soltarDedo, tocavel, travar, segurar } from '@/core/toque';
+import { reivindicarDedo, soltarDedo, travar } from '@/core/toque';
 import { familia } from '@/puppet/boneco';
 import { falar, temVoz } from '@/audio/vozes';
 import { tocarFundo } from '@/audio/musica';
@@ -60,20 +60,20 @@ export function telaCaderno(): Tela {
   const canvas = document.createElement('canvas');
   canvas.className = 'cena';
   el.appendChild(canvas);
-  /* a casinha e o Theo em svg por cima do canvas */
+  /* o Theo em svg por cima do canvas */
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   svg.setAttribute('viewBox', '0 0 390 780');
   svg.setAttribute('class', 'cena');
   svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
   svg.style.pointerEvents = 'none';
-  svg.innerHTML = `<g class="theo">${familia.theo(84, 712, 118, 'aponta').svg}</g><g class="casinha" style="pointer-events:auto"><circle cx="40" cy="44" r="36" fill="#f6f0e4" opacity="0.85"/><path d="M23 46L40 29L57 46V60H23z" fill="#8FAE6B" stroke="#4f6b3a" stroke-width="1.6" stroke-linejoin="round"/><path d="M35.5 60V50H44.5V60" fill="#f2a9c4"/></g><g class="lua-pais" style="pointer-events:auto"><circle cx="352" cy="104" r="30" fill="transparent"/><path d="M352 95a9 9 0 1 0 8 13a7 7 0 1 1-8-13z" fill="#ebd9a8" opacity="0.5"/></g>`;
+  svg.innerHTML = `<g class="theo">${familia.theo(84, 712, 118, 'aponta').svg}</g>`;
   el.appendChild(svg);
   /* a letra é traçada duas vezes: duas contas, no svg por cima do canvas */
   const contas = trilha({ svg }, 2);
   contas.agora(0);
   const limpezas: (() => void)[] = [];
-  limpezas.push(tocavel(svg.querySelector('.casinha')!, () => void ir('casa')));
-  limpezas.push(segurar(svg.querySelector('.lua-pais')!, 2000, () => void ir('pais')));
+  /* a casinha e a lua num svg próprio, no mesmo lugar de todas as telas */
+  limpezas.push(cantos(el, () => void sessao.voltarParaCasa()));
 
   const ctx = canvas.getContext('2d')!;
   let W = 390;
