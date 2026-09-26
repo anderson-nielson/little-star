@@ -1,4 +1,4 @@
-import { mover, pedrinhasSobem, telaSvg } from './comum';
+import { mover, pedrinhasSobem, telaSvg, trilha } from './comum';
 import { ganhar, PEDRINHAS } from '@/core/pedrinhas';
 import { estado, mudar } from '@/core/estado';
 import { sessao } from '@/core/sessao';
@@ -41,6 +41,8 @@ export function telaSom(): Tela {
   const svg = tela.svg;
   const camada = svg.querySelector('.figuras') as SVGGElement;
   const camadaLuz = svg.querySelector('.luz') as SVGGElement;
+  /* uma conta por rodada: ela vê que são três e quantas faltam */
+  const contas = trilha(tela, 3);
 
   let rodada = 0;
   let acertos = 0;
@@ -70,6 +72,7 @@ export function telaSom(): Tela {
     camada.innerHTML = '';
     camadaLuz.innerHTML = '';
     tela.mao(null);
+    contas.agora(rodada);
     const seed = semente(semana + letra.id + rodada);
     const alvo = letra.figuras[rodada % letra.figuras.length]!;
     const n = rodada === 2 && acertos === 2 ? 4 : 3;
@@ -116,6 +119,7 @@ export function telaSom(): Tela {
         travar(2400);
         sininho();
         acertos += 1;
+        contas.encher(rodada);
         mudar((m) => {
           if (ajuda.nivel >= 1) m.registro.a1[`som`] = (m.registro.a1.som ?? 0) + 1;
           if (ajuda.nivel >= 2) m.registro.a2[`som`] = (m.registro.a2.som ?? 0) + 1;

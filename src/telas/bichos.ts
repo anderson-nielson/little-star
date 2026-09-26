@@ -1,8 +1,9 @@
-import { mover, telaSvg } from './comum';
+import { mover, relogioDeAjuda, telaSvg, trilha } from './comum';
 import { estado, mudar } from '@/core/estado';
 import { sessao } from '@/core/sessao';
 import { anunciar } from '@/core/narracao';
 import { esperar, pontoNoSvg } from '@/core/util';
+import { Ajuda } from '@/core/ajuda';
 import { reivindicarDedo, soltarDedo, travar } from '@/core/toque';
 import { coelho, gato, veu } from '@/puppet/objetos';
 import { figura } from '@/puppet/figuras';
@@ -32,6 +33,25 @@ export function telaBichos(): Tela {
   const svg = tela.svg;
   tocarFundo('gymnopedie');
 
+  /* uma conta por cuidado que falta para a despedida */
+  const precisa = temCoelho ? 4 : 3;
+  const contas = trilha(tela, precisa);
+  contas.agora(0);
+
+  /*
+   * Os cuidados que ainda não aconteceram, na ordem em que a mãozinha os
+   * mostra: o mais simples (tocar) primeiro, o mais difícil (carinho) por fim.
+   * O ponto é onde a mãozinha fica, um pouco abaixo e à direita do alvo.
+   */
+  const cuidados: [string, [number, number]][] = [
+    ['agua', [96, 706]],
+    ['prato', [211, 716]],
+    ['cenoura', [326, 706]],
+    ['carinho-gato', [146, 616]],
+    ['carinho-coelho', [286, 616]],
+  ];
+  const pendentes = new Map(cuidados.filter(([c]) => temCoelho || !(c === 'cenoura' || c.endsWith('coelho'))));
+
   let feitos = 0;
   let terminou = false;
   const terminar = async () => {
@@ -48,14 +68,30 @@ export function telaBichos(): Tela {
     void esperar(280).then(() => mover(g, 0, 0, 350));
     tela.comemorar(quem === 'gato' ? 130 : 270, 520);
     feitos += 1;
+    contas.encher(feitos - 1);
+    contas.agora(feitos < precisa ? feitos : -1);
+    ajuda.reset();
     mudar((x) => {
       x.bichos.carinho += 1;
     });
-    if (feitos >= (temCoelho ? 4 : 3)) {
+    if (feitos >= precisa) {
       anunciar('bichos');
       void esperar(2500).then(terminar);
     }
   };
+
+  /* ajuda: depois de 6 s parada, a mãozinha mostra o próximo cuidado que falta */
+  const ajuda = new Ajuda((n) => {
+    const p = pendentes.values().next().value;
+    tela.mao(n >= 1 && p && feitos < precisa && !terminou ? p : null);
+  });
+  relogioDeAjuda(tela, (dt) => ajuda.tick(dt));
+  const tocou = () => {
+    ajuda.tocou();
+    tela.mao(null);
+  };
+  svg.addEventListener('pointerdown', tocou);
+  tela.aoDestruir(() => svg.removeEventListener('pointerdown', tocou));
 
   /* água: tocar enche */
   tela.alvo('[data-alvo="agua"]', (_ev, el) => {
@@ -64,6 +100,7 @@ export function telaBichos(): Tela {
     toc(600, 0.2);
     nivel.style.transition = 'opacity 800ms';
     nivel.style.opacity = '1';
+    pendentes.delete('agua');
     travar(900);
     void esperar(800).then(() => contente('gato'));
   });
@@ -101,6 +138,7 @@ export function telaBichos(): Tela {
       const resta = Math.hypot(origem[0]! + dx - destino[0]!, origem[1]! + dy - destino[1]!);
       if (resta < total * 0.6) {
         feito = true;
+        pendentes.delete(g.getAttribute('data-arrasta')!);
         mover(el, destino[0]! - origem[0]!, destino[1]! - origem[1]! + 20, 500, 0.8);
         toc(300, 0.2);
         void esperar(600).then(() => {
@@ -144,6 +182,7 @@ export function telaBichos(): Tela {
       }
       if (lento > 0.9 && !jaFez) {
         jaFez = true;
+        pendentes.delete(`carinho-${quem}`);
         if (quem === 'gato') ronronar(1.6);
         else toc(500, 0.15);
         contente(quem);
