@@ -20,8 +20,9 @@ import type { Tela } from '@/core/roteador';
 /*
  * O parquinho do condomínio, fora da porta. A Stella faz sempre a mesma volta
  * lá: se balança sozinha no balanço contando até dez, depois vai ao
- * escorregador, depois à gangorra. O Theo vai junto e não brinca no lugar
- * dela: cuida, olha, e se orgulha da força, da coragem e da esperteza dela.
+ * escorregador, depois à gangorra. No balanço e no escorregador ela vai
+ * sozinha; na gangorra, que é para dois, o Theo fica na outra ponta. Quem
+ * sobe, empurra e desce é sempre ela.
  * Três telas, uma por brinquedo; os outros dois aparecem pequenos na cena e
  * se tocam para ir. Nada é trancado, e a mãozinha aponta o próximo da volta.
  */
@@ -76,20 +77,21 @@ function gangorra(x: number, y: number, w: number, ang = -8): string {
   return `<path d="M${x - 12} ${y}L${x} ${y - 28}L${x + 12} ${y}z" fill="${TERRA}"/><g transform="rotate(${ang} ${x} ${y - 28})"><rect x="${x - w / 2}" y="${y - 34}" width="${w}" height="10" rx="5" fill="${MADEIRA}"/><path d="M${x - w / 2 + 14} ${y - 34}v-14M${x + w / 2 - 14} ${y - 34}v-14" stroke="${TERRA}" stroke-width="5" stroke-linecap="round"/><rect x="${x - w / 2 + 4}" y="${y - 40}" width="26" height="7" rx="3" fill="#f2a9c4"/><rect x="${x + w / 2 - 30}" y="${y - 40}" width="26" height="7" rx="3" fill="#f2a9c4"/></g>`;
 }
 
-/* ---------- o Theo que cuida: de pé, olhando; palma quando ela brilha ---------- */
+/* ---------- a palma quando ela brilha: a voz vem de fora da cena ---------- */
 
-function theoOlhando(x: number, y: number, dir: 1 | -1): string {
-  return `<g class="theo">${familia.theo(x, y, 190, 'parado', { dir }).svg}</g>`;
-}
-
-async function theoAdmira(tela: TelaSvg, x: number, y: number, dir: 1 | -1, frase: string): Promise<void> {
-  const g = tela.svg.querySelector('.theo');
-  if (!g) return;
-  g.innerHTML = familia.theo(x, y, 190, 'palma', { dir }).svg;
+async function viva(frase: string): Promise<void> {
   aplauso(1.6);
   if (temVoz(frase)) await falar(frase);
   else await esperar(1500);
-  g.innerHTML = familia.theo(x, y, 190, 'parado', { dir }).svg;
+}
+
+/** Na gangorra o Theo está na outra ponta e bate palma junto. */
+async function palmaDoTheo(tela: TelaSvg, x: number, y: number, frase: string): Promise<void> {
+  const g = tela.svg.querySelector('.theo');
+  if (!g) return;
+  g.innerHTML = familia.theo(x, y, 190, 'palma', { dir: -1 }).svg;
+  await viva(frase);
+  g.innerHTML = familia.theo(x, y, 190, 'segura', { dir: -1 }).svg;
 }
 
 /** Um laço de quadros que morre com a tela. */
@@ -131,7 +133,7 @@ export function telaParquinho(): Tela {
   const stella = familia.stella(PIV[0], ASSENTO + 22, 140, 'balanco');
   /* o grupo que gira não leva a classe alvo: ela muda a origem da rotação */
   s += `<g class="balanco"><path d="M${PIV[0] - 13} ${PIV[1]}V${ASSENTO - 2}M${PIV[0] + 13} ${PIV[1]}V${ASSENTO - 2}" stroke="${CORDA}" stroke-width="3.5" stroke-linecap="round"/><rect x="${PIV[0] - 36}" y="${ASSENTO - 6}" width="72" height="11" rx="5" fill="${MADEIRA}"/>${stella.svg}</g>`;
-  s += theoOlhando(62, 660, 1) + coelho(330, 668, 24);
+  s += coelho(330, 668, 24);
   /* o pote da contagem, só aqui: as pedrinhas dele são da brincadeira */
   if (contar) s += `<g class="pote"><path d="M300 640q0 -8 6 -8h48q6 0 6 8v6q-6 6 -6 14v40q0 12 -12 12h-24q-12 0 -12 -12v-40q0 -8 -6 -14z" fill="#9fc3cf" opacity="0.28" stroke="#ebd9a8" stroke-width="2"/><g class="pedrinhas"></g></g>`;
   s += `<g data-alvo="gangorra"><circle cx="64" cy="610" r="44" fill="transparent"/></g><g data-alvo="escorregador"><circle cx="320" cy="590" r="54" fill="transparent"/></g>`;
@@ -192,7 +194,7 @@ export function telaParquinho(): Tela {
         tela.comemorar(PIV[0] + 40, ASSENTO - 150);
         if (e.pais.pedrinhas) pedrinhasSobem(tela, PEDRINHAS.balanco, PIV[0], ASSENTO - 120);
         if (medalha) sininho();
-        await theoAdmira(tela, 62, 660, 1, 'theo_forca');
+        await viva('viva_forca');
         if (!vivo) return;
         await esperar(600);
         g.querySelectorAll('g').forEach((c) => {
@@ -217,7 +219,7 @@ export function telaParquinho(): Tela {
         if (cruzou > 0 && amp > AMPLITUDE_ALTA && performance.now() - ultimaPalma > 9000) {
           ultimaPalma = performance.now();
           tela.comemorar(PIV[0] + 20, ASSENTO - 150);
-          void theoAdmira(tela, 62, 660, 1, 'theo_forca');
+          void viva('viva_forca');
         }
       }
     }
@@ -307,7 +309,6 @@ function pontoDaRampa(t: number): [number, number] {
 export function telaEscorregador(): Tela {
   const { s: fundo } = fundoDoParquinho();
   let s = fundo + `<g data-alvo="balanco" transform="translate(-100 300) scale(0.5)">${traveDoBalanco()}<path d="M${PIV[0] - 13} ${PIV[1]}V${ASSENTO - 2}M${PIV[0] + 13} ${PIV[1]}V${ASSENTO - 2}" stroke="${CORDA}" stroke-width="3.5"/><rect x="${PIV[0] - 36}" y="${ASSENTO - 6}" width="72" height="11" rx="5" fill="${MADEIRA}"/><circle cx="195" cy="480" r="120" fill="transparent"/></g>`;
-  s += theoOlhando(282, 668, -1);
   s += `<g data-alvo="escada">${escorregador(EX, EY, EH)}<rect x="${EX - 40}" y="${EY - EH - 20}" width="90" height="${EH + 40}" fill="transparent"/></g>`;
   s += `<g class="stella alvo"></g>`;
   s += `<g data-alvo="gangorra">${gangorra(340, 700, 90)}<circle cx="340" cy="690" r="40" fill="transparent"/></g>`;
@@ -374,7 +375,7 @@ export function telaEscorregador(): Tela {
         tela.comemorar(st.pos[0], st.pos[1] - 110);
         if (desceu === 1) anunciar('escorregador');
         void (async () => {
-          await theoAdmira(tela, 282, 668, -1, 'theo_coragem');
+          await viva('viva_coragem');
           if (!vivo) return;
           st.fase = 'voltando';
           st.t = 0;
@@ -480,7 +481,7 @@ export function telaGangorra(): Tela {
         void esperar(500).then(async () => {
           if (!vivo) return;
           tela.comemorar(GX - GL + 24, GY - 200);
-          await theoAdmira(tela, THEO_G[0], THEO_G[1], -1, 'theo_esperta');
+          await palmaDoTheo(tela, THEO_G[0], THEO_G[1], 'theo_esperta');
         });
       }
     },

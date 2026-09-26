@@ -64,7 +64,7 @@ export function telaAreia(): Tela {
   const dentro = caminhoDaEstrela(ESTRELA.areia);
   s += `<path d="${caminhoDaEstrela(1)}" fill="#D2463C"/><clipPath id="areia-clip"><path d="${dentro}"/></clipPath><path class="areia" d="${dentro}" fill="${COR.areia}"/>`;
   s += `<g class="itens" clip-path="url(#areia-clip)" style="pointer-events:none"></g>`;
-  /* as três ferramentas: dedo, pá, balde. E o rastelo do Theo, que alisa tudo */
+  /* as três ferramentas: dedo, pá, balde. E o rastelo, que alisa tudo */
   /* o translate fica num <g> de fora: o alvo recebe transform por CSS ao ser tocado, e isso apagaria o atributo */
   const roda = (modo: string, x: number, miolo: string) =>
     modo === 'rastelo'
@@ -295,7 +295,7 @@ export function telaAreia(): Tela {
     });
   });
 
-  /** O rastelo do Theo passa e a areia fica lisa; com ele, vem a próxima letra. */
+  /** O rastelo passa e a areia fica lisa; com ele, vem a próxima letra. */
   const alisar = async (comRastelo: boolean, comDemo = true) => {
     if (comRastelo) {
       travar(900);
