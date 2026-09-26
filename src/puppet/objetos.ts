@@ -21,15 +21,19 @@ export function centelhas(cx: number, cy: number, n = 6, r = 30, cls = 'sobe'): 
   return s;
 }
 
-/** Véu de aquarela: formas lisas e transparentes sobrepostas, sem blur. */
-export function veu(x: number, y: number, w: number, h: number, cor: string, n = 4, op = 0.28): string {
-  let s = '';
+/**
+ * Véu de aquarela: formas lisas e transparentes sobrepostas, sem blur. As elipses
+ * passam da caixa; com `recorta`, ficam dentro dela (um svg aninhado corta a sobra),
+ * para o véu de um cômodo não manchar o céu e o telhado.
+ */
+export function veu(x: number, y: number, w: number, h: number, cor: string, n = 4, op = 0.28, recorta = false): string {
+  let s = recorta ? `<svg x="${x}" y="${y}" width="${w}" height="${h}" viewBox="${x} ${y} ${w} ${h}" overflow="hidden">` : '';
   for (let i = 0; i < n; i++) {
     const cx = x + w * (0.2 + 0.6 * ((i * 0.37) % 1));
     const cy = y + h * (0.3 + 0.4 * ((i * 0.61) % 1));
     s += `<ellipse cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" rx="${(w * 0.45).toFixed(1)}" ry="${(h * 0.5).toFixed(1)}" fill="${cor}" opacity="${op}"/>`;
   }
-  return s;
+  return recorta ? s + '</svg>' : s;
 }
 
 export function nuvem(x: number, y: number, s: number): string {

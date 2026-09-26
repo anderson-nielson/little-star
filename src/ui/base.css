@@ -386,7 +386,7 @@ body {
 /* ---------- o balão de narração (texto para quem joga junto, não para ela) ---------- */
 .balao {
   position: absolute;
-  top: calc(env(safe-area-inset-top, 0px) + var(--e3));
+  top: calc(max(env(safe-area-inset-top, 0px), var(--cena-y, 0px)) + var(--e3));
   /* deixa o canto de cima à direita para o botão das opções */
   left: calc(50% - var(--opcoes-folga) / 2);
   width: calc(100% - 2 * var(--e4) - var(--opcoes-folga));
@@ -479,10 +479,11 @@ body {
 .opcoes.escondido {
   display: none;
 }
+/* na mesma linha da casinha (y 44 da cena), espelhada no canto da direita (x 350) */
 .opcoes-botao {
   position: absolute;
-  top: calc(env(safe-area-inset-top, 0px) + var(--e2));
-  right: var(--e2);
+  top: calc(var(--cena-y, 0px) + 44px * var(--cena-k, 1) - var(--opcoes-botao) / 2);
+  right: calc(var(--cena-dx, 0px) + 40px * var(--cena-k, 1) - var(--opcoes-botao) / 2);
   width: var(--opcoes-botao);
   height: var(--opcoes-botao);
   padding: 10px;
@@ -706,15 +707,16 @@ body {
   display: none;
 }
 
-/* o balão recolhido: uma bolinha de papel com três pontinhos, logo abaixo da casinha,
-   fora do varal da casa e da trilha do avanço. O alvo tem 72 px; o desenho é menor. */
+/* o balão recolhido: uma bolinha de papel com três pontinhos, logo abaixo da casinha
+   (que vai até y 80 da cena), fora do varal da casa e da trilha do avanço. Segue a
+   cena, não o topo da tela: num celular alto ela caía em cima da casinha.
+   O alvo tem 72 px; o desenho é menor. */
 .balao-bolinha {
   position: absolute;
-  top: calc(env(safe-area-inset-top, 0px) + 84px);
-  left: 50%;
+  top: calc(var(--cena-y, 0px) + 80px * var(--cena-k, 1));
+  left: calc(var(--cena-x, 0px) + 40px * var(--cena-k, 1) - var(--alvo) / 2);
   width: var(--alvo);
   height: var(--alvo);
-  margin-left: calc(var(--e1) - min(100vw, var(--coluna)) / 2);
   padding: 0;
   border: 0;
   background: transparent;

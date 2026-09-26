@@ -53,11 +53,13 @@ export function telaCasa(): Tela {
   const y3 = 470;
 
   let s = `<rect width="390" height="780" fill="${CEU[ceu]}"/>` + veu(0, 0, W, 200, noite ? '#1b2140' : '#ebcdc3', 5, 0.35);
+  /* o sol (ou a lua) e as nuvens moram no céu à direita da casa, entre a lua dos pais
+     e o pinheiro. O alto da tela é do cabeçalho: a casinha, o varal e as opções. */
   s += noite
-    ? `<circle cx="44" cy="112" r="14" fill="#ebd9a8" opacity="0.9"/>${centelha(150, 50, 8, '#ebd9a8')}${centelha(230, 40, 6, '#ebd9a8')}`
-    : `<circle cx="44" cy="108" r="18" fill="#ebd9a8" opacity="0.9"/>` + nuvem(280, 60, 14) + nuvem(150, 40, 10);
+    ? `<circle cx="360" cy="200" r="13" fill="#ebd9a8" opacity="0.9"/>${centelha(340, 262, 7, '#ebd9a8')}${centelha(374, 318, 6, '#ebd9a8')}`
+    : `<circle cx="360" cy="200" r="15" fill="#ebd9a8" opacity="0.9"/>` + nuvem(352, 286, 9);
   /* quintal */
-  s += `<rect x="0" y="600" width="390" height="180" fill="#c9dbb2"/>` + veu(0, 600, W, 180, '#8fae6b', 5, 0.32);
+  s += `<rect x="0" y="600" width="390" height="180" fill="#c9dbb2"/>` + veu(0, 600, W, 180, '#8fae6b', 5, 0.32, true);
   /* a estação e as festas mudam o quintal devagar */
   if (clima.folhas) for (let i = 0; i < 7; i++) s += `<path d="M${30 + i * 52} ${612 + (i % 3) * 8}q8 -12 16 0q-8 12 -16 0z" fill="${i % 2 ? '#d97f74' : '#e8a24a'}" opacity="0.85"/>`;
   if (clima.festa === 'junina') {
@@ -80,10 +82,11 @@ export function telaCasa(): Tela {
     }
   }
   /* casa */
-  s += `<path d="M${hx - 14} ${top + 10}L${hx + hw / 2} ${top - 60}L${hx + hw + 14} ${top + 10}z" fill="#4f6b3a"/>`;
-  s += `<rect x="${hx}" y="${top}" width="${hw}" height="${bottom - top}" fill="#8fae6b"/>` + veu(hx, top, hw, bottom - top, '#c9dbb2', 4, 0.22);
+  /* o telhado para abaixo do varal: a segunda corda não encosta na cumeeira */
+  s += `<path d="M${hx - 14} ${top + 10}L${hx + hw / 2} ${top - 46}L${hx + hw + 14} ${top + 10}z" fill="#4f6b3a"/>`;
+  s += `<rect x="${hx}" y="${top}" width="${hw}" height="${bottom - top}" fill="#8fae6b"/>` + veu(hx, top, hw, bottom - top, '#c9dbb2', 4, 0.22, true);
   /* quarto rosa */
-  s += `<rect x="${hx + 10}" y="${y1}" width="${hw - 20}" height="${y2 - y1 - 8}" fill="#f6e3dc"/>` + veu(hx + 10, y1, hw - 20, y2 - y1, '#ebcdc3', 3, 0.3);
+  s += `<rect x="${hx + 10}" y="${y1}" width="${hw - 20}" height="${y2 - y1 - 8}" fill="#f6e3dc"/>` + veu(hx + 10, y1, hw - 20, y2 - y1 - 8, '#ebcdc3', 3, 0.3, true);
   s += `<line x1="${hx + 10}" y1="${y2 - 8}" x2="${hx + hw - 10}" y2="${y2 - 8}" stroke="#c6a15b" stroke-width="1" opacity="0.6"/>`;
   /* janela do quarto: céu da hora, lua e estrelas das noites bem dormidas */
   s += `<g data-alvo="janela">${arco(hx + 130, y1 + 42, 56, 74, CEU[ceu]!)}`;

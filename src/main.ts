@@ -73,6 +73,23 @@ registrar('gangorra', telaGangorra);
 const app = document.getElementById('app')!;
 montar(app);
 
+/* onde a cena 390 x 780 cai de verdade na tela. Com o `meet`, num celular mais alto que
+   1:2 ela desce e deixa uma faixa no alto; o botão das opções, a bolinha e o balão são
+   HTML e se guiavam pelo topo da tela, então se desencontravam da casinha e da lua.
+   Estas variáveis deixam o CSS pôr cada um no lugar da cena. */
+const medirCena = () => {
+  const coluna = parseFloat(getComputedStyle(app).getPropertyValue('--coluna')) || 430;
+  const largura = app.clientWidth;
+  const altura = app.clientHeight;
+  const k = Math.min(Math.min(largura, coluna) / 390, altura / 780);
+  app.style.setProperty('--cena-k', k.toFixed(4));
+  app.style.setProperty('--cena-x', `${((largura - 390 * k) / 2).toFixed(1)}px`);
+  app.style.setProperty('--cena-dx', `${((Math.min(largura, coluna) - 390 * k) / 2).toFixed(1)}px`);
+  app.style.setProperty('--cena-y', `${((altura - 780 * k) / 2).toFixed(1)}px`);
+};
+medirCena();
+new ResizeObserver(medirCena).observe(app);
+
 /* o som desligado nas opções vale desde o primeiro toque */
 audio.definirMudo(estado().pais.mudo);
 

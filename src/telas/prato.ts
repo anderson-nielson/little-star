@@ -30,7 +30,8 @@ export function telaPrato(): Tela {
   let s = `<rect width="390" height="780" fill="#fbf8f1"/>` + veu(0, 0, 390, 330, '#c9dbb2', 4, 0.35);
   s += `<line x1="0" y1="330" x2="390" y2="330" stroke="#c6a15b" stroke-width="1" opacity="0.5"/>`;
   s += `<rect x="0" y="330" width="390" height="450" fill="${corDia}" opacity="0.3"/>` + veu(0, 330, 390, 450, corDia, 4, 0.18);
-  const m = familia.mae(60, 340, 240, 'segura');
+  /* a mãe um pouco à direita e mais baixa: a cabeça dela ficava sob a bolinha do balão */
+  const m = familia.mae(84, 340, 216, 'segura');
   s += m.svg + figura('cenoura', m.maoL[0] + 12, m.maoL[1] - 10, 36, 'transform="rotate(-30)"');
   /* a janelinha do canteiro */
   s += `<g class="janelinha"><circle cx="310" cy="150" r="56" fill="#dbe7ee" stroke="#c6a15b" stroke-width="1.5"/><path d="M254 150a56 56 0 0 0 112 0z" fill="#c9dbb2"/><ellipse cx="310" cy="176" rx="40" ry="7" fill="#8a6a4a" opacity="0.5"/>`;

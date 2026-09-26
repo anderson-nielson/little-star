@@ -20,8 +20,9 @@ const GORROS = ['nenhum', '#f2a9c4', '#c6a15b', '#7FA5B8'];
 export function telaBonecas(): Tela {
   let escolhida = Math.max(0, estado().companheira);
   let s = `<rect width="390" height="780" fill="#f6e3dc"/>` + veu(0, 0, 390, 780, '#ebcdc3', 5, 0.25);
-  s += `<rect x="30" y="160" width="330" height="6" fill="#c9a189"/><g class="estante">`;
-  for (let i = 0; i < Math.min(estado().bonecas, 5); i++) s += `<g data-boneca="${i}"><circle cx="${60 + i * 68}" cy="125" r="36" fill="transparent"/><g class="desenho"></g></g>`;
+  /* a estante desce um pouco: no alto, à esquerda, mora a bolinha do balão */
+  s += `<rect x="30" y="210" width="330" height="6" fill="#c9a189"/><g class="estante">`;
+  for (let i = 0; i < Math.min(estado().bonecas, 5); i++) s += `<g data-boneca="${i}"><circle cx="${60 + i * 68}" cy="175" r="36" fill="transparent"/><g class="desenho"></g></g>`;
   s += `</g><g class="luz-estante"></g>`;
   s += `<g class="grande"></g>`;
   s += `<g data-alvo="stella"><circle cx="300" cy="420" r="60" fill="transparent"/><g class="stella"></g></g>`;
@@ -49,9 +50,9 @@ export function telaBonecas(): Tela {
   const render = () => {
     const e = estado();
     estante.querySelectorAll('[data-boneca]').forEach((g, i) => {
-      (g.querySelector('.desenho') as SVGGElement).innerHTML = familia.boneca(60 + i * 68, 158, 56, i, figurinoDe(e.figurinos[String(i)])).svg;
+      (g.querySelector('.desenho') as SVGGElement).innerHTML = familia.boneca(60 + i * 68, 208, 56, i, figurinoDe(e.figurinos[String(i)])).svg;
     });
-    luzEstante.innerHTML = contornoLuz(60 + escolhida * 68, 125, 38, 40);
+    luzEstante.innerHTML = contornoLuz(60 + escolhida * 68, 175, 38, 40);
     grande.innerHTML = familia.boneca(150, 500, 260, escolhida, figurinoDe(e.figurinos[String(escolhida)])).svg;
     const companheira = e.companheira === escolhida;
     /* a Estrellita tem o figurino dela: só o gorro muda, então só a fileira dos gorros
