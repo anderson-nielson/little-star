@@ -16,7 +16,7 @@ export type Brincadeira = 'piano' | 'caderno' | 'palavras' | 'areia' | 'pinhas' 
 export const ABERTURAS: Record<number, string[]> = {
   1: ['casa', 'piano', 'gato'],
   2: ['roda', 'caderno', 'som', 'bichos', 'quintal', 'areia', 'coelho', 'ukulele', 'lira', 'bonecas', 'bilhete', 'relogio'],
-  3: ['prato', 'palavras', 'pinhas', 'arvore', 'horta'],
+  3: ['prato', 'palavras', 'pinhas', 'arvore', 'horta', 'parquinho'],
   4: ['jardim', 'cozinha'],
 };
 /** A partir desta sessão está tudo aberto. Tela é rara na casa dela: quatro sessões bastam. */
@@ -51,8 +51,8 @@ export function brincadeiraDoDia(e: Estado, agora: Date): Brincadeira {
 /* ---------- o que a casa tem para explorar ---------- */
 
 /** Tudo o que se brinca a partir da casa. A ordem é a ordem em que a luz passa por elas. */
-export type Coisa = Brincadeira | 'ukulele' | 'lira' | 'bonecas' | 'bilhete' | 'relogio' | 'horta' | 'arvore';
-export const COISAS: Coisa[] = ['piano', 'caderno', 'areia', 'ukulele', 'lira', 'bonecas', 'bilhete', 'relogio', 'palavras', 'pinhas', 'arvore', 'horta', 'jardim', 'cozinha', 'familia'];
+export type Coisa = Brincadeira | 'ukulele' | 'lira' | 'bonecas' | 'bilhete' | 'relogio' | 'horta' | 'arvore' | 'parquinho';
+export const COISAS: Coisa[] = ['piano', 'caderno', 'areia', 'ukulele', 'lira', 'bonecas', 'bilhete', 'relogio', 'palavras', 'pinhas', 'arvore', 'horta', 'parquinho', 'jardim', 'cozinha', 'familia'];
 
 /** Em que sessão a coisa abre. A família está na sala desde a primeira. */
 export function sessaoQueAbre(coisa: Coisa): number {

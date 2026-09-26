@@ -72,8 +72,8 @@ await toque(195, 552);
 await espera(5200);
 await shot('05-roda-lembranca');
 await conta('roda: balão de narração para quem joga junto', '.balao.visivel');
-/* deixa a roda seguir sozinha até o prato (quatro tarefas, umas 9 s cada) */
-await espera(30000);
+/* deixa a roda seguir sozinha até o prato (cinco tarefas, umas 9 s cada) */
+await espera(39000);
 await shot('06-prato');
 await conta('prato', '[data-cor]', 6);
 await toque(195, 372);
@@ -255,6 +255,42 @@ await espera(4000);
 const pedrinhas = await page.evaluate(() => globalThis.littleStar.estado().pedrinhas);
 if (pedrinhas < 2) erros.push(`pedrinhas: dormir sozinha devia dar 2, o pote tem ${pedrinhas}`);
 
+/* o parquinho do condomínio: balanço, escorregador, gangorra */
+await abrir('sessoes=8&hora=15:00&tela=casa');
+await conta('casa: o balancinho do parquinho', '[data-alvo="parquinho"]');
+await toque(236, 735);
+await espera(1500);
+await conta('parquinho: o balanço', '.balanco');
+await page.mouse.move(195, 560);
+await page.mouse.down();
+await page.mouse.move(120, 540, { steps: 8 });
+await page.mouse.up();
+await espera(700);
+await shot('38-parquinho');
+for (let i = 0; i < 4; i++) {
+  await espera(1200);
+  await toque(195, 520);
+}
+await espera(600);
+await conta('parquinho: contou pedrinhas', '.pote .pedrinhas g');
+await toque(320, 590);
+await espera(1500);
+await conta('escorregador', '[data-alvo="escada"]');
+for (let i = 0; i < 6; i++) {
+  await toque(84, 600);
+  await espera(520);
+}
+await toque(84, 600);
+await espera(700);
+await shot('39-escorregador');
+await espera(2600);
+await toque(340, 690);
+await espera(1500);
+await conta('gangorra', '[data-alvo="tabua"]');
+await toque(70, 560);
+await espera(350);
+await shot('40-gangorra');
+
 /* 6. o cantinho dos pais e o styleguide */
 await abrir('sessoes=8&hora=15:00&tela=pais');
 await espera(800);
@@ -284,4 +320,4 @@ if (erros.length) {
   console.error('Passeio com erros:\n' + erros.join('\n'));
   process.exit(1);
 }
-console.log('passeio ok: 37 capturas em docs/shots/');
+console.log('passeio ok: 40 capturas em docs/shots/');

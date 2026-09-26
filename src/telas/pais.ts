@@ -15,8 +15,8 @@ import type { Tela } from '@/core/roteador';
 const NUMEROS = ['dois', 'três', 'quatro', 'cinco', 'seis', 'sete', 'oito', 'nove'];
 const DONO = { mae: 'Andrea', pai: 'Anderson', theo: 'Theo', qualquer: 'Qualquer um' };
 const NOME_COR: Record<CorDeComida, string> = { vermelho: 'Vermelho', laranja: 'Laranja', amarelo: 'Amarelo', verde: 'Verde', roxo: 'Roxo', marrom: 'Branco ou marrom' };
-const NOME_COISA: Record<Coisa, string> = { piano: 'Piano', caderno: 'Caderno de letras', palavras: 'Mala de palavras', areia: 'Caixa de areia', pinhas: 'Pinhas', jardim: 'A porta (aventuras)', familia: 'A família na sala', cozinha: 'Cozinha', ukulele: 'Ukulele', lira: 'Lira', bonecas: 'Bonecas', bilhete: 'Bilhetinho', relogio: 'Relógio', horta: 'Horta', arvore: 'Árvore do quintal' };
-const NOME_TAREFA: Record<Tarefa, string> = { cama: 'Arrumou a cama', dentes: 'Escovou os dentes', brinquedos: 'Guardou os brinquedos', banho: 'Tomou banho', quarto: 'Arrumou o quarto', gentil: 'Foi gentil com alguém' };
+const NOME_COISA: Record<Coisa, string> = { piano: 'Piano', caderno: 'Caderno de letras', palavras: 'Mala de palavras', areia: 'Caixa de areia', pinhas: 'Pinhas', jardim: 'A porta (aventuras)', familia: 'A família na sala', cozinha: 'Cozinha', ukulele: 'Ukulele', lira: 'Lira', bonecas: 'Bonecas', bilhete: 'Bilhetinho', relogio: 'Relógio', horta: 'Horta', arvore: 'Árvore do quintal', parquinho: 'Parquinho do condomínio' };
+const NOME_TAREFA: Record<Tarefa, string> = { cama: 'Arrumou a cama', dentes: 'Escovou os dentes', brinquedos: 'Guardou os brinquedos', banho: 'Tomou banho', quarto: 'Arrumou o quarto', gentil: 'Foi gentil com alguém', parquinho: 'Brincou no parquinho' };
 
 /**
  * O cantinho dos pais: o único lugar com texto. Chega-se segurando a lua
@@ -200,7 +200,7 @@ export function telaPais(): Tela {
     });
     painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'O pote'), bPed), h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Pedrinha rola quando um combinado não acontece', h('span', { class: 'sub' }, 'Se virar tensão, deixe em "Nunca rola": só ganha.')), bPerde));
     if (e.pedrinhasHistorico.length) {
-      const NOMES: Record<string, string> = { dormiu_sozinha: 'dormiu sozinha no quarto', noite_toda: 'dormiu a noite toda', nao_dormiu_sozinha: 'não dormiu sozinha', letra: 'letra traçada', som: 'som do dia', palavra: 'palavra inteira', relogio: 'hora no relógio', colheita: 'colheita', comidinha: 'comidinha', aventura: 'aventura', pais_deram: 'vocês deram', pais_tiraram: 'vocês tiraram', cama: 'arrumou a cama', dentes: 'escovou os dentes', brinquedos: 'guardou os brinquedos', banho: 'tomou banho', quarto: 'arrumou o quarto', gentil: 'foi gentil' };
+      const NOMES: Record<string, string> = { dormiu_sozinha: 'dormiu sozinha no quarto', noite_toda: 'dormiu a noite toda', nao_dormiu_sozinha: 'não dormiu sozinha', letra: 'letra traçada', som: 'som do dia', palavra: 'palavra inteira', relogio: 'hora no relógio', colheita: 'colheita', comidinha: 'comidinha', aventura: 'aventura', pais_deram: 'vocês deram', pais_tiraram: 'vocês tiraram', cama: 'arrumou a cama', dentes: 'escovou os dentes', brinquedos: 'guardou os brinquedos', banho: 'tomou banho', quarto: 'arrumou o quarto', gentil: 'foi gentil', parquinho: 'brincou no parquinho', balanco: 'contou até dez no balanço' };
       const nome = (m: string) => NOMES[m] ?? (m.startsWith('nao_') ? 'não: ' + (NOMES[m.slice(4)] ?? m.slice(4)) : m.startsWith('confirmou_') ? 'vocês confirmaram: ' + (NOMES[m.slice(10)] ?? m.slice(10)) : m.startsWith('desconfirmou_') ? 'desconfirmaram' : m);
       painel.append(h('p', {}, 'Últimas: ' + e.pedrinhasHistorico.slice(-14).reverse().map((r) => `${r.delta > 0 ? '+' : ''}${r.delta} ${nome(r.motivo)} (${r.dia.slice(5)})`).join(' · ')));
     }
@@ -233,6 +233,16 @@ export function telaPais(): Tela {
       });
       painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, NOME_TAREFA[t]), b));
     }
+
+    /* o parquinho */
+    painel.append(h('h2', {}, 'O parquinho do condomínio'));
+    painel.append(h('p', {}, 'Fora da porta, o balancinho na beirada do quintal leva ao parquinho: o balanço, o escorregador e a gangorra, na ordem da volta dela. Ela se balança sozinha (cada toque é o impulso das pernas dela) e, com a contagem ligada, cada ida vale uma pedrinha num pote e a voz conta até dez. Os números vêm da voz de vocês, se gravarem, ou da voz do aparelho. Na roda, o balancinho pergunta se ela brincou no parquinho de verdade; não ir não tira pedrinha.'));
+    const bConta = h('button', { type: 'button', class: e.pais.contarNoBalanco ? 'ligado' : '' }, e.pais.contarNoBalanco ? 'Ligada' : 'Desligada');
+    bConta.addEventListener('click', () => {
+      mudar((x) => void (x.pais.contarNoBalanco = !x.pais.contarNoBalanco));
+      abrir();
+    });
+    painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Contar até dez no balanço', h('span', { class: 'sub' }, 'Desligada, o balanço é só balanço.')), bConta));
 
     /* espanhol */
     painel.append(h('h2', {}, 'Espanhol'));

@@ -3,11 +3,11 @@ import { chaveDoDia } from './relogio';
 export const VERSAO_DO_SAVE = 1;
 const CHAVE = 'little-star.save';
 
-export type Tarefa = 'cama' | 'dentes' | 'brinquedos' | 'banho' | 'quarto' | 'gentil';
+export type Tarefa = 'cama' | 'dentes' | 'brinquedos' | 'banho' | 'quarto' | 'gentil' | 'parquinho';
 export type CorDeComida = 'vermelho' | 'laranja' | 'amarelo' | 'verde' | 'roxo' | 'marrom';
 export const CORES_DE_COMIDA: CorDeComida[] = ['vermelho', 'laranja', 'amarelo', 'verde', 'roxo', 'marrom'];
 /** todas as tarefas da roda; os pais ligam e desligam cada uma no cantinho */
-export const TAREFAS: Tarefa[] = ['cama', 'dentes', 'brinquedos', 'banho', 'quarto', 'gentil'];
+export const TAREFAS: Tarefa[] = ['cama', 'dentes', 'brinquedos', 'banho', 'quarto', 'gentil', 'parquinho'];
 export type Semente = 'cenoura' | 'tomate' | 'milho' | 'alface';
 export type Quem = 'mae' | 'pai' | 'theo';
 
@@ -92,6 +92,8 @@ export interface Pais {
   perdePedrinhas: boolean;
   /** o balão no topo da tela, para quem joga junto ler para ela */
   narracao: boolean;
+  /** no balanço do parquinho, cada ida vale uma pedrinha no pote e a voz conta até dez */
+  contarNoBalanco: boolean;
 }
 
 export interface Estado {
@@ -205,12 +207,13 @@ export function estadoNovo(agora = new Date()): Estado {
       comidasNovas: [],
       ritmoLetras: 'semanal',
       instalacaoVista: false,
-      tarefas: { cama: true, dentes: true, brinquedos: true, banho: true, quarto: false, gentil: false },
+      tarefas: { cama: true, dentes: true, brinquedos: true, banho: true, quarto: false, gentil: false, parquinho: true },
       espanhol: 'auto',
       festas: true,
       pedrinhas: true,
       perdePedrinhas: true,
       narracao: true,
+      contarNoBalanco: true,
     },
   };
 }

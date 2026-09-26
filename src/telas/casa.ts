@@ -9,7 +9,7 @@ import { estagio, regadoHoje } from '@/core/horta';
 import { ir } from '@/core/roteador';
 import { cor as tok, esperar, svgEl } from '@/core/util';
 import { familia, figurinoDe } from '@/puppet/boneco';
-import { arco, caixaDeAreia, centelha, coelho, contornoLuz, flor, gato, nuvem, pinha, pinheiro, veu } from '@/puppet/objetos';
+import { arco, balancinho, caixaDeAreia, centelha, coelho, contornoLuz, flor, gato, nuvem, pinha, pinheiro, veu } from '@/puppet/objetos';
 import { tocarFundo } from '@/audio/musica';
 import { falar, temVoz } from '@/audio/vozes';
 import { ronronar, sininho, tiquinho } from '@/audio/synth';
@@ -126,6 +126,8 @@ export function telaCasa(): Tela {
   e.pinhas.slice(0, 8).forEach((p) => {
     s += pinha(hx + 210 + p.x * 58, y1 + 124, 4, p.tipo);
   });
+  /* a lembrança do parquinho: um balancinho de madeira ao lado das pinhas */
+  if (e.lembrancas.some((l) => l.startsWith('parquinho:'))) s += balancinho(hx + 262, y1 + 123, 12);
   s += `</g>`;
   /* piano rosa */
   s += `<g data-alvo="piano"${novo('piano')}><rect x="${hx + 150}" y="${y1 + 104}" width="44" height="42" rx="4" fill="#f2a9c4"/><rect x="${hx + 150}" y="${y1 + 122}" width="44" height="10" fill="#fbf8f1"/><path d="M${hx + 156} ${y1 + 122}v10M${hx + 162} ${y1 + 122}v10M${hx + 168} ${y1 + 122}v10M${hx + 174} ${y1 + 122}v10M${hx + 180} ${y1 + 122}v10M${hx + 186} ${y1 + 122}v10" stroke="#ebcdc3" stroke-width="1"/></g>`;
@@ -187,6 +189,8 @@ export function telaCasa(): Tela {
     });
     s += `</g>`;
   }
+  /* o parquinho do condomínio, logo ali fora: o balancinho na beirada do quintal */
+  if (aberto(s7, 'parquinho')) s += `<g data-alvo="parquinho"><circle cx="236" cy="735" r="34" fill="transparent"/>${balancinho(236, 758, 44, 8)}</g>`;
   s += `<g data-alvo="arvore">${pinheiro(350, 745, 330)}`;
   if (clima.flores) s += flor(322, 640, '#f2a9c4', 5) + flor(372, 600, '#ebd9a8', 5) + flor(340, 560, '#f2a9c4', 4);
   if (clima.fitinha) s += `<path d="M330 700q20 -10 40 0" fill="none" stroke="#7FA5B8" stroke-width="3"/>`;
@@ -210,6 +214,7 @@ export function telaCasa(): Tela {
     relogio: [hx + 34, y2 + 30, 20, 20],
     horta: [236, 662, 48, 22],
     arvore: [350, 600, 36, 60],
+    parquinho: [236, 738, 34, 30],
   };
   /* contorno de luz onde ela ainda pode ir; centelha parada no que já brincou hoje */
   const luz = luzEm ? alvoDaCoisa[luzEm] : null;
@@ -253,7 +258,7 @@ export function telaCasa(): Tela {
   tela.aoDestruir(() => svg.removeEventListener('pointerdown', tocou));
 
   /* cada tela da casa é uma coisa explorada: a luz passa adiante e a centelha fica */
-  const COISA_DA_TELA: Record<string, Coisa> = { piano: 'piano', caderno: 'caderno', palavra: 'palavras', areia: 'areia', pinhas: 'pinhas', horta: 'horta', ukulele: 'ukulele', lira: 'lira', bilhete: 'bilhete', relogio: 'relogio', cozinha: 'cozinha', bonecas: 'bonecas', arvore: 'arvore', jardim: 'jardim', arvoregrande: 'jardim', lago: 'jardim' };
+  const COISA_DA_TELA: Record<string, Coisa> = { piano: 'piano', caderno: 'caderno', palavra: 'palavras', areia: 'areia', pinhas: 'pinhas', horta: 'horta', ukulele: 'ukulele', lira: 'lira', bilhete: 'bilhete', relogio: 'relogio', cozinha: 'cozinha', bonecas: 'bonecas', arvore: 'arvore', jardim: 'jardim', arvoregrande: 'jardim', lago: 'jardim', parquinho: 'parquinho', escorregador: 'parquinho', gangorra: 'parquinho' };
   const vai = (nome: string, params: Record<string, string> = {}) => {
     travar(500);
     const coisa = COISA_DA_TELA[nome];
@@ -296,6 +301,7 @@ export function telaCasa(): Tela {
   tela.alvo('[data-alvo="lira"]', () => vai('lira'));
   tela.alvo('[data-alvo="bilhete"]', () => vai('bilhete'));
   tela.alvo('[data-alvo="relogio"]', () => vai('relogio'));
+  tela.alvo('[data-alvo="parquinho"]', () => vai('parquinho'));
   tela.alvo('[data-alvo="pote"]', (_ev, el) => {
     /* as pedrinhas tilintam: uma nota por pedrinha */
     const n = Math.min(estado().pedrinhas, PEDRINHAS.pote);
@@ -456,6 +462,7 @@ const MINI: Record<Coisa, (x: number, y: number) => string> = {
   relogio: (x, y) => `<circle cx="${x}" cy="${y}" r="6" fill="#fbf8f1" stroke="#c9a189" stroke-width="1.4"/><path d="M${x} ${y}V${y - 4}M${x} ${y}h3" stroke="#6e1a27" stroke-width="1.2" stroke-linecap="round"/>`,
   horta: (x, y) => `<path d="M${x - 6} ${y + 4}h12v2.5h-12z" fill="#8a6a4a"/><path d="M${x} ${y + 4}v-6" stroke="#8fae6b" stroke-width="1.4"/><path d="M${x} ${y - 1}q-5 -1 -5 -5q5 0 5 5zM${x} ${y - 1}q5 -1 5 -5q-5 0 -5 5z" fill="#8fae6b"/>`,
   arvore: (x, y) => `<path d="M${x} ${y - 7}l5 7h-2.5l3.5 5h-12l3.5 -5h-2.5z" fill="#4f6b3a"/><rect x="${x - 1}" y="${y + 5}" width="2" height="2.5" fill="#8a6a4a"/>`,
+  parquinho: (x, y) => `<path d="M${x - 6} ${y + 6}l3 -12l3 12M${x + 6} ${y + 6}l-3 -12l3 12" fill="none" stroke="#c9a189" stroke-width="1.4" stroke-linejoin="round"/><path d="M${x - 4} ${y - 6}h8" stroke="#8a6a4a" stroke-width="1.6" stroke-linecap="round"/><path d="M${x - 1.2} ${y - 6}v6M${x + 1.2} ${y - 6}v6" stroke="#8f6f2c" stroke-width="0.7"/><rect x="${x - 2.6}" y="${y - 0.5}" width="5.2" height="1.4" rx="0.6" fill="#c9a189"/>`,
 };
 
 /**

@@ -5,7 +5,7 @@
  * pernas curtas. Tudo por dados de cor: trocar roupa é trocar variável.
  */
 export type Ponto = [number, number];
-export type Pose = 'parado' | 'acena' | 'sentado' | 'pulo' | 'aponta' | 'segura' | 'giro' | 'reverencia' | 'deitado' | 'abraca' | 'anda' | 'salto' | 'escorrega';
+export type Pose = 'parado' | 'acena' | 'sentado' | 'pulo' | 'aponta' | 'segura' | 'giro' | 'reverencia' | 'deitado' | 'abraca' | 'anda' | 'salto' | 'escorrega' | 'balanco' | 'palma';
 export type Cabelo = 'liso' | 'cacheado' | 'cachinhos' | 'coque' | 'curto' | 'rabo' | 'entradas' | 'testa-alta';
 export type Barba = 'baixa' | 'leve' | 'cheia';
 export type Oculos = 'oval' | 'redondo' | 'fino';
@@ -109,7 +109,9 @@ export function boneco(o: Figura): Desenho {
     braco: [2.1 * w * esc, 1.6 * w * esc],
     ante: [1.6 * w * esc, 1.2 * w * esc],
   };
-  const sentado = pose === 'sentado';
+  /* no balanço: sentada, segurando as cordas para cima, pernas para a frente */
+  const noBalanco = pose === 'balanco';
+  const sentado = pose === 'sentado' || noBalanco;
   const pulo = pose === 'pulo' || pose === 'giro';
   const reverencia = pose === 'reverencia';
   const deitado = pose === 'deitado';
@@ -138,7 +140,10 @@ export function boneco(o: Figura): Desenho {
 
   /* pernas */
   const legs: [Ponto, Ponto, Ponto, Ponto][] = [];
-  if (sentado) {
+  if (noBalanco) {
+    legs.push([[x - 0.03 * h, hipY + 0.02 * h], [x + dir * 0.17 * h, hipY + 0.06 * h], [x + dir * 0.22 * h, y + 0.08 * h], [x + dir * 0.29 * h, y + 0.1 * h]]);
+    legs.push([[x + 0.04 * h, hipY + 0.02 * h], [x + dir * 0.2 * h, hipY + 0.09 * h], [x + dir * 0.26 * h, y + 0.1 * h], [x + dir * 0.33 * h, y + 0.12 * h]]);
+  } else if (sentado) {
     legs.push([[x - 0.05 * h, hipY + 0.02 * h], [x + dir * 0.18 * h, hipY + 0.02 * h], [x + dir * 0.2 * h, y - 0.02 * h], [x + dir * 0.26 * h, y]]);
     legs.push([[x + 0.05 * h, hipY + 0.02 * h], [x + dir * 0.2 * h, hipY + 0.05 * h], [x + dir * 0.22 * h, y - 0.02 * h], [x + dir * 0.28 * h, y]]);
   } else if (pose === 'pulo') {
@@ -225,6 +230,14 @@ export function boneco(o: Figura): Desenho {
     case 'aponta':
       bL = braco(sL, PI * 0.45, PI * 0.45);
       bR = braco(sR, dir > 0 ? -PI * 0.1 : PI * 1.1, dir > 0 ? -PI * 0.05 : PI * 1.05);
+      break;
+    case 'balanco':
+      bL = braco(sL, -PI * 0.5, -PI * 0.5);
+      bR = braco(sR, -PI * 0.5, -PI * 0.5);
+      break;
+    case 'palma':
+      bL = braco(sL, PI * 0.2, -PI * 0.35);
+      bR = braco(sR, PI * 0.8, -PI * 0.65);
       break;
     case 'segura':
       bL = braco(sL, PI * 0.4, -PI * 0.15);
@@ -362,7 +375,7 @@ export function boneco(o: Figura): Desenho {
   const contorno = o.contorno ? `stroke="${o.contorno}" stroke-width="1" stroke-linejoin="round"` : '';
   const sapato = o.sapato ?? pele;
   const svg =
-    `<g>${cabeloAtras}` +
+    `<g><g class="cabelo-atras">${cabeloAtras}</g>` +
     `<path d="${pernas}" fill="${pele}" ${contorno}/>` +
     `<path d="${pes}" fill="${sapato}"/>` +
     tutu +
