@@ -7,7 +7,7 @@ import { bonecaPano, type Enfeite, type OpcoesBoneca } from './bonecaPano';
  * pernas curtas. Tudo por dados de cor: trocar roupa é trocar variável.
  */
 export type Ponto = [number, number];
-export type Pose = 'parado' | 'acena' | 'sentado' | 'pulo' | 'aponta' | 'segura' | 'giro' | 'reverencia' | 'deitado' | 'abraca' | 'anda' | 'salto' | 'escorrega' | 'balanco' | 'palma' | 'sobe' | 'mao';
+export type Pose = 'parado' | 'acena' | 'sentado' | 'pulo' | 'aponta' | 'segura' | 'giro' | 'reverencia' | 'deitado' | 'abraca' | 'anda' | 'salto' | 'escorrega' | 'balanco' | 'palma' | 'mao';
 export type Cabelo = 'liso' | 'cacheado' | 'cachinhos' | 'coque' | 'curto' | 'rabo' | 'entradas' | 'testa-alta';
 export type Barba = 'baixa' | 'leve' | 'cheia';
 export type Oculos = 'oval' | 'redondo' | 'fino';
@@ -154,10 +154,6 @@ export function boneco(o: Figura): Desenho {
   } else if (pose === 'giro') {
     legs.push([[x - 0.04 * h, hipY + 0.02 * h], [x - 0.03 * h, hipY + lg * 0.5], [x - 0.02 * h, hipY + lg], [x + 0.03 * h, hipY + lg + 0.03 * h]]);
     legs.push([[x + 0.04 * h, hipY + 0.02 * h], [x + 0.16 * h, hipY + 0.1 * h], [x + 0.06 * h, hipY + 0.2 * h], [x + 0.02 * h, hipY + 0.24 * h]]);
-  } else if (pose === 'sobe') {
-    /* subindo no tronco: uma perna esticada apoiando, a outra dobrada para cima buscando o próximo apoio */
-    legs.push([[x - 0.04 * h, hipY + 0.02 * h], [x - 0.04 * h, hipY + lg * 0.5], [x - 0.03 * h, hipY + lg], [x + 0.02 * h, hipY + lg + 0.01 * h]]);
-    legs.push([[x + 0.04 * h, hipY + 0.02 * h], [x + 0.15 * h, hipY + 0.06 * h], [x + 0.09 * h, hipY + 0.2 * h], [x + 0.13 * h, hipY + 0.22 * h]]);
   } else if (anda) {
     const s = balanco;
     legs.push(perna(x - 0.035 * h, hipY + 0.02 * h, s * 0.42, s * 0.42 - Math.max(0, -s) * 0.7));
@@ -224,11 +220,6 @@ export function boneco(o: Figura): Desenho {
     case 'pulo':
       bL = braco(sL, -PI * 0.72, -PI * 0.6);
       bR = braco(sR, -PI * 0.28, -PI * 0.4);
-      break;
-    case 'sobe':
-      /* uma mão lá em cima no tronco, a outra segurando na altura do peito */
-      bL = braco(sL, -PI * 0.62, -PI * 0.52);
-      bR = braco(sR, PI * 0.25, -PI * 0.8);
       break;
     case 'giro':
       bL = braco(sL, -PI * 0.85, -PI * 0.7);

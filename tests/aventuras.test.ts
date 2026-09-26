@@ -1,19 +1,15 @@
 import { describe, expect, it } from 'vitest';
-import { ARVORE } from '@/telas/arvoregrande';
+import { ARVORE, galho } from '@/telas/arvoregrande';
 import { LAGO, posicaoNaFaixa, proximoEncontro, type Faixa } from '@/telas/lago';
-import { beatsDosObstaculos } from '@/telas/jardim';
 import { ACORDES, AFINACAO, CASAS } from '@/telas/ukulele';
 import { cordaAmostras, freq } from '@/audio/synth';
 
 describe('a Árvore Grande', () => {
-  it('as pinhas chegam no tempo forte, e menos nas primeiras aventuras', () => {
-    const normal = beatsDosObstaculos(4, 112, ARVORE.duracao, ARVORE.compassosPorPinha);
-    const inicio = beatsDosObstaculos(4, 112, ARVORE.duracao, ARVORE.compassosPorPinhaInicio);
-    expect(normal.length).toBeGreaterThan(inicio.length);
-    for (const b of normal) expect(b % 4).toBe(0);
-  });
-  it('termina no tempo da música, com ou sem toque', () => {
-    expect(ARVORE.duracao).toBe(120);
+  it('poucos galhos, um acima do outro, alternando os lados até a copa no meio', () => {
+    expect(ARVORE.galhos).toBeLessThanOrEqual(8);
+    for (let i = 1; i < ARVORE.galhos; i++) expect(galho(i)[1]).toBeLessThan(galho(i - 1)[1]);
+    for (let i = 1; i < ARVORE.galhos - 1; i++) expect(galho(i)[0] < 195).not.toBe(galho(i - 1)[0] < 195);
+    expect(galho(ARVORE.galhos - 1)[0]).toBe(195);
   });
 });
 
