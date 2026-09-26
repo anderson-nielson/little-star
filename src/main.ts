@@ -154,4 +154,4 @@ if (q.get('styleguide')) {
 iniciarAparelho();
 
 /* para o passeio automático e para a depuração no console */
-(window as unknown as { littleStar: unknown }).littleStar = { ir, estado, mudar, sessao, balao, opcoes, versao: versao() };
+(window as unknown as { littleStar: unknown }).littleStar = { ir, telaAtual, estado, mudar, sessao, balao, opcoes, versao: versao() };

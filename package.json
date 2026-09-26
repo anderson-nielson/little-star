@@ -12,7 +12,8 @@
     "test": "vitest run",
     "lint": "eslint src tests",
     "icons": "node scripts/icons.mjs",
-    "e2e": "node scripts/e2e.mjs",
+    "e2e": "node scripts/e2e.mjs && node scripts/casinha.mjs",
+    "casinha": "node scripts/casinha.mjs",
     "voando": "node scripts/voando.mjs",
     "fonemas": "node scripts/fonemas.mjs"
   },
