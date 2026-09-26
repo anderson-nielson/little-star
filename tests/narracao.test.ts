@@ -4,7 +4,7 @@ import { ganhar, PEDRINHAS, perder } from '@/core/pedrinhas';
 import { anunciar, aoAnunciar, AVANCOS_NARRADOS, frasesDe, narracao, vezesNoHistorico } from '@/core/narracao';
 
 /** todo motivo que o jogo dá a `ganhar`, mais os momentos sem pedrinha */
-const MOTIVOS_DO_JOGO = ['cama', 'dentes', 'brinquedos', 'banho', 'quarto', 'gentil', 'dormiu_sozinha', 'noite_toda', 'letra', 'areia', 'palavra', 'som', 'relogio', 'colheita', 'comidinha', 'aventura', 'medalha', 'chegada', 'bilhete', 'bichos', 'despedida', 'boa_noite'];
+const MOTIVOS_DO_JOGO = ['cama', 'dentes', 'brinquedos', 'banho', 'quarto', 'gentil', 'dormiu_sozinha', 'noite_toda', 'letra', 'areia', 'palavra', 'som', 'relogio', 'colheita', 'comidinha', 'aventura', 'medalha', 'chegada', 'bilhete', 'bichos', 'despedida', 'boa_noite', 'balanco', 'parquinho', 'escorregador', 'gangorra'];
 
 describe('a narração para quem joga junto', () => {
   it('todo avanço do jogo tem pelo menos três frases, e elas se revezam sem repetir de imediato', () => {
@@ -28,15 +28,16 @@ describe('a narração para quem joga junto', () => {
       for (const f of frasesDe(m)) {
         expect(f.length, f).toBeLessThanOrEqual(160);
         expect(f, f).not.toMatch(/—/);
-        expect(f.toLowerCase(), f).not.toMatch(/melhor que|melhor do que|pior|errad|feio|mais que o theo|igual ao theo|tem que|precisa ser/);
+        expect(f.toLowerCase(), f).not.toMatch(/melhor que|melhor do que|pior|errad|feio|mais que o mano|igual ao mano|tem que|precisa ser|corrida|compet|com a sua idade|quando tinha a sua idade/);
         expect(f.trim().endsWith('.') || f.trim().endsWith('!'), f).toBe(true);
       }
     }
   });
-  it('o Theo aparece como quem torce por ela em cada avanço, e a família em todos', () => {
+  it('o mano (o Theo, como ela chama) aparece como quem torce por ela em cada avanço, e a família em todos', () => {
     for (const m of MOTIVOS_DO_JOGO) {
       const todas = frasesDe(m).join(' ').toLowerCase();
-      expect(todas, m).toMatch(/theo/);
+      expect(todas, m).toMatch(/\bmano\b/);
+      expect(todas, m).not.toMatch(/theo/);
       expect(todas, m).toMatch(/mamãe|papai|família|casa/);
     }
   });

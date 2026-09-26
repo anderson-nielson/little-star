@@ -9,8 +9,9 @@ import type { Estado } from './estado';
  *
  * O texto é para o adulto, nunca para ela ler. Três coisas ele sempre faz:
  * nomeia o que ela fez de verdade (a força dela), diz o carinho e a
- * segurança da família, e coloca o Theo como quem torce por ela, nunca como
- * medida. Nada de comparação, nada de "melhor que".
+ * segurança da família, e coloca o mano (o Theo, como ela o chama) como quem
+ * torce por ela, nunca como medida. Nada de comparação, nada de "melhor que",
+ * e nada de nomear a corrida ("não é corrida" ainda fala em corrida).
  *
  * Este módulo é puro e sem DOM: anuncia avanços por um canal simples; quem
  * desenha o balão está em `src/ui/balao.ts`.

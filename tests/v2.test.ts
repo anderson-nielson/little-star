@@ -43,10 +43,10 @@ describe('a segunda semana da casa', () => {
   });
   it('a roda pergunta só as tarefas ligadas, e um save antigo ganha as ligações padrão', () => {
     const e = estadoNovo();
-    expect(tarefasAtivas(e)).toEqual(['cama', 'dentes', 'brinquedos', 'banho']);
+    expect(tarefasAtivas(e)).toEqual(['cama', 'dentes', 'brinquedos', 'banho', 'parquinho']);
     e.pais.tarefas.gentil = true;
     e.pais.tarefas.banho = false;
-    expect(tarefasAtivas(e)).toEqual(['cama', 'dentes', 'brinquedos', 'gentil']);
+    expect(tarefasAtivas(e)).toEqual(['cama', 'dentes', 'brinquedos', 'gentil', 'parquinho']);
     const antigo = migrar({ versao: VERSAO_DO_SAVE, pais: { horaDormir: '19:30', tarefas: { quarto: true } } } as unknown as Record<string, unknown>);
     expect(antigo.pais.tarefas.cama).toBe(true);
     expect(antigo.pais.tarefas.quarto).toBe(true);

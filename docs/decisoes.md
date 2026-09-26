@@ -16,7 +16,7 @@
 | P8 | Roupa | Vestido rosa em casa; tutu e coque só no palco. | `src/puppet/boneco.ts` |
 | P9 | Proporções | Stella 1, Theo 1,5, pais 2 (o pai 2,1). | `src/puppet/boneco.ts` |
 | P10 | Voltar | A casinha verde no canto de cima, 72 px. A porta fica só para a aventura. | `src/puppet/objetos.ts` |
-| P11 | Jardim | Um obstáculo a cada 2 compassos a 100 bpm (uns 30 em dois minutos); nas duas primeiras aventuras, a cada 4. Janela do pulo 0,7 s. Em dados. | `src/telas/jardim.ts` (`JARDIM`) |
+| P11 | Jardim | Ida e volta: buscar o coelhinho e voltar para casa, 9 larguras de tela cada perna. Um obstáculo a cada 2 compassos de caminhada (uns 8 na ida); nas duas primeiras aventuras, a cada 4. Janela do pulo 0,7 s. Escorregão de 1,6 s. Em dados. | `src/telas/jardim.ts` (`JARDIM`) |
 | P12 | Semana | Cores da tradição Waldorf (dom dourado, seg roxo, ter vermelho, qua amarelo, qui laranja, sex verde, sáb azul). Brincadeira do dia: dom família, seg palavras, ter caderno, qua pinhas, qui areia, sex piano, sáb jardim. | `src/ui/tokens.css`, `src/core/laco.ts` |
 | P13 | O resto | Mãe de cabelo castanho escuro na altura do ombro e vestido rosa-velho; pai de testa alta, barba cheia e óculos finos sem hastes, castanho claro, camiseta verde-mata (opção C, escolhida entre três); gatinho cinza-areia, coelhinho branco; nomes candidatos Mimi, Luna, Bolota e Pipoca, Nino, Flor; nome do jogo Little Star; comidas iniciais tomate, cenoura, banana, brócolis, uva, pão (trocáveis); festas das estações ficam para a v2. | dados e cantinho dos pais |
 
@@ -92,7 +92,7 @@ continua sendo um contador disfarçado; o canteiro já recompensa).
 | Ukulele | Quatro cordas para dedilhar (Karplus-Strong), afinadas em sol, dó, mi, lá: soltas, dão a afinação; três botões de cor apertam dó, fá e sol7 nas posições de verdade. Corpo rosa em oito, com cintura, cravelhas e trastes. As bonecas balançam. | `src/telas/ukulele.ts` |
 | Lira | Sete cordas na pentatônica, pendurada na parede do quarto. | `src/telas/lira.ts` |
 | Vestir bonecas | Roupa, cabelo e gorro por cores; a Estrellita só troca o gorro. Tocar na Stella leva a boneca escolhida no bolso do tutu: ela assiste ao palco da coxia. | `src/telas/bonecas.ts` |
-| Bilhetinho | As letras que ela sabe são carimbos; vão para o papel rosa; ela entrega para a mãe, o pai ou o Theo, que lê em voz alta (a voz do aparelho lê letra a letra e depois junto) e abraça. Os pais veem os bilhetes no cantinho. | `src/telas/bilhete.ts` |
+| Bilhetinho | As vogais (que ela já sabe) e as letras que ela traçou são carimbos; vão para o papel rosa; ela entrega para a mãe, o pai ou o Theo, que lê em voz alta (a voz do aparelho lê letra a letra e depois junto) e abraça. Os pais veem os bilhetes no cantinho. | `src/telas/bilhete.ts` |
 | Festas das estações | Outono: folhas no quintal e a Festa da Lanterna (20 a 31 de maio). Inverno: fitinha no pinheiro e a festa junina com fogueira e bandeirinhas (12 a 30 de junho). Primavera: flores no pinheiro e guirlanda na porta (21 a 30 de setembro). Verão: conchinhas na areia. Advento: a espiral de velas, uma por domingo. Os pais podem desligar. | `src/core/festas.ts`, `src/data/festas.json` |
 | Piano | O seguir a estrelinha alterna *Brilha, brilha* e *Ciranda, cirandinha*. | `src/telas/piano.ts` |
 
@@ -165,6 +165,16 @@ parte existe para mostrar que não precisa ser assim.
   confundia; foi trocado por ficar até o "x".)
 - **Desliga no cantinho.** `pais.narracao`, ligado por padrão. Se ela estiver jogando
   sozinha, o texto não serve e vira ruído.
+- **Revisão das frases (segunda rodada).** As 90 frases passaram por uma leitura crítica:
+  29 ficaram, 42 foram ajustadas, 15 reescritas e 4 cortadas (substituídas). O que saiu:
+  frases na voz de um adulto falando da Stella em terceira pessoa ("a mamãe pensou: como
+  ela está crescida" não funciona quando a mãe lê); linguagem abstrata para 5 anos
+  ("cuidar do seu corpo é um jeito de cuidar de você"); comparação disfarçada ("o Theo
+  também fez com a sua idade"); frases que nomeiam a corrida ("não é corrida", "ninguém
+  tira o lugar de ninguém"); um fato arriscado ("você tinha medo do chuveiro"); e as
+  quatro de "aventura", que falavam de galho, pescar e girar no ar mas só disparam no
+  palco de dança. O Theo passou a "mano", que é como ela o chama. O teste agora exige
+  "mano" e proíbe "corrida", "compet" e "com a sua idade".
 - Onde vive: `src/data/narracao.json` (as frases), `src/core/narracao.ts` (o canal e a
   escolha, puro), `src/ui/balao.ts` (o balão), `tests/narracao.test.ts`.
 
@@ -253,3 +263,42 @@ Aprovado pela família depois de ver os prints em oito cenários (dia, tarde, no
 - Tocar numa bandeirinha: a mãozinha mostra onde aquilo mora na casa.
 - Com a casa toda aberta são 15 bandeirinhas pequenas: servem para ver, não para mirar.
   Arquivo: `src/telas/casa.ts` (`varal`, `MINI`).
+## O parquinho do condomínio
+
+A Stella vai ao parquinho do condomínio e faz sempre a mesma volta: se balança sozinha no
+balanço, contando até dez em voz alta, depois vai ao escorregador, depois à gangorra. O Theo
+vai junto e não brinca no lugar dela: cuida, olha, e se orgulha da força, da coragem e da
+esperteza dela. O estudo está em `docs/parquinho.md` e nas telas de
+`docs/referencia/parquinho.html`. O que entrou no jogo:
+
+- **Fora da porta, pelo balancinho.** Um balanço pequeno na beirada do quintal (etapa 3, com a
+  árvore e a horta) leva ao parquinho. Três telas, uma por brinquedo; os outros dois aparecem
+  pequenos na cena e se tocam para ir. Nada é trancado; a mãozinha aponta o próximo da volta
+  dela quando ela para.
+- **O balanço é um pêndulo** (`src/core/parquinho.ts`, puro e testado): seno e amortecimento,
+  período de 2,4 s, perde metade da altura em uns oito ciclos. Arrastar e soltar dá o primeiro
+  balanço. **O impulso é dela**: cada toque estica as pernas a favor do movimento, vale mais
+  perto do ponto mais baixo, e a energia tem teto em qualquer ângulo. Ninguém empurra; não
+  existe toque errado. Uma nota da lira por passagem embaixo; balanço alto, o Theo bate palma.
+- **Contar até dez** é uma camada do balanço, ligada no cantinho (`contarNoBalanco`, vem
+  ligada): cada ida completa com balanço alto solta uma pedrinha para um pote na cena, com
+  tique e a voz contando. Nenhum número escrito. Os números são palavras inteiras, então a voz
+  do aparelho diz enquanto a família não grava `num_1` a `num_10`. No dez, uma pedrinha de
+  verdade (`PEDRINHAS.balanco`) e o Theo admira ("Olha a Stella, que força!").
+- **O escorregador**: cada toque sobe um degrau, com uma nota mais alta; no alto ela espera; um
+  toque e desce como cena, cabelo para trás, lira descendo. O Theo fica embaixo, na saída
+  ("Que coragem, Stella!"). Ela volta andando sozinha.
+- **A gangorra**: ela numa ponta, o Theo de pé na outra segurando a tábua. Só o pé no chão faz
+  subir; no ar, sininho baixinho. A descida é macia porque ele segura (amortecimento quase
+  crítico), e nunca bate. Cinco subidas, centelhas e "Que esperta, empurrou com o pé!".
+- **A roda pergunta** "Você brincou no parquinho?" (o balancinho, dono Theo; tarefa
+  `parquinho`, ligada por padrão). Não ir não tira pedrinha: parquinho não é combinado. A
+  lembrança é um balancinho de madeira na mesa da estação.
+- **A despedida convida** para o parquinho de verdade quando ela foi ao do jogo no dia
+  (`hoje.parquinho`): "Vamos ao parquinho de verdade?", com o balancinho no balão. É o jeito
+  Waldorf de fazer tela: apontar para fora.
+- **A narração** ganhou `balanco`, `parquinho`, `escorregador` e `gangorra`, com o Theo como
+  quem torce por ela em todas.
+- **Um detalhe de implementação**: a classe `.alvo` do CSS muda a origem da transformação
+  (`transform-box: fill-box`), então os grupos que giram (o balanço, a tábua) nunca a levam; os
+  alvos do toque são retângulos parados por cima.

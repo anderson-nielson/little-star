@@ -16,7 +16,7 @@ export type Brincadeira = 'piano' | 'caderno' | 'palavras' | 'areia' | 'pinhas' 
 export const ABERTURAS: Record<number, string[]> = {
   1: ['casa', 'piano', 'gato'],
   2: ['roda', 'caderno', 'som', 'bichos', 'quintal', 'areia', 'coelho', 'ukulele', 'lira', 'bonecas', 'bilhete', 'relogio'],
-  3: ['prato', 'palavras', 'pinhas', 'arvore', 'horta'],
+  3: ['prato', 'palavras', 'pinhas', 'arvore', 'horta', 'parquinho'],
   4: ['jardim', 'cozinha'],
 };
 /** A partir desta sessão está tudo aberto. Tela é rara na casa dela: quatro sessões bastam. */
@@ -51,8 +51,8 @@ export function brincadeiraDoDia(e: Estado, agora: Date): Brincadeira {
 /* ---------- o que a casa tem para explorar ---------- */
 
 /** Tudo o que se brinca a partir da casa. A ordem é a ordem em que a luz passa por elas. */
-export type Coisa = Brincadeira | 'ukulele' | 'lira' | 'bonecas' | 'bilhete' | 'relogio' | 'horta' | 'arvore';
-export const COISAS: Coisa[] = ['piano', 'caderno', 'areia', 'ukulele', 'lira', 'bonecas', 'bilhete', 'relogio', 'palavras', 'pinhas', 'arvore', 'horta', 'jardim', 'cozinha', 'familia'];
+export type Coisa = Brincadeira | 'ukulele' | 'lira' | 'bonecas' | 'bilhete' | 'relogio' | 'horta' | 'arvore' | 'parquinho';
+export const COISAS: Coisa[] = ['piano', 'caderno', 'areia', 'ukulele', 'lira', 'bonecas', 'bilhete', 'relogio', 'palavras', 'pinhas', 'arvore', 'horta', 'parquinho', 'jardim', 'cozinha', 'familia'];
 
 /** Em que sessão a coisa abre. A família está na sala desde a primeira. */
 export function sessaoQueAbre(coisa: Coisa): number {
@@ -60,10 +60,19 @@ export function sessaoQueAbre(coisa: Coisa): number {
   return 1;
 }
 
-/** Aberta e com o que precisa: o bilhete pede uma letra traçada. */
+/** As vogais ela já sabe: são carimbos do bilhete desde o começo. */
+export const VOGAIS = ['A', 'E', 'I', 'O', 'U'];
+
+/** Os carimbos do bilhete: as vogais sempre, e as letras que ela já traçou. No máximo nove (três por linha). */
+export function carimbosDoBilhete(letras: string[]): string[] {
+  const todos = [...VOGAIS];
+  for (const l of letras) if (!todos.includes(l)) todos.push(l);
+  return todos.slice(0, 9);
+}
+
+/** Aberta na etapa da casa. O bilhete não espera por letra: as vogais já são carimbos. */
 export function disponivel(e: Estado, coisa: Coisa): boolean {
   if (coisa === 'familia') return true;
-  if (coisa === 'bilhete') return aberto(etapa(e), 'bilhete') && e.letras.length > 0;
   return aberto(etapa(e), coisa);
 }
 

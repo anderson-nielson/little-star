@@ -470,8 +470,9 @@ quando ela termina. Irmão mais velho ensinando é uma cena que ela reconhece.
 
 ### 9.4 O bilhetinho
 
-Toda letra aprendida vira um **carimbo** no caderno. Ela pode "escrever" um bilhete para a
-mãe, o pai ou o Theo: toca nas letras que já sabe, elas vão para um papel rosa, e o bilhete é
+As cinco vogais, que ela já sabe, são **carimbos** desde o começo; toda letra traçada no
+caderno vira mais um carimbo. Ela pode "escrever" um bilhete para a
+mãe, o pai ou o Theo: toca nos carimbos, as letras vão para um papel rosa, e o bilhete é
 entregue. Quem recebe lê em voz alta (com a voz gravada) o que ela "escreveu", mesmo que seja
 "SSTAEL". Escrever vira um jeito de dar carinho, que é o motivo mais forte para aprender.
 
@@ -572,9 +573,10 @@ A escrita fica em português. Espanhol é para ouvir e falar, não para traçar.
 
 **Ukulele rosa** na parede, com o corpo em oito e as 4 cordas afinadas em sol, dó, mi, lá (a
 afinação padrão). Passar o dedo nas cordas soltas dá a afinação; um botão de cor dá um acorde
-(corda dedilhada sintetizada, algoritmo Karplus-Strong, sem arquivo de áudio). Três acordes
-(dó, fá, sol7, nas posições de verdade), três cores de botão grande para ela acompanhar o
-piano ou a canção. Nas aventuras, um acorde abre as flores
+(corda dedilhada sintetizada, algoritmo Karplus-Strong, sem arquivo de áudio). Os sete acordes
+do campo harmônico de dó (dó, ré menor, mi menor7, fá, sol7, lá menor, si meio-diminuto, nas
+posições de verdade, até três casas), sete cores de botão num arco em volta do corpo, para ela
+acompanhar o piano ou a canção. Nas aventuras, um acorde abre as flores
 do jardim.
 
 **Bonecas** na estante do quarto, que é a coleção dela.
@@ -591,10 +593,13 @@ Três aventuras curtas saem da porta de casa. A Stella corre sozinha, a criança
 quando pular. Nenhuma tem vida, relógio ou pontos. Cada uma termina no palco.
 
 ### 12.1 O Jardim (inspirado em Pitfall)
-A Stella corre pelo jardim. **Toque = pular** (um *sauté*) poças e pedrinhas. Fitas de cetim
-nas árvores são cipós: ela balança sozinha quando chega nelas. O coelhinho pula junto ao
-lado dela, e quando ela pula no tempo, os dois pulam juntos. Um sapo de coroa olha do
-laguinho, e só olha. Coelhinhos do mato espiam das tocas e aplaudem com as orelhas. Flores fechadas abrem com o ukulele. Tropeçou? Senta, ri, levanta.
+O coelhinho fugiu para o fim do jardim. A Stella sai de casa, vai buscar e volta com ele no
+mesmo caminho; um mapinha lá em cima mostra a casa, o coelhinho e onde ela está. **Toque =
+pular** (um *sauté*) poças, pedras e troncos. Ela anda balançando os bracinhos; no pulo abre
+braços e pernas como no balé. Fitas de cetim
+nas árvores são cipós: ela balança sozinha quando chega nelas. Na volta o coelhinho pula
+atrás dela, e quando ela pula, os dois pulam juntos. Um sapo de coroa olha do
+laguinho, e só olha. Coelhinhos do mato espiam das tocas e aplaudem com as orelhas. Flores fechadas abrem com o ukulele. Não pulou na hora? Escorrega, senta, ri, levanta e segue.
 
 ### 12.2 A Árvore Grande (inspirado em Donkey Kong)
 A árvore do quintal vira aventura. Ela sobe na vertical, galho por galho, o que em retrato
@@ -622,8 +627,9 @@ abraço na coxia, volta para casa.
 
 ### 12.5 Generosidade das aventuras
 - O pulo **procura** o obstáculo: um toque até 0,7 s antes ainda vira o pulo certo.
-- Um obstáculo a cada dois compassos (uns 30 em dois minutos), sempre no tempo forte; nas
-  duas primeiras aventuras, a cada quatro. Em dados (`JARDIM`, em `src/telas/jardim.ts`).
+- No Jardim, um obstáculo a cada dois compassos de caminhada (uns oito na ida, os mesmos na
+  volta); nas duas primeiras aventuras, a cada quatro. Em dados (`JARDIM`, em
+  `src/telas/jardim.ts`).
 - Se ela não toca, a Stella não fica presa: depois de duas tentativas no mesmo obstáculo, a
   mãozinha mostra o toque; depois de três, ela passa sozinha com uma ajudinha (o Theo empurra
   a vitória-régia, o esquilo manda a pinha devagarinho).

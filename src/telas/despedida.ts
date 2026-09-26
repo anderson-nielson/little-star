@@ -1,11 +1,11 @@
 import { mover, telaSvg } from './comum';
 import { estado, mudar } from '@/core/estado';
 import { sessao } from '@/core/sessao';
-import { brincadeiraDoDia } from '@/core/laco';
+import { brincadeiraDoDia, brincouHoje } from '@/core/laco';
 import { ceuDaHora } from '@/core/relogio';
 import { esperar } from '@/core/util';
 import { familia } from '@/puppet/boneco';
-import { arco, gato, nuvem, pinha, pinheiro, veu } from '@/puppet/objetos';
+import { arco, balancinho, gato, nuvem, pinha, pinheiro, veu } from '@/puppet/objetos';
 import { falar, temVoz } from '@/audio/vozes';
 import { anunciar } from '@/core/narracao';
 import { tocarFundo, pararFundo } from '@/audio/musica';
@@ -25,8 +25,10 @@ export function telaDespedida(): Tela {
   const ceu = ceuDaHora(sessao.agora());
   const noite = ceu === 'ceu-noite';
   const brinc = brincadeiraDoDia(e, sessao.agora());
-  const convite = ({ piano: 'convite_piano', caderno: 'convite_letra', palavras: 'convite_letra', areia: 'convite_areia', pinhas: 'convite_pinha', jardim: 'convite_brincar', familia: 'convite_regar', cozinha: 'convite_cozinha' } as const)[brinc];
-  const pictograma = ({ piano: 'piano', caderno: 'letra', palavras: 'letra', areia: 'areia', pinhas: 'pinha', jardim: 'fora', familia: 'regador', cozinha: 'panela' } as const)[brinc];
+  /* foi ao parquinho do jogo hoje: o convite é o parquinho de verdade */
+  const foiAoParquinho = brincouHoje(e, 'parquinho');
+  const convite = foiAoParquinho ? 'convite_parquinho' : ({ piano: 'convite_piano', caderno: 'convite_letra', palavras: 'convite_letra', areia: 'convite_areia', pinhas: 'convite_pinha', jardim: 'convite_brincar', familia: 'convite_regar', cozinha: 'convite_cozinha' } as const)[brinc];
+  const pictograma = foiAoParquinho ? 'balanco' : ({ piano: 'piano', caderno: 'letra', palavras: 'letra', areia: 'areia', pinhas: 'pinha', jardim: 'fora', familia: 'regador', cozinha: 'panela' } as const)[brinc];
   const primeiraVez = !e.bichos.gato;
 
   let s = `<rect width="390" height="780" fill="${CEU[ceu]}"/>` + veu(0, 0, 390, 300, noite ? '#1b2140' : '#ebcdc3', 5, 0.3);
@@ -57,6 +59,7 @@ export function telaDespedida(): Tela {
     pinha: pinha(300, 460, 12),
     fora: `<circle cx="300" cy="420" r="16" fill="#ebd9a8"/><path d="M270 470q30 -30 60 0" fill="#8fae6b"/>`,
     panela: `<rect x="272" y="426" width="56" height="30" rx="8" fill="#b6a58c"/><rect x="266" y="420" width="68" height="8" rx="3" fill="#8f8270"/><path d="M290 412q4 -10 0 -18M304 412q4 -10 0 -18" fill="none" stroke="#dbe7ee" stroke-width="3" stroke-linecap="round"/>`,
+    balanco: balancinho(300, 462, 60, -8),
     regador: `<rect x="278" y="420" width="40" height="34" rx="6" fill="#7FA5B8"/><path d="M318 430l20 -14" stroke="#7FA5B8" stroke-width="8" stroke-linecap="round"/><path d="M336 412l4 -8M340 416l8 -4" stroke="#9fc3cf" stroke-width="3"/>`,
   };
   picto.innerHTML = desenhoPicto[pictograma] ?? '';
