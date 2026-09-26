@@ -39,10 +39,18 @@ export async function falarEspanhol(id: string, velocidade = 0.75): Promise<bool
       u.voice = v;
       u.rate = velocidade;
       u.pitch = 1.15;
-      u.onend = () => r(true);
-      u.onerror = () => r(false);
+      let acabou = false;
+      const fim = (ok: boolean) => {
+        if (acabou) return;
+        acabou = true;
+        audio.terminarFala();
+        r(ok);
+      };
+      u.onend = () => fim(true);
+      u.onerror = () => fim(false);
+      audio.comecarFala();
       speechSynthesis.speak(u);
-      setTimeout(() => r(true), 4000);
+      setTimeout(() => fim(true), 4000);
     } catch {
       r(false);
     }

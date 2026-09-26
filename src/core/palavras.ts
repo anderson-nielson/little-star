@@ -10,6 +10,11 @@ export interface Palavra {
   palavra: string;
   figura: string;
   silabas: string[];
+  /**
+   * O som de cada letra, quando não é o som ensinado da letra: o O de OLÁ é
+   * fechado (ô) e o segundo L de STELLA não soa. `null` é letra muda.
+   */
+  sons?: (string | null)[];
 }
 export const palavras = palavrasJson as Palavra[];
 

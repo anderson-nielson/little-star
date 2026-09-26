@@ -2,7 +2,7 @@
   { "palavra": "LUA", "figura": "lua", "silabas": ["LU", "A"] },
   { "palavra": "AVÓ", "figura": "avo", "silabas": ["A", "VÓ"] },
   { "palavra": "ELA", "figura": "ela", "silabas": ["E", "LA"] },
-  { "palavra": "OLÁ", "figura": "ola", "silabas": ["O", "LÁ"] },
+  { "palavra": "OLÁ", "figura": "ola", "silabas": ["O", "LÁ"], "sons": ["som_o2", "som_l", "som_a"] },
   { "palavra": "UVA", "figura": "uva", "silabas": ["U", "VA"] },
   { "palavra": "MALA", "figura": "mala", "silabas": ["MA", "LA"] },
   { "palavra": "SALA", "figura": "sala", "silabas": ["SA", "LA"] },
@@ -16,5 +16,5 @@
   { "palavra": "LIMA", "figura": "lima", "silabas": ["LI", "MA"] },
   { "palavra": "VELA", "figura": "vela", "silabas": ["VE", "LA"] },
   { "palavra": "LUVA", "figura": "luva", "silabas": ["LU", "VA"] },
-  { "palavra": "STELLA", "figura": "stella", "silabas": ["STE", "LLA"] }
+  { "palavra": "STELLA", "figura": "stella", "silabas": ["STE", "LLA"], "sons": ["som_s", "som_t", "som_e", "som_l", null, "som_a"] }
 ]

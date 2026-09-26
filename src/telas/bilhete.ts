@@ -8,12 +8,12 @@ import { familia } from '@/puppet/boneco';
 import { arco, veu } from '@/puppet/objetos';
 import { tocarFundo } from '@/audio/musica';
 import { falar, temVoz } from '@/audio/vozes';
+import { falarSomDaLetra } from '@/audio/fonemas';
 import { anunciar } from '@/core/narracao';
 import { falarPalavra } from '@/audio/fala';
 import { notaAgora, sininho, toc } from '@/audio/synth';
 import type { Tela } from '@/core/roteador';
 
-const SOM_DA_LETRA: Record<string, string> = { A: 'som_a', E: 'som_e', O: 'som_o', S: 'som_s', L: 'som_l', M: 'som_m', U: 'som_u', I: 'som_i', T: 'som_t' };
 const MAXIMO = 8;
 
 /**
@@ -59,8 +59,7 @@ export function telaBilhete(): Tela {
     notaAgora(60 + texto.length * 2, 0.5, 0.25);
     mover(el, 0, -4, 120);
     void esperar(140).then(() => mover(el, 0, 0, 240));
-    const som = SOM_DA_LETRA[l];
-    if (som && temVoz(som)) void falar(som);
+    void falarSomDaLetra(l);
   });
   /* tocar no papel tira a última letra */
   tela.alvo('[data-alvo="papel"]', () => {
@@ -86,8 +85,11 @@ export function telaBilhete(): Tela {
     });
     await esperar(1000);
     if (temVoz('bilhete_' + quem)) await falar('bilhete_' + quem);
-    /* quem recebe lê em voz alta o que ela escreveu, letra a letra e depois junto */
-    await falarPalavra([...texto].join(' '), 0.6);
+    /* quem recebe lê em voz alta o que ela escreveu, som a som (nunca o nome da letra) e depois junto */
+    for (const l of texto) {
+      if (!(await falarSomDaLetra(l))) await esperar(300);
+      await esperar(180);
+    }
     await falarPalavra(texto, 0.7);
     tela.comemorar(alvoX, 640);
     anunciar('bilhete');

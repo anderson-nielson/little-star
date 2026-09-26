@@ -11,13 +11,10 @@ import { falarEspanhol } from '@/audio/espanhol';
 import { familia } from '@/puppet/boneco';
 import { arco, centelha, contornoLuz, maozinha, veu } from '@/puppet/objetos';
 import { figura, nomeDaFigura } from '@/puppet/figuras';
-import { falar, temVoz } from '@/audio/vozes';
+import { falarSom, somDaLetra } from '@/audio/fonemas';
 import { falarPalavra } from '@/audio/fala';
 import { lira, notaAgora, sininho } from '@/audio/synth';
 import type { Tela } from '@/core/roteador';
-
-/** o som gravado de cada letra: sempre o som, nunca o nome. Á soa como A, Ó como O. */
-const SOM_DA_LETRA: Record<string, string> = { A: 'som_a', Á: 'som_a', E: 'som_e', I: 'som_i', O: 'som_o', Ó: 'som_o', U: 'som_u', S: 'som_s', L: 'som_l', M: 'som_m', T: 'som_t', V: 'som_v' };
 
 const MUSGO = '#4f6b3a';
 const ROSA_DOCE = '#f2a9c4';
@@ -138,12 +135,19 @@ export function telaPalavra(params: Record<string, string>): Tela {
   };
   const apagaLetras = (cor = MUSGO) => letraEls.forEach((t) => t.setAttribute('fill', cor));
 
+  /** o som de cada letra desta palavra: o da lista da palavra (OLÁ, STELLA) ou o som ensinado da letra */
+  const somDe = (i: number): string | null => (p.sons ? (p.sons[i] ?? null) : somDaLetra(letras[i]!));
+  /** quanto os sons encolhem quando se juntam: curtos o bastante para virar palavra */
+  const JUNTOS = 0.4;
   const soar = async (i: number, rapido: boolean) => {
-    const idSom = SOM_DA_LETRA[letras[i]!];
-    /* devagar, o som isolado e esticado (gravado); rápido, uma nota do piano por letra */
-    if (!rapido && idSom && temVoz(idSom)) {
-      if (await falar(idSom)) return;
+    const id = somDe(i);
+    /* letra muda (o segundo L de STELLA): acende, mas não soa */
+    if (!id) {
+      if (!rapido) await esperar(260);
+      return;
     }
+    /* devagar, o som esticado; rápido, o mesmo som curtinho, para os sons se juntarem */
+    if (await falarSom(id, rapido ? JUNTOS : 1)) return;
     notaAgora(64 + (i % 5) * 2, 0.6, 0.3);
     if (!rapido) await esperar(520);
   };
@@ -207,25 +211,17 @@ export function telaPalavra(params: Record<string, string>): Tela {
     await esperar(300);
     return vivo && demo === meu;
   };
-  /** juntar: a estrela corre a fita inteira de uma vez e a voz diz a palavra */
+  /** juntar: a estrela corre a fita e os sons saem curtinhos, colados, até virar a palavra */
   const mostrarRapido = async () => {
     const meu = ++demo;
-    let ultima = -1;
-    const t0 = performance.now();
-    const dur = 260 * n;
-    for (;;) {
+    for (let i = 0; i < n; i++) {
       if (!vivo || demo !== meu) return false;
-      const k = Math.min(1, (performance.now() - t0) / dur);
-      guiaU = k;
-      const i = Math.min(n - 1, Math.floor(k * n));
-      if (i !== ultima) {
-        ultima = i;
-        acende(i);
-        notaAgora(64 + (i % 5) * 2, 0.5, 0.25);
-      }
-      if (k >= 1) break;
-      await proximoQuadro();
+      guiaU = (i + 0.5) / n;
+      acende(i);
+      await soar(i, true);
     }
+    if (!(await deslizar((n - 0.5) / n, 1, 200, meu))) return false;
+    await esperar(200);
     await falarPalavra(nomeDaFigura(p.figura));
     return vivo && demo === meu;
   };

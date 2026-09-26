@@ -3,7 +3,8 @@ import { audio } from './engine';
 /**
  * A voz do aparelho, só para palavras inteiras e nomes de figuras, em
  * velocidade 0,7. Nunca para o som isolado de uma letra: a voz sintética lê
- * "g" como "gê" e ensinaria o contrário. Nunca para o nome dela nem dos bichos.
+ * "g" como "gê" e ensinaria o contrário (o som isolado vem de `fonemas.ts`).
+ * Nunca para o nome dela nem dos bichos.
  */
 export function podeFalar(): boolean {
   return typeof speechSynthesis !== 'undefined' && typeof SpeechSynthesisUtterance !== 'undefined';
@@ -25,11 +26,19 @@ export function falarPalavra(texto: string, velocidade = 0.7): Promise<void> {
       u.pitch = 1.05;
       const v = vozPt();
       if (v) u.voice = v;
-      u.onend = () => r();
-      u.onerror = () => r();
+      let acabou = false;
+      const fim = () => {
+        if (acabou) return;
+        acabou = true;
+        audio.terminarFala();
+        r();
+      };
+      u.onend = fim;
+      u.onerror = fim;
+      audio.comecarFala();
       speechSynthesis.speak(u);
       /* alguns navegadores nunca disparam onend em segundo plano */
-      setTimeout(r, 4000);
+      setTimeout(fim, 4000);
     } catch {
       r();
     }

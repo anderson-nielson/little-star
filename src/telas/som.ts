@@ -6,7 +6,7 @@ import { embaralhar, esperar, semente } from '@/core/util';
 import { familia } from '@/puppet/boneco';
 import { arco, contornoLuz, veu } from '@/puppet/objetos';
 import { figura, nomeDaFigura } from '@/puppet/figuras';
-import { falar, temVoz } from '@/audio/vozes';
+import { dizerComSons, falarSom, somInicialDaFigura } from '@/audio/fonemas';
 import { falarPalavra } from '@/audio/fala';
 import { liraDesce, sininho, tiquinho } from '@/audio/synth';
 import { Ajuda } from '@/core/ajuda';
@@ -88,8 +88,13 @@ export function telaSom(): Tela {
     });
     /* o Theo diz o som */
     await esperar(400);
-    if (temVoz(letra.som)) await falar(letra.som);
-    else await esperar(900);
+    /* o som curto e o som esticado, como na sala: "sss... sssss" */
+    if (!(await falarSom(letra.som))) await esperar(900);
+    else {
+      await esperar(250);
+      if (!vivo) return;
+      await falarSom(letra.som, 1.6);
+    }
     if (!vivo) return;
     const meuTurno = rodada;
     let esperando = true;
@@ -102,7 +107,7 @@ export function telaSom(): Tela {
       if (ajuda.nivel >= 1) g.classList.add('respira');
       if (ajuda.nivel >= 2) {
         tela.mao([Number(g.getAttribute('data-x')) + 20, Number(g.getAttribute('data-y')) + 30]);
-        if (temVoz(letra.som) && ajuda.nivel === 2) void falar(letra.som);
+        if (ajuda.nivel === 2) void falarSom(letra.som);
       }
     }, 1000);
     tela.aoDestruir(() => window.clearInterval(timer));
@@ -130,7 +135,8 @@ export function telaSom(): Tela {
         tela.comemorar(x, y - 90);
         camada.innerHTML += `<text x="${x}" y="${y - 96}" text-anchor="middle" font-family="Jost, sans-serif" font-size="48" font-weight="500" fill="#f2a9c4" class="surge">${letra.id}</text>`;
         void (async () => {
-          await falarPalavra(nomeDaFigura(id));
+          /* a certa: o som e a palavra ("sss... sapo") */
+          await dizerComSons(`{${somInicialDaFigura(id, letra.som)}}... ${nomeDaFigura(id)}`);
           await esperar(600);
           rodada += 1;
           await proximaRodada();
@@ -142,7 +148,7 @@ export function telaSom(): Tela {
         void esperar(220).then(() => mover(el, 0, 0, 300));
         ajuda.tentativa();
         const dona = letras.find((l) => l.figuras.includes(id));
-        void falarPalavra(nomeDaFigura(id)).then(() => dona && temVoz(dona.som) && falar(dona.som));
+        void falarPalavra(nomeDaFigura(id)).then(() => dona && falarSom(somInicialDaFigura(id, dona.som)));
       }
     }, true);
   };

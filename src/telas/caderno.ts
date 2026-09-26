@@ -9,7 +9,9 @@ import { Tracado, pontoEm, type Ponto, type TracoDado } from '@/core/fita';
 import { Ajuda } from '@/core/ajuda';
 import { reivindicarDedo, soltarDedo, travar } from '@/core/toque';
 import { familia } from '@/puppet/boneco';
+import { nomeDaFigura } from '@/puppet/figuras';
 import { falar, temVoz } from '@/audio/vozes';
+import { dizerComSons, figuraDoSom, fraseDeEnsinar } from '@/audio/fonemas';
 import { tocarFundo } from '@/audio/musica';
 import { centelhasSom, sininho } from '@/audio/synth';
 import { CENTELHA } from '@/puppet/objetos';
@@ -22,6 +24,8 @@ interface Letra {
   historia: string;
   imagem: string;
   palavra: string;
+  /** as figuras que começam com o som; a primeira entra na frase de ensinar */
+  figuras: string[];
   tracos: TracoDado[];
 }
 const letras = letrasJson as unknown as Letra[];
@@ -468,7 +472,9 @@ export function telaCaderno(): Tela {
     else await esperar(2200);
     if (!vivo) return;
     imagemOpacidade = 0.5;
-    if (temVoz(letra.som)) void falar(letra.som);
+    /* a frase de ensinar: o som curto, o som esticado e a figura ("sss... sssss... sapo") */
+    const fig = figuraDoSom(letra.som, letra.figuras);
+    void dizerComSons(fraseDeEnsinar(letra.som, fig && nomeDaFigura(fig)));
     fase = 'guia';
   })();
   requestAnimationFrame(laco);

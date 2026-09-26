@@ -8,7 +8,7 @@ import { caixaDaLetra, caminhoDaEstrela, ESTRELA, type CaixaDaLetra } from '@/co
 import { anunciar } from '@/core/narracao';
 import { centelha as centelhaSvg, contornoLuz, gato, pinha as pinhaSvg } from '@/puppet/objetos';
 import { figura, nomeDaFigura } from '@/puppet/figuras';
-import { falar, temVoz } from '@/audio/vozes';
+import { dizerComSons, falarSom, figuraDoSom, fraseDeEnsinar, somInicialDaFigura } from '@/audio/fonemas';
 import { falarPalavra } from '@/audio/fala';
 import { tocarFundo } from '@/audio/musica';
 import { sininho, tiquinho, toc } from '@/audio/synth';
@@ -197,7 +197,7 @@ export function telaAreia(): Tela {
     if (!convidou) trilhas.dedo.agora(guiaLetra % banco.length);
     else trilhas.dedo.agora(-1);
     desenharGuia();
-    if (modo === 'dedo' && temVoz(letra.som)) void falar(letra.som);
+    if (modo === 'dedo') void falarSom(letra.som);
   };
 
   /* ---------- a mãozinha mostra o caminho ---------- */
@@ -284,7 +284,7 @@ export function telaAreia(): Tela {
     if (modo === 'dedo') {
       ajuda.reset();
       iniciarDemo();
-      if (temVoz(letra.som)) void falar(letra.som);
+      void falarSom(letra.som);
       return;
     }
     /* pá: a mãozinha mostra um montinho; balde: onde o castelo começa, no meio da areia */
@@ -353,8 +353,7 @@ export function telaAreia(): Tela {
     anunciar('areia');
     trilhas.dedo.encher(guiaLetra % banco.length);
     const acabou = !convidou && trilhas.dedo.cheias === trilhas.dedo.total;
-    if (temVoz(letra.som)) await falar(letra.som);
-    else await esperar(900);
+    if (!(await falarSom(letra.som))) await esperar(900);
     if (!vivo) return;
     await esperar(900);
     if (!vivo) return;
@@ -492,7 +491,7 @@ export function telaAreia(): Tela {
       const fig = l.figuras[Math.floor(Math.random() * l.figuras.length)]!;
       achado.innerHTML = `<g class="surge"><rect x="${x - 22}" y="${y - 30}" width="44" height="44" rx="6" fill="#c9a189"/><text x="${x}" y="${y + 6}" text-anchor="middle" font-family="Jost, sans-serif" font-size="34" font-weight="500" fill="${COR.papel}">${l.id}</text></g>`;
       sininho();
-      if (temVoz(l.som)) await falar(l.som);
+      await falarSom(somInicialDaFigura(fig, l.som));
       if (!vivo) return;
       achado.innerHTML += `<g class="surge"><circle cx="${x}" cy="${y - 72}" r="32" fill="${COR.papel}" opacity="0.9"/>${figura(fig, x, y - 72, 52)}</g>`;
       await falarPalavra(nomeDaFigura(fig));
@@ -585,7 +584,8 @@ export function telaAreia(): Tela {
   /* ao chegar: a letra diz o som dela e a mãozinha mostra o caminho uma vez */
   void esperar(900).then(() => {
     if (!vivo) return;
-    if (temVoz(letra.som)) void falar(letra.som);
+    const fig = figuraDoSom(letra.som, letra.figuras);
+    void dizerComSons(fraseDeEnsinar(letra.som, fig && nomeDaFigura(fig)));
     iniciarDemo();
   });
 
