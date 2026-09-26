@@ -76,6 +76,67 @@ export function cena(conteudo: string, viewBox = '0 0 390 780'): SVGSVGElement {
   return svg;
 }
 
+/** O tamanho da coluna do jogo e a escala do cabeçalho, iguais em toda tela. */
+export interface Medida {
+  /** largura e altura da coluna em px */
+  w: number;
+  h: number;
+  /** margem da coluna dentro do #app (px), dos lados */
+  fora: number;
+  /** o recorte de cima do aparelho (a câmera, o relógio), em px */
+  seguro: number;
+  /** px por unidade do cabeçalho: a mesma escala de uma cena 390 x 780 inteira */
+  kb: number;
+  /** onde o x 0 do cabeçalho cai dentro da coluna (px) */
+  dxb: number;
+}
+
+let sonda: HTMLElement | null = null;
+export function medida(): Medida | null {
+  const app = document.getElementById('app');
+  if (!app || !app.clientWidth || !app.clientHeight) return null;
+  if (!sonda) {
+    sonda = document.createElement('div');
+    sonda.style.cssText = 'position:absolute;visibility:hidden;pointer-events:none;width:0;height:env(safe-area-inset-top, 0px)';
+    app.appendChild(sonda);
+  }
+  const coluna = parseFloat(getComputedStyle(app).getPropertyValue('--coluna')) || 430;
+  const w = Math.min(app.clientWidth, coluna);
+  const h = app.clientHeight;
+  const seguro = sonda.offsetHeight;
+  const kb = Math.min(w / 390, (h - seguro) / 780);
+  return { w, h, fora: (app.clientWidth - w) / 2, seguro, kb, dxb: (w - 390 * kb) / 2 };
+}
+
+/**
+ * Encaixa uma cena na coluna. O cabeçalho (`.topo`: a casinha, a lua, o varal)
+ * fica sempre colado no alto da tela, logo abaixo do recorte do aparelho, e do
+ * mesmo tamanho em todas as telas. A cena fica no meio do que sobra; com
+ * `data-topo`, ela reserva essa altura a mais em cima (unidades da cena) para o
+ * cabeçalho não cobrir nada dela. O viewBox cobre a tela inteira, então o que a
+ * cena desenha fora de 390 x 780 aparece nas sobras em vez de uma faixa lisa.
+ */
+export function encaixar(svg: SVGSVGElement): void {
+  const m = medida();
+  if (!m) return;
+  const folga = Number(svg.dataset.topo ?? 0);
+  const k = Math.min(m.w / 390, (m.h - m.seguro) / (780 + folga));
+  const vw = m.w / k;
+  const vh = m.h / k;
+  const x0 = -(vw - 390) / 2;
+  const livre = (m.h - m.seguro) / k - 780 - folga;
+  const y0 = -folga - m.seguro / k - livre / 2;
+  svg.setAttribute('viewBox', `${x0.toFixed(2)} ${y0.toFixed(2)} ${vw.toFixed(2)} ${vh.toFixed(2)}`);
+  const topo = svg.querySelector(':scope > .topo');
+  topo?.setAttribute('transform', `translate(${(x0 + m.dxb / k).toFixed(2)} ${(y0 + m.seguro / k).toFixed(2)}) scale(${(m.kb / k).toFixed(4)})`);
+}
+
+/** Um ponto do cabeçalho (unidades do `.topo`) no espaço da cena. */
+export function doTopo(svg: SVGSVGElement, x: number, y: number): [number, number] {
+  const t = (svg.querySelector(':scope > .topo') as SVGGElement | null)?.transform.baseVal.consolidate()?.matrix;
+  return t ? [t.a * x + t.e, t.d * y + t.f] : [x, y];
+}
+
 export function embaralhar<T>(xs: T[], seed = Math.random()): T[] {
   const a = xs.slice();
   let s = Math.floor(seed * 2147483647) || 1;

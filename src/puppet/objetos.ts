@@ -45,8 +45,8 @@ export function casinha(x = 40, y = 44): string {
   return `<g class="casinha" data-alvo="casa" aria-label="voltar para casa"><circle cx="${x}" cy="${y}" r="36" fill="${C.marfim}" opacity="0.85"/><path d="M${x - 17} ${y + 2}L${x} ${y - 15}L${x + 17} ${y + 2}V${y + 16}H${x - 17}z" fill="#8FAE6B" stroke="${C.musgoTinta}" stroke-width="1.6" stroke-linejoin="round"/><path d="M${x - 4.5} ${y + 16}V${y + 6}H${x + 4.5}V${y + 16}" fill="${C.rosaDoce}"/></g>`;
 }
 
-/** A lua do cantinho dos pais: quase invisível, no canto de cima, logo abaixo do botão das opções. */
-export function lua(x = 352, y = 104): string {
+/** A lua do cantinho dos pais: quase invisível, na linha da casinha, logo à esquerda do botão das opções. */
+export function lua(x = 294, y = 44): string {
   return `<g class="lua-pais" data-alvo="pais"><circle cx="${x}" cy="${y}" r="30" fill="transparent"/><path d="M${x} ${y - 9}a9 9 0 1 0 8 13a7 7 0 1 1-8-13z" fill="${C.luz}" opacity="0.5"/></g>`;
 }
 
