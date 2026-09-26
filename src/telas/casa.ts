@@ -54,8 +54,8 @@ export function telaCasa(): Tela {
 
   let s = `<rect width="390" height="780" fill="${CEU[ceu]}"/>` + veu(0, 0, W, 200, noite ? '#1b2140' : '#ebcdc3', 5, 0.35);
   s += noite
-    ? `<circle cx="70" cy="70" r="14" fill="#ebd9a8" opacity="0.9"/>${centelha(150, 50, 8, '#ebd9a8')}${centelha(230, 40, 6, '#ebd9a8')}`
-    : `<circle cx="70" cy="70" r="20" fill="#ebd9a8" opacity="0.9"/>` + nuvem(280, 60, 14) + nuvem(150, 40, 10);
+    ? `<circle cx="44" cy="112" r="14" fill="#ebd9a8" opacity="0.9"/>${centelha(150, 50, 8, '#ebd9a8')}${centelha(230, 40, 6, '#ebd9a8')}`
+    : `<circle cx="44" cy="108" r="18" fill="#ebd9a8" opacity="0.9"/>` + nuvem(280, 60, 14) + nuvem(150, 40, 10);
   /* quintal */
   s += `<rect x="0" y="600" width="390" height="180" fill="#c9dbb2"/>` + veu(0, 600, W, 180, '#8fae6b', 5, 0.32);
   /* a estação e as festas mudam o quintal devagar */
@@ -238,14 +238,30 @@ export function telaCasa(): Tela {
   const svg = tela.svg;
   tocarFundo(noite ? 'ninar_brahms' : e.sessoes % 2 ? 'gymnopedie' : 'preludio_bach', { bpm: noite ? 60 : undefined });
 
-  /* tocar numa bandeirinha: a mãozinha mostra onde aquilo mora na casa */
+  /* tocar numa bandeirinha: a coisa acende na casa e a mãozinha aponta para ela.
+     Fica tempo bastante para o olho sair do céu e achar o lugar; outro toque troca. */
+  let destaque: Element | null = null;
+  let vezDoDestaque = 0;
+  const apagarDestaque = () => {
+    destaque?.remove();
+    destaque = null;
+  };
+  tela.aoDestruir(apagarDestaque);
   tela.alvo('[data-varal]', (_ev, el) => {
     tiquinho();
     mover(el, 0, -3, 160);
     void esperar(180).then(() => mover(el, 0, 0, 300));
-    const [cx, cy] = alvoDaCoisa[el.getAttribute('data-varal') as Coisa];
+    const [cx, cy, rx, ry] = alvoDaCoisa[el.getAttribute('data-varal') as Coisa];
+    apagarDestaque();
+    destaque = svgEl(`<g class="surge" style="pointer-events:none">${contornoLuz(cx, cy, rx + 8, ry + 8)}</g>`);
+    svg.querySelector('.camada-mao')?.before(destaque);
     tela.mao([cx + 10, cy + 10]);
-    void esperar(2500).then(() => tela.mao(null));
+    const vez = ++vezDoDestaque;
+    void esperar(6000).then(() => {
+      if (vez !== vezDoDestaque) return;
+      apagarDestaque();
+      tela.mao(null);
+    });
   });
 
   /* ajuda: a mãozinha aponta a brincadeira do dia depois de 6 s parada */
@@ -475,33 +491,44 @@ const MINI: Record<Coisa, (x: number, y: number) => string> = {
 function varal(e: ReturnType<typeof estado>, luzEm: Coisa | null): string {
   const abertas = COISAS.filter((c) => disponivel(e, c));
   if (!abertas.length) return '';
-  /* entre a casinha (até x 76) e a lua (a partir de x 322) */
+  /* até 8 por fileira; com mais, o varal ganha uma segunda corda logo abaixo.
+     Bandeirinhas grandes: é um dedo de 5 anos que vai escolher. As cordas ficam
+     entre a casinha (até x 76) e a lua (a partir de x 322), e a primeira desce
+     além da borda morta do toque (24 px). */
+  const porFileira = abertas.length > 8 ? Math.ceil(abertas.length / 2) : abertas.length;
+  const fileiras = [abertas.slice(0, porFileira), abertas.slice(porFileira)].filter((f) => f.length);
   const x0 = 84;
   const x1 = 318;
-  const passo = Math.min(26, (x1 - x0) / abertas.length);
-  const largura = passo * (abertas.length - 1);
-  const inicio = (x0 + x1) / 2 - largura / 2;
-  const ya = 20;
-  const flecha = 6;
-  const yDo = (x: number) => {
-    const t = (x - (inicio - passo / 2)) / (largura + passo);
-    return ya + 4 * flecha * t * (1 - t);
-  };
-  let s = `<path d="M${inicio - passo / 2 - 6} ${ya}Q${(x0 + x1) / 2} ${ya + 2 * flecha} ${inicio + largura + passo / 2 + 6} ${ya}" fill="none" stroke="#c9a189" stroke-width="1.2" opacity="0.8"/>`;
-  abertas.forEach((c, i) => {
-    const x = inicio + i * passo;
-    const yl = yDo(x);
-    const y = yl + 13;
-    const hoje = brincouHoje(e, c);
-    const nova = novidade(e, c) && !hoje;
-    const fundo = hoje ? '#ebd9a8' : '#fbf8f1';
-    const fio = hoje ? '#c6a15b' : nova ? '#f2a9c4' : '#c9a189';
-    s += `<g data-varal="${c}"${nova ? ' class="respira"' : ''}><rect x="${x - passo / 2}" y="${yl - 4}" width="${passo}" height="28" fill="transparent"/>`;
-    s += `<path d="M${x} ${yl}v3" stroke="#c9a189" stroke-width="1"/><circle cx="${x}" cy="${y}" r="9.6" fill="${fundo}" opacity="${hoje ? 1 : 0.85}" stroke="${fio}" stroke-width="${nova ? 1.6 : 1}"/>`;
-    s += `<g opacity="${hoje ? 1 : 0.5}">${MINI[c](x, y)}</g>`;
-    if (hoje) s += centelha(x + 7, y - 7, 8, '#c6a15b');
-    if (c === luzEm) s += contornoLuz(x, y, 12.5, 12.5);
-    s += `</g>`;
+  const meio = (x0 + x1) / 2;
+  const raio = 12;
+  const escala = 1.2;
+  const passo = Math.min(38, (x1 - x0) / porFileira);
+  const flecha = 3;
+  let s = '';
+  fileiras.forEach((fila, f) => {
+    const ya = 20 + f * 32;
+    const largura = passo * (fila.length - 1);
+    const inicio = meio - largura / 2;
+    const yDo = (x: number) => {
+      const t = (x - (inicio - passo / 2)) / (largura + passo);
+      return ya + 4 * flecha * t * (1 - t);
+    };
+    s += `<path d="M${inicio - passo / 2 - 6} ${ya}Q${meio} ${ya + 2 * flecha} ${inicio + largura + passo / 2 + 6} ${ya}" fill="none" stroke="#c9a189" stroke-width="1.2" opacity="0.8"/>`;
+    fila.forEach((c, i) => {
+      const x = inicio + i * passo;
+      const yl = yDo(x);
+      const y = yl + 3 + raio;
+      const hoje = brincouHoje(e, c);
+      const nova = novidade(e, c) && !hoje;
+      const fundo = hoje ? '#ebd9a8' : '#fbf8f1';
+      const fio = hoje ? '#c6a15b' : nova ? '#f2a9c4' : '#c9a189';
+      s += `<g data-varal="${c}"${nova ? ' class="respira"' : ''}><rect x="${x - passo / 2}" y="${yl - 4}" width="${passo}" height="${2 * raio + 10}" fill="transparent"/>`;
+      s += `<path d="M${x} ${yl}v3" stroke="#c9a189" stroke-width="1"/><circle cx="${x}" cy="${y}" r="${raio}" fill="${fundo}" opacity="${hoje ? 1 : 0.85}" stroke="${fio}" stroke-width="${nova ? 1.8 : 1.2}"/>`;
+      s += `<g opacity="${hoje ? 1 : 0.55}" transform="translate(${x} ${y}) scale(${escala}) translate(${-x} ${-y})">${MINI[c](x, y)}</g>`;
+      if (hoje) s += centelha(x + raio - 3, y - raio + 3, 9, '#c6a15b');
+      if (c === luzEm) s += contornoLuz(x, y, raio + 3, raio + 3);
+      s += `</g>`;
+    });
   });
   return s;
 }
