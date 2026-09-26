@@ -1,5 +1,4 @@
 import { dedilhar, telaSvg } from './comum';
-import { ir } from '@/core/roteador';
 import { esperar } from '@/core/util';
 import { arco, veu } from '@/puppet/objetos';
 import { pararFundo } from '@/audio/musica';
@@ -22,7 +21,7 @@ export function telaLira(): Tela {
   XS.forEach((x, i) => {
     s += `<line class="corda" data-corda="${i}" x1="${x}" y1="262" x2="${x}" y2="${600 + Math.sin((i / 6) * Math.PI) * 40}" stroke="#c6a15b" stroke-width="${3.5 - i * 0.25}" stroke-linecap="round"/><circle cx="${x}" cy="257" r="5" fill="#8f6f2c"/>`;
   });
-  const tela = telaSvg(s, { casinha: () => void ir('casa'), lua: true });
+  const tela = telaSvg(s);
   const svg = tela.svg;
   pararFundo();
   const soa = (i: number) => {

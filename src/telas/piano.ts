@@ -1,6 +1,5 @@
 import { mover, telaSvg } from './comum';
 import { estado } from '@/core/estado';
-import { ir } from '@/core/roteador';
 import { esperar } from '@/core/util';
 import { Ajuda } from '@/core/ajuda';
 import { familia } from '@/puppet/boneco';
@@ -48,7 +47,7 @@ export function telaPiano(): Tela {
   });
   s += `<g class="luz"></g>`;
   if (e.bichos.gato) s += gato(340, 335, 12, '#c8b8a6', true);
-  const tela = telaSvg(s, { casinha: () => void ir('casa'), lua: true });
+  const tela = telaSvg(s);
   const svg = tela.svg;
   pararFundo();
   const luz = svg.querySelector('.luz') as SVGGElement;

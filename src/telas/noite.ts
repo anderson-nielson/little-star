@@ -54,7 +54,7 @@ export function telaNoite(): Tela {
     s += `<g transform="translate(${x} ${y})"><g data-passo="${p}" opacity="${feitos.has(p) ? 0.35 : 1}"><rect x="-36" y="-36" width="72" height="72" fill="transparent"/>${desenhos[p]}</g></g>`;
   });
   s += `<g class="luz"></g>`;
-  const tela = telaSvg(s, { lua: true, fundo: '#1b2140' });
+  const tela = telaSvg(s, { fundo: '#1b2140' });
   const svg = tela.svg;
   const camadaLuz = svg.querySelector('.luz') as SVGGElement;
   /* os cinco passos da rotina em contas: o que já foi hoje já vem cheio */
@@ -190,7 +190,7 @@ export function telaDormindo(): Tela {
   s += `<rect x="70" y="470" width="14" height="110" rx="6" fill="#6e3a5a" opacity="0.8"/>`;
   s += `<rect x="70" y="480" width="250" height="90" rx="14" fill="#4a3a48" opacity="0.8"/>`;
   s += stellaNaCama(!!estado().bichos.gato);
-  const tela = telaSvg(s, { lua: true, fundo: '#10142a' });
+  const tela = telaSvg(s, { fundo: '#10142a' });
   travar(60000);
   tocarFundo('ninar_brahms', { bpm: 56 });
   audio.definirVolumes(0.35, 0.4);

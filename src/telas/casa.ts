@@ -230,7 +230,13 @@ export function telaCasa(): Tela {
      O que ainda está fechado não pendura bandeirinha: o varal cresce com a casa. */
   s += varal(e, luzEm);
 
-  const tela = telaSvg(s, { lua: true });
+  /* na casa, a casinha só responde: ela já está em casa */
+  const tela = telaSvg(s, {
+    casinha: () => {
+      tiquinho();
+      tela.comemorar(40, 44);
+    },
+  });
   const svg = tela.svg;
   tocarFundo(noite ? 'ninar_brahms' : e.sessoes % 2 ? 'gymnopedie' : 'preludio_bach', { bpm: noite ? 60 : undefined });
 
@@ -473,7 +479,8 @@ const MINI: Record<Coisa, (x: number, y: number) => string> = {
 function varal(e: ReturnType<typeof estado>, luzEm: Coisa | null): string {
   const abertas = COISAS.filter((c) => disponivel(e, c));
   if (!abertas.length) return '';
-  const x0 = 24;
+  /* entre a casinha (até x 76) e a lua (a partir de x 322) */
+  const x0 = 84;
   const x1 = 318;
   const passo = Math.min(26, (x1 - x0) / abertas.length);
   const largura = passo * (abertas.length - 1);

@@ -391,7 +391,7 @@ body {
   width: calc(100% - 2 * var(--e4));
   max-width: calc(var(--coluna) - 2 * var(--e4));
   z-index: var(--z-hud);
-  padding: var(--e3) var(--alvo) var(--e4) var(--e4);
+  padding: var(--e3) var(--e4) var(--e6) var(--e4);
   background: var(--papel);
   color: var(--txt);
   border: var(--fio-w) solid var(--fio-ouro);
@@ -405,7 +405,6 @@ body {
 .balao.visivel {
   opacity: 1;
   transform: translate(-50%, 0);
-  pointer-events: auto;
 }
 /* o rabinho do balão, apontando para a cena */
 .balao::after {
@@ -435,22 +434,29 @@ body {
   font-weight: 500;
   line-height: 1.25;
 }
-/* o "x" que fecha: alvo de um dedo no canto de cima, à direita */
+/* o "x" que fecha: pendurado no meio da borda de baixo, longe da casinha e da lua.
+   É o único pedaço do balão que recebe toque; o resto deixa o toque passar para a cena. */
 .balao-fechar {
   position: absolute;
-  top: 0;
-  right: 0;
-  width: var(--alvo);
-  height: var(--alvo);
+  bottom: -24px;
+  left: 50%;
+  width: var(--e7);
+  height: var(--e7);
+  margin-left: calc(-1 * var(--e7) / 2);
   padding: 0;
-  border: 0;
-  background: transparent;
+  border: var(--fio-w) solid var(--fio-ouro);
+  border-radius: 50%;
+  background: var(--papel);
   color: var(--ouro-tinta);
   font-family: var(--serif);
-  font-size: var(--t-h1);
+  font-size: var(--t-h2);
   line-height: 1;
   cursor: pointer;
   touch-action: manipulation;
+  pointer-events: none;
+}
+.balao.visivel .balao-fechar {
+  pointer-events: auto;
 }
 .balao-fechar:active {
   opacity: 0.6;

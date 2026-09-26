@@ -58,7 +58,7 @@ export function telaArvore(): Tela {
   /* a família embaixo, olhando */
   s += `<g class="mae">${familia.mae(60, 712, 110).svg}</g><g class="theo">${familia.theo(300, 714, 84, 'acena').svg}</g>`;
   s += `<g class="stella">${familia.stella(150, 712, 66, 'parado').svg}</g>`;
-  const tela = telaSvg(s, { casinha: () => void ir('casa'), lua: true });
+  const tela = telaSvg(s);
   const svg = tela.svg;
   tocarFundo('gymnopedie');
   const stella = svg.querySelector('.stella') as SVGGElement;

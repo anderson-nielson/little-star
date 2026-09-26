@@ -1,6 +1,5 @@
 import { dedilhar, mover, telaSvg } from './comum';
 import { estado } from '@/core/estado';
-import { ir } from '@/core/roteador';
 import { esperar } from '@/core/util';
 import { familia, figurinoDe } from '@/puppet/boneco';
 import { contornoLuz, veu } from '@/puppet/objetos';
@@ -87,7 +86,7 @@ export function telaUkulele(): Tela {
     s += `<g data-acorde="${i}" aria-label="${a.nome}"><circle cx="${x}" cy="${y}" r="${BOTAO_R}" fill="${a.cor}" opacity="0.9" stroke="#fbf8f1" stroke-width="3"/></g>`;
   });
   s += `<g class="luz"></g>`;
-  const tela = telaSvg(s, { casinha: () => void ir('casa'), lua: true });
+  const tela = telaSvg(s);
   const svg = tela.svg;
   pararFundo();
   /* sem botão apertado, as cordas soam soltas: a afinação */

@@ -21,9 +21,9 @@ export interface TelaSvg extends Tela {
 }
 
 export interface OpcoesTela {
-  /** a casinha verde no canto: volta para a casa (ou o que se passar) */
+  /** a casinha verde no canto: volta para a casa (ou o que se passar). Toda tela tem; `false` só no styleguide */
   casinha?: boolean | (() => void);
-  /** a lua do cantinho dos pais */
+  /** a lua do cantinho dos pais, no canto da direita. Toda tela tem; `false` só no styleguide */
   lua?: boolean;
   fundo?: string;
 }
@@ -38,7 +38,9 @@ export function telaSvg(conteudo: string, o: OpcoesTela = {}): TelaSvg {
   /* o fundo da tela segue a cor da cena, para as faixas dos lados não aparecerem */
   const corDeFundo = o.fundo ?? /^<rect width="390" height="780" fill="(#[0-9a-fA-F]{3,8})"/.exec(conteudo)?.[1];
   if (corDeFundo) el.style.background = corDeFundo;
-  const svg = cena(conteudo + (o.casinha ? casinha() : '') + (o.lua ? lua() : ''));
+  const comCasinha = o.casinha ?? true;
+  const comLua = o.lua ?? true;
+  const svg = cena(conteudo + (comCasinha ? casinha() : '') + (comLua ? lua() : ''));
   el.appendChild(svg);
   /* a mãozinha só mostra: nunca fica na frente do que ela vai tocar */
   const camadaMao = svgEl('<g class="camada-mao" style="pointer-events:none"></g>');
@@ -53,14 +55,21 @@ export function telaSvg(conteudo: string, o: OpcoesTela = {}): TelaSvg {
     });
   };
 
-  if (o.casinha) {
-    alvo('.casinha', () => {
-      travar(400);
-      if (typeof o.casinha === 'function') o.casinha();
-      else void sessao.voltarParaCasa();
-    });
+  /* a casinha vale sempre, mesmo com a cena no meio de uma animação: é a saída de
+     qualquer tela. Presa à trava, ela não respondia no quarto dormindo (trava de 60 s)
+     nem durante as falas do fim de uma brincadeira, e o jogo parecia travado. */
+  if (comCasinha) {
+    alvo(
+      '.casinha',
+      () => {
+        travar(400);
+        if (typeof comCasinha === 'function') comCasinha();
+        else void sessao.voltarParaCasa();
+      },
+      true,
+    );
   }
-  if (o.lua) {
+  if (comLua) {
     const luaEl = svg.querySelector('.lua-pais');
     if (luaEl) limpezas.push(segurar(luaEl, 2000, () => void ir('pais')));
   }
@@ -70,7 +79,7 @@ export function telaSvg(conteudo: string, o: OpcoesTela = {}): TelaSvg {
      (`travar`): sem som nenhum, ela achava que o jogo tinha travado. */
   const fundo = (ev: Event) => {
     const t = ev.target as Element;
-    if (t.closest('.lua-pais')) return;
+    if (t.closest('.lua-pais') || t.closest('.casinha')) return;
     if (t.closest('.alvo') && !ocupado()) return;
     if (!audio.pronto) void audio.tentarDestravar();
     tiquinho();
@@ -100,6 +109,36 @@ export function telaSvg(conteudo: string, o: OpcoesTela = {}): TelaSvg {
     destruir: () => {
       for (const l of limpezas) l();
     },
+  };
+}
+
+/**
+ * A casinha e a lua por cima de uma tela que não é um `telaSvg` (canvas, cena
+ * que rola). O mesmo desenho, no mesmo lugar e com o mesmo `meet` das outras
+ * telas: com `slice` elas mudavam de posição e, em tela curta, caíam na borda
+ * morta. Devolve como tirar os ouvintes.
+ */
+export function cantos(el: HTMLElement, aoCasa: () => void, aoPais: () => void = () => void ir('pais')): () => void {
+  const hud = cena(casinha() + lua());
+  hud.style.pointerEvents = 'none';
+  el.appendChild(hud);
+  const casa = hud.querySelector('.casinha') as SVGGElement;
+  const luaEl = hud.querySelector('.lua-pais') as SVGGElement;
+  casa.style.pointerEvents = 'auto';
+  luaEl.style.pointerEvents = 'auto';
+  const limpar = [
+    tocavel(
+      casa,
+      () => {
+        travar(400);
+        aoCasa();
+      },
+      { semTrava: true },
+    ),
+    segurar(luaEl, 2000, aoPais),
+  ];
+  return () => {
+    for (const l of limpar) l();
   };
 }
 

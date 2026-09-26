@@ -1,8 +1,9 @@
+import { cantos } from './comum';
 import { alvoDoPulo, beatsDosObstaculos } from './jardim';
 import { estado, mudar } from '@/core/estado';
 import { ir } from '@/core/roteador';
 import { observarCaixa } from '@/core/util';
-import { naBorda, segurar, tocavel } from '@/core/toque';
+import { naBorda } from '@/core/toque';
 import { Ajuda } from '@/core/ajuda';
 import { familia } from '@/puppet/boneco';
 import { CENTELHA, gato, pinha } from '@/puppet/objetos';
@@ -43,16 +44,8 @@ export function telaArvoreGrande(): Tela {
   const canvas = document.createElement('canvas');
   canvas.className = 'cena';
   el.appendChild(canvas);
-  const hud = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  hud.setAttribute('viewBox', '0 0 390 780');
-  hud.setAttribute('class', 'cena');
-  hud.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-  hud.style.pointerEvents = 'none';
-  hud.innerHTML = `<g class="casinha" style="pointer-events:auto"><circle cx="40" cy="44" r="36" fill="#f6f0e4" opacity="0.85"/><path d="M23 46L40 29L57 46V60H23z" fill="#8FAE6B" stroke="#4f6b3a" stroke-width="1.6" stroke-linejoin="round"/><path d="M35.5 60V50H44.5V60" fill="#f2a9c4"/></g><g class="lua-pais" style="pointer-events:auto"><circle cx="352" cy="40" r="30" fill="transparent"/><path d="M352 31a9 9 0 1 0 8 13a7 7 0 1 1-8-13z" fill="#ebd9a8" opacity="0.5"/></g>`;
-  el.appendChild(hud);
   const limpezas: (() => void)[] = [];
-  limpezas.push(tocavel(hud.querySelector('.casinha')!, () => void sair('casa')));
-  limpezas.push(segurar(hud.querySelector('.lua-pais')!, 2000, () => void sair('pais')));
+  limpezas.push(cantos(el, () => void sair('casa'), () => void sair('pais')));
 
   const ctx = canvas.getContext('2d')!;
   let W = 390;

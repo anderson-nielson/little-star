@@ -135,7 +135,7 @@ export function telaParquinho(): Tela {
   /* o pote da contagem, só aqui: as pedrinhas dele são da brincadeira */
   if (contar) s += `<g class="pote"><path d="M300 640q0 -8 6 -8h48q6 0 6 8v6q-6 6 -6 14v40q0 12 -12 12h-24q-12 0 -12 -12v-40q0 -8 -6 -14z" fill="#9fc3cf" opacity="0.28" stroke="#ebd9a8" stroke-width="2"/><g class="pedrinhas"></g></g>`;
   s += `<g data-alvo="gangorra"><circle cx="64" cy="610" r="44" fill="transparent"/></g><g data-alvo="escorregador"><circle cx="320" cy="590" r="54" fill="transparent"/></g>`;
-  const tela = telaSvg(s, { casinha: () => void ir('casa'), lua: true });
+  const tela = telaSvg(s);
   const svg = tela.svg;
   tocarFundo('gymnopedie');
 
@@ -312,7 +312,7 @@ export function telaEscorregador(): Tela {
   s += `<g class="stella alvo"></g>`;
   s += `<g data-alvo="gangorra">${gangorra(340, 700, 90)}<circle cx="340" cy="690" r="40" fill="transparent"/></g>`;
   s += coelho(48, 668, 22);
-  const tela = telaSvg(s, { casinha: () => void ir('casa'), lua: true });
+  const tela = telaSvg(s);
   const svg = tela.svg;
   tocarFundo('gymnopedie');
   const gst = svg.querySelector('.stella') as SVGGElement;
@@ -436,7 +436,7 @@ export function telaGangorra(): Tela {
   s += `<g class="theo">${familia.theo(THEO_G[0], THEO_G[1], 190, 'segura', { dir: -1 }).svg}</g>`;
   s += coelho(40, 668, 22);
   s += `<g data-alvo="tabua"><rect x="24" y="380" width="${GX + 40}" height="300" fill="transparent"/></g>`;
-  const tela = telaSvg(s, { casinha: () => void ir('casa'), lua: true });
+  const tela = telaSvg(s);
   const svg = tela.svg;
   tocarFundo('gymnopedie');
   const tabua = svg.querySelector('.tabua') as SVGGElement;

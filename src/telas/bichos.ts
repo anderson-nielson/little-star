@@ -29,7 +29,7 @@ export function telaBichos(): Tela {
   /* pratinho do gato e cenoura do coelho, para arrastar */
   s += `<g data-arrasta="prato" data-para="gato"><ellipse cx="195" cy="700" rx="26" ry="10" fill="#f6f0e4" stroke="#c6a15b"/><ellipse cx="195" cy="696" rx="16" ry="6" fill="#c48f5a"/></g>`;
   if (temCoelho) s += `<g data-arrasta="cenoura" data-para="coelho">${figura('cenoura', 310, 690, 60)}</g>`;
-  const tela = telaSvg(s, { casinha: () => void terminar(), lua: true });
+  const tela = telaSvg(s);
   const svg = tela.svg;
   tocarFundo('gymnopedie');
 
