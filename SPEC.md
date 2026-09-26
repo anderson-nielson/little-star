@@ -572,9 +572,10 @@ A escrita fica em português. Espanhol é para ouvir e falar, não para traçar.
 
 **Ukulele rosa** na parede, com o corpo em oito e as 4 cordas afinadas em sol, dó, mi, lá (a
 afinação padrão). Passar o dedo nas cordas soltas dá a afinação; um botão de cor dá um acorde
-(corda dedilhada sintetizada, algoritmo Karplus-Strong, sem arquivo de áudio). Três acordes
-(dó, fá, sol7, nas posições de verdade), três cores de botão grande para ela acompanhar o
-piano ou a canção. Nas aventuras, um acorde abre as flores
+(corda dedilhada sintetizada, algoritmo Karplus-Strong, sem arquivo de áudio). Os sete acordes
+do campo harmônico de dó (dó, ré menor, mi menor7, fá, sol7, lá menor, si meio-diminuto, nas
+posições de verdade, até três casas), sete cores de botão num arco em volta do corpo, para ela
+acompanhar o piano ou a canção. Nas aventuras, um acorde abre as flores
 do jardim.
 
 **Bonecas** na estante do quarto, que é a coleção dela.
