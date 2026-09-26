@@ -578,7 +578,11 @@ export function telaPais(): Tela {
     bSom.addEventListener('click', async () => {
       const ok = await audio.tentarDestravar();
       sininho(0.4);
-      estadoTeste.textContent = ok ? 'Se não ouviu: o botão do silencioso do aparelho e o volume de mídia.' : 'O som ainda está travado. Toque de novo.';
+      estadoTeste.textContent = audio.mudo
+        ? 'O som do jogo está desligado no botão da estrelinha, no canto de cima de cada tela.'
+        : ok
+          ? 'Se não ouviu: o botão do silencioso do aparelho e o volume de mídia.'
+          : 'O som ainda está travado. Toque de novo.';
     });
     const bVoz = h('button', { type: 'button', id: 'testar-voz', disabled: !podeFalar() }, 'Ouvir a voz do aparelho');
     bVoz.addEventListener('click', async () => {

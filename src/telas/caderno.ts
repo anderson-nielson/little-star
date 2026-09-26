@@ -65,7 +65,7 @@ export function telaCaderno(): Tela {
   svg.setAttribute('class', 'cena');
   svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
   svg.style.pointerEvents = 'none';
-  svg.innerHTML = `<g class="theo">${familia.theo(84, 712, 118, 'aponta').svg}</g><g class="casinha" style="pointer-events:auto"><circle cx="40" cy="44" r="36" fill="#f6f0e4" opacity="0.85"/><path d="M23 46L40 29L57 46V60H23z" fill="#8FAE6B" stroke="#4f6b3a" stroke-width="1.6" stroke-linejoin="round"/><path d="M35.5 60V50H44.5V60" fill="#f2a9c4"/></g><g class="lua-pais" style="pointer-events:auto"><circle cx="352" cy="40" r="30" fill="transparent"/><path d="M352 31a9 9 0 1 0 8 13a7 7 0 1 1-8-13z" fill="#ebd9a8" opacity="0.5"/></g>`;
+  svg.innerHTML = `<g class="theo">${familia.theo(84, 712, 118, 'aponta').svg}</g><g class="casinha" style="pointer-events:auto"><circle cx="40" cy="44" r="36" fill="#f6f0e4" opacity="0.85"/><path d="M23 46L40 29L57 46V60H23z" fill="#8FAE6B" stroke="#4f6b3a" stroke-width="1.6" stroke-linejoin="round"/><path d="M35.5 60V50H44.5V60" fill="#f2a9c4"/></g><g class="lua-pais" style="pointer-events:auto"><circle cx="352" cy="104" r="30" fill="transparent"/><path d="M352 95a9 9 0 1 0 8 13a7 7 0 1 1-8-13z" fill="#ebd9a8" opacity="0.5"/></g>`;
   el.appendChild(svg);
   const limpezas: (() => void)[] = [];
   limpezas.push(tocavel(svg.querySelector('.casinha')!, () => void ir('casa')));

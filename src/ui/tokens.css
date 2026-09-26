@@ -61,6 +61,8 @@
   --toque: rgba(79, 107, 58, 0.12);
   --halo: rgba(235, 217, 168, 0.5);
   --veu: rgba(16, 20, 42, 0.55);
+  /* o marfim meio transparente da casinha, no botão das opções */
+  --marfim-veu: rgba(246, 240, 228, 0.85);
 
   /* tipo */
   --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
@@ -90,6 +92,9 @@
   --entre-alvos: 16px;
   --borda-morta: 24px;
   --coluna: 430px;
+  /* o botão das opções é pequeno de propósito: é para o adulto, fica na borda morta */
+  --opcoes-botao: 40px;
+  --opcoes-folga: 48px;
   --fundo-seguro: max(env(safe-area-inset-bottom, 0px), 12px);
 
   /* movimento: tudo lento, nada pisca */
@@ -106,6 +111,7 @@
   --z-cena: 1;
   --z-figura: 3;
   --z-hud: 5;
+  --z-opcoes: 7;
   --z-veu: 8;
   --z-pais: 9;
 }

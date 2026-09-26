@@ -8,6 +8,7 @@ import { prepararVozes } from './audio/vozes';
 import { iniciarAparelho, versao } from './core/aparelho';
 import { aoAnunciar, narracao, vezesNoHistorico } from './core/narracao';
 import { montarBalao } from './ui/balao';
+import { montarOpcoes } from './ui/opcoes';
 import { aoTrocarTela, telaAtual } from './core/roteador';
 import { esperar } from './core/util';
 import { telaChegada } from './telas/chegada';
@@ -73,7 +74,16 @@ registrar('gangorra', telaGangorra);
 
 const app = document.getElementById('app')!;
 montar(app);
-definirVoltar(() => void sessao.voltarParaCasa());
+
+/* o som desligado nas opções vale desde o primeiro toque */
+audio.definirMudo(estado().pais.mudo);
+
+/* o botão pequeno do canto de cima, à direita: ajuda da tela, som, versão e o cantinho dos pais */
+const opcoes = montarOpcoes(app, () => void ir('pais'));
+aoTrocarTela((nome, params) => opcoes.trocarTela(nome, params));
+
+/* o "voltar" do aparelho fecha o painel se estiver aberto; senão, volta para a casa */
+definirVoltar(() => (opcoes.aberto() ? opcoes.fechar() : void sessao.voltarParaCasa()));
 
 /* a narração para quem joga junto: a cada avanço dela, um balão no topo para ler em voz alta.
    Ele fica até o "x"; só sai sozinho nas telas onde não cabe (o cantinho dos pais, o styleguide, ela dormindo). */
@@ -131,4 +141,4 @@ if (q.get('styleguide')) {
 iniciarAparelho();
 
 /* para o passeio automático e para a depuração no console */
-(window as unknown as { littleStar: unknown }).littleStar = { ir, estado, mudar, sessao, balao, versao: versao() };
+(window as unknown as { littleStar: unknown }).littleStar = { ir, estado, mudar, sessao, balao, opcoes, versao: versao() };

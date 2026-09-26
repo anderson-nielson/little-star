@@ -302,3 +302,31 @@ esperteza dela. O estudo está em `docs/parquinho.md` e nas telas de
 - **Um detalhe de implementação**: a classe `.alvo` do CSS muda a origem da transformação
   (`transform-box: fill-box`), então os grupos que giram (o balanço, a tábua) nunca a levam; os
   alvos do toque são retângulos parados por cima.
+
+## O botão das opções, em todas as telas
+
+O cantinho dos pais é completo, mas fica atrás da lua e da continha: para desligar o som ou
+lembrar o que fazer numa tela, era preciso sair do jogo dela. Agora toda tela do jogo tem um
+botão pequeno no canto de cima, à direita, que abre um painel correndo da direita para a
+esquerda (`src/ui/opcoes.ts`).
+
+- **É para o adulto.** O botão tem 40 px, fica na borda morta onde a mão segura o aparelho e
+  usa a estrelinha de quatro pontas do jogo, não uma engrenagem (SPEC: nada de ícone
+  abstrato para ela). Nada no painel muda o jogo dela; o toque ali nunca chega na cena.
+- **Ajuda desta tela**: o que é e o que fazer, em duas frases, para quem joga junto. Os textos
+  são dado (`src/data/ajuda-telas.json`); um teste garante que toda tela registrada tem o seu.
+  A mesa da estação tem ajuda própria, separada das pinhas.
+- **Som**: desliga tudo de uma vez (música, efeitos, vozes gravadas e a voz do aparelho) pelo
+  ganho mestre, sem suspender o áudio, para o relógio mestre seguir. Fica guardado
+  (`pais.mudo`). Com o som desligado, um selinho veludo aparece no botão, para ninguém achar
+  que o jogo quebrou; o teste de som do cantinho também avisa.
+- **Balão de leitura** liga e desliga daqui também.
+- **Tela cheia**, só quando o navegador deixa e o jogo não está instalado.
+- **Atualização**: mostra a versão ("Little Star abc1234"), se está instalado ou no navegador,
+  e procura uma versão nova pelo mesmo caminho do cantinho (`buscarNovaVersao`). Com versão
+  nova, o jogo baixa e reabre sozinho. **Instalar na tela inicial** aparece quando o Android
+  oferece.
+- **Cantinho dos pais**: um atalho que continua pedindo a continha.
+- **A lua desceu** de y 40 para y 104 na cena, logo abaixo do botão, para os dois não se
+  cobrirem. O balão de narração deixa 48 px livres à direita pelo mesmo motivo.
+- O "voltar" do aparelho fecha o painel se ele estiver aberto.
