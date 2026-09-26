@@ -429,15 +429,15 @@ body {
 .balao-fechar:active {
   opacity: 0.6;
 }
-/* o balão recolhido: uma bolinha de papel com três pontinhos, entre a trilha e a lua.
-   O alvo tem 72 px; o desenho é menor, para não brigar com a cena. */
+/* o balão recolhido: uma bolinha de papel com três pontinhos, logo abaixo da casinha,
+   fora do varal da casa e da trilha do avanço. O alvo tem 72 px; o desenho é menor. */
 .balao-bolinha {
   position: absolute;
-  top: calc(env(safe-area-inset-top, 0px) + var(--e1));
+  top: calc(env(safe-area-inset-top, 0px) + 84px);
   left: 50%;
   width: var(--alvo);
   height: var(--alvo);
-  margin-left: calc(min(100vw, var(--coluna)) / 2 - var(--alvo) * 2);
+  margin-left: calc(var(--e1) - min(100vw, var(--coluna)) / 2);
   padding: 0;
   border: 0;
   background: transparent;
