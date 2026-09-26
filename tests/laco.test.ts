@@ -82,6 +82,9 @@ describe('o laço da sessão', () => {
     expect(aberto(1, 'roda')).toBe(false);
     expect(aberto(2, 'roda')).toBe(true);
     expect(aberto(2, 'coelho')).toBe(true);
+    /* ela ama escrever e ouvir os sons: as palavras abrem junto com o caderno */
+    expect(aberto(2, 'caderno')).toBe(true);
+    expect(aberto(2, 'palavras')).toBe(true);
     expect(aberto(3, 'jardim')).toBe(false);
     expect(aberto(4, 'jardim')).toBe(true);
     expect(aberto(9, 'qualquer coisa')).toBe(true);
