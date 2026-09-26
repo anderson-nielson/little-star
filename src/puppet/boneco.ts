@@ -1,3 +1,5 @@
+import { bonecaPano, type Enfeite, type OpcoesBoneca } from './bonecaPano';
+
 /**
  * A marionete vetorial do Ponta, em SVG: membros afilados (trapézio com
  * círculo nas pontas), rosto econômico (olhos em arco fino, boca em fio),
@@ -5,7 +7,7 @@
  * pernas curtas. Tudo por dados de cor: trocar roupa é trocar variável.
  */
 export type Ponto = [number, number];
-export type Pose = 'parado' | 'acena' | 'sentado' | 'pulo' | 'aponta' | 'segura' | 'giro' | 'reverencia' | 'deitado' | 'abraca' | 'anda' | 'salto' | 'escorrega' | 'balanco' | 'palma' | 'sobe';
+export type Pose = 'parado' | 'acena' | 'sentado' | 'pulo' | 'aponta' | 'segura' | 'giro' | 'reverencia' | 'deitado' | 'abraca' | 'anda' | 'salto' | 'escorrega' | 'balanco' | 'palma' | 'sobe' | 'mao';
 export type Cabelo = 'liso' | 'cacheado' | 'cachinhos' | 'coque' | 'curto' | 'rabo' | 'entradas' | 'testa-alta';
 export type Barba = 'baixa' | 'leve' | 'cheia';
 export type Oculos = 'oval' | 'redondo' | 'fino';
@@ -248,6 +250,11 @@ export function boneco(o: Figura): Desenho {
       bL = braco(sL, PI * 0.2, -PI * 0.35);
       bR = braco(sR, PI * 0.8, -PI * 0.65);
       break;
+    case 'mao':
+      /* dá a mão para alguém menor do lado esquerdo */
+      bL = braco(sL, PI * 0.68, PI * 0.78);
+      bR = braco(sR, PI * 0.56, PI * 0.6);
+      break;
     case 'segura':
       bL = braco(sL, PI * 0.4, -PI * 0.15);
       bR = braco(sR, PI * 0.4, PI * 1.15);
@@ -421,20 +428,19 @@ export const familia = {
     boneco({ x, y, h, pose, pele: C.peleMae, cabelo: C.cabeloMae, roupa: '#D9B4A6', cabeloTipo: 'liso', vestido: true, sapato: C.madeira, ...extra }),
   pai: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
     boneco({ x, y, h, pose, pele: C.pelePai, cabelo: C.cabeloPai, roupa: C.mata2, calca: '#3f3a4a', cabeloTipo: 'testa-alta', oculos: 'fino', barba: C.barbaPai, barbaEstilo: 'cheia', forte: 1.18, sapato: '#3f3a4a', ...extra }),
-  /** bonecas Waldorf de pano: rosto quase liso */
-  boneca: (x: number, y: number, h: number, i: number, extra: Extra = {}): Desenho => {
-    const roupas = [C.rosaDoce, C.luz, C.azul, '#D9B4A6', '#a58bc4'];
-    const cabelos = ['#e2c27a', '#5a3a2a', '#17110F', '#c9a05f', '#d97f74'];
-    const tipos: Cabelo[] = ['coque', 'liso', 'cacheado', 'rabo', 'curto'];
-    return boneco({ x, y, h, pose: 'parado', crianca: true, pano: true, pele: '#F3DCC8', cabelo: cabelos[i % 5]!, roupa: roupas[i % 5]!, cabeloTipo: tipos[i % 5]!, vestido: true, ...extra });
-  },
+  /** bonecas Waldorf de pano: rosto quase liso, cabelo de lã (src/puppet/bonecaPano.ts) */
+  boneca: (x: number, y: number, h: number, i: number, extra: OpcoesBoneca = {}): Desenho => bonecaPano(x, y, h, i, extra),
 };
 
-/** O figurino escolhido para uma boneca vira cores da marionete; sem figurino, nada muda. */
-export function figurinoDe(f: { roupa: string; cabelo: string; gorro: string } | undefined): Extra {
+/**
+ * O figurino escolhido para uma boneca vira opções do desenho; sem figurino, nada muda.
+ * O campo `gorro` guarda o enfeite da cabeça. Saves antigos guardavam ali uma cor
+ * de gorro: vira o gorrinho de lã.
+ */
+export function figurinoDe(f: { roupa: string; cabelo: string; gorro: string } | undefined): OpcoesBoneca {
   if (!f) return {};
-  const x: Extra = { roupa: f.roupa, cabelo: f.cabelo };
-  if (f.gorro && f.gorro !== 'nenhum') x.gorro = f.gorro;
+  const x: OpcoesBoneca = { roupa: f.roupa, cabelo: f.cabelo };
+  if (f.gorro && f.gorro !== 'nenhum') x.enfeite = f.gorro.startsWith('#') ? 'gorro' : (f.gorro as Enfeite);
   return x;
 }
 
