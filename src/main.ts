@@ -86,9 +86,10 @@ aoTrocarTela((nome, params) => opcoes.trocarTela(nome, params));
 definirVoltar(() => (opcoes.aberto() ? opcoes.fechar() : void sessao.voltarParaCasa()));
 
 /* a narração para quem joga junto: a cada avanço dela, um balão no topo para ler em voz alta.
-   Ele fica até o "x"; só sai sozinho nas telas onde não cabe (o cantinho dos pais, o styleguide, ela dormindo). */
+   Ele fica até o "x"; só sai sozinho nas telas onde não cabe (o cantinho dos pais, o styleguide).
+   Com ela dormindo o balão fica: é ele que conta a quem está junto que o jogo também dorme até de manhã. */
 const balao = montarBalao(app);
-const SEM_BALAO = new Set(['pais', 'styleguide', 'dormindo']);
+const SEM_BALAO = new Set(['pais', 'styleguide']);
 aoTrocarTela((nome) => {
   if (SEM_BALAO.has(nome)) balao.esconder();
 });

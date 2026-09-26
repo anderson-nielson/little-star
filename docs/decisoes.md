@@ -263,6 +263,34 @@ Aprovado pela família depois de ver os prints em oito cenários (dia, tarde, no
 - Tocar numa bandeirinha: a mãozinha mostra onde aquilo mora na casa.
 - Com a casa toda aberta são 15 bandeirinhas pequenas: servem para ver, não para mirar.
   Arquivo: `src/telas/casa.ts` (`varal`, `MINI`).
+
+## O jogo parecia travado: trilha do avanço e um fim que se vê
+
+O teste no celular: "na maioria das telas o jogo é meio travado; na caixa de areia não fica
+claro o que fazer nem se estou avançando". Medimos antes de mexer: com a CPU seis vezes mais
+lenta, todas as telas seguem a 60 quadros por segundo. Não era lentidão. Eram três coisas.
+
+- **Nenhuma tela, fora a da palavra, mostrava avanço, e nove nunca acabavam** (areia, horta,
+  relógio, piano, ukulele, bonecas, a mesa das pinhas, lira, árvore). Agora existe uma
+  **trilha** no alto de toda brincadeira com rodadas (`trilha()` em `src/telas/comum.ts`): uma
+  conta por rodada entre a casinha e a lua, cheia de ouro quando feita, a estrelinha na de
+  agora. É o mesmo colar da tela da palavra, virado sinal comum (GAMEPLAY, seção 5). Entrou
+  na areia, no som (3 rodadas), na roda (um objeto por conta), na noite (5 passos), nos bichos
+  (um cuidado por conta), no caderno (as duas vezes da letra) e no relógio (3 pedidos).
+  **`convidarParaCasa()`**: quando a volta de uma tela sem fim termina, a casinha acende e a
+  mãozinha aponta para ela. Ela pode continuar; mas sabe que acabou e para onde ir.
+- **A caixa de areia não tinha meta em nenhum dos três jeitos.** No dedo, a trilha tem uma
+  conta por letra que ela sabe e a mãozinha deixa um rastro de luz. Na pá, três montinhos com
+  brilho mostram onde cavar (cavar fora faz um buraquinho vazio, sem erro). No balde, três
+  baldes fazem um castelo com bandeirinha, e aí o gatinho acende. O rastelo ficou menor e
+  tracejado: é um gesto, não um jeito de brincar.
+- **Toque ignorado em silêncio.** Enquanto uma cena termina (`travar`), o toque num alvo não
+  fazia nada, nem som. Parecia que o jogo tinha travado. Agora ganha o sininho baixinho, como
+  o toque em algo que não faz nada.
+- **O balão de narração cobria a casinha e a trilha** até alguém tocar no "x". Ele continua
+  sem sumir sozinho, mas quando ela volta a tocar na cena ele se recolhe numa bolinha no alto;
+  quem lê toca na bolinha e a frase volta. Muda a decisão do balão (PR #15) só nisso.
+
 ## O parquinho do condomínio
 
 A Stella vai ao parquinho do condomínio e faz sempre a mesma volta: se balança sozinha no
