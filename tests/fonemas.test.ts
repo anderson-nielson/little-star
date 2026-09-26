@@ -25,3 +25,10 @@ describe('os sons das letras sem gravação', () => {
     expect(duracaoDoSom('som_t')).toBeLessThan(0.3);
   });
 });
+
+describe('a frase de ensinar', () => {
+  it('é só o som, o som esticado e a palavra, sem "de" no meio', async () => {
+    const { fraseDeEnsinar } = await import('@/audio/fonemas');
+    expect(fraseDeEnsinar('som_s', 'sapo')).toBe('{som_s}... {som_s:1.6}... sapo');
+  });
+});

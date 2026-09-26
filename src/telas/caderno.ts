@@ -472,7 +472,7 @@ export function telaCaderno(): Tela {
     else await esperar(2200);
     if (!vivo) return;
     imagemOpacidade = 0.5;
-    /* a frase de ensinar: o som curto, o som esticado e a figura ("sss... sssss, de sapo") */
+    /* a frase de ensinar: o som curto, o som esticado e a figura ("sss... sssss... sapo") */
     void dizerComSons(fraseDeEnsinar(letra.som, nomeDaFigura(letra.figuras[0]!)));
     fase = 'guia';
   })();

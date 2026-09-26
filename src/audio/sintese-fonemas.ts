@@ -36,6 +36,8 @@ interface Soante {
   nivel: number;
   /** LH e NH não se seguram sozinhos: escorregam para um "é" */
   para?: Formantes;
+  /** em que fração da duração começa a escorregar para `para` (padrão 0,35) */
+  soltaEm?: number;
 }
 
 interface Chiado {
@@ -70,7 +72,9 @@ export const RECEITAS: Record<string, Receita> = {
   som_u: { tipo: 'vogal', f: [340, 780, 2600], g: [1, 0.35, 0.06], dur: 0.75 },
   som_m: { tipo: 'soante', f: [260, 1100, 2400], g: [1, 0.04, 0.03], corte: 700, dur: 0.95, nivel: 1.3 },
   som_n: { tipo: 'soante', f: [260, 1700, 2600], g: [1, 0.08, 0.05], corte: 1200, dur: 0.95, nivel: 1.25 },
-  som_l: { tipo: 'soante', f: [360, 1250, 2800], g: [1, 0.35, 0.12], corte: 3000, dur: 0.95, nivel: 1.1 },
+  /* o L sozinho soava como zumbido: agora é mais escuro (a língua no céu da boca abafa o
+     brilho) e, no fim, solta a língua num "â" bem curtinho, que é o que faz o ouvido reconhecer o L */
+  som_l: { tipo: 'soante', f: [340, 1100, 2700], g: [1, 0.25, 0.05], corte: 2000, dur: 0.95, nivel: 1.1, para: APOIO, soltaEm: 0.75 },
   som_lh: { tipo: 'soante', f: [300, 2150, 3000], g: [1, 0.3, 0.12], corte: 4000, dur: 0.7, nivel: 1, para: E_ABERTO },
   som_nh: { tipo: 'soante', f: [260, 2100, 2900], g: [1, 0.12, 0.06], corte: 2400, dur: 0.7, nivel: 1.2, para: E_ABERTO },
   som_s: { tipo: 'chiado', filtros: [{ tipo: 'highpass', f: 4200, q: 0.7 }, { tipo: 'peaking', f: 7000, q: 1.2 }], nivel: 0.5, vozeada: false, dur: 0.95 },
@@ -222,8 +226,8 @@ function soante(ctx: BaseAudioContext, saida: AudioNode, t: number, dur: number,
   voz(ctx, t, dur).connect(b.entrada);
   if (r.para) {
     /* segura a consoante um pouco e escorrega para a vogal */
-    const ini = t + dur * 0.35;
-    const fim = t + dur * 0.55;
+    const ini = t + dur * (r.soltaEm ?? 0.35);
+    const fim = ini + dur * 0.2;
     b.filtros.forEach((fl, i) => {
       fl.frequency.setValueAtTime(r.f[i]!, ini);
       fl.frequency.linearRampToValueAtTime(r.para![i]!, fim);
@@ -334,7 +338,7 @@ function estalo(ctx: BaseAudioContext, saida: AudioNode, t0: number, r: Estalo):
  * consoantes que se seguram logo atrás e F e R (que são sopro) mais baixos,
  * como na fala. Refazer a medida quando mudar uma receita (scripts/fonemas.mjs).
  */
-const VOLUME: Record<string, number> = { som_a: 0.364, som_e: 0.224, som_e2: 0.109, som_i: 0.08, som_o: 0.213, som_o2: 0.102, som_u: 0.102, som_m: 0.022, som_n: 0.024, som_l: 0.083, som_lh: 0.072, som_nh: 0.035, som_s: 0.242, som_z: 0.273, som_x: 0.537, som_j: 0.377, som_f: 0.53, som_v: 0.4, som_r: 0.56, som_p: 0.437, som_b: 0.412, som_t: 0.436, som_d: 0.411, som_c: 0.437, som_g: 0.412 };
+const VOLUME: Record<string, number> = { som_a: 0.364, som_e: 0.224, som_e2: 0.109, som_i: 0.08, som_o: 0.213, som_o2: 0.102, som_u: 0.102, som_m: 0.022, som_n: 0.024, som_l: 0.074, som_lh: 0.072, som_nh: 0.035, som_s: 0.242, som_z: 0.273, som_x: 0.537, som_j: 0.377, som_f: 0.53, som_v: 0.4, som_r: 0.56, som_p: 0.437, som_b: 0.412, som_t: 0.436, som_d: 0.411, som_c: 0.437, som_g: 0.412 };
 
 /**
  * Agenda o som `id` no contexto, começando em `t`, e devolve quanto dura.

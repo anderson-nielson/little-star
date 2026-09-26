@@ -43,8 +43,8 @@ const esperar = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
 /**
  * Uma frase de ensinar com o som no meio: o texto vai para a voz do aparelho
- * e cada `{som_x}` é o som da letra, montado aqui. "{som_s}... {som_s}, de
- * sapo" soa "sss... sssss, de sapo", sem a voz do aparelho dizer "esse".
+ * e cada `{som_x}` é o som da letra, montado aqui. "{som_s}... {som_s}...
+ * sapo" soa "sss... sssss... sapo", sem a voz do aparelho dizer "esse".
  * Um `{som_x:1.6}` estica o som. Reticências viram uma pausa curta.
  */
 export async function dizerComSons(frase: string): Promise<void> {
@@ -62,9 +62,10 @@ export async function dizerComSons(frase: string): Promise<void> {
 }
 
 /**
- * A frase do caderno e da areia: o som curto, o som esticado e a figura que
- * começa com ele ("sss... sssss, de sapo"). Nunca o nome da letra.
+ * A frase do caderno e da areia: o som curto, o som esticado e, depois de
+ * uma pausa, a figura que começa com ele ("sss... sssss... sapo"). Sem "de"
+ * no meio: só o som e a palavra. Nunca o nome da letra.
  */
 export function fraseDeEnsinar(som: string, figura: string): string {
-  return `{${som}}... {${som}:1.6}, de ${figura}`;
+  return `{${som}}... {${som}:1.6}... ${figura}`;
 }

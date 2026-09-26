@@ -539,7 +539,7 @@ de formantes feito com o que o Web Audio já tem. Vogais, M, N e L são uma onda
 passando por três filtros afinados nas ressonâncias da boca; S, F, X e R são ruído filtrado
 no lugar do chiado de cada um (Z, V e J somam o zumbido da garganta); P, T, C, B, D e G são um
 estouro curto com um "â" curtinho depois. Nas frases de ensinar do caderno e da areia, o som
-sintetizado entra no meio da voz do aparelho: "sss... sssss, de sapo", em que só "de sapo" é
+sintetizado entra no meio da voz do aparelho: "sss... sssss... sapo", em que só "sapo" é
 voz do aparelho. A bancada para ouvir e ajustar os sons fica fora do jogo; `npm run fonemas`
 mede o volume de cada um. Com o fônico, essa gravação passou a ser a mais
 importante do jogo; ver a lista na seção 15.4.
