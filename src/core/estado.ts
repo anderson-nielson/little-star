@@ -44,6 +44,8 @@ export interface Hoje {
   pratoFeito: boolean;
   somFeito: boolean;
   despedidaFeita: boolean;
+  /** os bichos foram cuidados hoje */
+  bichosFeitos: boolean;
   /** cores provadas hoje */
   prato: CorDeComida[];
   /** passos da rotina da noite tocados */
@@ -163,6 +165,7 @@ export function hojeVazio(dia: string): Hoje {
     pratoFeito: false,
     somFeito: false,
     despedidaFeita: false,
+    bichosFeitos: false,
     prato: [],
     rotinaNoite: [],
     segundos: 0,

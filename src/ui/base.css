@@ -787,3 +787,33 @@ body {
     animation: none;
   }
 }
+
+/* o que ainda não abriu na casa: silhueta, sem cor, sem toque que leve a algum lugar */
+.fechado {
+  filter: grayscale(1);
+  opacity: 0.35;
+}
+/* onde a Stella está: o mesmo bloco da ajuda, sem o toque de abrir */
+.opcoes-onde {
+  margin: 0 0 var(--e3);
+  padding: var(--e3) var(--e4);
+  border-radius: var(--r-folha);
+  background: var(--toque);
+  font-size: var(--t-rotulo);
+  color: var(--txt);
+}
+.opcoes-onde h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--e2);
+  min-height: 44px;
+  margin: 0;
+  font-size: var(--t-rotulo);
+  font-weight: 500;
+}
+.opcoes-onde p {
+  margin: var(--e2) 0 0;
+}
+.opcoes-onde .opcoes-nota {
+  color: var(--txt-2);
+}

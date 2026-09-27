@@ -187,3 +187,30 @@ describe('a luz da casa', () => {
     expect(carimbosDoBilhete(['A', 'E', 'L', 'S', 'T', 'O', 'M', 'U', 'I', 'V'])).toEqual(['A', 'E', 'I', 'O', 'U', 'L', 'S', 'T', 'M']);
   });
 });
+
+describe('a rotina ilustrada do dia', () => {
+  it('na primeira sessão são só a brincadeira do dia e a despedida', async () => {
+    const { rotinaDoDia, passoDeAgora } = await import('@/core/laco');
+    const e = abrirDia(estadoNovo(dia(15)), dia(15));
+    const passos = rotinaDoDia(e, dia(15));
+    expect(passos.map((p) => p.passo)).toEqual(['brincadeira', 'despedida']);
+    expect(passos[0]!.coisa).toBe('piano');
+    expect(passoDeAgora(passos)).toBe('brincadeira');
+  });
+
+  it('com a casa aberta vem a fila inteira, e o passo de agora é o primeiro que falta', async () => {
+    const { rotinaDoDia, passoDeAgora } = await import('@/core/laco');
+    let e = estadoNovo(dia(15));
+    for (let d = 1; d <= 8; d++) e = abrirDia(e, dia(15, 0, d));
+    const passos = rotinaDoDia(e, dia(15, 0, 8));
+    expect(passos.map((p) => p.passo)).toEqual(['roda', 'prato', 'som', 'brincadeira', 'bichos', 'despedida']);
+    e.hoje.rodaFeita = true;
+    e.hoje.pratoFeito = true;
+    expect(passoDeAgora(rotinaDoDia(e, dia(15, 0, 8)))).toBe('som');
+    e.hoje.somFeito = true;
+    marcarBrincada(e, passos[3]!.coisa!);
+    e.hoje.bichosFeitos = true;
+    e.hoje.despedidaFeita = true;
+    expect(passoDeAgora(rotinaDoDia(e, dia(15, 0, 8)))).toBeNull();
+  });
+});

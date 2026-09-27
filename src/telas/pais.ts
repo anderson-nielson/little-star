@@ -1,4 +1,4 @@
-import { brincouHoje, COISAS, disponivel, etapa, luzDaCasa, novidade, SESSAO_COMPLETA, sessaoQueAbre, tarefasAtivas, type Coisa } from '@/core/laco';
+import { brincouHoje, COISAS, disponivel, etapa, luzDaCasa, NOME_COISA, novidade, SESSAO_COMPLETA, sessaoQueAbre, tarefasAtivas, type Coisa } from '@/core/laco';
 import { SEGUNDOS_DO_CHAMADO, type SomDoChamado } from '@/core/chamado';
 import { ajustar, PEDRINHAS } from '@/core/pedrinhas';
 import { apagarTudo, CORES_DE_COMIDA, estado, estadoNovo, hojeVazio, mudar, substituir, TAREFAS, type CorDeComida, type Tarefa } from '@/core/estado';
@@ -16,7 +16,6 @@ import type { Tela } from '@/core/roteador';
 const NUMEROS = ['dois', 'três', 'quatro', 'cinco', 'seis', 'sete', 'oito', 'nove'];
 const DONO = { mae: 'Andrea', pai: 'Anderson', theo: 'Theo', qualquer: 'Qualquer um' };
 const NOME_COR: Record<CorDeComida, string> = { vermelho: 'Vermelho', laranja: 'Laranja', amarelo: 'Amarelo', verde: 'Verde', roxo: 'Roxo', marrom: 'Branco ou marrom' };
-const NOME_COISA: Record<Coisa, string> = { piano: 'Piano', caderno: 'Caderno de letras', som: 'Mural das figuras (som do dia)', palavras: 'Mala de palavras', areia: 'Caixa de areia', pinhas: 'Pinhas', jardim: 'A porta (aventuras)', familia: 'A família na sala', cozinha: 'Cozinha', ukulele: 'Ukulele', bonecas: 'Bonecas', bilhete: 'Bilhetinho', relogio: 'Relógio', horta: 'Horta', arvore: 'Árvore do quintal', parquinho: 'Parquinho do condomínio' };
 const NOME_TAREFA: Record<Tarefa, string> = { cama: 'Arrumou a cama', dentes: 'Escovou os dentes', brinquedos: 'Guardou os brinquedos', banho: 'Tomou banho', quarto: 'Arrumou o quarto', gentil: 'Foi gentil com alguém', parquinho: 'Brincou no parquinho' };
 
 /**
