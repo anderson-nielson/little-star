@@ -22,7 +22,7 @@ interface Letra {
 const letras = letrasJson as Letra[];
 
 /**
- * Som do dia: o Theo diz o som da semana, esticado; três figuras grandes;
+ * Som do dia: o som da semana soa esticado; três figuras grandes;
  * ela toca na que começa com o som. Qualquer toque é recebido: a certa ganha
  * festa; as outras dizem o próprio nome e o próprio som.
  */
@@ -34,7 +34,7 @@ export function telaSom(): Tela {
 
   let s = `<rect width="390" height="780" fill="#f6e3dc"/>` + veu(0, 0, 390, 780, '#ebcdc3', 5, 0.25);
   s += `<path d="M36 720V210a159 159 0 0 1 318 0v510z" fill="#fbf8f1"/><path d="M36 720V210a159 159 0 0 1 318 0v510" fill="none" stroke="#c6a15b" stroke-width="1.5"/><line x1="36" y1="720" x2="354" y2="720" stroke="#c6a15b" stroke-width="1.5"/>`;
-  s += `<g class="theo">${familia.theo(84, 712, 118, 'aponta').svg}</g>`;
+  s += `<g class="stella">${familia.stella(84, 712, 80, 'parado').svg}</g>`;
   s += `<text x="270" y="690" text-anchor="middle" font-family="Jost, sans-serif" font-size="72" font-weight="500" fill="#f2a9c4">${letra.id}</text>`;
   s += `<g class="figuras"></g><g class="luz"></g>`;
   const tela = telaSvg(s);
@@ -86,7 +86,7 @@ export function telaSom(): Tela {
       const [x, y] = posicoes[i]!;
       camada.innerHTML += `<g data-fig="${id}" data-x="${x}" data-y="${y}">${arco(x! - 64, y! - 80, 128, 160, '#f6f0e4', '#c6a15b')}${figura(id, x!, y!, 100)}</g>`;
     });
-    /* o Theo diz o som */
+    /* o som da semana */
     await esperar(400);
     /* o som curto e o som esticado, como na sala: "sss... sssss" */
     if (!(await falarSom(letra.som))) await esperar(900);
@@ -98,7 +98,7 @@ export function telaSom(): Tela {
     if (!vivo) return;
     const meuTurno = rodada;
     let esperando = true;
-    /* ajuda: depois de 6 s a figura certa respira mais; depois de 12 o Theo aponta com a mãozinha */
+    /* ajuda: depois de 6 s a figura certa respira mais; depois de 12 a mãozinha aponta */
     const timer = window.setInterval(() => {
       if (!vivo || !esperando || rodada !== meuTurno) return window.clearInterval(timer);
       ajuda.tick(1);

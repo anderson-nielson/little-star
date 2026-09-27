@@ -84,8 +84,8 @@ export function telaPalavra(params: Record<string, string>): Tela {
   for (let k = 0; k < 3; k++) s += `<g class="etapa" data-k="${k}" opacity="0.35">${centelha(195 + (k - 1) * 30, YE, 18, LUZ)}</g>`;
   /* a figura, grande, ainda adormecida até a palavra ser lida */
   s += `<g class="objeto" opacity="0.6">${arco(150, 478, 150, 190, '#f6f0e4', OURO)}${figura(p.figura, FX, FY, 116)}</g>`;
-  /* o Theo, que mostra */
-  s += `<g class="theo">${familia.theo(70, 712, 104, 'aponta').svg}</g>`;
+  /* a Stella, que lê */
+  s += `<g class="stella">${familia.stella(70, 712, 72, 'parado').svg}</g>`;
   const espanhol = espanholAtivo(e0);
   if (espanhol) s += `<g class="estrellita">${familia.boneca(340, 600, 44, 0).svg}</g>`;
   /* a próxima palavra da fila, guardada até esta ficar pronta */

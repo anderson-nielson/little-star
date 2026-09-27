@@ -229,7 +229,7 @@ export function telaPais(): Tela {
       h(
         'p',
         {},
-        'A cada avanço dela (uma tarefa contada, uma letra, um som, a chegada, um bilhete) um balão aparece no topo da tela com uma frase curta para vocês lerem em voz alta. Ela não lê; vocês leem para ela. As frases nomeiam o que ela fez de verdade, dizem o carinho e a segurança da família, e colocam o mano (o Theo, como ela chama) como quem torce por ela, nunca como medida. Sem comparação, sem "melhor que". O balão fica na tela até vocês tocarem no "x" para fechar.',
+        'A cada avanço dela (uma tarefa contada, uma letra, um som, a chegada, um bilhete) um balão aparece no topo da tela com uma frase curta para vocês lerem em voz alta. Ela não lê; vocês leem para ela. As frases nomeiam o que ela fez de verdade, dizem o carinho e a segurança da família, e deixam o mérito com ela: ninguém ensina, segura ou resolve no lugar dela. O mano (o Theo, como ela chama) aparece pouco, como família por perto, nunca como medida. Sem comparação, sem "melhor que". O balão fica na tela até vocês tocarem no "x" para fechar.',
       ),
     );
     const bNarra = h('button', { type: 'button', class: e.pais.narracao ? 'ligado' : '' }, e.pais.narracao ? 'Ligada' : 'Desligada');

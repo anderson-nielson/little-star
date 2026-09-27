@@ -200,9 +200,9 @@ Quatro personagens desenhados pela mesma marionete do Ponta (membros afilados, c
 dados), com proporções próprias.
 
 **A referência é *Charlie e Lola*.** A família diz que a Stella e o Theo lembram os dois
-irmãos do desenho: o irmão mais velho, paciente, que explica o mundo para a irmã pequena, e
-ela, cheia de opinião e imaginação. O jogo pega **a relação**, não o desenho: o Theo é quem
-mostra, explica e anima; a Stella é quem descobre. O traço continua o do Ponta (vetor, fio,
+irmãos do desenho. O jogo pega **o carinho entre os dois**, não o desenho, e não o papel de
+irmão que explica o mundo: aqui a Stella descobre sozinha, e o mérito de cada avanço é dela.
+O Theo é família por perto, sem ensinar, segurar ou resolver por ela. O traço continua o do Ponta (vetor, fio,
 marionete por dados). Nada de copiar personagens, colagem ou estilo visual do desenho.
 
 | Quem | Jeito | Onde aparece |
@@ -210,7 +210,7 @@ marionete por dados). Nada de copiar personagens, colagem ou estilo visual do de
 | **Stella** | 5 anos, pequena, loirinha, cabelo bem liso passando do ombro, solto no dia a dia e em coque no palco. Tutu rosa. | Tudo. |
 | **Mãe Andrea** | Aconchego. Recebe, abraça, cozinha junto, põe para dormir. | Porta, cozinha, hora de dormir, primeira fila do palco. |
 | **Pai Anderson** | Parceria e brincadeira. Gira a Stella no ar, ri junto. | Volta das aventuras, brinquedos, caderno, aplauso. |
-| **Theo** | 10 anos, o dobro da altura dela, cabelo castanho bem claro, quase loiro, muito cacheado. O irmão que explica e cuida, como o Charlie. | Guia do caderno (ele já sabe escrever e mostra as letras), companheiro nas aventuras (segura os galhos da árvore, pesca do lago), brinca de boneca e de música. |
+| **Theo** | 10 anos, o dobro da altura dela, cabelo castanho bem claro, quase loiro, muito cacheado. O irmão que está por perto. | Na porta, na roda (pergunta da gentileza), na mesa da cozinha, na plateia do palco, na outra ponta da gangorra, no relógio (pede uma hora) e no boa-noite. Não ensina, não segura e não resgata: quem faz é ela. |
 
 **Como o amor aparece**, sempre sem texto:
 - **Abraço** tem animação própria: quem abraça se abaixa até a altura dela. Centelhas rosa e
@@ -226,8 +226,8 @@ marionete por dados). Nada de copiar personagens, colagem ou estilo visual do de
   um som, a chegada, um bilhete, a medalha) um balão de história em quadrinhos aparece
   suave no topo da tela com uma frase curta para a mãe, o pai ou o Theo lerem em voz alta.
   Ela não lê; quem está ao lado lê para ela. Toda frase faz três coisas: nomeia o que ela
-  fez de verdade (a força dela), diz o carinho e a segurança da família, e coloca o Theo
-  como quem torce por ela e faz junto, nunca como medida. Sem comparação, sem "melhor que",
+  fez de verdade (a força dela), diz o carinho e a segurança da família, e deixa o mérito
+  com ela. O Theo aparece pouco, como família por perto, nunca como medida nem como motivo. Sem comparação, sem "melhor que",
   sem cobrança. As frases vivem em `src/data/narracao.json` e se revezam; o balão fica na
   tela até um toque no "x". Quando ela volta a tocar na cena, ele se recolhe numa bolinha no
   alto, para não cobrir a casinha nem a trilha do avanço; tocar na bolinha abre a frase de
@@ -257,8 +257,8 @@ Nele moram duas coisas que são dela de verdade:
   cheia de areia clara, vista de cima quando ela toca. É o símbolo do jogo no mundo dela:
   a Little Star tem uma estrela no quintal. Ali ela:
   - **Escreve na areia.** O caderno tem uma irmã: as mesmas letras da seção 9, traçadas com o
-    dedo na areia, que fica marcada no sulco. Um toque com a mão toda (ou o Theo passando o
-    rastelo) alisa a areia de novo. Escrever na areia não tem página certa nem erro, e apagar
+    dedo na areia, que fica marcada no sulco. Um toque com a mão toda (ou o rastelo
+    passando) alisa a areia de novo. Escrever na areia não tem página certa nem erro, e apagar
     é parte da brincadeira.
   - **Cava tesouros.** Toca na areia, cava, e encontra uma letra de brinquedo enterrada. A
     letra sai, diz o próprio som ("mmm") e a palavra de um objeto que aparece junto (M, "mmm,
@@ -269,11 +269,10 @@ Nele moram duas coisas que são dela de verdade:
   pinhas (se a árvore de verdade for outra, fica a de verdade, com um pinheiro ao lado). Ela ama subir
   em árvore, então subir aqui é uma atividade em si, sem pressa e sem obstáculo: cada toque
   num galho mais alto e ela sobe até ele. Lá de cima ela vê o céu da hora de verdade, a casa
-  verde de cima, o Theo acenando embaixo. À noite, do galho mais alto se vê a estrela nova de
+  verde de cima, a família acenando embaixo. À noite, do galho mais alto se vê a estrela nova de
   cada noite. A árvore também é o começo da aventura 12.2.
 
-Segurança sem sermão: na árvore, a família está sempre embaixo olhando, e o Theo sobe junto
-nos galhos baixos. O jogo não ensina a subir mais alto do que ela sobe de verdade; mostra que
+Segurança sem sermão: na árvore, a família está sempre embaixo olhando, e quem sobe é ela. O jogo não ensina a subir mais alto do que ela sobe de verdade; mostra que
 subir é gostoso quando tem alguém perto.
 
 **As pinhas.** A Stella ama pinhas, muito. Elas estão pelo jogo todo, como tesouro:
@@ -324,7 +323,7 @@ Cada tarefa tem um objeto grande na casa (não um botão) e uma cena curta.
 | Comer colorido | o prato na mesa | Ela toca nas cores que provou (seção 8.4) | Uma flor de cada cor no canteiro |
 | Arrumar o quarto | o chão bagunçado | Toca nas coisas, elas voam para o lugar | Tapete ou luzinha |
 | Guardar os brinquedos | a caixa | Bonecas e blocos pulam para a caixa, o pai comemora | Prateleira nova |
-| Ser gentil | o Theo | Ela dá um abraço ou empresta um brinquedo | Desenho do Theo na parede |
+| Ser gentil | a Stella e o gatinho | Ela dá um abraço ou empresta um brinquedo | Desenho na parede |
 | Escovar os dentes | a pia | Espuma rosa, escova no ritmo da música | Brilho no espelho |
 | Tomar banho | a banheira | Bolhas que ela estoura | Patinho na janela |
 | Dormir na hora e sozinha | a cama, à noite | A cena de boa noite (8.3) | Estrela nova no céu do quarto |
@@ -398,7 +397,7 @@ comida e com a fome. Por isso:
   cantinho dos pais, com a explicação.
 
 **O que ajuda além da flor** (e costuma funcionar melhor que qualquer prêmio):
-- **Ver quem ela ama comendo.** No jogo, o Theo come brócolis rindo, o coelhinho come
+- **Ver quem ela ama comendo.** No jogo, a família come a comidinha que ela fez, o coelhinho come
   cenoura, a mãe e o pai provam coisas novas na cozinha. Criança come o que vê comer.
 - **Brincar com a comida antes de comer.** Na horta (abaixo) e na comidinha
   com a mãe, ela planta, colhe, lava e mistura legumes coloridos. Mexer com o alimento sem
@@ -454,9 +453,8 @@ língua da sala de aula, para não confundir:
   português falado, L no fim da sílaba soa U (SOL se fala "sou"), por isso o L só aparece
   no começo da sílaba nas primeiras palavras.
 
-O **Theo** é o professor do caderno, como o Charlie que explica as coisas para a Lola: ele
-senta ao lado dela, desenha a letra primeiro (a estrela guia sai do lápis dele) e comemora
-quando ela termina. Irmão mais velho ensinando é uma cena que ela reconhece.
+No caderno **ninguém ensina por ela**: a Stella está na página, a estrela guia mostra o
+caminho e a letra é dela. A comemoração diz "Foi você que fez essa letra!".
 
 1. **Traços antes das letras**: linha em pé, linha deitada, linha inclinada, bolinha, curva,
    ponte. Cada traço é uma coisa do mundo dela (a chuva cai: linha em pé; a onda do lago:
@@ -525,7 +523,7 @@ e I). Um teste automático guarda a regra.
 - Dos bichos: GATO, COELHO (o LH é difícil, entra depois), PATO, SAPO, VACA.
 - Das aventuras: FITA, TUTU, SAPATILHA (a longa e divertida de bater: SA-PA-TI-LHA).
 
-**Achar o som.** Um joguinho curto no caderno, depois de algumas letras traçadas: o Theo diz
+**Achar o som.** Um joguinho curto no caderno, depois de algumas letras traçadas: o jogo diz
 "ssss" e mostra três coisas (sapo, gato, lua). Ela toca na que começa com "ssss". Qualquer
 toque é recebido: a certa ganha festa; as outras dizem o próprio nome e o próprio som ("lua,
 lll"), para ela ouvir a diferença sem ouvir "errado".
@@ -630,7 +628,7 @@ cipós e troncos ela sobe sozinha. A árvore é o pinheiro do quintal. Lá em ci
 brincalhão, com um gorrinho de soldadinho do Quebra-Nozes, rola pinhas galho abaixo, como os
 barris do Donkey Kong. Só que ela ama pinhas, então **pinha é presente**: **toque = pular**, e
 no pulo ela gira no ar e pega a pinha lá de cima, que vai para a cestinha. Se não pular, a
-pinha quica nela com um "toc" engraçado, ela ri, e a pinha cai na cestinha do Theo lá
+pinha quica nela com um "toc" engraçado, ela ri, e a pinha cai na cestinha lá
 embaixo. De um jeito ou de outro, toda pinha chega em casa; pular só deixa mais bonito. No
 topo, o gatinho pula no colo dela, o esquilo vira amigo e desce junto para dançar no palco, e
 as pinhas da aventura vão para a mesa da estação.
@@ -638,8 +636,8 @@ as pinhas da aventura vão para a mesa da estação.
 ### 12.3 O Lago dos Cisnes (inspirado em Frostbite e Freeway)
 Atravessar o lago de baixo para cima pulando em vitórias-régias e cisnes que nadam em faixas.
 **Toque = pular para a frente.** As faixas andam devagar e o pulo espera o cisne chegar.
-Cada travessia acende uma parte do coreto do outro lado. Caiu na água? O Theo a pesca com
-uma rede de borboleta, sem perder nada.
+Cada travessia acende uma parte do coreto do outro lado. Caiu na água? Splash, ela senta, sacode e
+sobe de novo sozinha, sem perder nada.
 
 ### 12.4 O Palco
 Cortina de veludo, luz de ribalta. A Stella dança com a música da aventura; tocar faz ela
@@ -652,8 +650,8 @@ abraço na coxia, volta para casa.
   volta); nas duas primeiras aventuras, a cada quatro. Em dados (`JARDIM`, em
   `src/telas/jardim.ts`).
 - Se ela não toca, a Stella não fica presa: depois de duas tentativas no mesmo obstáculo, a
-  mãozinha mostra o toque; depois de três, ela passa sozinha com uma ajudinha (o Theo empurra
-  a vitória-régia, o esquilo manda a pinha devagarinho).
+  mãozinha mostra o toque; depois de três, ela passa sozinha com uma ajudinha (a vitória-régia
+  chega perto, o esquilo manda a pinha devagarinho).
 - Toda aventura termina, mesmo sem nenhum toque. O palco sempre chega.
 
 ## 13. Estética

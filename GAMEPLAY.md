@@ -65,7 +65,7 @@ precisa agir, porque o próprio laço termina antes.
 O laço **respira**, como se diz em Waldorf: um momento de atenção, um momento solto. A roda e o
 som do dia pedem atenção; a brincadeira do dia solta; o livre solta mais; os bichos acalmam; a
 despedida fecha. A roda e o som do dia vêm seguidos, as duas únicas partes de atenção, e
-somam menos de três minutos; o som do dia é contado pelo Theo como história curta, para
+somam menos de três minutos; o som do dia vem como história curta, para
 mudar o tom. A brincadeira do dia e o livre são a própria casa: depois do som, a casa abre
 com o objeto do dia pulsando, e depois de cinco minutos de casa a família chama para os bichos.
 
@@ -88,7 +88,7 @@ eletrônica. Cada um tem um papel claro.
 |---|---|---|
 | **Stella** | Todos os toques, arrastos e traços. Escolhe o que brincar no livre. Dá nome aos bichos. | Nada de ler, nada de configurar. |
 | **Adulto (Andrea ou Anderson)** | Faz as perguntas da roda em voz alta ("você arrumou a cama hoje?"). Confirma tarefas e cores no cantinho dos pais, se quiser. Repete os sons com ela. Faz o convite da despedida virar verdade. | Não toca na tela por ela, a não ser que ela peça. Não corrige letra. Não negocia comida com o jogo. |
-| **Theo** | Pode ser o adulto da sessão (ele tem 10 anos e é o professor do caderno no jogo). Brinca de "achar o som" com ela fora da tela. | O mesmo que o adulto. |
+| **Theo** | Pode ser o adulto da sessão (ele tem 10 anos). Brinca de "achar o som" com ela fora da tela. | O mesmo que o adulto. E não ensina por ela: no jogo, quem descobre é ela. |
 
 **Sozinha.** Depois que ela conhece o laço (umas duas semanas), pode jogar sem ninguém. O
 jogo funciona igual; a diferença é que ninguém confirma as tarefas e ninguém faz a roda em
@@ -203,16 +203,16 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
 - **Para quê**: ouvir e reconhecer um som, no jeito do método fônico. É o momento de leitura
   de todo dia, curto de propósito.
 - **Como**:
-  1. O Theo aparece com o caderno. Diz o som da semana, esticado: "sss".
-  2. **Achar o som**: aparecem três figuras grandes (sapo, lua, bola). O Theo repete "sss".
+  1. A Stella aparece com o caderno. O som da semana soa esticado: "sss".
+  2. **Achar o som**: aparecem três figuras grandes (sapo, lua, bola). O som repete "sss".
      Ela toca numa. Cada figura diz o próprio nome e o próprio som inicial ("lua, lll"). A que
      começa com "sss" ganha festa e a letra S aparece em cima dela.
   3. Três rodadas, com figuras diferentes. Na terceira, se ela acertou as duas primeiras, as
      figuras são quatro.
 - **Dura**: cerca de 1 minuto.
-- **Acaba**: o Theo fecha o caderno e acena.
+- **Acaba**: o caderno fecha.
 - **Ajuda**: A1, a figura certa respira um pouco mais que as outras depois do segundo "sss".
-  A2, o Theo aponta para ela.
+  A2, a mãozinha aponta para ela.
 - **Cresce**: nada visível. É treino, e o que cresce é a letra quando ela traçar (6.5).
 
 ### 6.5 O caderno: a letra da semana
@@ -220,11 +220,11 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
 - **Para quê**: aprender a forma de uma letra ligada ao som, pela imagem, no jeito Waldorf.
 - **Quando**: é a brincadeira do dia na terça e aparece sempre que ela tocar no caderno.
 - **Como**:
-  1. **A história** (20 segundos): o Theo conta em duas frases e desenha a imagem com traços
+  1. **A história** (20 segundos): a voz conta em duas frases e desenha a imagem com traços
      lentos. "O gatinho acordou e enrolou o rabo, assim." O rabo do gatinho fica desenhado.
   2. **A letra sai da imagem**: a fita rosa do S aparece por cima do rabo, e a imagem fica
      fraquinha atrás.
-  3. **A estrela guia** sai do lápis do Theo e percorre a fita, devagar, no sentido certo,
+  3. **A estrela guia** sai do lápis e percorre a fita, devagar, no sentido certo,
      enquanto a voz diz "sss".
   4. **Ela traça** com o dedo. Onde o dedo passa, a fita enche de rosa. Se ela tirar o dedo,
      o que já encheu fica. Letra de mais de um traço: cada traço tem seu ponto de partida,
@@ -252,7 +252,7 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
 - **Para quê**: juntar sons em palavras, o passo em que ela sente que leu.
 - **Como, em qualquer lugar da casa**: tocar num objeto que tem palavra (gato, sol, lua, mala,
   bola, pinha) faz a palavra aparecer grande em cima dele, em letra bastão, só com letras que
-  ela já aprendeu ou está aprendendo. A voz diz a palavra. O Theo está no canto, mostrando.
+  ela já aprendeu ou está aprendendo. A voz diz a palavra. A Stella está no canto, lendo.
 - **O escorregador de sons**, sempre nas mesmas quatro etapas, na ordem do fônico. O que
   fazer é mostrado, nunca dito:
   1. **Ouvir.** A voz diz a palavra inteira. Embaixo da palavra há uma fita reta, da esquerda
@@ -303,7 +303,7 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
     o sulco fica, e a letra enche de ouro por onde o dedo passou: um sininho a cada traço, e
     quando a letra fica inteira, centelhas, a conta da trilha enche, o som da letra de novo,
     a areia se alisa sozinha e a próxima letra chega. Ou ela desenha o que quiser, e o sulco
-    fica também. Tocar o rastelo do Theo alisa tudo e traz outra letra.
+    fica também. Tocar o rastelo alisa tudo e traz outra letra.
   - **Pá, cavar tesouro**: três montinhos de areia com um brilho mostram onde tem tesouro. Ela
     toca num montinho e cava: aparece uma letra de madeira, que diz o som, e em cima dela a
     figura de uma palavra que começa com ela ("mmm, mala"). Às vezes, no lugar da letra, uma
@@ -405,7 +405,7 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
 - **Como**: a casa escurece, a lira toca a *Canção de ninar* de Brahms. Não há roda nem
   brincadeira. Só a **rotina da noite**, cinco toques, um de cada vez, cada um com sua cena
   curta: banheira (banho), escova (dentes), pijama, livrinho, abajur. No abajur, a luz apaga, a
-  mãe e o pai dão boa noite, o Theo acena da porta, o gatinho sobe na cama.
+  mãe e o pai dão boa noite, o Theo dá boa noite também, o gatinho sobe na cama.
 - **Dura**: 2 minutos.
 - **Acaba**: a tela escurece até o azul da noite e o jogo fecha. Até a manhã, abrir o jogo
   mostra só a Stella dormindo e a canção baixinha, por 20 segundos, e fecha de novo.
@@ -452,7 +452,7 @@ continua de onde parou.
 | Sessão | O que se abre | O momento |
 |---|---|---|
 | 1 | A casa, a família, o quarto rosa, o piano | Na despedida, uma cestinha na porta. Dentro, um gatinho. Ela escolhe o nome entre três, ditos em voz alta. O sonho dela, no primeiro dia. |
-| 2 | A roda do dia e o caderno com o Theo | A primeira letra: A, o telhado da casa verde |
+| 2 | A roda do dia e o caderno | A primeira letra: A, o telhado da casa verde |
 | 3 | O quintal e a caixa de areia em estrela | O coelhinho aparece na grama, e ela dá o nome |
 | 4 | O prato colorido e o canteiro | A primeira flor nasce |
 | 5 | O pinheiro, as pinhas, a mesa da estação | Uma pinha cai bem perto dela |
@@ -548,7 +548,7 @@ Para a primeira vez, com a Stella no colo. Uns 10 minutos.
   conversa ("vamos lá ver?"), não acusação.
 - **Termine na despedida.** Quando a porta fechar, fechar o celular e fazer o convite.
 - **Leia o balão em voz alta.** A cada avanço dela, um balão no topo traz uma frase para
-  quem está ao lado ler para ela: o que ela fez, o carinho da família, o Theo torcendo.
+  quem está ao lado ler para ela: o que ela fez e o carinho da família. O mérito é dela.
   Leia com a sua voz, no seu jeito; a frase é só um começo. Se ela estiver jogando sozinha,
   desligue no cantinho, porque o texto é para quem lê, não para ela.
 

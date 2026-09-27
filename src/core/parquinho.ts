@@ -31,7 +31,7 @@ export const IMPULSO = 0.85;
 export const AMPLITUDE_PARA_CONTAR = 0.15;
 /** ela já conta até dez no balanço de verdade */
 export const CONTA_ATE = 10;
-/** com o balanço assim de alto o Theo bate palma */
+/** com o balanço assim de alto vem a palma */
 export const AMPLITUDE_ALTA = 0.55;
 
 export function novoBalanco(): Balanco {
@@ -100,9 +100,9 @@ export function parado(b: Balanco): boolean {
 /* ---------- a gangorra ---------- */
 
 /**
- * A gangorra: ela numa ponta, o Theo de pé na outra segurando a tábua. Só o
- * pé no chão faz subir; lá em cima ela fica um instante e desce devagar,
- * porque ele segura. Nunca bate no chão.
+ * A gangorra: ela numa ponta, o Theo na outra. Só o pé dela no chão faz
+ * subir; lá em cima ela fica um instante e desce devagar, macia. Nunca bate
+ * no chão.
  */
 export interface Gangorra {
   /** ângulo da tábua; positivo é o lado dela para cima */
@@ -113,7 +113,7 @@ export interface Gangorra {
 export const GANGORRA_MAX = 0.3;
 const GANGORRA_OMEGA = 2.4;
 const GANGORRA_AMORTECIMENTO = 0.12;
-/** o Theo segurando a tábua na descida: quase crítico, nunca bate */
+/** a descida macia: quase crítico, nunca bate */
 const GANGORRA_SEGURA = 1.3;
 export const EMPURRAO = 2.6;
 
@@ -134,7 +134,7 @@ export function empurrar(g: Gangorra): boolean {
 
 /** Um passo. Devolve true no instante em que o lado dela volta ao chão. */
 export function passoGangorra(g: Gangorra, dt: number): boolean {
-  /* o lado dela é o pesado: descansa no chão. Descendo, o Theo segura: a descida é macia. */
+  /* o lado dela é o pesado: descansa no chão. Descendo, a tábua freia: a descida é macia. */
   const segurando = g.om < 0 && g.th < 0 ? GANGORRA_SEGURA : GANGORRA_AMORTECIMENTO;
   const acc = -GANGORRA_OMEGA * GANGORRA_OMEGA * (g.th + GANGORRA_MAX * 1.15) - 2 * segurando * GANGORRA_OMEGA * g.om;
   g.om += acc * dt;

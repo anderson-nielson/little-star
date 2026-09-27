@@ -27,7 +27,7 @@ const GALHOS: [number, number][] = [
 /**
  * Subir na árvore grande, sem pressa e sem obstáculo: cada toque num galho
  * mais alto e ela sobe até ele. Lá de cima vê o céu da hora, a casa verde de
- * cima e o Theo acenando embaixo. À noite, do galho mais alto, a estrela nova.
+ * cima e a família acenando embaixo. À noite, do galho mais alto, a estrela nova.
  * Se o gatinho subiu ao topo, esta cena só mostra ele lá em cima: tocar nele
  * (ou num galho) começa a aventura da Árvore Grande, que é a subida de perto.
  */
@@ -63,7 +63,6 @@ export function telaArvore(): Tela {
   const svg = tela.svg;
   tocarFundo('gymnopedie');
   const stella = svg.querySelector('.stella') as SVGGElement;
-  const theo = svg.querySelector('.theo') as SVGGElement;
 
   let onde = -1; /* -1 é o chão */
   let subindo = false;
@@ -99,9 +98,6 @@ export function telaArvore(): Tela {
       await esperar(420);
     }
     stella.innerHTML = familia.stella(...posDe(onde), 66, onde >= 0 ? 'acena' : 'parado').svg;
-    /* o Theo sobe junto até o segundo galho */
-    const theoAlvo = Math.min(onde, 1);
-    theo.innerHTML = theoAlvo < 0 ? familia.theo(300, 714, 84, 'acena').svg : familia.theo(GALHOS[theoAlvo]![0] > 195 ? GALHOS[theoAlvo]![0] - 40 : GALHOS[theoAlvo]![0] + 40, GALHOS[theoAlvo]![1] - 2, 84, 'acena').svg;
     /* do topo se vê a casa e as estrelas */
     svg.querySelectorAll('.vista').forEach((v) => {
       (v as SVGElement).style.transition = 'opacity 900ms';

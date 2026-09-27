@@ -375,6 +375,38 @@ a entrada na etapa 2, a ajuda e a foto do e2e. O som de corda dedilhada que marc
 do jogo (a escala subindo e descendo, as notinhas das brincadeiras) continua; é o mesmo timbre
 do ukulele, não um objeto na casa.
 
+<<<<<<< HEAD
+## O Theo sai do centro
+
+A mãe jogou e disse que o jogo estava exagerando no Theo: ele ensinava, segurava, resgatava e
+aparecia em quase toda frase do balão, levando crédito pelo que era da Stella. O jogo é dela e
+da autonomia dela. O Theo continua na família, mas deixa de ser professor, salva-vidas e
+plateia principal.
+
+- **Sai o professor.** No som do dia, no caderno e na palavra, quem aparece na página é a
+  Stella; a estrela guia e a mãozinha mostram o caminho. As histórias das letras, "Foi você
+  que fez essa letra!" e "Toca aqui." passam a ser de qualquer um.
+- **Sai o resgate.** No lago, cair na água é splash: ela senta, sacode e sobe de novo sozinha
+  ("Splash! Sobe de novo, Stella.", `lago_splash`). Na ajuda A2 é a vitória-régia que chega
+  perto. Na Árvore Grande, a pinha cai na cestinha, não na cestinha do Theo. Na árvore do
+  quintal ele não sobe mais junto: acena do chão, com a mãe.
+- **O parquinho é dela.** Balanço e escorregador sem o Theo em cena; as palmas vêm de fora,
+  com "Que força, Stella!" (`viva_forca`) e "Que coragem, Stella!" (`viva_coragem`), que
+  qualquer um grava. Na gangorra, que é para dois, ele fica na outra ponta, e a descida macia
+  é da própria tábua, não porque ele segura.
+- **A roda.** O Theo pergunta só da gentileza; brinquedos passam para a mãe e parquinho para o
+  pai. O desenho da gentileza é a Stella com o gatinho.
+- **As horas** do relógio passam a ser de qualquer um; o Theo continua pedindo a hora, que é
+  uma brincadeira entre os dois.
+- **O balão.** O "mano" saiu de quase todo avanço: sobrou em quatro frases, como família por
+  perto (a chegada, o palco, a despedida, a outra ponta da gangorra). O teste agora exige o
+  contrário do anterior: no máximo quatro frases com o mano, nenhuma nas letras, sons, relógio,
+  balanço e escorregador, e nada de "porque o mano", "o mano mostra/segura/pesca/empurra",
+  "como o mano" ou "irmã dele".
+- **Gravações.** As frases que mudaram de texto ou de id (`letra_pronta`, `cozinha_pronto`,
+  `comemora_brinquedos` com texto novo; `lago_splash`, `viva_forca`, `viva_coragem` com id
+  novo) precisam ser gravadas de novo no cantinho dos pais.
+=======
 ## Ler e escrever mais perto
 
 A Stella tem adorado escrever e ouvir os sons das letras, então o caminho até isso encurta.
@@ -390,3 +422,4 @@ A Stella tem adorado escrever e ouvir os sons das letras, então o caminho até 
 - **Conserto:** o toque no círculo da próxima palavra não funcionava. A fita soltava qualquer
   dedo que tocasse longe dela, inclusive o que tinha acabado de apertar o círculo. Agora a fita
   só pega o dedo que chega perto dela.
+>>>>>>> origin/main

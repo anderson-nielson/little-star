@@ -61,7 +61,7 @@ function imagemDe(svgInterno: string, w: number, h: number): HTMLImageElement {
  * O Lago dos Cisnes: atravessar de baixo para cima pulando em vitórias-régias
  * e cisnes que nadam em faixas. Toque = pular para a frente; o pulo espera a
  * plataforma chegar. Cada travessia acende uma parte do coreto do outro lado.
- * Caiu na água? O Theo pesca com a rede de borboleta, sem perder nada.
+ * Caiu na água? Splash, ela senta, sacode e sobe de novo, sem perder nada.
  */
 export function telaLago(): Tela {
   const e = estado();
@@ -93,7 +93,6 @@ export function telaLago(): Tela {
   const parada = imagemDe(familia.stella(100, 190, 150, 'parado').svg, F, F);
   const pula = imagemDe(familia.stella(100, 190, 150, 'pulo').svg, F, F);
   const sentada = imagemDe(familia.stella(100, 190, 120, 'sentado').svg, F, F);
-  const theo = imagemDe(familia.theo(100, 190, 170, 'aponta').svg, F, F);
 
   const faixas: Faixa[] = LAGO.velocidades.map((v, i) => ({ velocidade: v, amplitude: 0.5, fase: (i * 0.37) % 1, dir: i % 2 ? -1 : 1 }));
   const m = musica('cisnes');
@@ -107,7 +106,7 @@ export function telaLago(): Tela {
   let faixa = -1;
   let x = 0.5;
   let pulo: { de: number; para: number; inicio: number; fim: number; xDe: number; xPara: number | null } | null = null;
-  let pescando = 0;
+  let splash = 0;
   let travessias = 0;
   let quedas = 0;
 
@@ -118,7 +117,7 @@ export function telaLago(): Tela {
   const xAgora = (t: number) => (faixa >= 0 && faixa < LAGO.faixas ? posicaoNaFaixa(faixas[faixa]!, t) : x);
 
   const pular = (t: number) => {
-    if (pulo || pescando > t || acabou) return;
+    if (pulo || splash > t || acabou) return;
     const de = faixa;
     const para = faixa + 1;
     const xDe = xAgora(t);
@@ -173,17 +172,17 @@ export function telaLago(): Tela {
         ajuda.reset();
         toc(520, 0.12);
       } else {
-        /* caiu na água: o Theo pesca com a rede, ela volta para onde estava */
+        /* caiu na água: splash, ela sobe sozinha de volta para onde estava */
         toc(220, 0.25);
-        pescando = t + 1.6;
+        splash = t + 1.6;
         quedas += 1;
         ajuda.tentativa();
-        if (temVoz('lago_pescou')) void falar('lago_pescou');
+        if (temVoz('lago_splash')) void falar('lago_splash');
         faixa = p.de;
         x = p.xDe;
       }
     }
-    /* A2 depois de um tempo parada: o Theo empurra a vitória-régia e ela passa */
+    /* A2 depois de um tempo parada: a vitória-régia chega perto e ela pula */
     if (!acabou && t >= LAGO.duracao) void terminar();
   }
 
@@ -279,25 +278,19 @@ export function telaLago(): Tela {
         ctx.restore();
       }
     });
-    /* o Theo na margem de baixo com a rede, e a Stella */
+    /* a Stella; se caiu, o splash em volta dela */
     const hS = H * 0.17;
     const esc = hS / 150;
-    ctx.drawImage(theo, W * 0.12 - (F * esc * 1.1) / 2, margemBaixo() + 24 - F * esc * 1.1 * 0.95, F * esc * 1.1, F * esc * 1.1);
-    if (pescando > t) {
-      ctx.strokeStyle = '#c9a189';
-      ctx.lineWidth = 4;
-      ctx.beginPath();
-      ctx.moveTo(W * 0.2, margemBaixo() - 10);
-      ctx.lineTo(xAgora(t) * W, yDaFaixa(faixa) - 10);
-      ctx.stroke();
+    if (splash > t) {
       ctx.strokeStyle = '#fbf8f1';
+      ctx.lineWidth = 4;
       ctx.beginPath();
       ctx.arc(xAgora(t) * W, yDaFaixa(faixa) - 10, 34, 0, Math.PI * 2);
       ctx.stroke();
     }
     let sx = xAgora(t) * W;
     let sy = yDaFaixa(faixa);
-    let img = pescando > t ? sentada : parada;
+    let img = splash > t ? sentada : parada;
     if (pulo && t >= pulo.inicio) {
       const k = Math.min(1, (t - pulo.inicio) / (pulo.fim - pulo.inicio));
       const xFim = pulo.xPara ?? pulo.xDe;
@@ -316,7 +309,7 @@ export function telaLago(): Tela {
   };
   const tique = window.setInterval(() => {
     ajuda.tick(1);
-    /* A2: se ela não toca, o Theo empurra e ela passa sozinha */
+    /* A2: se ela não toca, a vitória-régia chega perto e ela pula sozinha */
     if (ajuda.nivel >= 2 && !pulo && !acabou && tempo() > 2) pular(tempo());
   }, 1000);
   limpezas.push(() => window.clearInterval(tique));
