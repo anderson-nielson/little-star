@@ -299,6 +299,37 @@ export function aplauso(dur = 3): void {
 }
 
 /**
+ * Uma escovada: o "chh" curtinho das cerdas nos dentes. Ruído filtrado bem agudo,
+ * que desliza para cima na ida e para baixo na volta (`ida`), baixinho e seco.
+ */
+export function escovada(ida = true, vel = 0.1): void {
+  const ctx = audio.ctx;
+  const out = audio.efeitos;
+  if (!ctx || !out) return;
+  const t = ctx.currentTime;
+  const s = ctx.createBufferSource();
+  s.buffer = ruido(ctx);
+  const f = ctx.createBiquadFilter();
+  f.type = 'bandpass';
+  f.Q.value = 1.4;
+  f.frequency.setValueAtTime(ida ? 3200 : 4600, t);
+  f.frequency.linearRampToValueAtTime(ida ? 4600 : 3200, t + 0.13);
+  const alto = ctx.createBiquadFilter();
+  alto.type = 'highpass';
+  alto.frequency.value = 1800;
+  const g = ctx.createGain();
+  s.connect(f);
+  f.connect(alto);
+  alto.connect(g);
+  g.connect(out);
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(vel, t + 0.03);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + 0.15);
+  s.start(t, Math.random() * 0.5);
+  s.stop(t + 0.17);
+}
+
+/**
  * O assovio de chamar alguém: "fiu-fiu", duas subidas curtas de apito, a
  * segunda mais alta. Seno puro com um vibrato leve e um sopro de ruído, no
  * canal dos efeitos. Nunca alto: é um chamado, não um susto.

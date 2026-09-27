@@ -102,6 +102,29 @@ for (const [nome, tela, q] of [
   await conta(nome, 'svg.cena, canvas.cena');
   void q;
 }
+
+/* os cuidados: o quadro de passos na cama e nos dentes, os brinquedos no tapete */
+for (const [nome, tela, seletor, minimo] of [
+  ['41-cama', 'cama', '.quadro-de-passos [data-k]', 5],
+  ['42-dentes', 'dentes', '.quadro-de-passos [data-k]', 7],
+  ['43-brinquedos', 'brinquedos', '[data-brinq]', 7],
+]) {
+  await abrir(`sessoes=8&hora=15:00&tela=${tela}`);
+  await espera(1500);
+  await shot(nome);
+  await conta(nome, seletor, minimo);
+}
+/* a cama: tirar o que está em cima leva os três para fora, e o passo do lençol acende */
+await abrir('sessoes=8&hora=15:00&tela=cama');
+await espera(1200);
+for (const it of ['travesseiro', 'ursinho', 'coelho']) {
+  const caixa = await page.locator(`[data-item="${it}"] circle[r="38"]`).boundingBox();
+  if (caixa) await toque(caixa.x + caixa.width / 2, caixa.y + caixa.height / 2);
+  await espera(300);
+}
+await espera(1800);
+const passoDaCama = await page.evaluate(() => document.querySelectorAll('.quadro-de-passos rect[fill="#ebd9a8"]').length);
+if (passoDaCama < 1) erros.push(`cama: tirar o que está em cima não encheu o primeiro passo (${passoDaCama})`);
 /* o caderno: traçar o A com o dedo */
 await abrir('sessoes=8&hora=15:00&tela=caderno');
 await espera(4500);
