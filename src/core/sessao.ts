@@ -11,6 +11,8 @@ class Sessao {
   partes: Parte[] = [];
   atual: Parte = 'chegada';
   inicioLivre = 0;
+  /** a parte foi aberta da casa, fora da ordem: quando acabar, volta para cá */
+  private retorno: Parte | null = null;
   /** a porta fechou e o jogo descansa: o tempo de tela não conta */
   descansando = false;
   private relogio: number | null = null;
@@ -18,6 +20,7 @@ class Sessao {
 
   comecar(telaForcada?: string): void {
     this.descansando = false;
+    this.retorno = null;
     mudar((e) => abrirDia(e, this.agora()));
     this.partes = partesDaSessao(estado(), this.agora());
     this.atual = this.partes[0] ?? 'casa';
@@ -68,6 +71,12 @@ class Sessao {
       await this.irPara('despedida');
       return;
     }
+    if (this.retorno) {
+      const r = this.retorno;
+      this.retorno = null;
+      await this.irPara(r);
+      return;
+    }
     const prox = proximaParte(this.partes, this.atual);
     if (prox) await this.irPara(prox);
     else await this.irPara('despedida');
@@ -80,7 +89,17 @@ class Sessao {
    * dormindo não tinha saída. A parte pulada não volta.
    */
   async voltarParaCasa(): Promise<void> {
+    this.retorno = null;
     await this.irPara('casa');
+  }
+
+  /**
+   * Uma parte que ficou para trás, aberta da casa (a cartinha da roda no quadro).
+   * Quando ela acaba, volta para onde estava, sem refazer o resto do laço.
+   */
+  async desviar(p: Parte): Promise<void> {
+    this.retorno = this.atual;
+    await this.irPara(p);
   }
 
   /** A casa livre já durou demais: a família chama para os bichos. */

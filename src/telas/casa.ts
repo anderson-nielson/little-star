@@ -292,9 +292,26 @@ export function telaCasa(): Tela {
     });
   });
 
-  /* ajuda: a mãozinha aponta a brincadeira do dia depois de 6 s parada */
+  /* a roda que ficou para trás: um toque na cartinha do quadro leva ao tapete */
+  const rodinha = svg.querySelector('[data-rodinha]');
+  const ondeRodinha = (): [number, number] | null => {
+    if (!rodinha) return null;
+    const [x, y] = doTopo(svg, Number(rodinha.getAttribute('data-cx')), Number(rodinha.getAttribute('data-cy')));
+    return [x + 10, y + 10];
+  };
+  tela.alvo('[data-rodinha]', (_ev, el) => {
+    tiquinho();
+    mover(el, 0, -3, 160);
+    travar(500);
+    void esperar(180).then(() => sessao.desviar('roda'));
+  });
+
+  /* ajuda: depois de 6 s parada, a mãozinha aponta o que vem agora. Com a roda
+     pendente é a cartinha dela no quadro; senão, a brincadeira do dia */
   const ajuda = new Ajuda((n) => {
-    if (n >= 1 && luz) tela.mao([luz[0] + 10, luz[1] + 10]);
+    const r = ondeRodinha();
+    if (n >= 1 && r) tela.mao(r);
+    else if (n >= 1 && luz) tela.mao([luz[0] + 10, luz[1] + 10]);
     if (n >= 1 && temVoz('toca_aqui') && n === 1) void falar('toca_aqui');
   });
   relogioDeAjuda(tela, (dt) => ajuda.tick(dt));
@@ -580,7 +597,9 @@ function rotina(passos: PassoDoDia[]): string {
     const fundo = p.feito ? '#ebd9a8' : '#fbf8f1';
     const fio = p.feito ? '#c6a15b' : deAgora ? '#f2a9c4' : '#c9a189';
     const desenho = p.coisa ? MINI[p.coisa] : MINI_PASSO[p.passo]!;
-    s += `<g${p.coisa ? ` data-varal="${p.coisa}"` : ''}>`;
+    /* a roda que ainda não foi também se toca: leva para o tapete e depois de volta para a casa */
+    const rodinha = p.passo === 'roda' && !p.feito ? ` data-rodinha="1" data-cx="${x}" data-cy="${y}"` : '';
+    s += `<g${p.coisa ? ` data-varal="${p.coisa}"` : ''}${rodinha}>`;
     s += `<circle cx="${x}" cy="${y}" r="${raio}" fill="${fundo}" stroke="${fio}" stroke-width="${deAgora ? 2 : 1.4}"/>`;
     s += `<g opacity="${p.feito || deAgora ? 1 : 0.4}" transform="translate(${x} ${y}) scale(${escala}) translate(${-x} ${-y})">${desenho(x, y)}</g>`;
     /* o visto num selinho na borda de baixo, à direita, sempre no mesmo lugar */

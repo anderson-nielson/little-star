@@ -526,3 +526,15 @@ Arquivos: `src/core/cuidados.ts`, `tests/cuidados.test.ts`, `src/telas/cama.ts`,
   *Pequena Serenata Noturna*, de Mozart (`src/data/musicas/primavera.json` e `serenata.json`,
   arranjos livres de oito compassos, com a ficha em `musicas-sobre.json`). Os dentes continuam
   com o *Brilha, brilha* tocado pela escova.
+
+## A roda que ficou para trás
+
+O teste com adulto: a roda aparecia como "agora" nas Opções e no quadro da casa, mas nada
+levava até ela. Quem saía da roda pela casinha só a via de novo reabrindo o jogo. E nas
+Opções ela aparecia duas vezes, em "Agora" e em "Ainda falta".
+
+- **A cartinha da roda se toca** enquanto a roda não foi feita hoje (`data-rodinha` em
+  `rotina()`, `src/telas/casa.ts`). Leva ao tapete e, no fim, de volta para a casa, sem
+  refazer o resto do laço: `sessao.desviar()` guarda para onde voltar (`src/core/sessao.ts`).
+- **A mãozinha da casa aponta a roda** quando ela está pendente; senão, a brincadeira do dia.
+- **"Ainda falta"** nas Opções não repete o passo de agora (`src/ui/opcoes.ts`).
