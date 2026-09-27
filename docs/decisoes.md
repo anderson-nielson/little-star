@@ -84,7 +84,7 @@ continua sendo um contador disfarçado; o canteiro já recompensa).
 | Horta | Quatro covas no quintal. Um toque faz a coisa certa: cova vazia planta, planta com sede rega, planta pronta colhe. Cresce com dias e regas (pronta com dois de cada) e nunca murcha. O que ela colhe vai para a comidinha. | `src/core/horta.ts`, `src/telas/horta.ts` |
 | Comidinha | Segunda-feira, o dia do pão. Na cozinha com a mãe: toca em cada legume, que vai para a bacia, se lava e cai na tigela; mexe três vezes com a colher; o Theo come rindo e a mãe prova. Cada comida diz o nome, e a Estrellita o nome em espanhol. | `src/telas/cozinha.ts` |
 | Mais tarefas na roda | Banho, quarto e ser gentil. Os pais ligam e desligam cada tarefa no cantinho; banho já vem ligado, quarto e gentil não, para a roda continuar curta. | `src/telas/roda.ts`, `src/telas/pais.ts` |
-| Subir na árvore | Tocar num galho mais alto e ela sobe até ele, sem pressa. Do alto vê a casa verde de cima, o Theo acenando e, à noite, as estrelas das noites bem dormidas. O Theo sobe junto só nos galhos baixos. | `src/telas/arvore.ts` |
+| Subir na árvore | Tocar num galho mais alto e ela sobe até ele, sem pressa. Do alto vê a casa verde de cima, o Theo acenando e, à noite, as estrelas das noites bem dormidas. O Theo sobe junto só nos galhos baixos. Quando o gatinho está no topo, a cena vira só a abertura da Árvore Grande: ela vê o gatinho lá em cima e o toque leva direto para a subida de perto, sem subir duas vezes. | `src/telas/arvore.ts` |
 | A Árvore Grande | O gatinho subiu ao topo e não sabe descer. Cada toque, ela pula para o galho de cima (sete galhos, como os degraus da escada do escorregador), sem nada caindo e sem pressa. No topo ela abraça o gatinho e vai para o palco. Abre depois da primeira aventura terminada. Música: a Marcha. | `src/telas/arvoregrande.ts` |
 | O Lago dos Cisnes | Cinco faixas de vitórias-régias e cisnes que vão e voltam (nunca somem pela beirada). Toque = pular para a frente, e o pulo espera a plataforma chegar. Caiu na água? O Theo pesca com a rede, sem perder nada. Cada travessia acende uma luz do coreto. Abre depois da segunda aventura. Música: a Dança dos pequenos cisnes. | `src/telas/lago.ts` |
 | A porta | Com mais de uma aventura aberta, três figuras (coelhinho, pinha com o gatinho, cisne) para escolher; a do dia brilha e vai sozinha depois de 14 s. | `src/telas/casa.ts` |
@@ -374,6 +374,53 @@ mesma parede confundiam. O quarto fica só com o ukulele: sai a tela da lira, o 
 a entrada na etapa 2, a ajuda e a foto do e2e. O som de corda dedilhada que marca as passagens
 do jogo (a escala subindo e descendo, as notinhas das brincadeiras) continua; é o mesmo timbre
 do ukulele, não um objeto na casa.
+
+## O Theo sai do centro
+
+A mãe jogou e disse que o jogo estava exagerando no Theo: ele ensinava, segurava, resgatava e
+aparecia em quase toda frase do balão, levando crédito pelo que era da Stella. O jogo é dela e
+da autonomia dela. O Theo continua na família, mas deixa de ser professor, salva-vidas e
+plateia principal.
+
+- **Sai o professor.** No som do dia, no caderno e na palavra, quem aparece na página é a
+  Stella; a estrela guia e a mãozinha mostram o caminho. As histórias das letras, "Foi você
+  que fez essa letra!" e "Toca aqui." passam a ser de qualquer um.
+- **Sai o resgate.** No lago, cair na água é splash: ela senta, sacode e sobe de novo sozinha
+  ("Splash! Sobe de novo, Stella.", `lago_splash`). Na ajuda A2 é a vitória-régia que chega
+  perto. Na Árvore Grande, a pinha cai na cestinha, não na cestinha do Theo. Na árvore do
+  quintal ele não sobe mais junto: acena do chão, com a mãe.
+- **O parquinho é dela.** Balanço e escorregador sem o Theo em cena; as palmas vêm de fora,
+  com "Que força, Stella!" (`viva_forca`) e "Que coragem, Stella!" (`viva_coragem`), que
+  qualquer um grava. Na gangorra, que é para dois, ele fica na outra ponta, e a descida macia
+  é da própria tábua, não porque ele segura.
+- **A roda.** O Theo pergunta só da gentileza; brinquedos passam para a mãe e parquinho para o
+  pai. O desenho da gentileza é a Stella com o gatinho.
+- **As horas** do relógio passam a ser de qualquer um; o Theo continua pedindo a hora, que é
+  uma brincadeira entre os dois.
+- **O balão.** O "mano" saiu de quase todo avanço: sobrou em quatro frases, como família por
+  perto (a chegada, o palco, a despedida, a outra ponta da gangorra). O teste agora exige o
+  contrário do anterior: no máximo quatro frases com o mano, nenhuma nas letras, sons, relógio,
+  balanço e escorregador, e nada de "porque o mano", "o mano mostra/segura/pesca/empurra",
+  "como o mano" ou "irmã dele".
+- **Gravações.** As frases que mudaram de texto ou de id (`letra_pronta`, `cozinha_pronto`,
+  `comemora_brinquedos` com texto novo; `lago_splash`, `viva_forca`, `viva_coragem` com id
+  novo) precisam ser gravadas de novo no cantinho dos pais.
+
+## Ler e escrever mais perto
+
+A Stella tem adorado escrever e ouvir os sons das letras, então o caminho até isso encurta.
+
+- **A mala das palavras abre na sessão 2**, junto com o caderno, em vez da 3. A fila de
+  palavras já nasce da letra da vez, então não precisa esperar letra traçada.
+- **O caderno sai de trás da Stella.** Ela ficava de pé bem na frente dele e o toque caía nela.
+  Agora ela fica ao pé da cama, não recebe toque (é enfeite) e o caderno cresceu, com a letra
+  da vez maior e uma área de toque folgada em volta.
+- **Da palavra pronta, direto para o caderno.** Ao lado da próxima palavra aparece o caderno com
+  a letra da vez. Sem próxima, a mãozinha aponta para ele em vez da casinha. Caderno leva à
+  palavra da letra, palavra leva de volta ao caderno: dá para ficar no ciclo de escrever e ler.
+- **Conserto:** o toque no círculo da próxima palavra não funcionava. A fita soltava qualquer
+  dedo que tocasse longe dela, inclusive o que tinha acabado de apertar o círculo. Agora a fita
+  só pega o dedo que chega perto dela.
 
 ## O som do dia, repensado
 

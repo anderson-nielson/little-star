@@ -1,9 +1,9 @@
 # O parquinho do condomínio
 
 A Stella vai ao parquinho do condomínio e faz sempre a mesma volta: se balança sozinha no
-balanço, contando até dez em voz alta, depois vai ao escorregador, depois à gangorra. O Theo
-vai junto e não brinca no lugar dela: cuida, olha, e se orgulha da força, da coragem e da
-esperteza dela. Este é o estudo de como levar isso para o jogo. As telas, com os três
+balanço, contando até dez em voz alta, depois vai ao escorregador, depois à gangorra. No balanço e
+no escorregador ela vai sozinha; na gangorra, que é para dois, o Theo fica na outra ponta.
+Quem sobe, empurra e desce é sempre ela. Este é o estudo de como levar isso para o jogo. As telas, com os três
 brinquedos simulados para brincar no celular, estão em `docs/referencia/parquinho.html`.
 Nada aqui é código do jogo.
 
@@ -12,17 +12,17 @@ Nada aqui é código do jogo.
 Corpo (equilíbrio, tronco, vestibular), causa e efeito (impulso forte, balanço alto; parou de
 se mexer, o balanço morre), ritmo (o balanço tem o tempo dele, e esse tempo não muda com a
 força), contar com o corpo (ela já conta até dez no balanço), coragem com cuidado (subir a
-escada sozinha com o Theo embaixo), e a volta dela, sempre na mesma ordem, que o jogo repete
+escada sozinha), e a volta dela, sempre na mesma ordem, que o jogo repete
 como um laço.
 
 ## As cinco telas
 
-| Tela | O que ela faz | Aprende | Custa | O Theo |
+| Tela | O que ela faz | Aprende | Custa | A família |
 |---|---|---|---|---|
-| 1. Balanço | Arrasta para trás e solta. Cada toque nela é um impulso das pernas, a favor do movimento, que vale mais perto do chão. Uma nota da lira por passagem embaixo. | O impulso é dela; a hora certa de se impulsionar | Uma cena nova fora da porta, o pêndulo, o balanço e a Stella sentada | De pé ao lado, mãos prontas; palma quando sobe alto |
-| 2. Contar até dez | Camada da tela 1, ligada no cantinho. Cada ida completa com balanço alto solta uma pedrinha para o pote, com tique e a voz contando até dez. No dez, centelhas, e o pote esvazia. | Um a um; a sequência até dez com a quantidade visível | Tela 1 mais o pote e as vozes dos números | Conta junto e bate palma no dez |
-| 3. Escorregador | Cada toque sobe um degrau, com uma nota mais alta. No alto ela espera; um toque e desce, cabelo para trás, lira descendo. Na areia, centelhas; ela volta andando. | Uma coisa por vez; coragem com cuidado | A escada por toque, a descida como cena, cinco notas | Embaixo, na saída; "que coragem" |
-| 4. Gangorra | Ela senta numa ponta; o Theo fica de pé na outra com as mãos na tábua. Toque com o pé no chão: ela empurra e sobe. Desce devagar, porque ele segura. No ar, sininho baixinho. | A hora de empurrar com o pé; cuidado é de quem está junto | A tábua, a subida por toque, a descida macia | Segura a tábua do outro lado; "que esperta" |
+| 1. Balanço | Arrasta para trás e solta. Cada toque nela é um impulso das pernas, a favor do movimento, que vale mais perto do chão. Uma nota da lira por passagem embaixo. | O impulso é dela; a hora certa de se impulsionar | Uma cena nova fora da porta, o pêndulo, o balanço e a Stella sentada | Fora da cena; palma e "que força" quando sobe alto |
+| 2. Contar até dez | Camada da tela 1, ligada no cantinho. Cada ida completa com balanço alto solta uma pedrinha para o pote, com tique e a voz contando até dez. No dez, centelhas, e o pote esvazia. | Um a um; a sequência até dez com a quantidade visível | Tela 1 mais o pote e as vozes dos números | Palma no dez |
+| 3. Escorregador | Cada toque sobe um degrau, com uma nota mais alta. No alto ela espera; um toque e desce, cabelo para trás, lira descendo. Na areia, centelhas; ela volta andando. | Uma coisa por vez; coragem com cuidado | A escada por toque, a descida como cena, cinco notas | Fora da cena; "que coragem" |
+| 4. Gangorra | Ela senta numa ponta; o Theo fica na outra ponta. Toque com o pé no chão: ela empurra e sobe. Desce devagar, macia. No ar, sininho baixinho. | A hora de empurrar com o pé; a força é dela | A tábua, a subida por toque, a descida macia | O Theo na outra ponta; "que esperta" |
 | 5. Lá fora | Na despedida, o convite: "Vamos ao parquinho de verdade?". Na roda seguinte, "Você brincou no parquinho?". A lembrança é um balancinho de madeira na mesa da estação. | O jogo olha para a vida dela | Só dado: frases, um objeto na roda, uma figura na mesa | Acena na porta |
 
 ## Decisões de desenho
@@ -31,11 +31,11 @@ como um laço.
   perde metade da altura em uns oito ciclos. O impulso é dela: nenhum toque empurra de fora,
   e não existe toque errado.
 - O laço do parquinho segue a ordem dela: balanço, escorregador, gangorra. Quando ela sai de
-  um brinquedo, o Theo aponta o próximo com a mãozinha. Nada é trancado.
-- O Theo nunca faz por ela. Fica de pé ao lado do balanço, embaixo do escorregador e
-  segurando a gangorra. As frases dele no balão são de admiração, uma por brinquedo, e vivem
-  em `frases.json` para a família gravar: "Olha a Stella, que força!", "Que coragem,
-  Stella!", "Que esperta, empurrou com o pé!".
+  um brinquedo, a mãozinha aponta o próximo. Nada é trancado.
+- Ninguém faz por ela. O Theo só aparece na gangorra, na outra ponta. As palmas vêm de fora
+  da cena, uma por brinquedo, e vivem em `frases.json` para a família gravar: "Que força,
+  Stella!", "Que coragem, Stella!" (qualquer um grava) e "Que esperta, empurrou com o pé!"
+  (o Theo, na gangorra).
 - O parquinho fica fora da porta, como as aventuras, porque é do condomínio e não da casa.
 - Nada pisca mais de uma vez por segundo. Na tela 2 não aparece número escrito: ela vê o pote
   encher. Os números são palavras inteiras, então a voz do aparelho pode dizê-los enquanto a
@@ -68,5 +68,5 @@ Tudo o que está acima, em uma rodada: `src/core/parquinho.ts` (a física, pura 
 `tests/parquinho.test.ts`), `src/telas/parquinho.ts` (as três telas), o balancinho no quintal
 e na mesa da estação (`casa.ts`), o objeto da roda (`roda.ts`), o convite da despedida
 (`despedida.ts`), a opção "Contar até dez no balanço" no cantinho dos pais (`pais.ts`), as
-frases do Theo e os números em `frases.json`, e a narração em `narracao.json`. As decisões
+frases das palmas e os números em `frases.json`, e a narração em `narracao.json`. As decisões
 estão em `docs/decisoes.md`, seção "O parquinho do condomínio".

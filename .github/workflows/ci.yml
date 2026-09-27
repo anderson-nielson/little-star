@@ -29,3 +29,6 @@ jobs:
       - run: npm run lint
       - run: npm test
       - run: npm run build
+      # a casinha volta para a casa em toda tela, tocada num celular de verdade
+      - run: npx playwright-core install --with-deps chromium
+      - run: npm run casinha

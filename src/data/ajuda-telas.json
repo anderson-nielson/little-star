@@ -21,7 +21,7 @@
   },
   "som": {
     "titulo": "O som do dia",
-    "oque": "O Theo diz um som, curto e esticado, e aparecem figuras grandes: três na primeira rodada, quatro nas outras. A rodada do meio revisita uma letra que ela já traçou.",
+    "oque": "Um som soa curto e esticado e aparecem figuras grandes: três na primeira rodada, quatro nas outras. A rodada do meio revisita uma letra que ela já traçou.",
     "fazer": "Tocar na figura que começa com aquele som. As outras dizem o próprio nome e o próprio som, então qualquer toque ensina. Para brincar de novo, o mural das figuras fica na cozinha."
   },
   "caderno": {
@@ -91,22 +91,22 @@
   },
   "arvore": {
     "titulo": "A árvore do quintal",
-    "oque": "Subir na árvore grande, sem pressa. Lá de cima ela vê o céu da hora, a casa de cima e o Theo acenando.",
+    "oque": "Subir na árvore grande, sem pressa. Lá de cima ela vê o céu da hora, a casa de cima e a família acenando lá embaixo.",
     "fazer": "Tocar num galho mais alto para subir até ele. Se o gatinho estiver no topo, tocar nele começa a aventura da Árvore Grande."
   },
   "cozinha": {
     "titulo": "A comidinha com a mãe",
     "oque": "Os legumes da horta e do prato ficam na prateleira. Cada comida diz o próprio nome.",
-    "fazer": "Tocar em cada legume para ele ir para a bacia e cair na tigela, depois mexer com a colher. O Theo come e a mãe prova."
+    "fazer": "Tocar em cada legume para ele ir para a bacia e cair na tigela, depois mexer com a colher. A comida é dela, e a família come o que ela fez."
   },
   "arvoregrande": {
     "titulo": "A aventura da Árvore Grande",
     "oque": "Ela sobe a árvore, galho por galho, para buscar o gatinho. Lá em cima um esquilo rola pinhas.",
-    "fazer": "Tocar na tela para pular e pegar a pinha. Se não pular, a pinha cai na cestinha do Theo do mesmo jeito. Termina sempre no palco."
+    "fazer": "Tocar na tela para pular e pegar a pinha. Se não pular, a pinha cai na cestinha do mesmo jeito. Termina sempre no palco."
   },
   "lago": {
     "titulo": "O Lago dos Cisnes",
-    "oque": "Atravessar o lago pulando em vitórias-régias e cisnes que nadam de um lado para o outro.",
+    "oque": "Atravessar o lago pulando em vitórias-régias e cisnes que nadam de um lado para o outro. Se cair na água, ela sobe de novo sozinha.",
     "fazer": "Tocar na tela para pular para a frente; o pulo espera a plataforma chegar. Cada travessia acende uma parte do coreto do outro lado."
   },
   "ukulele": {
@@ -136,12 +136,12 @@
   },
   "escorregador": {
     "titulo": "O escorregador",
-    "oque": "O segundo brinquedo do parquinho. O Theo espera embaixo, na saída.",
+    "oque": "O segundo brinquedo do parquinho. Ela sobe e desce sozinha.",
     "fazer": "Cada toque sobe um degrau. Lá em cima, mais um toque e ela escorrega."
   },
   "gangorra": {
     "titulo": "A gangorra",
-    "oque": "O último brinquedo do parquinho. O Theo segura a outra ponta da tábua.",
-    "fazer": "Tocar para ela empurrar com o pé e subir. Ela desce devagar, porque o Theo segura."
+    "oque": "O último brinquedo do parquinho. Gangorra é para dois: o Theo fica na outra ponta.",
+    "fazer": "Tocar para ela empurrar com o pé e subir. Quem empurra o chão é ela; a descida é macia, sem tranco."
   }
 }

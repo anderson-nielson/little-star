@@ -9,6 +9,7 @@ import { iniciarAparelho, versao } from './core/aparelho';
 import { aoAnunciar, narracao, vezesNoHistorico } from './core/narracao';
 import { montarBalao } from './ui/balao';
 import { montarOpcoes } from './ui/opcoes';
+import { montarChamado } from './ui/chamado';
 import { aoTrocarTela, telaAtual } from './core/roteador';
 import { encaixar, esperar, medida } from './core/util';
 import { telaChegada } from './telas/chegada';
@@ -94,6 +95,9 @@ audio.definirMudo(estado().pais.mudo);
 const opcoes = montarOpcoes(app, () => void ir('pais'));
 aoTrocarTela((nome, params) => opcoes.trocarTela(nome, params));
 
+/* o chamado: parada tempo demais numa tela, a mãozinha mostra o próximo passo com um assovio ou um "Ei!" */
+const chamado = montarChamado(app, () => opcoes.aberto());
+
 /* o "voltar" do aparelho fecha o painel se estiver aberto; senão, volta para a casa */
 definirVoltar(() => (opcoes.aberto() ? opcoes.fechar() : void sessao.voltarParaCasa()));
 
@@ -154,4 +158,4 @@ if (q.get('styleguide')) {
 iniciarAparelho();
 
 /* para o passeio automático e para a depuração no console */
-(window as unknown as { littleStar: unknown }).littleStar = { ir, estado, mudar, sessao, balao, opcoes, versao: versao() };
+(window as unknown as { littleStar: unknown }).littleStar = { ir, telaAtual, estado, mudar, sessao, balao, opcoes, chamado, versao: versao() };

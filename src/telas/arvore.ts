@@ -27,8 +27,9 @@ const GALHOS: [number, number][] = [
 /**
  * Subir na árvore grande, sem pressa e sem obstáculo: cada toque num galho
  * mais alto e ela sobe até ele. Lá de cima vê o céu da hora, a casa verde de
- * cima e o Theo acenando embaixo. À noite, do galho mais alto, a estrela nova.
- * Se o gatinho subiu ao topo, tocar nele começa a aventura da Árvore Grande.
+ * cima e a família acenando embaixo. À noite, do galho mais alto, a estrela nova.
+ * Se o gatinho subiu ao topo, esta cena só mostra ele lá em cima: tocar nele
+ * (ou num galho) começa a aventura da Árvore Grande, que é a subida de perto.
  */
 export function telaArvore(): Tela {
   const e = estado();
@@ -62,12 +63,13 @@ export function telaArvore(): Tela {
   const svg = tela.svg;
   tocarFundo('gymnopedie');
   const stella = svg.querySelector('.stella') as SVGGElement;
-  const theo = svg.querySelector('.theo') as SVGGElement;
 
   let onde = -1; /* -1 é o chão */
   let subindo = false;
   /* a mãozinha mostra o próximo galho; no topo, o gatinho (se ele subiu) */
   const proximo = (): [number, number] | null => {
+    /* com o gatinho lá em cima, a subida é na Árvore Grande: a mãozinha mostra ele */
+    if (gatoNoTopo) return [236, 190];
     if (onde < GALHOS.length - 1) {
       const [gx, gy] = GALHOS[onde + 1]!;
       return [gx, gy + 10];
@@ -96,9 +98,6 @@ export function telaArvore(): Tela {
       await esperar(420);
     }
     stella.innerHTML = familia.stella(...posDe(onde), 66, onde >= 0 ? 'acena' : 'parado').svg;
-    /* o Theo sobe junto até o segundo galho */
-    const theoAlvo = Math.min(onde, 1);
-    theo.innerHTML = theoAlvo < 0 ? familia.theo(300, 714, 84, 'acena').svg : familia.theo(GALHOS[theoAlvo]![0] > 195 ? GALHOS[theoAlvo]![0] - 40 : GALHOS[theoAlvo]![0] + 40, GALHOS[theoAlvo]![1] - 2, 84, 'acena').svg;
     /* do topo se vê a casa e as estrelas */
     svg.querySelectorAll('.vista').forEach((v) => {
       (v as SVGElement).style.transition = 'opacity 900ms';
@@ -112,19 +111,31 @@ export function telaArvore(): Tela {
     subindo = false;
   };
 
-  tela.alvo('[data-galho]', (_ev, el) => void irPara(Number(el.getAttribute('data-galho'))));
-  tela.alvo('svg', (ev) => {
-    const [, y] = tela.ponto(ev);
-    if (y > 700) void irPara(-1);
-  });
-  if (gatoNoTopo)
-    tela.alvo('[data-alvo="gato-topo"]', async (_ev, el) => {
+  if (gatoNoTopo) {
+    /* com o gatinho no topo esta cena é só a abertura: ela vê o gatinho lá em
+     * cima, e tocar nele (ou na árvore) já leva para a subida de perto, na
+     * Árvore Grande. Assim ela não sobe a mesma árvore duas vezes. */
+    const gatoEl = svg.querySelector('[data-alvo="gato-topo"]') as SVGGElement;
+    let indo = false;
+    const subirAtras = async () => {
+      if (indo) return;
+      indo = true;
+      tela.mao(null);
       ronronar();
-      mover(el, 0, -6, 200);
+      mover(gatoEl, 0, -6, 200);
       travar(1500);
       if (temVoz('gato_topo')) await falar('gato_topo');
       else await esperar(600);
       void ir('arvoregrande');
+    };
+    tela.alvo('[data-alvo="gato-topo"]', () => void subirAtras());
+    tela.alvo('[data-galho]', () => void subirAtras());
+  } else {
+    tela.alvo('[data-galho]', (_ev, el) => void irPara(Number(el.getAttribute('data-galho'))));
+    tela.alvo('svg', (ev) => {
+      const [, y] = tela.ponto(ev);
+      if (y > 700) void irPara(-1);
     });
+  }
   return tela;
 }

@@ -33,12 +33,20 @@ describe('a narração para quem joga junto', () => {
       }
     }
   });
-  it('o mano (o Theo, como ela chama) aparece como quem torce por ela em cada avanço, e a família em todos', () => {
+  it('o mérito é dela: o mano (o Theo, como ela chama) aparece pouco, só como família por perto, e a família em todos', () => {
+    let comMano = 0;
     for (const m of MOTIVOS_DO_JOGO) {
       const todas = frasesDe(m).join(' ').toLowerCase();
-      expect(todas, m).toMatch(/\bmano\b/);
       expect(todas, m).not.toMatch(/theo/);
       expect(todas, m).toMatch(/mamãe|papai|família|casa/);
+      for (const f of frasesDe(m)) if (/\bmano\b/i.test(f)) comMano += 1;
+    }
+    expect(comMano).toBeLessThanOrEqual(4);
+    for (const m of ['letra', 'areia', 'palavra', 'som', 'relogio', 'balanco', 'escorregador']) {
+      expect(frasesDe(m).join(' '), m).not.toMatch(/\bmano\b/i);
+    }
+    for (const m of AVANCOS_NARRADOS) {
+      for (const f of frasesDe(m)) expect(f.toLowerCase(), f).not.toMatch(/porque o mano|o mano (mostra|ensina|segura|pesca|empurra|ajuda)|como o mano|irmã dele/);
     }
   });
   it('ganhar anuncia o avanço, com o pote ligado ou desligado; perder não anuncia', () => {

@@ -740,3 +740,50 @@ body {
   border: var(--fio-w) solid var(--fio-ouro);
   box-shadow: 0 4px 14px rgba(16, 20, 42, 0.12);
 }
+
+/* ---------- o chamado: a mãozinha que aparece quando ela fica parada ---------- */
+.chamado {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  z-index: var(--z-chamado);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--d-base) var(--ease-entra-sai);
+}
+.chamado.visivel {
+  opacity: 1;
+}
+/* a ponta do dedo do desenho fica em (23, 7) px do canto: cai em cima do alvo */
+.chamado-mao {
+  position: absolute;
+  left: -23px;
+  top: -7px;
+  width: 64px;
+  height: auto;
+  overflow: visible;
+  transform-origin: 23px 7px;
+  animation: chamado-toca var(--d-cena) var(--ease-entra-sai) infinite;
+}
+@keyframes chamado-toca {
+  0%,
+  100% {
+    transform: translate(12px, 16px);
+  }
+  45% {
+    transform: translate(0, 0) scale(1);
+  }
+  55% {
+    transform: translate(0, 0) scale(0.88);
+  }
+  65% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .chamado-mao {
+    animation: none;
+  }
+}

@@ -111,7 +111,7 @@ export function telaRoda(): Tela {
       id: 'gentil',
       pergunta: 'pergunta_gentil',
       comemora: 'comemora_gentil',
-      desenho: `<g data-obj="gentil"><g class="ela">${familia.stella(178, 586, 56).svg}</g><g class="ele">${familia.theo(216, 586, 78, 'parado', { dir: -1 }).svg}</g></g>`,
+      desenho: `<g data-obj="gentil"><g class="ela">${familia.stella(178, 586, 56).svg}</g><g class="ele">${gato(222, 590, 14)}</g></g>`,
       cena: (svg) => {
         const ela = svg.querySelector('[data-obj="gentil"] .ela');
         const ele = svg.querySelector('[data-obj="gentil"] .ele');
@@ -184,7 +184,7 @@ export function telaRoda(): Tela {
     const g = camada.firstElementChild as SVGGElement;
     g.classList.add('respira');
     camadaLuz.innerHTML = contornoLuz(195, 552, 66, 50);
-    const dono = { cama: 'mae', dentes: 'pai', brinquedos: 'theo', noite: 'mae', noite_toda: 'pai', banho: 'pai', quarto: 'mae', gentil: 'theo', parquinho: 'theo' }[obj.id];
+    const dono = { cama: 'mae', dentes: 'pai', brinquedos: 'mae', noite: 'mae', noite_toda: 'pai', banho: 'pai', quarto: 'mae', gentil: 'theo', parquinho: 'pai' }[obj.id];
     svg.querySelectorAll('.quem').forEach((q) => ((q as SVGElement).style.opacity = q.getAttribute('data-quem') === dono ? '1' : '0.75'));
     /* a pergunta: só depois dela o objeto aceita o toque */
     if (temVoz(obj.pergunta)) await falar(obj.pergunta);

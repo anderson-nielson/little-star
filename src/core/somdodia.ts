@@ -7,7 +7,7 @@ export interface LetraDoSom {
   figuras: string[];
 }
 
-/** Uma rodada do som do dia: a letra, o som que o Theo diz, a figura certa e as que aparecem. */
+/** Uma rodada do som do dia: a letra, o som que soa, a figura certa e as que aparecem. */
 export interface Rodada {
   letra: string;
   som: string;

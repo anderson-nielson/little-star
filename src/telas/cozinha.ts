@@ -21,7 +21,7 @@ type Fase = 'lavar' | 'misturar' | 'servir' | 'fim';
 /**
  * A comidinha com a mãe: os legumes da horta (e os do prato) na prateleira;
  * ela toca em cada um, que vai para a bacia, se lava e cai na tigela; depois
- * mexe com a colher; depois o Theo come rindo e a mãe prova. Cada comida diz
+ * mexe com a colher; depois a família come o que ela fez. Cada comida diz
  * o nome em português e, quando o espanhol já entrou, a Estrellita diz o dela.
  */
 export function telaCozinha(): Tela {
@@ -162,7 +162,7 @@ export function telaCozinha(): Tela {
   const servir = async () => {
     fase = 'fim';
     travar(5000);
-    /* o prato vai para a mesa; o Theo come rindo; a mãe prova */
+    /* o prato dela vai para a mesa; a família come */
     const prato = svg.querySelector('.prato-final') as SVGGElement;
     prato.innerHTML = `<ellipse cx="250" cy="600" rx="44" ry="14" fill="#f6f0e4" stroke="#c6a15b" stroke-width="1.5"/>${ingredientes.map((id, i) => figura(id, 232 + i * 12, 596, 22)).join('')}`;
     prato.style.opacity = '0';
