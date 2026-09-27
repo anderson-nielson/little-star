@@ -1,8 +1,9 @@
-import { mover, pedrinhasSobem, telaSvg, trilha } from './comum';
+import { convidarParaCasa, mover, pedrinhasSobem, telaSvg, trilha } from './comum';
 import { ganhar, PEDRINHAS } from '@/core/pedrinhas';
 import { estado, mudar } from '@/core/estado';
 import { sessao } from '@/core/sessao';
-import { embaralhar, esperar, semente } from '@/core/util';
+import { esperar } from '@/core/util';
+import { montarRodadas, RODADAS } from '@/core/somdodia';
 import { familia } from '@/puppet/boneco';
 import { arco, contornoLuz, veu } from '@/puppet/objetos';
 import { figura, nomeDaFigura } from '@/puppet/figuras';
@@ -22,30 +23,35 @@ interface Letra {
 const letras = letrasJson as Letra[];
 
 /**
- * Som do dia: o som da semana soa esticado; três figuras grandes;
- * ela toca na que começa com o som. Qualquer toque é recebido: a certa ganha
- * festa; as outras dizem o próprio nome e o próprio som.
+ * Som do dia: um som soa, curto e esticado; figuras grandes em arcos;
+ * ela toca na que começa com o som. Três rodadas: a letra da semana, uma que
+ * ela já traçou, a da semana de novo. A primeira tem três figuras, as outras
+ * quatro. Qualquer toque é recebido: a certa ganha festa; as outras dizem o
+ * próprio nome e o próprio som. Vem sozinha uma vez por dia, antes da casa, e
+ * mora também no mural da cozinha para ela voltar quando quiser.
  */
-export function telaSom(): Tela {
+export function telaSom(params: Record<string, string> = {}): Tela {
   const e = estado();
-  const letra = letras[Math.min(e.letraIndice, letras.length - 1)]!;
-  const outras = letras.filter((l) => l.id !== letra.id);
-  const semana = e.hoje.dia;
+  const daCasa = params.volta === 'casa';
+  const semana = letras[Math.min(e.letraIndice, letras.length - 1)]!;
+  /* na volta do laço, as mesmas figuras o dia todo; pelo mural, outras a cada vez */
+  const chave = `${e.hoje.dia}:${semana.id}${daCasa ? ':' + Date.now() : ''}`;
+  const rodadas = montarRodadas(letras, semana.id, e.letras, chave);
 
   let s = `<rect width="390" height="780" fill="#f6e3dc"/>` + veu(0, 0, 390, 780, '#ebcdc3', 5, 0.25);
   s += `<path d="M36 720V210a159 159 0 0 1 318 0v510z" fill="#fbf8f1"/><path d="M36 720V210a159 159 0 0 1 318 0v510" fill="none" stroke="#c6a15b" stroke-width="1.5"/><line x1="36" y1="720" x2="354" y2="720" stroke="#c6a15b" stroke-width="1.5"/>`;
   s += `<g class="stella">${familia.stella(84, 712, 80, 'parado').svg}</g>`;
-  s += `<text x="270" y="690" text-anchor="middle" font-family="Jost, sans-serif" font-size="72" font-weight="500" fill="#f2a9c4">${letra.id}</text>`;
+  s += `<text class="letra" x="270" y="690" text-anchor="middle" font-family="Jost, sans-serif" font-size="72" font-weight="500" fill="#f2a9c4">${semana.id}</text>`;
   s += `<g class="figuras"></g><g class="luz"></g>`;
   const tela = telaSvg(s);
   const svg = tela.svg;
   const camada = svg.querySelector('.figuras') as SVGGElement;
   const camadaLuz = svg.querySelector('.luz') as SVGGElement;
   /* uma conta por rodada: ela vê que são três e quantas faltam */
-  const contas = trilha(tela, 3);
+  const contas = trilha(tela, RODADAS);
+  const textoLetra = svg.querySelector('.letra') as SVGTextElement;
 
   let rodada = 0;
-  let acertos = 0;
   let terminou = false;
   let vivo = true;
   tela.aoDestruir(() => {
@@ -60,40 +66,37 @@ export function telaSom(): Tela {
       x.hoje.somFeito = true;
     });
     await esperar(800);
-    if (vivo) void sessao.avancar();
+    if (!vivo) return;
+    /* pelo mural, a casinha acende; na volta do dia, a sessão segue */
+    if (daCasa) convidarParaCasa(tela);
+    else void sessao.avancar();
   };
 
   const ajuda = new Ajuda();
 
   const proximaRodada = async () => {
     if (!vivo) return;
-    if (rodada >= 3) return terminar();
+    if (rodada >= RODADAS) return terminar();
     ajuda.reset();
     camada.innerHTML = '';
     camadaLuz.innerHTML = '';
     tela.mao(null);
     contas.agora(rodada);
-    const seed = semente(semana + letra.id + rodada);
-    const alvo = letra.figuras[rodada % letra.figuras.length]!;
-    const n = rodada === 2 && acertos === 2 ? 4 : 3;
-    const distratores = embaralhar(
-      outras.flatMap((l) => l.figuras),
-      seed,
-    ).slice(0, n - 1);
-    const conjunto = embaralhar([alvo, ...distratores], seed + 0.1);
-    const posicoes = n === 3 ? [[110, 330], [280, 330], [195, 500]] : [[110, 320], [280, 320], [110, 500], [280, 500]];
-    conjunto.forEach((id, i) => {
+    const { letra, som, alvo, figuras } = rodadas[rodada]!;
+    textoLetra.textContent = letra;
+    const posicoes = figuras.length === 3 ? [[110, 330], [280, 330], [195, 500]] : [[110, 320], [280, 320], [110, 500], [280, 500]];
+    figuras.forEach((id, i) => {
       const [x, y] = posicoes[i]!;
       camada.innerHTML += `<g data-fig="${id}" data-x="${x}" data-y="${y}">${arco(x! - 64, y! - 80, 128, 160, '#f6f0e4', '#c6a15b')}${figura(id, x!, y!, 100)}</g>`;
     });
     /* o som da semana */
     await esperar(400);
     /* o som curto e o som esticado, como na sala: "sss... sssss" */
-    if (!(await falarSom(letra.som))) await esperar(900);
+    if (!(await falarSom(som))) await esperar(900);
     else {
       await esperar(250);
       if (!vivo) return;
-      await falarSom(letra.som, 1.6);
+      await falarSom(som, 1.6);
     }
     if (!vivo) return;
     const meuTurno = rodada;
@@ -107,7 +110,7 @@ export function telaSom(): Tela {
       if (ajuda.nivel >= 1) g.classList.add('respira');
       if (ajuda.nivel >= 2) {
         tela.mao([Number(g.getAttribute('data-x')) + 20, Number(g.getAttribute('data-y')) + 30]);
-        if (ajuda.nivel === 2) void falarSom(letra.som);
+        if (ajuda.nivel === 2) void falarSom(som);
       }
     }, 1000);
     tela.aoDestruir(() => window.clearInterval(timer));
@@ -123,7 +126,6 @@ export function telaSom(): Tela {
         window.clearInterval(timer);
         travar(2400);
         sininho();
-        acertos += 1;
         contas.encher(rodada);
         mudar((m) => {
           if (ajuda.nivel >= 1) m.registro.a1[`som`] = (m.registro.a1.som ?? 0) + 1;
@@ -133,10 +135,10 @@ export function telaSom(): Tela {
         pedrinhasSobem(tela, PEDRINHAS.som, x, y + 60);
         camadaLuz.innerHTML = contornoLuz(x, y, 70, 86, 'respira');
         tela.comemorar(x, y - 90);
-        camada.innerHTML += `<text x="${x}" y="${y - 96}" text-anchor="middle" font-family="Jost, sans-serif" font-size="48" font-weight="500" fill="#f2a9c4" class="surge">${letra.id}</text>`;
+        camada.innerHTML += `<text x="${x}" y="${y - 96}" text-anchor="middle" font-family="Jost, sans-serif" font-size="48" font-weight="500" fill="#f2a9c4" class="surge">${letra}</text>`;
         void (async () => {
           /* a certa: o som e a palavra ("sss... sapo") */
-          await dizerComSons(`{${somInicialDaFigura(id, letra.som)}}... ${nomeDaFigura(id)}`);
+          await dizerComSons(`{${som}}... ${nomeDaFigura(id)}`);
           await esperar(600);
           rodada += 1;
           await proximaRodada();

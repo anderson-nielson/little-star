@@ -163,6 +163,8 @@ export function telaCasa(): Tela {
   if (e.colheita.length) s += `<path d="M${hx + hw / 2 + 58} ${y3 - 24}q10 -4 20 0l-2 10h-16z" fill="#c9a189"/>` + e.colheita.slice(0, 3).map((c, i) => `<circle cx="${hx + hw / 2 + 62 + i * 6}" cy="${y3 - 26}" r="3" fill="${{ cenoura: '#e8a24a', tomate: '#d2463c', milho: '#ebd9a8', alface: '#8fae6b' }[c]}"/>`).join('');
   s += `</g>`;
   s += `<g data-alvo="mesa-cozinha"><rect x="${hx + hw / 2 + 70}" y="${y3 - 52}" width="60" height="10" rx="2" fill="${corDia}"/><rect x="${hx + hw / 2 + 70}" y="${y3 - 42}" width="60" height="4" fill="#c9a189"/><line x1="${hx + hw / 2 + 76}" y1="${y3 - 38}" x2="${hx + hw / 2 + 76}" y2="${y3 - 14}" stroke="#c9a189" stroke-width="3"/><line x1="${hx + hw / 2 + 124}" y1="${y3 - 38}" x2="${hx + hw / 2 + 124}" y2="${y3 - 14}" stroke="#c9a189" stroke-width="3"/><ellipse cx="${hx + hw / 2 + 100}" cy="${y3 - 54}" rx="12" ry="4" fill="#fbf8f1" stroke="#c6a15b" stroke-width="1"/>`;
+  /* o mural das figuras na parede da cozinha: o som do dia mora aqui para ela voltar quando quiser */
+  if (aberto(s7, 'som')) s += `<g data-alvo="mural"${novo('som')}>${mural(hx + hw / 2 + 96, y2 + 36)}</g>`;
   s += `<g data-alvo="lata"><rect x="${hx + hw / 2 + 20}" y="${y3 - 76}" width="12" height="16" rx="2" fill="#b6a58c"/></g></g>`;
   /* térreo e porta */
   s += `<rect x="${hx + 10}" y="${y3}" width="${hw - 20}" height="${bottom - y3 - 2}" fill="#c9dbb2" opacity="0.5"/>`;
@@ -206,6 +208,7 @@ export function telaCasa(): Tela {
   const alvoDaCoisa: Record<Coisa, [number, number, number, number]> = {
     piano: [hx + 172, y1 + 124, 28, 28],
     caderno: [hx + 117, y1 + 140, 30, 22],
+    som: [hx + hw / 2 + 96, y2 + 36, 28, 24],
     palavras: [hx + 37, y1 + 140, 24, 18],
     areia: [110, 720, 58, 36],
     pinhas: [326, 750, 40, 22],
@@ -285,7 +288,7 @@ export function telaCasa(): Tela {
   tela.aoDestruir(() => svg.removeEventListener('pointerdown', tocou));
 
   /* cada tela da casa é uma coisa explorada: a luz passa adiante e a centelha fica */
-  const COISA_DA_TELA: Record<string, Coisa> = { piano: 'piano', caderno: 'caderno', palavra: 'palavras', areia: 'areia', pinhas: 'pinhas', horta: 'horta', ukulele: 'ukulele', bilhete: 'bilhete', relogio: 'relogio', cozinha: 'cozinha', bonecas: 'bonecas', arvore: 'arvore', jardim: 'jardim', arvoregrande: 'jardim', lago: 'jardim', parquinho: 'parquinho', escorregador: 'parquinho', gangorra: 'parquinho' };
+  const COISA_DA_TELA: Record<string, Coisa> = { piano: 'piano', caderno: 'caderno', som: 'som', palavra: 'palavras', areia: 'areia', pinhas: 'pinhas', horta: 'horta', ukulele: 'ukulele', bilhete: 'bilhete', relogio: 'relogio', cozinha: 'cozinha', bonecas: 'bonecas', arvore: 'arvore', jardim: 'jardim', arvoregrande: 'jardim', lago: 'jardim', parquinho: 'parquinho', escorregador: 'parquinho', gangorra: 'parquinho' };
   const vai = (nome: string, params: Record<string, string> = {}) => {
     travar(500);
     const coisa = COISA_DA_TELA[nome];
@@ -315,6 +318,7 @@ export function telaCasa(): Tela {
   };
   tela.alvo('[data-alvo="piano"]', () => vai('piano'));
   tela.alvo('[data-alvo="caderno"]', () => vai('caderno'));
+  tela.alvo('[data-alvo="mural"]', () => vai('som', { volta: 'casa' }));
   tela.alvo('[data-alvo="mala"]', () => vai('palavra', { palavra: 'MALA', volta: 'casa' }));
   tela.alvo('[data-alvo="lata"]', (_ev, el) => (aberto(s7, 'palavras') ? vai('palavra', { palavra: 'LATA', volta: 'casa' }) : fechado(el)));
   tela.alvo('[data-alvo="janela"]', (_ev, el) => (noite && aberto(s7, 'palavras') ? vai('palavra', { palavra: 'LUA', volta: 'casa' }) : aberto(s7, 'palavras') ? enfeite(el) : fechado(el)));
@@ -469,6 +473,25 @@ export function telaCasa(): Tela {
   return tela;
 }
 
+/**
+ * O mural das figuras: um quadro de cortiça com quatro cartinhas presas, como as
+ * quatro figuras do som do dia. Um sol, uma uva, um sapo e uma lua, bem simples.
+ */
+function mural(x: number, y: number): string {
+  let s = `<rect x="${x - 28}" y="${y - 24}" width="56" height="48" fill="transparent"/>`;
+  s += `<rect x="${x - 22}" y="${y - 17}" width="44" height="34" rx="3" fill="#d9b88f" stroke="#a97e63" stroke-width="2"/>`;
+  const cartas: [number, number, string][] = [
+    [-10, -8, `<circle r="3.2" fill="#ebd9a8"/>`],
+    [10, -8, `<circle cx="-1.6" cy="-1" r="1.6" fill="#8a5aa8"/><circle cx="1.6" cy="-1" r="1.6" fill="#8a5aa8"/><circle cy="1.8" r="1.6" fill="#8a5aa8"/>`],
+    [-10, 8, `<ellipse cy="1" rx="3.6" ry="2.4" fill="#8fae6b"/><circle cx="-1.6" cy="-1.4" r="1" fill="#8fae6b"/><circle cx="1.6" cy="-1.4" r="1" fill="#8fae6b"/>`],
+    [10, 8, `<path d="M1 -3.4a3.4 3.4 0 1 0 2.4 5.8a2.8 2.8 0 1 1 -2.4 -5.8z" fill="#c6a15b"/>`],
+  ];
+  for (const [dx, dy, desenho] of cartas) {
+    s += `<g transform="translate(${x + dx} ${y + dy})"><rect x="-7" y="-6" width="14" height="12" rx="1.5" fill="#fbf8f1" stroke="#c6a15b" stroke-width="0.6"/>${desenho}<circle cy="-6" r="1" fill="#f2a9c4"/></g>`;
+  }
+  return s;
+}
+
 /* ---------- o varal de bandeirinhas ---------- */
 
 /** Quanto a casa reserva em cima para as duas cordas do varal (unidades da cena). */
@@ -478,6 +501,7 @@ const FOLGA_DO_VARAL = 126;
 const MINI: Record<Coisa, (x: number, y: number) => string> = {
   piano: (x, y) => `<rect x="${x - 6}" y="${y - 5}" width="12" height="10" rx="2" fill="#f2a9c4"/><rect x="${x - 6}" y="${y}" width="12" height="3.5" fill="#fbf8f1"/>`,
   caderno: (x, y) => `<rect x="${x - 5}" y="${y - 5.5}" width="10" height="11" rx="1.5" fill="#fbf8f1" stroke="#c6a15b" stroke-width="0.8"/><text x="${x}" y="${y + 3}" text-anchor="middle" font-family="Jost, sans-serif" font-size="8" font-weight="500" fill="#f2a9c4">A</text>`,
+  som: (x, y) => `<rect x="${x - 7}" y="${y - 6}" width="14" height="12" rx="1.5" fill="#c9a189"/><rect x="${x - 5.5}" y="${y - 4.5}" width="5" height="4" fill="#fbf8f1"/><rect x="${x + 0.5}" y="${y - 4.5}" width="5" height="4" fill="#fbf8f1"/><rect x="${x - 5.5}" y="${y + 0.5}" width="5" height="4" fill="#fbf8f1"/><rect x="${x + 0.5}" y="${y + 0.5}" width="5" height="4" fill="#fbf8f1"/><circle cx="${x - 3}" cy="${y - 2.5}" r="1.3" fill="#ebd9a8"/><circle cx="${x + 3}" cy="${y + 2.5}" r="1.3" fill="#d2463c"/>`,
   palavras: (x, y) => `<rect x="${x - 6}" y="${y - 3}" width="12" height="8" rx="2" fill="#c48f5a"/><rect x="${x - 2.5}" y="${y - 6}" width="5" height="3.5" rx="1" fill="none" stroke="#c48f5a" stroke-width="1.5"/>`,
   areia: (x, y) => `<path d="M${x} ${y - 7}l2 4.6l5 .4l-3.8 3.2l1.2 5l-4.4 -2.7l-4.4 2.7l1.2 -5l-3.8 -3.2l5 -.4z" fill="#ebd9a8" stroke="#c9a189" stroke-width="0.8"/>`,
   pinhas: (x, y) => `<ellipse cx="${x}" cy="${y + 1}" rx="4" ry="6" fill="#a97e63"/><path d="M${x - 3.5} ${y - 1}h7M${x - 3.5} ${y + 2.5}h7" stroke="#6b4a2a" stroke-width="0.8"/>`,

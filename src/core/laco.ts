@@ -51,8 +51,8 @@ export function brincadeiraDoDia(e: Estado, agora: Date): Brincadeira {
 /* ---------- o que a casa tem para explorar ---------- */
 
 /** Tudo o que se brinca a partir da casa. A ordem é a ordem em que a luz passa por elas. */
-export type Coisa = Brincadeira | 'ukulele' | 'bonecas' | 'bilhete' | 'relogio' | 'horta' | 'arvore' | 'parquinho';
-export const COISAS: Coisa[] = ['piano', 'caderno', 'areia', 'ukulele', 'bonecas', 'bilhete', 'relogio', 'palavras', 'pinhas', 'arvore', 'horta', 'parquinho', 'jardim', 'cozinha', 'familia'];
+export type Coisa = Brincadeira | 'som' | 'ukulele' | 'bonecas' | 'bilhete' | 'relogio' | 'horta' | 'arvore' | 'parquinho';
+export const COISAS: Coisa[] = ['piano', 'caderno', 'som', 'areia', 'ukulele', 'bonecas', 'bilhete', 'relogio', 'palavras', 'pinhas', 'arvore', 'horta', 'parquinho', 'jardim', 'cozinha', 'familia'];
 
 /** Em que sessão a coisa abre. A família está na sala desde a primeira. */
 export function sessaoQueAbre(coisa: Coisa): number {

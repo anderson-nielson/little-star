@@ -523,10 +523,12 @@ e I). Um teste automático guarda a regra.
 - Dos bichos: GATO, COELHO (o LH é difícil, entra depois), PATO, SAPO, VACA.
 - Das aventuras: FITA, TUTU, SAPATILHA (a longa e divertida de bater: SA-PA-TI-LHA).
 
-**Achar o som.** Um joguinho curto no caderno, depois de algumas letras traçadas: o jogo diz
-"ssss" e mostra três coisas (sapo, gato, lua). Ela toca na que começa com "ssss". Qualquer
-toque é recebido: a certa ganha festa; as outras dizem o próprio nome e o próprio som ("lua,
-lll"), para ela ouvir a diferença sem ouvir "errado".
+**Achar o som.** É o som do dia (GAMEPLAY 6.4): o jogo diz "sss... sssss" e mostra três
+coisas na primeira rodada e quatro nas outras duas. Ela toca na que começa com "sss".
+Qualquer toque é recebido: a certa ganha festa; as outras dizem o próprio nome e o próprio som
+("lua, lll"), para ela ouvir a diferença sem ouvir "errado". A rodada do meio revisita uma
+letra que ela já traçou. Vem uma vez por dia antes da casa e fica no mural das figuras, na
+cozinha, para ela voltar quando quiser.
 
 **Quem fala.** Palavra inteira e sílabas podem vir da voz do aparelho (`speechSynthesis`, como
 o `src/audio/voz.ts` do Ponta, em velocidade 0,85 e tom alto, alegre: lenta e grave ela soava desanimada). **O som isolado da letra não pode**: a voz

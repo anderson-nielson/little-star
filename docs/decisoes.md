@@ -375,7 +375,6 @@ a entrada na etapa 2, a ajuda e a foto do e2e. O som de corda dedilhada que marc
 do jogo (a escala subindo e descendo, as notinhas das brincadeiras) continua; é o mesmo timbre
 do ukulele, não um objeto na casa.
 
-<<<<<<< HEAD
 ## O Theo sai do centro
 
 A mãe jogou e disse que o jogo estava exagerando no Theo: ele ensinava, segurava, resgatava e
@@ -406,7 +405,7 @@ plateia principal.
 - **Gravações.** As frases que mudaram de texto ou de id (`letra_pronta`, `cozinha_pronto`,
   `comemora_brinquedos` com texto novo; `lago_splash`, `viva_forca`, `viva_coragem` com id
   novo) precisam ser gravadas de novo no cantinho dos pais.
-=======
+
 ## Ler e escrever mais perto
 
 A Stella tem adorado escrever e ouvir os sons das letras, então o caminho até isso encurta.
@@ -422,4 +421,26 @@ A Stella tem adorado escrever e ouvir os sons das letras, então o caminho até 
 - **Conserto:** o toque no círculo da próxima palavra não funcionava. A fita soltava qualquer
   dedo que tocasse longe dela, inclusive o que tinha acabado de apertar o círculo. Agora a fita
   só pega o dedo que chega perto dela.
->>>>>>> origin/main
+
+## O som do dia, repensado
+
+O pedido: a fase de ouvir o som e achar a figura era das preferidas, mas sumia. Ela vinha uma
+vez por dia, no laço, e depois não havia como voltar; as quatro figuras só apareciam na
+terceira rodada, e só se ela acertasse as duas primeiras. Revendo com o que mudou desde a v1
+(o sintetizador de fonemas, a luz da casa, o varal, a trilha), ficou assim:
+
+- **Mora na casa.** O mural das figuras, um quadrinho de cortiça com quatro cartinhas na parede
+  da cozinha, abre o som do dia a qualquer hora, com figuras novas a cada vez (`som` em
+  `COISAS`, com bandeirinha no varal e luz da casa). Abre na etapa 2, junto com o caderno. Pelo
+  mural, o fim acende a casinha; na volta do dia, a sessão segue como antes.
+- **Quatro figuras sem condição.** A primeira rodada aquece com três; as outras duas têm quatro.
+  A regra antiga (quatro só com duas certas) punia em silêncio quem errava.
+- **Cresce com o caderno.** A rodada do meio é de uma letra que ela já traçou; a primeira e a
+  terceira são da letra da semana, com figuras diferentes.
+- **O som dito é o da figura.** O O falava "ó" e mostrava ovo, que começa com "ô". Agora o som
+  de cada rodada é o som inicial da figura certa (`somInicialDaFigura`), como no caderno e na
+  areia.
+- **Cada figura soa diferente.** Antes as outras figuras vinham de qualquer letra e podiam ser
+  duas do mesmo E (égua e elefante). Agora cada figura na tela é de uma letra diferente e
+  começa com um som diferente. Arquivos: `src/core/somdodia.ts`, `tests/somdodia.test.ts`,
+  `src/telas/som.ts`, `src/telas/casa.ts`.
