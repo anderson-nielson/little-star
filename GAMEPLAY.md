@@ -405,6 +405,15 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
   - **Comida**: arrastar a cenoura até o coelhinho; o pratinho até o gatinho.
   - **Carinho**: arrastar o dedo devagar no pelo. Devagar faz ronronar e fechar os olhos.
     Rápido faz o bicho olhar para ela, curioso, e esperar: ele ensina o jeito sem dizer "não".
+    Enquanto ela passa o dedo devagar, sobem coraçõezinhos e um coração em cima do bicho vai
+    enchendo; cheio, o carinho conta. O que encheu não se perde se ela tirar o dedo.
+- **Quadro dos cuidados**: no alto, um desenho para cada cuidado (água, pratinho, cenoura,
+  carinho no gatinho, carinho no coelhinho). O de agora tem um anel que respira, o feito fica
+  cheio de ouro com uma centelha. Tocar num desenho faz a mãozinha mostrar aquele cuidado.
+- **Mostrar o gesto**: ao chegar, e depois de alguns segundos parada, a mãozinha faz o gesto
+  inteiro do próximo cuidado (tocar, levar a comida até o bicho, passar devagar no pelo), e uma
+  luz pulsa em volta de onde começar. Comida que não chegou volta sozinha e a mãozinha mostra o
+  caminho.
 - **Dura**: cerca de 1 minuto.
 - **Regra**: bicho nunca fica triste, com fome ou doente se ela não vier. Só fica contente
   quando ela vem.
