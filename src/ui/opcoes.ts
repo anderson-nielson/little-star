@@ -169,7 +169,8 @@ export function montarOpcoes(app: HTMLElement, irParaPais: () => void): Opcoes {
     const passos = rotinaDoDia(e, sessao.agora());
     const agora = passoDeAgora(passos);
     const feitos = passos.filter((p) => p.feito).map(nomeDoPasso);
-    const faltam = passos.filter((p) => !p.feito).map(nomeDoPasso);
+    /* o passo de agora já aparece em "Agora": fica fora do que ainda falta */
+    const faltam = passos.filter((p) => !p.feito && p.passo !== agora).map(nomeDoPasso);
     const abertas = COISAS.filter((c) => disponivel(e, c));
     const proximas = et < SESSAO_COMPLETA ? (ABERTURAS[et + 1] ?? []).filter((c): c is Coisa => (COISAS as string[]).includes(c)) : [];
     const bloco = h('div', { class: 'opcoes-onde' }, h('h2', {}, h('span', { class: 'opcoes-interrogacao', 'aria-hidden': 'true' }, '✦'), 'Onde a Stella está'));
