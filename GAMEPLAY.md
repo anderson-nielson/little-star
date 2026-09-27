@@ -269,8 +269,9 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
      cada grupo pula com uma nota da lira, e a terceira estrelinha acende. Centelhas, uma
      pedrinha.
   4. **Pronta.** A próxima palavra da fila aparece num círculo de luz no canto de baixo: tocar
-     nela leva para lá. Traçar a fita de novo repete a palavra. Se não houver próxima, a
-     mãozinha mostra a casinha.
+     nela leva para lá. Ao lado, o caderno com a letra da vez: tocar nele leva direto a
+     escrever, sem passar pela casa. Traçar a fita de novo repete a palavra. Se não houver
+     próxima, a mãozinha mostra o caderno.
   5. É a técnica que as salas de fônico usam, o dedo embaixo da palavra, e é a mesma fita que
      ela já conhece do caderno. Tocar na fita no meio da mostra passa a vez para ela.
 - **O avanço se vê em dois lugares**: as três estrelinhas embaixo da fita (as etapas desta
@@ -470,8 +471,8 @@ não em seis:
 | Sessão | Laço |
 |---|---|
 | 1 | chegada, casa (o piano brilha), despedida com a cestinha do gatinho |
-| 2 | chegada, roda, som do dia, casa (o caderno brilha; o quintal e a caixa de areia abrem; o coelhinho aparece na grama e ganha nome), bichos, despedida |
-| 3 | chegada, roda, prato, som, casa (as pinhas brilham; a mala abre as palavras), bichos, despedida |
+| 2 | chegada, roda, som do dia, casa (o caderno brilha; a mala abre as palavras; o quintal e a caixa de areia abrem; o coelhinho aparece na grama e ganha nome), bichos, despedida |
+| 3 | chegada, roda, prato, som, casa (as pinhas brilham), bichos, despedida |
 | 4 | o mesmo, com a porta brilhando: o Jardim e o palco |
 | 5 em diante | o laço inteiro, com a brincadeira do dia da semana |
 
