@@ -202,15 +202,27 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
 
 - **Para quê**: ouvir e reconhecer um som, no jeito do método fônico. É o momento de leitura
   de todo dia, curto de propósito.
+- **Quando**: vem sozinho uma vez por dia, entre o prato e a casa. E mora no **mural das
+  figuras**, um quadrinho de cortiça com quatro cartinhas na parede da cozinha: tocar nele
+  abre o som do dia de novo, com outras figuras, quantas vezes ela quiser. O mural tem
+  bandeirinha no varal e recebe a luz da casa como as outras coisas.
 - **Como**:
-  1. O Theo aparece com o caderno. Diz o som da semana, esticado: "sss".
-  2. **Achar o som**: aparecem três figuras grandes (sapo, lua, bola). O Theo repete "sss".
-     Ela toca numa. Cada figura diz o próprio nome e o próprio som inicial ("lua, lll"). A que
-     começa com "sss" ganha festa e a letra S aparece em cima dela.
-  3. Três rodadas, com figuras diferentes. Na terceira, se ela acertou as duas primeiras, as
-     figuras são quatro.
+  1. O Theo aponta; a letra da rodada fica grande no canto. Ele diz o som curto e depois
+     esticado: "sss... sssss".
+  2. **Achar o som**: aparecem figuras grandes em arcos. Ela toca numa. Cada figura diz o
+     próprio nome e o próprio som inicial ("lua, lll"). A que começa com "sss" ganha festa, diz
+     "sss... sapo", e a letra aparece em cima dela.
+  3. **Três rodadas**, uma conta na trilha para cada: a letra da semana, depois uma letra que
+     ela já traçou no caderno (revisão), depois a da semana de novo com outra figura. Sem outra
+     letra traçada, as três são da semana. A primeira rodada tem **três figuras**; as outras
+     duas têm **quatro**.
+  4. **Regras das figuras**: o som dito é o som com que a figura certa começa de verdade (o O
+     diz "ô", porque ovo, olho e onda começam com ô fechado). Cada figura na tela é de uma
+     letra diferente e começa com um som diferente, então qualquer toque ensina uma diferença.
+     A lógica é pura e testada (`src/core/somdodia.ts`).
 - **Dura**: cerca de 1 minuto.
-- **Acaba**: o Theo fecha o caderno e acena.
+- **Acaba**: na volta do dia, a sessão segue para a casa. Pelo mural, a casinha acende e a
+  mãozinha aponta para ela.
 - **Ajuda**: A1, a figura certa respira um pouco mais que as outras depois do segundo "sss".
   A2, o Theo aponta para ela.
 - **Cresce**: nada visível. É treino, e o que cresce é a letra quando ela traçar (6.5).
