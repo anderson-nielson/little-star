@@ -444,3 +444,26 @@ terceira rodada, e só se ela acertasse as duas primeiras. Revendo com o que mud
   duas do mesmo E (égua e elefante). Agora cada figura na tela é de uma letra diferente e
   começa com um som diferente. Arquivos: `src/core/somdodia.ts`, `tests/somdodia.test.ts`,
   `src/telas/som.ts`, `src/telas/casa.ts`.
+
+## A rotina ilustrada do dia
+
+O teste com adulto: "não sei em que etapa estou, o que falta, o que está fechado, o que ainda
+não explorei". Três causas. O laço do dia e a casa livre eram dois jogos sobrepostos sem
+fronteira visível. O que estava fechado era invisível, e o que abria (terminar uma sessão, ou
+outro dia) era segredo. E eram seis sinais sutis para dizer quatro coisas: contorno de luz,
+centelha parada, bandeirinha dourada, bandeirinha clarinha, fio rosa balançando, anel dourado.
+
+- **A rotina ilustrada** no lugar do varal: os passos de hoje em fila, no alto da casa, como o
+  quadro da parede do jardim Waldorf. Cheia com selinho, já foi; anel de luz, agora; vazia,
+  ainda vem. Uma tábua clara atrás da fila, para ler como uma coisa só. `rotinaDoDia()` e
+  `passoDeAgora()` em `src/core/laco.ts`; `rotina()` em `src/telas/casa.ts`.
+- **O fechado aparece**: silhueta cinza no lugar da coisa (classe `.fechado`). Tocar mostra o
+  lacinho e a mãozinha, como antes.
+- **Três sinais**: contorno de luz (pode tocar), cartinha cheia (já foi), silhueta (ainda não).
+  Saem a centelha parada do "feito hoje" e o balanço do "nunca tocou". Continua sem número e
+  sem barra; ganha ordem e lugar.
+- **"Onde a Stella está"** nas Opções, sem a continha: etapa, o que já foi, o que falta, o
+  que abre na próxima etapa e como se abre. `NOME_COISA` foi para `laco.ts`.
+- `hoje.bichosFeitos` marca os bichos cuidados, no laço (`sessao.avancar()`), para a rotina.
+- Medidas: cartinhas de raio 20, desenhos a 1,45 do tamanho base, selinho do visto sempre na
+  borda de baixo à direita, fio dourado que para na última cartinha feita.

@@ -62,6 +62,8 @@ class Sessao {
 
   /** A parte atual terminou. */
   async avancar(): Promise<void> {
+    /* os bichos cuidados contam para a rotina do dia, seja qual for o jeito de a tela acabar */
+    if (this.atual === 'bichos') mudar((e) => void (e.hoje.bichosFeitos = true));
     if (passouDoLimite(estado()) && this.atual !== 'despedida' && this.atual !== 'noite' && this.atual !== 'dormindo') {
       await this.irPara('despedida');
       return;

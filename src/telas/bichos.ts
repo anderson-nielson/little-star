@@ -55,7 +55,6 @@ export function telaBichos(): Tela {
   let feitos = 0;
   let terminou = false;
   const terminar = async () => {
-    mudar((x) => void (x.hoje.bichosFeitos = true));
     if (terminou) return;
     terminou = true;
     liraDesce();

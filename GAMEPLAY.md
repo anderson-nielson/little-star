@@ -113,11 +113,17 @@ faz cresce **num lugar só**, sempre o mesmo, para ela entender de onde veio.
 
 Nada disso diminui. Nenhum número aparece. Os pais veem um resumo no cantinho dos pais.
 
+No alto da casa fica a **rotina ilustrada do dia**, como o quadro da parede do jardim: os
+passos de hoje em fila (roda, prato, som do dia, brincadeira do dia, bichos, despedida). A
+cartinha cheia com um selinho já foi; a com o anel de luz é agora; a vazia ainda vem. É por
+ali que ela, e quem joga junto, sabe onde está e o que falta. Só a cartinha da brincadeira do
+dia se toca: a mãozinha mostra onde ela mora na casa.
+
 Na casa, a luz dourada diz onde ela ainda pode ir: começa na brincadeira do dia; feita, passa
-para a coisa aberta que ela nunca tocou; depois para o que ainda não foi hoje; quando tudo já
-foi, fica na família, que chama para o fim. O que ela já brincou hoje ganha uma centelha de
-ouro parada, que amanhã não está mais lá. No cantinho dos pais, "A casa hoje" lista o que ela
-brincou, o que está aberto esperando por ela e o que ainda não abriu.
+para o que ainda não foi hoje; quando tudo já foi, fica na família, que chama para o fim. O
+que ainda não abriu aparece em silhueta cinza, no lugar dele: ela vê que existe e que ainda
+não é a hora. No painel de Opções, "Onde a Stella está" diz em texto, para o adulto, a etapa,
+o que já foi hoje, o que falta e o que abre na próxima etapa.
 
 ---
 
@@ -129,8 +135,8 @@ aprende uma música. Toda tela usa só estes.
 | Sinal | Quer dizer |
 |---|---|
 | Contorno de luz pulsando devagar | Pode tocar aqui |
-| Uma coisa da casa balançando devagar | Isto é novo, você nunca tocou |
-| Centelha de ouro parada numa coisa da casa | Aqui você já brincou hoje |
+| Cartinha da rotina cheia, com selinho | Isto já foi hoje |
+| Coisa da casa em silhueta cinza | Isto ainda não abriu |
 | Mãozinha desenhada fazendo o gesto | Faça isso |
 | Estrela guia correndo por uma fita | O caminho é este |
 | A casinha verde, no canto de cima à esquerda, em toda tela | Volta para a casa, sempre, mesmo no meio de uma cena (na casa, só brilha) |
@@ -204,8 +210,8 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
   de todo dia, curto de propósito.
 - **Quando**: vem sozinho uma vez por dia, entre o prato e a casa. E mora no **mural das
   figuras**, um quadrinho de cortiça com quatro cartinhas na parede da cozinha: tocar nele
-  abre o som do dia de novo, com outras figuras, quantas vezes ela quiser. O mural tem
-  bandeirinha no varal e recebe a luz da casa como as outras coisas.
+  abre o som do dia de novo, com outras figuras, quantas vezes ela quiser. O mural recebe a
+  luz da casa como as outras coisas.
 - **Como**:
   1. A Stella aparece na página; a letra da rodada fica grande no canto. O som soa curto e
      depois esticado: "sss... sssss".
