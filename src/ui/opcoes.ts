@@ -172,7 +172,7 @@ export function montarOpcoes(app: HTMLElement, irParaPais: () => void): Opcoes {
     const faltam = passos.filter((p) => !p.feito).map(nomeDoPasso);
     const abertas = COISAS.filter((c) => disponivel(e, c));
     const proximas = et < SESSAO_COMPLETA ? (ABERTURAS[et + 1] ?? []).filter((c): c is Coisa => (COISAS as string[]).includes(c)) : [];
-    const bloco = h('div', { class: 'opcoes-onde' }, h('h2', {}, 'Onde a Stella está'));
+    const bloco = h('div', { class: 'opcoes-onde' }, h('h2', {}, h('span', { class: 'opcoes-interrogacao', 'aria-hidden': 'true' }, '✦'), 'Onde a Stella está'));
     bloco.append(h('p', {}, et > SESSAO_COMPLETA ? 'A casa está toda aberta.' : `Etapa ${et} de ${SESSAO_COMPLETA}. ${abertas.length} coisas abertas na casa.`));
     bloco.append(h('p', {}, agora ? `Agora: ${NOME_PASSO[agora]}.` : 'O dia de hoje está completo. O resto é brincadeira livre.'));
     if (feitos.length) bloco.append(h('p', {}, `Já foi hoje: ${feitos.join(', ')}.`));

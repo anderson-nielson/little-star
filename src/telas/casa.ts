@@ -530,16 +530,23 @@ const MINI_PASSO: Record<string, (x: number, y: number) => string> = {
 function rotina(passos: PassoDoDia[]): string {
   if (!passos.length) return '';
   const agora = passoDeAgora(passos);
-  const raio = 21;
-  const escala = 1.8;
+  /* medidas: o desenho (raio 10) cabe folgado no círculo, e o visto fica num selinho na borda */
+  const raio = 20;
+  const escala = 1.45;
   const y = 112;
-  const passo = Math.min(58, 340 / passos.length);
-  const inicio = 195 - (passo * (passos.length - 1)) / 2;
-  let s = '';
-  /* o fio que liga os passos: dourado até onde ela chegou */
+  const passo = passos.length > 1 ? Math.min(56, 300 / (passos.length - 1)) : 0;
+  const largura = passo * (passos.length - 1);
+  const inicio = 195 - largura / 2;
   const feitos = passos.filter((p) => p.feito).length;
-  s += `<path d="M${inicio - raio} ${y}H${inicio + passo * (passos.length - 1) + raio}" stroke="#c9a189" stroke-width="1.5" opacity="0.7"/>`;
-  if (feitos > 0) s += `<path d="M${inicio - raio} ${y}H${inicio + passo * Math.min(feitos, passos.length - 1)}" stroke="#c6a15b" stroke-width="2.5" stroke-linecap="round"/>`;
+  let s = '';
+  /* o quadro: uma tábua clara atrás da fila, para a rotina ler como uma coisa só */
+  const folga = raio + 14;
+  s += `<rect x="${inicio - folga}" y="${y - raio - 10}" width="${largura + 2 * folga}" height="${2 * raio + 20}" rx="${raio + 10}" fill="#fbf8f1" opacity="0.6" stroke="#c6a15b" stroke-width="0.8"/>`;
+  /* o fio que liga os passos: dourado até a última cartinha feita */
+  if (passos.length > 1) {
+    s += `<path d="M${inicio} ${y}H${inicio + largura}" stroke="#c9a189" stroke-width="1.5" opacity="0.8"/>`;
+    if (feitos > 1) s += `<path d="M${inicio} ${y}H${inicio + passo * (feitos - 1)}" stroke="#c6a15b" stroke-width="2.5" stroke-linecap="round"/>`;
+  }
   passos.forEach((p, i) => {
     const x = inicio + i * passo;
     const deAgora = p.passo === agora;
@@ -547,9 +554,14 @@ function rotina(passos: PassoDoDia[]): string {
     const fio = p.feito ? '#c6a15b' : deAgora ? '#f2a9c4' : '#c9a189';
     const desenho = p.coisa ? MINI[p.coisa] : MINI_PASSO[p.passo]!;
     s += `<g${p.coisa ? ` data-varal="${p.coisa}"` : ''}>`;
-    s += `<circle cx="${x}" cy="${y}" r="${raio}" fill="${fundo}" stroke="${fio}" stroke-width="${deAgora ? 2.4 : 1.4}"/>`;
+    s += `<circle cx="${x}" cy="${y}" r="${raio}" fill="${fundo}" stroke="${fio}" stroke-width="${deAgora ? 2 : 1.4}"/>`;
     s += `<g opacity="${p.feito || deAgora ? 1 : 0.4}" transform="translate(${x} ${y}) scale(${escala}) translate(${-x} ${-y})">${desenho(x, y)}</g>`;
-    if (p.feito) s += `<path d="M${x + 9} ${y + 11}l3 3l6 -7" fill="none" stroke="#6e1a27" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>`;
+    /* o visto num selinho na borda de baixo, à direita, sempre no mesmo lugar */
+    if (p.feito) {
+      const sx = x + raio * 0.7;
+      const sy = y + raio * 0.7;
+      s += `<circle cx="${sx}" cy="${sy}" r="6.5" fill="#6e1a27" stroke="#fbf8f1" stroke-width="1.5"/><path d="M${sx - 3} ${sy}l2 2.2l4 -4.4" fill="none" stroke="#fbf8f1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>`;
+    }
     if (deAgora) s += contornoLuz(x, y, raio + 4, raio + 4);
     s += `</g>`;
   });
