@@ -15,7 +15,10 @@ import type { Tela } from '@/core/roteador';
 
 /** Dados do balanceamento do Lago dos Cisnes. */
 export const LAGO = {
+  /** rede de segurança: mesmo sem nenhum toque, a aventura termina */
   duracao: 120,
+  /** travessias que fecham a aventura, mostradas nas contas da margem de baixo */
+  travessias: 3,
   faixas: 5,
   /** o toque procura a plataforma: até tantos segundos à frente */
   janelaDoPulo: 0.7,
@@ -26,6 +29,10 @@ export const LAGO = {
   largura: 0.26,
   /** partes do coreto que acendem */
   partesDoCoreto: 6,
+  /** a queda, em segundos: o splash onde ela caiu, o nado de volta e a sacudida em cima */
+  splash: 0.5,
+  nado: 1.1,
+  sacode: 0.5,
 };
 
 export interface Faixa {
@@ -108,6 +115,8 @@ export function telaLago(): Tela {
   let x = 0.5;
   let pulo: { de: number; para: number; inicio: number; fim: number; xDe: number; xPara: number | null } | null = null;
   let splash = 0;
+  /** onde ela caiu, para o splash e o nado de volta acontecerem ali, à vista */
+  let queda: { inicio: number; x: number; y: number } | null = null;
   let travessias = 0;
   let quedas = 0;
 
@@ -126,10 +135,12 @@ export function telaLago(): Tela {
     let xPara: number | null = null;
     if (para < LAGO.faixas) {
       const f = faixas[para]!;
-      const enc = ajuda.nivel >= 2 ? t : proximoEncontro(f, xDe, t, LAGO.janelaDoPulo, LAGO.largura);
+      /* na A2 ela espera a vitória-régia chegar embaixo dela, quanto for preciso */
+      const janela = ajuda.nivel >= 2 ? (f.amplitude * 2) / f.velocidade : LAGO.janelaDoPulo;
+      const enc = proximoEncontro(f, xDe, t, janela, LAGO.largura);
       if (enc !== null) {
         inicio = Math.max(t, enc - LAGO.duracaoDoPulo);
-        xPara = ajuda.nivel >= 2 ? xDe : posicaoNaFaixa(f, inicio + LAGO.duracaoDoPulo);
+        xPara = posicaoNaFaixa(f, inicio + LAGO.duracaoDoPulo);
       }
     } else xPara = xDe;
     pulo = { de, para, inicio, fim: inicio + LAGO.duracaoDoPulo, xDe, xPara };
@@ -165,6 +176,7 @@ export function telaLago(): Tela {
         ajuda.reset();
         window.setTimeout(() => {
           if (!vivo) return;
+          if (travessias >= LAGO.travessias) return void terminar();
           faixa = -1;
           x = 0.5;
         }, 1800);
@@ -173,9 +185,10 @@ export function telaLago(): Tela {
         ajuda.reset();
         toc(520, 0.12);
       } else {
-        /* caiu na água: splash, ela sobe sozinha de volta para onde estava */
+        /* caiu na água: splash ali mesmo, ela nada de volta para onde estava e sobe */
         toc(220, 0.25);
-        splash = t + 1.6;
+        queda = { inicio: t, x: p.xPara ?? p.xDe, y: yDaFaixa(p.para) };
+        splash = t + LAGO.splash + LAGO.nado + LAGO.sacode;
         quedas += 1;
         ajuda.tentativa();
         if (temVoz('lago_splash')) void falar('lago_splash');
@@ -202,7 +215,10 @@ export function telaLago(): Tela {
     ctx.globalAlpha = 1;
     /* margens */
     ctx.fillStyle = '#c9dbb2';
-    ctx.fillRect(0, margemBaixo() + 20, W, H);
+    /* a margem de baixo começa um pouco acima dos pés dela: ela começa na grama */
+    ctx.fillRect(0, margemBaixo() - 18, W, H);
+    ctx.fillStyle = '#b6cd98';
+    ctx.fillRect(0, margemBaixo() - 18, W, 4);
     ctx.fillRect(0, 0, W, margemCima() + 16);
     /* o coreto do outro lado, com as partes já acesas */
     const aceso = estado().coreto;
@@ -228,6 +244,42 @@ export function telaLago(): Tela {
         ctx.fill(new Path2D(CENTELHA));
         ctx.restore();
       }
+    }
+    /* quanto falta: as contas das travessias na margem de baixo (a de agora brilha) */
+    const yContas = Math.min(H - 24, margemBaixo() + (H - margemBaixo()) * 0.55);
+    for (let k = 0; k < LAGO.travessias; k++) {
+      const cx = W / 2 + (k - (LAGO.travessias - 1) / 2) * 30;
+      if (k === travessias && !acabou) {
+        ctx.fillStyle = 'rgba(251,248,241,0.8)';
+        ctx.beginPath();
+        ctx.arc(cx, yContas, 11, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.save();
+        ctx.translate(cx - 10, yContas - 10);
+        ctx.scale(20 / 24, 20 / 24);
+        ctx.fillStyle = '#c6a15b';
+        ctx.fill(new Path2D(CENTELHA));
+        ctx.restore();
+      } else {
+        ctx.fillStyle = k < travessias ? '#c6a15b' : 'rgba(251,248,241,0.8)';
+        ctx.strokeStyle = '#c6a15b';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(cx, yContas, 7, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+      }
+    }
+    /* e nesta travessia: uma pedrinha por faixa na beirada, acesas até onde ela chegou */
+    const ondeEsta = pulo && t >= pulo.inicio ? pulo.para : faixa;
+    for (let i = -1; i <= LAGO.faixas; i++) {
+      ctx.fillStyle = i <= ondeEsta ? '#c6a15b' : '#fbf8f1';
+      ctx.strokeStyle = '#c6a15b';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.arc(W - 22, yDaFaixa(i), i === ondeEsta ? 7 : 5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
     }
     /* as faixas: vitórias-régias nas ímpares, cisnes nas pares */
     const largura = W * LAGO.largura;
@@ -282,16 +334,63 @@ export function telaLago(): Tela {
     /* a Stella; se caiu, o splash em volta dela */
     const hS = H * 0.17;
     const esc = hS / 150;
-    if (splash > t) {
-      ctx.strokeStyle = '#fbf8f1';
-      ctx.lineWidth = 4;
-      ctx.beginPath();
-      ctx.arc(xAgora(t) * W, yDaFaixa(faixa) - 10, 34, 0, Math.PI * 2);
-      ctx.stroke();
-    }
     let sx = xAgora(t) * W;
     let sy = yDaFaixa(faixa);
     let img = splash > t ? sentada : parada;
+    const kq = queda ? t - queda.inicio : Infinity;
+    if (queda && kq < LAGO.splash + LAGO.nado) {
+      /* na água: ondinhas e gotas onde caiu, e ela nada de volta com só a metade de cima para fora */
+      const qx = queda.x * W;
+      ctx.strokeStyle = '#fbf8f1';
+      ctx.lineWidth = 3;
+      for (let r = 0; r < 3; r++) {
+        const kr = kq - r * 0.25;
+        if (kr < 0 || kr > 1.2) continue;
+        ctx.globalAlpha = 1 - kr / 1.2;
+        ctx.beginPath();
+        ctx.ellipse(qx, queda.y, 18 + kr * 60, 6 + kr * 18, 0, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      if (kq < LAGO.splash) {
+        ctx.fillStyle = '#fbf8f1';
+        ctx.globalAlpha = 1 - kq / LAGO.splash;
+        for (let g = 0; g < 7; g++) {
+          const ang = Math.PI * (0.15 + (g * 0.7) / 6);
+          const d = 20 + kq * 110;
+          ctx.beginPath();
+          ctx.arc(qx - Math.cos(ang) * d, queda.y - Math.sin(ang) * d + kq * kq * 160, 4, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      ctx.globalAlpha = 1;
+      const kn = Math.max(0, kq - LAGO.splash) / LAGO.nado;
+      const suave = kn * kn * (3 - 2 * kn);
+      const nx = qx + (sx - qx) * suave;
+      const ny = queda.y + (sy - queda.y) * suave + Math.sin(t * 9) * 2;
+      /* o rastro do nado */
+      if (kn > 0) {
+        ctx.strokeStyle = 'rgba(251,248,241,0.6)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.ellipse(nx, ny, 26, 7, 0, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(0, 0, W, ny);
+      ctx.clip();
+      const afunda = kq < LAGO.splash ? (kq / LAGO.splash) * hS * 0.55 : hS * 0.55;
+      ctx.drawImage(parada, nx - (F * esc) / 2, ny + afunda - F * esc * 0.95, F * esc, F * esc);
+      ctx.restore();
+      ctx.fillStyle = 'rgba(219,231,238,0.9)';
+      ctx.beginPath();
+      ctx.ellipse(nx, ny, 22, 5, 0, 0, Math.PI * 2);
+      ctx.fill();
+      return;
+    }
+    /* de volta em cima, molhadinha: senta e sacode */
+    if (queda && kq < LAGO.splash + LAGO.nado + LAGO.sacode) sx += Math.sin(t * 40) * 3;
+    else queda = null;
     if (pulo && t >= pulo.inicio) {
       const k = Math.min(1, (t - pulo.inicio) / (pulo.fim - pulo.inicio));
       const xFim = pulo.xPara ?? pulo.xDe;
@@ -316,6 +415,7 @@ export function telaLago(): Tela {
   limpezas.push(() => window.clearInterval(tique));
 
   const terminar = async () => {
+    if (acabou) return;
     acabou = true;
     seq.parar();
     mudar((s) => {

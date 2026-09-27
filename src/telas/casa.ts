@@ -370,7 +370,7 @@ export function telaCasa(): Tela {
     const icone: Record<Aventura, (x: number) => string> = {
       jardim: (x) => coelho(x - 6, cy + 22, 22),
       arvore: (x) => pinha(x, cy + 6, 18, 1) + gato(x + 22, cy + 22, 8, '#c8b8a6', true),
-      lago: (x) => `<path d="M${x - 16} ${cy + 8}q16 12 32 0q-2 -10 -16 -10q-14 0 -16 10z" fill="#fbf8f1"/><path d="M${x + 8} ${cy + 4}q10 -10 4 -22" stroke="#fbf8f1" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M${x + 12} ${cy - 20}l8 3l-8 3z" fill="#e8a24a"/>`,
+      lago: (x) => `<circle cx="${x}" cy="${cy}" r="38" fill="#9fc3cf"/><ellipse cx="${x}" cy="${cy + 14}" rx="30" ry="7" fill="#dbe7ee" opacity="0.6"/><path d="M${x - 30} ${cy - 16}a12 5 0 1 1 20 3l-10 -2z" fill="#8fae6b"/><path d="M${x - 16} ${cy + 8}q16 12 32 0q-2 -10 -16 -10q-14 0 -16 10z" fill="#fbf8f1"/><path d="M${x + 8} ${cy + 4}q10 -10 4 -22" stroke="#fbf8f1" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M${x + 12} ${cy - 20}l8 3l-8 3z" fill="#e8a24a"/>`,
     };
     const g = svgEl(
       `<g class="escolha">${abertas
