@@ -444,3 +444,46 @@ terceira rodada, e só se ela acertasse as duas primeiras. Revendo com o que mud
   duas do mesmo E (égua e elefante). Agora cada figura na tela é de uma letra diferente e
   começa com um som diferente. Arquivos: `src/core/somdodia.ts`, `tests/somdodia.test.ts`,
   `src/telas/som.ts`, `src/telas/casa.ts`.
+
+## Os cuidados: cama, dentes e brinquedos viram brincadeira
+
+O pedido: arrumar os brinquedos, escovar os dentes e arrumar a cama podiam ser uma atividade
+cada, com uma tela para cada, porque cada uma tem o que ensinar: a ordem, o jeito de fazer e a
+paciência de ir até o fim para ver o resultado bonito. A roda continua igual (pergunta se ela
+fez de verdade e dá a pedrinha); as telas novas são o treino, e a despedida convida para fazer
+de verdade.
+
+- **Três telas, um quadro de passos.** `cama`, `dentes` e `brinquedos`. No alto de cama e
+  dentes, no lugar das contas, fica um quadro de rotina com um desenho por passo
+  (`quadroDePassos` em `comum.ts`): o feito fica dourado, o de agora tem a estrelinha. Só o
+  passo da vez responde; o resto balança ou faz o sininho baixinho. Em brinquedos a ordem não
+  importa, então a trilha é a de sempre, uma conta por brinquedo.
+- **A cama**, na ordem de verdade: tirar travesseiro e bichinhos (vão para a cadeira), esticar
+  o lençol (o dedo passa e as rugas somem), puxar a coberta do pé até a cabeceira, afofar o
+  travesseiro (três toques) e pôr os bichinhos de volta. A coberta é o momento de persistir:
+  soltou antes de 40% do caminho, ela escorrega de volta devagar e dá para puxar de novo. No
+  fim o gatinho sobe e deita.
+- **Os dentes**: molhar a escova, um pouquinho de pasta (a ervilha aparece do lado para mostrar
+  o tamanho), os de cima, a língua, os de baixo, enxaguar, guardar. Escovar é esfregar o dedo
+  devagar na parte que brilha. Cada escovada toca a próxima nota do *Brilha, brilha*, e as três
+  partes juntas tocam a música inteira: a canção é o tempo de escovar. Esfregar com pressa não
+  acaba antes (`VELOCIDADE_MAXIMA`), e as sujeirinhas somem aos poucos.
+- **Os brinquedos**: cada coisa tem a sua casa, com o desenho do morador na frente (livros na
+  estante, blocos na caixa, ursinho e bola no cesto). Um de cada vez, arrastando. Na casa de
+  outro, o brinquedo pula sozinho para a dele e a casa certa acende; no chão, volta para onde
+  estava. Com o tapete limpo, a família senta junto: arrumado, cabe todo mundo.
+- **Na casa**: a cama do quarto abre a cama; no térreo, a pia com o espelho abre os dentes e a
+  caixa de brinquedos abre os brinquedos. No varal é uma bandeirinha só (`cuidados` em
+  `COISAS`), para o varal não passar de duas cordas; a luz e a centelha do feito hoje vão em
+  cada um dos três lugares. Abre na etapa 4, junto com a cozinha.
+- **Sem pedrinha.** A pedrinha é do que ela faz de verdade, e isso a roda já conta. O treino
+  ganha a comemoração, o balão (`arrumou_a_cama`, `escovou_os_dentes`, `guardou_os_brinquedos`)
+  e o convite da despedida (`convite_cama`, `convite_dentes`, `convite_brinquedos`), que vale
+  mais que o da brincadeira do dia e menos que o do parquinho.
+- **A ajuda de sempre.** A1 mostra o gesto com a mãozinha (esticar, puxar, esfregar, levar até
+  a casa). A2 faz junto, devagar: uma ruga por vez, a coberta sobe, uma escovada por segundo, um
+  brinquedo vai sozinho. Nenhuma tela trava.
+
+Arquivos: `src/core/cuidados.ts`, `tests/cuidados.test.ts`, `src/telas/cama.ts`,
+`src/telas/dentes.ts`, `src/telas/brinquedos.ts`, `src/telas/cuidados.ts`, `src/telas/casa.ts`,
+`src/telas/despedida.ts`, `src/data/frases.json` (grupo `cuidados`), `src/data/narracao.json`.

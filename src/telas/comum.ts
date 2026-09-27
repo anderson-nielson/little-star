@@ -229,6 +229,136 @@ export function trilha(tela: Pick<TelaSvg, 'svg'>, total: number, y = 104): Tril
 }
 
 /**
+ * O quadro de passos: a trilha dos cuidados, com um desenho em cada conta. É o
+ * quadro de rotina da parede de um jardim de infância: ela vê a ordem das coisas
+ * (primeiro isto, depois aquilo) sem ler nada. O passo feito fica dourado, o
+ * de agora tem a estrelinha em cima, os que faltam esperam clarinhos.
+ * `icones` desenha cada passo num quadradinho de lado 24, centrado em (x, y).
+ */
+export function quadroDePassos(tela: Pick<TelaSvg, 'svg'>, icones: ((x: number, y: number) => string)[], y = 110): Trilha {
+  const g = svgEl('<g class="trilha quadro-de-passos" style="pointer-events:none"></g>') as SVGGElement;
+  const mao = tela.svg.querySelector('.camada-mao');
+  if (mao) mao.before(g);
+  else tela.svg.appendChild(g);
+  const total = icones.length;
+  const passo = Math.min(46, 300 / Math.max(1, total));
+  const lado = Math.min(36, passo - 6);
+  const xDe = (k: number) => 195 + (k - (total - 1) / 2) * passo;
+  const cheia = new Array<boolean>(total).fill(false);
+  let atual = -1;
+  const desenhar = () => {
+    let s = `<path d="M${xDe(0)} ${y}H${xDe(total - 1)}" stroke="${OURO}" stroke-width="1" opacity="0.5"/>`;
+    for (let k = 0; k < total; k++) {
+      const x = xDe(k);
+      const feito = cheia[k];
+      const agora = k === atual && !feito;
+      s += `<g data-k="${k}"><rect x="${x - lado / 2}" y="${y - lado / 2}" width="${lado}" height="${lado}" rx="8" fill="${feito ? '#ebd9a8' : '#fbf8f1'}" stroke="${OURO}" stroke-width="${agora ? 2.4 : 1.2}" opacity="${feito || agora ? 1 : 0.75}"/>`;
+      s += `<g opacity="${feito || agora ? 1 : 0.45}" transform="translate(${x} ${y}) scale(${(lado / 30).toFixed(3)}) translate(${-x} ${-y})">${icones[k]!(x, y)}</g>`;
+      if (agora) s += centelha(x, y - lado / 2 - 7, 12, OURO);
+      if (feito) s += centelha(x + lado / 2 - 3, y - lado / 2 + 3, 9, OURO);
+      s += `</g>`;
+    }
+    g.innerHTML = s;
+  };
+  desenhar();
+  return {
+    encher: (k, mudo = false) => {
+      if (k < 0 || k >= total || cheia[k]) return;
+      cheia[k] = true;
+      desenhar();
+      if (mudo) return;
+      const c = g.querySelector(`[data-k="${k}"]`) as SVGElement | null;
+      if (c) {
+        c.style.transformBox = 'fill-box';
+        c.style.transformOrigin = 'center';
+        c.style.transition = 'transform 300ms';
+        c.style.transform = 'scale(1.25)';
+        void esperar(320).then(() => (c.style.transform = 'scale(1)'));
+      }
+      toc(660 + k * 30, 0.14);
+    },
+    agora: (k) => {
+      atual = k;
+      desenhar();
+    },
+    zerar: () => {
+      cheia.fill(false);
+      atual = -1;
+      desenhar();
+    },
+    mostrar: (sim) => {
+      g.style.display = sim ? '' : 'none';
+    },
+    get cheias() {
+      return cheia.filter(Boolean).length;
+    },
+    get total() {
+      return total;
+    },
+  };
+}
+
+/**
+ * Um puxão: o dedo leva `el` ao longo de um caminho reto, de `origem` a
+ * `destino` (unidades da cena), e ele só anda nessa direção. `aoMover` recebe
+ * a fração do caminho enquanto o dedo anda; `aoSoltar`, a fração ao soltar.
+ * Quem decide se volta ou se vai sozinho o resto é quem chama.
+ */
+export function puxavel(
+  svg: SVGSVGElement,
+  el: Element,
+  origem: [number, number],
+  destino: [number, number],
+  aoMover: (fracao: number) => void,
+  aoSoltar: (fracao: number) => void,
+  ativo: () => boolean = () => true,
+): () => void {
+  let id = -1;
+  let p0: [number, number] = [0, 0];
+  const dx = destino[0] - origem[0];
+  const dy = destino[1] - origem[1];
+  const total2 = dx * dx + dy * dy || 1;
+  const fracao = (ev: PointerEvent) => {
+    const [x, y] = pontoNoSvg(svg, ev.clientX, ev.clientY);
+    return Math.max(0, Math.min(1, ((x - p0[0]) * dx + (y - p0[1]) * dy) / total2));
+  };
+  const baixo = (ev: Event) => {
+    const pe = ev as PointerEvent;
+    if (!ativo() || !reivindicarDedo(pe.pointerId)) return;
+    id = pe.pointerId;
+    p0 = pontoNoSvg(svg, pe.clientX, pe.clientY);
+    try {
+      (el as SVGElement).setPointerCapture(pe.pointerId);
+    } catch {
+      /* sem captura, a janela libera o dedo */
+    }
+  };
+  const move = (ev: Event) => {
+    const pe = ev as PointerEvent;
+    if (pe.pointerId !== id) return;
+    aoMover(fracao(pe));
+  };
+  const cima = (ev: Event) => {
+    const pe = ev as PointerEvent;
+    if (pe.pointerId !== id) return;
+    soltarDedo(id);
+    id = -1;
+    aoSoltar(fracao(pe));
+  };
+  el.addEventListener('pointerdown', baixo);
+  el.addEventListener('pointermove', move);
+  el.addEventListener('pointerup', cima);
+  el.addEventListener('pointercancel', cima);
+  el.classList.add('alvo');
+  return () => {
+    el.removeEventListener('pointerdown', baixo);
+    el.removeEventListener('pointermove', move);
+    el.removeEventListener('pointerup', cima);
+    el.removeEventListener('pointercancel', cima);
+  };
+}
+
+/**
  * A brincadeira chegou ao fim desta vez: a casinha acende e a mãozinha aponta
  * para ela. Nada obriga a sair; ela pode continuar brincando. Mas fica claro
  * que acabou e para onde ir. Devolve como apagar o convite.

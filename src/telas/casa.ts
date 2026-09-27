@@ -14,6 +14,7 @@ import { tocarFundo } from '@/audio/musica';
 import { falar, temVoz } from '@/audio/vozes';
 import { ronronar, sininho, tiquinho } from '@/audio/synth';
 import { Ajuda } from '@/core/ajuda';
+import { CUIDADOS, cuidouHoje, type Cuidado } from '@/core/cuidados';
 import { travar } from '@/core/toque';
 import letras from '@/data/letras.json';
 import type { Tela } from '@/core/roteador';
@@ -115,7 +116,7 @@ export function telaCasa(): Tela {
     s += `</g>`;
   }
   /* cama, com o gatinho dormindo */
-  s += `<g data-alvo="cama"><rect x="${hx + 70}" y="${y1 + 118}" width="70" height="26" rx="6" fill="#fbf8f1"/><rect x="${hx + 70}" y="${y1 + 126}" width="70" height="18" rx="4" fill="#f2a9c4" opacity="0.8"/><rect x="${hx + 66}" y="${y1 + 104}" width="8" height="40" rx="2" fill="#c9a189"/><rect x="${hx + 136}" y="${y1 + 112}" width="8" height="32" rx="2" fill="#c9a189"/>`;
+  s += `<g data-alvo="cama"${novo('cuidados')}><rect x="${hx + 56}" y="${y1 + 102}" width="40" height="48" fill="transparent"/><rect x="${hx + 70}" y="${y1 + 118}" width="70" height="26" rx="6" fill="#fbf8f1"/><rect x="${hx + 70}" y="${y1 + 126}" width="70" height="18" rx="4" fill="#f2a9c4" opacity="0.8"/><rect x="${hx + 66}" y="${y1 + 104}" width="8" height="40" rx="2" fill="#c9a189"/><rect x="${hx + 136}" y="${y1 + 112}" width="8" height="32" rx="2" fill="#c9a189"/>`;
   s += `</g>`;
   /* lembranças: colcha, travesseiro, prateleira */
   const lembr = e.lembrancas.length;
@@ -175,6 +176,9 @@ export function telaCasa(): Tela {
   s += `</g>`;
   const coelhoNovo = !e.bichos.coelho && aberto(s7, 'coelho');
   if (e.bichos.coelho || coelhoNovo) s += `<g data-alvo="coelho" class="${coelhoNovo ? 'respira' : ''}">${coelho(hx + hw / 2 + 50, bottom, coelhoNovo ? 20 : 16)}</g>`;
+  /* os cuidados no térreo: a pia com o espelho e a escova no copo, e a caixa de brinquedos */
+  s += `<g data-alvo="pia"${novo('cuidados')}><circle cx="${hx + 62}" cy="${y3 + 64}" r="36" fill="transparent"/><ellipse cx="${hx + 58}" cy="${y3 + 34}" rx="15" ry="19" fill="#dbe7ee" stroke="#c6a15b" stroke-width="1.5"/><rect x="${hx + 38}" y="${y3 + 64}" width="42" height="9" rx="4" fill="#fbf8f1" stroke="#c6a15b" stroke-width="1"/><rect x="${hx + 54}" y="${y3 + 73}" width="10" height="44" fill="#fbf8f1" opacity="0.9"/><path d="M${hx + 56} ${y3 + 64}v-8h7" fill="none" stroke="#8f8270" stroke-width="2.5" stroke-linecap="round"/><path d="M${hx + 82} ${y3 + 52}h10l-1.5 12h-7z" fill="#f6e3dc" stroke="#c9a189"/><rect x="${hx + 85}" y="${y3 + 38}" width="3" height="18" rx="1.5" fill="#f2a9c4"/><rect x="${hx + 84}" y="${y3 + 35}" width="5" height="5" rx="1" fill="#fbf8f1" stroke="#c9a189" stroke-width="0.6"/></g>`;
+  s += `<g data-alvo="caixa-brinquedos"${novo('cuidados')}><circle cx="${hx + hw - 44}" cy="${bottom - 26}" r="34" fill="transparent"/><circle cx="${hx + hw - 54}" cy="${bottom - 34}" r="7" fill="#f2a9c4"/><rect x="${hx + hw - 44}" y="${bottom - 42}" width="12" height="12" rx="2" fill="#7FA5B8"/><rect x="${hx + hw - 64}" y="${bottom - 32}" width="40" height="26" rx="4" fill="#c9a189"/><rect x="${hx + hw - 66}" y="${bottom - 34}" width="44" height="6" rx="2" fill="#b08a70"/></g>`;
   /* quintal: canteiro com as flores dela, caixa de areia, pinheiro */
   s += `<g data-alvo="canteiro"><ellipse cx="120" cy="650" rx="70" ry="10" fill="#8a6a4a" opacity="0.55"/>`;
   e.flores.slice(-8).forEach((fl, i) => {
@@ -222,12 +226,28 @@ export function telaCasa(): Tela {
     horta: [236, 662, 48, 22],
     arvore: [350, 600, 36, 60],
     parquinho: [236, 738, 34, 30],
+    cuidados: [hx + 64, y3 + 60, 34, 34],
+  };
+  /* os cuidados moram em três lugares; a luz e a centelha vão em cada um */
+  const alvoDoCuidado: Record<Cuidado, [number, number, number, number]> = {
+    cama: [hx + 88, y1 + 124, 36, 24],
+    dentes: [hx + 64, y3 + 60, 34, 34],
+    brinquedos: [hx + hw - 44, bottom - 24, 30, 24],
   };
   /* contorno de luz onde ela ainda pode ir; centelha parada no que já brincou hoje */
   const luz = luzEm ? alvoDaCoisa[luzEm] : null;
-  if (luz) s += `<g class="luz-do-dia">${contornoLuz(...luz)}</g>`;
+  if (luzEm === 'cuidados') {
+    /* a luz dos cuidados acende em cada um que ela ainda não fez hoje */
+    const faltam = CUIDADOS.filter((c) => !cuidouHoje(e, c));
+    for (const c of faltam.length ? faltam : CUIDADOS) s += `<g class="luz-do-dia">${contornoLuz(...alvoDoCuidado[c])}</g>`;
+  } else if (luz) s += `<g class="luz-do-dia">${contornoLuz(...luz)}</g>`;
+  for (const c of CUIDADOS) {
+    if (!cuidouHoje(e, c)) continue;
+    const [cx, cy, rx, ry] = alvoDoCuidado[c];
+    s += `<g class="feito-hoje">${centelha(cx + rx - 4, cy - ry + 4, 12, '#c6a15b')}</g>`;
+  }
   for (const c of COISAS) {
-    if (!brincouHoje(e, c) || c === luzEm) continue;
+    if (!brincouHoje(e, c) || c === luzEm || c === 'cuidados') continue;
     const [cx, cy, rx, ry] = alvoDaCoisa[c];
     s += `<g class="feito-hoje">${centelha(cx + rx - 4, cy - ry + 4, 12, '#c6a15b')}</g>`;
   }
@@ -261,9 +281,11 @@ export function telaCasa(): Tela {
     tiquinho();
     mover(el, 0, -3, 160);
     void esperar(180).then(() => mover(el, 0, 0, 300));
-    const [cx, cy, rx, ry] = alvoDaCoisa[el.getAttribute('data-varal') as Coisa];
+    const qual = el.getAttribute('data-varal') as Coisa;
+    const [cx, cy] = alvoDaCoisa[qual];
+    const lugares = qual === 'cuidados' ? CUIDADOS.map((c) => alvoDoCuidado[c]) : [alvoDaCoisa[qual]];
     apagarDestaque();
-    destaque = svgEl(`<g class="surge" style="pointer-events:none">${contornoLuz(cx, cy, rx + 8, ry + 8)}</g>`);
+    destaque = svgEl(`<g class="surge" style="pointer-events:none">${lugares.map(([lx, ly, lrx, lry]) => contornoLuz(lx, ly, lrx + 8, lry + 8)).join('')}</g>`);
     svg.querySelector('.camada-mao')?.before(destaque);
     tela.mao([cx + 10, cy + 10]);
     const vez = ++vezDoDestaque;
@@ -288,7 +310,7 @@ export function telaCasa(): Tela {
   tela.aoDestruir(() => svg.removeEventListener('pointerdown', tocou));
 
   /* cada tela da casa é uma coisa explorada: a luz passa adiante e a centelha fica */
-  const COISA_DA_TELA: Record<string, Coisa> = { piano: 'piano', caderno: 'caderno', som: 'som', palavra: 'palavras', areia: 'areia', pinhas: 'pinhas', horta: 'horta', ukulele: 'ukulele', bilhete: 'bilhete', relogio: 'relogio', cozinha: 'cozinha', bonecas: 'bonecas', arvore: 'arvore', jardim: 'jardim', arvoregrande: 'jardim', lago: 'jardim', parquinho: 'parquinho', escorregador: 'parquinho', gangorra: 'parquinho' };
+  const COISA_DA_TELA: Record<string, Coisa> = { piano: 'piano', caderno: 'caderno', som: 'som', palavra: 'palavras', areia: 'areia', pinhas: 'pinhas', horta: 'horta', ukulele: 'ukulele', bilhete: 'bilhete', relogio: 'relogio', cozinha: 'cozinha', bonecas: 'bonecas', arvore: 'arvore', jardim: 'jardim', arvoregrande: 'jardim', lago: 'jardim', parquinho: 'parquinho', escorregador: 'parquinho', gangorra: 'parquinho', cama: 'cuidados', dentes: 'cuidados', brinquedos: 'cuidados' };
   const vai = (nome: string, params: Record<string, string> = {}) => {
     travar(500);
     const coisa = COISA_DA_TELA[nome];
@@ -430,10 +452,13 @@ export function telaCasa(): Tela {
     else fechado(svg.querySelector('[data-alvo="estante"]')!);
   });
   tela.alvo('[data-alvo="cama"]', (_ev, el) => {
+    if (aberto(s7, 'cuidados')) return vai('cama');
     tiquinho();
     mover(el, 0, -2, 200);
     void esperar(220).then(() => mover(el, 0, 0, 300));
   });
+  tela.alvo('[data-alvo="pia"]', (_ev, el) => (aberto(s7, 'cuidados') ? vai('dentes') : fechado(el)));
+  tela.alvo('[data-alvo="caixa-brinquedos"]', (_ev, el) => (aberto(s7, 'cuidados') ? vai('brinquedos') : fechado(el)));
   tela.alvo('[data-alvo="canteiro"]', (_ev, el) => enfeite(el));
   tela.alvo('[data-alvo="mesa-cozinha"]', (_ev, el) => enfeite(el));
   /* tocar na família: eles acenam e chamam para o fim da sessão (os bichos, ou a despedida) */
@@ -514,6 +539,7 @@ const MINI: Record<Coisa, (x: number, y: number) => string> = {
   relogio: (x, y) => `<circle cx="${x}" cy="${y}" r="6" fill="#fbf8f1" stroke="#c9a189" stroke-width="1.4"/><path d="M${x} ${y}V${y - 4}M${x} ${y}h3" stroke="#6e1a27" stroke-width="1.2" stroke-linecap="round"/>`,
   horta: (x, y) => `<path d="M${x - 6} ${y + 4}h12v2.5h-12z" fill="#8a6a4a"/><path d="M${x} ${y + 4}v-6" stroke="#8fae6b" stroke-width="1.4"/><path d="M${x} ${y - 1}q-5 -1 -5 -5q5 0 5 5zM${x} ${y - 1}q5 -1 5 -5q-5 0 -5 5z" fill="#8fae6b"/>`,
   arvore: (x, y) => `<path d="M${x} ${y - 7}l5 7h-2.5l3.5 5h-12l3.5 -5h-2.5z" fill="#4f6b3a"/><rect x="${x - 1}" y="${y + 5}" width="2" height="2.5" fill="#8a6a4a"/>`,
+  cuidados: (x, y) => `<rect x="${x - 7}" y="${y + 1}" width="14" height="5" rx="2" fill="#f2a9c4"/><rect x="${x - 7}" y="${y - 2}" width="5" height="3.5" rx="1.5" fill="#fbf8f1" stroke="#c9a189" stroke-width="0.6"/><rect x="${x + 1}" y="${y - 8}" width="2" height="9" rx="1" fill="#7FA5B8"/><rect x="${x}" y="${y - 10}" width="4" height="3" rx="1" fill="#fbf8f1" stroke="#c9a189" stroke-width="0.5"/>`,
   parquinho: (x, y) => `<path d="M${x - 6} ${y + 6}l3 -12l3 12M${x + 6} ${y + 6}l-3 -12l3 12" fill="none" stroke="#c9a189" stroke-width="1.4" stroke-linejoin="round"/><path d="M${x - 4} ${y - 6}h8" stroke="#8a6a4a" stroke-width="1.6" stroke-linecap="round"/><path d="M${x - 1.2} ${y - 6}v6M${x + 1.2} ${y - 6}v6" stroke="#8f6f2c" stroke-width="0.7"/><rect x="${x - 2.6}" y="${y - 0.5}" width="5.2" height="1.4" rx="0.6" fill="#c9a189"/>`,
 };
 

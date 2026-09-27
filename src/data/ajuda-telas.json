@@ -143,5 +143,20 @@
     "titulo": "A gangorra",
     "oque": "O último brinquedo do parquinho. Gangorra é para dois: o Theo fica na outra ponta.",
     "fazer": "Tocar para ela empurrar com o pé e subir. Quem empurra o chão é ela; a descida é macia, sem tranco."
+  },
+  "cama": {
+    "titulo": "Arrumar a cama",
+    "oque": "A cama do quarto rosa, bagunçada, e o quadro de passos no alto com um desenho para cada passo, na ordem de verdade: tirar o travesseiro e os bichinhos, esticar o lençol, puxar a coberta, afofar o travesseiro, pôr os bichinhos de volta.",
+    "fazer": "Tocar no que está em cima da cama para tirar; passar o dedo no lençol para as rugas sumirem; puxar a coberta do pé até a cabeceira (se soltar antes de chegar perto, ela escorrega de volta e dá para puxar de novo); tocar três vezes no travesseiro para afofar; tocar nos bichinhos para voltarem. No fim, o gatinho deita na cama."
+  },
+  "dentes": {
+    "titulo": "Escovar os dentes",
+    "oque": "A pia do banheiro e a boca dela no espelho, bem de perto. O quadro de passos no alto mostra a ordem: molhar a escova, um pouquinho de pasta (do tamanho de uma ervilha, que aparece do lado), os dentes de cima, a língua, os de baixo, enxaguar, guardar a escova.",
+    "fazer": "Tocar na torneira, na pasta, no copinho e na escova, cada um na sua vez. Para escovar, esfregar o dedo devagar na parte que brilha: cada escovada toca uma nota do Brilha, brilha, e as sujeirinhas somem. Esfregar rápido não acaba antes: a música inteira é o tempo de escovar."
+  },
+  "brinquedos": {
+    "titulo": "Guardar os brinquedos",
+    "oque": "A sala de brincar com os brinquedos espalhados no tapete e três casas, cada uma com o desenho do que mora nela: a estante (livros), a caixa (blocos) e o cesto (ursinho e bola).",
+    "fazer": "Arrastar um brinquedo de cada vez até a casa dele. Na casa de outro, ele pula sozinho para a dele e a casa certa acende; no chão, ele volta para o lugar. Com o tapete limpo, a família senta junto."
   }
 }

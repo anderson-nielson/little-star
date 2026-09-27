@@ -39,6 +39,9 @@ import { telaBonecas } from './telas/bonecas';
 import { telaBilhete } from './telas/bilhete';
 import { telaRelogio } from './telas/relogio';
 import { telaEscorregador, telaGangorra, telaParquinho } from './telas/parquinho';
+import { telaCama } from './telas/cama';
+import { telaDentes } from './telas/dentes';
+import { telaBrinquedos } from './telas/brinquedos';
 
 registrar('chegada', telaChegada);
 registrar('casa', telaCasa);
@@ -70,6 +73,9 @@ registrar('relogio', telaRelogio);
 registrar('parquinho', telaParquinho);
 registrar('escorregador', telaEscorregador);
 registrar('gangorra', telaGangorra);
+registrar('cama', telaCama);
+registrar('dentes', telaDentes);
+registrar('brinquedos', telaBrinquedos);
 
 const app = document.getElementById('app')!;
 montar(app);
