@@ -64,7 +64,7 @@ export function telaPrato(): Tela {
       x.hoje.pratoFeito = true;
     });
     await esperar(600);
-    void sessao.avancar();
+    if (tela.el.isConnected) void sessao.avancar();
   };
 
   const provou = async (c: CorDeComida, g: SVGGElement) => {

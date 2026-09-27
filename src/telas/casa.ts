@@ -376,7 +376,9 @@ export function telaCasa(): Tela {
     void esperar(300).then(() => mover(el, 0, 0, 300));
     if (sessao.partes.includes('bichos')) {
       travar(600);
-      void esperar(500).then(() => sessao.irPara('bichos'));
+      void esperar(500).then(() => {
+        if (tela.el.isConnected) void sessao.irPara('bichos');
+      });
     }
   });
   tela.alvo('[data-alvo="coelho"]', (_ev, el) => {

@@ -32,3 +32,23 @@ jobs:
       # a casinha volta para a casa em toda tela, tocada num celular de verdade
       - run: npx playwright-core install --with-deps chromium
       - run: npm run casinha
+
+  varredura:
+    name: Varredura da casinha
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      # joga cada tela etapa por etapa, em vários tamanhos, e toca a casinha: sempre volta para a casa
+      - run: npx playwright-core install --with-deps chromium
+      - run: npm run varredura
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: varredura-capturas
+          path: docs/shots/varredura/

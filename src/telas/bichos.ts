@@ -59,7 +59,8 @@ export function telaBichos(): Tela {
     terminou = true;
     liraDesce();
     await esperar(500);
-    void sessao.avancar();
+    /* ela já foi para a casa pela casinha: a sessão não a puxa de volta */
+    if (tela.el.isConnected) void sessao.avancar();
   };
   const contente = (quem: 'gato' | 'coelho') => {
     const g = svg.querySelector('.' + quem);

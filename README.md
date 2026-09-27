@@ -23,6 +23,7 @@ npm run dev          # http://localhost:5173/little-star/
 npm test             # vitest: laço, relógio, fita, jardim, dados, estado
 npm run build        # tsc + vite + PWA
 npm run e2e          # passeio de fumaça no Chromium, capturas em docs/shots/
+npm run varredura    # joga cada tela etapa por etapa e confere que a casinha sempre volta para a casa
 ```
 
 Atalhos de depuração: `?debug=1&zerar=1&sessoes=8&hora=15:00&tela=jardim` e

@@ -76,7 +76,10 @@ function embaixoDoPinheiro(): Tela {
             mover(co, -20, 0, 400);
             void esperar(500).then(() => mover(co, 0, 0, 400));
           }
-          if (catadas >= n) void esperar(1200).then(() => ir('pinhas', { mesa: '1' }));
+          if (catadas >= n) void esperar(1200).then(() => {
+              /* a casinha, tocada nesse instante, vale mais que a mesa */
+              if (tela.el.isConnected) void ir('pinhas', { mesa: '1' });
+            });
           return true;
         }
         return false;
@@ -139,7 +142,9 @@ function mesaDaEstacao(): Tela {
           if (!acabou && estado().pinhas.every((q) => q.y > 0)) {
             acabou = true;
             tela.comemorar(195, 400);
-            void esperar(2400).then(() => ir('casa'));
+            void esperar(2400).then(() => {
+              if (tela.el.isConnected) void ir('casa');
+            });
           }
           return true;
         }

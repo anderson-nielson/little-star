@@ -126,7 +126,8 @@ export function telaArvore(): Tela {
       travar(1500);
       if (temVoz('gato_topo')) await falar('gato_topo');
       else await esperar(600);
-      void ir('arvoregrande');
+      /* ela pode ter tocado a casinha enquanto o gatinho falava: a casa vale */
+      if (tela.el.isConnected) void ir('arvoregrande');
     };
     tela.alvo('[data-alvo="gato-topo"]', () => void subirAtras());
     tela.alvo('[data-galho]', () => void subirAtras());
