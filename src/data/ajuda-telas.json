@@ -107,7 +107,7 @@
   "lago": {
     "titulo": "O Lago dos Cisnes",
     "oque": "Atravessar o lago pulando em vitórias-régias e cisnes que nadam de um lado para o outro. Se cair na água, ela sobe de novo sozinha.",
-    "fazer": "Tocar na tela para pular para a frente; o pulo espera a plataforma chegar. Cada travessia acende uma parte do coreto do outro lado; três travessias fecham a aventura. Caiu na água? Ela nada de volta e tenta de novo."
+    "fazer": "Tocar na tela para pular para a frente; o pulo espera a plataforma chegar. É ida e volta: no coreto do outro lado uma parte dele acende, e ela volta para a margem de casa. Caiu na água? Ela nada de volta e tenta de novo."
   },
   "ukulele": {
     "titulo": "O ukulele",

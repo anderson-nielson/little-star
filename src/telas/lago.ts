@@ -15,10 +15,10 @@ import type { Tela } from '@/core/roteador';
 
 /** Dados do balanceamento do Lago dos Cisnes. */
 export const LAGO = {
-  /** rede de segurança: mesmo sem nenhum toque, a aventura termina */
-  duracao: 120,
-  /** travessias que fecham a aventura, mostradas nas contas da margem de baixo */
-  travessias: 3,
+  /** rede de segurança: mesmo sem nenhum toque (a A2 leva uns 12 s por faixa), a aventura termina */
+  duracao: 180,
+  /** a ida até o coreto e a volta para casa, mostradas nas contas da margem de baixo */
+  travessias: 2,
   faixas: 5,
   /** o toque procura a plataforma: até tantos segundos à frente */
   janelaDoPulo: 0.7,
@@ -68,8 +68,9 @@ function imagemDe(svgInterno: string, w: number, h: number): HTMLImageElement {
 /**
  * O Lago dos Cisnes: atravessar de baixo para cima pulando em vitórias-régias
  * e cisnes que nadam em faixas. Toque = pular para a frente; o pulo espera a
- * plataforma chegar. Cada travessia acende uma parte do coreto do outro lado.
- * Caiu na água? Splash, ela senta, sacode e sobe de novo, sem perder nada.
+ * plataforma chegar. Vai até o coreto do outro lado, acende uma parte dele e
+ * volta pulando para a margem de casa. Caiu na água? Splash onde caiu, ela nada
+ * de volta, sacode e tenta de novo, sem perder nada.
  */
 export function telaLago(): Tela {
   const e = estado();
@@ -117,7 +118,12 @@ export function telaLago(): Tela {
   let splash = 0;
   /** onde ela caiu, para o splash e o nado de volta acontecerem ali, à vista */
   let queda: { inicio: number; x: number; y: number } | null = null;
+  /** 0 na ida, 1 na volta, 2 quando chegou em casa */
   let travessias = 0;
+  /** parada no coreto, olhando a luz acender, antes de virar para voltar */
+  let noCoreto = false;
+  /** para onde é a frente: para cima na ida, para baixo na volta */
+  const passo = () => (travessias === 0 ? 1 : -1);
   let quedas = 0;
 
   const tempo = () => audio.agora() - tInicio;
@@ -127,13 +133,13 @@ export function telaLago(): Tela {
   const xAgora = (t: number) => (faixa >= 0 && faixa < LAGO.faixas ? posicaoNaFaixa(faixas[faixa]!, t) : x);
 
   const pular = (t: number) => {
-    if (pulo || splash > t || acabou) return;
+    if (pulo || splash > t || acabou || noCoreto) return;
     const de = faixa;
-    const para = faixa + 1;
+    const para = faixa + passo();
     const xDe = xAgora(t);
     let inicio = t;
     let xPara: number | null = null;
-    if (para < LAGO.faixas) {
+    if (para >= 0 && para < LAGO.faixas) {
       const f = faixas[para]!;
       /* na A2 ela espera a vitória-régia chegar embaixo dela, quanto for preciso */
       const janela = ajuda.nivel >= 2 ? (f.amplitude * 2) / f.velocidade : LAGO.janelaDoPulo;
@@ -167,19 +173,22 @@ export function telaLago(): Tela {
       const p = pulo;
       pulo = null;
       if (p.para >= LAGO.faixas) {
-        /* chegou do outro lado: uma parte do coreto acende, e ela volta para a margem */
+        /* chegou do outro lado: uma parte do coreto acende, ela olha um pouquinho e vira para voltar */
         faixa = LAGO.faixas;
         x = p.xDe;
-        travessias += 1;
+        travessias = 1;
+        noCoreto = true;
         sininho();
         mudar((s) => void (s.coreto = Math.min(LAGO.partesDoCoreto, s.coreto + 1)));
         ajuda.reset();
-        window.setTimeout(() => {
-          if (!vivo) return;
-          if (travessias >= LAGO.travessias) return void terminar();
-          faixa = -1;
-          x = 0.5;
-        }, 1800);
+        window.setTimeout(() => void (noCoreto = false), 1800);
+      } else if (p.para < 0) {
+        /* de volta à margem de casa: a aventura fecha */
+        faixa = -1;
+        x = p.xDe;
+        travessias = 2;
+        sininho();
+        window.setTimeout(() => void terminar(), 1200);
       } else if (p.xPara !== null && Math.abs(posicaoNaFaixa(faixas[p.para]!, t) - p.xPara) < LAGO.largura * 0.5) {
         faixa = p.para;
         ajuda.reset();
@@ -270,10 +279,11 @@ export function telaLago(): Tela {
         ctx.stroke();
       }
     }
-    /* e nesta travessia: uma pedrinha por faixa na beirada, acesas até onde ela chegou */
+    /* e nesta travessia: uma pedrinha por faixa na beirada, acesas do ponto de partida até onde ela chegou */
     const ondeEsta = pulo && t >= pulo.inicio ? pulo.para : faixa;
     for (let i = -1; i <= LAGO.faixas; i++) {
-      ctx.fillStyle = i <= ondeEsta ? '#c6a15b' : '#fbf8f1';
+      const acesa = travessias === 0 ? i <= ondeEsta : i >= ondeEsta;
+      ctx.fillStyle = acesa ? '#c6a15b' : '#fbf8f1';
       ctx.strokeStyle = '#c6a15b';
       ctx.lineWidth = 1.5;
       ctx.beginPath();
@@ -318,7 +328,7 @@ export function telaLago(): Tela {
         ctx.fill();
       }
       /* ajuda A1: a mãozinha pulsa quando a plataforma da próxima faixa está embaixo dela */
-      if (ajuda.nivel >= 1 && i === faixa + 1 && !pulo && Math.abs(posicaoNaFaixa(f, t) - xAgora(t)) < LAGO.largura * 0.45) {
+      if (ajuda.nivel >= 1 && i === faixa + passo() && !pulo && !noCoreto && Math.abs(posicaoNaFaixa(f, t) - xAgora(t)) < LAGO.largura * 0.45) {
         ctx.save();
         ctx.translate(px - 6, y - 60);
         ctx.fillStyle = '#f6e3dc';
