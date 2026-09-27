@@ -156,6 +156,21 @@ const palavrasLidas = await page.evaluate(() => globalThis.littleStar.estado().p
 if (!palavrasLidas.includes('LUA')) erros.push(`palavra: LUA não entrou nas palavras lidas (${JSON.stringify(palavrasLidas)})`);
 const proximaVisivel = await page.evaluate(() => document.querySelector('.proxima')?.getAttribute('opacity'));
 if (proximaVisivel !== '1') erros.push(`palavra: a próxima palavra não acendeu (opacity ${proximaVisivel})`);
+const cadernoVisivel = await page.evaluate(() => document.querySelector('.caderno[data-alvo="caderno"]')?.getAttribute('opacity'));
+if (cadernoVisivel !== '1') erros.push(`palavra: o caderno não acendeu (opacity ${cadernoVisivel})`);
+/* do caderno da palavra pronta, direto para escrever */
+await toque(250, 690);
+await espera(1200);
+await conta('palavra -> caderno', 'canvas.cena');
+
+/* a sessão 2 já abre a mala das palavras junto com o caderno */
+await abrir('zerar=1&hora=15:00&tela=casa');
+await page.evaluate(() => globalThis.littleStar.mudar((e) => void (e.sessoes = 2)));
+await page.evaluate(() => globalThis.littleStar.ir('casa'));
+await espera(900);
+await conta('casa sessão 2: caderno', '[data-alvo="caderno"]');
+await conta('casa sessão 2: mala', '[data-alvo="mala"]');
+await shot('02b-casa-sessao-2');
 
 /* 4. o jardim e o palco */
 await abrir('sessoes=8&hora=15:00&tela=jardim');

@@ -1,4 +1,5 @@
 import { brincouHoje, COISAS, disponivel, etapa, luzDaCasa, novidade, SESSAO_COMPLETA, sessaoQueAbre, tarefasAtivas, type Coisa } from '@/core/laco';
+import { SEGUNDOS_DO_CHAMADO, type SomDoChamado } from '@/core/chamado';
 import { ajustar, PEDRINHAS } from '@/core/pedrinhas';
 import { apagarTudo, CORES_DE_COMIDA, estado, estadoNovo, hojeVazio, mudar, substituir, TAREFAS, type CorDeComida, type Tarefa } from '@/core/estado';
 import { sessao } from '@/core/sessao';
@@ -120,6 +121,23 @@ export function telaPais(): Tela {
     const selLim = h('select', { id: 'limite' }, ...limites.map((x) => h('option', { value: String(x), selected: x === e.pais.limiteMin }, `${x} minutos`))) as HTMLSelectElement;
     selLim.addEventListener('change', () => mudar((x) => void (x.pais.limiteMin = Number(selLim.value))));
     painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Limite diário', h('span', { class: 'sub' }, 'Quando acaba, a família se despede. É uma despedida, não um bloqueio.')), selLim));
+
+    /* o chamado: quanto tempo parada até a mãozinha chamar, e com que som */
+    const selChamado = h(
+      'select',
+      { id: 'chamado-seg' },
+      ...SEGUNDOS_DO_CHAMADO.map((x) => h('option', { value: String(x), selected: x === e.pais.chamadoSeg }, x ? `${x} segundos` : 'Desligado')),
+    ) as HTMLSelectElement;
+    selChamado.addEventListener('change', () => mudar((x) => void (x.pais.chamadoSeg = Number(selChamado.value))));
+    painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Chamado quando ela fica parada', h('span', { class: 'sub' }, 'Em toda tela o jogo conta o tempo sem toque. Passou disso, a mãozinha mostra o próximo passo (até três vezes seguidas)')), selChamado));
+    const sons: [SomDoChamado, string][] = [
+      ['alterna', 'Um de cada vez'],
+      ['assovio', 'Assovio'],
+      ['ei', '"Ei, Stella!"'],
+    ];
+    const selSom = h('select', { id: 'chamado-som' }, ...sons.map(([v, t]) => h('option', { value: v, selected: v === e.pais.chamadoSom }, t))) as HTMLSelectElement;
+    selSom.addEventListener('change', () => mudar((x) => void (x.pais.chamadoSom = selSom.value as SomDoChamado)));
+    painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Som do chamado', h('span', { class: 'sub' }, 'O "Ei, Stella!" usa a voz gravada no grupo Chamado; sem gravação, a voz do aparelho diz "Ei!"')), selSom));
 
     /* prato */
     painel.append(h('h2', {}, 'O prato colorido'));
@@ -326,7 +344,7 @@ export function telaPais(): Tela {
     const desenharVozes = () => {
       grade.innerHTML = '';
       for (const g of grupos) {
-        grade.append(h('h2', {}, { chegada: 'Chegada', roda: 'Roda do dia', prato: 'Prato', sons: 'Sons das letras', letras: 'Caderno', bichos: 'Nomes dos bichos', despedida: 'Despedida', noite: 'Boa noite', palco: 'Palco', cozinha: 'Comidinha', horta: 'Horta', bilhete: 'Bilhetinho', espanhol: 'Espanhol (a Estrellita)', aventuras: 'Aventuras', relogio: 'Relógio (as horas)' }[g] ?? g));
+        grade.append(h('h2', {}, { chegada: 'Chegada', roda: 'Roda do dia', prato: 'Prato', sons: 'Sons das letras', letras: 'Caderno', bichos: 'Nomes dos bichos', despedida: 'Despedida', noite: 'Boa noite', palco: 'Palco', cozinha: 'Comidinha', horta: 'Horta', bilhete: 'Bilhetinho', espanhol: 'Espanhol (a Estrellita)', aventuras: 'Aventuras', relogio: 'Relógio (as horas)', chamado: 'Chamado (quando ela fica parada)' }[g] ?? g));
         for (const f of frases.filter((x) => x.grupo === g)) grade.append(linhaVoz(f));
       }
     };

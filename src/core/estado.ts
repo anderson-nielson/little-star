@@ -1,4 +1,5 @@
 import { chaveDoDia } from './relogio';
+import type { SomDoChamado } from './chamado';
 
 export const VERSAO_DO_SAVE = 1;
 const CHAVE = 'little-star.save';
@@ -96,6 +97,10 @@ export interface Pais {
   contarNoBalanco: boolean;
   /** o som do jogo desligado pelo botão de opções do canto */
   mudo: boolean;
+  /** segundos parada numa tela até a mãozinha chamar para o próximo passo; 0 desliga */
+  chamadoSeg: number;
+  /** o som do chamado: um assovio, um "Ei!" ou um de cada vez */
+  chamadoSom: SomDoChamado;
 }
 
 export interface Estado {
@@ -217,6 +222,8 @@ export function estadoNovo(agora = new Date()): Estado {
       narracao: true,
       contarNoBalanco: true,
       mudo: false,
+      chamadoSeg: 20,
+      chamadoSom: 'alterna',
     },
   };
 }

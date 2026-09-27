@@ -297,3 +297,60 @@ export function aplauso(dur = 3): void {
   s.stop(t + dur + 0.1);
   lfo.stop(t + dur + 0.1);
 }
+
+/**
+ * O assovio de chamar alguém: "fiu-fiu", duas subidas curtas de apito, a
+ * segunda mais alta. Seno puro com um vibrato leve e um sopro de ruído, no
+ * canal dos efeitos. Nunca alto: é um chamado, não um susto.
+ */
+export function assovio(vel = 0.16): void {
+  const ctx = audio.ctx;
+  const out = audio.efeitos;
+  if (!ctx || !out) return;
+  const t0 = ctx.currentTime + 0.02;
+  for (const [at, de, ate, dur] of [
+    [0, 1250, 2100, 0.22],
+    [0.34, 1400, 2500, 0.34],
+  ] as const) {
+    const t = t0 + at;
+    const o = ctx.createOscillator();
+    o.type = 'sine';
+    o.frequency.setValueAtTime(de, t);
+    o.frequency.exponentialRampToValueAtTime(ate, t + dur * 0.7);
+    o.frequency.exponentialRampToValueAtTime(ate * 0.94, t + dur);
+    const lfo = ctx.createOscillator();
+    lfo.frequency.value = 7;
+    const lg = ctx.createGain();
+    lg.gain.value = 18;
+    lfo.connect(lg);
+    lg.connect(o.frequency);
+    const g = ctx.createGain();
+    o.connect(g);
+    g.connect(out);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vel, t + 0.04);
+    g.gain.setValueAtTime(vel, t + dur - 0.06);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    /* o sopro: ruído passa-banda seguindo o apito */
+    const s = ctx.createBufferSource();
+    s.buffer = ruido(ctx);
+    const f = ctx.createBiquadFilter();
+    f.type = 'bandpass';
+    f.Q.value = 8;
+    f.frequency.setValueAtTime(de, t);
+    f.frequency.exponentialRampToValueAtTime(ate, t + dur * 0.7);
+    const gs = ctx.createGain();
+    s.connect(f);
+    f.connect(gs);
+    gs.connect(out);
+    gs.gain.setValueAtTime(0.0001, t);
+    gs.gain.exponentialRampToValueAtTime(vel * 0.25, t + 0.04);
+    gs.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.start(t);
+    lfo.start(t);
+    s.start(t);
+    o.stop(t + dur + 0.05);
+    lfo.stop(t + dur + 0.05);
+    s.stop(t + dur + 0.05);
+  }
+}

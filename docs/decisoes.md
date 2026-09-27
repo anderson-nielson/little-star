@@ -84,7 +84,7 @@ continua sendo um contador disfarçado; o canteiro já recompensa).
 | Horta | Quatro covas no quintal. Um toque faz a coisa certa: cova vazia planta, planta com sede rega, planta pronta colhe. Cresce com dias e regas (pronta com dois de cada) e nunca murcha. O que ela colhe vai para a comidinha. | `src/core/horta.ts`, `src/telas/horta.ts` |
 | Comidinha | Segunda-feira, o dia do pão. Na cozinha com a mãe: toca em cada legume, que vai para a bacia, se lava e cai na tigela; mexe três vezes com a colher; o Theo come rindo e a mãe prova. Cada comida diz o nome, e a Estrellita o nome em espanhol. | `src/telas/cozinha.ts` |
 | Mais tarefas na roda | Banho, quarto e ser gentil. Os pais ligam e desligam cada tarefa no cantinho; banho já vem ligado, quarto e gentil não, para a roda continuar curta. | `src/telas/roda.ts`, `src/telas/pais.ts` |
-| Subir na árvore | Tocar num galho mais alto e ela sobe até ele, sem pressa. Do alto vê a casa verde de cima, o Theo acenando e, à noite, as estrelas das noites bem dormidas. O Theo sobe junto só nos galhos baixos. | `src/telas/arvore.ts` |
+| Subir na árvore | Tocar num galho mais alto e ela sobe até ele, sem pressa. Do alto vê a casa verde de cima, o Theo acenando e, à noite, as estrelas das noites bem dormidas. O Theo sobe junto só nos galhos baixos. Quando o gatinho está no topo, a cena vira só a abertura da Árvore Grande: ela vê o gatinho lá em cima e o toque leva direto para a subida de perto, sem subir duas vezes. | `src/telas/arvore.ts` |
 | A Árvore Grande | O gatinho subiu ao topo e não sabe descer. Cada toque, ela pula para o galho de cima (sete galhos, como os degraus da escada do escorregador), sem nada caindo e sem pressa. No topo ela abraça o gatinho e vai para o palco. Abre depois da primeira aventura terminada. Música: a Marcha. | `src/telas/arvoregrande.ts` |
 | O Lago dos Cisnes | Cinco faixas de vitórias-régias e cisnes que vão e voltam (nunca somem pela beirada). Toque = pular para a frente, e o pulo espera a plataforma chegar. Caiu na água? O Theo pesca com a rede, sem perder nada. Cada travessia acende uma luz do coreto. Abre depois da segunda aventura. Música: a Dança dos pequenos cisnes. | `src/telas/lago.ts` |
 | A porta | Com mais de uma aventura aberta, três figuras (coelhinho, pinha com o gatinho, cisne) para escolher; a do dia brilha e vai sozinha depois de 14 s. | `src/telas/casa.ts` |
@@ -375,6 +375,7 @@ a entrada na etapa 2, a ajuda e a foto do e2e. O som de corda dedilhada que marc
 do jogo (a escala subindo e descendo, as notinhas das brincadeiras) continua; é o mesmo timbre
 do ukulele, não um objeto na casa.
 
+<<<<<<< HEAD
 ## O Theo sai do centro
 
 A mãe jogou e disse que o jogo estava exagerando no Theo: ele ensinava, segurava, resgatava e
@@ -405,3 +406,20 @@ plateia principal.
 - **Gravações.** As frases que mudaram de texto ou de id (`letra_pronta`, `cozinha_pronto`,
   `comemora_brinquedos` com texto novo; `lago_splash`, `viva_forca`, `viva_coragem` com id
   novo) precisam ser gravadas de novo no cantinho dos pais.
+=======
+## Ler e escrever mais perto
+
+A Stella tem adorado escrever e ouvir os sons das letras, então o caminho até isso encurta.
+
+- **A mala das palavras abre na sessão 2**, junto com o caderno, em vez da 3. A fila de
+  palavras já nasce da letra da vez, então não precisa esperar letra traçada.
+- **O caderno sai de trás da Stella.** Ela ficava de pé bem na frente dele e o toque caía nela.
+  Agora ela fica ao pé da cama, não recebe toque (é enfeite) e o caderno cresceu, com a letra
+  da vez maior e uma área de toque folgada em volta.
+- **Da palavra pronta, direto para o caderno.** Ao lado da próxima palavra aparece o caderno com
+  a letra da vez. Sem próxima, a mãozinha aponta para ele em vez da casinha. Caderno leva à
+  palavra da letra, palavra leva de volta ao caderno: dá para ficar no ciclo de escrever e ler.
+- **Conserto:** o toque no círculo da próxima palavra não funcionava. A fita soltava qualquer
+  dedo que tocasse longe dela, inclusive o que tinha acabado de apertar o círculo. Agora a fita
+  só pega o dedo que chega perto dela.
+>>>>>>> origin/main

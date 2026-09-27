@@ -135,13 +135,15 @@ export function telaCasa(): Tela {
   /* piano rosa */
   s += `<g data-alvo="piano"${novo('piano')}><rect x="${hx + 150}" y="${y1 + 104}" width="44" height="42" rx="4" fill="#f2a9c4"/><rect x="${hx + 150}" y="${y1 + 122}" width="44" height="10" fill="#fbf8f1"/><path d="M${hx + 156} ${y1 + 122}v10M${hx + 162} ${y1 + 122}v10M${hx + 168} ${y1 + 122}v10M${hx + 174} ${y1 + 122}v10M${hx + 180} ${y1 + 122}v10M${hx + 186} ${y1 + 122}v10" stroke="#ebcdc3" stroke-width="1"/></g>`;
   /* caderno na mesinha */
-  if (aberto(s7, 'caderno')) s += `<g data-alvo="caderno"${novo('caderno')}><rect x="${hx + 96}" y="${y1 + 150}" width="40" height="6" fill="#c9a189"/><rect x="${hx + 104}" y="${y1 + 138}" width="26" height="14" rx="2" fill="#fbf8f1" stroke="#c6a15b"/><text x="${hx + 117}" y="${y1 + 149}" text-anchor="middle" font-family="Jost, sans-serif" font-size="10" fill="#f2a9c4" font-weight="500">${(letras as { id: string }[])[Math.min(e.letraIndice, 8)]?.id ?? 'A'}</text></g>`;
+  /* o caderno é grande e o toque pega bem em volta: é onde ela mais gosta de ir */
+  if (aberto(s7, 'caderno')) s += `<g data-alvo="caderno"${novo('caderno')}><rect x="${hx + 90}" y="${y1 + 116}" width="54" height="46" fill="transparent"/><rect x="${hx + 94}" y="${y1 + 150}" width="46" height="6" fill="#c9a189"/><rect x="${hx + 100}" y="${y1 + 128}" width="34" height="23" rx="2" fill="#fbf8f1" stroke="#c6a15b"/><line x1="${hx + 117}" y1="${y1 + 129}" x2="${hx + 117}" y2="${y1 + 150}" stroke="#ebcdc3" stroke-width="1"/><text x="${hx + 125}" y="${y1 + 146}" text-anchor="middle" font-family="Jost, sans-serif" font-size="16" fill="#f2a9c4" font-weight="500">${(letras as { id: string }[])[Math.min(e.letraIndice, 8)]?.id ?? 'A'}</text></g>`;
   /* mala no chão (palavra) */
   if (aberto(s7, 'palavras')) s += `<g data-alvo="mala"${novo('palavras')}><rect x="${hx + 22}" y="${y1 + 132}" width="30" height="20" rx="4" fill="#c48f5a"/><rect x="${hx + 31}" y="${y1 + 127}" width="12" height="6" rx="2" fill="none" stroke="#c48f5a" stroke-width="3"/></g>`;
   /* o gatinho, no pé do piano */
   if (e.bichos.gato) s += `<g data-alvo="gato">${gato(hx + 156, y1 + 156, 10, '#c8b8a6', true)}</g>`;
-  /* a Stella no quarto */
-  s += `<g class="stella">${familia.stella(hx + 118, y2 - 10, 56, 'acena').svg}</g>`;
+  /* a Stella no quarto, ao pé da cama: ao lado do caderno, não na frente dele. É só
+     enfeite, então o toque passa por ela e chega no que estiver atrás. */
+  s += `<g class="stella" style="pointer-events:none">${familia.stella(hx + 74, y2 - 10, 56, 'acena').svg}</g>`;
   /* sala e cozinha */
   s += `<rect x="${hx + 10}" y="${y2}" width="${hw / 2 - 12}" height="${y3 - y2 - 8}" fill="#c9dbb2" opacity="0.7"/>`;
   s += `<rect x="${hx + hw / 2 + 2}" y="${y2}" width="${hw / 2 - 12}" height="${y3 - y2 - 8}" fill="#fbf8f1" opacity="0.6"/>`;
@@ -203,7 +205,7 @@ export function telaCasa(): Tela {
   /* onde cada coisa mora, para a luz e para a centelha do que já foi hoje */
   const alvoDaCoisa: Record<Coisa, [number, number, number, number]> = {
     piano: [hx + 172, y1 + 124, 28, 28],
-    caderno: [hx + 117, y1 + 146, 26, 16],
+    caderno: [hx + 117, y1 + 140, 30, 22],
     palavras: [hx + 37, y1 + 140, 24, 18],
     areia: [110, 720, 58, 36],
     pinhas: [326, 750, 40, 22],
