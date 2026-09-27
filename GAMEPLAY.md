@@ -104,6 +104,7 @@ faz cresce **num lugar só**, sempre o mesmo, para ela entender de onde veio.
 | Ela faz | Cresce | Onde fica |
 |---|---|---|
 | Tarefas de verdade (cama, dentes, brinquedos...) | Uma lembrança por tarefa | No quarto rosa |
+| Treinar os cuidados na casa (6.14) | Nada que se conte: o que cresce é a tarefa de verdade, na roda | O convite da despedida leva para fazer de verdade |
 | Provar cores de comida | Uma flor por cor; girassol por comida nova | No canteiro na frente da casa |
 | Dormir na hora e sozinha | Uma estrela | No céu da janela do quarto |
 | Aprender uma letra | A letra, feita de fita rosa | Na parede do quarto; as do nome, na porta |
@@ -446,6 +447,57 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
   horta?". A porta fecha com um laço rosa e a lira desce.
 - **Dura**: 20 segundos.
 
+
+### 6.14 Os cuidados: arrumar a cama, escovar os dentes, guardar os brinquedos
+
+- **Para quê**: a roda pergunta se ela fez; aqui ela treina **como** se faz. Cada cuidado tem
+  uma ordem, um jeito de fazer e um momento de persistir até ver o resultado bonito.
+- **Onde**: a cama do quarto rosa, a pia com o espelho no térreo e a caixa de brinquedos ao
+  lado da porta. No varal é uma bandeirinha só; a luz acende nos três lugares.
+- **O quadro de passos**: no alto da cama e dos dentes, um desenho por passo, na ordem de
+  verdade, como o quadro de rotina da parede da escola. O passo feito fica dourado, o de agora
+  tem a estrelinha. Só o passo da vez responde; tocar em outro faz o sininho baixinho.
+- **A cama**, como ela amanhece depois de uma noite bem dormida: o lençol embolado num canto,
+  o travesseiro torto, o coelhinho com quem ela dormiu deitado de lado, a coberta torta caindo
+  pelo lado, o ursinho e a bola caídos no chão, e o sol entrando pela janela. Música: *A
+  Primavera*, de Vivaldi.
+  1. **Tirar**: tocar no travesseiro e no coelhinho; eles vão para a cadeira.
+  2. **O lençol**: arrastar o lençol embolado do canto até o pé da cama; depois passar o dedo
+     de lado, e cada ruga que o dedo cruza some.
+  3. **Puxar a coberta**: arrastar do pé até a cabeceira; ela fica reta e a ponta para de
+     cair. Lençol e coberta são pesados: soltou antes de 40% do caminho, escorregam de volta
+     devagar e dá para puxar de novo. É o momento de não desistir.
+  4. **Afofar o travesseiro**: três toques, e ele vai para a cabeceira.
+  5. **O que caiu no chão**: o coelhinho e o ursinho voltam para a cama, a bola vai para o
+     cesto. A cama fica pronta e o gatinho sobe para deitar nela.
+- **Os dentes**:
+  1. **Molhar** a escova na torneira. 2. **Pasta**: a de abacaxi, amarelinha clarinha, a que
+     ela usa. Um toque no tubo põe um pouquinho, e uma ervilha aparece do lado para mostrar o
+     tamanho.
+  3. **Escovar os de cima, a língua e os de baixo**, uma parte por vez: esfregar o dedo devagar
+     na parte que brilha. A escova segue o dedo, a espuma aparece e as sujeirinhas somem aos
+     poucos, fora de ordem: uma em cada dente, cada uma num lugar, e umas fininhas entre um
+     dente e outro, discretas. Cada escovada faz o chiadinho da escova e toca a próxima nota do *Brilha, brilha*; as três partes tocam a
+     música inteira. Esfregar com pressa não acaba antes: a música é o tempo de escovar.
+  4. **Enxaguar**: tocar no copinho; a espuma vai embora. 5. **Guardar** a escova no copo.
+     O sorriso brilha.
+- **Os brinquedos**: sete brinquedos espalhados no tapete e três casas, cada uma com o desenho
+  de quem mora nela: livros na estante, blocos na caixa, ursinho e bola no cesto. Ela
+  **arrasta** um de cada vez. Na casa certa, ele entra. Na casa de outro, ele pula sozinho para
+  a dele e a casa certa acende (nada é errado, e ela vê onde ele mora). No chão, volta para
+  onde estava. A trilha do alto mostra quantos faltam. Música: a *Pequena Serenata Noturna*,
+  de Mozart. Com o tapete limpo, a família senta
+  junto e o gatinho deita no meio.
+- **Dura**: 1 a 2 minutos cada.
+- **Acaba**: o resultado fica um tempo na tela, o balão conta o que ela fez, a família comemora
+  com a voz gravada, e só depois a casinha acende.
+- **Ajuda**: A1, a mãozinha faz o gesto (esticar, puxar, esfregar, levar até a casa). A2, o
+  jogo faz junto, devagar: uma ruga por vez, a coberta sobe, uma escovada por segundo, um
+  brinquedo vai sozinho para a casa.
+- **Cresce**: nada no pote. A pedrinha é da tarefa de verdade, contada na roda. A despedida
+  convida para fazer de verdade o último cuidado treinado ("vamos escovar os dentes de verdade,
+  com a música?").
+
 ---
 
 ## 7. A semana
@@ -500,7 +552,7 @@ não em seis:
 | 1 | chegada, casa (o piano brilha), despedida com a cestinha do gatinho |
 | 2 | chegada, roda, som do dia, casa (o caderno brilha; a mala abre as palavras; o quintal e a caixa de areia abrem; o coelhinho aparece na grama e ganha nome), bichos, despedida |
 | 3 | chegada, roda, prato, som, casa (as pinhas brilham), bichos, despedida |
-| 4 | o mesmo, com a porta brilhando: o Jardim e o palco |
+| 4 | o mesmo, com a porta brilhando: o Jardim e o palco; abrem a cozinha e os cuidados (a cama, a pia, a caixa de brinquedos) |
 | 5 em diante | o laço inteiro, com a brincadeira do dia da semana |
 
 Na segunda abertura do mesmo dia, roda, prato e som não voltam: chegada, casa, bichos,

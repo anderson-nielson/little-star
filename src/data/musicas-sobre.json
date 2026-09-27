@@ -61,5 +61,19 @@
     "ano": "1722. É a primeira peça do \"Cravo Bem Temperado\", livro 1.",
     "significado": "Bach escreveu o livro para ensinar a tocar em todos os tons. Este prelúdio é só acordes desmanchados, nota a nota, sempre no mesmo desenho: bom para acompanhar quem está aprendendo e precisa de calma.",
     "curiosidade": "Mais de cem anos depois, Charles Gounod escreveu uma melodia por cima deste prelúdio, sem mudar uma nota de Bach. Virou a \"Ave Maria\" de Bach e Gounod."
+  },
+  "primavera": {
+    "autor": "Antonio Vivaldi, padre e violinista de Veneza, que ensinava música para meninas de um orfanato.",
+    "estilo": "Barroco italiano. É um concerto para violino e orquestra de cordas.",
+    "ano": "Publicado em 1725, junto com o Verão, o Outono e o Inverno.",
+    "significado": "A música conta a chegada da primavera: os passarinhos cantam, os riachos correm e o sol volta. Na partitura, Vivaldi escreveu um poeminha para cada parte.",
+    "curiosidade": "Os violinos imitam o canto dos passarinhos, com trinados bem rapidinhos. Na casa verde ela toca na manhã de arrumar a cama."
+  },
+  "serenata": {
+    "autor": "Wolfgang Amadeus Mozart, que compunha desde os cinco anos.",
+    "estilo": "Classicismo. Uma serenata para cordas, música leve de tocar ao ar livre.",
+    "ano": "Escrita em 1787, em Viena.",
+    "significado": "Eine kleine Nachtmusik quer dizer uma pequena música da noite: era música para alegrar uma festa. É das melodias mais conhecidas do mundo.",
+    "curiosidade": "O começo sobe como uma escada: sol, ré, sol, ré, e depois vai lá em cima. Na casa verde ela toca enquanto a Stella guarda os brinquedos."
   }
 }
