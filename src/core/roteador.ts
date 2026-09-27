@@ -49,12 +49,26 @@ export function aoTrocarTela(f: (nome: string, params: Record<string, string>) =
   return () => aoTrocar.delete(f);
 }
 
-/** Troca de tela com um véu lento. Nunca um corte. */
+/** A casa pedida no meio de uma troca: entra assim que a troca terminar. */
+let casaPendente = false;
+
+/**
+ * Troca de tela com um véu lento. Nunca um corte.
+ *
+ * A casa é a saída de tudo e sempre ganha: pedida durante outra troca (a
+ * casinha tocada no instante em que a brincadeira passava adiante), ela entra
+ * logo depois, em vez de o toque se perder. Uma tela que tropeça ao nascer
+ * também leva para a casa, nunca para uma tela vazia sem casinha.
+ */
 export async function ir(nome: string, params: Record<string, string> = {}): Promise<void> {
   const c = telas.get(nome);
   if (!c || !raiz || !cortina) throw new Error(`tela desconhecida: ${nome}`);
-  if (trocando) return;
+  if (trocando) {
+    if (nome === 'casa') casaPendente = true;
+    return;
+  }
   trocando = true;
+  let entrou = false;
   try {
     cortina.classList.add('fechada');
     await esperar(ms('--d-lento') || 0);
@@ -65,15 +79,31 @@ export async function ir(nome: string, params: Record<string, string> = {}): Pro
       console.error(e);
     }
     atual?.el.remove();
+    atual = null;
     destravar();
-    const nova = c(params);
+    let nova: Tela;
+    try {
+      nova = c(params);
+    } catch (e) {
+      console.error(e);
+      if (nome === 'casa') throw e;
+      /* uma tela que tropeça ao nascer: a casa, que sempre tem saída */
+      nome = 'casa';
+      params = {};
+      nova = telas.get('casa')!({});
+    }
     atual = nova;
     nomeAtual = nome;
     raiz.insertBefore(nova.el, cortina);
+    entrou = true;
   } finally {
     /* aconteça o que acontecer na tela nova, o roteador nunca fica preso */
     cortina.classList.remove('fechada');
     trocando = false;
   }
-  for (const f of aoTrocar) f(nome, params);
+  if (entrou) for (const f of aoTrocar) f(nome, params);
+  if (casaPendente) {
+    casaPendente = false;
+    if (nome !== 'casa') await ir('casa');
+  }
 }

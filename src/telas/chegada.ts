@@ -47,7 +47,7 @@ export function telaChegada(): Tela {
     if (terminou) return;
     terminou = true;
     await esperar(400);
-    void sessao.avancar();
+    if (tela.el.isConnected) void sessao.avancar();
   };
 
   void (async () => {

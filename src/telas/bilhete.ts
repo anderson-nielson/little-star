@@ -97,7 +97,7 @@ export function telaBilhete(): Tela {
     const g = el as SVGGElement;
     g.innerHTML = quem === 'theo' ? familia.theo(alvoX, 742, 96, 'abraca').svg : quem === 'mae' ? familia.mae(alvoX, 740, 120, 'abraca').svg : familia.pai(alvoX, 740, 126, 'abraca').svg;
     await esperar(2200);
-    void ir('casa');
+    if (tela.el.isConnected) void ir('casa');
   });
   return tela;
 }

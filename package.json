@@ -14,6 +14,7 @@
     "icons": "node scripts/icons.mjs",
     "e2e": "node scripts/e2e.mjs && node scripts/casinha.mjs",
     "casinha": "node scripts/casinha.mjs",
+    "varredura": "node scripts/varredura.mjs",
     "voando": "node scripts/voando.mjs",
     "fonemas": "node scripts/fonemas.mjs"
   },

@@ -713,7 +713,9 @@ body {
 .balao-bolinha {
   position: absolute;
   top: calc(env(safe-area-inset-top, 0px) + 44px * var(--cena-k, 1) - var(--alvo) / 2);
-  left: calc(var(--cena-x, 0px) + 116px * var(--cena-k, 1) - var(--alvo) / 2);
+  /* nunca em cima da casinha (raio 36 em x 40): com a tela deitada ou pequena o
+     cabeçalho encolhe, o alvo de 72 px não, e a bolinha roubava o toque da saída */
+  left: calc(var(--cena-x, 0px) + max(116px * var(--cena-k, 1) - var(--alvo) / 2, 80px * var(--cena-k, 1)));
   width: var(--alvo);
   height: var(--alvo);
   padding: 0;

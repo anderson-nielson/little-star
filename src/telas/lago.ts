@@ -1,6 +1,7 @@
 import { cantos } from './comum';
 import { estado, mudar } from '@/core/estado';
 import { ir } from '@/core/roteador';
+import { sessao } from '@/core/sessao';
 import { observarCaixa } from '@/core/util';
 import { naBorda } from '@/core/toque';
 import { Ajuda } from '@/core/ajuda';
@@ -330,7 +331,9 @@ export function telaLago(): Tela {
   };
   const sair = async (para: string) => {
     seq.parar();
-    void ir(para);
+    /* a casinha passa pela sessão, como em toda tela */
+    if (para === 'casa') void sessao.voltarParaCasa();
+    else void ir(para);
   };
 
   pararFundo();

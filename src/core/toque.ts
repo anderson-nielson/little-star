@@ -7,6 +7,12 @@
  */
 export const ESCORREGA_MAX = 24;
 export const BORDA_MORTA = 24;
+/**
+ * A borda da saída (a casinha) é bem mais fina. Com o celular deitado, o
+ * cabeçalho encolhe e a casinha inteira cabe nos 24 px de cima: com a borda
+ * de sempre ela aparecia e não respondia, e não havia outro jeito de sair.
+ */
+export const BORDA_DA_SAIDA = 4;
 
 let dedoAtivo: number | null = null;
 /**
@@ -36,8 +42,8 @@ if (typeof window !== 'undefined') {
   window.addEventListener('pointercancel', liberarDedo);
 }
 
-export function naBorda(x: number, y: number): boolean {
-  return x < BORDA_MORTA || y < BORDA_MORTA || x > window.innerWidth - BORDA_MORTA || y > window.innerHeight - BORDA_MORTA;
+export function naBorda(x: number, y: number, borda = BORDA_MORTA): boolean {
+  return x < borda || y < borda || x > window.innerWidth - borda || y > window.innerHeight - borda;
 }
 
 /** Trava novas ações por `ms`: a cena atual termina antes da próxima. */
@@ -140,7 +146,7 @@ export function saida(el: Element, ao: () => void): () => void {
   const baixo = (ev: Event) => {
     const e = ev as PointerEvent;
     e.stopPropagation();
-    if (naBorda(e.clientX, e.clientY)) return;
+    if (naBorda(e.clientX, e.clientY, BORDA_DA_SAIDA)) return;
     meu = e.pointerId;
     x0 = e.clientX;
     y0 = e.clientY;
