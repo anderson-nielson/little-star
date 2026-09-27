@@ -1,0 +1,11 @@
+{
+  "id": "serenata",
+  "titulo": "Pequena Serenata Noturna",
+  "compositor": "Wolfgang Amadeus Mozart, K. 525",
+  "tom": "sol maior",
+  "bpm": 120,
+  "compasso": 4,
+  "fonte": "Arranjo livre e simplificado do começo do primeiro movimento (Allegro), em oito compassos, para piano. Obra em domínio público.",
+  "melodia": "G4:1 r:0.5 D4:0.5 G4:1 r:0.5 D4:0.5 | G4:0.5 D4:0.5 G4:0.5 B4:0.5 D5:2 | C5:1 r:0.5 A4:0.5 C5:1 r:0.5 A4:0.5 | C5:0.5 A4:0.5 F#4:0.5 A4:0.5 D4:2 | G4:1 G4:1 B4:0.5 A4:0.5 G4:0.5 G4:0.5 | F#4:1 F#4:1 A4:0.5 C5:0.5 F#4:0.5 A4:0.5 | G4:1 G4:1 B4:0.5 A4:0.5 G4:0.5 G4:0.5 | F#4:1 D4:1 G4:2",
+  "baixo": "G3:2 G3:2 | G3:2 B2:2 | D3:2 D3:2 | D3:2 D3:2 | G2:1 D3:1 G2:1 D3:1 | D3:1 A3:1 D3:1 A3:1 | G2:1 D3:1 C3:1 G3:1 | D3:2 G2:2"
+}

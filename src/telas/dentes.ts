@@ -7,7 +7,7 @@ import { esperar, pontoNoSvg, svgEl } from '@/core/util';
 import { familia } from '@/puppet/boneco';
 import { centelha, contornoLuz, veu } from '@/puppet/objetos';
 import { musica, pararFundo } from '@/audio/musica';
-import { lira, notaAgora, sininho, tiquinho, toc } from '@/audio/synth';
+import { escovada, lira, notaAgora, sininho, tiquinho, toc } from '@/audio/synth';
 import { falar, temVoz } from '@/audio/vozes';
 import type { Tela } from '@/core/roteador';
 
@@ -21,12 +21,26 @@ const FAIXA: Record<Parte, { y0: number; y1: number; cy: number }> = {
 };
 const X0 = 108;
 const X1 = 282;
-/** as sujeirinhas de cada parte: somem aos poucos enquanto ela escova */
-const SUJEIRAS: Record<Parte, [number, number][]> = {
-  cima: [[138, 314], [170, 304], [206, 316], [238, 306], [258, 314]],
-  lingua: [[160, 364], [188, 374], [214, 362], [236, 372]],
-  baixo: [[134, 420], [168, 428], [200, 418], [232, 428], [256, 420]],
+/**
+ * As sujeirinhas de cada parte: uma manchinha em cada dente, cada uma num lugar
+ * (perto da gengiva, no meio, na ponta), e umas poucas entre um dente e outro,
+ * fininhas. Discretas: é um sorriso, não um susto. Somem aos poucos, fora de
+ * ordem, como na escova de verdade. `entre` é a lasquinha no vão dos dentes.
+ */
+type Sujeira = [number, number, 'dente' | 'entre' | 'lingua'];
+const SUJEIRAS: Record<Parte, Sujeira[]> = {
+  cima: [[160, 293, 'dente'], [143, 314, 'entre'], [234, 316, 'dente'], [126, 309, 'dente'], [205, 298, 'dente'], [247, 312, 'entre'], [185, 316, 'dente'], [262, 296, 'dente']],
+  lingua: [[168, 366, 'lingua'], [214, 374, 'lingua'], [190, 360, 'lingua'], [228, 364, 'lingua']],
+  baixo: [[208, 426, 'dente'], [169, 416, 'entre'], [130, 412, 'dente'], [257, 428, 'dente'], [182, 430, 'dente'], [221, 411, 'entre'], [156, 424, 'dente'], [236, 414, 'dente']],
 };
+function sujeira([x, y, tipo]: Sujeira, id: string): string {
+  if (tipo === 'entre') return `<ellipse data-suj="${id}" cx="${x}" cy="${y}" rx="1.5" ry="4" fill="#d8c48e" opacity="0.75"/>`;
+  if (tipo === 'lingua') return `<ellipse data-suj="${id}" cx="${x}" cy="${y}" rx="4.5" ry="3" fill="#fbf3e6" opacity="0.8"/>`;
+  return `<ellipse data-suj="${id}" cx="${x}" cy="${y}" rx="3.2" ry="2.4" fill="#e6d59f" opacity="0.8" transform="rotate(${(x * 7) % 40 - 20} ${x} ${y})"/>`;
+}
+/** a pasta dela é de abacaxi: um amarelinho bem clarinho */
+const PASTA = '#f6e7a8';
+const PASTA_BORDA = '#e2c877';
 /** a escova no copo, embaixo da torneira e descansando ao lado da boca */
 const COPO: [number, number, number] = [322, 548, -78];
 const TORNEIRA: [number, number, number] = [206, 574, -8];
@@ -34,7 +48,7 @@ const DESCANSO: [number, number, number] = [300, 470, -12];
 
 const ICONES: Record<PassoDosDentes, (x: number, y: number) => string> = {
   molhar: (x, y) => `<path d="M${x - 8} ${y - 8}h10v4h-4" fill="none" stroke="#8f8270" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M${x - 2} ${y}q-3 4 0 6q3 -2 0 -6z" fill="#7FA5B8"/><path d="M${x + 3} ${y + 4}q-2 3 0 4q2 -1 0 -4z" fill="#7FA5B8"/>`,
-  pasta: (x, y) => `<rect x="${x - 11}" y="${y - 3}" width="15" height="8" rx="2" fill="#fbf8f1" stroke="#c9a189" stroke-width="1"/><rect x="${x + 4}" y="${y - 1.5}" width="4" height="5" fill="#f2a9c4"/><circle cx="${x + 11}" cy="${y + 1}" r="2.6" fill="#8fae6b"/>`,
+  pasta: (x, y) => `<rect x="${x - 11}" y="${y - 3}" width="15" height="8" rx="2" fill="#fbf3d0" stroke="#c9a189" stroke-width="1"/><rect x="${x + 4}" y="${y - 1.5}" width="4" height="5" fill="#8fae6b"/><ellipse cx="${x + 11}" cy="${y + 1}" rx="3" ry="2.2" fill="${PASTA}" stroke="${PASTA_BORDA}" stroke-width="0.6"/>`,
   cima: (x, y) => boquinha(x, y, 'cima'),
   lingua: (x, y) => boquinha(x, y, 'lingua'),
   baixo: (x, y) => boquinha(x, y, 'baixo'),
@@ -46,6 +60,11 @@ const ICONES: Record<PassoDosDentes, (x: number, y: number) => string> = {
 function boquinha(x: number, y: number, parte: Parte): string {
   const ouro = '#c6a15b';
   return `<ellipse cx="${x}" cy="${y}" rx="11" ry="8" fill="#6e1a27"/><rect x="${x - 8}" y="${y - 7}" width="16" height="4" rx="1.5" fill="${parte === 'cima' ? ouro : '#fbf8f1'}"/><ellipse cx="${x}" cy="${y + 0.5}" rx="6" ry="2.4" fill="${parte === 'lingua' ? ouro : '#f2a9c4'}"/><rect x="${x - 8}" y="${y + 3}" width="16" height="4" rx="1.5" fill="${parte === 'baixo' ? ouro : '#fbf8f1'}"/>`;
+}
+
+/** um abacaxizinho no tubo da pasta: é o sabor que ela usa */
+function abacaxi(x: number, y: number, k: number): string {
+  return `<path d="M${x - 3 * k} ${y - 5 * k}l${3 * k} ${-5 * k}l${3 * k} ${5 * k}" fill="#8fae6b"/><ellipse cx="${x}" cy="${y + 1 * k}" rx="${5 * k}" ry="${6.5 * k}" fill="#ebc95a"/><path d="M${x - 3.5 * k} ${y - 2 * k}l${7 * k} ${6 * k}M${x + 3.5 * k} ${y - 2 * k}l${-7 * k} ${6 * k}" stroke="#c9a13e" stroke-width="${0.8 * k}"/>`;
 }
 
 /**
@@ -69,18 +88,18 @@ export function telaDentes(): Tela {
   for (let i = 0; i < 6; i++) s += `<rect x="${118 + i * 26}" y="${288 - (i === 2 || i === 3 ? 2 : 0)}" width="24" height="${34 + (i === 2 || i === 3 ? 4 : 0)}" rx="7" fill="#fbf8f1"/>`;
   s += `<ellipse cx="195" cy="370" rx="68" ry="26" fill="#f2a9c4"/><path d="M195 352v26" stroke="#e58fb0" stroke-width="2" opacity="0.6"/>`;
   for (let i = 0; i < 6; i++) s += `<rect x="${118 + i * 26}" y="404" width="24" height="32" rx="7" fill="#fbf8f1"/>`;
-  for (const p of PARTES) SUJEIRAS[p].forEach(([x, y], i) => (s += `<circle data-suj="${p}-${i}" cx="${x}" cy="${y}" r="${p === 'lingua' ? 5 : 4.2}" fill="${p === 'lingua' ? '#fbf8f1' : '#d9c69a'}" opacity="0.9"/>`));
+  for (const p of PARTES) SUJEIRAS[p].forEach((q, i) => (s += sujeira(q, `${p}-${i}`)));
   s += `<g class="espuma"></g><g class="brilho"></g>`;
   s += `<rect class="pega-boca" x="84" y="252" width="222" height="220" fill="transparent"/>`;
   /* a pia: bancada, cuba, torneira, a pasta, o copinho de enxaguar e o copo da escova */
   s += `<rect x="16" y="560" width="358" height="40" rx="8" fill="#fbf8f1" stroke="#c6a15b" stroke-width="1.2"/><ellipse cx="195" cy="584" rx="92" ry="16" fill="#e8eef0" stroke="#c6a15b" stroke-width="1"/>`;
   s += `<g class="agua-cuba" opacity="0"><ellipse cx="195" cy="586" rx="60" ry="9" fill="#9fc3cf"/></g>`;
   s += `<g data-alvo="torneira"><circle cx="195" cy="536" r="36" fill="transparent"/><path d="M180 560v-26h30v12" fill="none" stroke="#8f8270" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><rect x="184" y="520" width="22" height="7" rx="3" fill="#8f8270"/><rect class="jato" x="207" y="552" width="6" height="30" rx="3" fill="#9fc3cf" opacity="0"/></g>`;
-  s += `<g data-alvo="pasta"><circle cx="72" cy="586" r="38" fill="transparent"/><g class="tubo"><rect x="42" y="574" width="52" height="22" rx="6" fill="#fbf8f1" stroke="#c9a189" stroke-width="1.5"/><rect x="58" y="574" width="12" height="22" fill="#f2a9c4" opacity="0.8"/><rect x="94" y="579" width="10" height="12" rx="2" fill="#7FA5B8"/></g><g class="ervilha" opacity="0"><circle cx="112" cy="556" r="6" fill="#8fae6b"/><circle cx="110" cy="554" r="2" fill="#c9dbb2"/></g></g>`;
+  s += `<g data-alvo="pasta"><circle cx="72" cy="586" r="38" fill="transparent"/><g class="tubo"><rect x="42" y="574" width="52" height="22" rx="6" fill="#fbf3d0" stroke="#c9a189" stroke-width="1.5"/>${abacaxi(64, 585, 1)}<rect x="94" y="579" width="10" height="12" rx="2" fill="#8fae6b"/></g><g class="ervilha" opacity="0"><circle cx="112" cy="556" r="6" fill="#8fae6b"/><circle cx="110" cy="554" r="2" fill="#c9dbb2"/></g></g>`;
   s += `<g data-alvo="copinho"><circle cx="276" cy="580" r="34" fill="transparent"/><g class="copinho"><path d="M262 562h28l-4 32h-20z" fill="#dbe7ee" stroke="#7FA5B8" stroke-width="1.5"/><path d="M264 574h24" stroke="#7FA5B8" stroke-width="1.2"/></g></g>`;
   s += `<g class="copo"><path d="M308 540h30l-3 52h-24z" fill="#f6e3dc" stroke="#c9a189" stroke-width="1.5"/></g>`;
   /* a escova: a cabeça fica no ponto (0, 0), o cabo vai para a direita */
-  s += `<g data-alvo="escova" class="escova"><circle cx="30" cy="0" r="40" fill="transparent"/><rect x="8" y="-5" width="96" height="10" rx="5" fill="#f2a9c4"/><rect x="-24" y="-6" width="34" height="10" rx="3" fill="#f2a9c4"/><rect x="-22" y="-16" width="30" height="10" rx="2" fill="#fbf8f1" stroke="#c9a189" stroke-width="1"/><path d="M-18 -16v10M-12 -16v10M-6 -16v10M0 -16v10M4 -16v10" stroke="#e3dccd" stroke-width="1"/><g class="gotas" opacity="0"><circle cx="-14" cy="-19" r="2.4" fill="#9fc3cf"/><circle cx="-2" cy="-20" r="2" fill="#9fc3cf"/></g><g class="pasta-na-escova" opacity="0"><ellipse cx="-7" cy="-20" rx="7" ry="4.5" fill="#fbf8f1" stroke="#c9a189" stroke-width="0.8"/><path d="M-12 -21q5 -3 10 0" stroke="#f2a9c4" stroke-width="1.6" fill="none"/></g></g>`;
+  s += `<g data-alvo="escova" class="escova"><circle cx="30" cy="0" r="40" fill="transparent"/><rect x="8" y="-5" width="96" height="10" rx="5" fill="#f2a9c4"/><rect x="-24" y="-6" width="34" height="10" rx="3" fill="#f2a9c4"/><rect x="-22" y="-16" width="30" height="10" rx="2" fill="#fbf8f1" stroke="#c9a189" stroke-width="1"/><path d="M-18 -16v10M-12 -16v10M-6 -16v10M0 -16v10M4 -16v10" stroke="#e3dccd" stroke-width="1"/><g class="gotas" opacity="0"><circle cx="-14" cy="-19" r="2.4" fill="#9fc3cf"/><circle cx="-2" cy="-20" r="2" fill="#9fc3cf"/></g><g class="pasta-na-escova" opacity="0"><ellipse cx="-7" cy="-20" rx="7" ry="4.5" fill="${PASTA}" stroke="${PASTA_BORDA}" stroke-width="0.8"/><path d="M-12 -21q5 -3 10 0" stroke="#fbf8f1" stroke-width="1.4" fill="none" opacity="0.8"/></g></g>`;
   s += `<g class="luz"></g>`;
   /* a Stella em cima do banquinho, olhando o espelho: só enfeite */
   s += `<g style="pointer-events:none"><rect x="20" y="730" width="92" height="16" rx="5" fill="#c9a189"/>${familia.stella(66, 734, 130, 'parado').svg}</g>`;
@@ -251,12 +270,14 @@ export function telaDentes(): Tela {
     (svg.querySelector('.pasta-na-escova') as SVGElement).setAttribute('opacity', '0');
     for (let i = 0; i < n && escovadas[pt] < ESCOVADAS_POR_PARTE; i++) {
       escovadas[pt] += 1;
+      /* o "chh" da escova, indo e voltando, e a próxima nota da música */
+      escovada(escovadas[pt] % 2 === 0);
       notaAgora(notas[nota % notas.length]!, 0.5, 0.42);
       nota += 1;
       if (espuma.childElementCount < 30) {
         const bx = X0 + 20 + Math.random() * (X1 - X0 - 40);
         const by = FAIXA[pt].y0 + 8 + Math.random() * (FAIXA[pt].y1 - FAIXA[pt].y0 - 16);
-        espuma.appendChild(svgEl(`<circle cx="${bx.toFixed(1)}" cy="${by.toFixed(1)}" r="${(3 + Math.random() * 4).toFixed(1)}" fill="#fbf8f1" opacity="0.85"/>`));
+        espuma.appendChild(svgEl(`<circle cx="${bx.toFixed(1)}" cy="${by.toFixed(1)}" r="${(3 + Math.random() * 4).toFixed(1)}" fill="#fffdf6" opacity="0.92"/>`));
       }
     }
     const ficam = sujeirasQueFicam(escovadas[pt], SUJEIRAS[pt].length);

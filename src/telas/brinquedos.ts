@@ -78,7 +78,7 @@ export function telaBrinquedos(): Tela {
 
   const tela = telaSvg(s);
   const svg = tela.svg;
-  tocarFundo('gymnopedie');
+  tocarFundo('serenata');
   tela.aoDestruir(() => pararFundo());
   const luz = svg.querySelector('.luz') as SVGGElement;
   const chao = svg.querySelector('.chao') as SVGGElement;

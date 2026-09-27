@@ -442,21 +442,27 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
 - **O quadro de passos**: no alto da cama e dos dentes, um desenho por passo, na ordem de
   verdade, como o quadro de rotina da parede da escola. O passo feito fica dourado, o de agora
   tem a estrelinha. Só o passo da vez responde; tocar em outro faz o sininho baixinho.
-- **A cama**:
-  1. **Tirar**: tocar no travesseiro e nos bichinhos em cima da cama; eles vão para a cadeira.
-  2. **Esticar o lençol**: passar o dedo de lado no lençol; cada ruga que o dedo cruza some.
-  3. **Puxar a coberta**: arrastar a coberta do pé da cama até a cabeceira. Soltou passando de
-     40% do caminho, ela vai sozinha o resto; antes disso, escorrega de volta devagar e dá
-     para puxar de novo. É o momento de não desistir.
+- **A cama**, como ela amanhece depois de uma noite bem dormida: o lençol embolado num canto,
+  o travesseiro torto, o coelhinho com quem ela dormiu deitado de lado, a coberta torta caindo
+  pelo lado, o ursinho e a bola caídos no chão, e o sol entrando pela janela. Música: *A
+  Primavera*, de Vivaldi.
+  1. **Tirar**: tocar no travesseiro e no coelhinho; eles vão para a cadeira.
+  2. **O lençol**: arrastar o lençol embolado do canto até o pé da cama; depois passar o dedo
+     de lado, e cada ruga que o dedo cruza some.
+  3. **Puxar a coberta**: arrastar do pé até a cabeceira; ela fica reta e a ponta para de
+     cair. Lençol e coberta são pesados: soltou antes de 40% do caminho, escorregam de volta
+     devagar e dá para puxar de novo. É o momento de não desistir.
   4. **Afofar o travesseiro**: três toques, e ele vai para a cabeceira.
-  5. **Os bichinhos voltam**: tocar em cada um. A cama fica pronta e o gatinho sobe para
-     deitar nela.
+  5. **O que caiu no chão**: o coelhinho e o ursinho voltam para a cama, a bola vai para o
+     cesto. A cama fica pronta e o gatinho sobe para deitar nela.
 - **Os dentes**:
-  1. **Molhar** a escova na torneira. 2. **Pasta**: um toque no tubo põe um pouquinho, e uma
-     ervilha aparece do lado para mostrar o tamanho.
+  1. **Molhar** a escova na torneira. 2. **Pasta**: a de abacaxi, amarelinha clarinha, a que
+     ela usa. Um toque no tubo põe um pouquinho, e uma ervilha aparece do lado para mostrar o
+     tamanho.
   3. **Escovar os de cima, a língua e os de baixo**, uma parte por vez: esfregar o dedo devagar
      na parte que brilha. A escova segue o dedo, a espuma aparece e as sujeirinhas somem aos
-     poucos. Cada escovada toca a próxima nota do *Brilha, brilha*; as três partes tocam a
+     poucos, fora de ordem: uma em cada dente, cada uma num lugar, e umas fininhas entre um
+     dente e outro, discretas. Cada escovada faz o chiadinho da escova e toca a próxima nota do *Brilha, brilha*; as três partes tocam a
      música inteira. Esfregar com pressa não acaba antes: a música é o tempo de escovar.
   4. **Enxaguar**: tocar no copinho; a espuma vai embora. 5. **Guardar** a escova no copo.
      O sorriso brilha.
@@ -464,7 +470,8 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
   de quem mora nela: livros na estante, blocos na caixa, ursinho e bola no cesto. Ela
   **arrasta** um de cada vez. Na casa certa, ele entra. Na casa de outro, ele pula sozinho para
   a dele e a casa certa acende (nada é errado, e ela vê onde ele mora). No chão, volta para
-  onde estava. A trilha do alto mostra quantos faltam. Com o tapete limpo, a família senta
+  onde estava. A trilha do alto mostra quantos faltam. Música: a *Pequena Serenata Noturna*,
+  de Mozart. Com o tapete limpo, a família senta
   junto e o gatinho deita no meio.
 - **Dura**: 1 a 2 minutos cada.
 - **Acaba**: o resultado fica um tempo na tela, o balão conta o que ela fez, a família comemora

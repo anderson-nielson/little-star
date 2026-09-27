@@ -487,3 +487,19 @@ de verdade.
 Arquivos: `src/core/cuidados.ts`, `tests/cuidados.test.ts`, `src/telas/cama.ts`,
 `src/telas/dentes.ts`, `src/telas/brinquedos.ts`, `src/telas/cuidados.ts`, `src/telas/casa.ts`,
 `src/telas/despedida.ts`, `src/data/frases.json` (grupo `cuidados`), `src/data/narracao.json`.
+
+### Depois de ver com a família
+
+- **A cama é a da manhã.** Ela amanhece como amanhece de verdade: lençol embolado num canto,
+  travesseiro torto, o coelhinho com quem ela dormiu deitado de lado, a coberta torta com a
+  ponta caindo, o ursinho e a bola no chão, o sol nascendo na janela. O lençol agora se puxa
+  do canto antes de alisar, e o último passo arruma o que caiu no chão (bichinhos na cama, bola
+  no cesto). Os ids dos passos não mudaram.
+- **Dentes mais de verdade.** Uma sujeirinha em cada dente, cada uma num lugar, e umas lasquinhas
+  fininhas entre um dente e outro, discretas; somem fora de ordem. A pasta é a de abacaxi,
+  amarelinha clarinha, com o abacaxi no tubo. Cada escovada faz o chiadinho da escova
+  (`escovada` em `synth.ts`, ruído filtrado que sobe na ida e desce na volta) além da nota.
+- **Música alegre nas fases de fazer.** A cama toca *A Primavera*, de Vivaldi, e os brinquedos a
+  *Pequena Serenata Noturna*, de Mozart (`src/data/musicas/primavera.json` e `serenata.json`,
+  arranjos livres de oito compassos, com a ficha em `musicas-sobre.json`). Os dentes continuam
+  com o *Brilha, brilha* tocado pela escova.
