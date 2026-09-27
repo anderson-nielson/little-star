@@ -539,6 +539,10 @@ Arquivos: `src/core/cuidados.ts`, `tests/cuidados.test.ts`, `src/telas/cama.ts`,
   centelha; na beirada direita, uma pedrinha por faixa acende do ponto de partida até onde ela
   chegou. A rede de segurança subiu para três minutos (`LAGO.duracao`), porque sem nenhum toque
   a A2 leva uns 12 s por faixa e a ida e volta tem doze pulos.
+- **Cresce com ela.** Cada ida e volta completa (`idasEVoltasNoLago`, no estado e no cantinho
+  dos pais) deixa as faixas 8% mais rápidas da próxima vez, até 50% a mais (`LAGO.acelera`,
+  `LAGO.aceleraTeto`, `ritmoDoLago`). Quando o tempo acaba antes de ela voltar, não conta: o
+  ritmo só sobe depois de ela ter conseguido. A janela generosa do pulo não muda.
 - **A queda aparece.** O splash acontece onde ela caiu, com ondinhas e gotas; ela afunda até a
   cintura, nada de volta até a plataforma de onde pulou (`LAGO.splash`, `LAGO.nado`), sobe e
   sacode (`LAGO.sacode`). Antes ela voltava de estalo para onde estava, e não dava para
@@ -546,4 +550,5 @@ Arquivos: `src/core/cuidados.ts`, `tests/cuidados.test.ts`, `src/telas/cama.ts`,
 - **A2 espera a vitória-régia.** Na ajuda A2 o pulo esperava zero segundo e podia cair na água
   de novo; agora espera a plataforma passar embaixo dela, quanto for preciso.
 
-Arquivos: `src/telas/lago.ts`, `src/telas/casa.ts`, `src/data/ajuda-telas.json`, `SPEC.md`.
+Arquivos: `src/telas/lago.ts`, `src/telas/casa.ts`, `src/telas/pais.ts`, `src/core/estado.ts`,
+`src/data/ajuda-telas.json`, `tests/aventuras.test.ts`, `SPEC.md`.

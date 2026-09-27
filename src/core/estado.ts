@@ -146,6 +146,8 @@ export interface Estado {
   companheira: number;
   /** partes do coreto do lago já acesas (até 6) */
   coreto: number;
+  /** idas e voltas completas no lago: cada uma deixa as faixas um pouquinho mais rápidas */
+  idasEVoltasNoLago: number;
   /** aventuras terminadas por tipo */
   aventurasPor: Record<string, number>;
   /** as pedrinhas no pote (até encher) e as medalhas na parede */
@@ -204,6 +206,7 @@ export function estadoNovo(agora = new Date()): Estado {
     figurinos: {},
     companheira: -1,
     coreto: 0,
+    idasEVoltasNoLago: 0,
     aventurasPor: {},
     pedrinhas: 0,
     medalhas: 0,

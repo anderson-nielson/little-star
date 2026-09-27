@@ -29,6 +29,9 @@ export const LAGO = {
   largura: 0.26,
   /** partes do coreto que acendem */
   partesDoCoreto: 6,
+  /** cada ida e volta completa acelera as faixas nesta fração, até o teto */
+  acelera: 0.08,
+  aceleraTeto: 0.5,
   /** a queda, em segundos: o splash onde ela caiu, o nado de volta e a sacudida em cima */
   splash: 0.5,
   nado: 1.1,
@@ -41,6 +44,11 @@ export interface Faixa {
   amplitude: number;
   fase: number;
   dir: 1 | -1;
+}
+
+/** O ritmo das faixas depois de `n` idas e voltas completas: um pouquinho mais rápido a cada uma, com teto. */
+export function ritmoDoLago(n: number): number {
+  return 1 + Math.min(Math.max(0, n) * LAGO.acelera, LAGO.aceleraTeto);
 }
 
 /** Posição (em frações da largura) do centro da plataforma de uma faixa no instante t: um vaivém suave. */
@@ -103,7 +111,8 @@ export function telaLago(): Tela {
   const pula = imagemDe(familia.stella(100, 190, 150, 'pulo').svg, F, F);
   const sentada = imagemDe(familia.stella(100, 190, 120, 'sentado').svg, F, F);
 
-  const faixas: Faixa[] = LAGO.velocidades.map((v, i) => ({ velocidade: v, amplitude: 0.5, fase: (i * 0.37) % 1, dir: i % 2 ? -1 : 1 }));
+  const ritmo = ritmoDoLago(e.idasEVoltasNoLago);
+  const faixas: Faixa[] = LAGO.velocidades.map((v, i) => ({ velocidade: v * ritmo, amplitude: 0.5, fase: (i * 0.37) % 1, dir: i % 2 ? -1 : 1 }));
   const m = musica('cisnes');
   const seq = new Sequenciador(m, { loop: true });
   seq.ganho = 0.36;
@@ -188,6 +197,8 @@ export function telaLago(): Tela {
         x = p.xDe;
         travessias = 2;
         sininho();
+        /* só ida e volta de verdade conta para a próxima vez ficar um pouquinho mais rápida */
+        mudar((s) => void (s.idasEVoltasNoLago += 1));
         window.setTimeout(() => void terminar(), 1200);
       } else if (p.xPara !== null && Math.abs(posicaoNaFaixa(faixas[p.para]!, t) - p.xPara) < LAGO.largura * 0.5) {
         faixa = p.para;
