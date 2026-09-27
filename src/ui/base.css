@@ -787,3 +787,28 @@ body {
     animation: none;
   }
 }
+
+/* o que ainda não abriu na casa: silhueta, sem cor, sem toque que leve a algum lugar */
+.fechado {
+  filter: grayscale(1);
+  opacity: 0.35;
+}
+.opcoes-onde {
+  margin: var(--e3) 0 0;
+  padding: var(--e2) var(--e3);
+  border-radius: 12px;
+  background: var(--fundo-2, rgba(198, 161, 91, 0.12));
+  font-size: var(--t-rotulo);
+  color: var(--txt);
+}
+.opcoes-onde h2 {
+  margin: 0 0 var(--e1);
+  font-size: var(--t-rotulo);
+  font-weight: 600;
+}
+.opcoes-onde p {
+  margin: var(--e1) 0 0;
+}
+.opcoes-onde .opcoes-nota {
+  color: var(--txt-2);
+}

@@ -104,6 +104,42 @@ export function luzDaCasa(e: Estado, agora: Date): Coisa | null {
   return COISAS.find((c) => disponivel(e, c) && !brincouHoje(e, c)) ?? null;
 }
 
+/** O nome de cada coisa, para o adulto ler nas Opções e no cantinho dos pais. */
+export const NOME_COISA: Record<Coisa, string> = { piano: 'Piano', caderno: 'Caderno de letras', som: 'Mural das figuras (som do dia)', palavras: 'Mala de palavras', areia: 'Caixa de areia', pinhas: 'Pinhas', jardim: 'A porta (aventuras)', familia: 'A família na sala', cozinha: 'Cozinha', ukulele: 'Ukulele', bonecas: 'Bonecas', bilhete: 'Bilhetinho', relogio: 'Relógio', horta: 'Horta', arvore: 'Árvore do quintal', parquinho: 'Parquinho do condomínio' };
+
+/* ---------- a rotina do dia ---------- */
+
+export type Passo = 'roda' | 'prato' | 'som' | 'brincadeira' | 'bichos' | 'despedida';
+export interface PassoDoDia {
+  passo: Passo;
+  /** a brincadeira do dia, quando o passo é ela */
+  coisa?: Coisa;
+  feito: boolean;
+}
+
+/**
+ * A rotina ilustrada do dia: os passos de hoje, na ordem, com o que já foi.
+ * É o quadro da parede do jardim: ela vê onde está e o que falta. Só entra
+ * o que existe nesta etapa da casa.
+ */
+export function rotinaDoDia(e: Estado, agora: Date): PassoDoDia[] {
+  const et = etapa(e);
+  const passos: PassoDoDia[] = [];
+  if (aberto(et, 'roda')) passos.push({ passo: 'roda', feito: e.hoje.rodaFeita });
+  if (aberto(et, 'prato') && e.pais.pratoLigado) passos.push({ passo: 'prato', feito: e.hoje.pratoFeito });
+  if (aberto(et, 'som')) passos.push({ passo: 'som', feito: e.hoje.somFeito });
+  const doDia = brincadeiraDoDia(e, agora);
+  passos.push({ passo: 'brincadeira', coisa: doDia, feito: brincouHoje(e, doDia) });
+  if (aberto(et, 'bichos') || e.bichos.gato) passos.push({ passo: 'bichos', feito: e.hoje.bichosFeitos });
+  passos.push({ passo: 'despedida', feito: e.hoje.despedidaFeita });
+  return passos;
+}
+
+/** O passo de agora: o primeiro que ainda não foi. `null` quando o dia está completo. */
+export function passoDeAgora(passos: PassoDoDia[]): Passo | null {
+  return passos.find((p) => !p.feito)?.passo ?? null;
+}
+
 /* ---------- as aventuras da porta ---------- */
 
 export type Aventura = 'jardim' | 'arvore' | 'lago';
