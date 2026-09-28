@@ -151,6 +151,8 @@ export function guiar(tela: TelaSvg, o: OpcoesGuia): Guia {
   };
   const ajuda = new Ajuda((n: Nivel) => {
     if (n >= 1) mostrar();
+    /* depois da segunda ajuda a conta recomeça: parada, a mãozinha volta a cada 6 s, nunca some de vez */
+    if (n === 2) ajuda.reset();
   });
   relogioDeAjuda(tela, (dt) => {
     if (!calado) ajuda.tick(dt);

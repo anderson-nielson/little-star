@@ -1,4 +1,5 @@
 import { convidarParaCasa, pedrinhasSobem, relogioDeAjuda, telaSvg, trilha } from './comum';
+import { demonstrar } from './guia';
 import { estado, mudar } from '@/core/estado';
 import { ganhar, PEDRINHAS } from '@/core/pedrinhas';
 import { horaParaMinutos } from '@/core/relogio';
@@ -7,7 +8,7 @@ import { esperar, pontoNoSvg } from '@/core/util';
 import { Ajuda } from '@/core/ajuda';
 import { reivindicarDedo, soltarDedo, travar } from '@/core/toque';
 import { familia } from '@/puppet/boneco';
-import { arco, centelha, veu } from '@/puppet/objetos';
+import { arco, centelha, contornoLuz, veu } from '@/puppet/objetos';
 import { tocarFundo } from '@/audio/musica';
 import { falar, temVoz } from '@/audio/vozes';
 import { falarPalavra } from '@/audio/fala';
@@ -63,6 +64,12 @@ export function fraseDaHoraReal(hora: number, minutos: number): string {
  * ("passou das seis"). O céu da janelinha muda com a hora. Tocar no Theo:
  * ele pede uma hora ("mostra as sete horas"); ela gira até lá e ganha uma
  * pedrinha. Ajuda: o número pedido acende; depois, o ponteiro anda sozinho.
+ *
+ * Sozinha, ela não sabia que o ponteiro se gira: só a voz dizia. Agora, logo
+ * depois da hora falada, a mãozinha gira o ponteiro de verdade, em volta do
+ * mostrador, e ele volta; parada, mostra de novo (sem pedida, e depois toca no
+ * Theo; com pedida, gira até o número aceso). No fim, a mão anda junto com o
+ * ponteiro que vai sozinho.
  */
 export function telaRelogio(): Tela {
   const e = estado();
@@ -127,37 +134,68 @@ export function telaRelogio(): Tela {
   let ocupado = false;
   const ajuda = new Ajuda((n) => {
     luz.innerHTML = '';
-    /* sem pedida, a mãozinha mostra o Theo (até a casinha convidar para ir embora) */
-    if (pedida === null) return tela.mao(n >= 1 && !convidou ? [120, 660] : null);
+    pararMostra();
+    /* sem pedida: primeiro o giro, depois a mãozinha toca no Theo aceso (até a casinha convidar) */
+    if (pedida === null) {
+      if (n === 0 || convidou) return;
+      if (n === 1) return mostrarGiro(hora, hora + 3);
+      luz.innerHTML = contornoLuz(90, 650, 58, 76);
+      pararTheo = demonstrar(tela, { tipo: 'tocar', em: [100, 630] });
+      /* e a ajuda recomeça: parada de novo, o giro volta (nunca some de vez) */
+      void esperar(4500).then(() => {
+        if (pedida === null && ajuda.nivel === 2) ajuda.reset();
+      });
+      return;
+    }
     const num = svg.querySelector(`[data-hora="${pedida}"]`) as SVGTextElement | null;
     if (n >= 1 && num) {
       num.setAttribute('fill', '#f2a9c4');
       num.classList.add('respira');
       luz.innerHTML = `<g class="respira">${centelha(Number(num.getAttribute('x')), Number(num.getAttribute('y')) - 40, 18, '#c6a15b')}</g>`;
     }
+    /* A1: a mãozinha gira o ponteiro até o número aceso (e ele volta; quem gira é ela) */
+    if (n === 1) mostrarGiro(hora, pedida);
+  });
+  /* a mão que toca no Theo, e o giro de mostra (abaixo): tocar em qualquer lugar tira */
+  let pararTheo = () => {};
+  let pararGiro = () => {};
+  const pararMostra = () => {
+    pararTheo();
+    pararGiro();
+  };
+  svg.addEventListener('pointerdown', pararMostra);
+  tela.aoDestruir(() => {
+    pararMostra();
+    svg.removeEventListener('pointerdown', pararMostra);
   });
   relogioDeAjuda(tela, (dt) => {
     if (dedo >= 0) return;
     ajuda.tick(dt);
     /* A2: o ponteiro anda sozinho, uma hora por segundo, até a pedida */
     if (ajuda.nivel >= 2 && pedida !== null && !ocupado && !acertou(hora, pedida, 0.2)) {
+      pararGiro();
       hora = Math.round(hora) + 1;
       if (hora > 12) hora -= 12;
       desenhar();
+      /* a mãozinha vai junto, na ponta do ponteiro: é assim que se gira */
+      tela.mao(naPonta(hora), -15, true);
       toc(500, 0.1);
-      if (acertou(hora, pedida, 0.2)) void conferir();
+      if (acertou(hora, pedida, 0.2)) {
+        void esperar(500).then(() => tela.mao(null));
+        void conferir();
+      }
     }
   });
 
-  const desenhar = () => {
+  const desenhar = (hh = hora) => {
     ponteiro.style.transformBox = 'view-box';
     ponteiro.style.transformOrigin = `${CX}px ${CY}px`;
-    ponteiro.style.transform = `rotate(${anguloDaHora(hora)}deg)`;
+    ponteiro.style.transform = `rotate(${anguloDaHora(hh)}deg)`;
     ponteiroMinutos.style.transformBox = 'view-box';
     ponteiroMinutos.style.transformOrigin = `${CX}px ${CY}px`;
     ponteiroMinutos.style.transform = `rotate(${minutos * 6}deg)`;
     /* o céu: manhã clara, tarde rosa, noite azul, pela hora do ponteiro (de tarde/noite se for depois do meio-dia real) */
-    const h = Math.round(hora) % 12;
+    const h = Math.round(hh) % 12;
     const tarde = agora.getHours() >= 12;
     const noite = tarde ? h >= 7 && h < 12 : h < 6 && h !== 0;
     const fim = tarde && h >= 4 && h < 7;
@@ -165,6 +203,53 @@ export function telaRelogio(): Tela {
     ceu.innerHTML = `<path d="M150 120V75a45 45 0 0 1 90 0v45z" fill="${cor}"/>${noite ? centelha(180, 80, 8, '#ebd9a8') + centelha(210, 95, 6, '#ebd9a8') : `<circle cx="215" cy="70" r="12" fill="#ebd9a8" opacity="0.9"/>`}`;
   };
   desenhar();
+
+  /* onde a ponta do dedo fica para girar: no meio do caminho entre o centro e os números */
+  const naPonta = (hh: number): [number, number] => {
+    const a = ((anguloDaHora(hh) - 90) * Math.PI) / 180;
+    return [CX + Math.cos(a) * R * 0.52 + 6, CY + Math.sin(a) * R * 0.52 + 8];
+  };
+  /*
+   * O giro de mostra: a mãozinha anda em arco e o ponteiro gira junto com ela,
+   * de `de` até `ate` (sempre no sentido do relógio), duas vezes; depois o
+   * ponteiro volta para onde estava. O guia não gira coisas (só arrasta em
+   * linha reta), então o giro é feito aqui.
+   */
+  const mostrarGiro = (de: number, ate: number) => {
+    pararGiro();
+    let vivoGiro = true;
+    const volta = (((ate - de) % 12) + 12) % 12 || 3;
+    pararGiro = () => {
+      if (!vivoGiro) return;
+      vivoGiro = false;
+      tela.mao(null);
+      desenhar();
+    };
+    void (async () => {
+      for (let v = 0; v < 2; v++) {
+        tela.mao(naPonta(de), -15, true);
+        await esperar(350);
+        const t0 = performance.now();
+        const ms = 700 + volta * 150;
+        for (;;) {
+          await new Promise((r) => requestAnimationFrame(r));
+          if (!vivoGiro || !tela.el.isConnected) return;
+          const u = Math.min(1, (performance.now() - t0) / ms);
+          const hh = de + volta * u * u * (3 - 2 * u);
+          desenhar(hh);
+          tela.mao(naPonta(hh), -15, true);
+          if (u >= 1) break;
+        }
+        await esperar(450);
+        if (!vivoGiro) return;
+        tela.mao(null);
+        desenhar();
+        await esperar(700);
+        if (!vivoGiro) return;
+      }
+      vivoGiro = false;
+    })();
+  };
 
   const dizer = async (h: number) => {
     const hh = ((Math.round(h) - 1 + 12) % 12) + 1;
@@ -225,7 +310,7 @@ export function telaRelogio(): Tela {
     if (!reivindicarDedo(ev.pointerId)) return;
     dedo = ev.pointerId;
     ajuda.tocou();
-    if (pedida === null) tela.mao(null);
+    tela.mao(null);
     minutos = 0;
     hora = horaDoAngulo(angulo(ev));
     desenhar();
@@ -276,10 +361,16 @@ export function telaRelogio(): Tela {
   });
 
   /* ao entrar, o relógio mostra a hora de verdade, com os dois ponteiros, e diz como está */
-  void esperar(900).then(async () => {
+  const falada = esperar(900).then(async () => {
     if (temVoz('relogio_agora')) await falar('relogio_agora');
     if (minutosReais < 5 && temVoz(`hora_${horaCheiaReal}`)) await falar(`hora_${horaCheiaReal}`);
     else await falarPalavra(fraseDaHoraReal(horaCheiaReal, minutosReais), 0.9);
+  });
+  /* depois da hora falada (ou logo, se a voz demorar), a mãozinha gira o ponteiro */
+  let mexeu = false;
+  svg.addEventListener('pointerdown', () => (mexeu = true), { once: true });
+  void Promise.race([falada, esperar(3500)]).then(() => {
+    if (!mexeu && pedida === null && ajuda.nivel === 0 && tela.el.isConnected) mostrarGiro(hora, hora + 3);
   });
   return tela;
 }
