@@ -73,7 +73,7 @@
 <header class="capa">
   <span class="rotulo">Little Star · referência · rodada 1</span>
   <h1>A família a lápis e aquarela</h1>
-  <p>As quatro faces redesenhadas no pincel escolhido, a partir das fotos da família. A mãe, a Stella e o pai já estão decididos; o Theo tem quatro versões do baterista, com mais cara de menino de 10. As fotos não entram no repositório; entra só o desenho.</p>
+  <p>As quatro faces redesenhadas no pincel escolhido, a partir das fotos da família. A mãe, a Stella e o pai já estão decididos; o Theo ficou no A do baterista (as outras três ficam aqui como registro). As fotos não entram no repositório; entra só o desenho.</p>
   <div class="linha"><span>Setembro de 2026</span><span>Rosto econômico, como manda a SPEC: sobrancelha, olho, nariz de um traço, boca, bochecha</span></div>
 </header>
 
@@ -81,7 +81,7 @@
   <div class="cabeca">
     <span class="rotulo">No tamanho do jogo</span>
     <h2>Os quatro juntos</h2>
-    <p>Stella 1, Theo 1,5, pais 2, como hoje. A mãe, a Stella e o pai já com a escolha feita; o Theo com a opção A do baterista, até a escolha. O lápis tem sempre a mesma espessura na tela, seja no retrato grande ou na marionete pequena, como um lápis de verdade.</p>
+    <p>Stella 1, Theo 1,5, pais 2, como hoje, todos com a escolha feita. No tamanho pequeno o rosto simplifica sozinho: o nariz some, o lápis afina, o ponto de luz do olho sai. O lápis tem sempre a mesma espessura na tela, seja no retrato grande ou na marionete pequena, como um lápis de verdade.</p>
   </div>
   <div class="fila" id="fila"></div>
 </section>
@@ -118,12 +118,12 @@
 <section id="mae" class="pessoa">
   <div class="cabeca" style="grid-column: 1 / -1">
     <span class="rotulo">Mãe · escolhida</span>
-    <h2>Cabelo atrás da orelha, vestido bege</h2>
+    <h2>Cabelo atrás da orelha, vestido salmão</h2>
   </div>
   <div class="retratos" data-pessoa="mae"></div>
   <div class="texto">
-    <p><strong>A escolha: B.</strong> Cabelo castanho-escuro repartido de lado, em camadas até o ombro, preso atrás de uma orelha, argolinha. Sorriso largo com os dentes, olhos abertos. Vestido bege de gola alta, sandália dourada.</p>
-    <p><strong>Ajuste pedido:</strong> o corpo ganhou um leve busto e um leve quadril. No retrato aparece como dois traços de lápis no vestido; na marionete, o corpete curva um pouco para fora no peito e a saia abre um pouco antes.</p>
+    <p><strong>A escolha: B.</strong> Cabelo castanho-escuro repartido de lado, em camadas até o ombro, preso atrás de uma orelha, argolinha. Sorriso largo com os dentes, olhos abertos. Vestido salmão pastel de gola alta, sandália dourada.</p>
+    <p><strong>O corpo:</strong> magra e elegante, ombros mais estreitos que os do pai, e o busto e o quadril só insinuados no corpete e na saia, quase imperceptíveis.</p>
   </div>
 </section>
 
@@ -153,7 +153,7 @@
   </ul>
   <span class="rotulo">Tokens novos</span>
   <div class="paleta">
-    <span style="background:#c79a5e">cabelo Stella</span><span style="background:#6b4a32">cabelo Theo</span><span style="background:#9a7350">ponta do cacho</span><span style="background:#553a28">cabelo mãe</span><span style="background:#6a5646">cabelo pai</span><span style="background:#a39a90">barba</span><span style="background:#e9c39c">pele Stella</span><span style="background:#d9a97e">pele pai</span><span style="background:#9fc3cf">vestido mãe</span><span style="background:#3d4a6b">polo pai</span>
+    <span style="background:#c79a5e">cabelo Stella</span><span style="background:#6b4a32">cabelo Theo</span><span style="background:#9a7350">ponta do cacho</span><span style="background:#553a28">cabelo mãe</span><span style="background:#6a5646">cabelo pai</span><span style="background:#a39a90">barba</span><span style="background:#e9c39c">pele Stella</span><span style="background:#d9a97e">pele pai</span><span style="background:#f3b59a">vestido mãe (salmão)</span><span style="background:#3d4a6b">polo pai</span>
   </div>
   <div class="marca"><p><strong>O que vem depois da escolha.</strong> Escolhidas as quatro variações, a rodada 1 começa: o módulo <code>src/puppet/pincel.ts</code> com o pincel Aquarela e Lápis, a marionete redesenhada em <code>src/puppet/boneco.ts</code> com estes rostos e cabelos em todas as 16 poses, os tokens novos, e o <code>?styleguide=1</code> mostrando tudo. A casa real entra na rodada 2, a partir das fotos da casa.</p></div>
 </section>
@@ -164,7 +164,7 @@
 const C = {
   papel: '#fbf8f1', luz: '#ebd9a8', ouro: '#c6a15b', ouroTinta: '#8f6f2c', rosaDoce: '#f2a9c4', rosaClara: '#f6e3dc',
   veludo: '#8a3a44', roxo: '#8a5aa8', musgoTinta: '#4f6b3a', mata2: '#4a6b5c', lago: '#9fc3cf', areia: '#eeddb4',
-  tinta: '#4a3a30', ceu: '#dbe7ee', ceuTarde: '#f3d9cf', musgo: '#8fae6b', musgoClaro: '#c9dbb2', vermelho: '#c9564c',
+  salmao: '#f3b59a', tinta: '#4a3a30', ceu: '#dbe7ee', ceuTarde: '#f3d9cf', musgo: '#8fae6b', musgoClaro: '#c9dbb2', vermelho: '#c9564c',
 };
 const hex = c => c.replace('#', '').match(/../g).map(h => parseInt(h, 16));
 const rgb = v => '#' + v.map(n => Math.max(0, Math.min(255, Math.round(n))).toString(16).padStart(2, '0')).join('');
@@ -181,6 +181,8 @@ function membro(a, b, wa, wb) {
 
 /* ===== o pincel: aquarela e lápis ===== */
 const NSS = 'vector-effect="non-scaling-stroke"';
+let LAPIS = 1;
+let PEQUENO = false;
 const S = {
   defs() {
     return `<defs><pattern id="grao" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(23)"><circle cx="1.2" cy="1.4" r=".55" fill="${C.ouroTinta}"/><circle cx="4.6" cy="4.2" r=".42" fill="${C.veludo}"/></pattern></defs>`;
@@ -188,10 +190,10 @@ const S = {
   forma(d, cor, o = {}) {
     const lap = escuro(cor, o.lapis ?? 0.42);
     let s = `<path d="${d}" fill="${cor}" opacity="${o.op ?? 0.84}"/><path d="${d}" fill="${cor}" opacity="0.3" transform="translate(0.9 0.7)"/>`;
-    if (!o.mudo) s += `<path d="${d}" fill="none" stroke="${lap}" stroke-width="${o.w ?? 1.25}" ${NSS} stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="17 1.6 31 2.2 11 1.4" opacity="${o.opLapis ?? 0.78}" transform="translate(-0.5 0.4)"/>`;
+    if (!o.mudo) s += `<path d="${d}" fill="none" stroke="${lap}" stroke-width="${(o.w ?? 1.25) * LAPIS}" ${NSS} stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="17 1.6 31 2.2 11 1.4" opacity="${o.opLapis ?? 0.78}" transform="translate(-0.5 0.4)"/>`;
     return s;
   },
-  fio(d, cor, w = 1.3, op = 0.75) { return `<path d="${d}" fill="none" stroke="${cor}" stroke-width="${w}" ${NSS} stroke-linecap="round" opacity="${op}"/>`; },
+  fio(d, cor, w = 1.3, op = 0.75) { return `<path d="${d}" fill="none" stroke="${cor}" stroke-width="${w * LAPIS}" ${NSS} stroke-linecap="round" opacity="${op}"/>`; },
   fios(ds, cor, w = 1.1, op = 0.7) { return ds.map(d => this.fio(d, cor, w, op)).join(''); },
   lavagem(d, cor, op = 0.5) { return `<path d="${d}" fill="${cor}" opacity="${op}"/><path d="${d}" fill="none" stroke="${escuro(cor, 0.16)}" stroke-width="3" opacity="0.2"/>`; },
   textura(x, y, w, h) { return `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="url(#grao)" opacity="0.12"/>`; },
@@ -200,11 +202,11 @@ const S = {
 /* ===== o rosto: cabeça no centro (0,0), raio 30 ===== */
 const R = 30;
 function olhos(p) {
-  const iris = p.crianca ? 3 : 2.5, lap = escuro(p.cabelo, 0.35);
+  const iris = (p.crianca ? 3 : 2.5) * (PEQUENO ? 0.85 : 1), lap = escuro(p.cabelo, 0.35);
   if (p.olhos === 'sorriso') return S.fios(['M-17 -1q6 -6 12 0', 'M5 -1q6 -6 12 0'], C.tinta, 1.5, 0.85);
   return S.fios(['M-17 -2q6 -6.5 12 -0.5', 'M5 -2.5q6 -6 12 0.5'], lap, 1.5, 0.9) +
     `<circle cx="-11" cy="0" r="${iris}" fill="${C.tinta}" opacity=".9"/><circle cx="11" cy="0" r="${iris}" fill="${C.tinta}" opacity=".9"/>` +
-    `<circle cx="-10" cy="-1" r=".9" fill="${C.papel}"/><circle cx="12" cy="-1" r=".9" fill="${C.papel}"/>`;
+    (PEQUENO ? '' : `<circle cx="-10" cy="-1" r=".9" fill="${C.papel}"/><circle cx="12" cy="-1" r=".9" fill="${C.papel}"/>`);
 }
 function boca(p) {
   if (p.boca === 'largo') return S.forma('M-12 11q12 15 24 0q-12 3 -24 0z', C.papel, { lapis: 0, op: 0.95 }).replace(/stroke="[^"]*"/, `stroke="${C.veludo}"`);
@@ -215,6 +217,7 @@ function boca(p) {
   return S.fio('M-8 12.5q8 7.5 16 0', C.veludo, 1.5, 0.85);
 }
 function rosto(p) {
+  PEQUENO = !!p.pequeno;
   const pele = p.pele;
   let s = p.atras ? p.atras() : '';
   s += S.forma(circ(-R + 1, 4, 6.5), pele, { lapis: 0.4 }) + S.forma(circ(R - 1, 4, 6.5), pele, { lapis: 0.4 });
@@ -222,14 +225,15 @@ function rosto(p) {
   s += S.forma(`M-9 ${R - 6}h18v24h-18z`, pele, { mudo: true });
   s += S.forma(p.queixo === 'reto' ? 'M-30 0A30 30 0 0 1 30 0C31 15 24 30 8 32H-8C-24 30 -31 15 -30 0z' : p.adulto ? elipse(0, 1, R, R * 1.07) : circ(0, 0, R), pele, { lapis: 0.4 });
   if (p.antesDoRosto) s += p.antesDoRosto();
-  if (p.sobrancelha === 'grossa') s += S.fios([p.levantada ? 'M-19 -12q7 -1 14 1' : 'M-19 -9q7 -1 14 1', p.levantada ? 'M5 -16q7 -3 14 -1' : 'M5 -8q7 -2 14 1'], escuro(p.cabelo, 0.25), 2.6, 0.85);
-  else s += S.fios(p.sobrancelha === 'reta' ? ['M-18 -11q7 -2.5 13 -1', 'M5 -12q6 -1.5 13 1'] : ['M-18 -11q7 -5 13 -1.5', 'M5 -12.5q6 -3.5 13 1.5'], escuro(p.cabelo, 0.3), 1.3, 0.75);
+  if (p.sobrancelha === 'grossa') s += S.fios([p.levantada ? 'M-19 -12q7 -1 14 1' : 'M-19 -9q7 -1 14 1', p.levantada ? 'M5 -16q7 -3 14 -1' : 'M5 -8q7 -2 14 1'], escuro(p.cabelo, 0.25), PEQUENO ? 2 : 2.6, 0.85);
+  else s += S.fios(p.sobrancelha === 'reta' ? ['M-18 -11q7 -2.5 13 -1', 'M5 -12q6 -1.5 13 1'] : ['M-18 -11q7 -5 13 -1.5', 'M5 -12.5q6 -3.5 13 1.5'], escuro(p.cabelo, 0.3), 1.3, PEQUENO ? 0.5 : 0.75);
   s += olhos(p);
-  s += S.fio('M1 2.5q3 6 -2 8', escuro(pele, 0.45), 1.1, 0.7);
+  if (!PEQUENO) s += S.fio('M1 2.5q3 6 -2 8', escuro(pele, 0.45), 1.1, 0.7);
   s += boca(p);
   if (!p.semBochecha) s += `<circle cx="-19" cy="9" r="5.5" fill="${C.rosaDoce}" opacity=".38"/><circle cx="19" cy="9" r="5.5" fill="${C.rosaDoce}" opacity=".38"/>`;
   if (p.oculos) s += `<g fill="none" stroke="#6f6052" stroke-width="1.7" ${NSS} opacity=".9"><circle cx="-11.5" cy="-1" r="10.5"/><circle cx="11.5" cy="-1" r="10.5"/><path d="M-1 -2.5h2"/></g><circle cx="-11.5" cy="-1" r="10.5" fill="${C.ceu}" opacity=".18"/><circle cx="11.5" cy="-1" r="10.5" fill="${C.ceu}" opacity=".18"/>`;
   if (p.frente) s += p.frente();
+  PEQUENO = false;
   return s;
 }
 
@@ -248,7 +252,7 @@ const PESSOAS = {
   theo: {
     nome: 'Theo', pele: '#f1d6bd', cabelo: CAB_THEO, crianca: true, h: 165, magro: true,
     A: {
-      titulo: 'Cachos rebeldes', olhos: 'abertos', boca: 'largo', sobrancelha: 'grossa', queixo: 'reto', semBochecha: true,
+      titulo: 'Cachos rebeldes', escolhida: true, olhos: 'abertos', boca: 'largo', sobrancelha: 'grossa', queixo: 'reto', semBochecha: true,
       atras: () => cachos(NUVEM_GRANDE, false, CAB_THEO, LUZ_THEO, true), frente: () => cachos([[-17, -22, 8.5], [2, -26, 8.5], [19, -20, 7.5], [-28, -9, 6]], true, CAB_THEO, LUZ_THEO, true),
       roupa: 'xadrez', baquetas: 'peito', cores: { roupa: '#3a3a42', jaqueta: '#efe6d6', calca: '#3f4652', sapato: '#8b8078', estampa: ['#8a3a44'] },
     },
@@ -272,12 +276,12 @@ const PESSOAS = {
     },
   },
   mae: {
-    nome: 'Mãe', pele: '#f0d2b6', cabelo: '#553a28', adulto: true, h: 220, curvas: true,
+    nome: 'Mãe', pele: '#f0d2b6', cabelo: '#553a28', adulto: true, h: 220, curvas: true, esbelta: true,
     B: {
-      titulo: 'Atrás da orelha, bege', escolhida: true, olhos: 'abertos', boca: 'dentes', brinco: true,
+      titulo: 'Atrás da orelha, salmão', escolhida: true, olhos: 'abertos', boca: 'dentes', brinco: true,
       atras: () => S.forma('M-38 -2C-38 -44 38 -44 38 -2C42 12 43 28 40 46C36 50 30 44 24 48C18 52 8 48 0 49C-8 48 -18 52 -24 48C-30 44 -36 50 -40 46C-43 28 -42 12 -38 -2z', '#553a28') + S.fios(['M-34 10q-4 16 -1 30', 'M34 10q4 16 1 30'], escuro('#553a28', 0.4), 1.1, 0.5),
       frente: () => S.forma('M-10 -34C8 -36 30 -27 33 -6Q29 -18 18 -22Q6 -25 -10 -34z', '#553a28') + S.forma('M-10 -34C-20 -34 -28 -28 -31 -14Q-28 -20 -22 -24Q-16 -28 -10 -34z', '#553a28'),
-      roupa: 'vestido-gola', cores: { roupa: C.areia, sapato: C.ouro, estampa: [] },
+      roupa: 'vestido-gola', cores: { roupa: C.salmao, sapato: C.ouro, estampa: [] },
     },
   },
   pai: {
@@ -323,17 +327,20 @@ function barba(cor, op = 0.8, tipo = 'curta') {
   return forma + brancos + escuros + bocaZona + bigode;
 }
 function pontinhos(lista, cor, op = 0.6) {
+  if (PEQUENO) lista = lista.filter((_, i) => i % 2 === 0);
   return lista.map(([x, y]) => `<path d="M${x} ${y}l1.6 -1.2" stroke="${cor}" stroke-width="1.2" ${NSS} stroke-linecap="round" opacity="${op}"/>`).join('');
 }
 
 /* ===== o corpo, no tamanho do jogo ===== */
 function corpo(pessoa, v, cx, chao) {
+  LAPIS = 0.85;
   const h = pessoa.h, crianca = !!pessoa.crianca;
   const hr = h * (crianca ? (pessoa.nome === 'Theo' ? 0.105 : 0.13) : 0.085);
   const cy = chao - h + hr, ombro = cy + hr + h * 0.035, esc = h / 100, c = v.cores, pele = pessoa.pele;
-  const so = (crianca ? (pessoa.magro ? 0.1 : 0.115) : 0.105) * h;
+  const so = (crianca ? (pessoa.magro ? 0.1 : 0.115) : pessoa.esbelta ? 0.094 : 0.105) * h;
   let s = '';
-  const braco = (lado) => S.forma(membro([cx + lado * so, ombro + 4 * esc], [cx + lado * (so + 5 * esc), ombro + h * 0.33], 2.6 * esc, 2 * esc), pele, { lapis: 0.4 });
+  const mao = (x, y, lado, r) => S.forma(`M${f1(x - r * 0.85)} ${f1(y - r * 0.4)}C${f1(x - r * 0.9)} ${f1(y + r * 1.4)} ${f1(x + r * 0.9)} ${f1(y + r * 1.4)} ${f1(x + r * 0.85)} ${f1(y - r * 0.4)}C${f1(x + r * 0.6)} ${f1(y - r * 0.9)} ${f1(x - r * 0.6)} ${f1(y - r * 0.9)} ${f1(x - r * 0.85)} ${f1(y - r * 0.4)}z`, pele, { lapis: 0.4 }) + S.forma(circ(x - lado * r * 0.95, y + r * 0.15, r * 0.36), pele, { mudo: true });
+  const braco = (lado) => S.forma(membro([cx + lado * so, ombro + 4 * esc], [cx + lado * (so + 5 * esc), ombro + h * 0.33], 2.6 * esc, 2 * esc), pele, { lapis: 0.4 }) + mao(cx + lado * (so + 5 * esc), ombro + h * 0.33, lado, 3 * esc);
   const perna = (lado, topo, largura) => S.forma(membro([cx + lado * largura, topo], [cx + lado * (largura + 0.5 * esc), chao - 2], 3.4 * esc, 2.6 * esc), pele, { lapis: 0.4 });
   const pe = (lado, largura, cor) => S.forma(elipse(cx + lado * (largura + 0.8 * esc), chao - 1.5, 5.5 * esc, 2.4 * esc), cor, { lapis: 0.4 });
   if (v.roupa === 'vestido' || v.roupa === 'vestido-longo' || v.roupa === 'vestido-gola') {
@@ -341,10 +348,9 @@ function corpo(pessoa, v, cx, chao) {
     const lw = 6 * esc;
     s += perna(-1, bainha - 4, lw) + perna(1, bainha - 4, lw) + pe(-1, lw, c.sapato) + pe(1, lw, c.sapato);
     const curvas = !!pessoa.curvas;
-    const sw = so * 0.85, cw = so * (curvas ? 0.95 : 0.8), bw = so * (longo ? 1.75 : curvas ? 2.15 : 2.0);
-    const busto = curvas ? 3.5 * esc : 0, k1 = curvas ? 0.95 : 0.8, k2 = curvas ? 0.07 : 0.12;
+    const sw = so * 0.85, cw = so * (curvas ? 0.84 : 0.8), bw = so * (longo ? 1.75 : curvas ? 2.02 : 2.0);
+    const busto = curvas ? 1.4 * esc : 0, k1 = curvas ? 0.86 : 0.8, k2 = curvas ? 0.1 : 0.12;
     s += S.forma(`M${cx - sw} ${ombro}H${cx + sw}C${cx + sw + busto} ${ombro + 7 * esc} ${cx + cw + busto * 0.4} ${cint - 4 * esc} ${cx + cw} ${cint}C${cx + bw * k1} ${cint + h * k2} ${cx + bw} ${bainha - 6 * esc} ${cx + bw} ${bainha}Q${cx} ${bainha + 3 * esc} ${cx - bw} ${bainha}C${cx - bw} ${bainha - 6 * esc} ${cx - bw * k1} ${cint + h * k2} ${cx - cw} ${cint}C${cx - cw - busto * 0.4} ${cint - 4 * esc} ${cx - sw - busto} ${ombro + 7 * esc} ${cx - sw} ${ombro}z`, c.roupa);
-    if (curvas) s += S.fios([`M${cx - sw + 1 * esc} ${ombro + 12 * esc}q${4 * esc} -${4 * esc} ${8 * esc} 0`, `M${cx + sw - 9 * esc} ${ombro + 12 * esc}q${4 * esc} -${4 * esc} ${8 * esc} 0`], escuro(c.roupa, 0.4), 1, 0.35);
     if (v.roupa === 'vestido-gola') s += S.forma(`M${cx - 4 * esc} ${ombro - 8 * esc}h${8 * esc}v${10 * esc}h${-8 * esc}z`, c.roupa, { mudo: true });
     s += braco(-1) + braco(1);
     if (longo) s += S.forma(`M${cx - so + 2 * esc} ${ombro}Q${cx - so - 8 * esc} ${ombro + 6 * esc} ${cx - so - 5 * esc} ${ombro + 15 * esc}Q${cx - so + 1 * esc} ${ombro + 9 * esc} ${cx - so + 2 * esc} ${ombro}z`, c.roupa) + S.forma(`M${cx + so - 2 * esc} ${ombro}Q${cx + so + 8 * esc} ${ombro + 6 * esc} ${cx + so + 5 * esc} ${ombro + 15 * esc}Q${cx + so - 1 * esc} ${ombro + 9 * esc} ${cx + so - 2 * esc} ${ombro}z`, c.roupa);
@@ -364,12 +370,14 @@ function corpo(pessoa, v, cx, chao) {
     if (v.roupa === 'puffer') for (let i = 0; i < 3; i++) s += S.fio(`M${cx - sw * 0.9} ${ombro + (6 + i * 6) * esc}Q${cx} ${ombro + (4 + i * 6) * esc} ${cx + sw * 0.9} ${ombro + (6 + i * 6) * esc}`, escuro(c.roupa, 0.35), 1, 0.6);
     if (v.roupa === 'dino') s += `<circle cx="${cx}" cy="${ombro + 12 * esc}" r="${4 * esc}" fill="${c.estampa[0]}" opacity=".8"/>`;
     if (v.roupa === 'camisa' && c.estampa.length) for (let i = 0; i < 6; i++) { const x = cx - sw * 0.7 + (i * 0.41 % 1) * sw * 1.4, y = ombro + 4 * esc + ((i * 0.63) % 1) * (cint - ombro - 8 * esc); s += `<path d="M${x} ${y}q${3 * esc} -${2 * esc} ${5 * esc} ${1 * esc}q-${3 * esc} ${2 * esc} -${5 * esc} -${1 * esc}z" fill="${c.estampa[0]}" opacity=".6"/>`; }
-    s += S.forma(membro([cx - so, ombro + 3 * esc], [cx - so - 4 * esc, ombro + h * 0.34], 2.8 * esc, 2.1 * esc), pele, { lapis: 0.4 });
-    s += S.forma(membro([cx + so, ombro + 3 * esc], [cx + so + 4 * esc, ombro + h * 0.34], 2.8 * esc, 2.1 * esc), pele, { lapis: 0.4 });
+    s += S.forma(membro([cx - so, ombro + 3 * esc], [cx - so - 4 * esc, ombro + h * 0.34], 2.8 * esc, 2.1 * esc), pele, { lapis: 0.4 }) + mao(cx - so - 4 * esc, ombro + h * 0.34, -1, 3 * esc);
+    s += S.forma(membro([cx + so, ombro + 3 * esc], [cx + so + 4 * esc, ombro + h * 0.34], 2.8 * esc, 2.1 * esc), pele, { lapis: 0.4 }) + mao(cx + so + 4 * esc, ombro + h * 0.34, 1, 3 * esc);
     const mangaCor = ['jaqueta', 'cardiga', 'xadrez'].includes(v.roupa) ? c.jaqueta : c.roupa;
     s += S.forma(elipse(cx - so, ombro + 5 * esc, 3.4 * esc, 5.5 * esc), mangaCor, { lapis: 0.25, opLapis: 0.5 }) + S.forma(elipse(cx + so, ombro + 5 * esc, 3.4 * esc, 5.5 * esc), mangaCor, { lapis: 0.25, opLapis: 0.5 });
   }
-  s += `<g transform="translate(${cx} ${cy}) scale(${hr / R})">${rosto({ ...pessoa, ...v })}</g>`;
+  LAPIS = hr / R < 0.6 ? 0.6 : 0.75;
+  s += `<g transform="translate(${cx} ${cy}) scale(${hr / R})">${rosto({ ...pessoa, ...v, pequeno: hr / R < 0.7 })}</g>`;
+  LAPIS = 1;
   return s;
 }
 
@@ -395,7 +403,6 @@ function ombros(p) {
   if (p.roupa === 'xadrez') s += S.forma('M-52 92C-52 62 -28 48 -10 46Q-16 68 -14 92z', p.cores.jaqueta) + S.forma('M52 92C52 62 28 48 10 46Q16 68 14 92z', p.cores.jaqueta) + `<g clip-path="url(#${id})" stroke="${p.cores.estampa[0]}" stroke-width="1.6" ${NSS} opacity=".55"><path d="M-52 58H52M-52 70H52M-52 82H52M-44 44V92M-32 44V92M-20 44V92M20 44V92M32 44V92M44 44V92"/></g>`;
   if (p.roupa === 'puffer') s += S.forma('M-22 44H22V56H-22z', cor, { lapis: 0.45 }) + `<g clip-path="url(#${id})" fill="none" stroke="${escuro(cor, 0.35)}" stroke-width="1.2" ${NSS} opacity=".7"><path d="M-52 62Q0 54 52 62M-52 74Q0 66 52 74M-52 86Q0 78 52 86M0 56V92"/></g>`;
   if (p.roupa === 'vestido-gola') s += S.forma('M-9 44h18v14h-18z', cor, { mudo: true });
-  if (p.curvas) s += S.fios(['M-30 82q11 -9 22 -1', 'M8 81q11 -8 22 1'], escuro(cor, 0.4), 1.1, 0.3);
   if (p.fone) s += `<path d="M-19 58q19 14 38 0" fill="none" stroke="#3a3a42" stroke-width="3.2" ${NSS} stroke-linecap="round" opacity=".9"/>` + S.forma(circ(-19, 57, 5), '#3a3a42', { lapis: 0.2 }) + S.forma(circ(19, 57, 5), '#3a3a42', { lapis: 0.2 });
   if (p.baquetas === 'peito') s += S.forma('M-28 90l36 -30l2.4 2.8l-36 30z', '#c9a189', { lapis: 0.45 }) + S.forma('M28 90l-36 -30l-2.4 2.8l36 30z', '#c9a189', { lapis: 0.45 });
   if (p.roupa === 'listrada') s += `<g clip-path="url(#${id})" opacity=".85"><rect x="-60" y="52" width="120" height="7" fill="${p.cores.estampa[0]}"/><rect x="-60" y="64" width="120" height="7" fill="${p.cores.estampa[1]}"/><rect x="-60" y="76" width="120" height="7" fill="${p.cores.estampa[0]}"/><rect x="-60" y="88" width="120" height="7" fill="${p.cores.estampa[1]}"/></g>`;
