@@ -205,3 +205,32 @@ export function copaPath(cx: number, cy: number, rx: number, ry: number, n = 9, 
   }
   return d + 'z';
 }
+
+/** O grão do papel no canvas: o mesmo padrão de pontinhos, feito uma vez num canvas pequeno. */
+let padraoDoGrao: CanvasPattern | null | undefined;
+export function graoNoCanvas(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, op = 0.12): void {
+  if (padraoDoGrao === undefined) {
+    const c = document.createElement('canvas');
+    c.width = 7;
+    c.height = 7;
+    const g = c.getContext('2d');
+    if (!g) padraoDoGrao = null;
+    else {
+      g.fillStyle = '#8f6f2c';
+      g.beginPath();
+      g.arc(1.2, 1.4, 0.55, 0, Math.PI * 2);
+      g.fill();
+      g.fillStyle = '#8a3a44';
+      g.beginPath();
+      g.arc(4.6, 4.2, 0.42, 0, Math.PI * 2);
+      g.fill();
+      padraoDoGrao = ctx.createPattern(c, 'repeat');
+    }
+  }
+  if (!padraoDoGrao) return;
+  ctx.save();
+  ctx.globalAlpha *= op;
+  ctx.fillStyle = padraoDoGrao;
+  ctx.fillRect(x, y, w, h);
+  ctx.restore();
+}
