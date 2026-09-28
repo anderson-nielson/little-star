@@ -217,7 +217,7 @@
     </div>
     <div>
       <div class="aparelho"><svg viewBox="0 0 390 780" id="svg-passeio" role="img" aria-label="O passeio de bicicleta: a Stella pedalando na faixa do meio da tela, o chão com lombadinhas, poças e rampinhas, o mapinha no céu"></svg></div>
-      <p class="fala"><b>Toque no céu</b>: ela pula (o pulo procura o obstáculo). <b>Toque na frente dela</b>: uma pedalada com força. <b>Toque atrás dela</b>: freia. <b>Toque nela</b>: abaixa. <b>Toque no ar</b>, num voo alto: um giro. Longe de tudo, o toque no céu é um pulinho de alegria e a campainha. Mude a rota e o passeio nº para ver os gestos e as coisas do chão entrarem.</p>
+      <p class="fala"><b>Toque no céu</b>: ela pula (o pulo procura o obstáculo). <b>Toque na frente dela</b>: uma pedalada com força. <b>Toque atrás dela</b>: freia. <b>Toque nela</b>: abaixa. <b>Toque no ar</b>, num voo alto: um giro. Longe de tudo, o toque no céu é um pulinho de alegria e a campainha. Aqui os quatro gestos já vêm ligados; marque "um por vez" para ver como entram no jogo, rota a rota.</p>
       <div class="controles">
         <div class="linha" id="rotas-botoes" role="group" aria-label="Rota"></div>
         <div class="linha">
@@ -227,6 +227,7 @@
         </div>
         <div class="linha">
           <label><input type="checkbox" id="rodinhas" checked> Com rodinhas</label>
+          <label><input type="checkbox" id="um-por-vez"> Gestos entram um por vez, como no jogo</label>
           <button class="botao" id="de-novo" type="button">De novo</button>
         </div>
       </div>
@@ -923,7 +924,7 @@ function kitPecas() {
 /* ===================== tela 2: o simulador ===================== */
 const SIM = {
   W: 390, H: 780, hz: 330, chao: 560, sx: 130,
-  rota: 'rua', n: 1, rodinhas: true,
+  rota: 'rua', n: 1, rodinhas: true, umPorVez: false,
 };
 function simulador() {
   const svg = document.getElementById('svg-passeio');
@@ -937,7 +938,8 @@ function simulador() {
     st.ritmo = ritmoDaRota(n);
     st.cada = cadaDaRota(n);
     st.kit = kitDaRota(SIM.rota, n);
-    st.gestos = gestosDaRota(SIM.rota, n);
+    /* no simulador os quatro gestos vêm ligados; a caixinha "um por vez" mostra como entram no jogo */
+    st.gestos = SIM.umPorVez ? gestosDaRota(SIM.rota, n) : { pular: true, acelerar: true, frear: true, abaixar: true };
     st.v0 = BICICLETA.velocidade * W * st.ritmo;
     st.espaco = st.cada * BICICLETA.compasso * st.v0;
     /* o mundo: obstáculos espaçados a partir de dois compassos, até o destino */
@@ -967,7 +969,7 @@ function simulador() {
     }
     st.L = x + 260;
     st.trechos = st.obs.filter(o => ['pedregulho', 'areia', 'ponte'].includes(o.tipo)).map(o => ({ x0: o.x - 70, x1: o.x + 70, tipo: o.tipo }));
-    Object.assign(st, { x: 0, v: st.v0, fase: 'pedal', pulo: null, agacha: 0, agachaAte: 0, freioAte: 0, roda: 0, pedal: 0, erros: 0, ajuda: 0, paradaAte: 0, chegou: false, fx: [], mao: null, maoAte: 0, tocs: 0, ultimoToc: 0, ultimaMarca: 0, sozinha: 0, passados: 0, t: 0, vento: 0, giro: 0 });
+    Object.assign(st, { x: 0, v: st.v0, fase: 'pedal', pulo: null, agacha: 0, agachaAte: 0, freioAte: 0, deslizaAte: 0, roda: 0, pedal: 0, erros: 0, ajuda: 0, paradaAte: 0, chegou: false, fx: [], mao: null, maoAte: 0, tocs: 0, ultimoToc: 0, ultimaMarca: 0, sozinha: 0, passados: 0, t: 0, vento: 0, giro: 0 });
     const gestos = Object.keys(st.gestos).join(', ');
     document.getElementById('passeio-resumo').textContent = `ritmo ×${st.ritmo.toFixed(2)} · um a cada ${st.cada} compassos · ${st.kit.map(k => OBST[k].nome.toLowerCase()).join(', ')} · gestos: ${gestos} · ${rota.musica}`;
     monta();
@@ -1080,11 +1082,17 @@ function simulador() {
       st.pulo = { t0: st.t, dur, h: 92, alvo };
       alvo.feito = true; alvo.sozinha = true; st.sozinha++; st.erros = 0;
       uuuh(true);
-    } else { st.pulo = { t0: st.t, dur: 0.5, h: 30, alvo: null }; campainha(); }
+    } else { st.pulo = { t0: st.t, dur: 0.55, h: 56, alvo: null }; campainha(); }
+  }
+  /* os risquinhos de velocidade atrás dela */
+  function risquinhos(cor = C.ouroTinta) {
+    const y = alturaChao(st.x);
+    efeito(`<g class="sobe" style="animation-duration:.6s">${fios([`M${sx - 62} ${y - 54}h-16`, `M${sx - 70} ${y - 40}h-20`, `M${sx - 60} ${y - 26}h-14`], cor, 2, 0.8)}</g>`, 0.6);
   }
   function acelerar() {
     st.v = Math.min(st.v + BICICLETA.pedalada * st.v0, BICICLETA.maximo * st.v0);
     pedalada(st.tocs++);
+    risquinhos();
     efeito(`<g class="sobe">${forma(elipse(sx - 30, alturaChao(st.x) - 4, 5, 2.5), C.areiaSombra, { mudo: true })}</g>`, 0.8);
   }
   function frear() {
@@ -1111,7 +1119,8 @@ function simulador() {
     if (naFrente && st.gestos.acelerar) { acelerar(); return; }
     if (atras && st.gestos.frear) { frear(); return; }
     /* pular procura o obstáculo até 0,7 s à frente */
-    const alvo = st.obs.find(o => !o.feito && ['lombada', 'poca', 'tronco', 'gamba'].includes(o.tipo) && o.x - st.x > -10 && (o.x - st.x) / Math.max(40, st.v) <= BICICLETA.janelaDoPulo + 0.05);
+    /* a poça não entra aqui: pular por cima dela é escolha, com o toque na hora; passar direto é a deslizada */
+    const alvo = st.obs.find(o => !o.feito && ['lombada', 'tronco', 'gamba'].includes(o.tipo) && o.x - st.x > -10 && (o.x - st.x) / Math.max(40, st.v) <= BICICLETA.janelaDoPulo + 0.05);
     if (alvo && !noAr()) { pular(alvo); return; }
     if (!st.pulo) pular(null);
   }
@@ -1127,7 +1136,8 @@ function simulador() {
     if (tr && tr.tipo === 'areia') alvoV *= 0.5;
     if (freando) alvoV = st.v0 * BICICLETA.freio;
     let v = st.v;
-    if (!noAr()) {
+    const deslizando = st.t < (st.deslizaAte || 0);
+    if (!noAr() && !deslizando) {
       v += (alvoV - v) * (1 - Math.exp(-dt / (freando ? 0.25 : 0.9)));
       v += inc * BICICLETA.gravidade * st.v0 * dt; /* inclinação positiva é descida */
     }
@@ -1144,6 +1154,7 @@ function simulador() {
     /* pedregulhos: treme e faz trrrr; a ponte faz toc toc */
     if (tr && tr.tipo === 'pedregulho' && !noAr() && st.t - st.ultimoToc > 0.09) { st.ultimoToc = st.t; ruido(0.04, 700, 0.025); }
     if (tr && tr.tipo === 'ponte' && !noAr() && st.t - st.ultimoToc > 0.22) { st.ultimoToc = st.t; toc(); pluck(PENTA[Math.floor(st.x / 16) % 5], 0.05, 0.3); }
+    if (deslizando && st.t - st.ultimaMarca > 0.08) { st.ultimaMarca = st.t; efeito(`<g>${forma(elipse(sx - 20, alturaChao(st.x) - 1, 6, 1.6), C.lago, { mudo: true, op: 0.6 })}</g>`, 0.8); }
     if (tr && tr.tipo === 'areia' && !noAr() && st.t - st.ultimaMarca > 0.12) { st.ultimaMarca = st.t; efeito(`<g>${forma(elipse(sx - 24, alturaChao(st.x) - 1, 5, 1.6), C.areiaSombra, { mudo: true, op: 0.7 })}</g>`, 0.6); }
     /* a crista: rápido no alto, ela decola; a descida grande empolga */
     for (const m of st.morros) {
@@ -1177,7 +1188,7 @@ function simulador() {
       const ar = noAr();
       switch (o.tipo) {
         case 'lombada': if (ar) break; if (o.a2) break; st.erros++; tum(); st.pulo = { t0: st.t, dur: 0.3, h: 14, alvo: null }; break;
-        case 'poca': if (ar) { sininho(); break; } /* passar direto é a deslizada: shhh, borrifo e uma aceleradinha */ shhh(); gotas(sx, y); st.v = Math.min(st.v + 0.45 * st.v0, BICICLETA.maximo * st.v0); efeito(fio(`M${sx - 60} ${y - 1}h${50}`, C.lago, 3, 0.6), 0.9); break;
+        case 'poca': if (ar) { sininho(); break; } /* passar direto é a deslizada: shhh, borrifo, rastro molhado e uma aceleradinha */ shhh(0.5); gotas(sx, y); st.v = Math.min(st.v + 0.7 * st.v0, BICICLETA.maximo * st.v0); st.deslizaAte = st.t + 0.7; risquinhos(C.lago); efeito(fio(`M${sx - 70} ${y - 1}h${64}`, C.lago, 3.5, 0.7), 1.1); break;
         case 'rampa': { if (ar) break; const h = 40 + Math.max(0, st.v / st.v0 - 1) * 150; st.pulo = { t0: st.t, dur: 0.6 + h / 220, h, alvo: null }; if (h >= 120) { st.pulo.giro = true; centelhas(sx, y - 130); } uuuh(true); break; }
         case 'tronco': if (ar) break; if (o.a2) { st.pulo = { t0: st.t, dur: 0.75, h: 60, alvo: null }; break; } st.erros++; st.fase = 'parada'; st.paradaAte = st.t + BICICLETA.parada; toc(); st.pulo = { t0: st.t + 0.5, dur: 1.0, h: 40, alvo: null, lento: true }; break;
         case 'gamba': if (ar) break; if (o.a2) break; st.erros++; st.fase = 'parada'; st.paradaAte = st.t + BICICLETA.parada; o.foge = true; ruido(0.3, 200, 0.05, 'lowpass'); break;
@@ -1235,6 +1246,7 @@ function simulador() {
   const range = document.getElementById('passeio-n');
   range.addEventListener('input', () => { SIM.n = +range.value; document.getElementById('passeio-n-valor').textContent = range.value; prepara(); });
   document.getElementById('rodinhas').addEventListener('change', ev => { SIM.rodinhas = ev.target.checked; });
+  document.getElementById('um-por-vez').addEventListener('change', ev => { SIM.umPorVez = ev.target.checked; prepara(); });
   document.getElementById('de-novo').addEventListener('click', () => prepara());
   prepara();
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) { passo(0.001); } else raf = requestAnimationFrame(anima);
