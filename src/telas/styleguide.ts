@@ -26,7 +26,7 @@ export function telaStyleguide(params: Record<string, string> = {}): Tela {
   p.append(h('div', { class: 'fila', html: svg(familia.stella(60, 150, 70).svg) + svg(familia.theo(60, 150, 105).svg) + svg(familia.mae(60, 150, 140).svg) + svg(familia.pai(60, 150, 148).svg) }));
   p.append(h('h2', {}, 'Poses da Stella'));
   const poses: Pose[] = ['parado', 'acena', 'sentado', 'pulo', 'giro', 'aponta', 'segura', 'abraca', 'reverencia', 'deitado', 'anda', 'salto', 'escorrega'];
-  const passos: Pose[] = ['plie', 'releve', 'arabesque', 'giro', 'salto', 'reverencia'];
+  const passos: Pose[] = ['plie', 'releve', 'arabesque', 'giro', 'salto', 'agradece'];
   p.append(h('div', { class: 'fila', html: poses.map((po) => svg(familia.stella(60, 150, 100, po).svg)).join('') }));
   p.append(h('h2', {}, 'Os passos do palco'));
   p.append(h('div', { class: 'fila', html: passos.map((po) => svg(familia.stellaPalco(60, 150, 100, po).svg)).join('') }));

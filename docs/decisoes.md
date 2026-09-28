@@ -110,7 +110,17 @@ esperava o show acabar, e o visto e a mãozinha faziam dele uma tarefa.
   com as bonecas). Na ribalta, um botão por passo com a Stella na pose: plié, relevé,
   arabesque, pirueta; tocar no palco é o salto. A cada oito passos a família bate palma e
   o número seguinte começa com outra música da playlist (`PLAYLIST_DO_PALCO`); a nota pula.
-  O visto fecha o show. A mãe pode gravar o nome de cada passo (grupo Palco das vozes).
+  A mãe pode gravar o nome de cada passo (grupo Palco das vozes).
+- **Ela nunca fica parada**: entre os passos gira devagar na ponta dos pés, como a bailarina
+  de uma caixinha de música (o teste com o Anderson: parada, parecia esperar comando).
+- **A barrinha da coreografia** no alto: uma conta por passo, estrela quando o passo é
+  diferente do anterior. É a "qualidade" sem número: variar rende estrelas e mais aplauso.
+- **No palco o fim é a cortina, não o visto verde**: o visto não dizia nada ali. A
+  cortininha de veludo acende no primeiro passo; tocar fecha o show com a révérence de
+  bailarina (`agradece`: mãos na saia, joelhos dobradinhos, cabeça baixa; a `reverencia`
+  antiga dobrava o tronco inteiro e parecia a cabeça caindo), aplauso, abraço e a cortina
+  descendo.
+- **Som dos passos**: uma nota da lira uma oitava acima, bem baixinha (0,1). O passo é leve.
 - **O fecho da aventura** (`ir('palco', { fecho: '1' })`) virou uma coreografia curta e
   automática com os mesmos passos, reverência, aplauso, boneca nova e abraço. Sem visto nem
   mãozinha: é recompensa, não tarefa.

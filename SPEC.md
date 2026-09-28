@@ -661,11 +661,13 @@ perder nada.
 ### 12.4 O Palco
 Cortina de veludo, luz de ribalta. Plateia: mãe, pai, Theo e as bonecas. Dois jeitos:
 
-- **A brincadeira** (as sapatilhas na parede do quarto): na ribalta, um botão para cada passo
-  com a Stella desenhada na pose (plié, relevé, arabesque, pirueta); tocar no palco é o
-  salto. Sempre dá certo. A cada oito passos a família bate palma e vem a música seguinte da
-  playlist (Fada Açucarada, Valsa das Flores, Cisnes, Marcha). O visto fecha o show:
-  reverência, aplauso, abraço na coxia.
+- **A brincadeira** (as sapatilhas na parede do quarto): entre um passo e outro ela gira
+  devagar na ponta dos pés, como numa caixinha de música. Na ribalta, um botão para cada
+  passo com a Stella desenhada na pose (plié, relevé, arabesque, pirueta); tocar no palco é o
+  salto. Sempre dá certo, com uma nota baixinha. No alto, a barrinha da coreografia: um
+  passo diferente do anterior vira estrela. Com oito passos a família bate palma (mais
+  forte com mais estrelas) e vem a música seguinte da playlist (Fada Açucarada, Valsa das
+  Flores, Cisnes, Marcha). A cortininha fecha o show: révérence, aplauso, abraço, cortina.
 - **O fecho** de toda aventura: ela dança sozinha uma coreografia curta com os mesmos passos,
   reverência, aplauso, a boneca nova na estante, abraço, volta para casa. Uns vinte segundos.
 

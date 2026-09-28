@@ -1,15 +1,15 @@
 import { convidarParaCasa, mover, pedrinhasSobem, telaSvg, type TelaSvg } from './comum';
-import { botaoPronto, guiar, type Ponto } from './guia';
+import { guiar, type Ponto } from './guia';
 import { ganhar, PEDRINHAS } from '@/core/pedrinhas';
 import { estado, mudar } from '@/core/estado';
 import { anunciar } from '@/core/narracao';
-import { esperar } from '@/core/util';
+import { esperar, svgEl } from '@/core/util';
 import { travar } from '@/core/toque';
 import { familia, figurinoDe, type PassoDeBale, type Pose } from '@/puppet/boneco';
-import { centelha, veu } from '@/puppet/objetos';
+import { centelha, contornoLuz, veu } from '@/puppet/objetos';
 import { audio } from '@/audio/engine';
 import { musica, pararFundo, Sequenciador } from '@/audio/musica';
-import { aplauso, lira, sininho } from '@/audio/synth';
+import { aplauso, lira } from '@/audio/synth';
 import { falar, temVoz } from '@/audio/vozes';
 import { falarEspanhol } from '@/audio/espanhol';
 import { espanholAtivo } from '@/core/laco';
@@ -26,46 +26,54 @@ export interface PassoDoPalco {
   nota: number;
   voz: string;
 }
+/* as notas ficam uma oitava acima e bem baixinhas: um toque de caixinha de música, não um piano */
 export const PASSOS_DO_PALCO: PassoDoPalco[] = [
-  { id: 'plie', nota: 67, voz: 'passo_plie' },
-  { id: 'releve', nota: 74, voz: 'passo_releve' },
-  { id: 'arabesque', nota: 71, voz: 'passo_arabesque' },
-  { id: 'giro', nota: 79, voz: 'passo_pirueta' },
+  { id: 'plie', nota: 79, voz: 'passo_plie' },
+  { id: 'releve', nota: 86, voz: 'passo_releve' },
+  { id: 'arabesque', nota: 83, voz: 'passo_arabesque' },
+  { id: 'giro', nota: 91, voz: 'passo_pirueta' },
 ];
-/** tocar no palco (fora dos botões) é o salto: sempre dá certo, como antes */
-const SALTO: PassoDoPalco = { id: 'salto', nota: 76, voz: 'passo_salto' };
+/** tocar no palco (fora dos botões) é o salto: sempre dá certo */
+const SALTO: PassoDoPalco = { id: 'salto', nota: 88, voz: 'passo_salto' };
+const TODOS_OS_PASSOS: PassoDoPalco[] = [...PASSOS_DO_PALCO, SALTO];
+const VOLUME_DO_PASSO = 0.1;
 
 /** a coreografia do fecho da aventura, que ela faz sozinha */
 const COREOGRAFIA_DO_FECHO: PassoDeBale[] = ['plie', 'releve', 'arabesque', 'giro', 'salto', 'plie', 'releve', 'giro', 'salto'];
 
-/* a ribalta: os botões dos passos, a nota da música seguinte e o visto, numa linha só no chão do palco */
+/* a ribalta: os botões dos passos, a nota da música seguinte e a cortina, numa linha só no chão do palco */
 const Y_RIBALTA = 578;
 const X_NOTA = 40;
 const X_PASSOS = [104, 168, 232, 296];
-const X_VISTO = 352;
+const X_CORTINA = 352;
 const R_BOTAO = 27;
 const STELLA_X = 195;
 const CHAO = 470;
 const ALTURA = 170;
+/* a barrinha da coreografia, no alto, entre a casinha e as opções */
+const Y_BARRA = 104;
 
 /**
  * O palco: cortina de veludo, luz de ribalta, plateia com a mãe, o pai, o
  * Theo e as bonecas. Vem em dois jeitos.
  *
- * A brincadeira (as sapatilhas na parede do quarto): ela é quem dança. Na
- * ribalta, um botão para cada passo, com a Stella desenhada na pose (plié,
- * relevé, arabesque, pirueta); tocar no palco é o salto. Cada passo sai na
- * hora, com a nota da lira e a voz da professora, e nunca sai errado. A cada
- * oito passos a família bate palma e o número seguinte começa, com outra
- * música da playlist (Fada Açucarada, Valsa das Flores, Cisnes, Marcha); a
- * nota na ponta da ribalta pula para o próximo. O visto verde acende no
- * primeiro passo, e é ela quem diz quando o show acaba: reverência, aplauso,
- * abraço na coxia.
+ * A brincadeira (as sapatilhas na parede do quarto): ela é quem dança. Entre
+ * um passo e outro a Stella nunca fica parada: gira devagar na ponta dos pés,
+ * como a bailarina de uma caixinha de música. Na ribalta, um botão para cada
+ * passo, com a Stella desenhada na pose (plié, relevé, arabesque, pirueta);
+ * tocar no palco é o salto. Cada passo sai na hora, leve, com uma nota
+ * baixinha e a voz da professora, e nunca sai errado. No alto, a barrinha da
+ * coreografia: uma conta por passo; um passo diferente do anterior vira
+ * estrela, um repetido vira só ouro. Com oito contas a família bate palma
+ * (mais forte quanto mais estrelas) e o número seguinte começa, com outra
+ * música da playlist; a nota na ponta da ribalta pula para o próximo. A
+ * cortina na outra ponta acende no primeiro passo: é ela quem fecha o show,
+ * com a révérence, o aplauso, o abraço e a cortina descendo.
  *
  * O fecho (`fecho=1`, o fim de toda aventura): a cortina abre e ela dança
  * sozinha uma coreografia curta com os mesmos passos, a família assiste,
- * reverência, aplauso, a boneca nova na estante e o abraço. Uns vinte
- * segundos, sem visto nem mãozinha: é a recompensa, não uma tarefa.
+ * révérence, aplauso, a boneca nova na estante, abraço e a cortina fecha.
+ * Uns vinte segundos, sem botões nem mãozinha: é a recompensa, não uma tarefa.
  */
 export function telaPalco(params: Record<string, string> = {}): Tela {
   const e = estado();
@@ -74,8 +82,9 @@ export function telaPalco(params: Record<string, string> = {}): Tela {
   /* chão do palco e poça de luz */
   s += `<rect x="0" y="${CHAO}" width="390" height="140" fill="#2a1d22"/><ellipse cx="${STELLA_X}" cy="${CHAO}" rx="150" ry="26" fill="#ebd9a8" opacity="0.28"/>`;
   s += `<g class="ribalta-luz"><path d="M${STELLA_X} 60L60 ${CHAO + 10}h270z" fill="#ebd9a8" opacity="0.1"/></g>`;
-  /* a Stella de tutu e coque: o grupo de fora balança no compasso, o de dentro faz o passo */
-  s += `<g class="balanco"><g class="stella">${familia.stellaPalco(STELLA_X, CHAO, ALTURA, 'parado').svg}</g></g>`;
+  /* a Stella de tutu e coque, em três grupos: o de fora gira devagar (a caixinha de música),
+     o do meio sobe e desce no compasso, o de dentro faz o passo */
+  s += `<g class="caixinha"><g class="balanco"><g class="stella">${familia.stellaPalco(STELLA_X, CHAO, ALTURA, 'releve').svg}</g></g></g>`;
   /* a boneca companheira assiste da coxia, pertinho */
   if (e.companheira >= 0) s += familia.boneca(70, CHAO, 40, e.companheira, { contorno: '#ebd9a8', ...figurinoDe(e.figurinos[String(e.companheira)]) }).svg;
   /* o palco inteiro é o salto (na brincadeira) ou centelhas (no fecho); os botões ficam por cima */
@@ -100,9 +109,12 @@ export function telaPalco(params: Record<string, string> = {}): Tela {
   const tela = telaSvg(s, { fundo: '#10142a' });
   const svg = tela.svg;
   const stella = svg.querySelector('.stella') as SVGGElement;
+  const caixinha = svg.querySelector('.caixinha') as SVGGElement;
   const balanco = svg.querySelector('.balanco') as SVGGElement;
   const brilhos = svg.querySelector('.brilhos') as SVGGElement;
   const plateia = svg.querySelector('.plateia') as SVGGElement;
+  const cortinaE = svg.querySelector('.cortina-e') as SVGElement;
+  const cortinaD = svg.querySelector('.cortina-d') as SVGElement;
   travar(1500);
   pararFundo();
 
@@ -130,25 +142,38 @@ export function telaPalco(params: Record<string, string> = {}): Tela {
   const centelhar = () => {
     brilhos.innerHTML = `<g class="sobe">${centelha(STELLA_X + (Math.random() - 0.5) * 80, 300, 14, '#c6a15b')}${centelha(STELLA_X + (Math.random() - 0.5) * 80, 320, 10, '#f2a9c4')}</g>`;
   };
-  /* o balanço de quem espera a música: sobe e desce um tiquinho, no compasso */
-  balanco.style.transformBox = 'fill-box';
-  balanco.style.transformOrigin = 'center';
+  for (const g of [caixinha, balanco, stella]) {
+    g.style.transformBox = 'fill-box';
+    g.style.transformOrigin = 'center';
+  }
+  /* o balanço de quem dança: sobe e desce um tiquinho, no compasso */
   balanco.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-3px)' }, { transform: 'translateY(0)' }], { duration: 1500, iterations: Infinity, easing: 'ease-in-out' });
-  stella.style.transformBox = 'fill-box';
-  stella.style.transformOrigin = 'center';
+  /* a caixinha de música: na ponta dos pés, girando devagar, sem parar, enquanto espera o próximo passo */
+  let giroLento: Animation | null = null;
+  const bailar = () => {
+    trocarPose('releve');
+    giroLento?.cancel();
+    giroLento = caixinha.animate([{ transform: 'scaleX(1)' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(1)' }], { duration: 6000, iterations: Infinity, easing: 'ease-in-out' });
+  };
+  const pararDeBailar = () => {
+    giroLento?.cancel();
+    giroLento = null;
+  };
+  bailar();
 
-  /** um passo: a pose na hora, a pirueta gira e o salto sobe; depois de um segundo ela volta a esperar */
-  const dancar = (p: PassoDoPalco) => {
+  /** um passo: ela vira de frente e faz a pose na hora (a pirueta gira, o salto sobe); depois volta a bailar */
+  const dancar = (p: PassoDoPalco, volta = 1000) => {
+    pararDeBailar();
     trocarPose(p.id);
     if (p.id === 'giro') stella.animate([{ transform: 'scaleX(1)' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(1)' }], { duration: 700, easing: 'ease-in-out' });
     if (p.id === 'salto') stella.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-46px)', offset: 0.5 }, { transform: 'translateY(0)' }], { duration: 700, easing: 'ease-out' });
-    lira(p.nota, undefined, 0.3);
+    lira(p.nota, undefined, VOLUME_DO_PASSO);
     centelhar();
     if (temVoz(p.voz)) void falar(p.voz);
     if (timerPose !== null) window.clearTimeout(timerPose);
     timerPose = window.setTimeout(() => {
-      if (vivo && dancando) trocarPose('parado');
-    }, 1000);
+      if (vivo && dancando) bailar();
+    }, volta);
   };
 
   const tocarNumero = (i: number) => {
@@ -161,10 +186,13 @@ export function telaPalco(params: Record<string, string> = {}): Tela {
   const abrirCortina = async () => {
     await audio.tentarDestravar();
     await esperar(600);
-    const ce = svg.querySelector('.cortina-e') as SVGElement;
-    const cd = svg.querySelector('.cortina-d') as SVGElement;
-    mover(ce, -200, 0, 1800);
-    mover(cd, 200, 0, 1800);
+    mover(cortinaE, -200, 0, 1800);
+    mover(cortinaD, 200, 0, 1800);
+  };
+  const fecharCortina = async () => {
+    mover(cortinaE, 0, 0, 1800);
+    mover(cortinaD, 0, 0, 1800);
+    await esperar(1900);
   };
   /* às vezes a Estrellita conta a entrada em espanhol: sempre na brincadeira, nas aventuras ímpares no fecho */
   const contarEntrada = async () => {
@@ -173,26 +201,33 @@ export function telaPalco(params: Record<string, string> = {}): Tela {
     else for (const n of ['cinco', 'seis', 'sete', 'oito']) await falarEspanhol(n, 0.9);
   };
 
-  /* o fim de todo show: reverência, aplauso, o "Brava!", e o abraço na coxia */
+  /* o fim de todo show: a révérence (mãos na saia, uma dobradinha de joelhos, a cabeça agradece),
+     o aplauso, o "Brava!", o abraço na coxia e a cortina descendo */
   const reverencia = async () => {
     dancando = false;
     seq?.parar();
     if (timerPose !== null) window.clearTimeout(timerPose);
-    trocarPose('reverencia');
+    pararDeBailar();
+    trocarPose('agradece');
+    stella.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(7px)', offset: 0.4 }, { transform: 'translateY(7px)', offset: 0.7 }, { transform: 'translateY(0)' }], { duration: 2200, easing: 'ease-in-out' });
+    await esperar(500);
     desenharPlateia(true);
     aplauso(4);
     tela.comemorar(STELLA_X, 300);
     travar(6000);
+    await esperar(1000);
     if (temVoz('brava')) await falar('brava');
-    else await esperar(1200);
+    else await esperar(900);
     if (espanholAtivo(e)) await falarEspanhol('muy_bien');
-    sininho();
+    trocarPose('acena');
   };
-  const abraco = async () => {
-    await esperar(1500);
+  const abracoECortina = async () => {
+    await esperar(1200);
     desenharPlateia(false);
     stella.innerHTML = familia.stellaPalco(180, CHAO, ALTURA, 'parado').svg + familia.pai(230, CHAO, 200, 'abraca', { dir: -1, contorno: '#ebd9a8' }).svg;
-    await esperar(1500);
+    await esperar(1800);
+    if (!vivo) return;
+    await fecharCortina();
     if (vivo) convidarParaCasa(tela);
   };
 
@@ -202,7 +237,7 @@ export function telaPalco(params: Record<string, string> = {}): Tela {
       '.palco',
       () => {
         if (!dancando) return;
-        lira(SALTO.nota, undefined, 0.25);
+        lira(SALTO.nota, undefined, VOLUME_DO_PASSO);
         centelhar();
       },
       true,
@@ -215,8 +250,8 @@ export function telaPalco(params: Record<string, string> = {}): Tela {
       await esperar(1400);
       for (const p of COREOGRAFIA_DO_FECHO) {
         if (!vivo) return;
-        dancar(p === 'salto' ? SALTO : (PASSOS_DO_PALCO.find((x) => x.id === p) ?? SALTO));
-        await esperar(1000);
+        dancar(TODOS_OS_PASSOS.find((x) => x.id === p) ?? SALTO, 900);
+        await esperar(1300);
       }
       if (!vivo) return;
       await reverencia();
@@ -225,15 +260,15 @@ export function telaPalco(params: Record<string, string> = {}): Tela {
         ganhar(x, PEDRINHAS.aventura, 'aventura');
       });
       pedrinhasSobem(tela, PEDRINHAS.aventura, STELLA_X, 440);
-      await abraco();
+      await abracoECortina();
     })();
     return tela;
   }
 
-  return brincadeira(tela, { dancar, tocarNumero, desenharPlateia, abrirCortina, contarEntrada, reverencia, abraco, viva: () => vivo && dancando });
+  return brincadeira(tela, { dancar, tocarNumero, desenharPlateia, abrirCortina, contarEntrada, reverencia, abracoECortina, viva: () => vivo && dancando });
 }
 
-/** a brincadeira do palco: os botões, os números e o visto */
+/** a brincadeira do palco: os botões, a barrinha, os números e a cortina */
 function brincadeira(
   tela: TelaSvg,
   c: {
@@ -243,46 +278,47 @@ function brincadeira(
     abrirCortina: () => Promise<void>;
     contarEntrada: () => Promise<void>;
     reverencia: () => Promise<void>;
-    abraco: () => Promise<void>;
+    abracoECortina: () => Promise<void>;
     viva: () => boolean;
   },
 ): Tela {
   const svg = tela.svg;
   let aberta = false;
   let numero = 0;
-  let passosNoNumero = 0;
   let trocando = false;
   let acabou = false;
   const feitos = new Set<PassoDeBale>();
+  const barra = barraDaCoreografia(tela);
+  const cortina = botaoCortina(tela, () => void fim());
 
-  /* o visto, na ponta da ribalta, aceso no primeiro passo */
-  const pronto = botaoPronto(tela, X_VISTO, Y_RIBALTA, () => void fim(), R_BOTAO);
-
-  /* a mãozinha: o passo que ela ainda não fez; todos feitos, a nota da música seguinte; parada de novo, o visto */
+  /* a mãozinha: o passo que ela ainda não fez; todos feitos, a nota da música seguinte; parada de novo, a cortina */
   const guia = guiar(tela, {
     soParada: true,
     proximo: () => {
       if (!aberta || !c.viva() || trocando) return null;
-      if (pronto.aceso && (guia.ajuda.nivel >= 2 || numero >= PLAYLIST_DO_PALCO.length)) return { tipo: 'apontar', em: pronto.onde };
+      if (cortina.acesa && (guia.ajuda.nivel >= 2 || numero >= PLAYLIST_DO_PALCO.length)) return { tipo: 'apontar', em: cortina.onde };
       const i = PASSOS_DO_PALCO.findIndex((p) => !feitos.has(p.id));
       if (i >= 0) return { tipo: 'tocar', em: [X_PASSOS[i]!, Y_RIBALTA] as Ponto };
       return { tipo: 'tocar', em: [X_NOTA, Y_RIBALTA] as Ponto };
     },
   });
 
-  /* o número acabou (oito passos, ou a nota): a família bate palma, a luz pisca, a música seguinte começa */
+  /* o número acabou (oito passos, ou a nota): a família bate palma (mais, quanto mais estrelas),
+     a luz pisca, a barrinha esvazia e a música seguinte começa */
   const proximoNumero = async () => {
     if (trocando || !c.viva()) return;
     trocando = true;
     guia.parar();
     c.desenharPlateia(true);
-    aplauso(1.6);
+    const forca = barra.estrelas / barra.total;
+    aplauso(1.2 + forca * 2);
+    if (forca >= 0.75) tela.comemorar(STELLA_X, 300);
     const luz = svg.querySelector('.ribalta-luz') as SVGGElement;
     luz.animate([{ opacity: 1 }, { opacity: 0.2 }, { opacity: 1 }, { opacity: 0.2 }, { opacity: 1 }], { duration: 1200 });
-    await esperar(1500);
+    await esperar(1500 + forca * 800);
     if (!c.viva()) return;
     numero += 1;
-    passosNoNumero = 0;
+    barra.zerar();
     c.desenharPlateia(false);
     c.tocarNumero(numero);
     trocando = false;
@@ -291,12 +327,12 @@ function brincadeira(
 
   const passo = (p: PassoDoPalco) => {
     if (!c.viva() || trocando) return;
-    pronto.acender();
+    cortina.acender();
     feitos.add(p.id);
     guia.passo();
     c.dancar(p);
-    passosNoNumero += 1;
-    if (passosNoNumero >= PASSOS_POR_NUMERO) void proximoNumero();
+    barra.marcar(p.id);
+    if (barra.cheias >= barra.total) void proximoNumero();
   };
   tela.alvo('.palco', () => passo(SALTO), true);
   tela.alvo('[data-passo]', (_ev, el) => {
@@ -316,9 +352,10 @@ function brincadeira(
     if (!c.viva() || acabou) return;
     acabou = true;
     guia.calar();
+    cortina.apagar();
     await c.reverencia();
     anunciar('palco');
-    await c.abraco();
+    await c.abracoECortina();
   };
 
   void (async () => {
@@ -333,6 +370,103 @@ function brincadeira(
   })();
 
   return tela;
+}
+
+/**
+ * A barrinha da coreografia, no alto: uma conta por passo do número. Um passo
+ * diferente do anterior vira estrela; um repetido, só ouro. Sem número nenhum:
+ * ela vê a fileira encher e as estrelas contam quanto a dança variou.
+ */
+function barraDaCoreografia(tela: TelaSvg): { marcar: (p: PassoDeBale) => void; zerar: () => void; readonly cheias: number; readonly estrelas: number; readonly total: number } {
+  const total = PASSOS_POR_NUMERO;
+  const g = svgEl('<g class="trilha" style="pointer-events:none"></g>') as SVGGElement;
+  const mao = tela.svg.querySelector('.camada-mao');
+  if (mao) mao.before(g);
+  else tela.svg.appendChild(g);
+  const passo = 26;
+  const xDe = (k: number) => 195 + (k - (total - 1) / 2) * passo;
+  let contas: ('vazia' | 'ouro' | 'estrela')[] = new Array(total).fill('vazia');
+  let ultimo: PassoDeBale | null = null;
+  const desenhar = () => {
+    let s = '';
+    contas.forEach((c, k) => {
+      const x = xDe(k);
+      if (c === 'estrela') s += `<g data-k="${k}">${centelha(x, Y_BARRA, 22, '#c6a15b')}</g>`;
+      else s += `<circle data-k="${k}" cx="${x}" cy="${Y_BARRA}" r="7" fill="${c === 'ouro' ? '#c6a15b' : '#fbf8f1'}" stroke="#c6a15b" stroke-width="2" opacity="${c === 'ouro' ? 1 : 0.6}"/>`;
+    });
+    g.innerHTML = s;
+  };
+  desenhar();
+  return {
+    marcar: (p) => {
+      const k = contas.indexOf('vazia');
+      if (k < 0) return;
+      contas[k] = ultimo !== null && p !== ultimo ? 'estrela' : 'ouro';
+      ultimo = p;
+      desenhar();
+      const c = g.querySelector(`[data-k="${k}"]`) as SVGElement | null;
+      if (c) {
+        c.style.transformBox = 'fill-box';
+        c.style.transformOrigin = 'center';
+        c.animate([{ transform: 'scale(1.6)' }, { transform: 'scale(1)' }], { duration: 320, easing: 'ease-out' });
+      }
+    },
+    zerar: () => {
+      contas = new Array(total).fill('vazia');
+      ultimo = null;
+      desenhar();
+    },
+    get cheias() {
+      return contas.filter((c) => c !== 'vazia').length;
+    },
+    get estrelas() {
+      return contas.filter((c) => c === 'estrela').length;
+    },
+    total,
+  };
+}
+
+/**
+ * O botão da cortina, na ponta da ribalta: "o show acabou". Uma cortininha de
+ * veludo com o cordão de ouro, apagada até o primeiro passo; acesa, pulsa, e
+ * um toque fecha o show com a révérence.
+ */
+function botaoCortina(tela: TelaSvg, aoTocar: () => void): { acender: () => void; apagar: () => void; readonly acesa: boolean; readonly onde: Ponto } {
+  const x = X_CORTINA;
+  const y = Y_RIBALTA;
+  const r = R_BOTAO;
+  const cortininha =
+    `<path d="M${x - 17} ${y - 14}h34v4h-34z" fill="#c6a15b"/>` +
+    `<path d="M${x - 15} ${y - 10}h13q-6 10 -4 26h-9z" fill="#6e1a27"/><path d="M${x + 2} ${y - 10}h13v26h-9q2 -16 -4 -26z" fill="#6e1a27"/>` +
+    `<path d="M${x - 9} ${y - 10}q-2 10 0 26M${x + 9} ${y - 10}q2 10 0 26" fill="none" stroke="#8a2534" stroke-width="1.6"/>` +
+    `<path d="M${x - 14} ${y + 4}q6 -3 10 0M${x + 4} ${y + 4}q4 -3 10 0" fill="none" stroke="#c6a15b" stroke-width="2" stroke-linecap="round"/>`;
+  const g = svgEl(
+    `<g class="pronto" data-pronto style="opacity:0;pointer-events:none;transition:opacity 500ms"><circle cx="${x}" cy="${y}" r="${r}" fill="#fbf8f1" stroke="#c6a15b" stroke-width="1.5"/>${contornoLuz(x, y, r + 6, r + 6)}${cortininha}</g>`,
+  ) as SVGGElement;
+  const mao = tela.svg.querySelector('.camada-mao');
+  if (mao) mao.before(g);
+  else tela.svg.appendChild(g);
+  let acesa = false;
+  tela.alvo('.pronto', () => {
+    if (acesa) aoTocar();
+  });
+  return {
+    acender: () => {
+      if (acesa) return;
+      acesa = true;
+      g.style.opacity = '1';
+      g.style.pointerEvents = 'auto';
+    },
+    apagar: () => {
+      acesa = false;
+      g.style.opacity = '0';
+      g.style.pointerEvents = 'none';
+    },
+    get acesa() {
+      return acesa;
+    },
+    onde: [x, y],
+  };
 }
 
 /** uma nota musical, para o botão da música seguinte */
