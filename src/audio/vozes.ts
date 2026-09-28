@@ -6,7 +6,7 @@ import frasesJson from '@/data/frases.json';
  * (IndexedDB). Enquanto não houver gravação, a cena acontece sem voz. Nunca
  * uma voz sintética fingindo ser a mãe.
  */
-export type Dono = 'mae' | 'pai' | 'theo' | 'qualquer';
+export type Dono = 'mae' | 'pai' | 'irmao' | 'qualquer';
 
 export interface Frase {
   id: string;

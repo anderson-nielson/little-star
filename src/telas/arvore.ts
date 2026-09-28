@@ -58,12 +58,12 @@ export function telaArvore(): Tela {
   });
   if (gatoNoTopo) s += `<g data-alvo="gato-topo" class="respira">${gato(230, 176, 16)}</g>`;
   /* a família embaixo, olhando */
-  s += `<g class="mae">${familia.mae(60, 712, 110).svg}</g><g class="theo">${familia.theo(300, 714, 84, 'acena').svg}</g>`;
-  s += `<g class="stella">${familia.stella(150, 712, 66, 'parado').svg}</g>`;
+  s += `<g class="mae">${familia.mae(60, 712, 110).svg}</g><g class="irmao">${familia.irmao(300, 714, 84, 'acena').svg}</g>`;
+  s += `<g class="menina">${familia.menina(150, 712, 66, 'parado').svg}</g>`;
   const tela = telaSvg(s);
   const svg = tela.svg;
   tocarFundo('gymnopedie');
-  const stella = svg.querySelector('.stella') as SVGGElement;
+  const menina = svg.querySelector('.menina') as SVGGElement;
 
   let onde = -1; /* -1 é o chão */
   let subindo = false;
@@ -98,11 +98,11 @@ export function telaArvore(): Tela {
       onde += passo;
       const [x, y] = posDe(onde);
       const pose = passo > 0 ? 'pulo' : 'parado';
-      stella.innerHTML = familia.stella(x, y, 66, pose).svg;
+      menina.innerHTML = familia.menina(x, y, 66, pose).svg;
       lira(62 + Math.max(0, onde + 1) * 2, undefined, 0.3);
       await esperar(420);
     }
-    stella.innerHTML = familia.stella(...posDe(onde), 66, onde >= 0 ? 'acena' : 'parado').svg;
+    menina.innerHTML = familia.menina(...posDe(onde), 66, onde >= 0 ? 'acena' : 'parado').svg;
     /* do topo se vê a casa e as estrelas */
     svg.querySelectorAll('.vista').forEach((v) => {
       (v as SVGElement).style.transition = 'opacity 900ms';

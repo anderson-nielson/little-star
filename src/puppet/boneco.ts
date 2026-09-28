@@ -54,11 +54,11 @@ export interface Desenho {
 }
 
 export const CORES = {
-  peleStella: '#F2D5BC',
+  peleMenina: '#F2D5BC',
   peleMae: '#F0D2B6',
   pelePai: '#EACBB0',
-  cabeloStella: '#e2c27a',
-  cabeloTheo: '#c9a86a',
+  cabeloMenina: '#e2c27a',
+  cabeloIrmao: '#c9a86a',
   cabeloMae: '#4a3222',
   cabeloPai: '#b08a5e',
   barbaPai: '#9a7548',
@@ -408,13 +408,13 @@ type Extra = Partial<Figura>;
 const C = CORES;
 
 export const familia = {
-  /** Stella em casa: vestido rosa. No palco, `tutu` e coque. */
-  stella: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
-    boneco({ x, y, h, pose, crianca: true, pele: C.peleStella, cabelo: C.cabeloStella, roupa: C.rosaDoce, cabeloTipo: 'liso', vestido: true, sapato: '#EFB9CE', ...extra }),
-  stellaPalco: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
-    boneco({ x, y, h, pose, crianca: true, pele: C.peleStella, cabelo: C.cabeloStella, roupa: C.rosaDoce, cabeloTipo: 'coque', tutu: '#F7C3D8', sapato: '#EFB9CE', contorno: C.luz, ...extra }),
-  theo: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
-    boneco({ x, y, h, pose, crianca: true, pele: C.peleStella, cabelo: C.cabeloTheo, roupa: C.azul, calca: C.musgoTinta, cabeloTipo: 'cachinhos', forte: 1.35, sapato: C.musgoTinta, ...extra }),
+  /** a menina em casa: vestido rosa. No palco, `tutu` e coque. */
+  menina: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
+    boneco({ x, y, h, pose, crianca: true, pele: C.peleMenina, cabelo: C.cabeloMenina, roupa: C.rosaDoce, cabeloTipo: 'liso', vestido: true, sapato: '#EFB9CE', ...extra }),
+  meninaPalco: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
+    boneco({ x, y, h, pose, crianca: true, pele: C.peleMenina, cabelo: C.cabeloMenina, roupa: C.rosaDoce, cabeloTipo: 'coque', tutu: '#F7C3D8', sapato: '#EFB9CE', contorno: C.luz, ...extra }),
+  irmao: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
+    boneco({ x, y, h, pose, crianca: true, pele: C.peleMenina, cabelo: C.cabeloIrmao, roupa: C.azul, calca: C.musgoTinta, cabeloTipo: 'cachinhos', forte: 1.35, sapato: C.musgoTinta, ...extra }),
   mae: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
     boneco({ x, y, h, pose, pele: C.peleMae, cabelo: C.cabeloMae, roupa: '#D9B4A6', cabeloTipo: 'liso', vestido: true, sapato: C.madeira, ...extra }),
   pai: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
@@ -442,5 +442,5 @@ export const OPCOES_DE_PAI: Record<string, { rotulo: string; extra: Extra }> = {
   C: { rotulo: 'C. Testa alta, barba cheia, óculos finos (o escolhido)', extra: { cabeloTipo: 'testa-alta', cabelo: '#b08a5e', barba: '#9a7548', barbaEstilo: 'cheia', oculos: 'fino' } },
 };
 
-/** Proporções decididas: Stella 1, Theo 1,5, pais 2. */
-export const ALTURAS = { stella: 1, theo: 1.5, mae: 2, pai: 2.1 };
+/** Proporções decididas: a menina 1, o irmão 1,5, pais 2. */
+export const ALTURAS = { menina: 1, irmao: 1.5, mae: 2, pai: 2.1 };

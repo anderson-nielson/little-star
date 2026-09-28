@@ -1,5 +1,5 @@
 // Passeio de fumaça: sobe o preview, abre cada tela num viewport de celular,
-// toca onde a Stella tocaria, falha se houver erro de página. Capturas em docs/shots/.
+// toca onde ela tocaria, falha se houver erro de página. Capturas em docs/shots/.
 import { chromium } from 'playwright-core';
 import { spawn } from 'node:child_process';
 import { mkdirSync } from 'node:fs';

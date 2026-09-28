@@ -1,10 +1,10 @@
 {
-  "_": "A narração para quem joga junto. Um balão no topo da tela, para a mamãe, o papai ou o mano (o Theo, como a Stella chama) lerem em voz alta para ela. Cada avanço tem várias frases; elas se revezam. Toda frase fala do que ela fez, com as mãos dela, e do carinho da família. O mérito é sempre dela: ninguém ensina, segura ou resolve por ela, e o mano aparece pouco, como irmão que está por perto, nunca como medida nem como motivo. Frases curtas e simples, para 5 anos, do jeito que um pai ou uma mãe fala: sem exagero, sem apelido (é só Stella), sem comparação, sem nomear a corrida.",
+  "_": "A narração para quem joga junto. Um balão no topo da tela, para a mamãe, o papai ou o mano (como ela chama o irmão) lerem em voz alta para ela. Cada avanço tem várias frases; elas se revezam. Toda frase fala do que ela fez, com as mãos dela, e do carinho da família. O mérito é sempre dela: ninguém ensina, segura ou resolve por ela, e o mano aparece pouco, como irmão que está por perto, nunca como medida nem como motivo. Frases curtas e simples, para 5 anos, do jeito que um pai ou uma mãe fala: sem exagero, sem nome nem apelido (só você), sem comparação, sem nomear a corrida.",
   "chegada": [
-    "Stella, olha: a mamãe, o papai e o mano estavam esperando você chegar.",
-    "Você chegou, Stella. A casa verde abriu a porta pra você.",
+    "Olha: a mamãe, o papai e o mano estavam esperando você chegar.",
+    "Você chegou. A casa verde abriu a porta pra você.",
     "A porta abriu e a família toda está aqui pra você.",
-    "Que bom que você chegou, Stella. A gente estava esperando."
+    "Que bom que você chegou. A gente estava esperando."
   ],
   "cama": [
     "Você arrumou a sua cama sozinha. Ficou bonita.",
@@ -20,7 +20,7 @@
   ],
   "brinquedos": [
     "Você guardou os brinquedos. Quando quiser brincar de novo, vai achar tudo no lugar.",
-    "Guardar o que a gente usou é cuidar da casa de todo mundo. Obrigada, Stella.",
+    "Guardar o que a gente usou é cuidar da casa de todo mundo. Obrigada.",
     "Você decidiu onde cada brinquedo mora. A sala ficou do seu jeito.",
     "Uma coisa de cada vez, sem pressa, e ficou tudo arrumado."
   ],
@@ -38,7 +38,7 @@
   ],
   "gentil": [
     "Você foi gentil com alguém hoje. A família adora ver você assim.",
-    "Ser gentil é uma coisa bonita sua, Stella.",
+    "Ser gentil é uma coisa bonita sua.",
     "Você viu que alguém precisava e foi ajudar. Isso veio de você.",
     "Emprestar, abraçar, esperar a vez. Isso é ser gentil, e você foi."
   ],
@@ -50,7 +50,7 @@
   ],
   "noite_toda": [
     "Você dormiu a noite inteira. A mamãe olhou você dormindo e sorriu.",
-    "Uma noite inteira de sono. Que bom, Stella.",
+    "Uma noite inteira de sono. Que bom.",
     "O papai passou de mansinho no seu quarto de noite e você estava dormindo tranquila.",
     "Cada um no seu quarto, e a casa inteira descansou. Você também."
   ],
@@ -66,13 +66,13 @@
     "Na areia a letra some e você faz de novo quando quiser. É gostoso ver você tentar."
   ],
   "palavra": [
-    "Você leu uma palavra inteira com o dedo. Isso é aprender a ler, Stella.",
+    "Você leu uma palavra inteira com o dedo. Isso é aprender a ler.",
     "As letras que você conhece viraram uma palavra. Foi você quem juntou.",
     "Você juntou os sons sozinha e a palavra apareceu. Você está lendo.",
     "Mais uma palavra que você sabe ler. A família viu."
   ],
   "som": [
-    "Você achou o som escondido na figura. Que ouvido bom, Stella.",
+    "Você achou o som escondido na figura. Que ouvido bom.",
     "Você ouviu o som e achou a figura sozinha. Que ouvido bom.",
     "Ouvir com calma é uma coisa que você sabe fazer. A mamãe percebe.",
     "Mais um som que você conhece. A família gosta de ver você aprender."
@@ -115,7 +115,7 @@
   ],
   "aventura": [
     "Você dançou no palco do começo ao fim, e fez a reverência. A família bateu palma.",
-    "Brava, Stella! O papai, a mamãe e o mano viram você dançar.",
+    "Brava! O papai, a mamãe e o mano viram você dançar.",
     "Você decidiu cada salto e cada giro. A dança foi sua.",
     "Saltar, girar e terminar com reverência. Ganhou uma boneca nova na estante."
   ],
@@ -129,7 +129,7 @@
     "Você escreveu um bilhete com as suas letras. A família guarda cada bilhete seu.",
     "Escrever pra alguém é um jeito de dizer que gosta dessa pessoa. Quem recebeu ficou feliz.",
     "Você escolheu as letras e pra quem entregar. O bilhete é todo seu.",
-    "As letras que você aprendeu já servem pra mandar recado. Que bonito, Stella."
+    "As letras que você aprendeu já servem pra mandar recado. Que bonito."
   ],
   "bichos": [
     "Você cuidou do gatinho e do coelhinho. Eles confiam em você.",
@@ -140,17 +140,17 @@
   "despedida": [
     "A família se despede de você com um abraço. Amanhã ela está aqui de novo.",
     "Foi um dia bom na casa verde. O que você fez hoje fica guardado.",
-    "A mamãe, o papai e o mano dão tchau. Até amanhã, Stella.",
+    "A mamãe, o papai e o mano dão tchau. Até amanhã.",
     "Hora de fechar o jogo e ir brincar lá fora. Você escolhe a brincadeira."
   ],
   "boa_noite": [
     "Você fez toda a rotina da noite. Agora é hora de descansar.",
-    "Boa noite, Stella. A mamãe e o papai estão aqui do lado.",
+    "Boa noite. A mamãe e o papai estão aqui do lado.",
     "Dormir no seu quarto é coragem. A casa inteira dorme tranquila.",
-    "O dia acabou e você fez muitas coisas boas. Amanhã a gente conta. Boa noite, Stella."
+    "O dia acabou e você fez muitas coisas boas. Amanhã a gente conta. Boa noite."
   ],
   "dormindo": [
-    "Shhh. A Stella está dormindo, e o jogo também. De manhã a família acorda e espera você.",
+    "Shhh. Ela está dormindo, e o jogo também. De manhã a família acorda e espera você.",
     "A casa está dormindo com a luz apagada, cada um no seu quarto. De manhã a gente conta como foi a noite.",
     "Olha o gatinho dormindo junto. O jogo descansa até de manhã, igual a você."
   ],

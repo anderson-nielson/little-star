@@ -33,11 +33,11 @@ describe('a narração para quem joga junto', () => {
       }
     }
   });
-  it('o mérito é dela: o mano (o Theo, como ela chama) aparece pouco, só como família por perto, e a família em todos', () => {
+  it('o mérito é dela: o mano (como ela chama o irmão) aparece pouco, só como família por perto, e a família em todos', () => {
     let comMano = 0;
     for (const m of MOTIVOS_DO_JOGO) {
       const todas = frasesDe(m).join(' ').toLowerCase();
-      expect(todas, m).not.toMatch(/theo/);
+      expect(todas, m).not.toMatch(/theo|stella/);
       expect(todas, m).toMatch(/mamãe|papai|família|casa/);
       for (const f of frasesDe(m)) if (/\bmano\b/i.test(f)) comMano += 1;
     }

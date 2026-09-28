@@ -11,15 +11,13 @@ import { figuraDoSom } from '@/audio/fonemas';
 const LETRAS_V1 = ['A', 'E', 'L', 'S', 'T', 'O', 'M', 'U', 'I', 'V'];
 
 describe('as palavras do fônico', () => {
-  it('só usam as letras da v1 (mais o nome dela)', () => {
+  it('só usam as letras da v1', () => {
     for (const p of palavras) {
-      if (p.palavra === 'STELLA') continue;
       for (const l of p.palavra.replace('Á', 'A').replace('Ó', 'O')) expect(LETRAS_V1, p.palavra).toContain(l);
     }
   });
   it('nenhuma tem L no fim da sílaba (soa U), S entre vogais (soa Z), TE ou TI (soa tchi), nem O átono final', () => {
     for (const p of palavras) {
-      if (p.palavra === 'STELLA') continue;
       expect(p.palavra, `${p.palavra} tem S entre vogais`).not.toMatch(/[AEIOUÁ]S[AEIOUÁ]/);
       expect(p.palavra, `${p.palavra} termina em L`).not.toMatch(/L$/);
       expect(p.palavra, `${p.palavra} tem L antes de consoante`).not.toMatch(/L[^AEIOUÁ]/);
@@ -75,7 +73,7 @@ describe('as frases de voz', () => {
     const obrig = frases.filter((f) => f.obrigatoria);
     expect(obrig.length).toBeGreaterThanOrEqual(40);
     expect(obrig.length).toBeLessThanOrEqual(60);
-    for (const f of frases) expect(['mae', 'pai', 'theo', 'qualquer']).toContain(f.dono);
+    for (const f of frases) expect(['mae', 'pai', 'irmao', 'qualquer']).toContain(f.dono);
   });
   it('as frases da roda e do prato não dizem "hoje": perguntam sobre o que houve desde a última vez', () => {
     for (const f of frases.filter((x) => x.grupo === 'roda' || x.grupo === 'prato')) expect(f.texto.toLowerCase()).not.toContain('hoje');

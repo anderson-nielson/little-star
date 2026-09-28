@@ -23,7 +23,7 @@ export function telaChegada(): Tela {
   const agora = sessao.agora();
   const ceu = ceuDaHora(agora);
   const noite = ceu === 'ceu-noite';
-  const quem = (['nome_mae', 'nome_pai', 'nome_theo'] as const)[e.sessoes % 3]!;
+  const quem = (['oi_mae', 'oi_pai', 'oi_irmao'] as const)[e.sessoes % 3]!;
 
   const W = 390;
   let s = `<rect width="390" height="780" fill="${CEU[ceu]}"/>` + veu(0, 0, W, 300, noite ? '#1b2140' : '#ebcdc3', 5, 0.3);
@@ -35,7 +35,7 @@ export function telaChegada(): Tela {
   s += arco(214, 330, 56, 70, noite ? '#f2a9c4' : '#ebd9a8', '#c6a15b');
   /* a porta com a família */
   s += `<g class="porta"><path d="M150 560v-110a45 45 0 0 1 90 0v110z" fill="#6e1a27"/></g>`;
-  s += `<g class="familia" opacity="0">${familia.mae(168, 560, 112, 'acena').svg}${familia.pai(228, 560, 118, 'parado', { dir: -1 }).svg}${familia.theo(200, 562, 84, 'acena').svg}</g>`;
+  s += `<g class="familia" opacity="0">${familia.mae(168, 560, 112, 'acena').svg}${familia.pai(228, 560, 118, 'parado', { dir: -1 }).svg}${familia.irmao(200, 562, 84, 'acena').svg}</g>`;
   s += `<g class="gatinho" opacity="0">${gato(120, 566, 12)}</g>`;
   s += coelho(300, 590, 16) + pinheiro(355, 640, 300);
   const tela = telaSvg(s);

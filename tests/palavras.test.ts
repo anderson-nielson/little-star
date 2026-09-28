@@ -12,16 +12,16 @@ describe('a fila de palavras do escorregador de sons', () => {
   });
   it('cresce com as letras traçadas: a palavra de cada letra e as feitas só de letras conhecidas, na ordem do fônico', () => {
     const e = { ...estadoNovo(), letras: ['A', 'E', 'L', 'S', 'T'], letraIndice: 5 };
-    expect(nomes(sequenciaDePalavras(e, 'ELA'))).toEqual(['LUA', 'AVÓ', 'ELA', 'OLÁ', 'SALA', 'TELA', 'LATA', 'STELLA']);
+    expect(nomes(sequenciaDePalavras(e, 'ELA'))).toEqual(['LUA', 'AVÓ', 'ELA', 'OLÁ', 'SALA', 'TELA', 'LATA']);
   });
   it('a próxima é a primeira não lida à frente, senão atrás, senão a seguinte; sozinha não tem próxima', () => {
     const e = { ...estadoNovo(), letras: ['A', 'E', 'L', 'S', 'T'], letraIndice: 5 };
     const fila = sequenciaDePalavras(e, 'ELA');
     expect(proximaPalavra(e, fila, 'ELA')?.palavra).toBe('OLÁ');
     const quaseTudo = { ...e, palavras: nomes(fila).filter((p) => p !== 'AVÓ') };
-    expect(proximaPalavra(quaseTudo, fila, 'STELLA')?.palavra).toBe('AVÓ');
+    expect(proximaPalavra(quaseTudo, fila, 'LATA')?.palavra).toBe('AVÓ');
     const tudo = { ...e, palavras: nomes(fila) };
-    expect(proximaPalavra(tudo, fila, 'STELLA')?.palavra).toBe('LUA');
+    expect(proximaPalavra(tudo, fila, 'LATA')?.palavra).toBe('LUA');
     expect(proximaPalavra(tudo, fila, 'SALA')?.palavra).toBe('TELA');
     expect(proximaPalavra(estadoNovo(), sequenciaDePalavras(estadoNovo(), 'AVÓ'), 'AVÓ')).toBeNull();
   });

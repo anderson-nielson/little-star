@@ -16,14 +16,14 @@ import type { Tela } from '@/core/roteador';
 
 /* o show acaba sozinho depois disto, só como rede de segurança: o visto é a saída de verdade */
 const DURACAO = 40;
-/* onde a mãozinha mostra o salto (em cima) e o giro (embaixo), ao lado da Stella */
+/* onde a mãozinha mostra o salto (em cima) e o giro (embaixo), ao lado da menina */
 const EM_CIMA: Ponto = [270, 250];
 const EMBAIXO: Ponto = [270, 530];
 
 /**
- * O palco: cortina de veludo, luz de ribalta. A Stella dança sozinha com a
+ * O palco: cortina de veludo, luz de ribalta. A menina dança sozinha com a
  * Dança da Fada Açucarada; tocar em cima faz um salto, embaixo um giro,
- * sempre dá certo. Plateia: mãe, pai, Theo e as bonecas. Reverência,
+ * sempre dá certo. Plateia: mãe, pai, irmão e as bonecas. Reverência,
  * aplauso, abraço na coxia, uma boneca nova na estante.
  *
  * Sozinha, ela não descobria o salto e o giro, e o show acabava num relógio
@@ -37,11 +37,11 @@ export function telaPalco(): Tela {
   /* chão do palco e poça de luz */
   s += `<rect x="0" y="470" width="390" height="140" fill="#2a1d22"/><ellipse cx="195" cy="470" rx="150" ry="26" fill="#ebd9a8" opacity="0.28"/>`;
   s += `<path d="M195 60L60 480h270z" fill="#ebd9a8" opacity="0.1"/>`;
-  /* a Stella de tutu e coque */
-  s += `<g class="stella">${familia.stellaPalco(195, 470, 170, 'parado').svg}</g>`;
+  /* a menina de tutu e coque */
+  s += `<g class="menina">${familia.meninaPalco(195, 470, 170, 'parado').svg}</g>`;
   /* plateia: primeira fila */
   s += `<rect x="0" y="610" width="390" height="170" fill="#1b2140"/>`;
-  s += familia.mae(90, 720, 96, 'parado', { contorno: '#ebd9a8' }).svg + familia.pai(300, 720, 104, 'parado', { contorno: '#ebd9a8' }).svg + familia.theo(195, 722, 76, 'acena', { contorno: '#ebd9a8' }).svg;
+  s += familia.mae(90, 720, 96, 'parado', { contorno: '#ebd9a8' }).svg + familia.pai(300, 720, 104, 'parado', { contorno: '#ebd9a8' }).svg + familia.irmao(195, 722, 76, 'acena', { contorno: '#ebd9a8' }).svg;
   for (let i = 0; i < Math.min(e.bonecas, 4); i++) s += familia.boneca(40 + i * 100 + 20, 690, 32, i, { contorno: '#ebd9a8', ...figurinoDe(e.figurinos[String(i)]) }).svg;
   /* a boneca companheira assiste da coxia, pertinho */
   if (e.companheira >= 0) s += familia.boneca(70, 470, 40, e.companheira, { contorno: '#ebd9a8', ...figurinoDe(e.figurinos[String(e.companheira)]) }).svg;
@@ -51,7 +51,7 @@ export function telaPalco(): Tela {
   s += `<g class="brilhos"></g>`;
   const tela = telaSvg(s, { fundo: '#10142a' });
   const svg = tela.svg;
-  const stella = svg.querySelector('.stella') as SVGGElement;
+  const menina = svg.querySelector('.menina') as SVGGElement;
   const brilhos = svg.querySelector('.brilhos') as SVGGElement;
   travar(1500);
   pararFundo();
@@ -68,7 +68,7 @@ export function telaPalco(): Tela {
   const poses: ('parado' | 'acena' | 'giro' | 'pulo')[] = ['parado', 'acena', 'parado', 'giro'];
   let i = 0;
   const trocarPose = (p: 'parado' | 'acena' | 'giro' | 'pulo' | 'reverencia') => {
-    stella.innerHTML = familia.stellaPalco(195, p === 'pulo' ? 440 : 470, 170, p).svg;
+    menina.innerHTML = familia.meninaPalco(195, p === 'pulo' ? 440 : 470, 170, p).svg;
   };
   const batida = window.setInterval(() => {
     if (!dancando) return;
@@ -77,7 +77,7 @@ export function telaPalco(): Tela {
   }, 750);
   tela.aoDestruir(() => window.clearInterval(batida));
 
-  /* o visto, no chão do palco à direita (longe da Stella e da plateia), aceso no primeiro passo */
+  /* o visto, no chão do palco à direita (longe da menina e da plateia), aceso no primeiro passo */
   const pronto = botaoPronto(tela, 340, 560, () => void fim(), 30);
   /*
    * A mãozinha mostra os dois toques, um depois do outro: em cima (salto) e
@@ -162,7 +162,7 @@ export function telaPalco(): Tela {
     pedrinhasSobem(tela, PEDRINHAS.aventura, 195, 440);
     await esperar(1500);
     /* abraço na coxia */
-    stella.innerHTML = familia.stellaPalco(180, 470, 170, 'parado').svg + familia.pai(230, 470, 200, 'abraca', { dir: -1, contorno: '#ebd9a8' }).svg;
+    menina.innerHTML = familia.meninaPalco(180, 470, 170, 'parado').svg + familia.pai(230, 470, 200, 'abraca', { dir: -1, contorno: '#ebd9a8' }).svg;
     await esperar(1500);
     if (vivo) convidarParaCasa(tela);
   };

@@ -18,7 +18,7 @@ const MAXIMO = 8;
 
 /**
  * O bilhetinho: as vogais (que ela já sabe) e as letras que ela traçou são
- * carimbos. Ela toca nos carimbos, as letras vão para o papel rosa, e entrega para a mãe, o pai ou o Theo, que
+ * carimbos. Ela toca nos carimbos, as letras vão para o papel rosa, e entrega para a mãe, o pai ou o irmão, que
  * lê em voz alta o que ela "escreveu", mesmo que seja SSTAEL. Os bilhetes
  * ficam guardados e os pais veem no cantinho.
  *
@@ -42,12 +42,12 @@ export function telaBilhete(): Tela {
     s += `<g data-carimbo="${l}"><circle cx="${x}" cy="${y}" r="38" fill="#fbf8f1" stroke="#c6a15b" stroke-width="1.5"/><text x="${x}" y="${y + 14}" text-anchor="middle" font-family="Jost, sans-serif" font-size="40" font-weight="500" fill="#f2a9c4">${l}</text></g>`;
   });
   s += `</g>`;
-  /* para quem: a mãe, o pai e o Theo esperam embaixo */
+  /* para quem: a mãe, o pai e o irmão esperam embaixo */
   /* a luz da família, acesa só quando já tem o que entregar */
   s += `<g class="luz-familia" style="pointer-events:none;opacity:0;transition:opacity 400ms">${contornoLuz(80, 680, 52, 60)}${contornoLuz(195, 680, 54, 62)}${contornoLuz(310, 690, 48, 54)}</g>`;
   s += `<g data-para="mae"><circle cx="80" cy="690" r="46" fill="transparent"/>${familia.mae(80, 740, 120).svg}</g>`;
   s += `<g data-para="pai"><circle cx="195" cy="690" r="46" fill="transparent"/>${familia.pai(195, 740, 126).svg}</g>`;
-  s += `<g data-para="theo"><circle cx="310" cy="700" r="46" fill="transparent"/>${familia.theo(310, 742, 96).svg}</g>`;
+  s += `<g data-para="irmao"><circle cx="310" cy="700" r="46" fill="transparent"/>${familia.irmao(310, 742, 96).svg}</g>`;
   const tela = telaSvg(s);
   const svg = tela.svg;
   tocarFundo('preludio_bach');
@@ -103,7 +103,7 @@ export function telaBilhete(): Tela {
     const quem = el.getAttribute('data-para') as Quem;
     travar(6000);
     const papel = svg.querySelector('.papel') as SVGGElement;
-    const alvoX = { mae: 80, pai: 195, theo: 310 }[quem];
+    const alvoX = { mae: 80, pai: 195, irmao: 310 }[quem];
     mover(papel, alvoX - 195, 420, 900, 0.4);
     sininho();
     mudar((x) => {
@@ -121,7 +121,7 @@ export function telaBilhete(): Tela {
     anunciar('bilhete');
     /* o abraço */
     const g = el as SVGGElement;
-    g.innerHTML = quem === 'theo' ? familia.theo(alvoX, 742, 96, 'abraca').svg : quem === 'mae' ? familia.mae(alvoX, 740, 120, 'abraca').svg : familia.pai(alvoX, 740, 126, 'abraca').svg;
+    g.innerHTML = quem === 'irmao' ? familia.irmao(alvoX, 742, 96, 'abraca').svg : quem === 'mae' ? familia.mae(alvoX, 740, 120, 'abraca').svg : familia.pai(alvoX, 740, 126, 'abraca').svg;
     await esperar(1500);
     if (tela.el.isConnected) convidarParaCasa(tela);
   });

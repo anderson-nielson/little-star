@@ -1,6 +1,6 @@
 # Little Star: especificação (v3)
 
-> Jogo de celular para a Stella, 5 anos. Irmão pequeno do **Ponta**
+> Jogo de celular para uma menina de 5 anos. Irmão pequeno do **Ponta**
 > (`anderson-nielson/grande-ballet`): mesma família visual, mesmo piano, outro jogo.
 > Nada de código ainda. As decisões já tomadas estão marcadas como **Decidido**; o que
 > depende da família está na seção 17.
@@ -18,7 +18,7 @@ Sumário
 5. A estrutura do jogo
 6. A família
 7. A casa verde, o quintal e o quarto rosa
-8. O dia da Stella (as tarefas de verdade)
+8. O dia dela (as tarefas de verdade)
 9. Escrever e ouvir: letras e sons
 10. Espanhol: cada coisa tem dois nomes
 11. Piano, ukulele e bonecas
@@ -34,14 +34,14 @@ Sumário
 
 ## 1. Para quem é
 
-A Stella tem 5 anos. É pequena e loirinha, de cabelo bem liso passando do ombro, ama rosa (ama, ama, ama), toca piano e um ukulele
+A menina tem 5 anos. É pequena e loirinha, de cabelo bem liso passando do ombro, ama rosa (ama, ama, ama), toca piano e um ukulele
 rosa, tem muitas bonecas, ama coelhinhos e gatinhos, ama subir em árvore, ama pinhas (muito), tem uma caixa de areia vermelha em forma de estrela, curte espanhol e quer aprender a escrever. Ainda não está
-alfabetizada. A mãe é a Andrea, o pai é o Anderson, o irmão é o Theo, de 10 anos.
+alfabetizada. Mora com a mãe, o pai e o irmão de 10 anos.
 
 O que 5 anos quer dizer na prática:
 
 - **Não lê.** Nada depende de texto. Toda instrução é imagem, movimento, som e voz. O pouco
-  texto que existe é para ela reconhecer (o nome dela, letras que ela já traçou) ou para os pais.
+  texto que existe é para ela reconhecer (letras que ela já traçou) ou para os pais.
 - **Motricidade em construção.** Toque ela domina. Arrastar curto, sim. Arrastar longo e
   preciso, ainda não. Dois dedos, segurar e arrastar, gesto rápido: não.
 - **Atenção de 1 a 3 minutos por atividade**, e ela troca de atividade quando quiser.
@@ -52,7 +52,7 @@ O que 5 anos quer dizer na prática:
 
 ## 2. A ideia em uma frase
 
-A Stella mora numa casa verde com a mãe, o pai e o Theo. De lá ela sai em aventuras curtas
+A menina mora numa casa verde com a mãe, o pai e o irmão. De lá ela sai em aventuras curtas
 de bailarina que lembram os jogos do Atari. Aprende letras desenhando com o dedo, aprende
 palavras em espanhol tocando nas coisas, e cada coisa boa que ela faz no dia de verdade
 aparece no quarto dela.
@@ -87,7 +87,7 @@ passa a ser "para ganhar enfeite" em vez de "porque é bom e a mamãe fica feliz
 
 ### 3.1 O jeito Waldorf da casa
 
-A escola da Stella é Waldorf e a casa também, no ritmo e na estética. Isso muda o jogo em
+A escola dela é Waldorf e a casa também, no ritmo e na estética. Isso muda o jogo em
 quatro pontos.
 
 **A tensão, dita com franqueza.** A pedagogia Waldorf pede pouca ou nenhuma tela antes dos 7
@@ -98,7 +98,7 @@ fazer é um jogo que **aponta para fora da tela**:
   escrever o S na areia de verdade?", "vamos regar a árvore?".
 - Sessões curtas e raras por desenho: nada no jogo pede para voltar amanhã, nada acumula
   pressa. O limite diário (seção 4) vem ligado por padrão, com 15 minutos.
-- Ele é pensado para ser jogado **junto** com um adulto ou com o Theo, no colo, e não como
+- Ele é pensado para ser jogado **junto** com um adulto ou com o irmão, no colo, e não como
   babá eletrônica. As vozes gravadas da família reforçam isso.
 
 **Ritmo.** Waldorf vive de ritmo: o do dia, o da semana e o das estações. O jogo também.
@@ -126,7 +126,7 @@ Esta seção é a que mais distingue este jogo do Ponta. Tudo aqui vira requisit
 Criança pequena segura o celular com as duas mãos, apoiado no colo ou na mesa, e em retrato
 o aparelho fica mais firme e o polegar alcança o meio da tela. Casa, letras, piano e bonecas
 são naturalmente verticais. As aventuras correm numa faixa horizontal no meio da tela, com
-céu em cima e chão embaixo, o que funciona bem em retrato (a Stella corre, a fase rola).
+céu em cima e chão embaixo, o que funciona bem em retrato (a menina corre, a fase rola).
 Travar em retrato também evita a tela girar sozinha quando ela deita o celular.
 
 **Toque**
@@ -164,7 +164,7 @@ Travar em retrato também evita a tela girar sozinha quando ela deita o celular.
 - Sessões curtas por desenho: cada atividade fecha em 1 a 3 minutos e devolve ela para a casa,
   onde parar é natural.
 - **Limite diário**, definido pelos pais, ligado por padrão em 15 minutos (seção 3.1). Quando acaba,
-  a Stella do jogo boceja, a família diz "vamos brincar lá fora?", a porta fecha com um laço.
+  a menina do jogo boceja, a família diz "vamos brincar lá fora?", a porta fecha com um laço.
   É uma despedida, não um bloqueio seco.
 - **Hora de dormir** (seção 8.3) fecha o jogo à noite.
 
@@ -192,43 +192,45 @@ Travar em retrato também evita a tela girar sozinha quando ela deita o celular.
 
 - Não existe menu. A casa é o menu, e tudo nela é um objeto que se toca.
 - Toda atividade volta para a casa quando termina, e a família está lá.
-- A primeira vez que ela abre o jogo, a mãe, o pai e o Theo estão na porta, acenam e dizem o
-  nome dela. Não existe tutorial: existe essa recepção e a mãozinha que mostra onde tocar.
+- A primeira vez que ela abre o jogo, a mãe, o pai e o irmão estão na porta, acenam e dizem
+  um "oi" com a voz gravada: a mãe "Você chegou!", o pai "Oi, filha!", o irmão "Oi, mana!".
+  Não existe tutorial: existe essa recepção e a mãozinha que mostra onde tocar.
 
 ## 6. A família
 
 Quatro personagens desenhados pela mesma marionete do Ponta (membros afilados, cores por
 dados), com proporções próprias.
 
-**A referência é *Charlie e Lola*.** A família diz que a Stella e o Theo lembram os dois
+**A referência é *Charlie e Lola*.** A família diz que ela e o irmão lembram os dois
 irmãos do desenho. O jogo pega **o carinho entre os dois**, não o desenho, e não o papel de
-irmão que explica o mundo: aqui a Stella descobre sozinha, e o mérito de cada avanço é dela.
-O Theo é família por perto, sem ensinar, segurar ou resolver por ela. O traço continua o do Ponta (vetor, fio,
+irmão que explica o mundo: aqui ela descobre sozinha, e o mérito de cada avanço é dela.
+O irmão é família por perto, sem ensinar, segurar ou resolver por ela. O traço continua o do Ponta (vetor, fio,
 marionete por dados). Nada de copiar personagens, colagem ou estilo visual do desenho.
 
 | Quem | Jeito | Onde aparece |
 |---|---|---|
-| **Stella** | 5 anos, pequena, loirinha, cabelo bem liso passando do ombro, solto no dia a dia e em coque no palco. Tutu rosa. | Tudo. |
-| **Mãe Andrea** | Aconchego. Recebe, abraça, cozinha junto, põe para dormir. | Porta, cozinha, hora de dormir, primeira fila do palco. |
-| **Pai Anderson** | Parceria e brincadeira. Gira a Stella no ar, ri junto. | Volta das aventuras, brinquedos, caderno, aplauso. |
-| **Theo** | 10 anos, o dobro da altura dela, cabelo castanho bem claro, quase loiro, muito cacheado. O irmão que está por perto. | Na porta, na roda (pergunta da gentileza), na mesa da cozinha, na plateia do palco, na outra ponta da gangorra, no relógio (pede uma hora) e no boa-noite. Não ensina, não segura e não resgata: quem faz é ela. |
+| **A menina** | 5 anos, pequena, loirinha, cabelo bem liso passando do ombro, solto no dia a dia e em coque no palco. Tutu rosa. | Tudo. |
+| **Mãe** | Aconchego. Recebe, abraça, cozinha junto, põe para dormir. | Porta, cozinha, hora de dormir, primeira fila do palco. |
+| **Pai** | Parceria e brincadeira. Gira a filha no ar, ri junto. | Volta das aventuras, brinquedos, caderno, aplauso. |
+| **O irmão** | 10 anos, o dobro da altura dela, cabelo castanho bem claro, quase loiro, muito cacheado. O irmão que está por perto. | Na porta, na roda (pergunta da gentileza), na mesa da cozinha, na plateia do palco, na outra ponta da gangorra, no relógio (pede uma hora) e no boa-noite. Não ensina, não segura e não resgata: quem faz é ela. |
 
 **Como o amor aparece**, sempre sem texto:
 - **Abraço** tem animação própria: quem abraça se abaixa até a altura dela. Centelhas rosa e
   ouro sobem (a centelha de quatro pontas é o símbolo do jogo; sem coraçõezinhos de emoji).
-- **Plateia da família.** No palco, a primeira fila é a mãe, o pai, o Theo e as bonecas.
+- **Plateia da família.** No palco, a primeira fila é a mãe, o pai, o irmão e as bonecas.
   Aplaudem sempre.
-- **A voz da família.** Frases curtas gravadas pela Andrea, pelo Anderson e pelo Theo:
-  "Te amo, Stella." "Que cama arrumadinha." "Olha que S bonito." "Boa noite, Stella."
+- **A voz da família.** Frases curtas gravadas pela mãe, pelo pai e pelo irmão:
+  "Te amo." "Que cama arrumadinha." "Olha que S bonito." "Boa noite."
   É o recurso mais forte do jogo e vale o trabalho de gravar (seção 15.4).
-- **O nome dela** aparece no título, na porta do quarto e no caderno, em letra de forma
-  grande, para ela aprender a reconhecer.
+- **Ninguém é chamado pelo nome.** Nem ela, nem a família. O chamado da família (assovio ou
+  voz) é "Ei, vem cá!"; sem gravação, a voz do aparelho diz só "Ei!".
 - **A narração para quem joga junto.** A cada avanço dela (uma tarefa contada, uma letra,
   um som, a chegada, um bilhete, a medalha) um balão de história em quadrinhos aparece
-  suave no topo da tela com uma frase curta para a mãe, o pai ou o Theo lerem em voz alta.
+  suave no topo da tela com uma frase curta para a mãe, o pai ou o irmão lerem em voz alta.
   Ela não lê; quem está ao lado lê para ela. Toda frase faz três coisas: nomeia o que ela
   fez de verdade (a força dela), diz o carinho e a segurança da família, e deixa o mérito
-  com ela. O Theo aparece pouco, como família por perto, nunca como medida nem como motivo. Sem comparação, sem "melhor que",
+  com ela. O irmão aparece pouco, como família por perto, nunca como medida nem como motivo. A frase
+  não diz o nome dela. Sem comparação, sem "melhor que",
   sem cobrança. As frases vivem em `src/data/narracao.json` e se revezam; o balão fica na
   tela até um toque no "x", no canto de cima à direita do balão. Ele abre logo abaixo da
   linha do cabeçalho, sem cobrir a casinha nem o menu. Quando ela volta a tocar na cena, ele
@@ -238,7 +240,7 @@ marionete por dados). Nada de copiar personagens, colagem ou estilo visual do de
 
 ## 7. A casa verde, o quintal e o quarto rosa
 
-A casa de verdade da Stella é **verde**, um verde musgo mais vivo e leve, e a do jogo também.
+A casa de verdade dela é **verde**, um verde musgo mais vivo e leve, e a do jogo também.
 Por fora e nos cômodos comuns, verde musgo claro; lá dentro, o quarto dela é o pedaço rosa da
 casa. O rosa fica mais especial justamente por ser o cantinho dela.
 
@@ -247,7 +249,7 @@ andares altos: em cima o quarto rosa e o banheiro, embaixo a sala e a cozinha. C
 fileira de coisas na parede e outra no chão, para cada coisa que leva a uma brincadeira ter o seu
 lugar sem encostar na vizinha (os alvos de 72 px).
 
-**O quarto da Stella**, todo rosa: cama, estante de bonecas, piano, ukulele na parede, escrivaninha
+**O quarto dela**, todo rosa: cama, estante de bonecas, piano, ukulele na parede, escrivaninha
 de parede com o caderno, janela com o céu. A porta do quarto é rosa, com o bilhetinho. É aqui que as tarefas viram lembrança.
 
 **O banheiro**, ao lado do quarto: a pia com o espelho e a escova no copo, a banheira de espuma e o
@@ -256,7 +258,7 @@ tapetinho onde o gatinho dorme.
 **A sala**, com a lareira branca no fundo e a família no tapete em volta dela. O relógio fica na
 chaminé, a mesa da estação e o pote de pedrinhas na parede, a caixa de brinquedos no canto.
 
-**A cozinha**, onde a mãe e a Stella fazem comidinha e onde moram as palavras em espanhol.
+**A cozinha**, onde ela e a mãe fazem comidinha e onde moram as palavras em espanhol.
 
 **A porta**, na sala, de onde saem as aventuras e onde a família recebe na volta.
 
@@ -285,7 +287,7 @@ Nele moram duas coisas que são dela de verdade:
 Segurança sem sermão: na árvore, a família está sempre embaixo olhando, e quem sobe é ela. O jogo não ensina a subir mais alto do que ela sobe de verdade; mostra que
 subir é gostoso quando tem alguém perto.
 
-**As pinhas.** A Stella ama pinhas, muito. Elas estão pelo jogo todo, como tesouro:
+**As pinhas.** Ela ama pinhas, muito. Elas estão pelo jogo todo, como tesouro:
 - **Catar pinhas** no chão do quintal, embaixo do pinheiro, é uma atividade própria e calma.
   Cada pinha é um pouco diferente (comprida, redondinha, pequenininha, a grande da araucária)
   e ela toca para pegar e pôr na cestinha. O coelhinho cheira, o gatinho empurra com a pata.
@@ -298,7 +300,7 @@ subir é gostoso quando tem alguém perto.
   enterrada entre as letras.
 - **Pinha nas aventuras**: na Árvore Grande (12.2), pinha é presente, não perigo.
 
-**Os bichos da casa.** A Stella ama coelhinhos e gatinhos. Ela não tem nenhum, é um sonho
+**Os bichos da casa.** Ela ama coelhinhos e gatinhos. Ela não tem nenhum, é um sonho
 dela, e convive com vários e ama. No jogo o sonho se realiza, e com ele vem o cuidado:
 - Cuidar dos dois é parte do dia: pôr água, dar comida, fazer carinho, escovar o pelo do
   gatinho, dar folha de cenoura ao coelhinho. Nenhum bicho fica triste, doente ou com fome
@@ -310,17 +312,17 @@ dela, e convive com vários e ama. No jogo o sonho se realiza, e com ele vem o c
   cômodo em cômodo. Tocar nele faz ele ronronar (som sintetizado, grave e macio) e se esticar.
   Ele participa das tarefas: pula na cama arrumada, dorme em cima da roupa dobrada, e na hora
   de dormir se enrola aos pés dela.
-- **Um coelhinho** mora no jardim, na frente da casa verde. Ele recebe a Stella na porta e é o
+- **Um coelhinho** mora no jardim, na frente da casa verde. Ele recebe a menina na porta e é o
   companheiro da aventura do Jardim (12.1).
 - Os dois são desenhados com a mesma economia da marionete: poucas formas, contorno de luz,
   orelhas e rabo que se mexem com atraso, como o tutu. Nada de olho enorme de desenho de
   loja: olhos em arco fino, como os retratos do Ponta.
-- O nome dos dois fica com a Stella: na primeira vez ela escolhe entre três nomes ditos em voz
+- O nome dos dois fica com ela: na primeira vez ela escolhe entre três nomes ditos em voz
   alta (seção 17).
 
 O céu das janelas segue a hora de verdade: manhã clara, tarde rosa, noite azul com estrelas.
 
-## 8. O dia da Stella (as tarefas de verdade)
+## 8. O dia dela (as tarefas de verdade)
 
 ### 8.1 As tarefas
 
@@ -333,7 +335,7 @@ Cada tarefa tem um objeto grande na casa (não um botão) e uma cena curta.
 | Comer colorido | o prato na mesa | Ela toca nas cores que provou (seção 8.4) | Uma flor de cada cor no canteiro |
 | Arrumar o quarto | o chão bagunçado | Toca nas coisas, elas voam para o lugar | Tapete ou luzinha |
 | Guardar os brinquedos | a caixa | Bonecas e blocos pulam para a caixa, o pai comemora | Prateleira nova |
-| Ser gentil | a Stella e o gatinho | Ela dá um abraço ou empresta um brinquedo | Desenho na parede |
+| Ser gentil | a menina e o gatinho | Ela dá um abraço ou empresta um brinquedo | Desenho na parede |
 | Escovar os dentes | a pia | Espuma rosa, escova no ritmo da música | Brilho no espelho |
 | Tomar banho | a banheira | Bolhas que ela estoura | Patinho na janela |
 | Dormir na hora e sozinha | a cama, à noite | A cena de boa noite (8.3) | Estrela nova no céu do quarto |
@@ -343,7 +345,7 @@ de 2 minutos e servir de cronômetro para a escovação real, com o celular na p
 
 ### 8.2 Quem marca a tarefa
 
-**Decidido (proposta, sujeita à família): a Stella conta, a família confirma com carinho.**
+**Decidido (proposta, sujeita à família): ela conta, a família confirma com carinho.**
 
 1. Ela toca no objeto da tarefa que fez. A cena acontece e a família nota.
 2. Um adulto pode confirmar no **cantinho dos pais** (seção 15.3). A confirmação acende a
@@ -360,16 +362,16 @@ Cada tarefa vale uma vez por dia. Sem prazo, sem sequência, sem contador.
 - Meia hora antes, a casa escurece e a música vira canção de ninar. A porta das aventuras
   fecha com uma lua pendurada.
 - Só resta a **rotina da noite**: banho, dentes, pijama, livro, apagar a luz. A mãe e o pai dão
-  boa noite, o Theo acena, a Stella deita, uma estrela nova acende na janela.
+  boa noite, o irmão acena, ela deita, uma estrela nova acende na janela.
 - O jogo escurece até o azul da noite e **dorme**: para de responder a toque (um PWA não
-  consegue se fechar; o adulto fecha o app). Até a manhã, abrir o app mostra só a Stella
+  consegue se fechar; o adulto fecha o app). Até a manhã, abrir o app mostra só a menina
   dormindo e a canção de ninar baixinha por 20 segundos.
 - De manhã, a primeira pergunta da roda é "você dormiu na sua caminha?": a resposta dela
   acende a estrela nova; a confirmação dos pais no cantinho é um brilho a mais.
 
 ### 8.4 Comer colorido: o canteiro de flores
 
-Na vida real a Stella não come muito bem. No jogo, cada cor que ela **prova** vira uma flor.
+Na vida real ela não come muito bem. No jogo, cada cor que ela **prova** vira uma flor.
 
 **Como funciona**
 1. Depois de uma refeição de verdade, na mesa da cozinha do jogo, aparece um prato vazio e,
@@ -422,14 +424,14 @@ comida e com a fome. Por isso:
 
 A melhor ideia do Ponta cabe aqui inteira: **o dedo percorre uma fita**. No Ponta a fita é o
 caminho do gesto de dança; aqui a fita é o traço da letra. A estrela guia do Ponta mostra o
-caminho antes, a Stella segue com o dedo, e a letra nasce onde o dedo passa.
+caminho antes, ela segue com o dedo, e a letra nasce onde o dedo passa.
 
 ### 9.1 Como funciona
 
 1. A letra aparece grande (ocupa metade da tela), como uma fita de cetim rosa pontilhada.
 2. A **estrela guia** percorre cada traço devagar, na ordem certa e no sentido certo, e a voz
-   diz o **som** da letra, não só o nome ("S... sssss, de Stella").
-3. A Stella passa o dedo pela fita. Onde o dedo passa, a fita se enche de rosa e brilha.
+   diz o **som** da letra, não só o nome ("S... sssss, de sapo").
+3. Ela passa o dedo pela fita. Onde o dedo passa, a fita se enche de rosa e brilha.
 4. Traço terminado: um sininho. Letra terminada: a letra ganha vida (o S vira uma cobrinha que
    dança, o T vira uma árvore), a família comemora e a letra vai para a parede do quarto.
 
@@ -451,39 +453,37 @@ língua da sala de aula, para não confundir:
   O nome da letra quase não aparece.
 - **A letra nasce de uma imagem**, como em Waldorf. Antes de traçar, uma pequena história de
   duas frases desenha a imagem, e a letra sai de dentro dela: o **S** é o rabo do gatinho
-  que se enrola; o **M** são as montanhas atrás da casa; o **L** é a Stella deitada na grama
-  com o braço para cima, olhando o céu; o **T** é o tronco da árvore grande com o galho de
+  que se enrola; o **M** são as montanhas atrás da casa; o **L** é a menina deitada na grama
+  com o braço para o céu; o **T** é o tronco da árvore grande com o galho de
   cima; o **A** é o telhado da casa verde; o **O** é a boca aberta cantando "óóó". A imagem
   fica desenhada fraquinha atrás da fita enquanto ela traça.
 - **Primeiro as vogais e as consoantes que se esticam.** No fônico, "sss", "mmm", "lll", "fff",
-  "vvv" e "nnn" se seguram no ar e se juntam fácil com a vogal. S e L estão no nome dela, o
-  que ajuda muito. Consoantes de estalo (P, T, B, D, G, C) vêm depois, com uma exceção
-  afetiva: o T de Theo.
+  "vvv" e "nnn" se seguram no ar e se juntam fácil com a vogal. Consoantes de estalo (P, T,
+  B, D, G, C) vêm depois.
 - **Juntar os sons** é o passo depois das letras: "lll... uuu... aaa": LUA (9.5). No
   português falado, L no fim da sílaba soa U (SOL se fala "sou"), por isso o L só aparece
   no começo da sílaba nas primeiras palavras.
 
-No caderno **ninguém ensina por ela**: a Stella está na página, a estrela guia mostra o
+No caderno **ninguém ensina por ela**: ela está na página, a estrela guia mostra o
 caminho e a letra é dela. A comemoração diz "Foi você que fez essa letra!".
 
 1. **Traços antes das letras**: linha em pé, linha deitada, linha inclinada, bolinha, curva,
    ponte. Cada traço é uma coisa do mundo dela (a chuva cai: linha em pé; a onda do lago:
    curva; a ponte do jardim).
-2. **As vogais e as letras do nome dela**: A, E, O, S, L, depois T (e, no fim da v1, o V,
+2. **As vogais e as primeiras consoantes**: A, E, O, S, L, depois T (e, no fim da v1, o V,
    que se estica como o S e o L). As vogais primeiro porque
    no fônico tudo se apoia nelas. Em **letra de forma maiúscula (bastão)**, que é
-   a letra com que a alfabetização começa no Brasil. Ao terminar as letras dela, monta o nome
-   STELLA inteiro, e ele aparece na porta do quarto.
-3. **As letras da família**: M de mamãe (que se estica, "mmm"), P de papai, T de Theo, e o
-   A de Andrea e de Anderson que ela já sabe. Cada letra terminada ganha a voz da pessoa.
-4. **Palavras curtas de carinho**, montadas com letras que ela já conhece: MAMÃE, PAPAI, THEO,
+   a letra com que a alfabetização começa no Brasil.
+3. **As letras da família**: M de mamãe (que se estica, "mmm") e de mano, P de papai. Cada
+   letra terminada ganha a voz da pessoa.
+4. **Palavras curtas de carinho**, montadas com letras que ela já conhece: MAMÃE, PAPAI, MANO,
    AMO. Depois, as outras letras do alfabeto, uma de cada vez.
 
 ### 9.4 O bilhetinho
 
 As cinco vogais, que ela já sabe, são **carimbos** desde o começo; toda letra traçada no
 caderno vira mais um carimbo. Ela pode "escrever" um bilhete para a
-mãe, o pai ou o Theo: toca nos carimbos, as letras vão para um papel rosa, e o bilhete é
+mãe, o pai ou o irmão: toca nos carimbos, as letras vão para um papel rosa, e o bilhete é
 entregue. Quem recebe lê em voz alta (com a voz gravada) o que ela "escreveu", mesmo que seja
 "SSTAEL". Escrever vira um jeito de dar carinho, que é o motivo mais forte para aprender.
 
@@ -527,9 +527,9 @@ ensinado (no português do Brasil isso exclui L no fim da sílaba, que soa U; S 
 que soa Z, como em ASA e MESA; TE e TI, que soam "tchi"; e O ou E átonos no fim, que soam U
 e I). Um teste automático guarda a regra.
 - Primeiras (v1): LUA, AVÓ, ELA, OLÁ, UVA, MALA, SALA, LAMA, MOLA, TATU, TUTU, TELA, LATA,
-  MATA, LIMA, VELA, LUVA e STELLA.
+  MATA, LIMA, VELA e LUVA.
 - Da casa: GATO, BOLA, CAMA, MALA, SOFÁ, PIPOCA, BONECA.
-- Da família: MAMÃE, PAPAI, THEO, STELLA (que é mais difícil e tudo bem: é o nome dela).
+- Da família: MAMÃE, PAPAI, MANO.
 - Dos bichos: GATO, COELHO (o LH é difícil, entra depois), PATO, SAPO, VACA.
 - Das aventuras: FITA, TUTU, SAPATILHA (a longa e divertida de bater: SA-PA-TI-LHA).
 
@@ -553,8 +553,8 @@ sintetizado entra no meio da voz do aparelho: "sss... sssss... sapo", em que só
 voz do aparelho. Sem "de" no meio, e só com figura que começa com aquele som (ovo, olho
 e onda começam com ô, então o ó aberto é dito sem figura). Na etapa de juntar, os mesmos
 sons saem curtinhos e colados até virar a palavra. Palavras com letra que não soa como o som
-ensinado dizem o som certo (`sons` em `palavras.json`: o O fechado de OLÁ, o L mudo de
-STELLA). Enquanto qualquer voz ou som de letra fala, a música de fundo some e volta devagar
+ensinado dizem o som certo (`sons` em `palavras.json`: o O fechado de
+OLÁ). Enquanto qualquer voz ou som de letra fala, a música de fundo some e volta devagar
 depois. A bancada para ouvir e ajustar os sons fica fora do jogo; `npm run fonemas`
 mede o volume de cada um. Com o fônico, essa gravação passou a ser a mais
 importante do jogo; ver a lista na seção 15.4.
@@ -564,7 +564,7 @@ importante do jogo; ver a lista na seção 15.4.
 
 ## 10. Espanhol: cada coisa tem dois nomes
 
-A Stella curte espanhol. O jogo trata o espanhol como **brincadeira de dois nomes**, não como
+Ela curte espanhol. O jogo trata o espanhol como **brincadeira de dois nomes**, não como
 aula.
 
 - **Tocar numa coisa diz o nome dela em português e depois em espanhol**: "cama... cama",
@@ -572,7 +572,8 @@ aula.
   e ela descobre isso sozinha.
 - **Rosa é "rosa" nas duas línguas.** Um bom começo.
 - **Uma boneca que fala espanhol**: a **Estrellita**, boneca bailarina que mora na estante.
-  Quando ela vai junto numa aventura, comemora em espanhol ("¡Muy bien, Stella!"). Ela é a
+  Ela cumprimenta ("¡Hola!") e, quando vai junto numa aventura, comemora em espanhol
+  ("¡Muy bien!"), sempre sem nome. Ela é a
   "dona" do espanhol no jogo, o que dá lugar e rosto à língua.
 - **Contar em espanhol**: no palco, a contagem da professora do Ponta ("5, 6, 7, 8") vira, às
   vezes, "cinco, seis, siete, ocho" na voz da Estrellita.
@@ -612,19 +613,19 @@ do jardim.
   corpo curtinho, costura na barra, bolinhas bordadas.
 - Ela pode **vestir** uma boneca: na cesta, quatro vestidos (tutus, para a Estrellita) e quatro
   enfeites da cabeça (laço, gorrinho de lã, coroa de flores, chapéu de sol), desenhados como
-  são. Vestir faz a boneca dar um pulinho e a Stella bater palma; a Estrellita diz a cor e o
+  são. Vestir faz a boneca dar um pulinho e a menina bater palma; a Estrellita diz a cor e o
   enfeite em espanhol.
-- Ela escolhe **uma boneca companheira** que vai junto nas aventuras: tocar na Stella faz ela
+- Ela escolhe **uma boneca companheira** que vai junto nas aventuras: tocar na menina faz ela
   dar a mão para a boneca, e uma estrelinha marca na estante qual é.
 - As bonecas **assistem** ao palco ao lado da família.
 
 ## 12. As aventuras
 
-Três aventuras curtas saem da porta de casa. A Stella corre sozinha, a criança só decide
+Três aventuras curtas saem da porta de casa. A menina do jogo corre sozinha, a criança só decide
 quando pular. Nenhuma tem vida, relógio ou pontos. Cada uma termina no palco.
 
 ### 12.1 O Jardim (inspirado em Pitfall)
-O coelhinho fugiu para o fim do jardim. A Stella sai de casa, vai buscar e volta com ele no
+O coelhinho fugiu para o fim do jardim. Ela sai de casa, vai buscar e volta com ele no
 mesmo caminho; um mapinha lá em cima mostra a casa, o coelhinho e onde ela está. **Toque =
 pular** (um *sauté*) poças, pedras e troncos. Ela anda balançando os bracinhos; no pulo abre
 braços e pernas como no balé. Fitas de cetim
@@ -634,7 +635,7 @@ laguinho, e só olha. Coelhinhos do mato espiam das tocas e aplaudem com as orel
 
 ### 12.2 A Árvore Grande (inspirado em Donkey Kong)
 A árvore do quintal vira aventura. Ela sobe na vertical, galho por galho, o que em retrato
-fica ótimo. **O gatinho subiu até o topo e não sabe descer**, e a Stella vai buscar (no Donkey
+fica ótimo. **O gatinho subiu até o topo e não sabe descer**, e ela vai buscar (no Donkey
 Kong também se sobe para buscar alguém lá em cima). Galhos inclinados são as plataformas;
 cipós e troncos ela sobe sozinha. A árvore é o pinheiro do quintal. Lá em cima, um esquilo
 brincalhão, com um gorrinho de soldadinho do Quebra-Nozes, rola pinhas galho abaixo, como os
@@ -659,8 +660,8 @@ acontece onde ela caiu, ela nada de volta até onde estava, sobe, sacode e tenta
 perder nada.
 
 ### 12.4 O Palco
-Cortina de veludo, luz de ribalta. A Stella dança com a música da aventura; tocar faz ela
-girar ou pular (sempre dá certo). Plateia: mãe, pai, Theo e as bonecas. Reverência, aplauso,
+Cortina de veludo, luz de ribalta. Ela dança com a música da aventura; tocar faz ela
+girar ou pular (sempre dá certo). Plateia: mãe, pai, irmão e as bonecas. Reverência, aplauso,
 abraço na coxia, volta para casa.
 
 ### 12.5 Generosidade das aventuras
@@ -668,8 +669,8 @@ abraço na coxia, volta para casa.
 - No Jardim, um obstáculo a cada dois compassos de caminhada (uns oito na ida, os mesmos na
   volta); nas duas primeiras aventuras, a cada quatro. Em dados (`JARDIM`, em
   `src/telas/jardim.ts`).
-- Se ela não toca, a Stella não fica presa: depois de duas tentativas no mesmo obstáculo, a
-  mãozinha mostra o toque; depois de três, ela passa sozinha com uma ajudinha (a vitória-régia
+- Se a criança não toca, a menina não fica presa: depois de duas tentativas no mesmo
+  obstáculo, a mãozinha mostra o toque; depois de três, ela passa sozinha com uma ajudinha (a vitória-régia
   chega perto, o esquilo manda a pinha devagarinho).
 - Toda aventura termina, mesmo sem nenhum toque. O palco sempre chega.
 
@@ -705,7 +706,7 @@ Mesmas formas do Ponta, com mais rosa, mais luz e mais tamanho.
 **Ajustado para ela**
 - **Verde musgo e rosa.** A casa é verde musgo vivo e leve (tokens novos, ponto de partida
   a acertar no styleguide: `--musgo` `#8FAE6B`, `--musgo-claro` `#C9DBB2`, `--musgo-tinta`
-  `#4F6B3A` para traço e texto). O rosa (`--rosa`, `--rosa-clara`, `--rosa-doce`) é da Stella:
+  `#4F6B3A` para traço e texto). O rosa (`--rosa`, `--rosa-clara`, `--rosa-doce`) é dela:
   o quarto, o tutu, o ukulele, o caderno, tudo o que é dela. Verde e rosa claros se
   complementam e mantêm a calma. A **caixa de areia** tem o vermelho dela, um vermelho vivo e
   quente (`--estrela-vermelha`, ponto de partida `#D2463C`), a única área grande de vermelho
@@ -713,14 +714,14 @@ Mesmas formas do Ponta, com mais rosa, mais luz e mais tamanho.
   proibido porque significava erro; aqui não existe erro, e o vermelho é só a caixa dela. Proporção: musgo 35%, rosas 30%, dia e marfim 15%, noite
   (palco e noite) 8%, mata (jardim fundo) 4%, veludo 4%, ouro 4%. O `--mata` escuro do Ponta
   fica só para sombra de jardim e fundo de aventura.
-- **A Stella** é a do Ponta (pele `#F2D5BC`), mais loira e com proporção de 5 anos: cabeça
+- **A menina** é a do Ponta (pele `#F2D5BC`), mais loira e com proporção de 5 anos: cabeça
   maior, pernas curtas, bochecha. Cabelo bem liso passando do ombro, desenhado como uma
   cortina de fios que balança com o movimento (dois ou três paths com atraso, como o tutu do
   Ponta). No palco, coque. Collant e tutu rosa.
-- **O Theo** tem o dobro da altura dela e cabelo castanho bem claro, quase loiro, muito
+- **O irmão** tem o dobro da altura dela e cabelo castanho bem claro, quase loiro, muito
   cacheado: um cacho feito de círculos agrupados, como o coque crespo da Paula no Ponta, só
   que em volta da cabeça toda e mais solto.
-- **Tamanho**: a Stella ocupa uns 20% da altura da tela; objetos tocáveis têm pelo menos 72 px.
+- **Tamanho**: a menina ocupa uns 20% da altura da tela; objetos tocáveis têm pelo menos 72 px.
 - **Contraste**: tudo o que se toca tem contorno em `--luz` ou `--ouro` e um leve pulsar de
   opacidade quando a mãozinha aponta.
 - **Calma visual**: nada pisca mais de uma vez por segundo, nada treme, nenhum flash.
@@ -768,7 +769,7 @@ PWA offline, sem engine e sem lib. Publicado no GitHub Pages.
 | Do Ponta | Uso aqui |
 |---|---|
 | `src/ui/tokens.css` | Base de cores, tipos e durações. Nenhum hex fora dos tokens. |
-| Marionete por dados (`src/puppet`) | Stella, família e bonecas. |
+| Marionete por dados (`src/puppet`) | A menina, a família e as bonecas. |
 | Figurino por variáveis de cor | Tutus e roupas das bonecas. |
 | Fita, estrela guia e projeção do dedo (`src/dance/fita.ts`, `dedo.ts`) | O traçado das letras (seção 9). |
 | Piano Salamander e sequenciador | Toda a música. |
@@ -782,14 +783,15 @@ número 7" escrito por extenso), que uma criança de 5 anos não resolve. Ali: h
 limite diário, confirmar tarefas, gravar vozes (com exportar e importar, porque o aparelho
 pode apagá-las), comidas de cada cor, prato ligado ou não, ritmo das letras, resumo,
 instruções de instalação e de Acesso Guiado, apagar tudo, e a chave do balão de narração
-(seção 6). Um botão **Opções**, no alto, guarda o que é do aparelho e não da Stella: a versão
+(seção 6). Um botão **Opções**, no alto, guarda o que é do aparelho e não dela: a versão
 e a busca por versão nova, reiniciar o jogo, recomeçar o dia, limpar os arquivos guardados e
 baixar de novo, instalar na tela inicial e tela cheia, proteger as gravações
 (`navigator.storage.persist`) e quanto o jogo ocupa, e testar o sininho e a voz do aparelho.
 
 ### 15.4 Vozes gravadas
-- Gravadas no próprio app (`MediaRecorder`) pelo cantinho dos pais: uma lista de frases, cada
-  pessoa grava as suas. Ficam **só no aparelho** (IndexedDB), nunca vão para servidor.
+- Gravadas no próprio app (`MediaRecorder`) pelo cantinho dos pais: uma lista de frases para
+  Mãe, Pai e Irmão, e cada um grava as suas. Ficam **só no aparelho** (IndexedDB), nunca vão
+  para servidor.
 - Alternativa: vocês gravam no celular e eu empacoto como arquivos do jogo. Mais trabalho,
   mas sobrevive a trocar de aparelho.
 - **Sons das letras** (seção 9.5): umas 25 gravações de um segundo, uma por som ("sss",
@@ -818,8 +820,8 @@ O escopo da v1 foi revisto junto com o gameplay e está em `GAMEPLAY.md` seção
 sobre as listas antigas deste documento (por exemplo, o espanhol e a Árvore Grande foram para
 a v2, e as letras da v1 seguem a ordem do fônico).
 
-**Marcos da v1**, cada um testado com a Stella antes do próximo:
-1. **Styleguide vivo**: a Stella pequena, a família, o gatinho, o coelhinho e duas bonecas
+**Marcos da v1**, cada um testado com ela antes do próximo:
+1. **Styleguide vivo**: a menina pequena, a família, o gatinho, o coelhinho e duas bonecas
    de pano, nas poses básicas; os tokens de musgo, rosa, areia e vermelho da caixa.
 2. **A casa e o laço**: chegada, livre, bichos, despedida, com o piano. Já é jogável.
 3. **A roda do dia e o prato colorido**, com o cantinho dos pais e a gravação de voz.
@@ -828,14 +830,14 @@ a v2, e as letras da v1 seguem a ordem do fônico).
 6. **A aventura do Jardim e o palco.**
 7. **A semana, a primeira semana e o laço da noite.**
 
-Depois de cada marco: testar com a Stella seguindo `GAMEPLAY.md` seção 12, olhar onde ela
+Depois de cada marco: testar com ela seguindo `GAMEPLAY.md` seção 12, olhar onde ela
 trava, onde ri, onde desiste, e medir antes de mexer.
 
 ## 17. Perguntas para a família
 
-1. **Vozes.** Andrea, Anderson e Theo topam gravar? No app ou arquivos enviados? Alguém fala
+1. **Vozes.** A mãe, o pai e o irmão topam gravar? No app ou arquivos enviados? Alguém fala
    espanhol para gravar as palavras?
-2. **Mãe e pai.** Cabelo, cor, altura relativa, óculos, roupa preferida. (Stella e Theo já
+2. **Mãe e pai.** Cabelo, cor, altura relativa, óculos, roupa preferida. (A menina e o irmão já
    estão descritos.)
 3. **O verde da casa.** Se tiver uma foto da fachada, acerto o tom do `--musgo` por ela.
 4. **Tarefas.** A lista da seção 8.1 está certa? Falta alguma (vestir sozinha, comer fruta,
@@ -851,7 +853,7 @@ trava, onde ri, onde desiste, e medir antes de mexer.
    imagem por som, para o jogo repetir.
 10. **O quintal.** Uma foto da caixa de areia e da árvore ajuda a acertar a forma e o
     vermelho. Que árvore é? Tem pinheiro ou araucária por perto, de onde vêm as pinhas dela?
-11. **Nome do jogo.** A menina do jogo é a Stella, decidido. E o jogo: "Little Star",
+11. **Nome do jogo.** Ninguém no jogo é chamado pelo nome, decidido. E o jogo: "Little Star",
     "Estrelinha" ou "Estrellita"?
 12. **Semana e festas.** A casa tem um ritmo da semana (dia do pão, da pintura)? Quais festas
    vocês celebram? O jogo copia o ritmo de vocês em vez de inventar um.

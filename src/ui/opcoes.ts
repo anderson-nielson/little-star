@@ -180,12 +180,12 @@ export function montarOpcoes(app: HTMLElement, irParaPais: () => void): Opcoes {
     const faltam = passos.filter((p) => !p.feito && p.passo !== agora).map(nomeDoPasso);
     const abertas = COISAS.filter((c) => disponivel(e, c));
     const proximas = et < SESSAO_COMPLETA ? (ABERTURAS[et + 1] ?? []).filter((c): c is Coisa => (COISAS as string[]).includes(c)) : [];
-    const bloco = h('div', { class: 'opcoes-onde' }, h('h2', {}, h('span', { class: 'opcoes-interrogacao', 'aria-hidden': 'true' }, '✦'), 'Onde a Stella está'));
+    const bloco = h('div', { class: 'opcoes-onde' }, h('h2', {}, h('span', { class: 'opcoes-interrogacao', 'aria-hidden': 'true' }, '✦'), 'Onde ela está'));
     bloco.append(h('p', {}, et > SESSAO_COMPLETA ? 'A casa está toda aberta.' : `Etapa ${et} de ${SESSAO_COMPLETA}. ${abertas.length} coisas abertas na casa.`));
     bloco.append(h('p', {}, agora ? `Agora: ${NOME_PASSO[agora]}.` : 'O dia de hoje está completo. O resto é brincadeira livre.'));
     if (feitos.length) bloco.append(h('p', {}, `Já foi hoje: ${feitos.join(', ')}.`));
     if (faltam.length) bloco.append(h('p', {}, `Ainda falta: ${faltam.join(', ')}.`));
-    if (proximas.length) bloco.append(h('p', { class: 'opcoes-nota' }, `A próxima etapa abre quando a Stella terminar o dia (a despedida) ou em outro dia de jogo. Vai abrir: ${proximas.map((c) => NOME_COISA[c].toLowerCase()).join(', ')}.`));
+    if (proximas.length) bloco.append(h('p', { class: 'opcoes-nota' }, `A próxima etapa abre quando ela terminar o dia (a despedida) ou em outro dia de jogo. Vai abrir: ${proximas.map((c) => NOME_COISA[c].toLowerCase()).join(', ')}.`));
     return bloco;
   }
 
@@ -209,7 +209,7 @@ export function montarOpcoes(app: HTMLElement, irParaPais: () => void): Opcoes {
       painel.append(detalhes);
     }
 
-    /* onde a Stella está: a etapa, o dia e o que abre depois, em texto, para o adulto */
+    /* onde ela está: a etapa, o dia e o que abre depois, em texto, para o adulto */
     painel.append(blocoDeOnde());
 
     /* a música desta tela: quem escreveu, quando, o que quer dizer */
@@ -235,7 +235,7 @@ export function montarOpcoes(app: HTMLElement, irParaPais: () => void): Opcoes {
     painel.append(
       linha(
         'Balão de leitura',
-        'A frase no alto da tela, para ler em voz alta para a Stella.',
+        'A frase no alto da tela, para ler em voz alta para ela.',
         interruptor(e.pais.narracao, ['Ligado', 'Desligado'], () => {
           mudar((x) => void (x.pais.narracao = !x.pais.narracao));
           return estado().pais.narracao;

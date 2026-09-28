@@ -1,7 +1,7 @@
 {
   "chegada": {
     "titulo": "A chegada",
-    "oque": "A casa verde abre a porta e a família recebe a Stella pelo nome. Dura uns quinze segundos.",
+    "oque": "A casa verde abre a porta e a família recebe ela com um oi. Dura uns quinze segundos.",
     "fazer": "Esperar a porta abrir, ou tocar em qualquer lugar para adiantar."
   },
   "casa": {
@@ -56,12 +56,12 @@
   },
   "jardim": {
     "titulo": "A aventura do jardim",
-    "oque": "O coelhinho fugiu para o fim do jardim. A Stella vai buscar e volta com ele, no ritmo da música.",
+    "oque": "O coelhinho fugiu para o fim do jardim. Ela vai buscar e volta com ele, no ritmo da música.",
     "fazer": "Tocar em qualquer lugar da tela para pular poças, pedras e troncos. Pulou fora da hora, ela escorrega, ri e levanta. A aventura sempre termina."
   },
   "palco": {
     "titulo": "O palco",
-    "oque": "A Stella dança a Dança da Fada Açucarada para a família e as bonecas.",
+    "oque": "Ela dança a Dança da Fada Açucarada para a família e as bonecas.",
     "fazer": "Tocar na parte de cima da tela para um salto, na de baixo para um giro. Sempre dá certo. No fim tem aplauso e uma boneca nova na estante."
   },
   "bichos": {
@@ -80,7 +80,7 @@
     "fazer": "Tocar em cada passo da rotina. No fim vem o boa-noite, o gatinho sobe na cama e o jogo dorme."
   },
   "dormindo": {
-    "titulo": "A Stella está dormindo",
+    "titulo": "Ela está dormindo",
     "oque": "Depois da hora de dormir o jogo fica dormindo até de manhã, e nada responde ao toque. É de propósito.",
     "fazer": "Nada. Para mudar a hora de dormir, entre no cantinho dos pais."
   },
@@ -116,23 +116,23 @@
   },
   "bonecas": {
     "titulo": "As bonecas",
-    "oque": "A estante de madeira com as bonecas de pano que ela ganhou e, no tapete, a boneca escolhida ao lado da Stella. Cada boneca tem o seu cabelo de lã; a Estrellita é a bailarina.",
-    "fazer": "Tocar numa boneca da estante para escolher. Na cesta embaixo, os vestidos (tutus, para a Estrellita) e os enfeites da cabeça: laço, gorrinho, coroa de flores e chapéu; tocar de novo no enfeite tira. A Estrellita diz a cor e o enfeite em espanhol. Tocar na Stella faz ela dar a mão para a boneca: é essa que vai junto nas aventuras (a estrelinha na estante mostra qual)."
+    "oque": "A estante de madeira com as bonecas de pano que ela ganhou e, no tapete, a boneca escolhida ao lado da menina. Cada boneca tem o seu cabelo de lã; a Estrellita é a bailarina.",
+    "fazer": "Tocar numa boneca da estante para escolher. Na cesta embaixo, os vestidos (tutus, para a Estrellita) e os enfeites da cabeça: laço, gorrinho, coroa de flores e chapéu; tocar de novo no enfeite tira. A Estrellita diz a cor e o enfeite em espanhol. Tocar na menina faz ela dar a mão para a boneca: é essa que vai junto nas aventuras (a estrelinha na estante mostra qual)."
   },
   "bilhete": {
     "titulo": "O bilhetinho",
     "oque": "Carimbos com as vogais e as letras que ela já traçou, e um papel rosa.",
-    "fazer": "Tocar nos carimbos para pôr letras no papel e entregar para a mãe, o pai ou o Theo, que leem em voz alta o que ela escreveu. Os bilhetes ficam guardados no cantinho dos pais."
+    "fazer": "Tocar nos carimbos para pôr letras no papel e entregar para a mãe, o pai ou o irmão, que leem em voz alta o que ela escreveu. Os bilhetes ficam guardados no cantinho dos pais."
   },
   "relogio": {
     "titulo": "O relógio da sala",
     "oque": "Um relógio grande que mostra a hora de verdade quando ela chega. O céu da janelinha muda com a hora.",
-    "fazer": "Girar o ponteiro curto, o das horas, e ouvir a hora. Tocar no Theo: ele pede uma hora para ela mostrar."
+    "fazer": "Girar o ponteiro curto, o das horas, e ouvir a hora. Tocar no irmão: ele pede uma hora para ela mostrar."
   },
   "parquinho": {
     "titulo": "O balanço",
     "oque": "O parquinho do condomínio. O balanço é o primeiro brinquedo da volta; depois vêm o escorregador e a gangorra.",
-    "fazer": "Arrastar a Stella para trás e soltar. Tocar nela perto do chão dá impulso com as pernas. Com a contagem ligada no cantinho dos pais, cada ida alta vale uma pedrinha e a voz conta até dez."
+    "fazer": "Arrastar a menina para trás e soltar. Tocar nela perto do chão dá impulso com as pernas. Com a contagem ligada no cantinho dos pais, cada ida alta vale uma pedrinha e a voz conta até dez."
   },
   "escorregador": {
     "titulo": "O escorregador",
@@ -141,7 +141,7 @@
   },
   "gangorra": {
     "titulo": "A gangorra",
-    "oque": "O último brinquedo do parquinho. Gangorra é para dois: o Theo fica na outra ponta.",
+    "oque": "O último brinquedo do parquinho. Gangorra é para dois: o irmão fica na outra ponta.",
     "fazer": "Tocar para ela empurrar com o pé e subir. Quem empurra o chão é ela; a descida é macia, sem tranco."
   },
   "cama": {

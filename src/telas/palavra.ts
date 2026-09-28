@@ -93,8 +93,8 @@ export function telaPalavra(params: Record<string, string>): Tela {
   for (let k = 0; k < 3; k++) s += `<g class="etapa" data-k="${k}" opacity="0.35">${centelha(195 + (k - 1) * 30, YE, 18, LUZ)}</g>`;
   /* a figura, grande, ainda adormecida até a palavra ser lida */
   s += `<g class="objeto" opacity="0.6">${arco(150, 478, 150, 190, '#f6f0e4', OURO)}${figura(p.figura, FX, FY, 116)}</g>`;
-  /* a Stella, que lê */
-  s += `<g class="stella">${familia.stella(70, 712, 72, 'parado').svg}</g>`;
+  /* a menina, que lê */
+  s += `<g class="menina">${familia.menina(70, 712, 72, 'parado').svg}</g>`;
   const espanhol = espanholAtivo(e0);
   if (espanhol) s += `<g class="estrellita">${familia.boneca(340, 600, 44, 0).svg}</g>`;
   /* a próxima palavra da fila, guardada até esta ficar pronta */
@@ -151,13 +151,13 @@ export function telaPalavra(params: Record<string, string>): Tela {
   };
   const apagaLetras = (cor = MUSGO) => letraEls.forEach((t) => t.setAttribute('fill', cor));
 
-  /** o som de cada letra desta palavra: o da lista da palavra (OLÁ, STELLA) ou o som ensinado da letra */
+  /** o som de cada letra desta palavra: o da lista da palavra (o Ô de OLÁ) ou o som ensinado da letra */
   const somDe = (i: number): string | null => (p.sons ? (p.sons[i] ?? null) : somDaLetra(letras[i]!));
   /** quanto os sons encolhem quando se juntam: curtos o bastante para virar palavra */
   const JUNTOS = 0.4;
   const soar = async (i: number, rapido: boolean) => {
     const id = somDe(i);
-    /* letra muda (o segundo L de STELLA): acende, mas não soa */
+    /* letra muda: acende, mas não soa */
     if (!id) {
       if (!rapido) await esperar(260);
       return;

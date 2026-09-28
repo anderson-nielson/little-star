@@ -72,7 +72,7 @@ atenção e que nunca vêm duas seguidas, e o laço as põe juntas. São só 2 o
 pode ser aceitável. Duas saídas: (a) aceitar e escrever a exceção; (b) trocar para chegada,
 roda, brincadeira do dia, som do dia, livre, bichos, despedida. A opção (b) tem um custo: na
 terça a brincadeira é o caderno, e o som do dia entra melhor antes do caderno. Minha proposta
-é (a), com o som do dia contado pelo Theo como história curta, para mudar o tom.
+é (a), com o som do dia contado pelo irmão como história curta, para mudar o tom.
 
 **J4. O Jardim no tempo da Valsa das Flores tem obstáculo demais.** Um obstáculo por tempo
 forte, num compasso de valsa a 60 ou 70 compassos por minuto, dá um pulo por segundo, 120
@@ -118,13 +118,13 @@ quatro vezes. Está bem assim (o palco e a família são a recompensa), mas conv
 Alternativa barata: a partir daí, cada aventura traz uma pinha diferente para a mesa da
 estação.
 
-**J11. O Theo com o dobro da altura.** Aos 10 anos ele tem uns 1,27 vezes a altura dela. O
+**J11. O irmão com o dobro da altura.** Aos 10 anos ele tem uns 1,27 vezes a altura dela. O
 dobro é estilização, cabe no espírito Charlie e Lola, mas deixa os pais com o triplo. Proposta
-para o styleguide: Stella 1, Theo 1,5, pais 2. Se a família preferir o dobro, os pais ficam
-em 2,3 e a diferença Theo-pais quase some, o que também é uma leitura possível de irmão
-grande.
+para o styleguide: a menina 1, o irmão 1,5, pais 2. Se a família preferir o dobro, os pais
+ficam em 2,3 e a diferença entre irmão e pais quase some, o que também é uma leitura
+possível de irmão grande.
 
-**J12. Tutu em casa.** A Stella está de collant e tutu em todas as cenas. Para uma menina de 5
+**J12. Tutu em casa.** A menina está de collant e tutu em todas as cenas. Para uma menina de 5
 anos em casa, faz mais sentido um vestido rosa (ou o que ela usa de verdade) e o tutu só no
 palco, como já é com o coque. Pergunta P8.
 
@@ -159,7 +159,7 @@ letras da v1 (A, E, O, S, L, M, U, I, T):
 - Duas sílabas: LUA, ASA, ELA, OLÁ, MALA, SALA, LAMA, MOLA, TATU, TUTU, TELA, LATA, MATA, ILA
   (a ilha sem o LH, se não confundir; senão UVA quando o V entrar).
 - Uma vogal: EU? (ditongo, melhor não). Deixar as de uma sílaba para depois.
-- O nome: STELLA continua, é o nome dela e a exceção é afetiva.
+- Nome próprio não entra na lista: ninguém é chamado pelo nome no jogo.
 
 Isso também muda a imagem da letra L (SPEC 9.3): "lll" tem de ser demonstrado no começo da
 sílaba (LUA, LATA), nunca no fim.
@@ -182,7 +182,7 @@ troca fácil; a cor da escola dela vence as duas. Pergunta P12.
 
 **T1. Um PWA não se fecha sozinho.** `window.close()` só funciona em janela aberta por script.
 A hora de dormir e o "abre e fecha de novo em 20 s" precisam ser reescritos como: a tela
-escurece até o azul da noite, **para de responder a toque** e mostra só a Stella dormindo. O
+escurece até o azul da noite, **para de responder a toque** e mostra só a menina dormindo. O
 efeito para a criança é o mesmo; a diferença é que o adulto fecha o app.
 
 **T2. O gesto de voltar do Android.** Empurrar um estado no histórico a cada tela captura o
@@ -197,15 +197,15 @@ não usados por 7 dias, salvo app instalado na tela inicial. Duas defesas: insta
 guardar. A alternativa da SPEC 15.4 (vocês gravam, eu empacoto) continua a mais segura e eu
 faria as duas.
 
-**T4. Quantidade de frases para gravar.** Contando o que a v1 pede (nome dela por três
+**T4. Quantidade de frases para gravar.** Contando o que a v1 pede (o "oi" da chegada por três
 pessoas, 3 perguntas da roda, comemorações, pergunta da noite, 6 cores, 25 sons de letras, 9
 letras comemoradas, 6 nomes de bichos, 8 convites de despedida, bom dia e boa noite), dá
 entre 80 e 110 gravações curtas. Os "15 minutos" da seção 10 são otimistas: é mais perto de
 45 minutos por pessoa. Proposta: cada frase tem **um dono** (uma pessoa grava), e a v1 sai
 com umas 45 frases obrigatórias e o resto opcional. A lista vai pronta com quem grava o quê.
 
-**T5. Voz sintética para nomes próprios.** Os nomes dos bichos e o nome dela nunca passam
-pela voz do aparelho; só gravação. Já está implícito, mas vale escrever.
+**T5. Voz sintética para nomes próprios.** Os nomes dos bichos nunca passam pela voz do
+aparelho; só gravação. Já está implícito, mas vale escrever.
 
 **T6. Aquarela sem raster.** Véus de opacidade 0,3 a 0,6 pintados uma vez num canvas de
 fundo funcionam bem em Android de 2021 desde que o canvas de fundo não se redesenhe. O céu
@@ -237,9 +237,9 @@ abertas estão incluídas.
    SPEC, com a trava do achado J7.
 7. **P7. Vozes.** Quem grava, onde (no app ou arquivo), e quantas frases vocês toleram?
    Proponho 45 obrigatórias na v1, com dono por frase.
-8. **P8. Roupa da Stella em casa.** Tutu sempre, ou vestido rosa em casa e tutu só no palco?
+8. **P8. Roupa dela em casa.** Tutu sempre, ou vestido rosa em casa e tutu só no palco?
    O que ela usa de verdade no dia a dia?
-9. **P9. Proporções.** Theo 1,5 vezes a Stella e pais 2 vezes, ou Theo o dobro como a SPEC?
+9. **P9. Proporções.** O irmão 1,5 vezes a menina e pais 2 vezes, ou o irmão o dobro como a SPEC?
 10. **P10. Voltar é a casinha verde** (proposta J5) ou continua a porta?
 11. **P11. Jardim com um obstáculo a cada 4 compassos** (uns 30 pulos em 2 minutos)? Ou menos?
 12. **P12. Cores da semana.** A escola dela tem cor por dia? Qual sequência? Senão, uso a

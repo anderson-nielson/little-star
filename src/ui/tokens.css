@@ -1,5 +1,5 @@
 /* Little Star: tokens. Única fonte de cor, tipo, espaço, forma e movimento.
-   Herdados do Ponta, mais o verde musgo da casa, o rosa da Stella, a areia e o
+   Herdados do Ponta, mais o verde musgo da casa, o rosa dela, a areia e o
    vermelho da caixa de areia. */
 :root {
   /* cor: base do Ponta */
@@ -21,7 +21,7 @@
   --mata-2: #35564d;
   --dia-alto: #fbf3ea;
 
-  /* cor: a casa da Stella */
+  /* cor: a casa dela */
   --musgo: #8fae6b;
   --musgo-claro: #c9dbb2;
   --musgo-tinta: #4f6b3a;

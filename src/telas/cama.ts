@@ -109,8 +109,8 @@ export function telaCama(): Tela {
   /* a frente do cestinho, por cima da bola quando ela entrar */
   s += `<path d="M212 724h48l-5 20h-38z" fill="#d9b88f" style="pointer-events:none"/><path d="M214 732h44" stroke="#b08a70" stroke-width="1.5" opacity="0.6" style="pointer-events:none"/>`;
   s += `<g class="luz"></g>`;
-  /* a Stella ao pé da cama: só olha, o toque passa por ela */
-  s += `<g style="pointer-events:none">${familia.stella(74, 752, 150, 'parado').svg}</g>`;
+  /* a menina ao pé da cama: só olha, o toque passa por ela */
+  s += `<g style="pointer-events:none">${familia.menina(74, 752, 150, 'parado').svg}</g>`;
 
   const tela = telaSvg(s);
   const svg = tela.svg;

@@ -111,7 +111,7 @@ export function telaRoda(): Tela {
       id: 'gentil',
       pergunta: 'pergunta_gentil',
       comemora: 'comemora_gentil',
-      desenho: `<g data-obj="gentil"><g class="ela">${familia.stella(178, 586, 56).svg}</g><g class="ele">${gato(222, 590, 14)}</g></g>`,
+      desenho: `<g data-obj="gentil"><g class="ela">${familia.menina(178, 586, 56).svg}</g><g class="ele">${gato(222, 590, 14)}</g></g>`,
       cena: (svg) => {
         const ela = svg.querySelector('[data-obj="gentil"] .ela');
         const ele = svg.querySelector('[data-obj="gentil"] .ele');
@@ -123,7 +123,7 @@ export function telaRoda(): Tela {
       id: 'parquinho',
       pergunta: 'pergunta_parquinho',
       comemora: 'comemora_parquinho',
-      desenho: `<g data-obj="parquinho">${balancinho(195, 590, 70, -6)}<g class="ela">${familia.stella(195, 566, 34, 'balanco').svg}</g></g>`,
+      desenho: `<g data-obj="parquinho">${balancinho(195, 590, 70, -6)}<g class="ela">${familia.menina(195, 566, 34, 'balanco').svg}</g></g>`,
       cena: (svg) => {
         const ela = svg.querySelector('[data-obj="parquinho"] .ela');
         if (ela) {
@@ -141,10 +141,10 @@ export function telaRoda(): Tela {
   s += arco(120, 130, 150, 160, '#f3d9cf') + veu(120, 130, 150, 160, '#ebcdc3', 3, 0.3) + nuvem(200, 180, 12);
   s += `<line x1="0" y1="330" x2="390" y2="330" stroke="#c6a15b" stroke-width="1" opacity="0.5"/><rect x="0" y="330" width="390" height="450" fill="#fbf8f1" opacity="0.45"/>`;
   s += `<ellipse cx="195" cy="560" rx="170" ry="120" fill="#ebcdc3"/><ellipse cx="195" cy="560" rx="150" ry="104" fill="none" stroke="#c6a15b" stroke-width="1" opacity="0.5"/>`;
-  s += `<g class="quem" data-quem="theo">${familia.theo(70, 505, 88, 'sentado').svg}</g>`;
+  s += `<g class="quem" data-quem="irmao">${familia.irmao(70, 505, 88, 'sentado').svg}</g>`;
   s += `<g class="quem" data-quem="mae">${familia.mae(300, 505, 110, 'sentado', { dir: -1 }).svg}</g>`;
   s += `<g class="quem" data-quem="pai">${familia.pai(322, 640, 116, 'sentado', { dir: -1 }).svg}</g>`;
-  s += familia.stella(80, 660, 78, 'sentado').svg;
+  s += familia.menina(80, 660, 78, 'sentado').svg;
   if (e.bichos.gato) s += gato(150, 690, 12);
   s += `<g class="objetos"></g><g class="luz"></g>`;
   const tela = telaSvg(s);
@@ -184,7 +184,7 @@ export function telaRoda(): Tela {
     const g = camada.firstElementChild as SVGGElement;
     g.classList.add('respira');
     camadaLuz.innerHTML = contornoLuz(195, 552, 66, 50);
-    const dono = { cama: 'mae', dentes: 'pai', brinquedos: 'mae', noite: 'mae', noite_toda: 'pai', banho: 'pai', quarto: 'mae', gentil: 'theo', parquinho: 'pai' }[obj.id];
+    const dono = { cama: 'mae', dentes: 'pai', brinquedos: 'mae', noite: 'mae', noite_toda: 'pai', banho: 'pai', quarto: 'mae', gentil: 'irmao', parquinho: 'pai' }[obj.id];
     svg.querySelectorAll('.quem').forEach((q) => ((q as SVGElement).style.opacity = q.getAttribute('data-quem') === dono ? '1' : '0.75'));
     /* a pergunta: só depois dela o objeto aceita o toque */
     if (temVoz(obj.pergunta)) await falar(obj.pergunta);
