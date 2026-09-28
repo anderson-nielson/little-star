@@ -482,11 +482,23 @@ function desenha(o: Figura, dir: 1 | -1, pose: Pose, crianca: boolean, hr: numbe
     const lb = 0.15 * h;
     const e: Ponto = [s[0] + Math.cos(a1) * la, s[1] + Math.sin(a1) * la];
     const wri: Ponto = [e[0] + Math.cos(a2) * lb, e[1] + Math.sin(a2) * lb];
-    const m: Ponto = [s[0] + Math.cos(a1) * la * 0.36, s[1] + Math.sin(a1) * la * 0.36];
     const mangaCor = o.camisa ?? roupa;
-    /* a manga: da largura do braço, começa um pouco abaixo do ombro, escondida sob a camiseta */
-    const s2: Ponto = [s[0] + lado * 1.2 * esc + Math.cos(a1) * 2.5 * esc, s[1] + Math.sin(a1) * 2.5 * esc];
-    const manga = o.vestido || o.pano ? '' : forma(membro(s2, m, L.braco[0] * 1.12, L.braco[0] * 1.08), mangaCor, pl);
+    /* a manga: parte da camiseta. Sai do canto do ombro, segue a direção do braço e acaba
+       numa barra reta; o lado de dentro cola na borda da camiseta */
+    let manga = '';
+    if (!o.vestido && !o.pano) {
+      const canto: Ponto = lado > 0 ? tl : tr;
+      const u: Ponto = [Math.cos(a1), Math.sin(a1)];
+      let nFora: Ponto = [-u[1], u[0]];
+      if (nFora[0] * lado > 0) nFora = [-nFora[0], -nFora[1]];
+      const comp = la * 0.45;
+      const wFora = L.braco[0] * 1.5;
+      const wDentro = L.braco[0] * 0.7;
+      const D: Ponto = [s[0] + u[0] * comp + nFora[0] * wFora, s[1] + u[1] * comp + nFora[1] * wFora];
+      const Cc: Ponto = [s[0] + u[0] * comp - nFora[0] * wDentro, s[1] + u[1] * comp - nFora[1] * wDentro];
+      const B: Ponto = [canto[0] - lado * 0.4 * esc, canto[1] + comp * 0.9];
+      manga = forma(`M${f(canto[0])} ${f(canto[1])}L${f(D[0])} ${f(D[1])}L${f(Cc[0])} ${f(Cc[1])}L${f(B[0])} ${f(B[1])}z`, mangaCor, pl);
+    }
     const rm = L.ante[1] * 1.55;
     const mao: Ponto = [wri[0] + Math.cos(a2) * rm * 0.7, wri[1] + Math.sin(a2) * rm * 0.7];
     const polegar: Ponto = [mao[0] - Math.sin(a2) * lado * rm * 0.85, mao[1] + Math.cos(a2) * lado * rm * 0.85];
@@ -586,10 +598,10 @@ function desenha(o: Figura, dir: 1 | -1, pose: Pose, crianca: boolean, hr: numbe
     pernas +
     tutu +
     bL.d +
-    bL.manga +
     mangaL +
     ombros +
     roupaPath +
+    bL.manga +
     pescoco +
     bR.d +
     bR.manga +
