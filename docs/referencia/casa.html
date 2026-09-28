@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A casa verde de verdade</title>
+<meta name="description" content="Três propostas da fachada da casa da Stella no pincel Aquarela e Lápis, a partir das fotos da casa real, para escolher antes de redesenhar a chegada e a casa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500&display=swap">
+<style>
+  :root {
+    --noite: #10142a; --noite-2: #1b2140; --marfim: #f6f0e4; --papel: #fbf8f1; --tinta: #1a1c2b;
+    --rosa-doce: #f2a9c4; --ouro: #c6a15b; --luz: #ebd9a8; --musgo-tinta: #4F6B3A;
+    --fundo: var(--marfim); --superficie: var(--papel); --texto: var(--tinta);
+    --texto-2: rgba(26, 28, 43, 0.68); --fio: rgba(79, 107, 58, 0.28); --acento: var(--musgo-tinta);
+    --realce: rgba(242, 169, 196, 0.18); --sombra-tela: 0 18px 40px rgba(26, 28, 43, 0.12);
+    --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --sans: 'Jost', 'Avenir Next', 'Century Gothic', system-ui, sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --fundo: var(--noite); --superficie: var(--noite-2); --texto: var(--marfim);
+      --texto-2: rgba(246, 240, 228, 0.68); --fio: rgba(198, 161, 91, 0.34); --acento: var(--luz);
+      --realce: rgba(242, 169, 196, 0.12); --sombra-tela: 0 18px 40px rgba(0, 0, 0, 0.45);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --fundo: var(--noite); --superficie: var(--noite-2); --texto: var(--marfim);
+    --texto-2: rgba(246, 240, 228, 0.68); --fio: rgba(198, 161, 91, 0.34); --acento: var(--luz);
+    --realce: rgba(242, 169, 196, 0.12); --sombra-tela: 0 18px 40px rgba(0, 0, 0, 0.45);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fundo); color: var(--texto); font-family: var(--sans); font-size: 1rem; line-height: 1.55; }
+  .pagina { max-width: 1120px; margin: 0 auto; padding-inline: 20px; padding-block: 32px 96px; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.12; text-wrap: balance; margin: 0; }
+  h1 { font-size: clamp(2.4rem, 6vw, 3.6rem); }
+  h2 { font-size: 2.1rem; }
+  h3 { font-size: 1.35rem; }
+  p { margin: 0; max-width: 64ch; }
+  ul { margin: 0; padding-left: 1.2em; max-width: 64ch; }
+  li { margin-block: 4px; }
+  li::marker { color: var(--acento); }
+  .rotulo { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--texto-2); }
+  header.capa { display: grid; gap: 14px; padding-bottom: 28px; border-bottom: 1px solid var(--fio); }
+  header .linha { display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: baseline; color: var(--texto-2); font-size: 0.92rem; }
+  section { padding-block: 48px; border-bottom: 1px solid var(--fio); display: grid; gap: 22px; }
+  section .cabeca { display: grid; gap: 6px; }
+  section .cabeca .rotulo { color: var(--acento); }
+  .tese { font-family: var(--serif); font-size: 1.35rem; font-style: italic; max-width: 40ch; }
+  .trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+  @media (max-width: 860px) { .trio { grid-template-columns: 1fr; } }
+  .amostra { display: grid; gap: 10px; justify-items: center; }
+  .amostra .nome { font-family: var(--serif); font-size: 1.3rem; }
+  .celular { width: 100%; max-width: 330px; aspect-ratio: 390 / 660; border-radius: 26px; overflow: hidden; box-shadow: var(--sombra-tela); border: 1px solid var(--fio); background: var(--papel); }
+  .celular svg { display: block; width: 100%; height: 100%; }
+  .mini { width: 100%; max-width: 330px; aspect-ratio: 390 / 120; border-radius: 14px; overflow: hidden; border: 1px solid var(--fio); background: var(--papel); }
+  .mini svg { display: block; width: 100%; height: 100%; }
+  .proposta { grid-template-columns: minmax(280px, 360px) 1fr; gap: 28px 44px; align-items: start; }
+  .proposta .cabeca { grid-column: 1 / -1; }
+  .proposta .visual { display: grid; gap: 12px; }
+  .proposta .texto { display: grid; gap: 22px; }
+  @media (max-width: 860px) { .proposta { grid-template-columns: 1fr; } }
+  .bloco { display: grid; gap: 8px; }
+  .paleta { display: flex; flex-wrap: wrap; gap: 6px; }
+  .paleta span { display: inline-grid; place-items: center; width: 60px; height: 48px; border-radius: 12px; font-size: 0.62rem; color: rgba(26,28,43,.75); border: 1px solid rgba(0,0,0,.06); text-align: center; line-height: 1.1; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--fio); }
+  th { font-weight: 500; color: var(--texto-2); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  td:first-child { color: var(--acento); font-family: var(--serif); font-size: 1.05rem; white-space: nowrap; }
+  .tabela { overflow-x: auto; }
+  .marca { background: var(--realce); border-radius: 12px; padding: 16px 18px; max-width: 70ch; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.86em; background: rgba(127,127,127,.12); padding: 1px 5px; border-radius: 5px; }
+  .nota { color: var(--texto-2); font-size: 0.92rem; }
+</style>
+</head>
+<body>
+<div class="pagina">
+<header class="capa">
+  <span class="rotulo">Little Star · referência · rodada 2</span>
+  <h1>A casa verde de verdade</h1>
+  <p>A casa da Stella existe, e é verde mesmo. Das fotos: o reboco verde-sálvia com as faixas brancas, a torre da entrada com a cornija e a janelinha, a porta e o portão de madeira ripada, o telhado de telha com o beiral de madeira, a escada verde de borda terracota, o pergolado no terraço, a palmeira alta e o arbusto florido do jardim. Aqui estão três jeitos de levar isso para a chegada do jogo, no pincel Aquarela e Lápis. Escolhido um, a chegada, a casa por dentro, a despedida, a casinha do canto e as casas pequenas das outras telas seguem o mesmo desenho.</p>
+  <div class="linha"><span>Setembro de 2026</span><span>As fotos ficam fora do repositório; entra só o desenho</span></div>
+</header>
+
+<section id="lado-a-lado">
+  <div class="cabeca">
+    <span class="rotulo">A chegada por três desenhos</span>
+    <h2>Lado a lado</h2>
+    <p>A mesma hora do dia, a família na porta, o gatinho e o coelhinho. Embaixo de cada tela, a casa pequena: como ela apareceria no botão da casinha, na vista de longe da árvore e no jardim.</p>
+  </div>
+  <div class="trio" id="trio"></div>
+</section>
+
+<section id="rua" class="proposta">
+  <div class="cabeca">
+    <span class="rotulo">Proposta A</span>
+    <h2>Da rua</h2>
+    <p class="tese">A casa inteira como quem chega a pé: portão, torre, escada, terraço e a palmeira.</p>
+  </div>
+  <div class="visual" data-casa="rua"></div>
+  <div class="texto">
+    <div class="bloco"><h3>O que tem</h3><p>Tudo o que a foto da rua mostra, arrumado para caber em pé: o portão de madeira da garagem à esquerda, a torre da entrada no meio com a cornija branca e a janelinha, a porta de madeira ripada no alto da escada verde de degraus terracota, o terraço com o pergolado, o bloco de cima com o telhado de telhas e o beiral de madeira, a palmeira e o arbusto florido à direita, o calçamento terracota embaixo. A família cabe na porta, um pouco menor que hoje.</p></div>
+    <div class="bloco"><h3>Prós e contras</h3><p>É a casa dela, reconhecível de primeira. Em troca, a porta fica menor e mais alta na tela, e a cena tem mais coisa para o olho de uma criança de 5 anos ler.</p></div>
+  </div>
+</section>
+
+<section id="porta" class="proposta">
+  <div class="cabeca">
+    <span class="rotulo">Proposta B</span>
+    <h2>A porta acesa</h2>
+    <p class="tese">Só a entrada, de perto, com a luz que sai pelas frestas da madeira ao anoitecer.</p>
+  </div>
+  <div class="visual" data-casa="porta"></div>
+  <div class="texto">
+    <div class="bloco"><h3>O que tem</h3><p>A foto do entardecer, com as tiras de luz nas laterais da porta. A torre com a cornija e a janelinha, a porta grande de madeira no alto da escada, a faixa branca da varanda de cima com o vão de madeira, o telhado de telhas com o beiral, a palmeira e o arbusto de flores encostados na casa. Sem garagem, sem terraço: o que fica fora do quadro continua existindo, só não aparece. A família fica grande na porta, como hoje.</p></div>
+    <div class="bloco"><h3>Prós e contras</h3><p>É a mais acolhedora e a que mais lembra a chegada de verdade (subir a escada, a porta abrir). A luz da porta muda com a hora do dia: apagada de manhã, acesa ao anoitecer. Mostra menos da casa.</p></div>
+  </div>
+</section>
+
+<section id="essencia" class="proposta">
+  <div class="cabeca">
+    <span class="rotulo">Proposta C</span>
+    <h2>A essência</h2>
+    <p class="tese">A casa do jogo como está, vestida com a pele da casa real.</p>
+  </div>
+  <div class="visual" data-casa="essencia"></div>
+  <div class="texto">
+    <div class="bloco"><h3>O que tem</h3><p>O desenho de casa que a Stella já conhece do jogo (o bloco largo com o telhado), trocando o que faz ela ser a casa dela: o verde-sálvia com as faixas brancas, o telhado de telhas com o beiral de madeira, a porta de madeira ripada com a moldura branca, a escada verde de borda terracota, uma janela de cada lado, a palmeira de um lado e o pinheiro que já existe do outro. É a que menos mexe na casa por dentro e nas casas pequenas.</p></div>
+    <div class="bloco"><h3>Prós e contras</h3><p>A mais simples e a mais Waldorf; a porta continua grande e no centro. Perde a torre e o terraço, que são o que a casa tem de mais próprio.</p></div>
+  </div>
+</section>
+
+<section id="comparacao">
+  <div class="cabeca"><span class="rotulo">Para decidir</span><h2>Comparação e recomendação</h2></div>
+  <div class="tabela"><table>
+    <thead><tr><th>Critério</th><th>A · Da rua</th><th>B · A porta acesa</th><th>C · A essência</th></tr></thead>
+    <tbody>
+      <tr><td>É a casa dela</td><td>Sim, inteira.</td><td>Sim, a entrada.</td><td>Pela cor e pelos materiais.</td></tr>
+      <tr><td>Simplicidade para 5 anos</td><td>Menos: muita coisa.</td><td>Boa: um lugar só.</td><td>A maior.</td></tr>
+      <tr><td>A família na porta</td><td>Pequena.</td><td>Grande, como hoje.</td><td>Grande, como hoje.</td></tr>
+      <tr><td>O que muda na casa por dentro</td><td>A torre e o terraço entram no corte da casa.</td><td>A torre entra; o terraço não.</td><td>Só o telhado, as faixas e a porta.</td></tr>
+      <tr><td>Casas pequenas (botão, longe, jardim)</td><td>Torre e telhado.</td><td>Torre e telhado.</td><td>Igual a hoje, com telhas.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="marca"><p><strong>Minha recomendação: B, a porta acesa.</strong> É a chegada de verdade (a escada, a porta grande, a luz), fica reconhecível sem encher a tela, e a família continua grande na porta. Para a casa por dentro, a torre da entrada vira o eixo do meio do corte, com a porta de madeira embaixo e a janelinha em cima, e o telhado de telhas com o beiral fecha em cima. Se a garagem e o terraço fizerem falta, eles aparecem na despedida (a casa de fora, de mais longe), que pode usar a proposta A.</p></div>
+</section>
+</div>
+
+<script>
+/* ===== cores da casa real, no tom pastel do jogo ===== */
+const C = {
+  papel: '#fbf8f1', luz: '#ebd9a8', ouro: '#c6a15b', ouroTinta: '#8f6f2c', rosaDoce: '#f2a9c4', rosaClara: '#f6e3dc', veludo: '#8a3a44',
+  salvia: '#9fb88c', salviaEscura: '#8aa578', salviaClara: '#b9cca9', branco: '#f6f0e4', madeira: '#8a5634', madeiraClara: '#a86d44', madeiraEscura: '#6b4126',
+  telha: '#cf7f5c', telhaEscura: '#b3664a', beiral: '#7a5236', terracota: '#d98a5a', terracotaClara: '#e8a878', degrau: '#8fae6b',
+  palma: '#4f7a4a', palmaClara: '#7ea36f', tronco: '#b8a48a', folha: '#6f9a63', flor: '#e9b6c2', florEscura: '#d98fa2', grama: '#c9dbb2', gramaEscura: '#8fae6b',
+  ceu: '#dbe7ee', ceuTarde: '#f3d9cf', tinta: '#4a3a30', pele: '#e9c39c', musgoTinta: '#4f6b3a',
+};
+const hex = c => c.replace('#', '').match(/../g).map(h => parseInt(h, 16));
+const rgb = v => '#' + v.map(n => Math.max(0, Math.min(255, Math.round(n))).toString(16).padStart(2, '0')).join('');
+const mix = (a, b, t) => rgb(hex(a).map((v, i) => v + (hex(b)[i] - v) * t));
+const escuro = (c, t = 0.3) => mix(c, '#3a2a22', t);
+const claro = (c, t = 0.4) => mix(c, '#fffaf0', t);
+const f1 = n => Math.round(n * 10) / 10;
+const NSS = 'vector-effect="non-scaling-stroke"';
+function circ(cx, cy, r) { return `M${f1(cx - r)} ${f1(cy)}a${r} ${r} 0 1 0 ${2 * r} 0a${r} ${r} 0 1 0 ${-2 * r} 0z`; }
+function elipse(cx, cy, rx, ry) { return `M${f1(cx - rx)} ${f1(cy)}a${rx} ${ry} 0 1 0 ${2 * rx} 0a${rx} ${ry} 0 1 0 ${-2 * rx} 0z`; }
+function rect(x, y, w, h) { return `M${f1(x)} ${f1(y)}h${f1(w)}v${f1(h)}h${f1(-w)}z`; }
+
+/* ===== o pincel ===== */
+const S = {
+  defs: () => `<defs><pattern id="grao" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(23)"><circle cx="1.2" cy="1.4" r=".55" fill="${C.ouroTinta}"/><circle cx="4.6" cy="4.2" r=".42" fill="${C.veludo}"/></pattern></defs>`,
+  forma(d, cor, o = {}) {
+    let s = `<path d="${d}" fill="${cor}" opacity="${o.op ?? 0.9}"/>`;
+    if (!o.mudo) s += `<path d="${d}" fill="none" stroke="${escuro(cor, o.lapis ?? 0.42)}" stroke-width="${o.w ?? 1.1}" ${NSS} stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="17 1.6 31 2.2 11 1.4" opacity="${o.opLapis ?? 0.75}" transform="translate(-0.5 0.4)"/>`;
+    return s;
+  },
+  fio: (d, cor, w = 1.1, op = 0.75) => `<path d="${d}" fill="none" stroke="${cor}" stroke-width="${w}" ${NSS} stroke-linecap="round" opacity="${op}"/>`,
+  fios(ds, cor, w = 1.1, op = 0.7) { return ds.map(d => this.fio(d, cor, w, op)).join(''); },
+  lavagem: (d, cor, op = 0.5) => `<path d="${d}" fill="${cor}" opacity="${op}"/><path d="${d}" fill="none" stroke="${escuro(cor, 0.16)}" stroke-width="3" opacity="0.2"/>`,
+  textura: (W, H) => `<rect width="${W}" height="${H}" fill="url(#grao)" opacity="0.12"/>`,
+};
+
+/* ===== peças da casa ===== */
+/** a parede de reboco verde com o lápis */
+const parede = (x, y, w, h, cor = C.salvia) => S.forma(rect(x, y, w, h), cor, { lapis: 0.35 });
+/** a faixa branca em relevo */
+const faixa = (x, y, w, h = 7) => S.forma(rect(x, y, w, h), C.branco, { lapis: 0.25, opLapis: 0.6 });
+/** o telhado de telhas: a fileira de meias-luas na borda e o beiral de madeira embaixo */
+function telhado(x, y, w, ondas = true) {
+  let s = S.forma(rect(x, y, w, 10), C.telha, { lapis: 0.35 });
+  if (ondas) {
+    let d = '';
+    for (let i = 0; i < Math.floor(w / 9); i++) d += `M${f1(x + 2 + i * 9)} ${f1(y + 10)}a4.5 4 0 0 1 9 0`;
+    s += S.fio(d, escuro(C.telha, 0.35), 1, 0.7);
+    s += S.forma(`M${x} ${y + 10}${d.replace(/M[^a]+/g, m => 'L' + m.slice(1))}L${x + w} ${y + 10}z`, C.telha, { mudo: true, op: 0.9 });
+  }
+  s += S.forma(rect(x, y + 12, w, 6), C.beiral, { lapis: 0.3 });
+  for (let i = 1; i < Math.floor(w / 22); i++) s += S.fio(`M${f1(x + i * 22)} ${y + 12}v6`, escuro(C.beiral, 0.35), 1, 0.5);
+  return s;
+}
+/** a porta (ou o portão) de madeira ripada, vertical */
+function madeira(x, y, w, h, ripas = 6, cor = C.madeira) {
+  let s = S.forma(rect(x, y, w, h), cor, { lapis: 0.35 });
+  let d = '';
+  for (let i = 1; i < ripas; i++) d += `M${f1(x + (i * w) / ripas)} ${y + 2}V${f1(y + h - 2)}`;
+  s += S.fio(d, escuro(cor, 0.3), 1, 0.6);
+  return s;
+}
+/** a janelinha da torre: moldura branca, vidro, madeira */
+function janelinha(x, y, w, h) {
+  return S.forma(rect(x - 3, y - 3, w + 6, h + 6), C.branco, { lapis: 0.25 }) + S.forma(rect(x, y, w, h), C.madeiraClara, { lapis: 0.35 }) + S.forma(rect(x + 3, y + 3, w - 6, h - 6), C.ceu, { lapis: 0.2, op: 0.85 });
+}
+/** a escada verde com a borda terracota, subindo para a direita a partir do chão */
+function escada(x, chao, n, larg, alt = 9, prof = 12) {
+  let s = '';
+  for (let i = 0; i < n; i++) {
+    const yy = chao - (i + 1) * alt;
+    s += S.forma(rect(x + i * prof, yy, larg - i * prof, alt), C.degrau, { lapis: 0.35 });
+    s += S.forma(rect(x + i * prof, yy - 2, larg - i * prof, 3), C.terracota, { lapis: 0.3 });
+  }
+  return s;
+}
+/** a palmeira alta de folhas em pena */
+function palmeira(x, chao, h, folhas = 9, inclina = 0) {
+  const topoY = chao - h;
+  let s = S.forma(`M${x - 4} ${chao}C${x - 5} ${chao - h * 0.5} ${x - 3 + inclina} ${chao - h * 0.8} ${x - 3 + inclina} ${topoY}h6C${x + 3 + inclina} ${chao - h * 0.8} ${x + 5} ${chao - h * 0.5} ${x + 4} ${chao}z`, C.tronco, { lapis: 0.35 });
+  let anel = '';
+  for (let i = 1; i < 7; i++) anel += `M${f1(x - 4 + i * 0.3)} ${f1(chao - (i * h) / 7)}q4 -2 8 0`;
+  s += S.fio(anel, escuro(C.tronco, 0.3), 1, 0.5);
+  const cx = x + inclina, cy = topoY;
+  for (let i = 0; i < folhas; i++) {
+    const a = -Math.PI + (i * Math.PI) / (folhas - 1) + 0.15;
+    const L = h * 0.42;
+    const ex = cx + Math.cos(a) * L, ey = cy + Math.sin(a) * L * 0.55 + L * 0.35;
+    const mx = cx + Math.cos(a) * L * 0.55, my = cy + Math.sin(a) * L * 0.55 * 0.55 - L * 0.12;
+    const nx = -(ey - cy), ny = ex - cx;
+    const nl = Math.hypot(nx, ny) || 1;
+    const w = 7;
+    const d = `M${cx} ${cy}Q${f1(mx + (nx / nl) * w)} ${f1(my + (ny / nl) * w)} ${f1(ex)} ${f1(ey)}Q${f1(mx - (nx / nl) * w)} ${f1(my - (ny / nl) * w)} ${cx} ${cy}z`;
+    s += S.forma(d, i % 2 ? C.palma : C.palmaClara, { lapis: 0.3, op: 0.92 });
+    s += S.fio(`M${cx} ${cy}Q${f1(mx)} ${f1(my)} ${f1(ex)} ${f1(ey)}`, escuro(C.palma, 0.3), 1, 0.6);
+  }
+  return s;
+}
+/** o arbusto florido: uma copa ondulada com pontinhos de flor */
+function arbusto(cx, cy, rx, ry, semente = 0) {
+  const n = 9, pts = [];
+  for (let k = 0; k < n; k++) { const a = (k * Math.PI * 2) / n; const w = 0.9 + 0.12 * ((Math.sin(a * 2.7 + semente) + 1) / 2); pts.push([cx + Math.cos(a) * rx * w, cy + Math.sin(a) * ry * w]); }
+  let d = '';
+  for (let k = 0; k < n; k++) { const a = pts[k], b = pts[(k + 1) % n], c = pts[(k + 2) % n]; if (!k) d += `M${f1((a[0] + b[0]) / 2)} ${f1((a[1] + b[1]) / 2)}`; d += `Q${f1(b[0] + (b[0] - cx) * 0.18)} ${f1(b[1] + (b[1] - cy) * 0.18)} ${f1((b[0] + c[0]) / 2)} ${f1((b[1] + c[1]) / 2)}`; }
+  let s = S.forma(d + 'z', C.folha, { lapis: 0.3 });
+  for (let i = 0; i < 9; i++) s += `<circle cx="${f1(cx + Math.cos(i * 2.4) * rx * 0.7)}" cy="${f1(cy + Math.sin(i * 2.4) * ry * 0.7)}" r="${2.2 + (i % 2)}" fill="${i % 3 ? C.flor : C.florEscura}" opacity=".9"/>`;
+  return s;
+}
+/** a família na porta, muito pequena: só as silhuetas de aquarela para dar a escala */
+function familia(x, chao, k = 1) {
+  const p = (dx, h, cor, cab, rx = 9) => S.forma(`M${f1(x + dx - rx * k)} ${chao}L${f1(x + dx - rx * 0.6 * k)} ${f1(chao - h * 0.62 * k)}h${f1(rx * 1.2 * k)}L${f1(x + dx + rx * k)} ${chao}z`, cor, { lapis: 0.35 }) + S.forma(circ(x + dx, chao - h * 0.62 * k - 9.5 * k, 9.5 * k), C.pele, { lapis: 0.35 }) + S.forma(`M${f1(x + dx - 10 * k)} ${f1(chao - h * 0.62 * k - 10 * k)}a10 10 0 0 1 ${f1(20 * k)} 0q-2 -3 -10 -2q-8 -1 -10 2z`.replace(/a10 10/, `a${10 * k} ${10 * k}`), cab, { lapis: 0.3 });
+  return p(-26, 78, '#f3b59a', '#553a28') + p(28, 84, '#2f2f36', '#6a5646', 10) + p(2, 58, '#efe6d6', '#6b4a32', 8);
+}
+function gato(x, chao, s = 12) {
+  return S.forma(`M${x - s * 0.5} ${chao}C${x - s * 0.66} ${chao - s * 0.7} ${x - s * 0.3} ${chao - s * 1.2} ${x + s * 0.15} ${chao - s * 1.15}C${x + s * 0.6} ${chao - s * 1.1} ${x + s * 0.62} ${chao - s * 0.45} ${x + s * 0.5} ${chao}z`, '#c4b4a0', { lapis: 0.4 }) + S.forma(circ(x, chao - s * 1.1, s * 0.38), '#c4b4a0', { lapis: 0.4 }) + S.forma(`M${x - s * 0.32} ${chao - s * 1.35}l${-s * 0.08} ${-s * 0.32}l${s * 0.28} ${s * 0.14}z`, '#c4b4a0', { lapis: 0.4 }) + S.forma(`M${x + s * 0.32} ${chao - s * 1.35}l${s * 0.08} ${-s * 0.32}l${-s * 0.28} ${s * 0.14}z`, '#c4b4a0', { lapis: 0.4 });
+}
+function coelho(x, chao, s = 16) {
+  const cor = '#f1ebe0';
+  return S.forma(`M${x + s * 0.32} ${chao - s * 1.1}q${-s * 0.1} ${-s * 0.7} ${s * 0.14} ${-s * 0.75}q${s * 0.16} ${0.05 * s} ${s * 0.02} ${s * 0.75}z`, cor, { lapis: 0.4 }) + S.forma(`M${x + s * 0.56} ${chao - s * 1.1}q${s * 0.05} ${-s * 0.7} ${s * 0.26} ${-s * 0.7}q${s * 0.1} ${0.1 * s} ${-s * 0.1} ${s * 0.7}z`, cor, { lapis: 0.4 }) + S.forma(`M${x - s * 0.55} ${chao}C${x - s * 0.75} ${chao - s * 0.55} ${x - s * 0.3} ${chao - s * 0.9} ${x + s * 0.2} ${chao - s * 0.82}C${x + s * 0.6} ${chao - s * 0.75} ${x + s * 0.66} ${chao - s * 0.25} ${x + s * 0.55} ${chao}z`, cor, { lapis: 0.4 }) + S.forma(circ(x + s * 0.45, chao - s * 0.85, s * 0.3), cor, { lapis: 0.4 });
+}
+function ceu(W, H, hz, tarde) {
+  let s = `<rect width="${W}" height="${H}" fill="${tarde ? C.ceuTarde : C.ceu}"/>`;
+  s += S.lavagem(elipse(180, 140, 300, 220), tarde ? '#f7e4d9' : '#e9f0f4', 0.5);
+  s += S.lavagem(elipse(300, 90, 220, 150), tarde ? '#f2c9b8' : '#f3d9cf', 0.4);
+  s += `<rect y="${hz}" width="${W}" height="${H - hz}" fill="${C.grama}"/>`;
+  s += S.lavagem(`M-10 ${hz + 40}Q200 ${hz + 10} ${W + 10} ${hz + 50}V${H + 10}H-10z`, C.gramaEscura, 0.3);
+  return s;
+}
+const nuvem = (x, y, s) => { const P = (a, b) => `${f1(x + a * s)} ${f1(y + b * s)}`; return S.forma(`M${P(-1.5, 0.8)}Q${P(-2.0, 0.1)} ${P(-1.25, -0.1)}Q${P(-1.05, -0.95)} ${P(-0.25, -0.7)}Q${P(0.3, -1.35)} ${P(0.95, -0.6)}Q${P(1.75, -0.7)} ${P(1.65, 0.2)}Q${P(2.05, 0.8)} ${P(1.5, 0.8)}z`, C.papel, { op: 0.8, lapis: 0.3, opLapis: 0.55 }); };
+const sol = (x, y, r) => S.lavagem(circ(x, y, r + 5), C.luz, 0.5) + `<path d="${circ(x, y, r)}" fill="${C.luz}" opacity=".85"/>`;
+/** as tiras de luz nas laterais da porta, ao anoitecer */
+const luzDaPorta = (x, y, h) => `<rect x="${x}" y="${y}" width="3" height="${h}" fill="#f6d27a" opacity=".85"/><rect x="${x - 6}" y="${y}" width="15" height="${h}" fill="#f6d27a" opacity=".18"/>`;
+
+/* ===== as três propostas ===== */
+const W = 390, H = 660;
+function cenaRua() {
+  const hz = 500;
+  let s = S.defs() + ceu(W, H, hz, false) + sol(320, 80, 20) + nuvem(80, 70, 12) + nuvem(250, 120, 8);
+  /* bloco de cima com o telhado, atrás */
+  s += parede(150, 200, 200, 130);
+  s += telhado(120, 172, 262);
+  s += S.forma(rect(178, 232, 44, 70), C.madeiraEscura, { lapis: 0.3 }); /* o vão de madeira da varanda de cima */
+  s += S.forma(rect(184, 240, 32, 30), C.ceu, { lapis: 0.2, op: 0.8 });
+  /* terraço com pergolado, à esquerda */
+  s += parede(40, 300, 130, 60, C.salviaEscura);
+  s += faixa(36, 298, 138, 7);
+  s += S.fios(['M56 300V262', 'M100 300V262', 'M144 300V262', 'M50 264h100', 'M50 280h100'], C.madeiraClara, 3, 0.9);
+  s += S.fios(['M70 262v-8', 'M85 262v-8', '', 'M115 262v-8', 'M130 262v-8'], C.madeiraClara, 2, 0.8);
+  /* o corpo de baixo: garagem à esquerda, torre no meio, lado direito com a escada */
+  s += parede(40, 360, 320, 140);
+  s += faixa(36, 356, 330, 7);
+  s += madeira(60, 402, 100, 98, 8, C.madeiraEscura);
+  s += S.forma(rect(56, 398, 108, 5), C.branco, { lapis: 0.25 });
+  /* a torre da entrada */
+  s += parede(172, 250, 56, 250, C.salviaEscura);
+  s += faixa(166, 246, 68, 8);
+  s += S.forma(`M166 246l8 -10h52l8 10z`, C.salviaEscura, { lapis: 0.35 });
+  s += janelinha(188, 268, 24, 26);
+  s += janelinha(188, 400, 24, 22);
+  /* a porta no alto da escada */
+  s += S.forma(rect(236, 392, 42, 6), C.branco, { lapis: 0.25 });
+  s += madeira(240, 398, 34, 62, 5);
+  s += escada(228, 500, 4, 60, 10, 10);
+  s += faixa(228, 356, 138, 7);
+  /* a palmeira e o arbusto */
+  s += palmeira(330, 500, 190, 9, -6);
+  s += arbusto(352, 470, 36, 26, 2);
+  /* a família e os bichos, pequenos na porta */
+  s += familia(257, 460, 0.55);
+  s += gato(300, 500, 9);
+  s += coelho(120, 540, 12);
+  /* o calçamento terracota */
+  s += S.forma(`M-10 ${hz}H200L170 ${hz + 60}H-10z`, C.terracota, { lapis: 0.3, op: 0.85 });
+  s += S.fios(['M20 520h150', 'M10 540h150', 'M40 500v60', 'M100 500v60'], escuro(C.terracota, 0.25), 1, 0.4);
+  s += S.textura(W, H);
+  return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A casa vista da rua">${s}</svg>`;
+}
+function cenaPorta(tarde = true) {
+  const hz = 540;
+  let s = S.defs() + ceu(W, H, hz, tarde) + (tarde ? '' : sol(320, 80, 20)) + nuvem(70, 90, 12);
+  /* o bloco de cima com o telhado */
+  s += parede(30, 170, 330, 200);
+  s += telhado(0, 140, 390);
+  s += S.forma(rect(150, 190, 90, 120), C.madeiraEscura, { lapis: 0.3 });
+  s += S.forma(rect(160, 204, 70, 60), C.ceu, { lapis: 0.2, op: 0.75 });
+  if (tarde) s += luzDaPorta(154, 194, 112) + luzDaPorta(232, 194, 112);
+  s += faixa(24, 308, 342, 9);
+  /* o corpo de baixo */
+  s += parede(30, 316, 330, 224);
+  /* a torre à esquerda da porta */
+  s += parede(56, 232, 64, 308, C.salviaEscura);
+  s += faixa(48, 226, 80, 9);
+  s += S.forma(`M48 226l10 -12h60l10 12z`, C.salviaEscura, { lapis: 0.35 });
+  s += janelinha(74, 254, 28, 30);
+  s += janelinha(74, 420, 28, 26);
+  /* a porta grande de madeira, com a moldura branca */
+  s += S.forma(rect(136, 320, 122, 8), C.branco, { lapis: 0.25 });
+  s += S.forma(rect(140, 328, 114, 150), C.madeiraEscura, { lapis: 0.3 });
+  s += madeira(150, 336, 94, 142, 7);
+  if (tarde) s += luzDaPorta(142, 332, 146) + luzDaPorta(250, 332, 146);
+  s += `<circle cx="238" cy="410" r="2.4" fill="${C.ouro}"/>`;
+  /* a escada verde de degraus terracota, na largura da porta */
+  s += escada(126, 540, 5, 150, 12, 8);
+  s += S.forma(rect(120, 478, 150, 3), C.terracota, { lapis: 0.3 });
+  /* a palmeira e o arbusto */
+  s += palmeira(318, 540, 230, 10, -10);
+  s += arbusto(340, 500, 42, 32, 4);
+  /* a família na porta, grande como hoje */
+  s += familia(197, 478, 1);
+  s += gato(112, 540, 12);
+  s += coelho(60, 590, 16);
+  s += S.textura(W, H);
+  return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A porta acesa">${s}</svg>`;
+}
+function cenaEssencia() {
+  const hz = 520;
+  let s = S.defs() + ceu(W, H, hz, false) + sol(200, 78, 22) + nuvem(280, 60, 12) + nuvem(120, 50, 9);
+  /* o bloco largo do jogo, com o telhado de telhas de duas águas */
+  s += parede(60, 270, 270, 250);
+  s += S.forma(`M30 272L195 150L360 272z`, C.telha, { lapis: 0.35 });
+  let ondas = '';
+  for (let i = 0; i < 36; i++) ondas += `M${f1(34 + i * 9)} 272a4.5 4 0 0 1 9 0`;
+  s += S.fio(ondas, escuro(C.telha, 0.35), 1, 0.65);
+  s += S.fio('M52 262Q195 140 338 262', escuro(C.telha, 0.3), 1, 0.4);
+  s += S.forma(rect(30, 272, 330, 6), C.beiral, { lapis: 0.3 });
+  s += faixa(56, 380, 278, 8);
+  /* as janelas com moldura branca, de madeira */
+  s += janelinha(96, 300, 44, 56);
+  s += janelinha(250, 300, 44, 56);
+  /* a porta de madeira ripada com a moldura branca */
+  s += S.forma(rect(150, 386, 90, 8), C.branco, { lapis: 0.25 });
+  s += madeira(154, 394, 82, 106, 6, C.madeiraEscura);
+  s += `<circle cx="226" cy="450" r="2.4" fill="${C.ouro}"/>`;
+  s += escada(140, 520, 2, 110, 10, 10);
+  /* a palmeira de um lado, o pinheiro do outro */
+  s += palmeira(330, 520, 200, 9, -6);
+  s += S.forma(rect(46, 470, 12, 50), C.tronco, { lapis: 0.35 });
+  for (let i = 0; i < 4; i++) { const yy = 480 - i * 40, ww = 80 - i * 16, hh = 60; s += S.forma(`M52 ${yy - hh}L${52 + ww / 2} ${yy}Q52 ${yy - hh * 0.12} ${52 - ww / 2} ${yy}z`, i % 2 ? '#3d6154' : '#35564d', { op: 0.92, lapis: 0.35 }); }
+  s += arbusto(300, 505, 30, 22, 1);
+  s += familia(195, 500, 1);
+  s += gato(120, 528, 12);
+  s += coelho(280, 560, 16);
+  s += S.textura(W, H);
+  return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A essência">${s}</svg>`;
+}
+/** a casa pequena de cada proposta: o botão da casinha, a vista de longe, o jardim */
+function minis(qual) {
+  let s = S.defs() + `<rect width="390" height="120" fill="${C.papel}"/>`;
+  const casinha = (x, y) => {
+    let c = `<circle cx="${x}" cy="${y}" r="28" fill="${C.papel}" stroke="#8f6f2c" stroke-width="1.5"/>`;
+    if (qual === 'essencia') c += S.forma(`M${x - 14} ${y + 1}L${x} ${y - 13}L${x + 14} ${y + 1}V${y + 12}H${x - 14}z`, C.salvia, { lapis: 0.4 }) + S.forma(`M${x - 15} ${y + 1}L${x} ${y - 14}L${x + 15} ${y + 1}z`, C.telha, { lapis: 0.35 }) + S.forma(rect(x - 3.5, y + 4, 7, 8), C.madeiraEscura, { mudo: true });
+    else c += S.forma(rect(x - 14, y - 4, 28, 16), C.salvia, { lapis: 0.4 }) + S.forma(rect(x - 6, y - 14, 12, 26), C.salviaEscura, { lapis: 0.4 }) + S.forma(rect(x - 16, y - 8, 32, 4), C.telha, { lapis: 0.35 }) + S.forma(rect(x - 3, y + 2, 6, 10), C.madeiraEscura, { mudo: true }) + S.forma(rect(x - 8, y - 15, 16, 2.5), C.branco, { mudo: true });
+    return c;
+  };
+  const longe = (x, y) => {
+    if (qual === 'essencia') return S.forma(`M${x - 30} ${y}l30 -26l30 26z`, C.telha, { lapis: 0.35 }) + S.forma(rect(x - 26, y, 52, 40), C.salvia, { lapis: 0.35 }) + S.forma(rect(x - 7, y + 20, 14, 20), C.madeiraEscura, { mudo: true });
+    return S.forma(rect(x - 30, y + 6, 60, 34), C.salvia, { lapis: 0.35 }) + S.forma(rect(x - 12, y - 14, 24, 54), C.salviaEscura, { lapis: 0.35 }) + S.forma(rect(x - 34, y - 2, 40, 5), C.telha, { lapis: 0.35 }) + S.forma(rect(x - 6, y + 18, 12, 22), C.madeiraEscura, { mudo: true }) + S.forma(rect(x - 14, y - 16, 28, 3), C.branco, { mudo: true }) + (qual === 'rua' ? S.fios([`M${x - 30} ${y + 6}v-10`, `M${x - 20} ${y + 6}v-10`, `M${x - 32} ${y - 4}h14`], C.madeiraClara, 1.5, 0.9) : '');
+  };
+  s += casinha(60, 60) + longe(180, 50) + palmeira(260, 96, 60, 7, -2) + `<text x="60" y="108" text-anchor="middle" font-family="Jost, sans-serif" font-size="11" fill="${C.tinta}" opacity=".7">botão</text><text x="180" y="108" text-anchor="middle" font-family="Jost, sans-serif" font-size="11" fill="${C.tinta}" opacity=".7">de longe</text><text x="262" y="108" text-anchor="middle" font-family="Jost, sans-serif" font-size="11" fill="${C.tinta}" opacity=".7">a palmeira</text>`;
+  s += S.textura(390, 120);
+  return `<svg viewBox="0 0 390 120" xmlns="http://www.w3.org/2000/svg" role="img">${s}</svg>`;
+}
+
+const CENAS = { rua: ['A · Da rua', cenaRua], porta: ['B · A porta acesa', cenaPorta], essencia: ['C · A essência', cenaEssencia] };
+const trio = document.getElementById('trio');
+for (const [id, [nome, cena]] of Object.entries(CENAS)) {
+  trio.insertAdjacentHTML('beforeend', `<div class="amostra"><span class="nome">${nome}</span><div class="celular">${cena()}</div><div class="mini">${minis(id)}</div></div>`);
+  const vis = document.querySelector(`.visual[data-casa="${id}"]`);
+  vis.innerHTML = `<div class="celular">${id === 'porta' ? cenaPorta(false) : cena()}</div>${id === 'porta' ? '<span class="nota">Acima, de manhã, com a luz apagada; no lado a lado, ao anoitecer.</span>' : ''}<span class="rotulo">Paleta da casa</span><div class="paleta"><span style="background:${C.salvia}">reboco</span><span style="background:${C.salviaEscura}">torre</span><span style="background:${C.branco}">faixas</span><span style="background:${C.madeiraEscura};color:#fff">madeira</span><span style="background:${C.telha}">telha</span><span style="background:${C.beiral};color:#fff">beiral</span><span style="background:${C.terracota}">terracota</span><span style="background:${C.degrau}">degrau</span><span style="background:${C.palma};color:#fff">palma</span><span style="background:${C.flor}">flor</span></div>`;
+}
+</script>
+</body>
+</html>
