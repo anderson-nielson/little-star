@@ -135,6 +135,11 @@ export function telaCasa(): Tela {
   s += `<g class="stella" style="pointer-events:none">${familia.stella(92, f1 - 20, 50, 'sentado').svg}</g>`;
   /* caderno na escrivaninha de parede, entre a cama e o piano: é onde ela mais gosta de ir */
   s += `<g data-alvo="caderno"${novo('caderno')}>${toque(153, 290, 30)}<rect x="130" y="300" width="46" height="6" rx="2" fill="#c9a189"/><path d="M134 306l6 10M172 306l-6 10" stroke="#c9a189" stroke-width="2.5"/><rect x="136" y="277" width="34" height="23" rx="2" fill="#fbf8f1" stroke="#c6a15b"/><line x1="153" y1="278" x2="153" y2="299" stroke="#ebcdc3" stroke-width="1"/><text x="161" y="295" text-anchor="middle" font-family="Jost, sans-serif" font-size="16" fill="#f2a9c4" font-weight="500">${(letras as { id: string }[])[Math.min(e.letraIndice, 8)]?.id ?? 'A'}</text></g>`;
+  /* as sapatilhas de ponta penduradas pelas fitas num ganchinho, entre o caderno e a porta: o palco */
+  s += `<g data-alvo="sapatilhas"${novo('palco')}>${toque(201, 290, 26)}<circle cx="201" cy="270" r="2.2" fill="#c6a15b"/>`;
+  s += `<path d="M201 271q-8 8 -8 20M201 271q8 8 8 20M193 291q-5 4 -8 -1M209 291q5 4 8 -1" fill="none" stroke="#f2a9c4" stroke-width="2" stroke-linecap="round"/>`;
+  s += `<path d="M186 296q0 -8 7 -8q7 0 7 8v8q0 5 -7 5q-7 0 -7 -5zM202 296q0 -8 7 -8q7 0 7 8v8q0 5 -7 5q-7 0 -7 -5z" fill="#f2a9c4"/>`;
+  s += `<path d="M188 297q5 -3 10 0M204 297q5 -3 10 0" fill="none" stroke="#fbf8f1" stroke-width="1.4" stroke-linecap="round" opacity="0.9"/><path d="M190 307q3 3 6 0M206 307q3 3 6 0" fill="none" stroke="#d98fa8" stroke-width="1.6" stroke-linecap="round"/></g>`;
   /* a lembrança do lago: a flor rosa que ela trouxe, num copinho d'água em cima do piano */
   const florDoLago = e.lembrancas.some((l) => l.startsWith('lago:'))
     ? `<rect x="204" y="${f1 - 48}" width="8" height="10" rx="1.5" fill="#dbe7ee" stroke="#9fc3cf"/><circle cx="208" cy="${f1 - 51}" r="4.5" fill="#f2a9c4"/><circle cx="208" cy="${f1 - 51}" r="1.6" fill="#ebd9a8"/>`
@@ -258,6 +263,7 @@ export function telaCasa(): Tela {
     cozinha: [270, 568, 28, 34],
     ukulele: [40, 234, 18, 26],
     bonecas: [185, 224, 40, 34],
+    palco: [201, 292, 20, 24],
     bilhete: [245, 272, 16, 12],
     relogio: [124, 420, 20, 20],
     horta: [270, 652, 44, 22],
@@ -362,7 +368,7 @@ export function telaCasa(): Tela {
   tela.aoDestruir(() => svg.removeEventListener('pointerdown', tocou));
 
   /* cada tela da casa é uma coisa explorada: a luz passa adiante e a centelha fica */
-  const COISA_DA_TELA: Record<string, Coisa> = { piano: 'piano', caderno: 'caderno', som: 'som', palavra: 'palavras', areia: 'areia', pinhas: 'pinhas', horta: 'horta', ukulele: 'ukulele', bilhete: 'bilhete', relogio: 'relogio', cozinha: 'cozinha', bonecas: 'bonecas', arvore: 'arvore', jardim: 'jardim', arvoregrande: 'jardim', lago: 'jardim', parquinho: 'parquinho', escorregador: 'parquinho', gangorra: 'parquinho', cama: 'cuidados', dentes: 'cuidados', brinquedos: 'cuidados' };
+  const COISA_DA_TELA: Record<string, Coisa> = { piano: 'piano', caderno: 'caderno', som: 'som', palavra: 'palavras', areia: 'areia', pinhas: 'pinhas', horta: 'horta', ukulele: 'ukulele', bilhete: 'bilhete', relogio: 'relogio', cozinha: 'cozinha', bonecas: 'bonecas', palco: 'palco', arvore: 'arvore', jardim: 'jardim', arvoregrande: 'jardim', lago: 'jardim', parquinho: 'parquinho', escorregador: 'parquinho', gangorra: 'parquinho', cama: 'cuidados', dentes: 'cuidados', brinquedos: 'cuidados' };
   const vai = (nome: string, params: Record<string, string> = {}) => {
     travar(500);
     const coisa = COISA_DA_TELA[nome];
@@ -405,6 +411,7 @@ export function telaCasa(): Tela {
   tela.alvo('[data-alvo="ukulele"]', (_ev, el) => (aberto(s7, 'ukulele') ? vai('ukulele') : fechado(el)));
   tela.alvo('[data-alvo="bilhete"]', (_ev, el) => (aberto(s7, 'bilhete') ? vai('bilhete') : fechado(el)));
   tela.alvo('[data-alvo="relogio"]', (_ev, el) => (aberto(s7, 'relogio') ? vai('relogio') : fechado(el)));
+  tela.alvo('[data-alvo="sapatilhas"]', (_ev, el) => (aberto(s7, 'palco') ? vai('palco') : fechado(el)));
   tela.alvo('[data-alvo="parquinho"]', (_ev, el) => (aberto(s7, 'parquinho') ? vai('parquinho') : fechado(el)));
   tela.alvo('[data-alvo="pote"]', (_ev, el) => {
     /* as pedrinhas tilintam: uma nota por pedrinha */
@@ -589,6 +596,7 @@ const MINI: Record<Coisa, (x: number, y: number) => string> = {
   cozinha: (x, y) => `<path d="M${x - 6} ${y - 2}h12v4a4 4 0 0 1 -4 4h-4a4 4 0 0 1 -4 -4z" fill="#d97f74"/><path d="M${x - 8} ${y - 1}h2M${x + 6} ${y - 1}h2" stroke="#d97f74" stroke-width="1.5"/><path d="M${x - 2} ${y - 5}q1 -2 0 -3M${x + 2} ${y - 5}q1 -2 0 -3" stroke="#c9a189" stroke-width="0.8" fill="none"/>`,
   ukulele: (x, y) => `<rect x="${x - 1}" y="${y - 7}" width="2" height="7" fill="#c9a189"/><circle cx="${x}" cy="${y + 1}" r="3" fill="#f2a9c4"/><circle cx="${x}" cy="${y + 4.5}" r="3.8" fill="#f2a9c4"/><circle cx="${x}" cy="${y + 2.5}" r="1" fill="#6e1a27" opacity="0.6"/>`,
   bonecas: (x, y) => `<circle cx="${x}" cy="${y - 3}" r="3" fill="#e2b9a0"/><path d="M${x - 3.4} ${y - 4}a3.5 3.5 0 0 1 6.8 0" fill="#c48f5a"/><path d="M${x - 4.5} ${y + 6}l2 -6h5l2 6z" fill="#f2a9c4"/>`,
+  palco: (x, y) => `<path d="M${x - 6} ${y - 1}q0 -5 3.5 -5q3.5 0 3.5 5v4q0 3 -3.5 3q-3.5 0 -3.5 -3zM${x - 1} ${y - 1}q0 -5 3.5 -5q3.5 0 3.5 5v4q0 3 -3.5 3q-3.5 0 -3.5 -3z" fill="#f2a9c4"/><path d="M${x - 2.5} ${y - 6}q-3 -3 -3 -1M${x + 2.5} ${y - 6}q3 -3 3 -1" fill="none" stroke="#f2a9c4" stroke-width="1" stroke-linecap="round"/>`,
   bilhete: (x, y) => `<rect x="${x - 6}" y="${y - 4}" width="12" height="8.5" rx="1" fill="#fbf8f1" stroke="#c6a15b" stroke-width="0.8"/><path d="M${x - 6} ${y - 4}l6 4.5l6 -4.5" fill="none" stroke="#c6a15b" stroke-width="0.8"/>`,
   relogio: (x, y) => `<circle cx="${x}" cy="${y}" r="6" fill="#fbf8f1" stroke="#c9a189" stroke-width="1.4"/><path d="M${x} ${y}V${y - 4}M${x} ${y}h3" stroke="#6e1a27" stroke-width="1.2" stroke-linecap="round"/>`,
   horta: (x, y) => `<path d="M${x - 6} ${y + 4}h12v2.5h-12z" fill="#8a6a4a"/><path d="M${x} ${y + 4}v-6" stroke="#8fae6b" stroke-width="1.4"/><path d="M${x} ${y - 1}q-5 -1 -5 -5q5 0 5 5zM${x} ${y - 1}q5 -1 5 -5q-5 0 -5 5z" fill="#8fae6b"/>`,

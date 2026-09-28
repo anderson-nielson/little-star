@@ -293,8 +293,8 @@ for (const nome of SO ?? TELAS) {
 const ETAPAS = [
   ['pinhas', { mesa: '1' }],
   ['som', { volta: 'casa' }],
-  ['palavra', { palavra: 'AVÓ', volta: 'casa' }],
-  ['palavra', { palavra: 'ELA', volta: 'caderno' }],
+  ['palavra', { palavra: 'MEIA', volta: 'casa' }],
+  ['palavra', { palavra: 'TATU', volta: 'caderno' }],
 ];
 for (const [nome, params] of ETAPAS) {
   if (SO && !SO.includes(nome)) continue;

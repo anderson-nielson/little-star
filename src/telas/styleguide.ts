@@ -23,7 +23,10 @@ export function telaStyleguide(): Tela {
   p.append(h('div', { class: 'fila', html: svg(familia.stella(60, 150, 150).svg, 120, 160) + svg(familia.stella(60, 150, 100).svg) + svg(familia.stella(60, 150, 50).svg) + svg(familia.theo(60, 150, 66, 'acena').svg) + svg(familia.pai(60, 150, 98).svg) }));
   p.append(h('h2', {}, 'Poses da Stella'));
   const poses: Pose[] = ['parado', 'acena', 'sentado', 'pulo', 'giro', 'aponta', 'segura', 'abraca', 'reverencia', 'deitado', 'anda', 'salto', 'escorrega'];
-  p.append(h('div', { class: 'fila', html: poses.map((po) => svg(familia.stella(60, 150, 100, po).svg)).join('') + svg(familia.stellaPalco(60, 150, 100, 'giro').svg) }));
+  const passos: Pose[] = ['plie', 'releve', 'arabesque', 'giro', 'salto', 'tendu', 'passe', 'attitude', 'pulo', 'segunda', 'agradece'];
+  p.append(h('div', { class: 'fila', html: poses.map((po) => svg(familia.stella(60, 150, 100, po).svg)).join('') }));
+  p.append(h('h2', {}, 'Os passos do palco'));
+  p.append(h('div', { class: 'fila', html: passos.map((po) => svg(familia.stellaPalco(60, 150, 100, po).svg)).join('') }));
   p.append(h('h2', {}, 'Poses da família'));
   p.append(h('div', { class: 'fila', html: svg(familia.theo(60, 150, 105, 'acena').svg) + svg(familia.theo(60, 150, 105, 'sentado').svg) + svg(familia.mae(60, 150, 140, 'abraca').svg) + svg(familia.mae(60, 150, 140, 'sentado').svg) + svg(familia.pai(60, 150, 148, 'palma').svg) + svg(familia.pai(60, 150, 148, 'mao').svg) }));
   p.append(h('h2', {}, 'Bonecas de pano, bichos e objetos'));

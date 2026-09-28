@@ -118,6 +118,43 @@ A primeira semana continua abrindo a casa em quatro sessões; o que é novo entr
 que já estava: ukulele, bonecas e bilhete na sessão 2; árvore e horta na 3; cozinha na 4.
 As aventuras novas abrem uma por vez, depois de terminar a anterior.
 
+## O palco em dois: a brincadeira e o fecho
+
+O palco só existia no fim das aventuras, e lá ficava deslocado: a Stella já dançava sozinha
+num ciclo de poses, a música era uma só em loop, e o toque tinha dois efeitos com uma divisão
+invisível da tela (em cima salto, embaixo giro). Não parecia que ela dançava; parecia que
+esperava o show acabar, e o visto e a mãozinha faziam dele uma tarefa.
+
+- **A brincadeira do palco** abre pelas sapatilhas de ponta na parede do quarto (sessão 2,
+  com as bonecas). Na ribalta, um botão por passo com a Stella na pose: plié, relevé,
+  arabesque, pirueta; tocar no palco é o salto. A cada oito passos a família bate palma e
+  o número seguinte começa com outra música da playlist (`PLAYLIST_DO_PALCO`); a nota pula.
+  A mãe pode gravar o nome de cada passo (grupo Palco das vozes).
+- **Ela nunca fica parada**: entre os passos gira devagar na ponta dos pés e passeia de um
+  lado a outro do palco, como a bailarina de uma caixinha de música (o teste com o Anderson:
+  parada, parecia esperar comando; só girando, faltava dançar).
+- **Mais passos, aos poucos**: o segundo número traz tendu, passé, attitude e échappé na
+  ribalta, e os conjuntos alternam. Oito botões numa fileira era demais para 5 anos.
+- **A barrinha da coreografia** no alto: uma conta por passo, estrela quando o passo é
+  diferente do anterior. É a "qualidade" sem número: variar rende estrelas e mais aplauso.
+- **No palco o fim é a cortina, não o visto verde**: o visto não dizia nada ali. A
+  cortininha de veludo acende no primeiro passo; tocar fecha o show com o agradecimento
+  como no balé (`segunda` e `agradece`: braços abertos, um pé cruza atrás, joelhos dobram,
+  um braço abre e o outro desce, cabeça baixa; a `reverencia` antiga dobrava o tronco
+  inteiro e parecia a cabeça caindo), aplauso, abraço e a cortina descendo. "Reverência" é
+  palavra estranha para criança: no jogo e nos textos chama-se agradecimento.
+- **Fechar cedo é desistir**: antes de oito passos a cortina não faz show. Ela acena, a
+  família bate uma palminha, a cortina desce. Sem "Brava!", sem narração, sem castigo.
+- **Som dos passos**: uma nota da lira uma oitava acima, bem baixinha (0,1). O passo é leve.
+- **O fecho da aventura** (`ir('palco', { fecho: '1' })`) virou uma coreografia curta e
+  automática com os mesmos passos, reverência, aplauso, boneca nova e abraço. Sem visto nem
+  mãozinha: é recompensa, não tarefa.
+- **Três poses novas no boneco**: `plie`, `releve`, `arabesque` (o arabesque inclina o tronco
+  sobre a perna de apoio). A pirueta é o `giro` com o corpo girando de verdade.
+
+Arquivos: `src/telas/palco.ts`, `src/puppet/boneco.ts`, `src/telas/casa.ts`, `src/core/laco.ts`,
+`src/data/frases.json`, `src/data/narracao.json`, `src/data/musica-telas.json`, `SPEC.md`, `GAMEPLAY.md`.
+
 ## Pedrinhas, medalhas e o relógio
 
 Pedido da família depois da v2: a Stella está aprendendo a ver as horas e precisa aprender a
@@ -663,3 +700,26 @@ da sala mostra de longe as pinhas, umas pedrinhas e um tufinho.
 Arquivos: `src/telas/pinhas.ts`, `src/puppet/objetos.ts` (`pedra`, `montinhoDeAreia`,
 `barbaDeVelho`), `src/core/estado.ts` (`mesa`), `src/telas/casa.ts`,
 `src/data/ajuda-telas.json`, `tests/estado.test.ts`, `SPEC.md`, `GAMEPLAY.md`.
+
+## Palavras e figuras com desenho direto (setembro de 2026)
+
+O teste no celular: as figuras de gente (avó, ela) e a égua não se reconheciam; elefante,
+árvore e ovo sim. A regra que ficou: **toda palavra e toda figura do som tem um desenho que
+se reconhece de um olhar, em poucas formas**. O que mudou:
+
+- **Palavra de cada letra.** A: LUA (era AVÓ). E: MEIA (era ELA; o E é fechado, e a lista
+  de sons diz isso). L: LATA (era LUA). T: TATU (era LATA). O: MOLA (era OLÁ; ÔNIBUS seria
+  melhor, mas N e B não estão nas dez letras). I: IOIÔ (era LIMA, palavra rara). A regra de
+  no máximo uma consoante nova por palavra continua valendo, e o teste vigia.
+- **A mala só com palavra comum.** TUTU, TELA, LAMA e MATA saíram: com as dez letras e as
+  regras de som, sobram poucas palavras, e melhor doze boas que dezoito com enchimento.
+  Ficam LUA, MEIA, LATA, SALA, TATU, MOLA, MALA, UVA, IOIÔ, VELA, LUVA e STELLA.
+- **Figuras do som do dia.** A: árvore, abelha, avião. E: elefante, estrela, escada (as três
+  começam com ê; o caderno do E diz só o som, como o do O fazia). L: lua, leão, luva.
+  T: tatu, tomate, tartaruga. O: óculos, ovo, ônibus (os óculos começam com o ó aberto: o
+  caderno do O ganhou figura). M: mala, mão, macaco. U: uva, urso, unicórnio. I: ilha,
+  igreja, ioiô. S e V ficam como estavam.
+- Desenhos novos: avião, estrela, escada, óculos, unicórnio, meia, ônibus, igreja; o tatu
+  foi redesenhado (casco em arco com faixas, focinho). Saíram avó, ela e égua.
+  Arquivos: `src/data/letras.json`, `src/data/palavras.json`, `src/puppet/figuras.ts`,
+  `src/audio/fonemas.ts`, `tests/palavras.test.ts`, `tests/fonemas.test.ts`.

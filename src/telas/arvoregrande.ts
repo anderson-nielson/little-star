@@ -132,7 +132,7 @@ export function telaArvoreGrande(): Tela {
     });
     travar(2400);
     await esperar(2400);
-    if (vivo) void ir('palco');
+    if (vivo) void ir('palco', { fecho: '1' });
   };
 
   let ultimo = performance.now();
