@@ -15,7 +15,7 @@ const exe = process.env.CHROMIUM_PATH ?? (existsSync('/opt/pw-browsers/chromium'
 const TELAS = [
   'chegada', 'roda', 'prato', 'som', 'caderno', 'palavra', 'areia', 'pinhas', 'piano', 'jardim', 'palco',
   'bichos', 'despedida', 'noite', 'dormindo', 'horta', 'arvore', 'cozinha', 'arvoregrande', 'lago', 'ukulele',
-  'bonecas', 'bilhete', 'relogio', 'parquinho', 'escorregador', 'gangorra',
+  'bonecas', 'bilhete', 'relogio', 'parquinho', 'escorregador', 'gangorra', 'bicicleta', 'passeio',
 ];
 
 const servidor = spawn('npx', ['vite', 'preview', '--port', String(PORTA), '--strictPort'], { stdio: 'ignore' });

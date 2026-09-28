@@ -6,6 +6,7 @@ import { sessao } from '@/core/sessao';
 import { esperar } from '@/core/util';
 import { familia } from '@/puppet/boneco';
 import { arco, balancinho, contornoLuz, gato, nuvem, veu } from '@/puppet/objetos';
+import { bicicleta } from '@/puppet/bicicleta';
 import { falar, temVoz } from '@/audio/vozes';
 import { liraDesce, sininho } from '@/audio/synth';
 import { travar } from '@/core/toque';
@@ -133,6 +134,19 @@ export function telaRoda(): Tela {
         }
       },
     },
+    {
+      id: 'bicicleta',
+      pergunta: 'pergunta_bicicleta',
+      comemora: 'comemora_bicicleta',
+      desenho: `<g data-obj="bicicleta"><g class="ela"><g transform="translate(170 590)">${bicicleta(9, { rodinhas: true, volta: 0.2 }).svg}</g></g></g>`,
+      cena: (svg) => {
+        const ela = svg.querySelector('[data-obj="bicicleta"] .ela');
+        if (ela) {
+          mover(ela, 50, 0, 1400);
+          void esperar(1500).then(() => ela && mover(ela, 0, 0, 900));
+        }
+      },
+    },
   ];
   const ativas = tarefasAtivas(e);
   objetos.push(...todas.filter((o) => ativas.includes(o.id as Tarefa)));
@@ -184,7 +198,7 @@ export function telaRoda(): Tela {
     const g = camada.firstElementChild as SVGGElement;
     g.classList.add('respira');
     camadaLuz.innerHTML = contornoLuz(195, 552, 66, 50);
-    const dono = { cama: 'mae', dentes: 'pai', brinquedos: 'mae', noite: 'mae', noite_toda: 'pai', banho: 'pai', quarto: 'mae', gentil: 'theo', parquinho: 'pai' }[obj.id];
+    const dono = { cama: 'mae', dentes: 'pai', brinquedos: 'mae', noite: 'mae', noite_toda: 'pai', banho: 'pai', quarto: 'mae', gentil: 'theo', parquinho: 'pai', bicicleta: 'pai' }[obj.id];
     svg.querySelectorAll('.quem').forEach((q) => ((q as SVGElement).style.opacity = q.getAttribute('data-quem') === dono ? '1' : '0.75'));
     /* a pergunta: só depois dela o objeto aceita o toque */
     if (temVoz(obj.pergunta)) await falar(obj.pergunta);
@@ -210,8 +224,8 @@ export function telaRoda(): Tela {
               x.hoje.noite = false;
               rolou = perder(x, PEDRINHAS.naoDormiuSozinha, 'nao_dormiu_sozinha');
             } else if (obj.id === 'noite_toda') x.hoje.noiteToda = false;
-            else if (obj.id !== 'parquinho') rolou = perder(x, PEDRINHAS.tarefaNaoFeita, `nao_${obj.id}`);
-            /* o parquinho não é combinado: não ir não tira nada */
+            else if (obj.id !== 'parquinho' && obj.id !== 'bicicleta') rolou = perder(x, PEDRINHAS.tarefaNaoFeita, `nao_${obj.id}`);
+            /* o parquinho e a bicicleta não são combinado: não ir não tira nada */
           });
           if (rolou) pedrinhaRola(tela, 195, 560);
           void esperar(900).then(proximo);

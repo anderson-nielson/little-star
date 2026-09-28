@@ -4,11 +4,11 @@ import type { SomDoChamado } from './chamado';
 export const VERSAO_DO_SAVE = 1;
 const CHAVE = 'little-star.save';
 
-export type Tarefa = 'cama' | 'dentes' | 'brinquedos' | 'banho' | 'quarto' | 'gentil' | 'parquinho';
+export type Tarefa = 'cama' | 'dentes' | 'brinquedos' | 'banho' | 'quarto' | 'gentil' | 'parquinho' | 'bicicleta';
 export type CorDeComida = 'vermelho' | 'laranja' | 'amarelo' | 'verde' | 'roxo' | 'marrom';
 export const CORES_DE_COMIDA: CorDeComida[] = ['vermelho', 'laranja', 'amarelo', 'verde', 'roxo', 'marrom'];
 /** todas as tarefas da roda; os pais ligam e desligam cada uma no cantinho */
-export const TAREFAS: Tarefa[] = ['cama', 'dentes', 'brinquedos', 'banho', 'quarto', 'gentil', 'parquinho'];
+export const TAREFAS: Tarefa[] = ['cama', 'dentes', 'brinquedos', 'banho', 'quarto', 'gentil', 'parquinho', 'bicicleta'];
 export type Semente = 'cenoura' | 'tomate' | 'milho' | 'alface';
 export type Quem = 'mae' | 'pai' | 'theo';
 
@@ -163,6 +163,8 @@ export interface Estado {
   idasEVoltasNoLago: number;
   /** aventuras terminadas por tipo */
   aventurasPor: Record<string, number>;
+  /** a bicicletinha: passeios por rota, passeios bons (a progressão) e os enfeites ganhos */
+  bicicleta: { passeios: Record<string, number>; bons: Record<string, number>; enfeites: string[] };
   /** as pedrinhas no pote (até encher) e as medalhas na parede */
   pedrinhas: number;
   medalhas: number;
@@ -222,6 +224,7 @@ export function estadoNovo(agora = new Date()): Estado {
     coreto: 0,
     idasEVoltasNoLago: 0,
     aventurasPor: {},
+    bicicleta: { passeios: {}, bons: {}, enfeites: [] },
     pedrinhas: 0,
     medalhas: 0,
     pedrinhasHistorico: [],
@@ -234,7 +237,7 @@ export function estadoNovo(agora = new Date()): Estado {
       comidasNovas: [],
       ritmoLetras: 'semanal',
       instalacaoVista: false,
-      tarefas: { cama: true, dentes: true, brinquedos: true, banho: true, quarto: false, gentil: false, parquinho: true },
+      tarefas: { cama: true, dentes: true, brinquedos: true, banho: true, quarto: false, gentil: false, parquinho: true, bicicleta: true },
       espanhol: 'auto',
       festas: true,
       pedrinhas: true,

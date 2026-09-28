@@ -1,0 +1,11 @@
+{
+  "id": "manha_grieg",
+  "titulo": "Manhã",
+  "compositor": "Edvard Grieg, Peer Gynt",
+  "tom": "mi maior",
+  "bpm": 168,
+  "compasso": 6,
+  "fonte": "Arranjo livre e simplificado do tema da Manhã (Peer Gynt, suíte nº 1), em oito compassos de seis colcheias, para piano calmo. Obra em domínio público.",
+  "melodia": "B4:1 A4:1 G#4:1 F#4:1 G#4:1 A4:1 | B4:1 A4:1 G#4:1 F#4:1 G#4:1 A4:1 | B4:1 G#4:1 B4:1 C#5:1 A4:1 B4:1 | C#5:1 B4:1 G#4:1 B4:1 A4:1 G#4:1 | B4:1 A4:1 G#4:1 F#4:1 G#4:1 A4:1 | B4:1 A4:1 G#4:1 F#4:1 G#4:1 A4:1 | B4:1 G#4:1 B4:1 C#5:1 A4:1 B4:1 | C#5:1 B4:1 A4:1 G#4:1 F#4:1 E4:1",
+  "baixo": "E3:3 B2:3 | E3:3 B2:3 | E3:3 B2:3 | E3:3 B2:3 | A2:3 E3:3 | A2:3 E3:3 | E3:3 B2:3 | E3:6"
+}

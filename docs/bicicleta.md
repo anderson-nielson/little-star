@@ -113,3 +113,15 @@ da lombadinha contavam como pular por cima; agora só um pulo de verdade conta);
 sintética do fim soava robótica e triste (saiu; ficou a festa e a voz gravada); é bom ver a
 mãe ou o pai no fim (agora sempre alguém de corpo inteiro); os morrinhos em cadeia, pedalando
 mais forte para subir mais alto, com descidas grandes. Tudo isso entrou acima.
+
+## O que entrou no jogo
+
+Tudo o que está acima, numa rodada só, menos o mapa da parede do quarto (fica para a próxima):
+`src/core/bicicleta.ts` (o chão, a velocidade com inércia, o pulo, as rotas e a progressão, puro
+e testado em `tests/bicicleta.test.ts`), `src/data/rotas.json` (as cinco rotas em dados),
+`src/puppet/bicicleta.ts` (a bicicleta com a Stella sentada na marionete, o capacete, os
+enfeites, o gambá), `src/telas/bicicleta.ts` (a saída em SVG e o passeio em Canvas 2D, com os
+quatro gestos por lugar da tela, a ida, a chegada com quem espera, a volta e a família na porta),
+a bicicletinha no quintal (`casa.ts`), a pergunta da roda (`roda.ts`), o convite da despedida
+(`despedida.ts`), as frases, a narração, a ajuda das telas e a *Manhã* do Grieg. As decisões
+estão em `docs/decisoes.md`, seção "A bicicletinha".

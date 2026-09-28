@@ -42,6 +42,7 @@ import { telaEscorregador, telaGangorra, telaParquinho } from './telas/parquinho
 import { telaCama } from './telas/cama';
 import { telaDentes } from './telas/dentes';
 import { telaBrinquedos } from './telas/brinquedos';
+import { telaBicicleta, telaPasseio } from './telas/bicicleta';
 
 registrar('chegada', telaChegada);
 registrar('casa', telaCasa);
@@ -76,6 +77,8 @@ registrar('gangorra', telaGangorra);
 registrar('cama', telaCama);
 registrar('dentes', telaDentes);
 registrar('brinquedos', telaBrinquedos);
+registrar('bicicleta', telaBicicleta);
+registrar('passeio', telaPasseio);
 
 const app = document.getElementById('app')!;
 montar(app);
@@ -157,7 +160,10 @@ if (q.get('styleguide')) {
       };
     }
   }
-  void prepararVozes().then(() => sessao.comecar(debug ? (q.get('tela') ?? undefined) : undefined));
+  /* na depuração, o resto da URL vai para a tela forçada (?tela=passeio&rota=bosque, ?tela=palavra&palavra=LUA) */
+  const RESERVADOS = new Set(['debug', 'zerar', 'sessoes', 'hora', 'dia', 'tela', 'styleguide']);
+  const params = Object.fromEntries([...q.entries()].filter(([k]) => !RESERVADOS.has(k)));
+  void prepararVozes().then(() => sessao.comecar(debug ? (q.get('tela') ?? undefined) : undefined, debug ? params : {}));
 }
 
 /* o service worker (só na build) e o convite de instalação do Android */

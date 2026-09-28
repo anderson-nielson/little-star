@@ -6,6 +6,8 @@ import { ceuDaHora } from '@/core/relogio';
 import { esperar } from '@/core/util';
 import { familia } from '@/puppet/boneco';
 import { arco, balancinho, gato, nuvem, pinha, pinheiro, veu } from '@/puppet/objetos';
+import { bicicletinha } from '@/puppet/bicicleta';
+import type { Enfeite } from '@/core/bicicleta';
 import { falar, temVoz } from '@/audio/vozes';
 import { anunciar } from '@/core/narracao';
 import { tocarFundo, pararFundo } from '@/audio/musica';
@@ -26,12 +28,13 @@ export function telaDespedida(): Tela {
   const ceu = ceuDaHora(sessao.agora());
   const noite = ceu === 'ceu-noite';
   const brinc = brincadeiraDoDia(e, sessao.agora());
-  /* foi ao parquinho do jogo hoje: o convite é o parquinho de verdade */
+  /* foi ao parquinho do jogo hoje: o convite é o parquinho de verdade; de bicicleta, a bicicleta de verdade */
   const foiAoParquinho = brincouHoje(e, 'parquinho');
+  const foiDeBicicleta = !foiAoParquinho && brincouHoje(e, 'bicicleta');
   /* treinou um cuidado hoje: o convite é fazer de verdade, igual */
-  const cuidado = foiAoParquinho ? null : ultimoCuidadoDeHoje(e);
-  const convite = foiAoParquinho ? 'convite_parquinho' : cuidado ? `convite_${cuidado}` : ({ piano: 'convite_piano', caderno: 'convite_letra', palavras: 'convite_letra', areia: 'convite_areia', pinhas: 'convite_pinha', jardim: 'convite_brincar', familia: 'convite_regar', cozinha: 'convite_cozinha' } as const)[brinc];
-  const pictograma = foiAoParquinho ? 'balanco' : cuidado ? cuidado : ({ piano: 'piano', caderno: 'letra', palavras: 'letra', areia: 'areia', pinhas: 'pinha', jardim: 'fora', familia: 'regador', cozinha: 'panela' } as const)[brinc];
+  const cuidado = foiAoParquinho || foiDeBicicleta ? null : ultimoCuidadoDeHoje(e);
+  const convite = foiAoParquinho ? 'convite_parquinho' : foiDeBicicleta ? 'convite_bicicleta' : cuidado ? `convite_${cuidado}` : ({ piano: 'convite_piano', caderno: 'convite_letra', palavras: 'convite_letra', areia: 'convite_areia', pinhas: 'convite_pinha', jardim: 'convite_brincar', familia: 'convite_regar', cozinha: 'convite_cozinha' } as const)[brinc];
+  const pictograma = foiAoParquinho ? 'balanco' : foiDeBicicleta ? 'bicicleta' : cuidado ? cuidado : ({ piano: 'piano', caderno: 'letra', palavras: 'letra', areia: 'areia', pinhas: 'pinha', jardim: 'fora', familia: 'regador', cozinha: 'panela' } as const)[brinc];
   const primeiraVez = !e.bichos.gato;
 
   let s = `<rect width="390" height="780" fill="${CEU[ceu]}"/>` + veu(0, 0, 390, 300, noite ? '#1b2140' : '#ebcdc3', 5, 0.3);
@@ -63,6 +66,7 @@ export function telaDespedida(): Tela {
     fora: `<circle cx="300" cy="420" r="16" fill="#ebd9a8"/><path d="M270 470q30 -30 60 0" fill="#8fae6b"/>`,
     panela: `<rect x="272" y="426" width="56" height="30" rx="8" fill="#b6a58c"/><rect x="266" y="420" width="68" height="8" rx="3" fill="#8f8270"/><path d="M290 412q4 -10 0 -18M304 412q4 -10 0 -18" fill="none" stroke="#dbe7ee" stroke-width="3" stroke-linecap="round"/>`,
     balanco: balancinho(300, 462, 60, -8),
+    bicicleta: bicicletinha(300, 466, 12, e.bicicleta.enfeites as Enfeite[], -4),
     cama: `<rect x="266" y="416" width="8" height="44" rx="3" fill="#c9a189"/><rect x="270" y="436" width="64" height="20" rx="5" fill="#fbf8f1"/><rect x="290" y="432" width="44" height="22" rx="5" fill="#f2a9c4"/><rect x="274" y="428" width="22" height="10" rx="5" fill="#fbf8f1" stroke="#ebcdc3"/>`,
     dentes: `<rect x="282" y="438" width="58" height="8" rx="4" fill="#f2a9c4" transform="rotate(-20 300 440)"/><rect x="262" y="440" width="24" height="10" rx="3" fill="#fbf8f1" stroke="#c9a189" transform="rotate(-20 300 440)"/><circle cx="268" cy="424" r="5" fill="#fbf8f1" opacity="0.9"/><circle cx="278" cy="418" r="3.5" fill="#fbf8f1" opacity="0.9"/>`,
     brinquedos: `<circle cx="286" cy="422" r="10" fill="#f2a9c4"/><rect x="302" y="414" width="16" height="16" rx="3" fill="#7FA5B8"/><rect x="272" y="428" width="56" height="30" rx="5" fill="#c9a189"/><rect x="270" y="426" width="60" height="7" rx="3" fill="#b08a70"/>`,

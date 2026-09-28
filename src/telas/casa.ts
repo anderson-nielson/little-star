@@ -10,6 +10,8 @@ import { ir } from '@/core/roteador';
 import { cor as tok, doTopo, esperar, svgEl } from '@/core/util';
 import { familia, figurinoDe } from '@/puppet/boneco';
 import { arco, balancinho, barbaDeVelho, caixaDeAreia, centelha, coelho, contornoLuz, flor, gato, nuvem, pedra, pinha, pinheiro, veu } from '@/puppet/objetos';
+import { bicicletinha } from '@/puppet/bicicleta';
+import type { Enfeite } from '@/core/bicicleta';
 import { tocarFundo } from '@/audio/musica';
 import { falar, temVoz } from '@/audio/vozes';
 import { ronronar, sininho, tiquinho } from '@/audio/synth';
@@ -194,6 +196,8 @@ export function telaCasa(): Tela {
   });
   /* a lembrança do parquinho: um balancinho de madeira ao lado das pinhas */
   if (e.lembrancas.some((l) => l.startsWith('parquinho:'))) s += balancinho(212, 426, 12);
+  /* a lembrança da bicicleta: uma bicicletinha de madeira na mesa */
+  if (e.lembrancas.some((l) => l.startsWith('bicicleta:'))) s += bicicletinha(232, 426, 3, [], 0);
   s += `</g>`;
   /* a porta da rua, na sala: de onde saem as aventuras e onde a família recebe na volta */
   const jardimAberto = aberto(s7, 'jardim');
@@ -239,6 +243,8 @@ export function telaCasa(): Tela {
   s += `<g data-alvo="areia"${novo('areia')}>${caixaDeAreia(76, 720, 48)}<path d="M62 722q10 -8 20 0" fill="none" stroke="#d9c69a" stroke-width="2"/><rect x="92" y="710" width="10" height="12" rx="2" fill="#f2a9c4"/>${clima.conchas ? `<path d="M70 730q4 -6 8 0q-4 4 -8 0zM84 734q4 -6 8 0q-4 4 -8 0z" fill="#fbf8f1" stroke="#c6a15b" stroke-width="0.8"/>` : ''}</g>`;
   /* o parquinho do condomínio, logo ali fora: o balancinho na beirada do quintal */
   s += `<g data-alvo="parquinho"${novo('parquinho')}>${toque(186, 728, 32)}${balancinho(186, 752, 44, 8)}</g>`;
+  /* a bicicletinha encostada no quintal, com os enfeites que ela já ganhou: as rotas do condomínio */
+  s += `<g data-alvo="bicicleta"${novo('bicicleta')}>${toque(138, 690, 28)}${bicicletinha(138, 706, 8, e.bicicleta.enfeites as Enfeite[], -5)}</g>`;
   s += `<g data-alvo="arvore">${pinheiro(352, 760, 150)}`;
   if (clima.flores) s += flor(336, 660, '#f2a9c4', 5) + flor(366, 640, '#ebd9a8', 5) + flor(348, 700, '#f2a9c4', 4);
   if (clima.fitinha) s += `<path d="M334 712q18 -10 36 0" fill="none" stroke="#7FA5B8" stroke-width="3"/>`;
@@ -263,6 +269,7 @@ export function telaCasa(): Tela {
     horta: [270, 652, 44, 22],
     arvore: [352, 660, 30, 56],
     parquinho: [186, 730, 30, 28],
+    bicicleta: [138, 694, 30, 22],
     cuidados: [312, 272, 28, 30],
   };
   /* os cuidados moram em três lugares; a luz e a centelha vão em cada um */
@@ -362,7 +369,7 @@ export function telaCasa(): Tela {
   tela.aoDestruir(() => svg.removeEventListener('pointerdown', tocou));
 
   /* cada tela da casa é uma coisa explorada: a luz passa adiante e a centelha fica */
-  const COISA_DA_TELA: Record<string, Coisa> = { piano: 'piano', caderno: 'caderno', som: 'som', palavra: 'palavras', areia: 'areia', pinhas: 'pinhas', horta: 'horta', ukulele: 'ukulele', bilhete: 'bilhete', relogio: 'relogio', cozinha: 'cozinha', bonecas: 'bonecas', arvore: 'arvore', jardim: 'jardim', arvoregrande: 'jardim', lago: 'jardim', parquinho: 'parquinho', escorregador: 'parquinho', gangorra: 'parquinho', cama: 'cuidados', dentes: 'cuidados', brinquedos: 'cuidados' };
+  const COISA_DA_TELA: Record<string, Coisa> = { piano: 'piano', caderno: 'caderno', som: 'som', palavra: 'palavras', areia: 'areia', pinhas: 'pinhas', horta: 'horta', ukulele: 'ukulele', bilhete: 'bilhete', relogio: 'relogio', cozinha: 'cozinha', bonecas: 'bonecas', arvore: 'arvore', jardim: 'jardim', arvoregrande: 'jardim', lago: 'jardim', parquinho: 'parquinho', escorregador: 'parquinho', gangorra: 'parquinho', bicicleta: 'bicicleta', passeio: 'bicicleta', cama: 'cuidados', dentes: 'cuidados', brinquedos: 'cuidados' };
   const vai = (nome: string, params: Record<string, string> = {}) => {
     travar(500);
     const coisa = COISA_DA_TELA[nome];
@@ -406,6 +413,7 @@ export function telaCasa(): Tela {
   tela.alvo('[data-alvo="bilhete"]', (_ev, el) => (aberto(s7, 'bilhete') ? vai('bilhete') : fechado(el)));
   tela.alvo('[data-alvo="relogio"]', (_ev, el) => (aberto(s7, 'relogio') ? vai('relogio') : fechado(el)));
   tela.alvo('[data-alvo="parquinho"]', (_ev, el) => (aberto(s7, 'parquinho') ? vai('parquinho') : fechado(el)));
+  tela.alvo('[data-alvo="bicicleta"]', (_ev, el) => (aberto(s7, 'bicicleta') ? vai('bicicleta') : fechado(el)));
   tela.alvo('[data-alvo="pote"]', (_ev, el) => {
     /* as pedrinhas tilintam: uma nota por pedrinha */
     const n = Math.min(estado().pedrinhas, PEDRINHAS.pote);
@@ -595,6 +603,7 @@ const MINI: Record<Coisa, (x: number, y: number) => string> = {
   arvore: (x, y) => `<path d="M${x} ${y - 7}l5 7h-2.5l3.5 5h-12l3.5 -5h-2.5z" fill="#4f6b3a"/><rect x="${x - 1}" y="${y + 5}" width="2" height="2.5" fill="#8a6a4a"/>`,
   cuidados: (x, y) => `<rect x="${x - 7}" y="${y + 1}" width="14" height="5" rx="2" fill="#f2a9c4"/><rect x="${x - 7}" y="${y - 2}" width="5" height="3.5" rx="1.5" fill="#fbf8f1" stroke="#c9a189" stroke-width="0.6"/><rect x="${x + 1}" y="${y - 8}" width="2" height="9" rx="1" fill="#7FA5B8"/><rect x="${x}" y="${y - 10}" width="4" height="3" rx="1" fill="#fbf8f1" stroke="#c9a189" stroke-width="0.5"/>`,
   parquinho: (x, y) => `<path d="M${x - 6} ${y + 6}l3 -12l3 12M${x + 6} ${y + 6}l-3 -12l3 12" fill="none" stroke="#c9a189" stroke-width="1.4" stroke-linejoin="round"/><path d="M${x - 4} ${y - 6}h8" stroke="#8a6a4a" stroke-width="1.6" stroke-linecap="round"/><path d="M${x - 1.2} ${y - 6}v6M${x + 1.2} ${y - 6}v6" stroke="#8f6f2c" stroke-width="0.7"/><rect x="${x - 2.6}" y="${y - 0.5}" width="5.2" height="1.4" rx="0.6" fill="#c9a189"/>`,
+  bicicleta: (x, y) => `<circle cx="${x - 4.5}" cy="${y + 3}" r="3.6" fill="none" stroke="#2f2f36" stroke-width="1.2"/><circle cx="${x + 4.5}" cy="${y + 3}" r="3.6" fill="none" stroke="#2f2f36" stroke-width="1.2"/><path d="M${x - 4.5} ${y + 3}L${x - 1} ${y - 3}L${x + 2.5} ${y - 3}L${x + 4.5} ${y + 3}M${x - 1} ${y - 3}L${x} ${y + 3}L${x + 2.5} ${y - 3}M${x + 2.5} ${y - 3}L${x + 3.5} ${y - 5.5}" fill="none" stroke="#f2a9c4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M${x - 2.5} ${y - 4}h3" stroke="#2f2f36" stroke-width="1.2" stroke-linecap="round"/>`,
 };
 
 /** Os passos do dia que não são coisa da casa: desenhos pequenos, raio 10. */

@@ -25,5 +25,7 @@
   "gangorra": ["gymnopedie"],
   "cama": ["primavera"],
   "dentes": ["brilha"],
-  "brinquedos": ["serenata"]
+  "brinquedos": ["serenata"],
+  "bicicleta": ["manha_grieg"],
+  "passeio": ["manha_grieg", "primavera", "marcha", "serenata"]
 }

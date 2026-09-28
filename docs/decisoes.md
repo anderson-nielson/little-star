@@ -663,3 +663,71 @@ da sala mostra de longe as pinhas, umas pedrinhas e um tufinho.
 Arquivos: `src/telas/pinhas.ts`, `src/puppet/objetos.ts` (`pedra`, `montinhoDeAreia`,
 `barbaDeVelho`), `src/core/estado.ts` (`mesa`), `src/telas/casa.ts`,
 `src/data/ajuda-telas.json`, `tests/estado.test.ts`, `SPEC.md`, `GAMEPLAY.md`.
+
+## A bicicletinha
+
+O pedido: uma fase em que a Stella anda de bicicletinha, um pouco mais longa, quase outro jogo
+que ela entra de vez em quando e encontra fases novas, com o vocabulário dos jogos de moto e
+bicicleta do Atari, do Master System e do Nintendo (lombadinhas, poças, rampinhas, morrinhos,
+pedregulhos, areia, árvores, gambás), e uma progressão lenta que acompanha a habilidade dela.
+O estudo está em `docs/bicicleta.md` e nas telas simuladas de `docs/referencia/bicicleta.html`,
+onde o Anderson jogou e pediu mais: acelerar e frear além de pular, a rampinha que voa com a
+velocidade, a poça que desliza, areia intercalada nas rotas, morrinhos em cadeia com descida
+grande, a mãe ou o pai esperando no fim e nada de voz sintética na festa. O que entrou:
+
+- **Fora da porta, pela bicicletinha encostada no quintal**, ao lado da caixa de areia. Abre na
+  etapa 3, com o parquinho. A bicicleta mostra os enfeites que ela já ganhou.
+- **A saída** (`bicicleta`): toca no capacete (ele voa para a cabeça dela), toca na bicicleta
+  (ela sobe, o coelhinho vai na cestinha) e escolhe a rota no mapinha do céu; a de hoje brilha
+  e vai sozinha em 14 s. A mãe na porta. É o ritual de sair de casa, na ordem de verdade.
+- **O passeio** (`passeio`, em Canvas 2D como o Jardim): ela pedala sozinha na faixa do meio;
+  o chão é uma soma de morrinhos em cosseno e a bicicleta inclina com ele. **Quatro gestos, um
+  lugar cada**: toque no céu é pular (o pulo procura a coisa até 0,7 s antes, como no Jardim);
+  na frente dela, uma pedalada com força; atrás dela, frear; nela, abaixar. No ar, num voo alto,
+  o toque é um giro. **A velocidade tem inércia**: o chão puxa para a base, a subida pesa e a
+  descida empurra, a pedalada soma e a freada tira, com mínimo (30%) e máximo (2 vezes), tudo em
+  `BICICLETA` (`src/core/bicicleta.ts`).
+- **O kit do chão**, cada coisa com um gesto e uma resposta sem erro: lombadinha ("tum"), poça
+  (passar direto desliza e dá uma aceleradinha; pular passa seca), rampinha (voa com a
+  velocidade; rápido de verdade, giro com centelhas), tronco (ela para, passa a bicicleta por
+  cima), gambá com os filhotes (pula por cima, ou freia e espera a família atravessar; sem nada,
+  para e espera), galho baixo (abaixa, ou "toc" no capacete e folhas), morrinhos em cadeia (três,
+  cada um mais alto; rápido na crista ela decola; a rota acaba na descida grande), pedregulhos
+  (treme e faz trrrr), areia (trecho curto intercalado, a roda afunda, a pedalada tira), ponte de
+  tábuas (toc toc, uma nota por tábua). A areia nunca é rota própria.
+- **Cinco rotas em dados** (`src/data/rotas.json`): a rua até a padaria (a mãe), o bosque até o
+  lago (o pai), os morrinhos até o portão (a mãe, até a avó existir), o atalho do parquinho (o
+  Theo) e a volta grande (a família inteira; o céu vai da manhã ao fim da tarde). Uma rota nova
+  abre depois de três passeios completos na anterior; rota aberta não fecha. Uma rota nova custa
+  uma lista.
+- **A progressão, devagar e em silêncio**: um passeio é bom quando ela passou sozinha pelo menos
+  metade das coisas que pediam gesto. Cada passeio bom deixa a rota 4% mais rápida (teto 30%) e,
+  nos degraus 0, 3 e 6, as coisas ficam a cada 4, 3 e 2 compassos; um tipo novo e um gesto novo
+  entram por degrau, e a mãozinha mostra o gesto no primeiro de cada tipo, sempre. Um passeio em
+  que a A2 entrou duas vezes desce um degrau. A janela do pulo não muda nunca. Rota é dado; o
+  motor é um só.
+- **A ajuda**: A1 com duas coisas seguidas sem o gesto (a mãozinha na próxima, no lugar do gesto);
+  A2 com quatro (a coisa se resolve à vista: o gambá foge na frente, a poça vira tábua, o tronco
+  vira rampinha). Parada, a mãozinha volta a cada 6 s. A rede de segurança termina o passeio em
+  quatro minutos mesmo sem toque.
+- **A chegada**: ela freia sozinha ao ver quem espera (a freada para sempre no mesmo lugar, seja
+  qual for a velocidade), centelhas, a lira sobe, palmas e a voz **gravada** (`chegou_bicicleta`);
+  sem gravação, só a festa: a voz do aparelho numa festa soava robótica e triste. Depois a volta
+  pelo mesmo caminho, olhando para o outro lado, e a família recebe na porta. A casinha acende.
+- **O que cresce**: na primeira chegada de cada rota, um enfeite para a bicicleta (cestinha de
+  vime, bandeirinha, fitas do guidão, campainha, buzina de pera), no máximo cinco, sem contador; a
+  lembrança do dia na mesa da estação é uma bicicletinha de madeira; uma pedrinha por passeio.
+  O mapa da parede do quarto, que se desenha rota a rota, ficou para a próxima rodada.
+- **Na roda**, o pai pergunta "Você andou de bicicleta?" (tarefa `bicicleta`, ligada por padrão;
+  não andar não tira pedrinha). **Na despedida**, "Vamos andar de bicicleta de verdade?" quando
+  ela passeou no jogo. A narração ganhou `passeio`, `enfeite` e `bicicleta`.
+- **Música**: Grieg, *Manhã* (`manha_grieg`, arranjo novo em oito compassos de seis colcheias) na
+  rua e na volta grande; a *Primavera* no bosque, a *Marcha* nos morrinhos, a *Serenata* no atalho.
+- **Depuração**: o resto da URL vai para a tela forçada (`?tela=passeio&rota=bosque&turbo=4`).
+
+Arquivos: `src/core/bicicleta.ts` (puro, com `tests/bicicleta.test.ts`), `src/data/rotas.json`,
+`src/puppet/bicicleta.ts` (a bicicleta, o capacete e o gambá no pincel), `src/telas/bicicleta.ts`,
+`src/telas/casa.ts`, `src/telas/roda.ts`, `src/telas/despedida.ts`, `src/core/laco.ts`,
+`src/core/estado.ts` (`bicicleta` no save, tarefa `bicicleta`), `src/audio/synth.ts` (`chiado`),
+`src/data/frases.json`, `narracao.json`, `ajuda-telas.json`, `musica-telas.json`,
+`musicas/manha_grieg.json`, `musicas-sobre.json`.

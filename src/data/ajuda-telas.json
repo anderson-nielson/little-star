@@ -158,5 +158,15 @@
     "titulo": "Guardar os brinquedos",
     "oque": "A sala de brincar com os brinquedos espalhados no tapete e três casas, cada uma com o desenho do que mora nela: a estante (livros), a caixa (blocos) e o cesto (ursinho e bola).",
     "fazer": "Arrastar um brinquedo de cada vez até a casa dele. Na casa de outro, ele pula sozinho para a dele e a casa certa acende; no chão, ele volta para o lugar. Com o tapete limpo, a família senta junto. A música é a Pequena Serenata Noturna, de Mozart."
+  },
+  "bicicleta": {
+    "titulo": "A bicicletinha",
+    "oque": "A saída para o passeio de bicicleta pelo condomínio. A bicicleta encostada no muro, o capacete no gancho, a mãe na porta, e no céu o mapinha com as rotas abertas: a rua até a padaria primeiro; cada rota nova abre depois de três passeios na anterior.",
+    "fazer": "Tocar no capacete (ela põe), tocar na bicicleta (ela sobe e o coelhinho pula na cestinha) e tocar numa rota do mapinha. A de hoje brilha e vai sozinha depois de um tempo."
+  },
+  "passeio": {
+    "titulo": "O passeio de bicicleta",
+    "oque": "Ela pedala sozinha na faixa do meio da tela e a cena rola. No caminho, lombadinhas, poças, rampinhas, troncos, o gambá com os filhotes, galhos baixos, morrinhos, pedregulhos, areia e uma ponte. Cada coisa pede um gesto e responde de um jeito engraçado se ele não vier; nada dói. No fim, alguém da família espera; depois ela volta pelo mesmo caminho e a família recebe na porta.",
+    "fazer": "Tocar no céu é pular (o pulo procura a coisa que vem). Tocar na frente dela é uma pedalada com força; atrás dela, frear; nela mesma, abaixar. Os gestos entram um por vez, rota a rota, e a mãozinha mostra cada um na primeira vez. Fica mais rápido devagar, a cada passeio bom, e volta atrás sozinho quando fica difícil."
   }
 }
