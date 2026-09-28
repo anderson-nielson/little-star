@@ -9,7 +9,7 @@ import { estagio, regadoHoje } from '@/core/horta';
 import { ir } from '@/core/roteador';
 import { cor as tok, doTopo, esperar, svgEl } from '@/core/util';
 import { familia, figurinoDe } from '@/puppet/boneco';
-import { arco, balancinho, caixaDeAreia, centelha, coelho, contornoLuz, flor, gato, nuvem, pinha, pinheiro, veu } from '@/puppet/objetos';
+import { arco, balancinho, barbaDeVelho, caixaDeAreia, centelha, coelho, contornoLuz, flor, gato, nuvem, pedra, pinha, pinheiro, veu } from '@/puppet/objetos';
 import { tocarFundo } from '@/audio/musica';
 import { falar, temVoz } from '@/audio/vozes';
 import { ronronar, sininho, tiquinho } from '@/audio/synth';
@@ -185,6 +185,12 @@ export function telaCasa(): Tela {
   s += `<g data-alvo="mesa">${toque(194, 426, 28)}<rect x="170" y="432" width="48" height="5" rx="2" fill="#c9a189"/><rect x="170" y="426" width="48" height="7" fill="${corEst}" opacity="0.85"/><path d="M174 437l5 10M214 437l-5 10" stroke="#c9a189" stroke-width="2.5"/>`;
   e.pinhas.slice(0, 8).forEach((p) => {
     s += pinha(174 + p.x * 36, 425, 4, p.tipo);
+  });
+  /* e o que mais ela arrumou lá: umas pedrinhas e um tufinho de barba de velho */
+  e.mesa.slice(0, 6).forEach((c) => {
+    const x = 174 + c.x * 40;
+    if (c.material === 'pedra') s += pedra(x, 424, 2, c.tipo);
+    else if (c.material === 'musgo') s += barbaDeVelho(x, 422, 3, c.tipo);
   });
   /* a lembrança do parquinho: um balancinho de madeira ao lado das pinhas */
   if (e.lembrancas.some((l) => l.startsWith('parquinho:'))) s += balancinho(212, 426, 12);

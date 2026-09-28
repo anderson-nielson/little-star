@@ -618,3 +618,29 @@ no ouro escuro, que segura o contraste nos céus claros.
 
 Arquivos: `src/ui/opcoes.ts`, `src/ui/balao.ts`, `src/ui/base.css`, `src/ui/tokens.css`,
 `SPEC.md`, `GAMEPLAY.md`.
+
+## A mesa da estação vira bancada de montar
+
+A mesa das pinhas era uma tela sem função clara e sem graça: um retângulo colorido com dois
+pés, e as pinhas caíam em posições soltas, sem leitura de "arrumado". A ideia da SPEC (a mesa
+da estação Waldorf, onde o tesouro dela cresce) estava certa; faltava ter o que fazer nela.
+
+Agora é uma bancada de montar. A mesa é vista de cima e um pouco de frente, com o pano da
+estação caindo em dobras na frente, o vasinho da estação num canto e a lembrança do parquinho
+no outro. Embaixo, uma bandeja de madeira com quatro materiais: a cesta das pinhas (as que
+ela catou, finitas), um potinho de pedrinhas de rio, uma tigela de areia e um galho com barba
+de velho (os três sem fim). Ela arrasta da bandeja para o tampo e monta o que quiser; fica
+tudo onde ela deixou, de uma sessão para a outra. Arrastar de volta para a bandeja tira da
+mesa. A mãozinha leva a pinha da cesta; sem pinha e com a mesa vazia, leva uma pedra. A
+casinha acende depois da primeira coisa arrumada, e nada obriga a sair.
+
+Decisões pequenas: as pedras da mesa são cinza e bege, de rio, para não confundir com as
+pedrinhas coloridas do pote, que são prêmio. A areia fica por baixo de tudo, a barba por
+cima dela e as pedras e pinhas por cima de tudo, para o caminho de areia não cobrir o que
+ela pôs em cima. A mesa aceita até 48 coisas da bandeja; depois disso a bandeja para de dar
+(a coisa volta sozinha), sem aviso, porque a tela já está cheia de qualquer jeito. A mesinha
+da sala mostra de longe as pinhas, umas pedrinhas e um tufinho.
+
+Arquivos: `src/telas/pinhas.ts`, `src/puppet/objetos.ts` (`pedra`, `montinhoDeAreia`,
+`barbaDeVelho`), `src/core/estado.ts` (`mesa`), `src/telas/casa.ts`,
+`src/data/ajuda-telas.json`, `tests/estado.test.ts`, `SPEC.md`, `GAMEPLAY.md`.
