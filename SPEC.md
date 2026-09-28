@@ -718,6 +718,11 @@ ondulados (`copa`), as figuras das palavras têm o lápis dentro de `figura()`.
 - **A cor do dia da semana** (seção 3.1) aparece na toalha da mesa e no véu do céu de manhã.
 
 **Ajustado para ela**
+- **A casa é a casa dela.** Desde a rodada 2 do redesenho a casa por fora segue as fotos da casa
+  real (`docs/referencia/casa.html`): reboco verde-sálvia (`--salvia`) com a faixa branca, telhado
+  de telhas (`--telha`) com o beiral de madeira (`--beiral`), porta e portão de madeira ripada
+  escura (`--madeira-escura`), escada de borda terracota (`--terracota`), a palmeira e o arbusto
+  florido do jardim. Por dentro, os cômodos continuam nas cores abaixo.
 - **Verde musgo e rosa.** A casa é verde musgo vivo e leve (tokens novos, ponto de partida
   a acertar no styleguide: `--musgo` `#8FAE6B`, `--musgo-claro` `#C9DBB2`, `--musgo-tinta`
   `#4F6B3A` para traço e texto). O rosa (`--rosa`, `--rosa-clara`, `--rosa-doce`) é da Stella:
