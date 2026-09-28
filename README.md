@@ -13,6 +13,7 @@ família se despede com um convite para o mundo.
 - `docs/revisao-gameplay.md`: a revisão que antecedeu o código.
 - `docs/referencia/little-star-telas.html`: as cinco telas desenhadas antes do código.
 - `docs/parquinho.md` e `docs/referencia/parquinho.html`: o parquinho do condomínio (balanço, escorregador e gangorra), a volta dela em cinco telas com os brinquedos simulados.
+- `docs/bicicleta.md` e `docs/referencia/bicicleta.html`: o estudo da bicicletinha (cinco rotas do condomínio, o kit de obstáculos, a progressão lenta), com o passeio simulado no traço Aquarela e Lápis.
 - `docs/shots/`: capturas do passeio automático.
 
 ## Rodar
