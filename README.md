@@ -12,8 +12,8 @@ família se despede com um convite para o mundo.
 - `docs/decisoes.md`: as decisões tomadas para a v1, com o que muda na SPEC e no GAMEPLAY.
 - `docs/revisao-gameplay.md`: a revisão que antecedeu o código.
 - `docs/referencia/little-star-telas.html`: as cinco telas desenhadas antes do código.
-- `docs/referencia/estilos.html`: três propostas de estilo gráfico (Aquarela e Lápis, Feltro e Linha, Estampa de Três Tintas), a mesma cena por três pincéis, para escolher antes de redesenhar todas as telas.
-- `docs/referencia/familia.html`: as quatro faces da família no pincel Aquarela e Lápis, duas variações por pessoa, para escolher antes da rodada 1 do redesenho.
+- `docs/referencia/estilos.html`: as três propostas de estilo gráfico (a mesma cena por três pincéis); a escolhida foi Aquarela e Lápis, que vive em `src/puppet/pincel.ts`.
+- `docs/referencia/familia.html`: as quatro faces da família no pincel escolhido, com as variações e as escolhas.
 - `docs/parquinho.md` e `docs/referencia/parquinho.html`: o parquinho do condomínio (balanço, escorregador e gangorra), a volta dela em cinco telas com os brinquedos simulados.
 - `docs/shots/`: capturas do passeio automático.
 
@@ -29,7 +29,7 @@ npm run varredura    # joga cada tela etapa por etapa e confere que a casinha se
 ```
 
 Atalhos de depuração: `?debug=1&zerar=1&sessoes=8&hora=15:00&tela=jardim` e
-`?styleguide=1` (a marionete, os bichos, as figuras e as cores).
+`?styleguide=1` (a família de perto e no tamanho do jogo, as poses, os bichos, as figuras e as cores).
 
 ## Publicado
 

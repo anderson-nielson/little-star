@@ -1,4 +1,5 @@
 import { circ, CORES as C } from './boneco';
+import { claro, escuro, fio, fios, forma } from './pincel';
 
 /** A centelha de quatro pontas do Ponta: a estrela do jogo. Nunca ★. */
 export const CENTELHA = 'M10 0c.7 6.2 3.8 9.3 10 10-6.2.7-9.3 3.8-10 10-.7-6.2-3.8-9.3-10-10 6.2-.7 9.3-3.8 10-10z';
@@ -99,17 +100,67 @@ export function pinheiro(x: number, y: number, h: number, comPinhas = true): str
   return `<g>${g}</g>`;
 }
 
-export function gato(x: number, y: number, s: number, cor = '#c8b8a6', deitado = false): string {
+/**
+ * O gatinho, a lápis e aquarela: corpo sentado, cabeça redonda, orelhas, o
+ * rabo em curva, olhos em arco, bigodes. Deitado, enrolado com a cabeça de lado.
+ * Tudo em função de `s` (mais ou menos o raio da cabeça).
+ */
+export function gato(x: number, y: number, s: number, cor = '#c4b4a0', deitado = false): string {
+  const pl = { lapis: 0.4 };
+  const detalhe = s >= 14;
   const olhos = (ox: number, oy: number) =>
-    `<path d="M${ox - s * 0.2} ${oy}q${s * 0.08} ${-s * 0.08} ${s * 0.16} 0M${ox + s * 0.04} ${oy}q${s * 0.08} ${-s * 0.08} ${s * 0.16} 0" fill="none" stroke="${C.tinta}" stroke-width="${s * 0.06}" stroke-linecap="round" opacity="0.7"/>`;
-  if (deitado)
-    return `<g><ellipse cx="${x}" cy="${y - s * 0.35}" rx="${s * 0.9}" ry="${s * 0.38}" fill="${cor}"/><path d="M${x + s * 0.8} ${y - s * 0.4}q${s * 0.7} ${-s * 0.3} ${s * 0.5} ${s * 0.35}" fill="none" stroke="${cor}" stroke-width="${s * 0.16}" stroke-linecap="round"/><circle cx="${x - s * 0.75}" cy="${y - s * 0.55}" r="${s * 0.36}" fill="${cor}"/><path d="M${x - s * 1.0} ${y - s * 0.82}l${-s * 0.06} ${-s * 0.3} ${s * 0.25} ${s * 0.16}zM${x - s * 0.6} ${y - s * 0.86}l${s * 0.06} ${-s * 0.3} ${-s * 0.25} ${s * 0.16}z" fill="${cor}"/>${olhos(x - s * 0.7, y - s * 0.55)}</g>`;
-  return `<g><ellipse cx="${x}" cy="${y - s * 0.5}" rx="${s * 0.5}" ry="${s * 0.55}" fill="${cor}"/><path class="rabo" d="M${x + s * 0.4} ${y - s * 0.2}q${s * 0.8} 0 ${s * 0.6} ${-s * 0.7}" fill="none" stroke="${cor}" stroke-width="${s * 0.16}" stroke-linecap="round"/><circle cx="${x}" cy="${y - s * 1.1}" r="${s * 0.38}" fill="${cor}"/><path d="M${x - s * 0.32} ${y - s * 1.35}l${-s * 0.08} ${-s * 0.32} ${s * 0.28} ${s * 0.14}zM${x + s * 0.32} ${y - s * 1.35}l${s * 0.08} ${-s * 0.32} ${-s * 0.28} ${s * 0.14}z" fill="${cor}"/>${olhos(x, y - s * 1.1)}</g>`;
+    fios([`M${ox - s * 0.24} ${oy}q${s * 0.1} ${-s * 0.1} ${s * 0.2} 0`, `M${ox + s * 0.04} ${oy}q${s * 0.1} ${-s * 0.1} ${s * 0.2} 0`], C.lapisTinta, s >= 14 ? 1.3 : 1, 0.8);
+  const bigodes = (ox: number, oy: number) => (detalhe ? fios([`M${ox - s * 0.42} ${oy + s * 0.06}l${-s * 0.3} ${-s * 0.04}`, `M${ox - s * 0.42} ${oy + s * 0.16}l${-s * 0.3} ${s * 0.08}`, `M${ox + s * 0.42} ${oy + s * 0.06}l${s * 0.3} ${-s * 0.04}`, `M${ox + s * 0.42} ${oy + s * 0.16}l${s * 0.3} ${s * 0.08}`], escuro(cor, 0.35), 1, 0.6) : '');
+  const orelha = (ox: number, oy: number, lado: 1 | -1) => forma(`M${ox + lado * s * 0.3} ${oy - s * 0.2}l${lado * s * 0.08} ${-s * 0.42}l${-lado * s * 0.34} ${s * 0.2}z`, cor, pl) + (detalhe ? forma(`M${ox + lado * s * 0.28} ${oy - s * 0.26}l${lado * s * 0.04} ${-s * 0.24}l${-lado * s * 0.18} ${s * 0.1}z`, C.rosaClara, { mudo: true }) : '');
+  if (deitado) {
+    const cx = x;
+    const cy = y - s * 0.35;
+    const hx = x - s * 0.75;
+    const hy = y - s * 0.55;
+    return (
+      `<g>` +
+      fio(`M${x + s * 0.8} ${y - s * 0.4}q${s * 0.7} ${-s * 0.3} ${s * 0.5} ${s * 0.35}`, escuro(cor, 0.12), s * 0.16, 0.95) +
+      forma(`M${cx - s * 0.9} ${cy}a${s * 0.9} ${s * 0.38} 0 1 0 ${s * 1.8} 0a${s * 0.9} ${s * 0.38} 0 1 0 ${-s * 1.8} 0z`, cor, pl) +
+      orelha(hx, hy, -1) + orelha(hx, hy, 1) +
+      forma(circ([hx, hy], s * 0.36), cor, pl) +
+      olhos(hx, hy) +
+      `</g>`
+    );
+  }
+  const hx = x;
+  const hy = y - s * 1.1;
+  return (
+    `<g>` +
+    fio(`M${x + s * 0.4} ${y - s * 0.2}q${s * 0.8} 0 ${s * 0.6} ${-s * 0.7}`, escuro(cor, 0.12), s * 0.16, 0.95, 'class="rabo"') +
+    forma(`M${x - s * 0.5} ${y}C${x - s * 0.66} ${y - s * 0.7} ${x - s * 0.3} ${y - s * 1.2} ${x + s * 0.15} ${y - s * 1.15}C${x + s * 0.6} ${y - s * 1.1} ${x + s * 0.62} ${y - s * 0.45} ${x + s * 0.5} ${y}z`, cor, pl) +
+    forma(`M${x - s * 0.44} ${y}a${s * 0.2} ${s * 0.1} 0 1 0 ${s * 0.4} 0a${s * 0.2} ${s * 0.1} 0 1 0 ${-s * 0.4} 0z`, cor, pl) +
+    forma(`M${x + s * 0.06} ${y}a${s * 0.2} ${s * 0.1} 0 1 0 ${s * 0.4} 0a${s * 0.2} ${s * 0.1} 0 1 0 ${-s * 0.4} 0z`, cor, pl) +
+    orelha(hx, hy, -1) + orelha(hx, hy, 1) +
+    forma(circ([hx, hy], s * 0.38), cor, pl) +
+    olhos(hx, hy) +
+    bigodes(hx, hy) +
+    `</g>`
+  );
 }
 
-export function coelho(x: number, y: number, s: number, cor = '#e9e2d6', pulo = false): string {
+/** O coelhinho: corpo agachado, cabeça erguida, orelhas compridas com o rosa por dentro, pompom de rabo. */
+export function coelho(x: number, y: number, s: number, cor = '#f1ebe0', pulo = false): string {
   const dy = pulo ? -s * 0.5 : 0;
-  return `<g transform="translate(0 ${dy})"><ellipse cx="${x}" cy="${y - s * 0.45}" rx="${s * 0.55}" ry="${s * 0.42}" fill="${cor}"/><circle cx="${x - s * 0.55}" cy="${y - s * 0.35}" r="${s * 0.16}" fill="${C.rosaClara}"/><circle cx="${x + s * 0.45}" cy="${y - s * 0.85}" r="${s * 0.3}" fill="${cor}"/><path d="M${x + s * 0.32} ${y - s * 1.1}q${-s * 0.1} ${-s * 0.7} ${s * 0.14} ${-s * 0.75}q${s * 0.16} ${0.05 * s} ${s * 0.02} ${s * 0.75}zM${x + s * 0.56} ${y - s * 1.1}q${s * 0.05} ${-s * 0.7} ${s * 0.26} ${-s * 0.7}q${s * 0.1} ${0.1 * s} ${-s * 0.1} ${s * 0.7}z" fill="${cor}"/><path d="M${x + s * 0.42} ${y - s * 1.08}q${-s * 0.06} ${-s * 0.55} ${s * 0.06} ${-s * 0.6}M${x + s * 0.64} ${y - s * 1.08}q${s * 0.05} ${-s * 0.55} ${s * 0.14} ${-s * 0.55}" fill="none" stroke="${C.rosaDoce}" stroke-width="${s * 0.06}" opacity="0.6"/><path d="M${x + s * 0.5} ${y - s * 0.86}q${s * 0.07} ${-s * 0.07} ${s * 0.14} 0" fill="none" stroke="${C.tinta}" stroke-width="${s * 0.05}" stroke-linecap="round" opacity="0.7"/></g>`;
+  const pl = { lapis: 0.4 };
+  const detalhe = s >= 14;
+  return (
+    `<g transform="translate(0 ${dy})">` +
+    forma(`M${x + s * 0.32} ${y - s * 1.1}q${-s * 0.1} ${-s * 0.7} ${s * 0.14} ${-s * 0.75}q${s * 0.16} ${0.05 * s} ${s * 0.02} ${s * 0.75}z`, cor, pl) +
+    forma(`M${x + s * 0.56} ${y - s * 1.1}q${s * 0.05} ${-s * 0.7} ${s * 0.26} ${-s * 0.7}q${s * 0.1} ${0.1 * s} ${-s * 0.1} ${s * 0.7}z`, cor, pl) +
+    (detalhe ? forma(`M${x + s * 0.4} ${y - s * 1.12}q${-s * 0.04} ${-s * 0.5} ${s * 0.08} ${-s * 0.55}q${s * 0.06} ${0.05 * s} ${s * 0.02} ${s * 0.55}z`, C.rosaClara, { mudo: true }) : '') +
+    forma(`M${x - s * 0.55} ${y}C${x - s * 0.75} ${y - s * 0.55} ${x - s * 0.3} ${y - s * 0.9} ${x + s * 0.2} ${y - s * 0.82}C${x + s * 0.6} ${y - s * 0.75} ${x + s * 0.66} ${y - s * 0.25} ${x + s * 0.55} ${y}z`, cor, pl) +
+    forma(circ([x - s * 0.55, y - s * 0.35], s * 0.16), claro(cor, 0.5), { mudo: true }) +
+    forma(`M${x + s * 0.1} ${y}a${s * 0.22} ${s * 0.1} 0 1 0 ${s * 0.44} 0a${s * 0.22} ${s * 0.1} 0 1 0 ${-s * 0.44} 0z`, cor, { mudo: true }) +
+    forma(circ([x + s * 0.45, y - s * 0.85], s * 0.3), cor, pl) +
+    fio(`M${x + s * 0.5} ${y - s * 0.86}q${s * 0.07} ${-s * 0.07} ${s * 0.14} 0`, C.lapisTinta, s >= 14 ? 1.3 : 1, 0.8) +
+    `<circle cx="${x + s * 0.72}" cy="${y - s * 0.76}" r="${s * 0.05}" fill="${C.rosaDoce}" opacity="0.8"/>` +
+    `</g>`
+  );
 }
 
 /** A caixa de areia em estrela de cinco pontas, vista de cima e achatada. A única estrela de cinco pontas do jogo. */

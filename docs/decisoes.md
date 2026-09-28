@@ -20,6 +20,25 @@
 | P12 | Semana | Cores da tradição Waldorf (dom dourado, seg roxo, ter vermelho, qua amarelo, qui laranja, sex verde, sáb azul). Brincadeira do dia: dom família, seg palavras, ter caderno, qua pinhas, qui areia, sex piano, sáb jardim. | `src/ui/tokens.css`, `src/core/laco.ts` |
 | P13 | O resto | Mãe de cabelo castanho escuro na altura do ombro e vestido rosa-velho; pai de testa alta, barba cheia e óculos finos sem hastes, castanho claro, camiseta verde-mata (opção C, escolhida entre três); gatinho cinza-areia, coelhinho branco; nomes candidatos Mimi, Luna, Bolota e Pipoca, Nino, Flor; nome do jogo Little Star; comidas iniciais tomate, cenoura, banana, brócolis, uva, pão (trocáveis); festas das estações ficam para a v2. | dados e cantinho dos pais |
 
+## O redesenho: Aquarela e Lápis
+
+Em setembro de 2026 o Anderson pediu um estilo gráfico menos simplório, ainda leve, pastel
+e Waldorf. Três propostas foram desenhadas em `docs/referencia/estilos.html` (Aquarela e
+Lápis, Feltro e Linha, Estampa de Três Tintas) e a escolha foi **Aquarela e Lápis**. As
+faces da família vieram das fotos, em `docs/referencia/familia.html`: Stella e mãe na
+variação B, Theo no baterista A (mais menino), pai na B com camiseta preta e jeans, a mãe
+magra e elegante de salmão, todos com mão no fim do braço e o rosto que simplifica sozinho
+quando fica pequeno.
+
+| Rodada | O que muda | Onde vive |
+|---|---|---|
+| 1 | O pincel (`forma`, `fio`, `lavagem`, grão do papel, lápis de espessura fixa), a marionete com as quatro faces e os cabelos novos em todas as poses, o gato e o coelho, os tokens da família, o styleguide. | `src/puppet/pincel.ts`, `src/puppet/boneco.ts`, `src/puppet/objetos.ts`, `src/ui/tokens.css`, `src/telas/styleguide.ts` |
+| 2 | A casa e a chegada, a partir das fotos da casa real. | `src/telas/casa.ts`, `src/telas/chegada.ts` |
+| 3 | O dia: roda, prato, cozinha, horta, cuidados, cama, dentes, brinquedos, relógio, noite, despedida. | `src/telas/*.ts` |
+| 4 | As letras: som, caderno, palavra, bilhete, areia, pinhas e as 54 figuras. | `src/puppet/figuras.ts`, `src/telas/*.ts` |
+| 5 | As aventuras e a música: jardim, árvore, árvore grande, lago, parquinho, palco, piano, ukulele, bonecas. | `src/telas/*.ts` |
+| 6 | A interface e o passeio: cabeçalho, pílulas, opções, cantinho dos pais; as capturas regravadas. | `src/ui/*`, `docs/shots/` |
+
 ## As respostas que chegaram depois
 
 O Anderson respondeu P1 a P7 na página das telas enquanto a v1 era implementada. O que mudou:
