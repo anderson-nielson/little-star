@@ -86,7 +86,7 @@ continua sendo um contador disfarçado; o canteiro já recompensa).
 | Mais tarefas na roda | Banho, quarto e ser gentil. Os pais ligam e desligam cada tarefa no cantinho; banho já vem ligado, quarto e gentil não, para a roda continuar curta. | `src/telas/roda.ts`, `src/telas/pais.ts` |
 | Subir na árvore | Tocar num galho mais alto e ela sobe até ele, sem pressa. Do alto vê a casa verde de cima, o Theo acenando e, à noite, as estrelas das noites bem dormidas. O Theo sobe junto só nos galhos baixos. Quando o gatinho está no topo, a cena vira só a abertura da Árvore Grande: ela vê o gatinho lá em cima e o toque leva direto para a subida de perto, sem subir duas vezes. | `src/telas/arvore.ts` |
 | A Árvore Grande | O gatinho subiu ao topo e não sabe descer. Cada toque, ela pula para o galho de cima (sete galhos, como os degraus da escada do escorregador), sem nada caindo e sem pressa. No topo ela abraça o gatinho e vai para o palco. Abre depois da primeira aventura terminada. Música: a Marcha. | `src/telas/arvoregrande.ts` |
-| O Lago dos Cisnes | Cinco faixas de vitórias-régias e cisnes que vão e voltam (nunca somem pela beirada). Toque = pular para a frente, e o pulo espera a plataforma chegar. Caiu na água? O Theo pesca com a rede, sem perder nada. Cada travessia acende uma luz do coreto. Abre depois da segunda aventura. Música: a Dança dos pequenos cisnes. | `src/telas/lago.ts` |
+| O Lago dos Cisnes | Cinco faixas de vitórias-régias e cisnes que vão e voltam (nunca somem pela beirada). Toque = pular para a frente, e o pulo espera a plataforma chegar. Caiu na água? Splash onde caiu, ela nada de volta até onde estava e tenta de novo, sem perder nada. É ida e volta: ela vai até o coreto, uma luz acende, e volta pulando para a margem de casa, onde a aventura fecha. Abre depois da segunda aventura. Música: a Dança dos pequenos cisnes. | `src/telas/lago.ts` |
 | A porta | Com mais de uma aventura aberta, três figuras (coelhinho, pinha com o gatinho, cisne) para escolher; a do dia brilha e vai sozinha depois de 14 s. | `src/telas/casa.ts` |
 | Espanhol | A Estrellita (a primeira boneca da estante) diz o outro nome das coisas: nas palavras em destaque, na comidinha, na horta e no palco (às vezes conta a entrada em espanhol, e diz "¡Muy bien!"). Entra sozinho com três letras traçadas, ou como os pais mandarem. Gravação `es_<id>` se houver; senão, a voz do aparelho em espanhol; sem voz, silêncio. | `src/audio/espanhol.ts`, `src/data/espanhol.json` |
 | Ukulele | Quatro cordas para dedilhar (Karplus-Strong), afinadas em sol, dó, mi, lá: soltas, dão a afinação; três botões de cor apertam dó, fá e sol7 nas posições de verdade. Corpo rosa em oito, com cintura, cravelhas e trastes. As bonecas balançam. | `src/telas/ukulele.ts` |
@@ -540,3 +540,34 @@ Opções ela aparecia duas vezes, em "Agora" e em "Ainda falta".
 - **"Ainda falta"** nas Opções não repete o passo de agora (`src/ui/opcoes.ts`).
 - **Prato e som também.** Depois da roda, o teste mostrou a mesma lacuna no prato. A cartinha de
   roda, prato e som pendentes se toca (`data-pendente`), e a mãozinha aponta a primeira delas.
+
+## O lago, depois de ver com a família
+
+- **O ícone da porta é água.** O cisne era branco num círculo branco e sumia. Agora o círculo
+  tem o azul do lago, uma vitória-régia e o cisne em cima.
+- **Ela começa na grama.** A margem de baixo sobe até os pés dela; antes ela aparecia de pé
+  na água.
+- **Ida e volta, como o Jardim.** Ela atravessa até o coreto, uma luz acende, ela para um
+  pouquinho olhando e volta pulando para baixo até a margem de casa, onde a aventura fecha.
+  Duas contas na margem de baixo (`LAGO.travessias`) mostram a ida e a volta, a de agora com a
+  centelha; na beirada direita, uma pedrinha por faixa acende do ponto de partida até onde ela
+  chegou. A rede de segurança subiu para três minutos (`LAGO.duracao`), porque sem nenhum toque
+  a A2 leva uns 12 s por faixa e a ida e volta tem doze pulos.
+- **Buscar alguma coisa do outro lado.** A volta ganha propósito: no coreto espera uma flor
+  rosa de vitória-régia, com um brilho pulsando. Ela pega, a flor voa até a mão, e ela traz na
+  volta; se cair, nada com a flor bem no alto, e a flor não se perde. Chegando em casa, a flor
+  vira lembrança (`lago:<dia>` em `lembrancas`, uma por dia) e aparece num copinho d'água em
+  cima do piano rosa do quarto.
+- **Cresce com ela.** Cada ida e volta completa (`idasEVoltasNoLago`, no estado e no cantinho
+  dos pais) deixa as faixas 8% mais rápidas da próxima vez, até 50% a mais (`LAGO.acelera`,
+  `LAGO.aceleraTeto`, `ritmoDoLago`). Quando o tempo acaba antes de ela voltar, não conta: o
+  ritmo só sobe depois de ela ter conseguido. A janela generosa do pulo não muda.
+- **A queda aparece.** O splash acontece onde ela caiu, com ondinhas e gotas; ela afunda até a
+  cintura, nada de volta até a plataforma de onde pulou (`LAGO.splash`, `LAGO.nado`), sobe e
+  sacode (`LAGO.sacode`). Antes ela voltava de estalo para onde estava, e não dava para
+  entender o que tinha acontecido.
+- **A2 espera a vitória-régia.** Na ajuda A2 o pulo esperava zero segundo e podia cair na água
+  de novo; agora espera a plataforma passar embaixo dela, quanto for preciso.
+
+Arquivos: `src/telas/lago.ts`, `src/telas/casa.ts`, `src/telas/pais.ts`, `src/core/estado.ts`,
+`src/data/ajuda-telas.json`, `tests/aventuras.test.ts`, `SPEC.md`.

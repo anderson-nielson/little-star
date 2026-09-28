@@ -135,8 +135,12 @@ export function telaCasa(): Tela {
   s += `<g class="stella" style="pointer-events:none">${familia.stella(92, f1 - 20, 50, 'sentado').svg}</g>`;
   /* caderno na escrivaninha de parede, entre a cama e o piano: é onde ela mais gosta de ir */
   s += `<g data-alvo="caderno"${novo('caderno')}>${toque(153, 290, 30)}<rect x="130" y="300" width="46" height="6" rx="2" fill="#c9a189"/><path d="M134 306l6 10M172 306l-6 10" stroke="#c9a189" stroke-width="2.5"/><rect x="136" y="277" width="34" height="23" rx="2" fill="#fbf8f1" stroke="#c6a15b"/><line x1="153" y1="278" x2="153" y2="299" stroke="#ebcdc3" stroke-width="1"/><text x="161" y="295" text-anchor="middle" font-family="Jost, sans-serif" font-size="16" fill="#f2a9c4" font-weight="500">${(letras as { id: string }[])[Math.min(e.letraIndice, 8)]?.id ?? 'A'}</text></g>`;
+  /* a lembrança do lago: a flor rosa que ela trouxe, num copinho d'água em cima do piano */
+  const florDoLago = e.lembrancas.some((l) => l.startsWith('lago:'))
+    ? `<rect x="204" y="${f1 - 48}" width="8" height="10" rx="1.5" fill="#dbe7ee" stroke="#9fc3cf"/><circle cx="208" cy="${f1 - 51}" r="4.5" fill="#f2a9c4"/><circle cx="208" cy="${f1 - 51}" r="1.6" fill="#ebd9a8"/>`
+    : '';
   /* piano rosa */
-  s += `<g data-alvo="piano"${novo('piano')}>${toque(196, 352, 30)}<rect x="176" y="${f1 - 38}" width="40" height="38" rx="4" fill="#f2a9c4"/><rect x="176" y="${f1 - 22}" width="40" height="9" fill="#fbf8f1"/><path d="M182 ${f1 - 22}v9M188 ${f1 - 22}v9M194 ${f1 - 22}v9M200 ${f1 - 22}v9M206 ${f1 - 22}v9M211 ${f1 - 22}v9" stroke="#ebcdc3" stroke-width="1"/></g>`;
+  s += `<g data-alvo="piano"${novo('piano')}>${toque(196, 352, 30)}<rect x="176" y="${f1 - 38}" width="40" height="38" rx="4" fill="#f2a9c4"/><rect x="176" y="${f1 - 22}" width="40" height="9" fill="#fbf8f1"/><path d="M182 ${f1 - 22}v9M188 ${f1 - 22}v9M194 ${f1 - 22}v9M200 ${f1 - 22}v9M206 ${f1 - 22}v9M211 ${f1 - 22}v9" stroke="#ebcdc3" stroke-width="1"/>${florDoLago}</g>`;
   /* o banheiro: a toalha, a pia com o espelho e a escova no copo, a banheira */
   s += `<line x1="304" y1="172" x2="325" y2="172" stroke="#c9a189" stroke-width="3" stroke-linecap="round"/><rect x="307" y="172" width="15" height="21" rx="2" fill="#f2a9c4" opacity="0.85"/><path d="M307 188h15" stroke="#fbf8f1" stroke-width="2"/>`;
   s += `<g data-alvo="pia"${novo('cuidados')}>${toque(312, 272, 34)}<ellipse cx="312" cy="248" rx="15" ry="19" fill="#dbe7ee" stroke="#c6a15b" stroke-width="1.5"/><rect x="292" y="278" width="40" height="9" rx="4" fill="#fbf8f1" stroke="#c6a15b" stroke-width="1"/><rect x="307" y="287" width="10" height="12" rx="3" fill="#fbf8f1" opacity="0.9"/><path d="M309 278v-8h7" fill="none" stroke="#8f8270" stroke-width="2.5" stroke-linecap="round"/><path d="M336 266h10l-1.5 12h-7z" fill="#f6e3dc" stroke="#c9a189"/><rect x="339" y="252" width="3" height="18" rx="1.5" fill="#f2a9c4"/><rect x="338" y="249" width="5" height="5" rx="1" fill="#fbf8f1" stroke="#c9a189" stroke-width="0.6"/></g>`;
@@ -416,7 +420,7 @@ export function telaCasa(): Tela {
     const icone: Record<Aventura, (x: number) => string> = {
       jardim: (x) => coelho(x - 6, cy + 22, 22),
       arvore: (x) => pinha(x, cy + 6, 18, 1) + gato(x + 22, cy + 22, 8, '#c8b8a6', true),
-      lago: (x) => `<path d="M${x - 16} ${cy + 8}q16 12 32 0q-2 -10 -16 -10q-14 0 -16 10z" fill="#fbf8f1"/><path d="M${x + 8} ${cy + 4}q10 -10 4 -22" stroke="#fbf8f1" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M${x + 12} ${cy - 20}l8 3l-8 3z" fill="#e8a24a"/>`,
+      lago: (x) => `<circle cx="${x}" cy="${cy}" r="38" fill="#9fc3cf"/><ellipse cx="${x}" cy="${cy + 14}" rx="30" ry="7" fill="#dbe7ee" opacity="0.6"/><path d="M${x - 30} ${cy - 16}a12 5 0 1 1 20 3l-10 -2z" fill="#8fae6b"/><path d="M${x - 16} ${cy + 8}q16 12 32 0q-2 -10 -16 -10q-14 0 -16 10z" fill="#fbf8f1"/><path d="M${x + 8} ${cy + 4}q10 -10 4 -22" stroke="#fbf8f1" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M${x + 12} ${cy - 20}l8 3l-8 3z" fill="#e8a24a"/>`,
     };
     const g = svgEl(
       `<g class="escolha">${abertas

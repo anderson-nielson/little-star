@@ -424,6 +424,7 @@ export function telaPais(): Tela {
         h('div', {}, h('b', {}, String(e.comidinhas)), 'comidinhas com a mãe'),
         h('div', {}, h('b', {}, String(e.horta.filter(Boolean).length)), 'canteiros plantados'),
         h('div', {}, h('b', {}, String(e.coreto)), 'luzes no coreto'),
+        h('div', {}, h('b', {}, String(e.idasEVoltasNoLago)), 'idas e voltas no lago'),
         h('div', {}, h('b', {}, String(e.bilhetes.length)), 'bilhetinhos'),
         h('div', {}, h('b', {}, String(e.medalhas)), 'medalhas'),
         h('div', {}, h('b', {}, String(a1)), 'vezes que a mãozinha ajudou'),

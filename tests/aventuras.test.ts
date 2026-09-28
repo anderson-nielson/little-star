@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { ARVORE, galho } from '@/telas/arvoregrande';
-import { LAGO, posicaoNaFaixa, proximoEncontro, type Faixa } from '@/telas/lago';
+import { LAGO, ritmoDoLago, posicaoNaFaixa, proximoEncontro, type Faixa } from '@/telas/lago';
 import { ACORDES, AFINACAO, CASAS } from '@/telas/ukulele';
 import { cordaAmostras, freq } from '@/audio/synth';
 
@@ -35,6 +35,12 @@ describe('o Lago dos Cisnes', () => {
   it('tem cinco faixas e um coreto de seis luzes', () => {
     expect(LAGO.velocidades).toHaveLength(LAGO.faixas);
     expect(LAGO.partesDoCoreto).toBe(6);
+  });
+  it('fica um pouquinho mais rápido a cada ida e volta, com teto', () => {
+    expect(ritmoDoLago(0)).toBe(1);
+    expect(ritmoDoLago(1)).toBeCloseTo(1 + LAGO.acelera);
+    expect(ritmoDoLago(2)).toBeGreaterThan(ritmoDoLago(1));
+    expect(ritmoDoLago(100)).toBe(1 + LAGO.aceleraTeto);
   });
 });
 

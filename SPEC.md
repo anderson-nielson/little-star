@@ -646,8 +646,15 @@ as pinhas da aventura vão para a mesa da estação.
 ### 12.3 O Lago dos Cisnes (inspirado em Frostbite e Freeway)
 Atravessar o lago de baixo para cima pulando em vitórias-régias e cisnes que nadam em faixas.
 **Toque = pular para a frente.** As faixas andam devagar e o pulo espera o cisne chegar.
-Cada travessia acende uma parte do coreto do outro lado. Caiu na água? Splash, ela senta, sacode e
-sobe de novo sozinha, sem perder nada.
+É ida e volta, como o Jardim: ela vai até o coreto do outro lado, uma parte dele acende, e ela
+volta pulando para a margem de casa, onde a aventura fecha. No coreto espera uma flor rosa de
+vitória-régia: ela pega, traz na mão (se cair na água, nada com a flor no alto, sem perder) e em
+casa a flor vira lembrança, num copinho d'água em cima do piano. Duas contas na margem de baixo
+mostram a ida e a volta, e as pedrinhas na beirada mostram até onde ela chegou. A cada ida e
+volta completa, da próxima vez os cisnes e as vitórias-régias nadam um pouquinho mais rápido (8%
+por vez, até 50% a mais). Ela começa na grama da margem, nunca dentro da água. Caiu na água? O splash
+acontece onde ela caiu, ela nada de volta até onde estava, sobe, sacode e tenta de novo, sem
+perder nada.
 
 ### 12.4 O Palco
 Cortina de veludo, luz de ribalta. A Stella dança com a música da aventura; tocar faz ela
