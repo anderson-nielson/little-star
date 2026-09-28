@@ -7,9 +7,14 @@ import { bonecaPano, type Enfeite, type OpcoesBoneca } from './bonecaPano';
  * pernas curtas. Tudo por dados de cor: trocar roupa é trocar variável.
  */
 export type Ponto = [number, number];
-export type Pose = 'parado' | 'acena' | 'sentado' | 'pulo' | 'aponta' | 'segura' | 'giro' | 'reverencia' | 'deitado' | 'abraca' | 'anda' | 'salto' | 'escorrega' | 'balanco' | 'palma' | 'mao' | 'plie' | 'releve' | 'arabesque' | 'agradece';
-/** os passos de balé do palco: o plié (joelhos dobrados para fora), o relevé (na ponta dos pés, braços em coroa), o arabesque (uma perna esticada atrás) */
-export const PASSOS_DE_BALE = ['plie', 'releve', 'arabesque', 'giro', 'salto'] as const satisfies readonly Pose[];
+export type Pose = 'parado' | 'acena' | 'sentado' | 'pulo' | 'aponta' | 'segura' | 'giro' | 'reverencia' | 'deitado' | 'abraca' | 'anda' | 'salto' | 'escorrega' | 'balanco' | 'palma' | 'mao' | 'plie' | 'releve' | 'arabesque' | 'agradece' | 'segunda' | 'tendu' | 'passe' | 'attitude';
+/**
+ * Os passos de balé do palco: o plié (joelhos dobrados para fora), o relevé (na ponta dos
+ * pés, braços em coroa), o arabesque (uma perna esticada atrás), a pirueta (`giro`), o
+ * salto, o tendu (uma perna esticada para o lado, na ponta), o passé (o pé no joelho, braços
+ * em coroa), a attitude (a perna dobrada atrás, um braço no alto) e o échappé (`pulo`).
+ */
+export const PASSOS_DE_BALE = ['plie', 'releve', 'arabesque', 'giro', 'salto', 'tendu', 'passe', 'attitude', 'pulo'] as const satisfies readonly Pose[];
 export type PassoDeBale = (typeof PASSOS_DE_BALE)[number];
 export type Cabelo = 'liso' | 'cacheado' | 'cachinhos' | 'coque' | 'curto' | 'rabo' | 'entradas' | 'testa-alta';
 export type Barba = 'baixa' | 'leve' | 'cheia';
@@ -126,10 +131,14 @@ export function boneco(o: Figura): Desenho {
   const plie = pose === 'plie';
   const releve = pose === 'releve';
   const arabesque = pose === 'arabesque';
-  /* a révérence da bailarina: joelhos um pouco dobrados, mãos na saia, cabeça baixa agradecendo */
+  /* o agradecimento da bailarina (a révérence): um pé cruza atrás, os joelhos dobram, um braço
+     abre para o lado e o outro desce na frente, a cabeça baixa agradecendo */
   const agradece = pose === 'agradece';
-  /* no arabesque o tronco inclina um pouco para a frente, sobre a perna de apoio */
-  const inclina = arabesque ? dir * 0.05 * h : 0;
+  const tendu = pose === 'tendu';
+  const passe = pose === 'passe';
+  const attitude = pose === 'attitude';
+  /* no arabesque e na attitude o tronco inclina um pouco para a frente, sobre a perna de apoio */
+  const inclina = arabesque ? dir * 0.05 * h : attitude ? dir * 0.03 * h : agradece ? dir * 0.02 * h : 0;
   /* andar: a perna balança da anca, o joelho dobra quando a perna volta; braço oposto à perna */
   const balanco = Math.sin((o.passo ?? 0) * Math.PI * 2);
   const perna = (hx: number, hy: number, coxaAng: number, canelaAng: number): [Ponto, Ponto, Ponto, Ponto] => {
@@ -146,7 +155,7 @@ export function boneco(o: Figura): Desenho {
   else if (salto || escorrega) hipY = y - lg - h * 0.04;
   else if (plie) hipY = y - lg * 0.74;
   else if (releve) hipY = y - lg - h * 0.05;
-  else if (agradece) hipY = y - lg * 0.9;
+  else if (agradece) hipY = y - lg * 0.86;
   else hipY = y - lg;
   const shY = reverencia ? hipY - tor * 0.55 : arabesque ? hipY - tor * 0.96 : hipY - tor;
   const cabeca: Ponto = reverencia ? [x + dir * tor * 0.55, shY - hr * 0.6] : [x + inclina + dir * 0.01 * h, shY - 0.025 * h - hr + (agradece ? hr * 0.3 : 0)];
@@ -188,8 +197,21 @@ export function boneco(o: Figura): Desenho {
     legs.push([[x - 0.035 * h, hipY + 0.02 * h], [x - 0.03 * h, hipY + lg * 0.5], [x - 0.03 * h, y - 0.07 * h], [x - 0.03 * h + dir * 0.02 * h, y]]);
     legs.push([[x + 0.035 * h, hipY + 0.02 * h], [x + 0.03 * h, hipY + lg * 0.5], [x + 0.03 * h, y - 0.07 * h], [x + 0.03 * h + dir * 0.02 * h, y]]);
   } else if (agradece) {
-    legs.push([[x - 0.04 * h, hipY + 0.02 * h], [x - 0.09 * h, hipY + lg * 0.48], [x - 0.08 * h, y - 0.02 * h], [x - 0.13 * h, y]]);
-    legs.push([[x + 0.04 * h, hipY + 0.02 * h], [x + 0.09 * h, hipY + lg * 0.48], [x + 0.08 * h, y - 0.02 * h], [x + 0.13 * h, y]]);
+    /* a perna da frente dobra; a de trás cruza por trás dela e aponta na ponta do pé */
+    legs.push([[x + dir * 0.04 * h, hipY + 0.02 * h], [x + dir * 0.08 * h, hipY + lg * 0.5], [x + dir * 0.05 * h, y - 0.02 * h], [x + dir * 0.11 * h, y]]);
+    legs.push([[x - dir * 0.04 * h, hipY + 0.02 * h], [x + dir * 0.0 * h, hipY + lg * 0.5], [x + dir * 0.15 * h, y - 0.04 * h], [x + dir * 0.21 * h, y - 0.01 * h]]);
+  } else if (tendu) {
+    /* a perna de apoio reta; a outra esticada para o lado, só a ponta do pé no chão */
+    legs.push([[x + dir * 0.04 * h, hipY + 0.02 * h], [x + dir * 0.05 * h, hipY + lg * 0.52], [x + dir * 0.06 * h, y - 0.02 * h], [x + dir * 0.12 * h, y]]);
+    legs.push([[x - dir * 0.04 * h, hipY + 0.02 * h], [x - dir * 0.15 * h, hipY + lg * 0.5], [x - dir * 0.26 * h, y - 0.04 * h], [x - dir * 0.32 * h, y - 0.01 * h]]);
+  } else if (passe) {
+    /* a perna de apoio reta; o outro pé encosta no joelho dela */
+    legs.push([[x + dir * 0.04 * h, hipY + 0.02 * h], [x + dir * 0.05 * h, hipY + lg * 0.52], [x + dir * 0.06 * h, y - 0.02 * h], [x + dir * 0.12 * h, y]]);
+    legs.push([[x - dir * 0.04 * h, hipY + 0.02 * h], [x - dir * 0.17 * h, hipY + lg * 0.32], [x - dir * 0.02 * h, hipY + lg * 0.5], [x + dir * 0.02 * h, hipY + lg * 0.56]]);
+  } else if (attitude) {
+    /* a perna de apoio reta; a outra levantada atrás, dobrada no joelho */
+    legs.push([[x + dir * 0.02 * h, hipY + 0.02 * h], [x + dir * 0.02 * h, hipY + lg * 0.52], [x + dir * 0.02 * h, y - 0.02 * h], [x + dir * 0.08 * h, y]]);
+    legs.push([[x - dir * 0.04 * h, hipY + 0.02 * h], [x - dir * 0.24 * h, hipY + 0.04 * h], [x - dir * 0.18 * h, hipY - 0.12 * h], [x - dir * 0.14 * h, hipY - 0.17 * h]]);
   } else if (arabesque) {
     /* o arabesque: uma perna de apoio esticada, a outra esticada para trás, quase na altura do quadril */
     legs.push([[x - dir * 0.04 * h, hipY + 0.02 * h], [x - dir * 0.2 * h, hipY], [x - dir * 0.36 * h, hipY - 0.04 * h], [x - dir * 0.43 * h, hipY - 0.06 * h]]);
@@ -222,7 +244,7 @@ export function boneco(o: Figura): Desenho {
     /* a camiseta: cai reta dos ombros, um pouco mais larga na bainha */
     const lw = Math.max(0.08 * h, (sw / 2 - 1.5 * esc) * 1.1);
     roupaPath = `<path d="M${tl}L${tr}Q${x + lw * 0.92} ${hipY - 0.1 * h} ${x + lw} ${hipY + 0.03 * h}L${x - lw} ${hipY + 0.03 * h}Q${x - lw * 0.92} ${hipY - 0.1 * h} ${tl}z" fill="${roupa}"/>`;
-    if (o.calca && !sentado && !pulo && !anda && !salto && !escorrega && !plie && !arabesque && !agradece)
+    if (o.calca && !sentado && !pulo && !anda && !salto && !escorrega && !plie && !arabesque && !agradece && !tendu && !passe && !attitude)
       roupaPath += `<path d="M${x - lw * 0.98} ${hipY}L${x + lw * 0.98} ${hipY}L${x + lw * 0.88} ${hipY + lg * 0.55}L${x + 0.01 * h} ${hipY + lg * 0.55}L${x} ${hipY + 0.1 * h}L${x - 0.01 * h} ${hipY + lg * 0.55}L${x - lw * 0.88} ${hipY + lg * 0.55}z" fill="${o.calca}"/>`;
   }
   const tutu = o.tutu ? `<ellipse cx="${x}" cy="${hipY + 0.02 * h}" rx="${0.2 * h}" ry="${0.06 * h}" fill="${o.tutu}" opacity="0.92"/>` : '';
@@ -314,11 +336,34 @@ export function boneco(o: Figura): Desenho {
       bL = braco(sL, -PI * 0.62, -PI * 0.22);
       bR = braco(sR, -PI * 0.38, -PI * 0.78);
       break;
-    case 'agradece':
-      /* as mãos seguram a saia, abertas para os lados e para baixo */
-      bL = braco(sL, PI * 0.72, PI * 0.6);
-      bR = braco(sR, PI * 0.28, PI * 0.4);
+    case 'agradece': {
+      /* o braço de trás abre para o lado; o da frente desce cruzando na frente da saia */
+      const lado = (a: number) => (dir > 0 ? a : PI - a);
+      const bTras = braco(dir > 0 ? sL : sR, lado(PI * 0.88), lado(PI * 0.92));
+      const bFrente = braco(dir > 0 ? sR : sL, lado(PI * 0.6), lado(PI * 0.82));
+      bL = dir > 0 ? bTras : bFrente;
+      bR = dir > 0 ? bFrente : bTras;
       break;
+    }
+    case 'segunda':
+    case 'tendu':
+      /* os braços abertos para os lados, um pouco para baixo: a segunda posição */
+      bL = braco(sL, PI * 0.9, PI * 0.93);
+      bR = braco(sR, PI * 0.1, PI * 0.07);
+      break;
+    case 'passe':
+      bL = braco(sL, -PI * 0.62, -PI * 0.22);
+      bR = braco(sR, -PI * 0.38, -PI * 0.78);
+      break;
+    case 'attitude': {
+      /* o braço do lado da perna levantada vai ao alto; o outro abre para o lado */
+      const lado = (a: number) => (dir > 0 ? a : PI - a);
+      const bTras = braco(dir > 0 ? sL : sR, lado(-PI * 0.7), lado(-PI * 0.45));
+      const bFrente = braco(dir > 0 ? sR : sL, lado(PI * 0.08), lado(PI * 0.04));
+      bL = dir > 0 ? bTras : bFrente;
+      bR = dir > 0 ? bFrente : bTras;
+      break;
+    }
     case 'arabesque': {
       /* o braço da frente esticado para a frente e um pouco para cima; o de trás aberto para o lado */
       const frente = (a: number) => (dir > 0 ? a : PI - a);

@@ -417,7 +417,7 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
   7. **O fecho no palco**: cortina de veludo abre, luz de ribalta. Na plateia, a mãe, o pai, o
      Theo e as bonecas. Ela dança sozinha uma coreografia curta com a *Dança da Fada
      Açucarada* (plié, relevé, arabesque, pirueta, salto), uns vinte segundos; tocar faz
-     centelhas, nunca erra. Révérence, aplauso, a família abraça na coxia, a cortina desce. Uma boneca de
+     centelhas, nunca erra. Agradecimento, aplauso, a família abraça na coxia, a cortina desce. Uma boneca de
      pano nova espera por ela na estante. Sem visto nem mãozinha: é a recompensa, não uma
      tarefa. Dançar de verdade é na brincadeira do palco (6.15).
 - **Dura**: 3 minutos, com o fecho.
@@ -533,10 +533,12 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
   1. Cortina de veludo abre, luz de ribalta, a Stella de tutu e coque. Na plateia, a mãe, o
      pai, o Theo e as bonecas; a boneca companheira assiste da coxia. Música: *Dança da Fada
      Açucarada*. Entre um passo e outro ela nunca fica parada: gira devagar na ponta dos
-     pés, braços em coroa, como a bailarina de uma caixinha de música.
+     pés, braços em coroa, como a bailarina de uma caixinha de música, e passeia de um lado
+     a outro do palco.
   2. **A ribalta**: uma fileira de botões no chão do palco, cada um com a Stella desenhada
-     na pose: plié, relevé, arabesque, pirueta. Tocar num botão, ela vira de frente e faz o
-     passo na hora, leve, com uma nota baixinha, centelhas e a voz da mãe dizendo o nome do
+     na pose: plié, relevé, arabesque, pirueta. O segundo número traz quatro passos novos
+     na ribalta (tendu, passé, attitude, échappé), e os conjuntos alternam a cada número.
+     Tocar num botão, ela vira de frente e faz o passo na hora, leve, com uma nota baixinha, centelhas e a voz da mãe dizendo o nome do
      passo (se gravada). A pirueta gira de verdade; **tocar no palco é o salto**. Nada sai
      errado.
   3. **A barrinha da coreografia**, no alto: uma conta por passo. Um passo diferente do
@@ -547,9 +549,12 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
      *Valsa das Flores*, *Dança dos pequenos cisnes*, a *Marcha*, e volta. A nota na ponta da
      ribalta pula para a próxima quando ela quiser.
   5. A cortininha na outra ponta acende no primeiro passo (no palco, o fim se chama cortina,
-     não visto). É ela quem fecha o show: a révérence de bailarina (mãos na saia, uma
-     dobradinha de joelhos, a cabeça agradece), aplauso, "Brava!", abraço na coxia, a cortina
-     desce e a casinha acende.
+     não visto). É ela quem fecha o show: o agradecimento como no balé (os braços abrem na
+     segunda posição, um pé cruza atrás, os joelhos dobram, um braço abre e o outro desce, a
+     cabeça agradece, e ela sobe de novo), aplauso, "Brava!", abraço na coxia, a cortina
+     desce e a casinha acende. Fechar a cortina antes de oito passos não é show: é desistir
+     da dança por agora. Ela acena, a família bate uma palminha, a cortina desce; sem
+     "Brava!" e sem narração.
 - **Dura**: o que ela quiser; a mãozinha mostra o passo que ela ainda não fez e, depois da
   quarta música, aponta a cortina.
 - **Ajuda**: A1, a mãozinha toca no próximo passo que falta; A2, aponta a cortina.

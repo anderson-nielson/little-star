@@ -662,12 +662,14 @@ perder nada.
 Cortina de veludo, luz de ribalta. Plateia: mãe, pai, Theo e as bonecas. Dois jeitos:
 
 - **A brincadeira** (as sapatilhas na parede do quarto): entre um passo e outro ela gira
-  devagar na ponta dos pés, como numa caixinha de música. Na ribalta, um botão para cada
-  passo com a Stella desenhada na pose (plié, relevé, arabesque, pirueta); tocar no palco é o
-  salto. Sempre dá certo, com uma nota baixinha. No alto, a barrinha da coreografia: um
-  passo diferente do anterior vira estrela. Com oito passos a família bate palma (mais
-  forte com mais estrelas) e vem a música seguinte da playlist (Fada Açucarada, Valsa das
-  Flores, Cisnes, Marcha). A cortininha fecha o show: révérence, aplauso, abraço, cortina.
+  devagar na ponta dos pés e passeia pelo palco, como numa caixinha de música. Na ribalta,
+  um botão para cada passo com a Stella desenhada na pose (plié, relevé, arabesque,
+  pirueta; no segundo número, tendu, passé, attitude, échappé); tocar no palco é o salto.
+  Sempre dá certo, com uma nota baixinha. No alto, a barrinha da coreografia: um passo
+  diferente do anterior vira estrela. Com oito passos a família bate palma (mais forte com
+  mais estrelas) e vem a música seguinte da playlist (Fada Açucarada, Valsa das Flores,
+  Cisnes, Marcha). A cortininha fecha o show: o agradecimento como no balé, aplauso, abraço,
+  cortina. Antes de oito passos, fechar é desistir: uma palminha e a cortina desce.
 - **O fecho** de toda aventura: ela dança sozinha uma coreografia curta com os mesmos passos,
   reverência, aplauso, a boneca nova na estante, abraço, volta para casa. Uns vinte segundos.
 

@@ -111,15 +111,21 @@ esperava o show acabar, e o visto e a mãozinha faziam dele uma tarefa.
   arabesque, pirueta; tocar no palco é o salto. A cada oito passos a família bate palma e
   o número seguinte começa com outra música da playlist (`PLAYLIST_DO_PALCO`); a nota pula.
   A mãe pode gravar o nome de cada passo (grupo Palco das vozes).
-- **Ela nunca fica parada**: entre os passos gira devagar na ponta dos pés, como a bailarina
-  de uma caixinha de música (o teste com o Anderson: parada, parecia esperar comando).
+- **Ela nunca fica parada**: entre os passos gira devagar na ponta dos pés e passeia de um
+  lado a outro do palco, como a bailarina de uma caixinha de música (o teste com o Anderson:
+  parada, parecia esperar comando; só girando, faltava dançar).
+- **Mais passos, aos poucos**: o segundo número traz tendu, passé, attitude e échappé na
+  ribalta, e os conjuntos alternam. Oito botões numa fileira era demais para 5 anos.
 - **A barrinha da coreografia** no alto: uma conta por passo, estrela quando o passo é
   diferente do anterior. É a "qualidade" sem número: variar rende estrelas e mais aplauso.
 - **No palco o fim é a cortina, não o visto verde**: o visto não dizia nada ali. A
-  cortininha de veludo acende no primeiro passo; tocar fecha o show com a révérence de
-  bailarina (`agradece`: mãos na saia, joelhos dobradinhos, cabeça baixa; a `reverencia`
-  antiga dobrava o tronco inteiro e parecia a cabeça caindo), aplauso, abraço e a cortina
-  descendo.
+  cortininha de veludo acende no primeiro passo; tocar fecha o show com o agradecimento
+  como no balé (`segunda` e `agradece`: braços abertos, um pé cruza atrás, joelhos dobram,
+  um braço abre e o outro desce, cabeça baixa; a `reverencia` antiga dobrava o tronco
+  inteiro e parecia a cabeça caindo), aplauso, abraço e a cortina descendo. "Reverência" é
+  palavra estranha para criança: no jogo e nos textos chama-se agradecimento.
+- **Fechar cedo é desistir**: antes de oito passos a cortina não faz show. Ela acena, a
+  família bate uma palminha, a cortina desce. Sem "Brava!", sem narração, sem castigo.
 - **Som dos passos**: uma nota da lira uma oitava acima, bem baixinha (0,1). O passo é leve.
 - **O fecho da aventura** (`ir('palco', { fecho: '1' })`) virou uma coreografia curta e
   automática com os mesmos passos, reverência, aplauso, boneca nova e abraço. Sem visto nem
