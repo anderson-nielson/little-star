@@ -1,8 +1,7 @@
-import { mover, telaSvg } from './comum';
+import { convidarParaCasa, mover, telaSvg } from './comum';
 import { guiar, type Gesto } from './guia';
 import { estado, mudar, type Quem } from '@/core/estado';
 import { carimbosDoBilhete } from '@/core/laco';
-import { ir } from '@/core/roteador';
 import { esperar } from '@/core/util';
 import { travar } from '@/core/toque';
 import { familia } from '@/puppet/boneco';
@@ -123,8 +122,8 @@ export function telaBilhete(): Tela {
     /* o abraço */
     const g = el as SVGGElement;
     g.innerHTML = quem === 'theo' ? familia.theo(alvoX, 742, 96, 'abraca').svg : quem === 'mae' ? familia.mae(alvoX, 740, 120, 'abraca').svg : familia.pai(alvoX, 740, 126, 'abraca').svg;
-    await esperar(2200);
-    if (tela.el.isConnected) void ir('casa');
+    await esperar(1500);
+    if (tela.el.isConnected) convidarParaCasa(tela);
   });
   return tela;
 }

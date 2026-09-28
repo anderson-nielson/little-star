@@ -187,13 +187,8 @@ function mesaDaEstacao(): Tela {
           });
           render();
           guia.passo();
-          /* a cesta ficou vazia: a mesa está pronta, e a casa chama */
-          if (!acabou && estado().pinhas.every((q) => q.y > 0)) {
-            pronta();
-            void esperar(2400).then(() => {
-              if (tela.el.isConnected) void ir('casa');
-            });
-          }
+          /* a cesta ficou vazia: a mesa está pronta, e a casinha acende; é ela quem sai */
+          if (!acabou && estado().pinhas.every((q) => q.y > 0)) pronta();
           return true;
         }
         return false;
