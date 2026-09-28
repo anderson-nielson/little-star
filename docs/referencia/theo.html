@@ -75,7 +75,7 @@
 <header class="capa">
   <span class="rotulo">Little Star · referência · a roupa do Theo</span>
   <h1>As roupas do Theo</h1>
-  <p>Seis roupas com o mesmo rosto e o mesmo cabelo (o solto de testa livre, até o Theo escolher o dele): três jaquetas e casacos vermelhos abertos, que é o que ele gosta de usar, e três variações do baterista de camisa xadrez com a camiseta preta por baixo.</p>
+  <p>Seis roupas com o mesmo rosto e o mesmo cabelo (o A dos penteados, de cachos soltos e franja, agora sem a marca escura entre a copa e a franja): três jaquetas e casacos vermelhos abertos, que é o que ele gosta de usar, e três variações do baterista de camisa xadrez com a camiseta preta por baixo.</p>
   <div class="linha"><span>Setembro de 2026</span><span>Em cima, de perto; embaixo, cada um no tamanho do jogo, ao lado da Stella</span></div>
 </header>
 
@@ -245,7 +245,23 @@ function cabeloInteiro(rx, ry, testa, ondas = 5, semente = 0, amp = 0.08, lados 
 const LAP = escuro(CAB_THEO, 0.3);
 const ESP = claro(CAB_THEO, 0.35);
 const ROSTO_D = { olhos: 'abertos', boca: 'dentes', sobrancelha: 'fina', queixo: 'reto', bochechaLeve: true, roupa: 'xadrez', cores: XADREZ, atras: () => '' };
-const CABELO_A = { atras: () => '', frente: () => S.forma(cabeloInteiro(44, 40, -25, 5, 1, 0.08, 6), CAB_THEO, { op: 0.92, lapis: 0.3, opLapis: 0.6 }) + espirais([[-34, -16, 6], [-22, -34, 6], [2, -42, 7], [26, -34, 6], [34, -16, 6]], ESP) };
+/* a borda de baixo de uma silhueta ondulada (a franja), só o arco inferior, para o lápis */
+function onduladoBaixo(cx, cy, rx, ry, n = 9, semente = 0, amp = 0.09) {
+  const pts = [];
+  for (let k = 0; k <= n; k++) { const a = (k * Math.PI * 2) / n; const w = 1 - amp + amp * 2 * ((Math.sin(a * 2.7 + semente) + 1) / 2); pts.push([cx + Math.cos(a) * rx * w, cy + Math.sin(a) * ry * w]); }
+  const meio = Math.floor(n / 2);
+  let d = `M${f1((pts[0][0] + pts[1][0]) / 2)} ${f1((pts[0][1] + pts[1][1]) / 2)}`;
+  for (let k = 1; k < meio; k++) { const b = pts[k], c = pts[k + 1]; d += `Q${f1(b[0] + (b[0] - cx) * 0.16)} ${f1(b[1] + (b[1] - cy) * 0.16)} ${f1((b[0] + c[0]) / 2)} ${f1((b[1] + c[1]) / 2)}`; }
+  return d;
+}
+/* O cabelo A dos penteados: a copa solta atrás, a franja de cachos na frente. A franja é
+   pintada com a cor já lavada (a mesma que a copa tem sobre o papel), opaca e sem contorno
+   em cima, para não escurecer onde passa por cima da copa; o lápis fica só na borda de baixo. */
+const FRANJA_COR = claro(CAB_THEO, 0.05);
+const CABELO_A = {
+  atras: () => S.forma(ondulado(0, -10, 47, 44, 13, 1, 0.08), CAB_THEO, { op: 0.92 }) + espirais([[-34, -14, 7], [-22, -34, 6], [2, -42, 7], [24, -34, 6], [34, -12, 7], [-36, 10, 6], [36, 12, 6], [-18, -20, 5], [18, -22, 5]], ESP),
+  frente: () => `<path d="${ondulado(0, -22, 33, 14, 9, 2, 0.12)}" fill="${FRANJA_COR}"/>` + S.fio(onduladoBaixo(0, -22, 33, 14, 9, 2, 0.12), LAP, 1.2, 0.55) + espirais([[-14, -24, 5], [4, -27, 5], [18, -23, 4]], ESP),
+};
 const ROSTO = { olhos: 'abertos', boca: 'dentes', sobrancelha: 'fina', queixo: 'reto', bochechaLeve: true, ...CABELO_A };
 const VERMELHO = '#c9564c', VERMELHO_ESC = '#a8433b', PRETO = '#2f2f36', JEANS = '#5b7aa0', CINZA = '#b9b3aa';
 const PESSOAS = {
