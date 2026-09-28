@@ -7,6 +7,7 @@ import { esperar, svgEl } from '@/core/util';
 import { travar } from '@/core/toque';
 import { familia, figurinoDe, type PassoDeBale, type Pose } from '@/puppet/boneco';
 import { centelha, contornoLuz, veu } from '@/puppet/objetos';
+import { aLapis } from '@/puppet/pincel';
 import { audio } from '@/audio/engine';
 import { musica, pararFundo, Sequenciador } from '@/audio/musica';
 import { aplauso, lira } from '@/audio/synth';
@@ -506,8 +507,9 @@ function botaoCortina(tela: TelaSvg, aoTocar: () => void): { acender: () => void
     `<path d="M${x - 15} ${y - 10}h13q-6 10 -4 26h-9z" fill="#6e1a27"/><path d="M${x + 2} ${y - 10}h13v26h-9q2 -16 -4 -26z" fill="#6e1a27"/>` +
     `<path d="M${x - 9} ${y - 10}q-2 10 0 26M${x + 9} ${y - 10}q2 10 0 26" fill="none" stroke="#8a2534" stroke-width="1.6"/>` +
     `<path d="M${x - 14} ${y + 4}q6 -3 10 0M${x + 4} ${y + 4}q4 -3 10 0" fill="none" stroke="#c6a15b" stroke-width="2" stroke-linecap="round"/>`;
+  /* o botão nasce depois da cena, então o lápis do pincel passa aqui */
   const g = svgEl(
-    `<g class="pronto" data-pronto style="opacity:0;pointer-events:none;transition:opacity 500ms"><circle cx="${x}" cy="${y}" r="${r}" fill="#fbf8f1" stroke="#c6a15b" stroke-width="1.5"/>${contornoLuz(x, y, r + 6, r + 6)}${cortininha}</g>`,
+    `<g class="pronto" data-pronto style="opacity:0;pointer-events:none;transition:opacity 500ms"><circle cx="${x}" cy="${y}" r="${r}" fill="#fbf8f1" stroke="#c6a15b" stroke-width="1.5"/>${contornoLuz(x, y, r + 6, r + 6)}${aLapis(cortininha)}</g>`,
   ) as SVGGElement;
   const mao = tela.svg.querySelector('.camada-mao');
   if (mao) mao.before(g);
