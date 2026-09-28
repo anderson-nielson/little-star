@@ -212,7 +212,7 @@ marionete por dados). Nada de copiar personagens, colagem ou estilo visual do de
 | **A menina** | 5 anos, pequena, cabelo cor de mel bem liso passando do ombro, repartido no meio com um lacinho no dia a dia e em coque no palco. Vestido rosa de flores; tutu no palco. | Tudo. |
 | **Mãe** | Aconchego. Recebe, abraça, cozinha junto, põe para dormir. | Porta, cozinha, hora de dormir, primeira fila do palco. |
 | **Pai** | Parceria e brincadeira. Gira a filha no ar, ri junto. | Volta das aventuras, brinquedos, caderno, aplauso. |
-| **O irmão** | 10 anos, uma vez e meia a altura dela, nuvem de cachos castanhos, camisa xadrez de baterista. O irmão que está por perto. | Na porta, na roda (pergunta da gentileza), na mesa da cozinha, na plateia do palco, na outra ponta da gangorra, no relógio (pede uma hora) e no boa-noite. Não ensina, não segura e não resgata: quem faz é ela. |
+| **O irmão** | 10 anos, uma vez e meia a altura dela, cachos castanhos soltos com a franja, jaqueta vermelha aberta sobre camiseta branca, jeans. O irmão que está por perto. | Na porta, na roda (pergunta da gentileza), na mesa da cozinha, na plateia do palco, na outra ponta da gangorra, no relógio (pede uma hora) e no boa-noite. Não ensina, não segura e não resgata: quem faz é ela. |
 
 **Como o amor aparece**, sempre sem texto:
 - **Abraço** tem animação própria: quem abraça se abaixa até a altura dela. Centelhas rosa e
@@ -748,10 +748,11 @@ ondulados (`copa`), as figuras das palavras têm o lápis dentro de `figura()`.
   (`--pele-menina`), cabelo cor de mel (`--cabelo-menina`), liso, repartido no meio e passando
   do ombro, com um lacinho rosa de lado. Olhos de sorriso, sorriso grande com os dentes.
   Vestido rosa de flores com manguinhas fofas. No palco, coque, collant e tutu rosa.
-- **O irmão** tem uma vez e meia a altura dela e uma nuvem de cachos castanhos com luz nas
-  pontas (`--cabelo-irmao`, `--cabelo-irmao-luz`), irregulares, com mechas na testa. Queixo
-  reto, sobrancelha grossa, olhos grandes abertos, sorriso largo, sem bochecha rosada: mais
-  menino. Camisa xadrez vinho aberta sobre camiseta escura, calção. É o baterista da casa.
+- **O irmão** tem uma vez e meia a altura dela e os cachos castanhos soltos (`--cabelo-irmao`):
+  a copa ondulada atrás e a franja na frente, sem marca escura entre as duas, com espirais
+  a lápis quando está grande. Queixo reto, sobrancelha fina, olhos abertos, sorriso com
+  dentes, bochecha leve. Jaqueta vermelha aberta de gola em pé (`--jaqueta-irmao`) sobre
+  camiseta branca, calça jeans: o cabelo A e a roupa A de `docs/referencia/theo.html`.
 - **A mãe** é magra e elegante: cabelo castanho-escuro repartido de lado, em camadas até o
   ombro, atrás de uma orelha, argolinha. Sorriso com os dentes. Vestido salmão pastel de gola.
 - **O pai** tem o cabelo curto e ralo em cima com as entradas, barba cheia grisalha com o sal

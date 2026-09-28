@@ -28,7 +28,9 @@ Lápis, Feltro e Linha, Estampa de Três Tintas) e a escolha foi **Aquarela e L�
 faces da família vieram das fotos, em `docs/referencia/familia.html`: a menina e a mãe na
 variação B, o irmão no baterista A (mais menino), pai na B com camiseta preta e jeans, a mãe
 magra e elegante de salmão, todos com mão no fim do braço e o rosto que simplifica sozinho
-quando fica pequeno.
+quando fica pequeno. O Theo depois escolheu, em `docs/referencia/theo.html`, o cabelo de
+cachos soltos com franja (sem a marca escura entre a copa e a franja) e a jaqueta vermelha
+aberta sobre camiseta branca, com jeans.
 
 | Rodada | O que muda | Onde vive |
 |---|---|---|

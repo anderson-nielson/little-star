@@ -52,7 +52,7 @@ export function telaStyleguide(): Tela {
   p.append(h('h2', {}, 'As figuras das palavras e das comidas'));
   p.append(h('div', { class: 'fila', html: TODAS_AS_FIGURAS.map((id) => svg(figura(id, 50, 50, 90) + `<text x="50" y="118" text-anchor="middle" font-size="12" font-family="Jost">${id}</text>`, 100, 124)).join('') }));
   p.append(h('h2', {}, 'Cores'));
-  const cores = ['musgo', 'musgo-claro', 'musgo-tinta', 'rosa', 'rosa-clara', 'rosa-doce', 'salmao', 'areia', 'estrela-vermelha', 'ouro', 'luz', 'marfim', 'papel', 'noite', 'veludo', 'mata', 'lago', 'ceu-dia', 'ceu-tarde', 'jeans', 'cabelo-menina', 'cabelo-irmao', 'cabelo-mae', 'cabelo-pai', 'dia-dom', 'dia-seg', 'dia-ter', 'dia-qua', 'dia-qui', 'dia-sex', 'dia-sab'];
+  const cores = ['musgo', 'musgo-claro', 'musgo-tinta', 'rosa', 'rosa-clara', 'rosa-doce', 'salmao', 'areia', 'estrela-vermelha', 'ouro', 'luz', 'marfim', 'papel', 'noite', 'veludo', 'mata', 'lago', 'ceu-dia', 'ceu-tarde', 'jeans', 'jaqueta-irmao', 'cabelo-menina', 'cabelo-irmao', 'cabelo-mae', 'cabelo-pai', 'dia-dom', 'dia-seg', 'dia-ter', 'dia-qua', 'dia-qui', 'dia-sex', 'dia-sab'];
   p.append(h('div', { class: 'fila' }, ...cores.map((c) => h('div', { class: 'cor', style: `background: var(--${c})` }, c))));
   return { el };
 }

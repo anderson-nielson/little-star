@@ -85,8 +85,10 @@ await toque(195, 552);
 await espera(5200);
 await shot('05-roda-lembranca');
 await conta('roda: balão de narração para quem joga junto', '.balao.visivel');
-/* deixa a roda seguir sozinha até o prato (cinco tarefas, umas 9 s cada) */
-await espera(39000);
+/* deixa a roda seguir sozinha até o prato (as tarefas restantes, umas 9 s cada; a lista
+   cresce quando entra uma tarefa nova, então espera o prato em vez de contar segundos) */
+await page.locator('[data-cor]').first().waitFor({ timeout: 90000 }).catch(() => {});
+await espera(1200);
 await shot('06-prato');
 await conta('prato', '[data-cor]', 6);
 await toque(195, 372);

@@ -23,7 +23,7 @@ export type Pose = 'parado' | 'acena' | 'sentado' | 'pulo' | 'aponta' | 'segura'
  */
 export const PASSOS_DE_BALE = ['plie', 'releve', 'arabesque', 'giro', 'salto', 'tendu', 'passe', 'attitude', 'pulo'] as const satisfies readonly Pose[];
 export type PassoDeBale = (typeof PASSOS_DE_BALE)[number];
-export type Cabelo = 'liso' | 'cacheado' | 'cachinhos' | 'coque' | 'curto' | 'rabo' | 'entradas' | 'testa-alta' | 'repartido' | 'rebelde' | 'camadas' | 'ralo';
+export type Cabelo = 'liso' | 'cacheado' | 'cachinhos' | 'coque' | 'curto' | 'rabo' | 'entradas' | 'testa-alta' | 'repartido' | 'rebelde' | 'camadas' | 'ralo' | 'solto';
 export type Barba = 'baixa' | 'leve' | 'cheia';
 export type Oculos = 'oval' | 'redondo' | 'fino';
 /* os óculos não têm hastes: de frente, a haste saindo da cabeça parecia um brinco */
@@ -34,7 +34,8 @@ export interface Cara {
   boca?: 'sorriso' | 'dentes' | 'largo' | 'leve' | 'firme';
   sobrancelha?: 'fina' | 'reta' | 'grossa';
   queixo?: 'redondo' | 'reto';
-  bochecha?: boolean;
+  /** a bochecha corada; 'leve' é mais discreta (o irmão) */
+  bochecha?: boolean | 'leve';
   brinco?: string;
 }
 
@@ -53,9 +54,9 @@ export interface Figura {
   cabeloTipo: Cabelo;
   roupa: string;
   vestido?: boolean;
-  /** a camisa aberta por cima da camiseta (o xadrez do irmão): a cor da camisa */
+  /** a camisa ou jaqueta aberta por cima da camiseta (a jaqueta do irmão): a cor dela */
   camisa?: string;
-  /** o risco da camisa xadrez */
+  /** o risco da camisa xadrez, se for xadrez */
   xadrez?: string;
   /** flores estampadas no vestido */
   estampa?: string[];
@@ -63,6 +64,8 @@ export interface Figura {
   manguinhas?: boolean;
   /** a gola alta do vestido */
   gola?: boolean;
+  /** a gola em pé da jaqueta aberta (a camisa), dobrada para fora nos dois lados */
+  golaAberta?: boolean;
   /** o lacinho no cabelo */
   laco?: string;
   calca?: string;
@@ -130,6 +133,7 @@ export const CORES = {
   preto: '#2f2f36',
   grafite: '#3a3a42',
   creme: '#efe6d6',
+  jaquetaIrmao: '#c9564c',
   madeira: '#c9a189',
   papel: '#fbf8f1',
   marfim: '#f6f0e4',
@@ -222,6 +226,46 @@ function cachos(lista: [number, number, number][], base: string, luz: string, n:
   return s;
 }
 
+/** Uma silhueta ondulada em volta de um ponto: a copa do cabelo, macia, sem bolinhas. */
+function ondulado(cx: number, cy: number, rx: number, ry: number, n: number, semente: number, amp: number): string {
+  const pts: Ponto[] = [];
+  for (let k = 0; k < n; k++) {
+    const a = (k * Math.PI * 2) / n;
+    const w = 1 - amp + amp * 2 * ((Math.sin(a * 2.7 + semente) + 1) / 2);
+    pts.push([cx + Math.cos(a) * rx * w, cy + Math.sin(a) * ry * w]);
+  }
+  let d = '';
+  for (let k = 0; k < n; k++) {
+    const a = pts[k]!;
+    const b = pts[(k + 1) % n]!;
+    const c = pts[(k + 2) % n]!;
+    if (!k) d += `M${f((a[0] + b[0]) / 2)} ${f((a[1] + b[1]) / 2)}`;
+    d += `Q${f(b[0] + (b[0] - cx) * 0.16)} ${f(b[1] + (b[1] - cy) * 0.16)} ${f((b[0] + c[0]) / 2)} ${f((b[1] + c[1]) / 2)}`;
+  }
+  return d + 'z';
+}
+/** Só o arco de baixo da silhueta ondulada: a borda da franja, para o lápis. */
+function onduladoBaixo(cx: number, cy: number, rx: number, ry: number, n: number, semente: number, amp: number): string {
+  const pts: Ponto[] = [];
+  for (let k = 0; k <= n; k++) {
+    const a = (k * Math.PI * 2) / n;
+    const w = 1 - amp + amp * 2 * ((Math.sin(a * 2.7 + semente) + 1) / 2);
+    pts.push([cx + Math.cos(a) * rx * w, cy + Math.sin(a) * ry * w]);
+  }
+  const meio = Math.floor(n / 2);
+  let d = `M${f((pts[0]![0] + pts[1]![0]) / 2)} ${f((pts[0]![1] + pts[1]![1]) / 2)}`;
+  for (let k = 1; k < meio; k++) {
+    const b = pts[k]!;
+    const c = pts[k + 1]!;
+    d += `Q${f(b[0] + (b[0] - cx) * 0.16)} ${f(b[1] + (b[1] - cy) * 0.16)} ${f((b[0] + c[0]) / 2)} ${f((b[1] + c[1]) / 2)}`;
+  }
+  return d;
+}
+/** Os cachos desenhados a lápis por dentro da silhueta: espirais pequenas espalhadas. */
+function espirais(lista: [number, number, number][], cor: string, op = 0.5): string {
+  return lista.map(([x, y, r]) => fio(`M${f(x - r * 0.5)} ${f(y + r * 0.2)}q${f(r * 0.3)} ${f(-r * 0.9)} ${f(r * 0.9)} ${f(-r * 0.3)}q${f(r * 0.3)} ${f(r * 0.5)} ${f(-r * 0.2)} ${f(r * 0.7)}q${f(-r * 0.5)} ${f(r * 0.2)} ${f(-r * 0.5)} ${f(-r * 0.2)}`, cor, 1.2, op)).join('');
+}
+
 function cabeloLocal(o: Figura, n: Nivel): Local {
   const cor = o.cabelo;
   const luz = o.cabeloLuz ?? claro(cor, 0.3);
@@ -247,6 +291,19 @@ function cabeloLocal(o: Figura, n: Nivel): Local {
       };
     case 'cachinhos':
       return { atras: cachos(NUVEM_CURTA, cor, luz, n), frente: cachos([[-14, -20, 7], [3, -23, 7], [17, -18, 6.5]], cor, luz, n, false) };
+    case 'solto': {
+      /* o irmão (docs/referencia/theo.html, cabelo A): a copa de cachos soltos atrás, a franja na
+         frente. A franja é pintada opaca, na cor que a copa tem depois de lavada, e sem contorno em
+         cima, para não escurecer onde passa por cima da copa; o lápis fica só na borda de baixo */
+      const esp = claro(cor, 0.35);
+      return {
+        atras: forma(ondulado(0, -10, 47, 44, 13, 1, 0.08), cor, { op: 0.92 }) + (n === 'grande' ? espirais([[-34, -14, 7], [-22, -34, 6], [2, -42, 7], [24, -34, 6], [34, -12, 7], [-36, 10, 6], [36, 12, 6], [-18, -20, 5], [18, -22, 5]], esp) : ''),
+        frente:
+          `<path d="${ondulado(0, -22, 33, 14, 9, 2, 0.12)}" fill="${claro(cor, 0.05)}" opacity="1" data-sem-lapis="1"/>` +
+          (detalhe ? fio(onduladoBaixo(0, -22, 33, 14, 9, 2, 0.12), escuro(cor, 0.3), 1.2, 0.55) : '') +
+          (n === 'grande' ? espirais([[-14, -24, 5], [4, -27, 5], [18, -23, 4]], esp) : ''),
+      };
+    }
     case 'camadas':
       /* a mãe: repartido de lado, em camadas até o ombro, atrás de uma orelha */
       return {
@@ -309,7 +366,10 @@ function rostoLocal(o: Figura, n: Nivel): string {
   else if (boca === 'firme') s += fio('M-8 13q8 5 16 0', C.veludo, 1.6, 0.85);
   else s += fio('M-8 12.5q8 7.5 16 0', C.veludo, n === 'mini' ? 1.6 : 1.5, 0.85);
   /* bochecha */
-  if (c.bochecha ?? o.crianca) s += `<circle cx="-19" cy="9" r="5.5" fill="${C.rosaDoce}" opacity=".38"/><circle cx="19" cy="9" r="5.5" fill="${C.rosaDoce}" opacity=".38"/>`;
+  if (c.bochecha ?? o.crianca) {
+    const op = c.bochecha === 'leve' ? '.22' : '.38';
+    s += `<circle cx="-19" cy="9" r="5.5" fill="${C.rosaDoce}" opacity="${op}"/><circle cx="19" cy="9" r="5.5" fill="${C.rosaDoce}" opacity="${op}"/>`;
+  }
   return s;
 }
 
@@ -516,6 +576,11 @@ function desenha(o: Figura, dir: 1 | -1, pose: Pose, crianca: boolean, hr: numbe
       const pL = `M${f(tl[0])} ${f(tl[1])}L${f(x - 3 * esc)} ${f(shY + 2 * esc)}L${f(x - 4.5 * esc)} ${f(hipY + 0.03 * h)}L${f(x - lw)} ${f(hipY + 0.03 * h)}Q${f(x - lw * 0.92)} ${f(hipY - 0.1 * h)} ${f(tl[0])} ${f(tl[1])}z`;
       const pR = `M${f(tr[0])} ${f(tr[1])}L${f(x + 3 * esc)} ${f(shY + 2 * esc)}L${f(x + 4.5 * esc)} ${f(hipY + 0.03 * h)}L${f(x + lw)} ${f(hipY + 0.03 * h)}Q${f(x + lw * 0.92)} ${f(hipY - 0.1 * h)} ${f(tr[0])} ${f(tr[1])}z`;
       roupaPath += forma(pL, cam) + forma(pR, cam);
+      if (o.golaAberta && nivel !== 'mini') {
+        /* a gola em pé, dobrada para fora: um triângulo em cada lado do pescoço, num tom mais escuro */
+        const gc = escuro(cam, 0.12);
+        roupaPath += forma(`M${f(x - 6 * esc)} ${f(shY - 1 * esc)}L${f(x - 3 * esc)} ${f(shY + 5 * esc)}L${f(x - 9 * esc)} ${f(shY + 4 * esc)}z`, gc) + forma(`M${f(x + 6 * esc)} ${f(shY - 1 * esc)}L${f(x + 3 * esc)} ${f(shY + 5 * esc)}L${f(x + 9 * esc)} ${f(shY + 4 * esc)}z`, gc);
+      }
       if (o.xadrez && nivel !== 'mini') {
         const y1 = shY + 8 * esc;
         const y2 = shY + 16 * esc;
@@ -718,7 +783,7 @@ type Extra = Partial<Figura>;
 /** As quatro faces escolhidas em docs/referencia/familia.html. */
 export const CARAS: Record<'menina' | 'irmao' | 'mae' | 'pai', Cara> = {
   menina: { olhos: 'sorriso', boca: 'dentes', sobrancelha: 'fina', bochecha: true },
-  irmao: { olhos: 'abertos', boca: 'largo', sobrancelha: 'grossa', queixo: 'reto', bochecha: false },
+  irmao: { olhos: 'abertos', boca: 'dentes', sobrancelha: 'fina', queixo: 'reto', bochecha: 'leve' },
   mae: { olhos: 'abertos', boca: 'dentes', sobrancelha: 'fina', bochecha: true, brinco: C.ouro },
   pai: { olhos: 'sorriso', boca: 'dentes', sobrancelha: 'fina', bochecha: true },
 };
@@ -729,9 +794,9 @@ export const familia = {
     boneco({ x, y, h, pose, crianca: true, pele: C.peleMenina, cabelo: C.cabeloMenina, roupa: C.rosaDoce, cabeloTipo: 'repartido', laco: C.rosaDoce, vestido: true, manguinhas: true, estampa: [C.vinho, C.roxo], sapato: C.luz, cara: CARAS.menina, ...extra }),
   meninaPalco: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
     boneco({ x, y, h, pose, crianca: true, pele: C.peleMenina, cabelo: C.cabeloMenina, roupa: C.rosaDoce, cabeloTipo: 'coque', tutu: '#F7C3D8', sapato: '#EFB9CE', cara: CARAS.menina, ...extra }),
-  /** o irmão, o baterista: a nuvem de cachos, camisa xadrez aberta sobre a camiseta escura */
+  /** o irmão: os cachos soltos com a franja, a jaqueta vermelha aberta sobre a camiseta branca, jeans (docs/referencia/theo.html, cabelo A e roupa A) */
   irmao: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
-    boneco({ x, y, h, pose, crianca: true, pele: C.peleIrmao, cabelo: C.cabeloIrmao, cabeloLuz: C.luzIrmao, roupa: C.grafite, camisa: C.creme, xadrez: C.vinho, calca: '#3f4652', calcaCurta: true, cabeloTipo: 'rebelde', forte: 1.2, sapato: '#8b8078', cara: CARAS.irmao, ...extra }),
+    boneco({ x, y, h, pose, crianca: true, pele: C.peleIrmao, cabelo: C.cabeloIrmao, cabeloLuz: C.luzIrmao, roupa: C.papel, camisa: C.jaquetaIrmao, golaAberta: true, calca: C.jeans, cabeloTipo: 'solto', forte: 1.2, sapato: '#8b8078', cara: CARAS.irmao, ...extra }),
   /** a mãe: cabelo em camadas atrás da orelha, vestido salmão, magra */
   mae: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
     boneco({ x, y, h, pose, pele: C.peleMae, cabelo: C.cabeloMae, roupa: C.salmao, cabeloTipo: 'camadas', vestido: true, gola: true, forte: 0.8, esbelta: true, orelha: 4.6, sapato: C.ouro, cara: CARAS.mae, ...extra }),
