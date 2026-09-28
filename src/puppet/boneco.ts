@@ -78,6 +78,10 @@ export interface Figura {
   /** na pose 'anda', onde está o passo: 0 a 1 é uma passada inteira (as duas pernas) */
   passo?: number;
   cara?: Cara;
+  /** o raio da orelha (6,5 numa cabeça de raio 30) */
+  orelha?: number;
+  /** a saia mais estreita (a mãe magra) */
+  esbelta?: boolean;
 }
 
 export interface Desenho {
@@ -99,7 +103,7 @@ export const CORES = {
   luzTheo: '#9a7350',
   cabeloMae: '#553a28',
   cabeloPai: '#6a5646',
-  barbaPai: '#8b8078',
+  barbaPai: '#9b928a',
   rosaDoce: '#f2a9c4',
   rosaClara: '#f6e3dc',
   rosa: '#ebcdc3',
@@ -239,7 +243,7 @@ function cabeloLocal(o: Figura, n: Nivel): Local {
       /* a mãe: repartido de lado, em camadas até o ombro, atrás de uma orelha */
       return {
         atras: forma('M-38 -2C-38 -44 38 -44 38 -2C42 12 43 28 40 46C36 50 30 44 24 48C18 52 8 48 0 49C-8 48 -18 52 -24 48C-30 44 -36 50 -40 46C-43 28 -42 12 -38 -2z', cor) + (detalhe ? fios(['M-34 10q-4 16 -1 30', 'M34 10q4 16 1 30'], escuro(cor, 0.4), 1.1, 0.5) : ''),
-        frente: forma('M-10 -34C8 -36 30 -27 33 -6Q29 -18 18 -22Q6 -25 -10 -34z', cor) + forma('M-10 -34C-20 -34 -28 -28 -31 -14Q-28 -20 -22 -24Q-16 -28 -10 -34z', cor),
+        frente: forma('M-10 -34C8 -36 30 -27 33 -6Q29 -14 18 -17Q4 -19 -10 -30z', cor) + forma('M-10 -34C-20 -34 -28 -26 -31 -10Q-28 -16 -22 -20Q-16 -25 -10 -30z', cor) + forma('M-14 -32C-2 -31 10 -27 22 -15Q8 -15 -6 -19Q-14 -24 -14 -32z', cor, { mudo: true, op: 0.95 }),
       };
     case 'ralo':
     case 'entradas':
@@ -306,11 +310,10 @@ function barbaLocal(o: Figura, n: Nivel): string {
   const estilo = o.barbaEstilo ?? 'cheia';
   const cor = o.barba;
   let s = forma('M-29.6 4A30 32.1 0 0 0 29.6 4Q18 9 0 10Q-18 9 -29.6 4z', cor, { op: estilo === 'leve' ? 0.4 : 0.75, lapis: 0.25, opLapis: 0.5, mudo: n === 'mini' });
+  /* o sal e pimenta a lápis só de perto: de longe vira sujeira, e o grisalho já está na cor */
   if (n === 'grande') {
-    s += pontinhos([[-22, 12], [-14, 20], [-6, 26], [4, 27], [12, 22], [20, 14], [-18, 24], [16, 24], [0, 31], [-24, 6], [24, 6], [-10, 30], [8, 30]], C.papel, 0.9);
-    s += pontinhos([[-20, 18], [-10, 24], [8, 25], [18, 19], [-26, 10], [26, 10], [-2, 20], [-16, 28], [14, 28]], C.lapisTinta, estilo === 'cheia' ? 0.6 : 0.4);
-  } else if (n === 'medio') {
-    s += pontinhos([[-22, 12], [-6, 26], [12, 22], [-18, 24], [0, 31], [24, 6]], C.papel, 0.9) + pontinhos([[-20, 18], [8, 25], [-26, 10], [-2, 20]], C.lapisTinta, 0.5);
+    s += pontinhos([[-22, 12], [-6, 26], [12, 22], [-18, 24], [4, 30], [22, 8], [-12, 30]], C.papel, 0.7, 1.2);
+    s += pontinhos([[-20, 18], [8, 25], [18, 19], [-26, 10], [-2, 20]], C.lapisTinta, estilo === 'cheia' ? 0.5 : 0.35, 1.2);
   }
   /* a boca fica dentro da barba */
   s += forma(elipse(0, 14, 11, 6.5), o.pele, { mudo: true, op: 0.9 });
@@ -435,7 +438,7 @@ function desenha(o: Figura, dir: 1 | -1, pose: Pose, crianca: boolean, hr: numbe
   let mangas = '';
   if (o.vestido) {
     const baixo = sentado ? hipY + 0.06 * h : deitado ? hipY + 0.1 * h : hipY + 0.16 * h;
-    const lv = crianca ? 0.2 * h : 0.14 * h;
+    const lv = crianca ? 0.2 * h : o.esbelta ? 0.115 * h : 0.14 * h;
     const cint = shY + (hipY - shY) * 0.6;
     const cw = (tr[0] - tl[0]) / 2;
     const d = `M${f(tl[0])} ${f(tl[1])}L${f(tr[0])} ${f(tr[1])}L${f(x + cw * 1.05)} ${f(cint)}C${f(x + lv * 0.85)} ${f(cint + (baixo - cint) * 0.35)} ${f(x + lv)} ${f(baixo - 3 * esc)} ${f(x + lv)} ${f(baixo)}Q${f(x)} ${f(baixo + 0.02 * h)} ${f(x - lv)} ${f(baixo)}C${f(x - lv)} ${f(baixo - 3 * esc)} ${f(x - lv * 0.85)} ${f(cint + (baixo - cint) * 0.35)} ${f(x - cw * 1.05)} ${f(cint)}z`;
@@ -573,7 +576,8 @@ function desenha(o: Figura, dir: 1 | -1, pose: Pose, crianca: boolean, hr: numbe
   const cab = cabeloLocal(o, nivel);
   const queixo = o.cara?.queixo === 'reto';
   const cabecaD = queixo ? 'M-30 0A30 30 0 0 1 30 0C31 15 24 30 8 32H-8C-24 30 -31 15 -30 0z' : o.crianca ? circ([0, 0], R) : elipse(0, 1, R, R * 1.07);
-  const orelhas = nivel === 'mini' ? '' : forma(circ([-R + 1, 4], 6.5), pele, pl) + forma(circ([R - 1, 4], 6.5), pele, pl);
+  const ro = o.orelha ?? 6.5;
+  const orelhas = nivel === 'mini' ? '' : forma(circ([-R + 1 + (6.5 - ro) * 0.6, 4], ro), pele, pl) + forma(circ([R - 1 - (6.5 - ro) * 0.6, 4], ro), pele, pl);
   const brinco = o.cara?.brinco && nivel !== 'mini' ? `<circle cx="-30" cy="9" r="2.6" fill="none" stroke="${o.cara.brinco}" stroke-width="1.2" vector-effect="non-scaling-stroke"/><circle cx="30" cy="9" r="2.6" fill="none" stroke="${o.cara.brinco}" stroke-width="1.2" vector-effect="non-scaling-stroke"/>` : '';
   const cabecaSvg = local(orelhas + brinco + forma(cabecaD, pele, pl) + barbaLocal(o, nivel) + rostoLocal(o, nivel) + oculosLocal(o, nivel) + cab.frente);
 
@@ -618,7 +622,7 @@ export const familia = {
     boneco({ x, y, h, pose, crianca: true, pele: C.peleTheo, cabelo: C.cabeloTheo, cabeloLuz: C.luzTheo, roupa: C.grafite, camisa: C.creme, xadrez: C.vinho, calca: '#3f4652', calcaCurta: true, cabeloTipo: 'rebelde', forte: 1.2, sapato: '#8b8078', cara: CARAS.theo, ...extra }),
   /** a mãe: cabelo em camadas atrás da orelha, vestido salmão, magra */
   mae: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
-    boneco({ x, y, h, pose, pele: C.peleMae, cabelo: C.cabeloMae, roupa: C.salmao, cabeloTipo: 'camadas', vestido: true, gola: true, forte: 0.92, sapato: C.ouro, cara: CARAS.mae, ...extra }),
+    boneco({ x, y, h, pose, pele: C.peleMae, cabelo: C.cabeloMae, roupa: C.salmao, cabeloTipo: 'camadas', vestido: true, gola: true, forte: 0.8, esbelta: true, orelha: 4.6, sapato: C.ouro, cara: CARAS.mae, ...extra }),
   /** o pai: a faixa rala de cabelo, barba cheia grisalha, óculos redondos, camiseta preta e jeans */
   pai: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
     boneco({ x, y, h, pose, pele: C.pelePai, cabelo: C.cabeloPai, cabeloLuz: '#a39a90', roupa: C.preto, calca: C.jeans, cabeloTipo: 'ralo', oculos: 'redondo', barba: C.barbaPai, barbaEstilo: 'cheia', forte: 1.18, sapato: '#8b8078', cara: CARAS.pai, ...extra }),
