@@ -13,6 +13,7 @@ família se despede com um convite para o mundo.
 - `docs/revisao-gameplay.md`: a revisão que antecedeu o código.
 - `docs/referencia/little-star-telas.html`: as cinco telas desenhadas antes do código.
 - `docs/referencia/estilos.html`: três propostas de estilo gráfico (Aquarela e Lápis, Feltro e Linha, Estampa de Três Tintas), a mesma cena por três pincéis, para escolher antes de redesenhar todas as telas.
+- `docs/referencia/familia.html`: as quatro faces da família no pincel Aquarela e Lápis, duas variações por pessoa, para escolher antes da rodada 1 do redesenho.
 - `docs/parquinho.md` e `docs/referencia/parquinho.html`: o parquinho do condomínio (balanço, escorregador e gangorra), a volta dela em cinco telas com os brinquedos simulados.
 - `docs/shots/`: capturas do passeio automático.
 

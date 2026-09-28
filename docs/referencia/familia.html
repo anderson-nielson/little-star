@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A família a lápis e aquarela</title>
+<meta name="description" content="As quatro faces da família da Stella redesenhadas no pincel Aquarela e Lápis, duas variações por pessoa, para escolher antes da rodada 1.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500&display=swap">
+<style>
+  :root {
+    --noite: #10142a; --noite-2: #1b2140; --marfim: #f6f0e4; --papel: #fbf8f1; --tinta: #1a1c2b;
+    --rosa-doce: #f2a9c4; --ouro: #c6a15b; --luz: #ebd9a8; --musgo-tinta: #4F6B3A;
+    --fundo: var(--marfim); --superficie: var(--papel); --texto: var(--tinta);
+    --texto-2: rgba(26, 28, 43, 0.68); --fio: rgba(79, 107, 58, 0.28); --acento: var(--musgo-tinta);
+    --realce: rgba(242, 169, 196, 0.18); --sombra-tela: 0 14px 34px rgba(26, 28, 43, 0.10);
+    --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --sans: 'Jost', 'Avenir Next', 'Century Gothic', system-ui, sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --fundo: var(--noite); --superficie: var(--noite-2); --texto: var(--marfim);
+      --texto-2: rgba(246, 240, 228, 0.68); --fio: rgba(198, 161, 91, 0.34); --acento: var(--luz);
+      --realce: rgba(242, 169, 196, 0.12); --sombra-tela: 0 14px 34px rgba(0, 0, 0, 0.45);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --fundo: var(--noite); --superficie: var(--noite-2); --texto: var(--marfim);
+    --texto-2: rgba(246, 240, 228, 0.68); --fio: rgba(198, 161, 91, 0.34); --acento: var(--luz);
+    --realce: rgba(242, 169, 196, 0.12); --sombra-tela: 0 14px 34px rgba(0, 0, 0, 0.45);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fundo); color: var(--texto); font-family: var(--sans); font-size: 1rem; line-height: 1.55; }
+  .pagina { max-width: 1120px; margin: 0 auto; padding-inline: 20px; padding-block: 32px 96px; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.12; text-wrap: balance; margin: 0; }
+  h1 { font-size: clamp(2.4rem, 6vw, 3.6rem); }
+  h2 { font-size: 2.1rem; }
+  h3 { font-size: 1.4rem; }
+  p { margin: 0; max-width: 64ch; }
+  ul { margin: 0; padding-left: 1.2em; max-width: 64ch; }
+  li { margin-block: 4px; }
+  li::marker { color: var(--acento); }
+  .rotulo { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--texto-2); }
+  header.capa { display: grid; gap: 14px; padding-bottom: 28px; border-bottom: 1px solid var(--fio); }
+  header .linha { display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: baseline; color: var(--texto-2); font-size: 0.92rem; }
+  section { padding-block: 48px; border-bottom: 1px solid var(--fio); display: grid; gap: 22px; }
+  section .cabeca { display: grid; gap: 6px; }
+  section .cabeca .rotulo { color: var(--acento); }
+  .pessoa { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 1.1fr); gap: 20px 40px; align-items: start; }
+  @media (max-width: 860px) { .pessoa { grid-template-columns: 1fr; } }
+  .retratos { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .retrato { display: grid; gap: 8px; justify-items: center; }
+  .retrato .quadro { width: 100%; aspect-ratio: 140 / 150; border-radius: 18px; overflow: hidden; background: #fbf8f1; box-shadow: var(--sombra-tela); border: 1px solid var(--fio); }
+  .retrato svg { display: block; width: 100%; height: 100%; }
+  .retrato .nome { font-family: var(--serif); font-size: 1.15rem; }
+  .retrato .nome small { display: block; font-family: var(--sans); font-size: 0.8rem; color: var(--texto-2); }
+  .texto { display: grid; gap: 16px; }
+  .fila { width: 100%; border-radius: 22px; overflow: hidden; background: #fbf8f1; box-shadow: var(--sombra-tela); border: 1px solid var(--fio); }
+  .fila svg { display: block; width: 100%; height: auto; }
+  .marca { background: var(--realce); border-radius: 12px; padding: 16px 18px; max-width: 70ch; }
+  .nota { color: var(--texto-2); font-size: 0.92rem; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.86em; background: rgba(127,127,127,.12); padding: 1px 5px; border-radius: 5px; }
+  .paleta { display: flex; flex-wrap: wrap; gap: 6px; }
+  .paleta span { display: inline-grid; place-items: center; width: 60px; height: 44px; border-radius: 10px; font-size: 0.62rem; color: rgba(26,28,43,.75); border: 1px solid rgba(0,0,0,.06); text-align: center; line-height: 1.1; }
+</style>
+</head>
+<body>
+<div class="pagina">
+<header class="capa">
+  <span class="rotulo">Little Star · referência · rodada 1</span>
+  <h1>A família a lápis e aquarela</h1>
+  <p>As quatro faces redesenhadas no pincel escolhido, a partir das fotos da família. Duas variações por pessoa: a <strong>A</strong> segue a foto de perto, a <strong>B</strong> desloca uma coisa (o cabelo, a roupa, o olho) para ter com o que comparar. As fotos não entram no repositório; entra só o desenho.</p>
+  <div class="linha"><span>Setembro de 2026</span><span>Rosto econômico, como manda a SPEC: sobrancelha, olho, nariz de um traço, boca, bochecha</span></div>
+</header>
+
+<section id="juntos">
+  <div class="cabeca">
+    <span class="rotulo">No tamanho do jogo</span>
+    <h2>Os quatro juntos</h2>
+    <p>Stella 1, Theo 1,5, pais 2, como hoje. Aqui com as variações A. O lápis tem sempre a mesma espessura na tela, seja no retrato grande ou na marionete pequena, como um lápis de verdade.</p>
+  </div>
+  <div class="fila" id="fila"></div>
+</section>
+
+<section id="stella" class="pessoa">
+  <div class="cabeca" style="grid-column: 1 / -1">
+    <span class="rotulo">Stella, 5</span>
+    <h2>Cabelo mel, franja reta, sorriso grande</h2>
+  </div>
+  <div class="retratos" data-pessoa="stella"></div>
+  <div class="texto">
+    <p><strong>O que vi nas fotos.</strong> O cabelo não é loiro: é castanho-claro cor de mel, liso, na altura do ombro, com franja reta em cima da sobrancelha. Olhos castanhos grandes, bochecha cheia, sorriso enorme, a pele mais dourada que a do Theo. Vestido de flores rosa e roxo, sandália.</p>
+    <p><strong>O que muda no desenho.</strong> A cor do cabelo (a SPEC dizia "loirinha"; proponho mel, <code>#c79a5e</code>), a franja, que hoje não existe, e os olhos abertos com íris, em vez dos dois arcos. O vestido ganha as flores dela.</p>
+    <ul>
+      <li><strong>A:</strong> franja reta e cabelo solto no ombro, olhos abertos, vestido rosa de flores.</li>
+      <li><strong>B:</strong> sem franja, cabelo repartido no meio com um lacinho rosa, olhos de sorriso (os arcos de hoje).</li>
+    </ul>
+  </div>
+</section>
+
+<section id="theo" class="pessoa">
+  <div class="cabeca" style="grid-column: 1 / -1">
+    <span class="rotulo">Theo, 10</span>
+    <h2>A nuvem de cachos</h2>
+  </div>
+  <div class="retratos" data-pessoa="theo"></div>
+  <div class="texto">
+    <p><strong>O que vi nas fotos.</strong> Cabelo castanho-claro muito cacheado, com volume para todos os lados, mais claro nas pontas. Rosto redondo, pele clara, olhar sério e doce, boca pequena. Camisa de folhas azul-marinho sobre branco; jaqueta vermelha do Liverpool.</p>
+    <p><strong>O que muda no desenho.</strong> O cacho vira uma nuvem de círculos em dois tons ao redor da cabeça toda, com espirais de lápis dentro, bem maior que hoje. A roupa deixa a camiseta azul lisa.</p>
+    <ul>
+      <li><strong>A:</strong> nuvem de cachos grande, camisa de folhas (papel com folhinhas verde-tinta) e calça escura.</li>
+      <li><strong>B:</strong> cachos mais curtos e apertados, jaqueta vermelha (no tom veludo do jogo) sobre camiseta cinza.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="mae" class="pessoa">
+  <div class="cabeca" style="grid-column: 1 / -1">
+    <span class="rotulo">Mãe</span>
+    <h2>Cabelo em camadas, sorriso que mostra os dentes</h2>
+  </div>
+  <div class="retratos" data-pessoa="mae"></div>
+  <div class="texto">
+    <p><strong>O que vi nas fotos.</strong> Cabelo castanho-escuro, repartido de lado, em camadas com ondas passando do ombro, com movimento. Sorriso largo com os dentes, olhos escuros, argolinha pequena na orelha. Vestidos claros e fluidos: bege de gola alta, verde-água de manga borboleta.</p>
+    <p><strong>O que muda no desenho.</strong> O cabelo hoje é um casquete liso e curto; passa a ter ondas e comprimento, com a mecha da frente caindo de lado. A boca ganha os dentes (uma forma de papel dentro do sorriso). O vestido rosa-velho vira verde-água, que já é o azul do lago na paleta.</p>
+    <ul>
+      <li><strong>A:</strong> ondas soltas, argolinha, vestido verde-água de manga borboleta.</li>
+      <li><strong>B:</strong> cabelo preso atrás da orelha de um lado, mais curto, vestido bege de gola alta.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="pai" class="pessoa">
+  <div class="cabeca" style="grid-column: 1 / -1">
+    <span class="rotulo">Pai</span>
+    <h2>Óculos redondos, barba grisalha, testa alta</h2>
+  </div>
+  <div class="retratos" data-pessoa="pai"></div>
+  <div class="texto">
+    <p><strong>O que vi nas fotos.</strong> Cabelo bem curto, entradas fundas e testa alta, barba cheia e grisalha (mais branca no queixo), óculos redondos de aro fino, sorriso aberto com os dentes, pele morena e quente. Camisa polo azul-marinho, jaqueta escura.</p>
+    <p><strong>O que muda no desenho.</strong> Os óculos deixam de ser finos e ovais e viram redondos, como os de verdade. A barba ganha o sal e pimenta a lápis (pontinhos claros e escuros). O cabelo fica só nas laterais e numa faixa curta em cima, com as entradas. A camiseta verde-mata vira polo azul-marinho com gola.</p>
+    <ul>
+      <li><strong>A:</strong> faixa curta de cabelo em cima com entradas, barba grisalha, polo azul-marinho.</li>
+      <li><strong>B:</strong> só as laterais (a versão de daqui a alguns anos), barba mais curta e mais escura, camiseta verde-mata de hoje.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="regras">
+  <div class="cabeca">
+    <span class="rotulo">Para os quatro</span>
+    <h2>A gramática do rosto</h2>
+  </div>
+  <ul>
+    <li><strong>Olhos abertos:</strong> um arco de cílio a lápis e uma íris redonda embaixo, com um ponto de luz de papel. No sorriso grande, os olhos fecham em arco (é o que a marionete faz hoje). Em 14 px de raio de cabeça o arco e o ponto ainda leem.</li>
+    <li><strong>Nariz de um traço:</strong> um gancho curto a lápis, na cor da pele escurecida. Some na marionete pequena.</li>
+    <li><strong>Boca:</strong> um fio vinho para o sorriso leve; para o sorriso grande, uma forma de papel (os dentes) dentro do arco.</li>
+    <li><strong>Bochecha:</strong> mancha rosa a 38%, sempre.</li>
+    <li><strong>Cabelo:</strong> a mancha de aquarela, o lápis no contorno e três ou quatro fios soltos. É o cabelo que diferencia os quatro; o rosto é o mesmo desenho com cores diferentes.</li>
+    <li><strong>Pele:</strong> quatro tons de token: Stella <code>#e9c39c</code>, Theo <code>#f1d6bd</code>, mãe <code>#f0d2b6</code>, pai <code>#d9a97e</code>.</li>
+  </ul>
+  <span class="rotulo">Tokens novos</span>
+  <div class="paleta">
+    <span style="background:#c79a5e">cabelo Stella</span><span style="background:#a9804f">cabelo Theo</span><span style="background:#c9a570">ponta do cacho</span><span style="background:#553a28">cabelo mãe</span><span style="background:#4d3f35">cabelo pai</span><span style="background:#8b8078">barba</span><span style="background:#e9c39c">pele Stella</span><span style="background:#d9a97e">pele pai</span><span style="background:#9fc3cf">vestido mãe</span><span style="background:#3d4a6b">polo pai</span>
+  </div>
+  <div class="marca"><p><strong>O que vem depois da escolha.</strong> Escolhidas as quatro variações, a rodada 1 começa: o módulo <code>src/puppet/pincel.ts</code> com o pincel Aquarela e Lápis, a marionete redesenhada em <code>src/puppet/boneco.ts</code> com estes rostos e cabelos em todas as 16 poses, os tokens novos, e o <code>?styleguide=1</code> mostrando tudo. A casa real entra na rodada 2, a partir das fotos da casa.</p></div>
+</section>
+</div>
+
+<script>
+/* ===== cores ===== */
+const C = {
+  papel: '#fbf8f1', luz: '#ebd9a8', ouro: '#c6a15b', ouroTinta: '#8f6f2c', rosaDoce: '#f2a9c4', rosaClara: '#f6e3dc',
+  veludo: '#8a3a44', roxo: '#8a5aa8', musgoTinta: '#4f6b3a', mata2: '#4a6b5c', lago: '#9fc3cf', areia: '#eeddb4',
+  tinta: '#4a3a30', ceu: '#dbe7ee', ceuTarde: '#f3d9cf', musgo: '#8fae6b', musgoClaro: '#c9dbb2', vermelho: '#c9564c',
+};
+const hex = c => c.replace('#', '').match(/../g).map(h => parseInt(h, 16));
+const rgb = v => '#' + v.map(n => Math.max(0, Math.min(255, Math.round(n))).toString(16).padStart(2, '0')).join('');
+const mix = (a, b, t) => rgb(hex(a).map((v, i) => v + (hex(b)[i] - v) * t));
+const escuro = (c, t = 0.3) => mix(c, '#3a2a22', t);
+const claro = (c, t = 0.4) => mix(c, '#fffaf0', t);
+const f1 = n => Math.round(n * 10) / 10;
+function circ(cx, cy, r) { return `M${f1(cx - r)} ${f1(cy)}a${r} ${r} 0 1 0 ${2 * r} 0a${r} ${r} 0 1 0 ${-2 * r} 0z`; }
+function elipse(cx, cy, rx, ry) { return `M${f1(cx - rx)} ${f1(cy)}a${rx} ${ry} 0 1 0 ${2 * rx} 0a${rx} ${ry} 0 1 0 ${-2 * rx} 0z`; }
+function membro(a, b, wa, wb) {
+  const dx = b[0] - a[0], dy = b[1] - a[1], l = Math.hypot(dx, dy) || 1, nx = -dy / l, ny = dx / l;
+  return `M${f1(a[0] + nx * wa)} ${f1(a[1] + ny * wa)}L${f1(b[0] + nx * wb)} ${f1(b[1] + ny * wb)}A${wb} ${wb} 0 0 1 ${f1(b[0] - nx * wb)} ${f1(b[1] - ny * wb)}L${f1(a[0] - nx * wa)} ${f1(a[1] - ny * wa)}A${wa} ${wa} 0 0 1 ${f1(a[0] + nx * wa)} ${f1(a[1] + ny * wa)}z`;
+}
+
+/* ===== o pincel: aquarela e lápis ===== */
+const NSS = 'vector-effect="non-scaling-stroke"';
+const S = {
+  defs() {
+    return `<defs><pattern id="grao" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(23)"><circle cx="1.2" cy="1.4" r=".55" fill="${C.ouroTinta}"/><circle cx="4.6" cy="4.2" r=".42" fill="${C.veludo}"/></pattern></defs>`;
+  },
+  forma(d, cor, o = {}) {
+    const lap = escuro(cor, o.lapis ?? 0.42);
+    let s = `<path d="${d}" fill="${cor}" opacity="${o.op ?? 0.84}"/><path d="${d}" fill="${cor}" opacity="0.3" transform="translate(0.9 0.7)"/>`;
+    if (!o.mudo) s += `<path d="${d}" fill="none" stroke="${lap}" stroke-width="${o.w ?? 1.25}" ${NSS} stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="17 1.6 31 2.2 11 1.4" opacity="${o.opLapis ?? 0.78}" transform="translate(-0.5 0.4)"/>`;
+    return s;
+  },
+  fio(d, cor, w = 1.3, op = 0.75) { return `<path d="${d}" fill="none" stroke="${cor}" stroke-width="${w}" ${NSS} stroke-linecap="round" opacity="${op}"/>`; },
+  fios(ds, cor, w = 1.1, op = 0.7) { return ds.map(d => this.fio(d, cor, w, op)).join(''); },
+  lavagem(d, cor, op = 0.5) { return `<path d="${d}" fill="${cor}" opacity="${op}"/><path d="${d}" fill="none" stroke="${escuro(cor, 0.16)}" stroke-width="3" opacity="0.2"/>`; },
+  textura(x, y, w, h) { return `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="url(#grao)" opacity="0.12"/>`; },
+};
+
+/* ===== o rosto: cabeça no centro (0,0), raio 30 ===== */
+const R = 30;
+function olhos(p) {
+  const iris = p.crianca ? 3 : 2.5, lap = escuro(p.cabelo, 0.35);
+  if (p.olhos === 'sorriso') return S.fios(['M-17 -1q6 -6 12 0', 'M5 -1q6 -6 12 0'], C.tinta, 1.5, 0.85);
+  return S.fios(['M-17 -2q6 -6.5 12 -0.5', 'M5 -2.5q6 -6 12 0.5'], lap, 1.5, 0.9) +
+    `<circle cx="-11" cy="0" r="${iris}" fill="${C.tinta}" opacity=".9"/><circle cx="11" cy="0" r="${iris}" fill="${C.tinta}" opacity=".9"/>` +
+    `<circle cx="-10" cy="-1" r=".9" fill="${C.papel}"/><circle cx="12" cy="-1" r=".9" fill="${C.papel}"/>`;
+}
+function boca(p) {
+  if (p.boca === 'dentes') return S.forma('M-10 12q10 13 20 0q-10 2.6 -20 0z', C.papel, { lapis: 0, op: 0.95 }).replace(/stroke="[^"]*"/, `stroke="${C.veludo}"`);
+  if (p.boca === 'leve') return S.fio('M-6 14q6 3.5 12 0', C.veludo, 1.4, 0.85);
+  return S.fio('M-8 12.5q8 7.5 16 0', C.veludo, 1.5, 0.85);
+}
+function rosto(p) {
+  const pele = p.pele;
+  let s = p.atras ? p.atras() : '';
+  s += S.forma(circ(-R + 1, 4, 6.5), pele, { lapis: 0.4 }) + S.forma(circ(R - 1, 4, 6.5), pele, { lapis: 0.4 });
+  if (p.brinco) s += `<circle cx="-30" cy="9" r="2.6" fill="none" stroke="${C.ouro}" stroke-width="1.2" ${NSS}/><circle cx="30" cy="9" r="2.6" fill="none" stroke="${C.ouro}" stroke-width="1.2" ${NSS}/>`;
+  s += S.forma(`M-9 ${R - 6}h18v24h-18z`, pele, { mudo: true });
+  s += S.forma(p.adulto ? elipse(0, 1, R, R * 1.07) : circ(0, 0, R), pele, { lapis: 0.4 });
+  if (p.antesDoRosto) s += p.antesDoRosto();
+  s += S.fios(p.sobrancelha === 'reta' ? ['M-18 -11q7 -2.5 13 -1', 'M5 -12q6 -1.5 13 1'] : ['M-18 -11q7 -5 13 -1.5', 'M5 -12.5q6 -3.5 13 1.5'], escuro(p.cabelo, 0.3), 1.3, 0.75);
+  s += olhos(p);
+  s += S.fio('M1 2.5q3 6 -2 8', escuro(pele, 0.45), 1.1, 0.7);
+  s += boca(p);
+  s += `<circle cx="-19" cy="9" r="5.5" fill="${C.rosaDoce}" opacity=".38"/><circle cx="19" cy="9" r="5.5" fill="${C.rosaDoce}" opacity=".38"/>`;
+  if (p.oculos) s += `<g fill="none" stroke="#6f6052" stroke-width="1.7" ${NSS} opacity=".9"><circle cx="-11.5" cy="-1" r="10.5"/><circle cx="11.5" cy="-1" r="10.5"/><path d="M-1 -2.5h2"/></g><circle cx="-11.5" cy="-1" r="10.5" fill="${C.ceu}" opacity=".18"/><circle cx="11.5" cy="-1" r="10.5" fill="${C.ceu}" opacity=".18"/>`;
+  if (p.frente) s += p.frente();
+  return s;
+}
+
+/* ===== as pessoas ===== */
+const PESSOAS = {
+  stella: {
+    nome: 'Stella', pele: '#e9c39c', cabelo: '#c79a5e', crianca: true, h: 110,
+    A: {
+      titulo: 'Franja e cabelo solto',
+      olhos: 'abertos', boca: 'dentes',
+      atras: () => S.forma('M-36 -4C-36 -43 36 -43 36 -4L40 40Q30 36 20 42L14 32Q0 36 -14 32L-20 42Q-30 36 -40 40z', '#c79a5e') + S.fios(['M-33 4q-3 16 -1 30', 'M33 4q3 16 1 30', 'M26 12q2 12 0 24'], escuro('#c79a5e', 0.3)),
+      frente: () => S.forma('M-31 -5C-30 -25 -14 -34 0 -34C14 -34 30 -25 31 -5Q26 -12 20 -14Q14 -10 8 -14Q2 -10 -4 -15Q-10 -10 -16 -14Q-24 -10 -31 -5z', '#c79a5e') + S.fios(['M-12 -30q6 -3 14 0', 'M4 -31q6 -1 12 3'], escuro('#c79a5e', 0.3)),
+      roupa: 'vestido', cores: { roupa: C.rosaDoce, sapato: C.luz, estampa: [C.veludo, C.roxo] },
+    },
+    B: {
+      titulo: 'Repartido, com lacinho',
+      olhos: 'sorriso', boca: 'dentes',
+      atras: () => S.forma('M-37 -2C-37 -44 37 -44 37 -2L42 46Q30 40 20 48L12 36Q0 40 -12 36L-20 48Q-30 40 -42 46z', '#c79a5e') + S.fios(['M-34 6q-3 18 -1 34', 'M34 6q3 18 1 34'], escuro('#c79a5e', 0.3)),
+      frente: () => S.forma('M-31 -4C-30 -26 -14 -34 -2 -34Q-10 -22 -18 -10Q-26 -6 -31 -4z', '#c79a5e') + S.forma('M31 -4C30 -26 14 -34 0 -34Q10 -22 22 -12Q28 -8 31 -4z', '#c79a5e') + S.forma('M18 -26q6 -8 12 -2q-6 8 -12 2z M18 -26q-6 -8 -12 -2q6 8 12 2z', C.rosaDoce, { lapis: 0.35 }) + `<circle cx="18" cy="-26" r="2" fill="${C.veludo}" opacity=".7"/>`,
+      roupa: 'vestido', cores: { roupa: C.rosaDoce, sapato: C.luz, estampa: [] },
+    },
+  },
+  theo: {
+    nome: 'Theo', pele: '#f1d6bd', cabelo: '#a9804f', crianca: true, h: 165,
+    A: {
+      titulo: 'A nuvem inteira',
+      olhos: 'abertos', boca: 'leve', sobrancelha: 'reta',
+      atras: () => cachos([[-31, -12, 13], [-18, -27, 13], [1, -33, 13], [20, -27, 13], [32, -11, 13], [37, 8, 11], [-37, 6, 11], [-34, 22, 10], [35, 22, 10], [-24, -38, 9], [12, -41, 9], [27, -36, 9], [-8, -42, 8], [-40, -8, 8], [41, -6, 8]]),
+      frente: () => cachos([[-16, -21, 8.5], [3, -25, 8.5], [19, -19, 7.5], [-27, -8, 6]], true),
+      roupa: 'camisa', cores: { roupa: C.papel, calca: '#56626f', sapato: '#8b8078', estampa: [C.musgoTinta] },
+    },
+    B: {
+      titulo: 'Cachos curtos, jaqueta',
+      olhos: 'abertos', boca: 'leve', sobrancelha: 'reta',
+      atras: () => cachos([[-28, -10, 11], [-16, -24, 11], [1, -29, 11], [18, -24, 11], [29, -10, 11], [33, 6, 9], [-33, 5, 9], [-22, -32, 8], [10, -35, 8], [24, -30, 8]]),
+      frente: () => cachos([[-14, -20, 7], [3, -23, 7], [17, -18, 6.5]], true),
+      roupa: 'jaqueta', cores: { roupa: '#d9d4cc', jaqueta: C.vermelho, calca: '#56626f', sapato: '#8b8078', estampa: [] },
+    },
+  },
+  mae: {
+    nome: 'Mãe', pele: '#f0d2b6', cabelo: '#553a28', adulto: true, h: 220,
+    A: {
+      titulo: 'Ondas soltas, verde-água',
+      olhos: 'abertos', boca: 'dentes', brinco: true,
+      atras: () => S.forma('M-39 -2C-39 -44 39 -44 39 -2C44 14 47 32 44 54C40 58 34 52 28 56C22 60 16 54 10 56C4 58 -4 58 -10 56C-16 54 -22 60 -28 56C-34 52 -40 58 -44 54C-47 32 -44 14 -39 -2z', '#553a28') + S.fios(['M-36 8q-6 18 -2 36', 'M36 8q6 18 2 36', 'M-28 22q-4 14 0 28', 'M28 24q4 12 1 26'], escuro('#553a28', 0.4), 1.1, 0.5),
+      frente: () => S.forma('M-8 -34C10 -36 30 -27 33 -6Q29 -18 18 -22Q6 -25 -8 -34z', '#553a28') + S.forma('M-8 -34C-20 -34 -30 -26 -33 -8Q-30 -18 -22 -22Q-16 -26 -8 -34z', '#553a28') + S.fios(['M-2 -32q14 2 24 12'], escuro('#553a28', 0.4), 1.1, 0.5),
+      roupa: 'vestido-longo', cores: { roupa: C.lago, sapato: C.ouro, estampa: [] },
+    },
+    B: {
+      titulo: 'Atrás da orelha, bege',
+      olhos: 'abertos', boca: 'dentes', brinco: true,
+      atras: () => S.forma('M-38 -2C-38 -44 38 -44 38 -2C42 12 43 28 40 46C36 50 30 44 24 48C18 52 8 48 0 49C-8 48 -18 52 -24 48C-30 44 -36 50 -40 46C-43 28 -42 12 -38 -2z', '#553a28') + S.fios(['M-34 10q-4 16 -1 30', 'M34 10q4 16 1 30'], escuro('#553a28', 0.4), 1.1, 0.5),
+      frente: () => S.forma('M-10 -34C8 -36 30 -27 33 -6Q29 -18 18 -22Q6 -25 -10 -34z', '#553a28') + S.forma('M-10 -34C-20 -34 -28 -28 -31 -14Q-28 -20 -22 -24Q-16 -28 -10 -34z', '#553a28'),
+      roupa: 'vestido-gola', cores: { roupa: C.areia, sapato: C.ouro, estampa: [] },
+    },
+  },
+  pai: {
+    nome: 'Pai', pele: '#d9a97e', cabelo: '#4d3f35', adulto: true, h: 230,
+    A: {
+      titulo: 'Faixa curta em cima, polo',
+      olhos: 'sorriso', boca: 'dentes', oculos: true,
+      atras: () => '',
+      antesDoRosto: () => barba('#8b8078') ,
+      frente: () => S.forma('M-29.5 -4A30 32.1 0 0 1 29.5 -4Q27 -14 19 -26Q0 -21 -19 -26Q-27 -14 -29.5 -4z', '#4d3f35', { op: 0.8 }) + pontinhos([[-20, -12], [-12, -22], [0, -19], [12, -22], [20, -12], [-26, -4], [26, -4], [-6, -24], [6, -24]], '#8b8078'),
+      roupa: 'polo', cores: { roupa: '#3d4a6b', calca: '#6b6058', sapato: '#3a3a3a', estampa: [] },
+    },
+    B: {
+      titulo: 'Só as laterais, verde-mata',
+      olhos: 'sorriso', boca: 'dentes', oculos: true,
+      atras: () => '',
+      antesDoRosto: () => barba('#6f6358', 0.85),
+      frente: () => S.forma('M-29.5 -4A30 32.1 0 0 1 -16 -27Q-20 -20 -27 -12z', '#4d3f35', { op: 0.8 }) + S.forma('M29.5 -4A30 32.1 0 0 0 16 -27Q20 -20 27 -12z', '#4d3f35', { op: 0.8 }) + pontinhos([[-4, -26], [6, -25], [0, -21]], '#4d3f35', 0.35),
+      roupa: 'camiseta', cores: { roupa: C.mata2, calca: '#4a4a52', sapato: '#3a3a3a', estampa: [] },
+    },
+  },
+};
+function cachos(lista, frente = false) {
+  let s = '';
+  lista.forEach(([x, y, r], i) => {
+    const cor = (i % 3 === 1) ? '#c9a570' : '#a9804f';
+    s += S.forma(circ(x, y, r), cor, { op: 0.86, opLapis: 0.5 });
+    if (i % 2 === 0) s += S.fio(`M${x - r * 0.4} ${y + r * 0.2}q${r * 0.3} -${r * 0.6} ${r * 0.7} -${r * 0.1}q${r * 0.2} ${r * 0.4} -${r * 0.2} ${r * 0.5}`, escuro('#a9804f', 0.4), 1, 0.55);
+  });
+  return s;
+}
+function barba(cor, op = 0.8) {
+  return S.forma('M-29.6 4A30 32.1 0 0 0 29.6 4Q18 9 0 10Q-18 9 -29.6 4z', cor, { op, lapis: 0.3 }) +
+    pontinhos([[-22, 12], [-14, 20], [-6, 26], [4, 27], [12, 22], [20, 14], [-18, 24], [16, 24], [0, 31], [-24, 6], [24, 6]], C.papel, 0.8) +
+    pontinhos([[-20, 18], [-10, 24], [8, 25], [18, 19], [-26, 10], [26, 10], [-2, 20]], '#3a2a22', 0.5) +
+    S.forma(elipse(0, 14, 11, 6.5), '#d9a97e', { mudo: true, op: 0.9 }) +
+    S.forma('M-10 6q10 -4 20 0q-10 4.5 -20 0z', cor, { mudo: true, op: 0.75 });
+}
+function pontinhos(lista, cor, op = 0.6) {
+  return lista.map(([x, y]) => `<path d="M${x} ${y}l1.6 -1.2" stroke="${cor}" stroke-width="1.2" ${NSS} stroke-linecap="round" opacity="${op}"/>`).join('');
+}
+
+/* ===== o corpo, no tamanho do jogo ===== */
+function corpo(pessoa, v, cx, chao) {
+  const h = pessoa.h, crianca = !!pessoa.crianca;
+  const hr = h * (crianca ? (pessoa.nome === 'Theo' ? 0.105 : 0.13) : 0.085);
+  const cy = chao - h + hr, ombro = cy + hr + h * 0.035, esc = h / 100, c = v.cores, pele = pessoa.pele;
+  const so = (crianca ? 0.115 : 0.105) * h;
+  let s = '';
+  const braco = (lado) => S.forma(membro([cx + lado * so, ombro + 4 * esc], [cx + lado * (so + 5 * esc), ombro + h * 0.33], 2.6 * esc, 2 * esc), pele, { lapis: 0.4 });
+  const perna = (lado, topo, largura) => S.forma(membro([cx + lado * largura, topo], [cx + lado * (largura + 0.5 * esc), chao - 2], 3.4 * esc, 2.6 * esc), pele, { lapis: 0.4 });
+  const pe = (lado, largura, cor) => S.forma(elipse(cx + lado * (largura + 0.8 * esc), chao - 1.5, 5.5 * esc, 2.4 * esc), cor, { lapis: 0.4 });
+  if (v.roupa === 'vestido' || v.roupa === 'vestido-longo' || v.roupa === 'vestido-gola') {
+    const longo = v.roupa === 'vestido-longo', cint = ombro + h * 0.2, bainha = ombro + h * (longo ? 0.62 : 0.5);
+    const lw = 6 * esc;
+    s += perna(-1, bainha - 4, lw) + perna(1, bainha - 4, lw) + pe(-1, lw, c.sapato) + pe(1, lw, c.sapato);
+    const sw = so * 0.85, cw = so * 0.8, bw = so * (longo ? 1.75 : 2.0);
+    s += S.forma(`M${cx - sw} ${ombro}H${cx + sw}L${cx + cw} ${cint}C${cx + bw * 0.8} ${cint + h * 0.12} ${cx + bw} ${bainha - 6 * esc} ${cx + bw} ${bainha}Q${cx} ${bainha + 3 * esc} ${cx - bw} ${bainha}C${cx - bw} ${bainha - 6 * esc} ${cx - bw * 0.8} ${cint + h * 0.12} ${cx - cw} ${cint}z`, c.roupa);
+    if (v.roupa === 'vestido-gola') s += S.forma(`M${cx - 4 * esc} ${ombro - 8 * esc}h${8 * esc}v${10 * esc}h${-8 * esc}z`, c.roupa, { mudo: true });
+    s += braco(-1) + braco(1);
+    if (longo) s += S.forma(`M${cx - so + 2 * esc} ${ombro}Q${cx - so - 8 * esc} ${ombro + 6 * esc} ${cx - so - 5 * esc} ${ombro + 15 * esc}Q${cx - so + 1 * esc} ${ombro + 9 * esc} ${cx - so + 2 * esc} ${ombro}z`, c.roupa) + S.forma(`M${cx + so - 2 * esc} ${ombro}Q${cx + so + 8 * esc} ${ombro + 6 * esc} ${cx + so + 5 * esc} ${ombro + 15 * esc}Q${cx + so - 1 * esc} ${ombro + 9 * esc} ${cx + so - 2 * esc} ${ombro}z`, c.roupa);
+    else s += S.forma(elipse(cx - so, ombro + 4 * esc, 3.6 * esc, 5 * esc), c.roupa) + S.forma(elipse(cx + so, ombro + 4 * esc, 3.6 * esc, 5 * esc), c.roupa);
+    if (c.estampa.length) for (let i = 0; i < 7; i++) s += `<circle cx="${cx - bw * 0.7 + (i * 0.37 % 1) * bw * 1.4}" cy="${cint + h * 0.06 + ((i * 0.61) % 1) * (bainha - cint - h * 0.1)}" r="${2.2 * esc}" fill="${c.estampa[i % 2]}" opacity=".55"/>`;
+  } else {
+    const cint = ombro + h * 0.26, joelho = ombro + h * 0.5;
+    const lw = 5.5 * esc;
+    s += S.forma(`M${cx - so * 0.9} ${cint - 2 * esc}h${so * 1.8}L${cx + lw + 3 * esc} ${chao - 2}h${-2 * lw - 6 * esc}z`, c.calca);
+    s += S.fio(`M${cx} ${cint + 6 * esc}V${chao - 6 * esc}`, escuro(c.calca, 0.4), 1.1, 0.5);
+    s += pe(-1, lw, c.sapato) + pe(1, lw, c.sapato);
+    const sw = so * 0.95;
+    s += S.forma(`M${cx - sw} ${ombro}H${cx + sw}L${cx + sw * 0.9} ${cint}H${cx - sw * 0.9}z`, c.roupa);
+    if (v.roupa === 'polo' || v.roupa === 'camisa') s += S.forma(`M${cx - 5 * esc} ${ombro - 1 * esc}L${cx} ${ombro + 7 * esc}L${cx + 5 * esc} ${ombro - 1 * esc}L${cx + 7 * esc} ${ombro + 1 * esc}L${cx} ${ombro + 10 * esc}L${cx - 7 * esc} ${ombro + 1 * esc}z`, c.roupa, { lapis: 0.5 });
+    if (v.roupa === 'jaqueta') s += S.forma(`M${cx - sw} ${ombro}H${cx - 4 * esc}L${cx - 6 * esc} ${cint}H${cx - sw * 0.9}z`, c.jaqueta) + S.forma(`M${cx + sw} ${ombro}H${cx + 4 * esc}L${cx + 6 * esc} ${cint}H${cx + sw * 0.9}z`, c.jaqueta);
+    if (c.estampa.length) for (let i = 0; i < 6; i++) { const x = cx - sw * 0.7 + (i * 0.41 % 1) * sw * 1.4, y = ombro + 4 * esc + ((i * 0.63) % 1) * (cint - ombro - 8 * esc); s += `<path d="M${x} ${y}q${3 * esc} -${2 * esc} ${5 * esc} ${1 * esc}q-${3 * esc} ${2 * esc} -${5 * esc} -${1 * esc}z" fill="${c.estampa[0]}" opacity=".6"/>`; }
+    s += S.forma(membro([cx - so, ombro + 3 * esc], [cx - so - 4 * esc, ombro + h * 0.34], 2.8 * esc, 2.1 * esc), pele, { lapis: 0.4 });
+    s += S.forma(membro([cx + so, ombro + 3 * esc], [cx + so + 4 * esc, ombro + h * 0.34], 2.8 * esc, 2.1 * esc), pele, { lapis: 0.4 });
+    const mangaCor = v.roupa === 'jaqueta' ? c.jaqueta : c.roupa;
+    s += S.forma(elipse(cx - so, ombro + 5 * esc, 3.6 * esc, 6 * esc), mangaCor) + S.forma(elipse(cx + so, ombro + 5 * esc, 3.6 * esc, 6 * esc), mangaCor);
+  }
+  s += `<g transform="translate(${cx} ${cy}) scale(${hr / R})">${rosto({ ...pessoa, ...v })}</g>`;
+  return s;
+}
+
+/* ===== monta a página ===== */
+for (const [id, pessoa] of Object.entries(PESSOAS)) {
+  const el = document.querySelector(`.retratos[data-pessoa="${id}"]`);
+  for (const k of ['A', 'B']) {
+    const v = pessoa[k];
+    const p = { ...pessoa, ...v };
+    const svg = `<svg viewBox="-70 -62 140 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${pessoa.nome}, variação ${k}">${S.defs()}<rect x="-70" y="-62" width="140" height="150" fill="${C.papel}"/>${S.lavagem(elipse(10, -10, 70, 60), id === 'stella' || id === 'mae' ? C.ceuTarde : C.ceu, 0.45)}<g transform="translate(0 6)">${ombros(p)}${rosto(p)}</g>${S.textura(-70, -62, 140, 150)}</svg>`;
+    el.insertAdjacentHTML('beforeend', `<div class="retrato"><div class="quadro">${svg}</div><span class="nome">${k} · ${v.titulo}<small>${pessoa.nome}</small></span></div>`);
+  }
+}
+function ombros(p) {
+  const cor = p.cores.roupa === C.papel ? C.papel : p.cores.roupa;
+  let s = S.forma('M-52 92C-52 62 -26 46 -8 44H8C26 46 52 62 52 92z', cor, { lapis: 0.4 });
+  if (p.roupa === 'polo' || p.roupa === 'camisa') s += S.forma('M-14 44L0 66L14 44L20 48L0 76L-20 48z', cor, { lapis: 0.5 });
+  if (p.roupa === 'jaqueta') s += S.forma('M-52 92C-52 62 -26 46 -8 44L-12 92z', p.cores.jaqueta) + S.forma('M52 92C52 62 26 46 8 44L12 92z', p.cores.jaqueta);
+  if (p.roupa === 'vestido-gola') s += S.forma('M-9 44h18v14h-18z', cor, { mudo: true });
+  if (p.roupa === 'vestido-longo') s += S.forma('M-12 44L0 62L12 44z', p.pele, { mudo: true }) + S.forma('M-52 92C-58 74 -50 56 -34 50Q-38 66 -30 80Q-42 82 -52 92z', cor) + S.forma('M52 92C58 74 50 56 34 50Q38 66 30 80Q42 82 52 92z', cor);
+  if (p.cores.estampa.length && p.roupa === 'camisa') for (let i = 0; i < 8; i++) { const x = -40 + (i * 0.41 % 1) * 80, y = 56 + ((i * 0.63) % 1) * 34; s += `<path d="M${x} ${y}q4 -3 7 1q-4 3 -7 -1z" fill="${p.cores.estampa[0]}" opacity=".6"/>`; }
+  if (p.cores.estampa.length && p.roupa === 'vestido') for (let i = 0; i < 6; i++) { const x = -40 + (i * 0.37 % 1) * 80, y = 60 + ((i * 0.61) % 1) * 30; s += `<circle cx="${x}" cy="${y}" r="3" fill="${p.cores.estampa[i % 2]}" opacity=".55"/>`; }
+  return s;
+}
+const W = 640, H = 300, chao = 270;
+let fila = S.defs() + `<rect width="${W}" height="${H}" fill="${C.papel}"/>` + S.lavagem(elipse(320, 60, 360, 120), C.ceu, 0.4) + S.lavagem(`M-10 ${chao - 30}Q320 ${chao - 60} ${W + 10} ${chao - 30}V${H + 10}H-10z`, C.musgoClaro, 0.55) + S.lavagem(`M-10 ${chao + 10}Q320 ${chao - 6} ${W + 10} ${chao + 12}V${H + 10}H-10z`, C.musgo, 0.28);
+fila += corpo(PESSOAS.pai, PESSOAS.pai.A, 110, chao) + corpo(PESSOAS.mae, PESSOAS.mae.A, 250, chao) + corpo(PESSOAS.theo, PESSOAS.theo.A, 400, chao) + corpo(PESSOAS.stella, PESSOAS.stella.A, 520, chao);
+fila += S.textura(0, 0, W, H);
+document.getElementById('fila').innerHTML = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A família junta, no tamanho do jogo">${fila}</svg>`;
+</script>
+</body>
+</html>
