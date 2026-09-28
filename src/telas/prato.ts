@@ -1,4 +1,5 @@
 import { mover, telaSvg } from './comum';
+import { botaoPronto, guiar } from './guia';
 import { CORES_DE_COMIDA, estado, mudar, type CorDeComida } from '@/core/estado';
 import { sessao } from '@/core/sessao';
 import { cor as tok, esperar } from '@/core/util';
@@ -19,6 +20,11 @@ const COR_FLOR: Record<string, string> = { vermelho: '#d2463c', laranja: '#e8a24
  * O prato colorido: um prato vazio, seis cores em volta. Ela arrasta (ou
  * toca) a cor que provou. Cada cor faz nascer uma flor no canteiro. Vale
  * provar, não comer tudo; nada sobre quantidade; nada murcha.
+ *
+ * Sozinha, ela não sabia o que fazer: nada mostrava que a comida se arrasta
+ * nem como dizer que acabou. Agora a mãozinha leva uma comida até o prato
+ * logo depois da pergunta (e de novo se ela ficar parada), e, com a primeira
+ * cor no prato, acende o visto verde ao lado da mãe (o guia, em guia.ts).
  */
 export function telaPrato(): Tela {
   const e = estado();
@@ -50,15 +56,34 @@ export function telaPrato(): Tela {
   });
   const tela = telaSvg(s);
   const svg = tela.svg;
+  /* a pergunta da mãe; a mãozinha mostra o arrasto logo depois */
+  const pergunta = esperar(600).then(async () => {
+    if (temVoz('pergunta_prato')) await falar('pergunta_prato');
+  });
   const noPrato = svg.querySelector('.no-prato') as SVGGElement;
   e.hoje.prato.forEach((c, i) => {
     noPrato.innerHTML += figura(e.pais.comidas[c], CX - 30 + (i % 3) * 30, CY - 20 + Math.floor(i / 3) * 34, 40);
   });
 
   let terminou = false;
+  /* o visto verde, aceso só depois da primeira cor: ela diz quando acabou */
+  const pronto = botaoPronto(tela, 310, 262, () => void terminar());
+  if (e.hoje.prato.length > 0) pronto.acender();
+  /* a mãozinha leva a primeira comida que falta até o prato; já com cor, aponta o visto */
+  const guia = guiar(tela, {
+    depoisDe: pergunta,
+    proximo: () => {
+      const falta = [...svg.querySelectorAll('[data-cor]')].find((g) => !estado().hoje.prato.includes(g.getAttribute('data-cor') as CorDeComida));
+      if (!falta || (pronto.aceso && guia.ajuda.nivel >= 2)) return { tipo: 'apontar', em: pronto.onde };
+      const de: [number, number] = [Number(falta.getAttribute('data-x')), Number(falta.getAttribute('data-y'))];
+      return { tipo: 'arrastar', de, ate: [de[0] + (CX - de[0]) * 0.8, de[1] + (CY - de[1]) * 0.8], levar: falta };
+    },
+  });
+
   const terminar = async () => {
     if (terminou) return;
     terminou = true;
+    guia.calar();
     liraDesce();
     mudar((x) => {
       x.hoje.pratoFeito = true;
@@ -96,6 +121,11 @@ export function telaPrato(): Tela {
     tela.comemorar(310, 120);
     if (temVoz('provou_' + c)) await falar('provou_' + c);
     else await esperar(1200);
+    pronto.acender();
+    guia.passo();
+    reArmar();
+    /* as seis cores no prato: não tem mais o que pôr, a roda segue */
+    if (estado().hoje.prato.length >= CORES_DE_COMIDA.length) void terminar();
   };
 
   /* toque simples vale; arrastar curto também, e passando de 40% a comida vai sozinha */
@@ -139,10 +169,13 @@ export function telaPrato(): Tela {
     g.classList.add('alvo');
   });
 
-  /* a pergunta da mãe */
-  void esperar(600).then(() => temVoz('pergunta_prato') && falar('pergunta_prato'));
-  /* depois de 40 s sem nada, a roda segue: nada é cobrado */
-  const fimAuto = window.setTimeout(() => void terminar(), 40000);
+  /* 40 s depois da última cor (ou do começo) sem nada, a roda segue: nada é cobrado */
+  let fimAuto = 0;
+  const reArmar = () => {
+    window.clearTimeout(fimAuto);
+    fimAuto = window.setTimeout(() => void terminar(), 40000);
+  };
+  reArmar();
   tela.aoDestruir(() => window.clearTimeout(fimAuto));
   return tela;
 }

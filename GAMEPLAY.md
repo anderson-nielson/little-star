@@ -145,6 +145,7 @@ aprende uma música. Toda tela usa só estes.
 | O balão de fala, ao lado das opções | Tem uma frase guardada para ler para ela; um toque abre |
 | Trilha de contas no alto, abaixo do cabeçalho | Quanto já foi (contas de ouro) e quanto falta; a estrelinha é a de agora |
 | A casinha acende e a mãozinha aponta para ela | Por hoje acabou; pode voltar para casa (ou continuar brincando) |
+| Visto verde num círculo, pulsando | Acabei: toque quando quiser parar (só em brincadeira aberta, depois da primeira coisa feita) |
 | Sininho no tom da música | Deu certo |
 | Centelhas rosa e ouro subindo | Alguém da família está feliz com você |
 | Lira subindo | Começou uma coisa nova |
@@ -152,6 +153,24 @@ aprende uma música. Toda tela usa só estes.
 | A porta de casa no canto de cima | Voltar para casa |
 | A família virando para ela | Vão falar com você |
 | Casa escurecendo | Está chegando a hora de dormir |
+
+### 5.1 Toda tela mostra o que fazer e como acaba
+
+A voz sozinha não basta: a mãe fala uma vez e, se ela estava olhando para outro lado, a tela
+fica muda. Por isso toda tela, sem exceção, segue três regras (o código delas mora em
+`src/telas/guia.ts`):
+
+1. **Na entrada, a mãozinha faz o gesto.** Logo depois da pergunta falada, a mãozinha faz o
+   gesto de verdade no objeto de verdade: toca duas vezes, arrasta levando a coisa junto,
+   percorre o traço, dedilha as cordas, gira o ponteiro. Tocar em qualquer lugar tira a
+   mãozinha na hora.
+2. **Parada, a ajuda volta.** 6 segundos sem tocar, a mãozinha mostra de novo o gesto do
+   passo de agora; 12 segundos, mostra mais uma vez e o alvo acende. Nunca some de vez.
+3. **Todo fim se vê.** Se a brincadeira acaba sozinha (os seis cuidados, o topo da árvore),
+   a lira desce, as centelhas sobem e a casinha acende. Se é aberta (o prato, o balanço, o
+   ukulele), o visto verde acende depois da primeira coisa feita e ela decide quando parar;
+   parada no fim, a mãozinha aponta para ele. Relógio escondido só como rede de segurança,
+   nunca como o único jeito de sair.
 
 ---
 
