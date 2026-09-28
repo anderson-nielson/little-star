@@ -34,6 +34,18 @@
   --ceu-noite: #232a55;
   --madeira: #c9a189;
   --terra: #8a6a4a;
+  /* a casa de verdade (docs/referencia/casa.html): o reboco verde-sálvia com as faixas brancas,
+     a madeira escura ripada, o telhado de telhas com o beiral de madeira, a escada de borda terracota */
+  --salvia: #9fb88c;
+  --salvia-escura: #8aa578;
+  --salvia-clara: #b9cca9;
+  --telha: #cf7f5c;
+  --beiral: #7a5236;
+  --madeira-escura: #6b4126;
+  --terracota: #d98a5a;
+  --palma: #4f7a4a;
+  --palma-clara: #7ea36f;
+  --flor-do-arbusto: #e9b6c2;
 
   /* cor: a família a lápis e aquarela (docs/referencia/familia.html); espelhada em src/puppet/boneco.ts */
   --pele-menina: #e9c39c;

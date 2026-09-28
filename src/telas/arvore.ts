@@ -8,7 +8,7 @@ import { ir } from '@/core/roteador';
 import { esperar } from '@/core/util';
 import { travar } from '@/core/toque';
 import { familia } from '@/puppet/boneco';
-import { centelha, copa, gato, nuvem, pinha, veu } from '@/puppet/objetos';
+import { centelha, copa, fachada, gato, nuvem, pinha, veu } from '@/puppet/objetos';
 import { tocarFundo } from '@/audio/musica';
 import { falar, temVoz } from '@/audio/vozes';
 import { lira, liraDesce, ronronar, sininho } from '@/audio/synth';
@@ -42,7 +42,7 @@ export function telaArvore(): Tela {
   let s = `<rect width="390" height="780" fill="${CEU[ceu]}"/>` + veu(0, 0, 390, 400, noite ? '#1b2140' : '#ebcdc3', 5, 0.3);
   s += noite ? `<circle cx="205" cy="76" r="14" fill="#ebd9a8"/>` + [90, 150, 230, 330, 300].map((x, i) => centelha(x, 40 + i * 22, 7, '#ebd9a8')).join('') : `<circle cx="205" cy="76" r="22" fill="#ebd9a8" opacity="0.9"/>` + nuvem(300, 60, 14) + nuvem(120, 120, 9);
   /* a casa verde vista de longe, pequena */
-  s += `<g class="vista" opacity="0"><path d="M300 150l30 -26l30 26z" fill="#4f6b3a"/><rect x="304" y="150" width="52" height="40" fill="#8fae6b"/><rect x="322" y="172" width="14" height="18" rx="6" fill="#6e1a27"/></g>`;
+  s += `<g class="vista" opacity="0">${fachada(304, 150, 52, 190)}</g>`;
   /* estrelas das noites bem dormidas, só visíveis do topo */
   if (noite) for (let i = 0; i < Math.min(e.estrelas, 8); i++) s += `<g class="vista" opacity="0">${centelha(250 + (i % 4) * 30, 100 + Math.floor(i / 4) * 24, 9, '#c6a15b')}</g>`;
   s += `<rect x="0" y="700" width="390" height="80" fill="#c9dbb2"/>` + veu(0, 700, 390, 80, '#8fae6b', 4, 0.3);

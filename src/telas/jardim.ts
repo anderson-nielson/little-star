@@ -32,7 +32,7 @@ export const JARDIM = {
   /** o abraço no coelhinho, antes de virar para casa */
   encontro: 2.4,
   /** a menina em fração da altura da tela */
-  alturaDaMenina: 0.13,
+  alturaDaStella: 0.13,
   /** passadas por segundo */
   passadas: 1.7,
 };
@@ -184,7 +184,7 @@ export function telaJardim(): Tela {
   const stellaAnda = Array.from({ length: QUADROS }, (_, i) => pose('anda', { passo: i / QUADROS }));
   const stellaSalto = pose('salto');
   const stellaEscorrega = pose('escorrega');
-  const meninaSenta = imagemDe(familia.menina(100, 190, 160, 'sentado').svg, F, F);
+  const stellaSenta = imagemDe(familia.menina(100, 190, 160, 'sentado').svg, F, F);
   const stellaParada = pose('parado');
   const stellaAbraca = pose('abraca');
   const stellaAcena = pose('acena');
@@ -227,7 +227,7 @@ export function telaJardim(): Tela {
   const faixaTopo = () => H * 0.34;
   const chao = () => H * 0.66;
   /* ela anda com o caminho à frente: na ida fica à esquerda, na volta à direita */
-  const xDaMenina = (t: number) => {
+  const xDaStella = (t: number) => {
     const ida = W * 0.36;
     const volta = W * 0.64;
     if (fase === 'ida') return ida;
@@ -307,19 +307,28 @@ export function telaJardim(): Tela {
   function casa(x: number, ch: number): void {
     const w = Math.min(150, W * 0.36);
     const h = w * 0.62;
+    /* a casa de verdade: a parede verde-sálvia, o telhado de telhas com o beiral, a porta de madeira, uma janela */
     ctx.beginPath();
-    ctx.moveTo(x - w / 2, ch);
-    ctx.lineTo(x - w / 2, ch - h);
-    ctx.lineTo(x, ch - h - w * 0.4);
-    ctx.lineTo(x + w / 2, ch - h);
-    ctx.lineTo(x + w / 2, ch);
+    ctx.rect(x - w / 2, ch - h, w, h);
+    formaNoCanvas(ctx, '#9fb88c', { lapis: 0.35 });
+    ctx.beginPath();
+    ctx.moveTo(x - w / 2 - w * 0.08, ch - h);
+    ctx.lineTo(x, ch - h - w * 0.36);
+    ctx.lineTo(x + w / 2 + w * 0.08, ch - h);
     ctx.closePath();
-    formaNoCanvas(ctx, '#8fae6b');
+    formaNoCanvas(ctx, '#cf7f5c', { lapis: 0.35 });
+    ctx.beginPath();
+    ctx.rect(x - w / 2 - w * 0.08, ch - h, w * 1.16, h * 0.05);
+    formaNoCanvas(ctx, '#7a5236', { lapis: 0.3 });
+    ctx.beginPath();
+    ctx.rect(x - w * 0.42, ch - h * 0.5, w * 0.84, h * 0.06);
+    formaNoCanvas(ctx, '#f6f0e4', { lapis: 0.25, opLapis: 0.5 });
     ctx.beginPath();
     ctx.rect(x - w * 0.11, ch - h * 0.62, w * 0.22, h * 0.62);
-    formaNoCanvas(ctx, '#f2a9c4');
-    ctx.fillStyle = '#ebd9a8';
-    ctx.fillRect(x + w * 0.2, ch - h * 0.75, w * 0.16, w * 0.14);
+    formaNoCanvas(ctx, '#6b4126', { lapis: 0.3 });
+    ctx.beginPath();
+    ctx.rect(x + w * 0.2, ch - h * 0.85, w * 0.16, w * 0.14);
+    formaNoCanvas(ctx, '#ebd9a8', { lapis: 0.25 });
   }
 
   function obstaculo(o: (typeof obst)[number], x: number, ch: number): void {
@@ -398,25 +407,22 @@ export function telaJardim(): Tela {
       ctx.lineTo(xs, y);
       ctx.stroke();
     }
-    /* a casinha */
-    ctx.fillStyle = '#8fae6b';
-    ctx.strokeStyle = '#4f6b3a';
-    ctx.lineWidth = 1.4;
+    /* a casinha de verdade: parede verde-sálvia, telhado de telhas, porta de madeira */
     ctx.beginPath();
-    ctx.moveTo(x0 - 12, y + 9);
-    ctx.lineTo(x0 - 12, y - 3);
+    ctx.rect(x0 - 11, y - 3, 22, 12);
+    formaNoCanvas(ctx, '#9fb88c', { lapis: 0.4 });
+    ctx.beginPath();
+    ctx.moveTo(x0 - 14, y - 2);
     ctx.lineTo(x0, y - 14);
-    ctx.lineTo(x0 + 12, y - 3);
-    ctx.lineTo(x0 + 12, y + 9);
+    ctx.lineTo(x0 + 14, y - 2);
     ctx.closePath();
-    ctx.fill();
-    ctx.stroke();
-    ctx.fillStyle = '#f2a9c4';
+    formaNoCanvas(ctx, '#cf7f5c', { lapis: 0.35 });
+    ctx.fillStyle = '#6b4126';
     ctx.fillRect(x0 - 3, y + 1, 6, 8);
     /* o coelhinho espera no fim; depois vai junto */
     if (!comCoelho) coelho(x1 + 6, y + 10, 0.75, -1, tempo());
-    /* a menina: uma cabecinha loira */
-    ctx.fillStyle = '#e2c27a';
+    /* a menina: uma cabecinha cor de mel */
+    ctx.fillStyle = '#c79a5e';
     ctx.beginPath();
     ctx.arc(xs, y - 1, 10, 0, Math.PI * 2);
     ctx.fill();
@@ -431,7 +437,7 @@ export function telaJardim(): Tela {
     const t = tempo();
     const topo = faixaTopo();
     const ch = chao();
-    const sX = xDaMenina(t);
+    const sX = xDaStella(t);
     const sx = (p: number) => sX + (p - d) * W;
     /* céu em véu */
     ctx.fillStyle = '#dbe7ee';
@@ -541,7 +547,7 @@ export function telaJardim(): Tela {
       obstaculo(o, x, ch);
     }
     /* a menina */
-    const hS = H * JARDIM.alturaDaMenina;
+    const hS = H * JARDIM.alturaDaStella;
     const esc = hS / 160;
     const tam = F * esc;
     const alt = alturaDoPulo(t);
@@ -571,7 +577,7 @@ export function telaJardim(): Tela {
         dy = -Math.sin(q * Math.PI) * hS * 0.12;
       } else if (k < 1.15) {
         /* sentadinha, ri */
-        img = meninaSenta;
+        img = stellaSenta;
         dx = sentido * 14;
         dy = -Math.abs(Math.sin((k - 0.35) * 9)) * 3;
       } else {

@@ -9,7 +9,7 @@ import { estagio, regadoHoje } from '@/core/horta';
 import { ir } from '@/core/roteador';
 import { cor as tok, doTopo, esperar, svgEl } from '@/core/util';
 import { familia, figurinoDe } from '@/puppet/boneco';
-import { arco, balancinho, barbaDeVelho, caixaDeAreia, centelha, coelho, contornoLuz, flor, gato, nuvem, pedra, pinha, pinheiro, veu } from '@/puppet/objetos';
+import { CASA, arco, balancinho, barbaDeVelho, caixaDeAreia, centelha, coelho, contornoLuz, flor, gato, nuvem, pedra, pinha, pinheiro, portaDeMadeira, telhadoDuasAguas, veu } from '@/puppet/objetos';
 import { tocarFundo } from '@/audio/musica';
 import { falar, temVoz } from '@/audio/vozes';
 import { ronronar, sininho, tiquinho } from '@/audio/synth';
@@ -86,9 +86,9 @@ export function telaCasa(): Tela {
   }
   /* casa */
   /* o telhado para abaixo do varal: a segunda corda não encosta na cumeeira */
-  s += `<path d="M${hx - 6} ${top + 10}L${hx + hw / 2} ${top - 50}L${hx + hw + 6} ${top + 10}z" fill="#4f6b3a"/>`;
+  s += telhadoDuasAguas(hx - 6, top - 50, hw + 12, 60);
   s += `<circle cx="${hx + hw / 2}" cy="${top - 14}" r="11" fill="#f6e3dc" stroke="#c6a15b" stroke-width="1.5"/>`;
-  s += `<rect x="${hx}" y="${top}" width="${hw}" height="${bottom - top}" fill="#8fae6b"/>` + veu(hx, top, hw, bottom - top, '#c9dbb2', 4, 0.22, true);
+  s += `<rect x="${hx}" y="${top}" width="${hw}" height="${bottom - top}" fill="${CASA.salvia}"/>` + veu(hx, top, hw, bottom - top, '#c9dbb2', 4, 0.22, true);
   if (clima.festa === 'junina')
     for (let i = 0; i < 14; i++) {
       const t = (i + 0.5) / 14;
@@ -102,7 +102,7 @@ export function telaCasa(): Tela {
   s += `<rect x="${L}" y="${top + 8}" width="${bw - L}" height="${f1 - top - 8}" fill="#f6e3dc"/>` + veu(L, top + 8, bw - L, f1 - top - 8, '#ebcdc3', 3, 0.3, true);
   s += `<rect x="${bw + 6}" y="${top + 8}" width="${R - bw - 6}" height="${f1 - top - 8}" fill="#e6eff2"/>`;
   for (let y = f1 - 80; y < f1; y += 10) s += `<line x1="${bw + 6}" y1="${y}" x2="${R}" y2="${y}" stroke="#c9d9df" stroke-width="1"/>`;
-  s += `<rect x="${L}" y="${f1}" width="${R - L}" height="6" fill="#6f8f55"/>`;
+  s += `<rect x="${L}" y="${f1}" width="${R - L}" height="6" fill="${CASA.beiral}"/>`;
   /* as letras que ela já traçou, numa fileira no alto da parede */
   e.letras.slice(0, 9).forEach((l, i) => {
     s += `<text x="${30 + i * 22}" y="${top + 38}" font-family="Jost, sans-serif" font-size="18" font-weight="500" fill="#f2a9c4">${l}</text>`;
@@ -194,7 +194,7 @@ export function telaCasa(): Tela {
   s += `</g>`;
   /* a porta da rua, na sala: de onde saem as aventuras e onde a família recebe na volta */
   const jardimAberto = aberto(s7, 'jardim');
-  s += `<g data-alvo="porta"${novo('jardim')}><path d="M18 ${bottom}v-71a25 25 0 0 1 50 0v71z" fill="#6e1a27"/><path d="M24 ${bottom}v-67a19 19 0 0 1 38 0v67z" fill="#ebcdc3" opacity="0.35"/><circle cx="58" cy="${bottom - 36}" r="3" fill="#c6a15b"/>`;
+  s += `<g data-alvo="porta"${novo('jardim')}>${portaDeMadeira(20, bottom - 78, 46, 78, 5, true)}`;
   if (noite) s += `<path d="M43 ${bottom - 82}a7 7 0 1 0 6 10a5 5 0 1 1-6-10z" fill="#ebd9a8"/>`;
   if (clima.festa === 'primavera') for (let i = 0; i < 5; i++) s += flor(21 + i * 11, bottom - 92 + Math.abs(i - 2) * 6, ['#f2a9c4', '#ebd9a8', '#d97f74', '#ebd9a8', '#f2a9c4'][i]!, 6);
   s += `</g>`;
@@ -581,7 +581,7 @@ const MINI: Record<Coisa, (x: number, y: number) => string> = {
   palavras: (x, y) => `<rect x="${x - 6}" y="${y - 3}" width="12" height="8" rx="2" fill="#c48f5a"/><rect x="${x - 2.5}" y="${y - 6}" width="5" height="3.5" rx="1" fill="none" stroke="#c48f5a" stroke-width="1.5"/>`,
   areia: (x, y) => `<path d="M${x} ${y - 7}l2 4.6l5 .4l-3.8 3.2l1.2 5l-4.4 -2.7l-4.4 2.7l1.2 -5l-3.8 -3.2l5 -.4z" fill="#ebd9a8" stroke="#c9a189" stroke-width="0.8"/>`,
   pinhas: (x, y) => `<ellipse cx="${x}" cy="${y + 1}" rx="4" ry="6" fill="#a97e63"/><path d="M${x - 3.5} ${y - 1}h7M${x - 3.5} ${y + 2.5}h7" stroke="#6b4a2a" stroke-width="0.8"/>`,
-  jardim: (x, y) => `<path d="M${x - 5} ${y + 6}v-6a5 5 0 0 1 10 0v6z" fill="#6e1a27"/><circle cx="${x + 2.4}" cy="${y + 2}" r="0.9" fill="#c6a15b"/>`,
+  jardim: (x, y) => `<rect x="${x - 4.5}" y="${y - 6}" width="9" height="12" fill="#6b4126"/><path d="M${x - 1.5} ${y - 5}v10M${x + 1.5} ${y - 5}v10" stroke="#4a2c18" stroke-width="0.6" opacity="0.7"/><rect x="${x - 6}" y="${y - 8}" width="12" height="2" fill="#f6f0e4"/><circle cx="${x + 2.8}" cy="${y + 0.5}" r="0.9" fill="#c6a15b"/>`,
   familia: (x, y) => `<circle cx="${x - 3.5}" cy="${y - 2}" r="2.6" fill="#e2b9a0"/><circle cx="${x + 3.5}" cy="${y - 2}" r="2.6" fill="#e2b9a0"/><path d="M${x - 7} ${y + 6}a3.5 4 0 0 1 7 0zM${x} ${y + 6}a3.5 4 0 0 1 7 0z" fill="#8fae6b"/>`,
   cozinha: (x, y) => `<path d="M${x - 6} ${y - 2}h12v4a4 4 0 0 1 -4 4h-4a4 4 0 0 1 -4 -4z" fill="#d97f74"/><path d="M${x - 8} ${y - 1}h2M${x + 6} ${y - 1}h2" stroke="#d97f74" stroke-width="1.5"/><path d="M${x - 2} ${y - 5}q1 -2 0 -3M${x + 2} ${y - 5}q1 -2 0 -3" stroke="#c9a189" stroke-width="0.8" fill="none"/>`,
   ukulele: (x, y) => `<rect x="${x - 1}" y="${y - 7}" width="2" height="7" fill="#c9a189"/><circle cx="${x}" cy="${y + 1}" r="3" fill="#f2a9c4"/><circle cx="${x}" cy="${y + 4.5}" r="3.8" fill="#f2a9c4"/><circle cx="${x}" cy="${y + 2.5}" r="1" fill="#6e1a27" opacity="0.6"/>`,
@@ -600,7 +600,7 @@ const MINI_PASSO: Record<string, (x: number, y: number) => string> = {
   roda: (x, y) => `<circle cx="${x}" cy="${y - 3}" r="2.6" fill="#e2b9a0"/><circle cx="${x - 5.5}" cy="${y + 1}" r="2.6" fill="#e2b9a0"/><circle cx="${x + 5.5}" cy="${y + 1}" r="2.6" fill="#e2b9a0"/><path d="M${x - 3} ${y + 7}a3 3 0 0 1 6 0z" fill="#7FA5B8"/><path d="M${x - 8.5} ${y + 7}a3 3 0 0 1 6 0z" fill="#f2a9c4"/><path d="M${x + 2.5} ${y + 7}a3 3 0 0 1 6 0z" fill="#8fae6b"/>`,
   prato: (x, y) => `<circle cx="${x}" cy="${y}" r="7" fill="#fbf8f1" stroke="#c6a15b" stroke-width="0.9"/><circle cx="${x - 2.5}" cy="${y - 1.5}" r="1.8" fill="#d2463c"/><circle cx="${x + 2.5}" cy="${y - 1}" r="1.8" fill="#e8a24a"/><circle cx="${x}" cy="${y + 2.5}" r="1.8" fill="#8fae6b"/>`,
   bichos: (x, y) => `<path d="M${x - 6} ${y - 6}l2 6h-3zM${x + 6} ${y - 6}l-2 6h3z" fill="#c8b8a6"/><circle cx="${x}" cy="${y + 1}" r="6" fill="#c8b8a6"/><circle cx="${x - 2.2}" cy="${y}" r="0.9" fill="#1a1c2b"/><circle cx="${x + 2.2}" cy="${y}" r="0.9" fill="#1a1c2b"/><path d="M${x - 1.2} ${y + 2.5}h2.4l-1.2 1.4z" fill="#f2a9c4"/>`,
-  despedida: (x, y) => `<path d="M${x - 5} ${y + 7}v-7a5 5 0 0 1 10 0v7z" fill="#6e1a27"/><path d="M${x - 3.2} ${y + 7}v-5.5a3.2 3.2 0 0 1 6.4 0v5.5z" fill="#ebd9a8"/><path d="M${x + 2} ${y - 7}l1.2 2.2l2.4 .3l-1.8 1.7l.5 2.4l-2.3 -1.2l-2.3 1.2l.5 -2.4l-1.8 -1.7l2.4 -.3z" fill="#c6a15b"/>`,
+  despedida: (x, y) => `<path d="M${x - 6} ${y - 1}L${x} ${y - 7}L${x + 6} ${y - 1}V${y + 7}H${x - 6}z" fill="#9fb88c"/><path d="M${x - 7.5} ${y - 0.5}L${x} ${y - 8}L${x + 7.5} ${y - 0.5}z" fill="#cf7f5c"/><rect x="${x - 2}" y="${y + 2}" width="4" height="5" fill="#6b4126"/><path d="M${x + 2} ${y - 7}l1.2 2.2l2.4 .3l-1.8 1.7l.5 2.4l-2.3 -1.2l-2.3 1.2l.5 -2.4l-1.8 -1.7l2.4 -.3z" fill="#c6a15b"/>`,
 };
 
 /**
