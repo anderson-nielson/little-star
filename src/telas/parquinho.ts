@@ -18,10 +18,10 @@ import { AMPLITUDE_ALTA, AMPLITUDE_PARA_CONTAR, amplitude, anguloDoDedo, CONTA_A
 import type { Tela } from '@/core/roteador';
 
 /*
- * O parquinho do condomínio, fora da porta. A Stella faz sempre a mesma volta
+ * O parquinho do condomínio, fora da porta. A menina faz sempre a mesma volta
  * lá: se balança sozinha no balanço contando até dez, depois vai ao
  * escorregador, depois à gangorra. No balanço e no escorregador ela vai
- * sozinha; na gangorra, que é para dois, o Theo fica na outra ponta. Quem
+ * sozinha; na gangorra, que é para dois, o irmão fica na outra ponta. Quem
  * sobe, empurra e desce é sempre ela.
  * Três telas, uma por brinquedo; os outros dois aparecem pequenos na cena e
  * se tocam para ir. Nada é trancado.
@@ -111,13 +111,13 @@ async function viva(frase: string): Promise<void> {
   else await esperar(1500);
 }
 
-/** Na gangorra o Theo está na outra ponta e bate palma junto. */
-async function palmaDoTheo(tela: TelaSvg, x: number, y: number, frase: string): Promise<void> {
-  const g = tela.svg.querySelector('.theo');
+/** Na gangorra o irmão está na outra ponta e bate palma junto. */
+async function palmaDoIrmao(tela: TelaSvg, x: number, y: number, frase: string): Promise<void> {
+  const g = tela.svg.querySelector('.irmao');
   if (!g) return;
-  g.innerHTML = familia.theo(x, y, 190, 'palma', { dir: -1 }).svg;
+  g.innerHTML = familia.irmao(x, y, 190, 'palma', { dir: -1 }).svg;
   await viva(frase);
-  g.innerHTML = familia.theo(x, y, 190, 'segura', { dir: -1 }).svg;
+  g.innerHTML = familia.irmao(x, y, 190, 'segura', { dir: -1 }).svg;
 }
 
 /** Um laço de quadros que morre com a tela. */
@@ -156,9 +156,9 @@ export function telaParquinho(): Tela {
   /* os outros dois brinquedos, pequenos; os alvos deles vêm por cima, no fim */
   s += gangorra(64, 632, 110) + escorregador(262, 640, 110);
   s += traveDoBalanco();
-  const stella = familia.stella(PIV[0], ASSENTO + 22, 140, 'balanco');
+  const menina = familia.menina(PIV[0], ASSENTO + 22, 140, 'balanco');
   /* o grupo que gira não leva a classe alvo: ela muda a origem da rotação */
-  s += `<g class="balanco"><path d="M${PIV[0] - 13} ${PIV[1]}V${ASSENTO - 2}M${PIV[0] + 13} ${PIV[1]}V${ASSENTO - 2}" stroke="${CORDA}" stroke-width="3.5" stroke-linecap="round"/><rect x="${PIV[0] - 36}" y="${ASSENTO - 6}" width="72" height="11" rx="5" fill="${MADEIRA}"/>${stella.svg}</g>`;
+  s += `<g class="balanco"><path d="M${PIV[0] - 13} ${PIV[1]}V${ASSENTO - 2}M${PIV[0] + 13} ${PIV[1]}V${ASSENTO - 2}" stroke="${CORDA}" stroke-width="3.5" stroke-linecap="round"/><rect x="${PIV[0] - 36}" y="${ASSENTO - 6}" width="72" height="11" rx="5" fill="${MADEIRA}"/>${menina.svg}</g>`;
   s += coelho(330, 668, 24);
   /* o pote da contagem, só aqui: as pedrinhas dele são da brincadeira */
   if (contar) s += `<g class="pote"><path d="M300 640q0 -8 6 -8h48q6 0 6 8v6q-6 6 -6 14v40q0 12 -12 12h-24q-12 0 -12 -12v-40q0 -8 -6 -14z" fill="#9fc3cf" opacity="0.28" stroke="#ebd9a8" stroke-width="2"/><g class="pedrinhas"></g></g>`;
@@ -169,7 +169,7 @@ export function telaParquinho(): Tela {
 
   const rider = svg.querySelector('.balanco') as SVGGElement;
   const cabelo = rider.querySelector('.cabelo-atras') as SVGGElement | null;
-  const [hx, hy] = stella.cabeca;
+  const [hx, hy] = menina.cabeca;
   const b: Balanco = novoBalanco();
   let arrasto: { id: number; th0: number; t: number; vel: number; moveu: boolean; x0: number } | null = null;
   let conta = 0;
@@ -234,7 +234,7 @@ export function telaParquinho(): Tela {
         tela.comemorar(PIV[0] + 40, ASSENTO - 150);
         if (e.pais.pedrinhas) pedrinhasSobem(tela, PEDRINHAS.balanco, PIV[0], ASSENTO - 120);
         if (medalha) sininho();
-        await viva('viva_forca');
+        await viva('que_forca');
         if (!vivo) return;
         await esperar(600);
         g.querySelectorAll('g').forEach((c) => {
@@ -264,7 +264,7 @@ export function telaParquinho(): Tela {
         if (cruzou > 0 && amp > AMPLITUDE_ALTA && performance.now() - ultimaPalma > 9000) {
           ultimaPalma = performance.now();
           tela.comemorar(PIV[0] + 20, ASSENTO - 150);
-          void viva('viva_forca');
+          void viva('que_forca');
         }
       }
     }
@@ -355,13 +355,13 @@ export function telaEscorregador(): Tela {
   const { s: fundo } = fundoDoParquinho();
   let s = fundo + `<g data-alvo="balanco" transform="translate(-100 300) scale(0.5)">${traveDoBalanco()}<path d="M${PIV[0] - 13} ${PIV[1]}V${ASSENTO - 2}M${PIV[0] + 13} ${PIV[1]}V${ASSENTO - 2}" stroke="${CORDA}" stroke-width="3.5"/><rect x="${PIV[0] - 36}" y="${ASSENTO - 6}" width="72" height="11" rx="5" fill="${MADEIRA}"/><circle cx="195" cy="480" r="120" fill="transparent"/></g>`;
   s += `<g data-alvo="escada">${escorregador(EX, EY, EH)}<rect x="${EX - 40}" y="${EY - EH - 20}" width="90" height="${EH + 40}" fill="transparent"/></g>`;
-  s += `<g class="stella alvo"></g>`;
+  s += `<g class="menina alvo"></g>`;
   s += `<g data-alvo="gangorra">${gangorra(340, 700, 90)}<circle cx="340" cy="690" r="40" fill="transparent"/></g>`;
   s += coelho(48, 668, 22);
   const tela = telaSvg(s);
   const svg = tela.svg;
   tocarFundo('gymnopedie');
-  const gst = svg.querySelector('.stella') as SVGGElement;
+  const gst = svg.querySelector('.menina') as SVGGElement;
 
   type Fase = 'chao' | 'escada' | 'subindo' | 'topo' | 'descendo' | 'areia' | 'voltando';
   const st = { fase: 'chao' as Fase, degrau: 0, t: 0, de: [0, 0] as [number, number], para: [0, 0] as [number, number], pos: [EX - 30, EY] as [number, number] };
@@ -382,7 +382,7 @@ export function telaEscorregador(): Tela {
       y = EY - EH + 8;
     } else if (st.fase === 'descendo') pose = 'sentado';
     else if (st.fase === 'voltando') dir = -1;
-    const d = familia.stella(x, y, 120, pose, { dir, contorno: st.fase === 'descendo' ? '#ebd9a8' : undefined });
+    const d = familia.menina(x, y, 120, pose, { dir, contorno: st.fase === 'descendo' ? '#ebd9a8' : undefined });
     gst.innerHTML = d.svg;
     if (st.fase === 'descendo') {
       const cab = gst.querySelector('.cabelo-atras');
@@ -428,7 +428,7 @@ export function telaEscorregador(): Tela {
         tela.comemorar(st.pos[0], st.pos[1] - 110);
         if (desceu === 1) anunciar('escorregador');
         void (async () => {
-          await viva('viva_coragem');
+          await viva('que_coragem');
           if (!vivo) return;
           st.fase = 'voltando';
           st.t = 0;
@@ -462,7 +462,7 @@ export function telaEscorregador(): Tela {
     } else tiquinho();
   };
   tela.alvo('[data-alvo="escada"]', tocou, true);
-  tela.alvo('.stella', tocou, true);
+  tela.alvo('.menina', tocou, true);
   tela.alvo('[data-alvo="gangorra"]', () => {
     travar(500);
     void ir('gangorra');
@@ -479,16 +479,16 @@ export function telaEscorregador(): Tela {
 const GX = 195;
 const GY = 596;
 const GL = 150;
-const THEO_G: [number, number] = [GX + GL + 4, 662];
+const IRMAO_G: [number, number] = [GX + GL + 4, 662];
 
 export function telaGangorra(): Tela {
   const { s: fundo } = fundoDoParquinho();
   let s = fundo + `<g data-alvo="balanco" transform="translate(150 330) scale(0.45)">${traveDoBalanco()}<path d="M${PIV[0] - 13} ${PIV[1]}V${ASSENTO - 2}M${PIV[0] + 13} ${PIV[1]}V${ASSENTO - 2}" stroke="${CORDA}" stroke-width="3.5"/><rect x="${PIV[0] - 36}" y="${ASSENTO - 6}" width="72" height="11" rx="5" fill="${MADEIRA}"/><circle cx="195" cy="460" r="130" fill="transparent"/></g>`;
   s += `<g data-alvo="escorregador" transform="translate(60 250) scale(0.55)">${escorregador(262, 640, 110)}<circle cx="320" cy="580" r="80" fill="transparent"/></g>`;
   s += `<path d="M${GX - 16} ${GY}L${GX} ${GY - 34}L${GX + 16} ${GY}z" fill="${TERRA}"/>`;
-  const stella = familia.stella(GX - GL + 24, GY - 34 + 16, 120, 'sentado');
-  s += `<g class="tabua"><rect x="${GX - GL - 10}" y="${GY - 40}" width="${2 * GL + 20}" height="12" rx="6" fill="${MADEIRA}"/><path d="M${GX - GL + 26} ${GY - 40}v-16M${GX + GL - 26} ${GY - 40}v-16" stroke="${TERRA}" stroke-width="6" stroke-linecap="round"/><rect x="${GX - GL + 6}" y="${GY - 46}" width="40" height="8" rx="4" fill="#f2a9c4"/><rect x="${GX + GL - 46}" y="${GY - 46}" width="40" height="8" rx="4" fill="#f2a9c4"/>${stella.svg}</g>`;
-  s += `<g class="theo">${familia.theo(THEO_G[0], THEO_G[1], 190, 'segura', { dir: -1 }).svg}</g>`;
+  const menina = familia.menina(GX - GL + 24, GY - 34 + 16, 120, 'sentado');
+  s += `<g class="tabua"><rect x="${GX - GL - 10}" y="${GY - 40}" width="${2 * GL + 20}" height="12" rx="6" fill="${MADEIRA}"/><path d="M${GX - GL + 26} ${GY - 40}v-16M${GX + GL - 26} ${GY - 40}v-16" stroke="${TERRA}" stroke-width="6" stroke-linecap="round"/><rect x="${GX - GL + 6}" y="${GY - 46}" width="40" height="8" rx="4" fill="#f2a9c4"/><rect x="${GX + GL - 46}" y="${GY - 46}" width="40" height="8" rx="4" fill="#f2a9c4"/>${menina.svg}</g>`;
+  s += `<g class="irmao">${familia.irmao(IRMAO_G[0], IRMAO_G[1], 190, 'segura', { dir: -1 }).svg}</g>`;
   s += coelho(40, 668, 22);
   s += `<g data-alvo="tabua"><rect x="24" y="380" width="${GX + 40}" height="300" fill="transparent"/></g>`;
   const tela = telaSvg(s);
@@ -496,7 +496,7 @@ export function telaGangorra(): Tela {
   tocarFundo('gymnopedie');
   const tabua = svg.querySelector('.tabua') as SVGGElement;
   const cabelo = tabua.querySelector('.cabelo-atras') as SVGGElement | null;
-  const [hx, hy] = stella.cabeca;
+  const [hx, hy] = menina.cabeca;
   const g = novaGangorra();
   let subidas = 0;
   let vivo = true;
@@ -542,7 +542,7 @@ export function telaGangorra(): Tela {
         void esperar(500).then(async () => {
           if (!vivo) return;
           tela.comemorar(GX - GL + 24, GY - 200);
-          await palmaDoTheo(tela, THEO_G[0], THEO_G[1], 'theo_esperta');
+          await palmaDoIrmao(tela, IRMAO_G[0], IRMAO_G[1], 'irmao_esperta');
         });
       }
     },

@@ -9,12 +9,12 @@
 | P1 | Hora da tela | O jogo não assume hora. A roda e o prato perguntam sobre o que houve **desde a última sessão**, e as frases não dizem "hoje". De manhã, a primeira pergunta é sobre a noite. A partir de 30 min antes da hora de dormir só existe o laço da noite. | `src/core/laco.ts`, `src/data/frases.json` |
 | P2 | Aparelho | PWA instalável nos dois; retrato pelo manifesto; instruções de Acesso Guiado e Fixação de tela no cantinho dos pais. O gesto de voltar do aparelho volta para a casa. | `vite.config.ts`, `src/core/roteador.ts`, `src/telas/pais.ts` |
 | P3 | Letras e escola | Ordem do jogo: A, E, L, S, T (as do nome dela, que ela já reconhece), depois O, M, U, I, V; uma por semana, com as imagens do jogo. Os pais podem adiantar, segurar ou deixar livre. | `src/data/letras.json`, cantinho dos pais |
-| P4 | Palavras | Trocadas por palavras de sílaba aberta em que cada letra soa como o som ensinado: LUA, AVÓ, ELA, OLÁ, UVA, MALA, SALA, LAMA, MOLA, TATU, TUTU, TELA, LATA, MATA, LIMA, VELA, LUVA e STELLA. Um teste impede L no fim da sílaba, S entre vogais, TI e vogal átona final. | `src/data/palavras.json`, `tests/dados.test.ts` |
+| P4 | Palavras | Trocadas por palavras de sílaba aberta em que cada letra soa como o som ensinado: LUA, AVÓ, ELA, OLÁ, UVA, MALA, SALA, LAMA, MOLA, TATU, TUTU, TELA, LATA, MATA, LIMA, VELA e LUVA. Um teste impede L no fim da sílaba, S entre vogais, TI e vogal átona final. | `src/data/palavras.json`, `tests/dados.test.ts` |
 | P5 | Casa | Numa tela só, sem rolagem. Tocar num objeto abre a atividade. | `src/telas/casa.ts` |
 | P6 | Quem marca | O toque dela basta; o objeto da roda só aceita o toque depois que a pergunta acabou de ser falada. A confirmação dos pais é brilho a mais. | `src/telas/roda.ts`, `src/telas/pais.ts` |
 | P7 | Vozes | Gravadas no app (MediaRecorder), guardadas só no aparelho, com exportar e importar. Cada frase tem um dono; 50 obrigatórias e o resto opcional. Sem gravação, a cena acontece sem voz. Palavras inteiras e nomes de figuras podem vir da voz do aparelho; o som isolado da letra e os nomes próprios, nunca. O som da letra sem gravação: vogal pela voz do aparelho (nome e som coincidem), consoante pelo sintetizador de fonemas (formantes e ruído filtrado no Web Audio), inclusive no meio das frases de ensinar ("sss... sssss... sapo", sem "de" no meio) e na leitura do bilhete, que lê som a som. A etapa de juntar da palavra usa os mesmos sons curtinhos (não mais piano). Enquanto uma voz ou som de letra fala, a música de fundo some. | `src/audio/vozes.ts`, `src/audio/fala.ts`, `src/audio/fonemas.ts`, `src/audio/sintese-fonemas.ts`, `src/data/frases.json` |
 | P8 | Roupa | Vestido rosa em casa; tutu e coque só no palco. | `src/puppet/boneco.ts` |
-| P9 | Proporções | Stella 1, Theo 1,5, pais 2 (o pai 2,1). | `src/puppet/boneco.ts` |
+| P9 | Proporções | A menina 1, o irmão 1,5, pais 2 (o pai 2,1). | `src/puppet/boneco.ts` |
 | P10 | Voltar | A casinha verde no canto de cima, 72 px. A porta fica só para a aventura. | `src/puppet/objetos.ts` |
 | P11 | Jardim | Ida e volta: buscar o coelhinho e voltar para casa, 9 larguras de tela cada perna. Um obstáculo a cada 2 compassos de caminhada (uns 8 na ida); nas duas primeiras aventuras, a cada 4. Janela do pulo 0,7 s. Escorregão de 1,6 s. Em dados. | `src/telas/jardim.ts` (`JARDIM`) |
 | P12 | Semana | Cores da tradição Waldorf (dom dourado, seg roxo, ter vermelho, qua amarelo, qui laranja, sex verde, sáb azul). Brincadeira do dia: dom família, seg palavras, ter caderno, qua pinhas, qui areia, sex piano, sáb jardim. | `src/ui/tokens.css`, `src/core/laco.ts` |
@@ -22,11 +22,11 @@
 
 ## O redesenho: Aquarela e Lápis
 
-Em setembro de 2026 o Anderson pediu um estilo gráfico menos simplório, ainda leve, pastel
+Em setembro de 2026 o pai pediu um estilo gráfico menos simplório, ainda leve, pastel
 e Waldorf. Três propostas foram desenhadas em `docs/referencia/estilos.html` (Aquarela e
 Lápis, Feltro e Linha, Estampa de Três Tintas) e a escolha foi **Aquarela e Lápis**. As
-faces da família vieram das fotos, em `docs/referencia/familia.html`: Stella e mãe na
-variação B, Theo no baterista A (mais menino), pai na B com camiseta preta e jeans, a mãe
+faces da família vieram das fotos, em `docs/referencia/familia.html`: a menina e a mãe na
+variação B, o irmão no baterista A (mais menino), pai na B com camiseta preta e jeans, a mãe
 magra e elegante de salmão, todos com mão no fim do braço e o rosto que simplifica sozinho
 quando fica pequeno.
 
@@ -41,13 +41,13 @@ quando fica pequeno.
 
 ## As respostas que chegaram depois
 
-O Anderson respondeu P1 a P7 na página das telas enquanto a v1 era implementada. O que mudou:
+O pai respondeu P1 a P7 na página das telas enquanto a v1 era implementada. O que mudou:
 
 | # | Resposta | O que mudou |
 |---|---|---|
 | P1 | "Raro. Quase nunca." | A casa se abre em quatro sessões, não em seis (`ABERTURAS`), para o Jardim não levar dois meses. O limite diário importa pouco; o convite da despedida importa muito. |
 | P2 | "Samsung Galaxy" | Android: as instruções do cantinho dos pais falam primeiro de Chrome, Instalar aplicativo e Fixar janelas. A voz do aparelho em português vem do Google TTS. |
-| P3 | "Não, mas ela conhece as letras do nome dela e do Theo" | A escola ainda não apresentou letras, então a ordem é do jogo, e começa pelas que ela já reconhece: A, E, L, S, T, e a porta ganha STELLA na quinta letra. Depois O, M, U, I, V. A palavra de cada letra traz no máximo uma consoante que ela ainda não traçou (um teste guarda isso). |
+| P3 | "Não, mas ela conhece as letras do nome dela e do irmão" | A escola ainda não apresentou letras, então a ordem é do jogo, e começa pelas que ela já reconhece: A, E, L, S, T, e a porta ganha o nome dela na quinta letra. Depois O, M, U, I, V. A palavra de cada letra traz no máximo uma consoante que ela ainda não traçou (um teste guarda isso). |
 | P4 | "Pode" | As palavras de sílaba aberta ficam. |
 | P5 | "Sim" | A casa numa tela só fica. |
 | P6 | "Decide" | O toque dela basta, com a trava depois da pergunta. |
@@ -82,7 +82,7 @@ arco-íris semanal (é um contador disfarçado; o canteiro já recompensa).
 1. Instalar na tela inicial e ligar o Acesso Guiado ou a Fixação de tela.
 2. No cantinho dos pais (segurar a lua por dois segundos, tocar no número), gravar as frases
    obrigatórias: os 9 sons das letras, as perguntas e comemorações da roda, os nomes dos bichos,
-   os convites e o boa noite. Uns 45 minutos, de preferência sem a Stella por perto.
+   os convites e o boa noite. Uns 45 minutos, de preferência sem ela por perto.
 3. Escolher a hora de dormir, o limite diário e as comidas de cada cor.
 4. Jogar junto, no colo, na primeira semana.
 
@@ -90,8 +90,8 @@ arco-íris semanal (é um contador disfarçado; o canteiro já recompensa).
 
 - **O toque travava a tela inteira.** No celular cada dedo novo tem um `pointerId` novo. Se o dedo descia num alvo e soltava fora dele (comum no piano, escorregando entre teclas), o alvo nunca via o `pointerup` e o "primeiro dedo" ficava preso: nada mais respondia. Agora o alvo captura o ponteiro e a janela sempre libera o dedo ao soltar.
 - **A cena não corta mais.** Em telas mais curtas que 1:2 (quase todo Android com a barra do navegador), o `slice` cortava o alto e o pé da cena e jogava a casinha e a lua para dentro da borda morta de 24 px: não dava para sair do piano. A cena agora usa `meet`; sobram faixas finas nos lados, na cor do fundo da própria tela.
-- **A casa fechada confundiu os pais.** Nas primeiras quatro sessões só o que brilha responde (aberturas graduais). Isso segue igual para a Stella, mas o cantinho dos pais ganhou o botão "Abrir a casa inteira agora".
-- **A família, versão escolhida.** Theo: cachinhos curtos só em cima, camiseta com mangas, mais encorpado. Pai: opção C, testa alta, barba cheia, óculos finos sem hastes (de frente, a haste parecia um brinco). As três opções ficam em `?styleguide=pai`.
+- **A casa fechada confundiu os pais.** Nas primeiras quatro sessões só o que brilha responde (aberturas graduais). Isso segue igual para ela, mas o cantinho dos pais ganhou o botão "Abrir a casa inteira agora".
+- **A família, versão escolhida.** O irmão: cachinhos curtos só em cima, camiseta com mangas, mais encorpado. Pai: opção C, testa alta, barba cheia, óculos finos sem hastes (de frente, a haste parecia um brinco). As três opções ficam em `?styleguide=pai`.
 
 ## A v2: o que ficou de fora entrou
 
@@ -101,16 +101,16 @@ continua sendo um contador disfarçado; o canteiro já recompensa).
 | O que | Como ficou | Onde |
 |---|---|---|
 | Horta | Quatro covas no quintal. Um toque faz a coisa certa: cova vazia planta, planta com sede rega, planta pronta colhe. Cresce com dias e regas (pronta com dois de cada) e nunca murcha. O que ela colhe vai para a comidinha. | `src/core/horta.ts`, `src/telas/horta.ts` |
-| Comidinha | Segunda-feira, o dia do pão. Na cozinha com a mãe: toca em cada legume, que vai para a bacia, se lava e cai na tigela; mexe três vezes com a colher; o Theo come rindo e a mãe prova. Cada comida diz o nome, e a Estrellita o nome em espanhol. | `src/telas/cozinha.ts` |
+| Comidinha | Segunda-feira, o dia do pão. Na cozinha com a mãe: toca em cada legume, que vai para a bacia, se lava e cai na tigela; mexe três vezes com a colher; o irmão come rindo e a mãe prova. Cada comida diz o nome, e a Estrellita o nome em espanhol. | `src/telas/cozinha.ts` |
 | Mais tarefas na roda | Banho, quarto e ser gentil. Os pais ligam e desligam cada tarefa no cantinho; banho já vem ligado, quarto e gentil não, para a roda continuar curta. | `src/telas/roda.ts`, `src/telas/pais.ts` |
-| Subir na árvore | Tocar num galho mais alto e ela sobe até ele, sem pressa. Do alto vê a casa verde de cima, o Theo acenando e, à noite, as estrelas das noites bem dormidas. O Theo sobe junto só nos galhos baixos. Quando o gatinho está no topo, a cena vira só a abertura da Árvore Grande: ela vê o gatinho lá em cima e o toque leva direto para a subida de perto, sem subir duas vezes. | `src/telas/arvore.ts` |
+| Subir na árvore | Tocar num galho mais alto e ela sobe até ele, sem pressa. Do alto vê a casa verde de cima, o irmão acenando e, à noite, as estrelas das noites bem dormidas. O irmão sobe junto só nos galhos baixos. Quando o gatinho está no topo, a cena vira só a abertura da Árvore Grande: ela vê o gatinho lá em cima e o toque leva direto para a subida de perto, sem subir duas vezes. | `src/telas/arvore.ts` |
 | A Árvore Grande | O gatinho subiu ao topo e não sabe descer. Cada toque, ela pula para o galho de cima (sete galhos, como os degraus da escada do escorregador), sem nada caindo e sem pressa. No topo ela abraça o gatinho e vai para o palco. Abre depois da primeira aventura terminada. Música: a Marcha. | `src/telas/arvoregrande.ts` |
 | O Lago dos Cisnes | Cinco faixas de vitórias-régias e cisnes que vão e voltam (nunca somem pela beirada). Toque = pular para a frente, e o pulo espera a plataforma chegar. Caiu na água? Splash onde caiu, ela nada de volta até onde estava e tenta de novo, sem perder nada. É ida e volta: ela vai até o coreto, uma luz acende, e volta pulando para a margem de casa, onde a aventura fecha. Abre depois da segunda aventura. Música: a Dança dos pequenos cisnes. | `src/telas/lago.ts` |
 | A porta | Com mais de uma aventura aberta, três figuras (coelhinho, pinha com o gatinho, cisne) para escolher; a do dia brilha e vai sozinha depois de 14 s. | `src/telas/casa.ts` |
 | Espanhol | A Estrellita (a primeira boneca da estante) diz o outro nome das coisas: nas palavras em destaque, na comidinha, na horta e no palco (às vezes conta a entrada em espanhol, e diz "¡Muy bien!"). Entra sozinho com três letras traçadas, ou como os pais mandarem. Gravação `es_<id>` se houver; senão, a voz do aparelho em espanhol; sem voz, silêncio. | `src/audio/espanhol.ts`, `src/data/espanhol.json` |
 | Ukulele | Quatro cordas para dedilhar (Karplus-Strong), afinadas em sol, dó, mi, lá: soltas, dão a afinação; três botões de cor apertam dó, fá e sol7 nas posições de verdade. Corpo rosa em oito, com cintura, cravelhas e trastes. As bonecas balançam. | `src/telas/ukulele.ts` |
-| Vestir bonecas | Roupa, cabelo e gorro por cores; a Estrellita só troca o gorro. Tocar na Stella leva a boneca escolhida no bolso do tutu: ela assiste ao palco da coxia. | `src/telas/bonecas.ts` |
-| Bilhetinho | As vogais (que ela já sabe) e as letras que ela traçou são carimbos; vão para o papel rosa; ela entrega para a mãe, o pai ou o Theo, que lê em voz alta (a voz do aparelho lê letra a letra e depois junto) e abraça. Os pais veem os bilhetes no cantinho. | `src/telas/bilhete.ts` |
+| Vestir bonecas | Roupa, cabelo e gorro por cores; a Estrellita só troca o gorro. Tocar nela leva a boneca escolhida no bolso do tutu: ela assiste ao palco da coxia. | `src/telas/bonecas.ts` |
+| Bilhetinho | As vogais (que ela já sabe) e as letras que ela traçou são carimbos; vão para o papel rosa; ela entrega para a mãe, o pai ou o irmão, que lê em voz alta (a voz do aparelho lê letra a letra e depois junto) e abraça. Os pais veem os bilhetes no cantinho. | `src/telas/bilhete.ts` |
 | Festas das estações | Outono: folhas no quintal e a Festa da Lanterna (20 a 31 de maio). Inverno: fitinha no pinheiro e a festa junina com fogueira e bandeirinhas (12 a 30 de junho). Primavera: flores no pinheiro e guirlanda na porta (21 a 30 de setembro). Verão: conchinhas na areia. Advento: a espiral de velas, uma por domingo. Os pais podem desligar. | `src/core/festas.ts`, `src/data/festas.json` |
 | Piano | O seguir a estrelinha alterna *Brilha, brilha* e *Ciranda, cirandinha*. | `src/telas/piano.ts` |
 
@@ -120,18 +120,18 @@ As aventuras novas abrem uma por vez, depois de terminar a anterior.
 
 ## O palco em dois: a brincadeira e o fecho
 
-O palco só existia no fim das aventuras, e lá ficava deslocado: a Stella já dançava sozinha
+O palco só existia no fim das aventuras, e lá ficava deslocado: a menina já dançava sozinha
 num ciclo de poses, a música era uma só em loop, e o toque tinha dois efeitos com uma divisão
 invisível da tela (em cima salto, embaixo giro). Não parecia que ela dançava; parecia que
 esperava o show acabar, e o visto e a mãozinha faziam dele uma tarefa.
 
 - **A brincadeira do palco** abre pelas sapatilhas de ponta na parede do quarto (sessão 2,
-  com as bonecas). Na ribalta, um botão por passo com a Stella na pose: plié, relevé,
+  com as bonecas). Na ribalta, um botão por passo com a menina na pose: plié, relevé,
   arabesque, pirueta; tocar no palco é o salto. A cada oito passos a família bate palma e
   o número seguinte começa com outra música da playlist (`PLAYLIST_DO_PALCO`); a nota pula.
   A mãe pode gravar o nome de cada passo (grupo Palco das vozes).
 - **Ela nunca fica parada**: entre os passos gira devagar na ponta dos pés e passeia de um
-  lado a outro do palco, como a bailarina de uma caixinha de música (o teste com o Anderson:
+  lado a outro do palco, como a bailarina de uma caixinha de música (o teste com o pai:
   parada, parecia esperar comando; só girando, faltava dançar).
 - **Mais passos, aos poucos**: o segundo número traz tendu, passé, attitude e échappé na
   ribalta, e os conjuntos alternam. Oito botões numa fileira era demais para 5 anos.
@@ -157,7 +157,7 @@ Arquivos: `src/telas/palco.ts`, `src/puppet/boneco.ts`, `src/telas/casa.ts`, `sr
 
 ## Pedrinhas, medalhas e o relógio
 
-Pedido da família depois da v2: a Stella está aprendendo a ver as horas e precisa aprender a
+Pedido da família depois da v2: ela está aprendendo a ver as horas e precisa aprender a
 dormir sozinha no quarto dela; e o jogo precisa somar pontos que se ganham e se perdem com as
 tarefas, com as atitudes mais autônomas e com o aprendizado, mas leve.
 
@@ -185,16 +185,16 @@ Isso mexe numa decisão da v1 ("nada diminui, nenhum número aparece"). O jeito 
 - **O relógio** da sala: um mostrador grande com os números, o ponteiro das horas que ela gira
   com o dedo e encaixa na hora cheia, e o relógio diz a hora ("são três horas", gravação ou
   a voz do aparelho). O céu da janelinha muda com a hora; a hora de dormir tem uma lua, as
-  sete da manhã um sol. Tocar no Theo: ele pede uma hora; ela gira até lá e ganha uma
+  sete da manhã um sol. Tocar no irmão: ele pede uma hora; ela gira até lá e ganha uma
   pedrinha. Ajuda: o número pedido acende; depois o ponteiro anda sozinho. Só horas cheias
   por enquanto; meia hora e minutos ficam para quando as cheias estiverem firmes.
 
 ## A narração para quem joga junto
 
 O pedido: a cada avanço, um balão suave no topo da tela, como em história em quadrinhos,
-para a mãe, o pai ou o Theo (quem estiver jogando junto no celular) lerem para a Stella.
+para a mãe, o pai ou o irmão (quem estiver jogando junto no celular) lerem para ela.
 Coisas boas que estão acontecendo, as forças dela, e o carinho, o amor e a segurança que a
-família tem por ela. O pano de fundo: ela tem ciúmes do Theo e compete com ele, e o jogo em
+família tem por ela. O pano de fundo: ela tem ciúmes do irmão e compete com ele, e o jogo em
 parte existe para mostrar que não precisa ser assim.
 
 - **Um balão, um avanço.** Tudo o que o jogo já conta como avanço passa por `ganhar()` em
@@ -204,12 +204,12 @@ parte existe para mostrar que não precisa ser assim.
   como decidido antes.
 - **O que a frase faz.** Três coisas, sempre: nomeia o que ela fez de verdade ("você
   traçou uma letra inteira, do começo ao fim"), diz o carinho e a segurança da família, e
-  coloca o Theo como quem torce por ela e faz junto ("ele mostra, você descobre"). Nada de
+  coloca o irmão como quem torce por ela e faz junto ("ele mostra, você descobre"). Nada de
   comparação, nada de "melhor que", nada de "tem que". Um teste garante que todo avanço tem
-  pelo menos três frases, que o Theo e a família aparecem em cada um, que nenhuma frase
+  pelo menos três frases, que o irmão e a família aparecem em cada um, que nenhuma frase
   passa de 160 caracteres e que as palavras proibidas não entram.
 - **Para o adulto, não para ela.** É a exceção à regra "sem texto para ela ler": o texto é
-  de quem lê, com rótulo "para ler para a Stella". Frases curtas para caber na voz de quem
+  de quem lê, com rótulo "para ler para ela". Frases curtas para caber na voz de quem
   está ao lado. Elas se revezam pelo histórico das pedrinhas, para não repetir a mesma na
   sequência.
 - **Suave, e fica.** Só `opacity` e `transform`; entra depois das centelhas e fica na tela
@@ -222,16 +222,16 @@ parte existe para mostrar que não precisa ser assim.
   sozinha, o texto não serve e vira ruído.
 - **Revisão das frases (segunda rodada).** As 90 frases passaram por uma leitura crítica:
   29 ficaram, 42 foram ajustadas, 15 reescritas e 4 cortadas (substituídas). O que saiu:
-  frases na voz de um adulto falando da Stella em terceira pessoa ("a mamãe pensou: como
+  frases na voz de um adulto falando dela em terceira pessoa ("a mamãe pensou: como
   ela está crescida" não funciona quando a mãe lê); linguagem abstrata para 5 anos
-  ("cuidar do seu corpo é um jeito de cuidar de você"); comparação disfarçada ("o Theo
+  ("cuidar do seu corpo é um jeito de cuidar de você"); comparação disfarçada ("o irmão
   também fez com a sua idade"); frases que nomeiam a corrida ("não é corrida", "ninguém
   tira o lugar de ninguém"); um fato arriscado ("você tinha medo do chuveiro"); e as
   quatro de "aventura", que falavam de galho, pescar e girar no ar mas só disparam no
-  palco de dança. O Theo passou a "mano", que é como ela o chama. O teste agora exige
+  palco de dança. O irmão passou a "mano", que é como ela o chama. O teste agora exige
   "mano" e proíbe "corrida", "compet" e "com a sua idade".
-- **Terceira passada, mais dura.** Sem apelido: "estrelinha" e "a Stella da casa verde"
-  viraram só Stella, no balão e nas falas gravadas. Sem exagero ("de boca aberta", "coragem
+- **Terceira passada, mais dura.** Sem apelido: "estrelinha" e "a menina da casa verde"
+  viraram só o nome dela, no balão e nas falas gravadas. Sem exagero ("de boca aberta", "coragem
   de gente grande" por uma cama arrumada), sem palha ("guarda cada uma no coração", "um
   pedacinho do mundo que fica seu"), sem lição de moral ("esperteza é isso: olhar, tentar e
   conseguir"), sem a segunda oração que explica a primeira. "Força" e "coragem" ficaram só
@@ -242,7 +242,7 @@ parte existe para mostrar que não precisa ser assim.
 
 ## Opções, no cantinho dos pais
 
-O Anderson sentiu falta de um botão de opções com o que é do aparelho: buscar versão nova,
+O pai sentiu falta de um botão de opções com o que é do aparelho: buscar versão nova,
 reiniciar e afins. Fica dentro do cantinho dos pais (a regra 8 continua: o único texto do jogo
 mora ali), num botão **Opções** no alto, ao lado de "Voltar para a casa". O que decidi:
 
@@ -299,7 +299,7 @@ O teste no celular mostrou dois problemas na tela da palavra.
 
 ## A luz da casa passa adiante
 
-O pedido: a Stella, a mãe e o pai deviam saber, na casa, o que já foi explorado e o que ainda
+O pedido: ela, a mãe e o pai deviam saber, na casa, o que já foi explorado e o que ainda
 pode ser. Antes, a luz ficava na brincadeira do dia mesmo depois de ela brincar, e coisa nova
 aparecia sem aviso.
 
@@ -357,8 +357,8 @@ lenta, todas as telas seguem a 60 quadros por segundo. Não era lentidão. Eram 
 
 ## O parquinho do condomínio
 
-A Stella vai ao parquinho do condomínio e faz sempre a mesma volta: se balança sozinha no
-balanço, contando até dez em voz alta, depois vai ao escorregador, depois à gangorra. O Theo
+A menina vai ao parquinho do condomínio e faz sempre a mesma volta: se balança sozinha no
+balanço, contando até dez em voz alta, depois vai ao escorregador, depois à gangorra. O irmão
 vai junto e não brinca no lugar dela: cuida, olha, e se orgulha da força, da coragem e da
 esperteza dela. O estudo está em `docs/parquinho.md` e nas telas de
 `docs/referencia/parquinho.html`. O que entrou no jogo:
@@ -371,25 +371,25 @@ esperteza dela. O estudo está em `docs/parquinho.md` e nas telas de
   período de 2,4 s, perde metade da altura em uns oito ciclos. Arrastar e soltar dá o primeiro
   balanço. **O impulso é dela**: cada toque estica as pernas a favor do movimento, vale mais
   perto do ponto mais baixo, e a energia tem teto em qualquer ângulo. Ninguém empurra; não
-  existe toque errado. Uma nota da lira por passagem embaixo; balanço alto, o Theo bate palma.
+  existe toque errado. Uma nota da lira por passagem embaixo; balanço alto, o irmão bate palma.
 - **Contar até dez** é uma camada do balanço, ligada no cantinho (`contarNoBalanco`, vem
   ligada): cada ida completa com balanço alto solta uma pedrinha para um pote na cena, com
   tique e a voz contando. Nenhum número escrito. Os números são palavras inteiras, então a voz
   do aparelho diz enquanto a família não grava `num_1` a `num_10`. No dez, uma pedrinha de
-  verdade (`PEDRINHAS.balanco`) e o Theo admira ("Olha a Stella, que força!").
+  verdade (`PEDRINHAS.balanco`) e o irmão admira ("Olha só, que força!").
 - **O escorregador**: cada toque sobe um degrau, com uma nota mais alta; no alto ela espera; um
-  toque e desce como cena, cabelo para trás, lira descendo. O Theo fica embaixo, na saída
-  ("Que coragem, Stella!"). Ela volta andando sozinha.
-- **A gangorra**: ela numa ponta, o Theo de pé na outra segurando a tábua. Só o pé no chão faz
+  toque e desce como cena, cabelo para trás, lira descendo. O irmão fica embaixo, na saída
+  ("Que coragem!"). Ela volta andando sozinha.
+- **A gangorra**: ela numa ponta, o irmão de pé na outra segurando a tábua. Só o pé no chão faz
   subir; no ar, sininho baixinho. A descida é macia porque ele segura (amortecimento quase
   crítico), e nunca bate. Cinco subidas, centelhas e "Que esperta, empurrou com o pé!".
-- **A roda pergunta** "Você brincou no parquinho?" (o balancinho, dono Theo; tarefa
+- **A roda pergunta** "Você brincou no parquinho?" (o balancinho, dono `irmao`; tarefa
   `parquinho`, ligada por padrão). Não ir não tira pedrinha: parquinho não é combinado. A
   lembrança é um balancinho de madeira na mesa da estação.
 - **A despedida convida** para o parquinho de verdade quando ela foi ao do jogo no dia
   (`hoje.parquinho`): "Vamos ao parquinho de verdade?", com o balancinho no balão. É o jeito
   Waldorf de fazer tela: apontar para fora.
-- **A narração** ganhou `balanco`, `parquinho`, `escorregador` e `gangorra`, com o Theo como
+- **A narração** ganhou `balanco`, `parquinho`, `escorregador` e `gangorra`, com o irmão como
   quem torce por ela em todas.
 - **Um detalhe de implementação**: a classe `.alvo` do CSS muda a origem da transformação
   (`transform-box: fill-box`), então os grupos que giram (o balanço, a tábua) nunca a levam; os
@@ -431,27 +431,27 @@ a entrada na etapa 2, a ajuda e a foto do e2e. O som de corda dedilhada que marc
 do jogo (a escala subindo e descendo, as notinhas das brincadeiras) continua; é o mesmo timbre
 do ukulele, não um objeto na casa.
 
-## O Theo sai do centro
+## O irmão sai do centro
 
-A mãe jogou e disse que o jogo estava exagerando no Theo: ele ensinava, segurava, resgatava e
-aparecia em quase toda frase do balão, levando crédito pelo que era da Stella. O jogo é dela e
-da autonomia dela. O Theo continua na família, mas deixa de ser professor, salva-vidas e
+A mãe jogou e disse que o jogo estava exagerando no irmão: ele ensinava, segurava, resgatava e
+aparecia em quase toda frase do balão, levando crédito pelo que era dela. O jogo é dela e
+da autonomia dela. O irmão continua na família, mas deixa de ser professor, salva-vidas e
 plateia principal.
 
-- **Sai o professor.** No som do dia, no caderno e na palavra, quem aparece na página é a
-  Stella; a estrela guia e a mãozinha mostram o caminho. As histórias das letras, "Foi você
+- **Sai o professor.** No som do dia, no caderno e na palavra, quem aparece na página é
+  ela; a estrela guia e a mãozinha mostram o caminho. As histórias das letras, "Foi você
   que fez essa letra!" e "Toca aqui." passam a ser de qualquer um.
 - **Sai o resgate.** No lago, cair na água é splash: ela senta, sacode e sobe de novo sozinha
-  ("Splash! Sobe de novo, Stella.", `lago_splash`). Na ajuda A2 é a vitória-régia que chega
-  perto. Na Árvore Grande, a pinha cai na cestinha, não na cestinha do Theo. Na árvore do
+  ("Splash! Sobe de novo.", `lago_splash`). Na ajuda A2 é a vitória-régia que chega
+  perto. Na Árvore Grande, a pinha cai na cestinha, não na cestinha do irmão. Na árvore do
   quintal ele não sobe mais junto: acena do chão, com a mãe.
-- **O parquinho é dela.** Balanço e escorregador sem o Theo em cena; as palmas vêm de fora,
-  com "Que força, Stella!" (`viva_forca`) e "Que coragem, Stella!" (`viva_coragem`), que
+- **O parquinho é dela.** Balanço e escorregador sem o irmão em cena; as palmas vêm de fora,
+  com "Que força!" (`viva_forca`) e "Que coragem!" (`viva_coragem`), que
   qualquer um grava. Na gangorra, que é para dois, ele fica na outra ponta, e a descida macia
   é da própria tábua, não porque ele segura.
-- **A roda.** O Theo pergunta só da gentileza; brinquedos passam para a mãe e parquinho para o
-  pai. O desenho da gentileza é a Stella com o gatinho.
-- **As horas** do relógio passam a ser de qualquer um; o Theo continua pedindo a hora, que é
+- **A roda.** O irmão pergunta só da gentileza; brinquedos passam para a mãe e parquinho para o
+  pai. O desenho da gentileza é ela com o gatinho.
+- **As horas** do relógio passam a ser de qualquer um; o irmão continua pedindo a hora, que é
   uma brincadeira entre os dois.
 - **O balão.** O "mano" saiu de quase todo avanço: sobrou em quatro frases, como família por
   perto (a chegada, o palco, a despedida, a outra ponta da gangorra). O teste agora exige o
@@ -464,11 +464,11 @@ plateia principal.
 
 ## Ler e escrever mais perto
 
-A Stella tem adorado escrever e ouvir os sons das letras, então o caminho até isso encurta.
+Ela tem adorado escrever e ouvir os sons das letras, então o caminho até isso encurta.
 
 - **A mala das palavras abre na sessão 2**, junto com o caderno, em vez da 3. A fila de
   palavras já nasce da letra da vez, então não precisa esperar letra traçada.
-- **O caderno sai de trás da Stella.** Ela ficava de pé bem na frente dele e o toque caía nela.
+- **O caderno sai de trás dela.** Ela ficava de pé bem na frente dele e o toque caía nela.
   Agora ela fica ao pé da cama, não recebe toque (é enfeite) e o caderno cresceu, com a letra
   da vez maior e uma área de toque folgada em volta.
 - **Da palavra pronta, direto para o caderno.** Ao lado da próxima palavra aparece o caderno com
@@ -518,7 +518,7 @@ centelha parada, bandeirinha dourada, bandeirinha clarinha, fio rosa balançando
 - **Três sinais**: contorno de luz (pode tocar), cartinha cheia (já foi), silhueta (ainda não).
   Saem a centelha parada do "feito hoje" e o balanço do "nunca tocou". Continua sem número e
   sem barra; ganha ordem e lugar.
-- **"Onde a Stella está"** nas Opções, sem a continha: etapa, o que já foi, o que falta, o
+- **"Onde ela está"** nas Opções, sem a continha: etapa, o que já foi, o que falta, o
   que abre na próxima etapa e como se abre. `NOME_COISA` foi para `laco.ts`.
 - `hoje.bichosFeitos` marca os bichos cuidados, no laço (`sessao.avancar()`), para a rotina.
 - Medidas: cartinhas de raio 20, desenhos a 1,45 do tamanho base, selinho do visto sempre na
@@ -647,7 +647,7 @@ Ficou a das palavras.
   desenhada, 72 de alvo), porque é dela; as pílulas têm 44 px de altura e encolhem com a casinha
   em tela pequena, nunca abaixo de 36 (`--topo-*` em `tokens.css`).
 - **O adulto lê, ela não.** "Opções" e "Ler frase" são palavras, sem ícone. Para quem joga junto
-  não há o que adivinhar; para a Stella, que não lê, são formas sem desenho, que chamam menos o
+  não há o que adivinhar; para ela, que não lê, são formas sem desenho, que chamam menos o
   dedo do que um ícone bonito. A estrelinha saiu do botão: ela é a estrela guia e a conta de
   agora, e ali não dizia "opções".
 - **A lua saiu.** Ela era um segundo caminho escondido para o cantinho dos pais, que as opções
@@ -658,7 +658,7 @@ Ficou a das palavras.
 - **O balão aberto fica abaixo do cabeçalho**, na largura da coluna, e o "x" mora no canto de
   cima à direita dele, como em todo cartão que se fecha.
 - **O quadro da rotina é opaco.** Meio transparente no céu da noite ele virava um cinza sujo.
-- **Guardado para depois:** se a Stella começar a abrir as opções sozinha, "Opções" pode pedir
+- **Guardado para depois:** se ela começar a abrir as opções sozinha, "Opções" pode pedir
   o dedo parado por menos de um segundo, com um anel mostrando o tempo.
 
 Arquivos: `src/puppet/objetos.ts`, `src/telas/comum.ts`, `src/ui/opcoes.ts`, `src/ui/balao.ts`,
@@ -713,7 +713,7 @@ se reconhece de um olhar, em poucas formas**. O que mudou:
   no máximo uma consoante nova por palavra continua valendo, e o teste vigia.
 - **A mala só com palavra comum.** TUTU, TELA, LAMA e MATA saíram: com as dez letras e as
   regras de som, sobram poucas palavras, e melhor doze boas que dezoito com enchimento.
-  Ficam LUA, MEIA, LATA, SALA, TATU, MOLA, MALA, UVA, IOIÔ, VELA, LUVA e STELLA.
+  Ficam LUA, MEIA, LATA, SALA, TATU, MOLA, MALA, UVA, IOIÔ, VELA e LUVA.
 - **Figuras do som do dia.** A: árvore, abelha, avião. E: elefante, estrela, escada (as três
   começam com ê; o caderno do E diz só o som, como o do O fazia). L: lua, leão, luva.
   T: tatu, tomate, tartaruga. O: óculos, ovo, ônibus (os óculos começam com o ó aberto: o
@@ -723,3 +723,29 @@ se reconhece de um olhar, em poucas formas**. O que mudou:
   foi redesenhado (casco em arco com faixas, focinho). Saíram avó, ela e égua.
   Arquivos: `src/data/letras.json`, `src/data/palavras.json`, `src/puppet/figuras.ts`,
   `src/audio/fonemas.ts`, `tests/palavras.test.ts`, `tests/fonemas.test.ts`.
+
+## Ninguém tem nome no jogo
+
+O jogo não chama ninguém pelo nome: nem ela, nem o irmão, nem a mãe, nem o pai. A família é
+"a mãe", "o pai" e "o irmão" (no balão, "o mano", como ela o chama), e ela é "ela" ou "você".
+Os documentos do repositório seguem a mesma regra e não usam mais os nomes reais da família.
+
+- **A chegada.** A família recebe com um "oi" gravado, não pelo nome: a mãe "Você chegou!",
+  o pai "Oi, filha!", o irmão "Oi, mana!".
+- **O chamado** é "Ei, vem cá!". Sem gravação, a voz do aparelho diz "Ei!".
+- **A porta do quarto** não ganha mais o nome dela com as letras S, T, E, L, A.
+- **O nome dela saiu** da lista de palavras do fônico.
+- **Espanhol:** "¡Hola!" e "¡Muy bien!", sem nome.
+- **Cantinho dos pais:** as vozes são de "Mãe", "Pai" e "Irmão".
+- **Gravações do zero.** As frases que tinham o nome mudaram de texto e de id (`oi_mae`,
+  `boa_noite_filha`, `chamado_vem_ca`...), e o jogo passou a ler uma loja nova de gravações
+  (`gravacoes-2` no IndexedDB). Nada gravado antes toca: a família regrava tudo no cantinho
+  dos pais. A loja antiga fica no aparelho sem uso, e um arquivo exportado antes só devolve
+  as frases cujo id ainda existe.
+- **No código**, o irmão passou a se chamar `irmao` e a menina `menina`, em identificadores,
+  classes CSS e chaves de dados (`Dono`/`Quem`: 'mae' | 'pai' | 'irmao').
+
+Arquivos: `src/data/frases.json`, `src/data/narracao.json`, `src/data/ajuda-telas.json`,
+`src/data/espanhol.json`, `src/data/palavras.json`, `src/data/figuras-nomes.json`,
+`src/telas/casa.ts`, `src/telas/pais.ts`, `src/puppet/boneco.ts`, `src/audio/vozes.ts`,
+`src/core/estado.ts`, `SPEC.md`, `GAMEPLAY.md`, `docs/`.

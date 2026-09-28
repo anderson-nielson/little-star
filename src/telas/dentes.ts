@@ -116,8 +116,8 @@ export function telaDentes(): Tela {
   /* a escova: a cabeça fica no ponto (0, 0), o cabo vai para a direita */
   s += `<g data-alvo="escova" class="escova"><circle cx="30" cy="0" r="40" fill="transparent"/><rect x="8" y="-5" width="96" height="10" rx="5" fill="#f2a9c4"/><rect x="-24" y="-6" width="34" height="10" rx="3" fill="#f2a9c4"/><rect x="-22" y="-16" width="30" height="10" rx="2" fill="#fbf8f1" stroke="#c9a189" stroke-width="1"/><path d="M-18 -16v10M-12 -16v10M-6 -16v10M0 -16v10M4 -16v10" stroke="#e3dccd" stroke-width="1"/><g class="gotas" opacity="0"><circle cx="-14" cy="-19" r="2.4" fill="#9fc3cf"/><circle cx="-2" cy="-20" r="2" fill="#9fc3cf"/></g><g class="pasta-na-escova" opacity="0"><ellipse cx="-7" cy="-20" rx="7" ry="4.5" fill="${PASTA}" stroke="${PASTA_BORDA}" stroke-width="0.8"/><path d="M-12 -21q5 -3 10 0" stroke="#fbf8f1" stroke-width="1.4" fill="none" opacity="0.8"/></g></g>`;
   s += `<g class="luz"></g>`;
-  /* a Stella em cima do banquinho, olhando o espelho: só enfeite */
-  s += `<g style="pointer-events:none"><rect x="20" y="730" width="92" height="16" rx="5" fill="#c9a189"/>${familia.stella(66, 734, 130, 'parado').svg}</g>`;
+  /* a menina em cima do banquinho, olhando o espelho: só enfeite */
+  s += `<g style="pointer-events:none"><rect x="20" y="730" width="92" height="16" rx="5" fill="#c9a189"/>${familia.menina(66, 734, 130, 'parado').svg}</g>`;
 
   const tela = telaSvg(s);
   const svg = tela.svg;

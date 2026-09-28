@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Três pincéis para a casa da Stella</title>
+<title>Três pincéis para a casa da menina</title>
 <meta name="description" content="Três propostas de estilo gráfico para o Little Star, a mesma cena desenhada por três pincéis, para escolher antes de redesenhar todas as telas.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500&display=swap">
@@ -92,8 +92,8 @@
 <div class="pagina">
 <header class="capa">
   <span class="rotulo">Little Star · referência</span>
-  <h1>Três pincéis para a casa da Stella</h1>
-  <p>O jogo hoje é feito de formas geométricas lisas: trapézio de vestido, elipse de copa, círculo de cabeça. Funciona, mas ficou simplório. Aqui estão três jeitos de desenhar a mesma casa, a mesma Stella e os mesmos bichos com mais mão e mais gosto, sem perder a leveza, o pastel e o espírito Waldorf. Cada um é um pincel: a mesma geometria passa por ele e sai com outra pele. Escolhido um, todas as telas, figuras e peças de interface são redesenhadas com ele.</p>
+  <h1>Três pincéis para a casa da menina</h1>
+  <p>O jogo hoje é feito de formas geométricas lisas: trapézio de vestido, elipse de copa, círculo de cabeça. Funciona, mas ficou simplório. Aqui estão três jeitos de desenhar a mesma casa, a mesma menina e os mesmos bichos com mais mão e mais gosto, sem perder a leveza, o pastel e o espírito Waldorf. Cada um é um pincel: a mesma geometria passa por ele e sai com outra pele. Escolhido um, todas as telas, figuras e peças de interface são redesenhadas com ele.</p>
   <div class="linha"><span>Setembro de 2026</span><span>Mesma cena, mesmo kit, três pincéis</span><span>Tudo SVG gerado por código, zero imagem</span></div>
   <nav class="indice">
     <a href="#lado-a-lado">Lado a lado</a>
@@ -109,7 +109,7 @@
   <div class="cabeca">
     <span class="rotulo">A mesma cena por três pincéis</span>
     <h2>Lado a lado</h2>
-    <p>A frente da casa verde num fim de tarde, a Stella no quintal, o gatinho, o coelhinho e o pinheiro. Embaixo de cada tela, o kit: o botão da casinha, um tomate, uma cenoura, a mãozinha do guia e a centelha. São as peças que aparecem em todas as telas, e é nelas que um estilo se prova ou se desmancha.</p>
+    <p>A frente da casa verde num fim de tarde, a menina no quintal, o gatinho, o coelhinho e o pinheiro. Embaixo de cada tela, o kit: o botão da casinha, um tomate, uma cenoura, a mãozinha do guia e a centelha. São as peças que aparecem em todas as telas, e é nelas que um estilo se prova ou se desmancha.</p>
   </div>
   <div class="trio" id="trio"></div>
   <p class="nota">Os desenhos desta página são gerados pelo mesmo script, com a mesma geometria, trocando só o pincel. É o mesmo mecanismo que o redesenho usaria no jogo.</p>
@@ -205,11 +205,11 @@
     </div>
     <div class="bloco">
       <h3>Como se faz no código</h3>
-      <p>O mesmo <code>pincel.ts</code>: <code>forma(d, cor)</code> devolve a forma em tinta com <code>mix-blend-mode: multiply</code> e uma cópia recortada com <code>clipPath</code> que deixa a retícula (um <code>pattern</code> de pontos) só numa lua de sombra. Um caminho e um recorte por forma. Onde o multiply custar caro em movimento (a Stella andando no jardim), a cor do cruzamento é calculada uma vez em código e a forma sai chapada.</p>
+      <p>O mesmo <code>pincel.ts</code>: <code>forma(d, cor)</code> devolve a forma em tinta com <code>mix-blend-mode: multiply</code> e uma cópia recortada com <code>clipPath</code> que deixa a retícula (um <code>pattern</code> de pontos) só numa lua de sombra. Um caminho e um recorte por forma. Onde o multiply custar caro em movimento (a menina andando no jardim), a cor do cruzamento é calculada uma vez em código e a forma sai chapada.</p>
     </div>
     <div class="bloco">
       <h3>Risco</h3>
-      <p>É o menos Waldorf dos três no sentido literal (aquarela, lã), mas é o que melhor responde ao pedido de sofisticação. O risco é esfriar: chapado demais, a casa pode parecer um cartaz. A retícula e o papel creme seguram o calor. O <code>multiply</code> precisa de teste no Galaxy da Stella antes de virar regra.</p>
+      <p>É o menos Waldorf dos três no sentido literal (aquarela, lã), mas é o que melhor responde ao pedido de sofisticação. O risco é esfriar: chapado demais, a casa pode parecer um cartaz. A retícula e o papel creme seguram o calor. O <code>multiply</code> precisa de teste no Galaxy da menina antes de virar regra.</p>
     </div>
   </div>
 </section>
@@ -247,7 +247,7 @@
     <thead><tr><th>Camada</th><th>O que é</th><th>Onde vive</th></tr></thead>
     <tbody>
       <tr><td>Pincel</td><td>O módulo novo: forma, véu, fio, rosto, cabelo, textura de fundo. Escolhe o estilo e todo o resto passa por ele.</td><td><code>src/puppet/pincel.ts</code> (novo), tokens novos em <code>src/ui/tokens.css</code></td></tr>
-      <tr><td>Família</td><td>Stella, Theo, mãe e pai, 16 poses, cabelos, barba, óculos. A boneca de pano com 4 tutus e 4 enfeites.</td><td><code>src/puppet/boneco.ts</code>, <code>src/puppet/bonecaPano.ts</code></td></tr>
+      <tr><td>Família</td><td>A menina, o irmão, a mãe e o pai, 16 poses, cabelos, barba, óculos. A boneca de pano com 4 tutus e 4 enfeites.</td><td><code>src/puppet/boneco.ts</code>, <code>src/puppet/bonecaPano.ts</code></td></tr>
       <tr><td>Bichos e objetos</td><td>Gato, coelho, cisnes, pinheiro, pinha, flor, nuvem, caixa de areia, balancinho, arco, centelha, casinha, mãozinha, contorno de luz.</td><td><code>src/puppet/objetos.ts</code></td></tr>
       <tr><td>Figuras</td><td>As 54 figuras das palavras e das comidas (asa, abelha, árvore, avó, uva, tomate, brócolis...), cada uma em caixa de 100.</td><td><code>src/puppet/figuras.ts</code></td></tr>
       <tr><td>Telas</td><td>As 33 telas: casa, chegada, roda, prato, som, caderno, palavra, areia, pinhas, bichos, cuidados, cama, dentes, brinquedos, cozinha, horta, árvore, árvore grande, jardim, lago, palco, piano, ukulele, bonecas, bilhete, relógio, parquinho, noite, despedida e as de apoio.</td><td><code>src/telas/*.ts</code></td></tr>
@@ -301,8 +301,8 @@ const CENTELHA = 'M10 0c.7 6.2 3.8 9.3 10 10-6.2.7-9.3 3.8-10 10-.7-6.2-3.8-9.3-
 const MAOZINHA = 'M-6 26V2a3.2 3.2 0 0 1 6.4 0v10l2.6-1.4a3 3 0 0 1 4.4 2.2v1.4l2.2-.6a2.8 2.8 0 0 1 3.6 2.6V26z';
 function trans(d, x, y, s = 1) { return `<g transform="translate(${x} ${y}) scale(${s})">${d}</g>`; }
 
-/* a Stella: 5 anos, cabeça grande, vestido com cintura e mangas, cabelo liso passando do ombro */
-function stella(S, cx, chao, h) {
+/* a menina: 5 anos, cabeça grande, vestido com cintura e mangas, cabelo liso passando do ombro */
+function menina(S, cx, chao, h) {
   const hr = h * 0.13, cy = chao - h + hr, ombro = cy + hr + 5, cint = ombro + 20, bainha = ombro + 52;
   const pele = C.pele, cab = C.cabelo, roupa = C.rosaDoce;
   let s = '';
@@ -391,7 +391,7 @@ function cena(S) {
   s += flor(S, 362, 476, C.rosaDoce, 0.9);
   s += coelho(S, 312, 462);
   s += gato(S, 248, 474);
-  s += stella(S, 140, 472, 112);
+  s += menina(S, 140, 472, 112);
   s += S.textura(W, H);
   return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A frente da casa verde no estilo ${S.nome}">${s}</svg>`;
 }
@@ -506,7 +506,7 @@ const feltro = {
   },
   textura(W, H) { return `<rect width="${W}" height="${H}" fill="url(#fibra-f)" opacity="0.07"/>`; },
 };
-/* o cabelo de lã: no feltro, os fios da Stella viram mechas de lã em dois tons */
+/* o cabelo de lã: no feltro, os fios da menina viram mechas de lã em dois tons */
 feltro.fios = function (ds, cor, w = 1.4) {
   return ds.map(d => `<path d="${d}" fill="none" stroke="${escuro(cor, 0.2)}" stroke-width="${w + 1.2}" stroke-linecap="round" opacity=".55"/><path d="${d}" fill="none" stroke="${claro(cor, 0.35)}" stroke-width="${w}" stroke-linecap="round" opacity=".9"/>`).join('');
 };
@@ -558,7 +558,7 @@ const estampa = {
   },
   textura() { return `<defs>${[...this.tintas.values()].join('')}</defs>`; },
 };
-/* na estampa, os fios claros da Stella e do gato: no cabelo é um risco de luz de papel, no bigode tinta escura */
+/* na estampa, os fios claros da menina e do gato: no cabelo é um risco de luz de papel, no bigode tinta escura */
 estampa.fios = function (ds, cor, w = 1.3) {
   const claroPapel = lum(cor) > 120;
   return ds.map(d => `<path d="${d}" fill="none" stroke="${claroPapel ? '#f7f1e3' : C.musgoTinta}" stroke-width="${w}" stroke-linecap="round" opacity=".9"/>`).join('');

@@ -96,7 +96,7 @@ export const RECEITAS: Record<string, Receita> = {
 /**
  * O som de cada letra da palavra em destaque, do bilhete e do caderno:
  * sempre o som, nunca o nome. Á soa como A, Ó como O, Ê e Ô fechados. O H
- * não tem som (THEO), e o Ã fica sem som isolado.
+ * não tem som (TH), e o Ã fica sem som isolado.
  */
 const SOM_DA_LETRA: Record<string, string> = {
   A: 'som_a', Á: 'som_a', À: 'som_a', E: 'som_e', É: 'som_e', Ê: 'som_e2', I: 'som_i', Í: 'som_i',

@@ -3,7 +3,7 @@ import { LIVRE_MAXIMO, partesDaSessao, passouDoLimite, podeReabrir, proximaParte
 import { ir, telaAtual } from './roteador';
 
 /**
- * A sessão viva: sabe em que parte do laço a Stella está e leva para a
+ * A sessão viva: sabe em que parte do laço a menina está e leva para a
  * próxima quando uma parte termina. Também conta o tempo de tela e, quando o
  * limite chega, transforma a próxima troca de tela em despedida.
  */

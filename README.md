@@ -1,8 +1,8 @@
 # Little Star
 
-A casa verde da Stella: um jogo de celular para 5 anos, irmão pequeno do
+A casa verde de uma menina de 5 anos: um jogo de celular, irmão pequeno do
 [Ponta](https://github.com/anderson-nielson/grande-ballet). Sem texto para ler,
-sem pontos, sem vida, sem relógio. A família recebe, a Stella conta o que fez de
+sem pontos, sem vida, sem relógio. A família recebe, ela conta o que fez de
 verdade, aprende uma letra pelo som e pela imagem, brinca na areia, no piano e
 no jardim, vai ao parquinho do condomínio, cuida do gatinho e do coelhinho, e a
 família se despede com um convite para o mundo.

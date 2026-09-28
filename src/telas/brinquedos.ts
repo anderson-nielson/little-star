@@ -74,7 +74,7 @@ export function telaBrinquedos(): Tela {
   /* o cesto, com um ursinho desenhado na frente */
   s += `<g data-dentro="cesto"></g><path d="M262 392h100l-10 60h-80z" fill="#d9b88f"/><path d="M268 410h88M270 428h84" stroke="#b08a70" stroke-width="2" opacity="0.6"/><g transform="translate(312 424)"><circle r="14" fill="#fbf8f1" opacity="0.8"/>${ursinho(0, 13, 24)}</g>`;
   s += `<g class="luz"></g><g class="chao"></g>`;
-  s += `<g class="stella" style="pointer-events:none">${familia.stella(352, 770, 112, 'parado').svg}</g>`;
+  s += `<g class="menina" style="pointer-events:none">${familia.menina(352, 770, 112, 'parado').svg}</g>`;
 
   const tela = telaSvg(s);
   const svg = tela.svg;
@@ -195,12 +195,12 @@ export function telaBrinquedos(): Tela {
     travar(3000);
     lira(67, undefined, 0.3);
     const fam = svg.querySelector('.familia') as SVGGElement;
-    /* a Stella senta no tapete com eles, no lugar que ela mesma abriu */
-    fam.innerHTML = familia.mae(80, 680, 120, 'sentado').svg + familia.theo(244, 618, 92, 'sentado').svg + familia.pai(326, 700, 128, 'sentado', { dir: -1 }).svg + familia.stella(168, 708, 86, 'sentado').svg + (e.bichos.gato ? gato(236, 724, 18, '#c8b8a6', true) : '');
+    /* a menina senta no tapete com eles, no lugar que ela mesma abriu */
+    fam.innerHTML = familia.mae(80, 680, 120, 'sentado').svg + familia.irmao(244, 618, 92, 'sentado').svg + familia.pai(326, 700, 128, 'sentado', { dir: -1 }).svg + familia.menina(168, 708, 86, 'sentado').svg + (e.bichos.gato ? gato(236, 724, 18, '#c8b8a6', true) : '');
     fam.style.transition = 'opacity 1200ms';
     await esperar(300);
     fam.style.opacity = '1';
-    const ela = svg.querySelector('.stella') as SVGElement | null;
+    const ela = svg.querySelector('.menina') as SVGElement | null;
     if (ela) {
       ela.style.transition = 'opacity 800ms';
       ela.style.opacity = '0';

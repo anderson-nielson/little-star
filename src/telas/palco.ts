@@ -60,7 +60,7 @@ const X_NOTA = 40;
 const X_PASSOS = [104, 168, 232, 296];
 const X_CORTINA = 352;
 const R_BOTAO = 27;
-const STELLA_X = 195;
+const MENINA_X = 195;
 const CHAO = 470;
 const ALTURA = 170;
 /* a barrinha da coreografia, no alto, entre a casinha e as opções */
@@ -68,12 +68,12 @@ const Y_BARRA = 104;
 
 /**
  * O palco: cortina de veludo, luz de ribalta, plateia com a mãe, o pai, o
- * Theo e as bonecas. Vem em dois jeitos.
+ * irmão e as bonecas. Vem em dois jeitos.
  *
  * A brincadeira (as sapatilhas na parede do quarto): ela é quem dança. Entre
- * um passo e outro a Stella nunca fica parada: gira devagar na ponta dos pés,
+ * um passo e outro a menina nunca fica parada: gira devagar na ponta dos pés,
  * como a bailarina de uma caixinha de música. Na ribalta, um botão para cada
- * passo, com a Stella desenhada na pose (plié, relevé, arabesque, pirueta);
+ * passo, com a menina desenhada na pose (plié, relevé, arabesque, pirueta);
  * tocar no palco é o salto. Cada passo sai na hora, leve, com uma nota
  * baixinha e a voz da professora, e nunca sai errado. No alto, a barrinha da
  * coreografia: uma conta por passo; um passo diferente do anterior vira
@@ -97,12 +97,12 @@ export function telaPalco(params: Record<string, string> = {}): Tela {
   const fecho = params.fecho === '1';
   let s = `<rect width="390" height="780" fill="#10142a"/>` + veu(0, 0, 390, 780, '#232a55', 5, 0.4);
   /* chão do palco e poça de luz */
-  s += `<rect x="0" y="${CHAO}" width="390" height="140" fill="#2a1d22"/><ellipse cx="${STELLA_X}" cy="${CHAO}" rx="150" ry="26" fill="#ebd9a8" opacity="0.28"/>`;
-  s += `<g class="ribalta-luz"><path d="M${STELLA_X} 60L60 ${CHAO + 10}h270z" fill="#ebd9a8" opacity="0.1"/></g>`;
-  /* a Stella de tutu e coque, em quatro grupos: o de fora passeia de um lado a outro do palco,
+  s += `<rect x="0" y="${CHAO}" width="390" height="140" fill="#2a1d22"/><ellipse cx="${MENINA_X}" cy="${CHAO}" rx="150" ry="26" fill="#ebd9a8" opacity="0.28"/>`;
+  s += `<g class="ribalta-luz"><path d="M${MENINA_X} 60L60 ${CHAO + 10}h270z" fill="#ebd9a8" opacity="0.1"/></g>`;
+  /* a menina de tutu e coque, em quatro grupos: o de fora passeia de um lado a outro do palco,
      o seguinte gira devagar (a caixinha de música), o do meio sobe e desce no compasso, o de
      dentro faz o passo */
-  s += `<g class="passeio"><g class="caixinha"><g class="balanco"><g class="stella">${familia.stellaPalco(STELLA_X, CHAO, ALTURA, 'releve').svg}</g></g></g></g>`;
+  s += `<g class="passeio"><g class="caixinha"><g class="balanco"><g class="menina">${familia.meninaPalco(MENINA_X, CHAO, ALTURA, 'releve').svg}</g></g></g></g>`;
   /* a boneca companheira assiste da coxia, pertinho */
   if (e.companheira >= 0) s += familia.boneca(70, CHAO, 40, e.companheira, { contorno: '#ebd9a8', ...figurinoDe(e.figurinos[String(e.companheira)]) }).svg;
   /* o palco inteiro é o salto (na brincadeira) ou centelhas (no fecho); os botões ficam por cima */
@@ -126,7 +126,7 @@ export function telaPalco(params: Record<string, string> = {}): Tela {
   s += `<g class="brilhos"></g>`;
   const tela = telaSvg(s, { fundo: '#10142a' });
   const svg = tela.svg;
-  const stella = svg.querySelector('.stella') as SVGGElement;
+  const menina = svg.querySelector('.menina') as SVGGElement;
   const passeio = svg.querySelector('.passeio') as SVGGElement;
   const caixinha = svg.querySelector('.caixinha') as SVGGElement;
   const balanco = svg.querySelector('.balanco') as SVGGElement;
@@ -151,17 +151,17 @@ export function telaPalco(params: Record<string, string> = {}): Tela {
   const desenharPlateia = (palma: boolean) => {
     const p: Pose = palma ? 'palma' : 'parado';
     plateia.innerHTML =
-      familia.mae(90, 720, 96, p, { contorno: '#ebd9a8' }).svg + familia.pai(300, 720, 104, p, { contorno: '#ebd9a8' }).svg + familia.theo(195, 722, 76, palma ? 'palma' : 'acena', { contorno: '#ebd9a8' }).svg;
+      familia.mae(90, 720, 96, p, { contorno: '#ebd9a8' }).svg + familia.pai(300, 720, 104, p, { contorno: '#ebd9a8' }).svg + familia.irmao(195, 722, 76, palma ? 'palma' : 'acena', { contorno: '#ebd9a8' }).svg;
   };
   desenharPlateia(false);
 
   const trocarPose = (p: Pose) => {
-    stella.innerHTML = familia.stellaPalco(STELLA_X, CHAO, ALTURA, p).svg;
+    menina.innerHTML = familia.meninaPalco(MENINA_X, CHAO, ALTURA, p).svg;
   };
   const centelhar = () => {
-    brilhos.innerHTML = `<g class="sobe">${centelha(STELLA_X + (Math.random() - 0.5) * 80, 300, 14, '#c6a15b')}${centelha(STELLA_X + (Math.random() - 0.5) * 80, 320, 10, '#f2a9c4')}</g>`;
+    brilhos.innerHTML = `<g class="sobe">${centelha(MENINA_X + (Math.random() - 0.5) * 80, 300, 14, '#c6a15b')}${centelha(MENINA_X + (Math.random() - 0.5) * 80, 320, 10, '#f2a9c4')}</g>`;
   };
-  for (const g of [passeio, caixinha, balanco, stella]) {
+  for (const g of [passeio, caixinha, balanco, menina]) {
     g.style.transformBox = 'fill-box';
     g.style.transformOrigin = 'center';
   }
@@ -192,8 +192,8 @@ export function telaPalco(params: Record<string, string> = {}): Tela {
   const dancar = (p: PassoDoPalco, volta = 1000) => {
     pararDeBailar();
     trocarPose(p.id);
-    if (p.id === 'giro') stella.animate([{ transform: 'scaleX(1)' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(1)' }], { duration: 700, easing: 'ease-in-out' });
-    if (p.id === 'salto') stella.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-46px)', offset: 0.5 }, { transform: 'translateY(0)' }], { duration: 700, easing: 'ease-out' });
+    if (p.id === 'giro') menina.animate([{ transform: 'scaleX(1)' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(1)' }], { duration: 700, easing: 'ease-in-out' });
+    if (p.id === 'salto') menina.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-46px)', offset: 0.5 }, { transform: 'translateY(0)' }], { duration: 700, easing: 'ease-out' });
     lira(p.nota, undefined, VOLUME_DO_PASSO);
     centelhar();
     if (temVoz(p.voz)) void falar(p.voz);
@@ -240,14 +240,14 @@ export function telaPalco(params: Record<string, string> = {}): Tela {
     trocarPose('segunda');
     await esperar(800);
     trocarPose('agradece');
-    stella.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(6px)', offset: 0.35 }, { transform: 'translateY(6px)', offset: 0.75 }, { transform: 'translateY(0)' }], { duration: 1800, easing: 'ease-in-out' });
+    menina.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(6px)', offset: 0.35 }, { transform: 'translateY(6px)', offset: 0.75 }, { transform: 'translateY(0)' }], { duration: 1800, easing: 'ease-in-out' });
     await esperar(600);
     desenharPlateia(true);
     aplauso(4);
-    tela.comemorar(STELLA_X, 300);
+    tela.comemorar(MENINA_X, 300);
     travar(6000);
     await esperar(1000);
-    if (temVoz('brava')) await falar('brava');
+    if (temVoz('brava_pai')) await falar('brava_pai');
     else await esperar(900);
     if (espanholAtivo(e)) await falarEspanhol('muy_bien');
     trocarPose('segunda');
@@ -274,7 +274,7 @@ export function telaPalco(params: Record<string, string> = {}): Tela {
     await esperar(1200);
     desenharPlateia(false);
     passeio.getAnimations().forEach((a) => a.cancel());
-    stella.innerHTML = familia.stellaPalco(180, CHAO, ALTURA, 'parado').svg + familia.pai(230, CHAO, 200, 'abraca', { dir: -1, contorno: '#ebd9a8' }).svg;
+    menina.innerHTML = familia.meninaPalco(180, CHAO, ALTURA, 'parado').svg + familia.pai(230, CHAO, 200, 'abraca', { dir: -1, contorno: '#ebd9a8' }).svg;
     await esperar(1800);
     if (!vivo) return;
     await fecharCortina();
@@ -309,7 +309,7 @@ export function telaPalco(params: Record<string, string> = {}): Tela {
         if (x.bonecas < 5) x.bonecas += 1;
         ganhar(x, PEDRINHAS.aventura, 'aventura');
       });
-      pedrinhasSobem(tela, PEDRINHAS.aventura, STELLA_X, 440);
+      pedrinhasSobem(tela, PEDRINHAS.aventura, MENINA_X, 440);
       await abracoECortina();
     })();
     return tela;
@@ -373,7 +373,7 @@ function brincadeira(
     c.desenharPlateia(true);
     const forca = barra.estrelas / barra.total;
     aplauso(1.2 + forca * 2);
-    if (forca >= 0.75) tela.comemorar(STELLA_X, 300);
+    if (forca >= 0.75) tela.comemorar(MENINA_X, 300);
     const luz = svg.querySelector('.ribalta-luz') as SVGGElement;
     luz.animate([{ opacity: 1 }, { opacity: 0.2 }, { opacity: 1 }, { opacity: 0.2 }, { opacity: 1 }], { duration: 1200 });
     await esperar(1500 + forca * 800);
@@ -537,9 +537,9 @@ function botaoCortina(tela: TelaSvg, aoTocar: () => void): { acender: () => void
   };
 }
 
-/** a Stella pequenina na pose, para o botão do passo */
+/** a menina pequenina na pose, para o botão do passo */
 function iconeDoPasso(x: number, p: PassoDeBale): string {
-  return familia.stellaPalco(x, Y_RIBALTA + 22, 44, p, { contorno: '' }).svg;
+  return familia.meninaPalco(x, Y_RIBALTA + 22, 44, p, { contorno: '' }).svg;
 }
 
 /** uma nota musical, para o botão da música seguinte */

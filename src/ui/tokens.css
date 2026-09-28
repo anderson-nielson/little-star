@@ -1,5 +1,5 @@
 /* Little Star: tokens. Única fonte de cor, tipo, espaço, forma e movimento.
-   Herdados do Ponta, mais o verde musgo da casa, o rosa da Stella, a areia e o
+   Herdados do Ponta, mais o verde musgo da casa, o rosa dela, a areia e o
    vermelho da caixa de areia. */
 :root {
   /* cor: base do Ponta */
@@ -21,7 +21,7 @@
   --mata-2: #35564d;
   --dia-alto: #fbf3ea;
 
-  /* cor: a casa da Stella */
+  /* cor: a casa dela */
   --musgo: #8fae6b;
   --musgo-claro: #c9dbb2;
   --musgo-tinta: #4f6b3a;
@@ -48,13 +48,13 @@
   --flor-do-arbusto: #e9b6c2;
 
   /* cor: a família a lápis e aquarela (docs/referencia/familia.html); espelhada em src/puppet/boneco.ts */
-  --pele-stella: #e9c39c;
-  --pele-theo: #f1d6bd;
+  --pele-menina: #e9c39c;
+  --pele-irmao: #f1d6bd;
   --pele-mae: #f0d2b6;
   --pele-pai: #d9a97e;
-  --cabelo-stella: #c79a5e;
-  --cabelo-theo: #6b4a32;
-  --cabelo-theo-luz: #9a7350;
+  --cabelo-menina: #c79a5e;
+  --cabelo-irmao: #6b4a32;
+  --cabelo-irmao-luz: #9a7350;
   --cabelo-mae: #553a28;
   --cabelo-pai: #6a5646;
   --barba-pai: #9b928a;

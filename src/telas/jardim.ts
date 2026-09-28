@@ -31,7 +31,7 @@ export const JARDIM = {
   queda: 1.6,
   /** o abraço no coelhinho, antes de virar para casa */
   encontro: 2.4,
-  /** a Stella em fração da altura da tela */
+  /** a menina em fração da altura da tela */
   alturaDaStella: 0.13,
   /** passadas por segundo */
   passadas: 1.7,
@@ -146,7 +146,7 @@ const TIPOS: Tipo[] = ['poca', 'pedra', 'poca', 'tronco'];
 
 /**
  * A aventura do Jardim, em retrato: céu em cima, faixa de jogo no meio,
- * terra embaixo. O coelhinho fugiu para o fim do jardim: a Stella sai de
+ * terra embaixo. O coelhinho fugiu para o fim do jardim: a menina sai de
  * casa, vai buscar e volta com ele. Toque em qualquer lugar = pular poças,
  * pedras e troncos. Pulou fora da hora, escorrega, senta, ri e levanta. Sem
  * vida, sem tempo, sem pontos. Termina sempre, na porta de casa, e vai ao palco.
@@ -179,12 +179,12 @@ export function telaJardim(): Tela {
 
   /* as figuras: oito quadros de caminhada, o salto, o escorregão, sentada, de pé, o abraço */
   const F = 200;
-  const pose = (p: Pose, extra = {}) => imagemDe(familia.stella(100, 190, 160, p, extra).svg, F, F);
+  const pose = (p: Pose, extra = {}) => imagemDe(familia.menina(100, 190, 160, p, extra).svg, F, F);
   const QUADROS = 8;
   const stellaAnda = Array.from({ length: QUADROS }, (_, i) => pose('anda', { passo: i / QUADROS }));
   const stellaSalto = pose('salto');
   const stellaEscorrega = pose('escorrega');
-  const stellaSenta = imagemDe(familia.stella(100, 190, 160, 'sentado').svg, F, F);
+  const stellaSenta = imagemDe(familia.menina(100, 190, 160, 'sentado').svg, F, F);
   const stellaParada = pose('parado');
   const stellaAbraca = pose('abraca');
   const stellaAcena = pose('acena');
@@ -380,7 +380,7 @@ export function telaJardim(): Tela {
     }
   }
 
-  /** O caminho lá em cima: a casa, o coelhinho e a Stella andando entre os dois. */
+  /** O caminho lá em cima: a casa, o coelhinho e a menina andando entre os dois. */
   function mapa(y: number): void {
     const x0 = W * 0.2;
     const x1 = W * 0.8;
@@ -421,7 +421,7 @@ export function telaJardim(): Tela {
     ctx.fillRect(x0 - 3, y + 1, 6, 8);
     /* o coelhinho espera no fim; depois vai junto */
     if (!comCoelho) coelho(x1 + 6, y + 10, 0.75, -1, tempo());
-    /* a Stella: uma cabecinha cor de mel */
+    /* a menina: uma cabecinha cor de mel */
     ctx.fillStyle = '#c79a5e';
     ctx.beginPath();
     ctx.arc(xs, y - 1, 10, 0, Math.PI * 2);
@@ -546,7 +546,7 @@ export function telaJardim(): Tela {
       if (x < -80 || x > W + 80) continue;
       obstaculo(o, x, ch);
     }
-    /* a Stella */
+    /* a menina */
     const hS = H * JARDIM.alturaDaStella;
     const esc = hS / 160;
     const tam = F * esc;

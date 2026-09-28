@@ -17,7 +17,7 @@ export default defineConfig({
       manifest: {
         name: 'Little Star',
         short_name: 'Little Star',
-        description: 'A casa verde da Stella.',
+        description: 'A casa verde.',
         lang: 'pt-BR',
         display: 'fullscreen',
         orientation: 'portrait',

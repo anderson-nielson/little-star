@@ -794,7 +794,7 @@ body {
   filter: grayscale(1);
   opacity: 0.35;
 }
-/* onde a Stella está: o mesmo bloco da ajuda, sem o toque de abrir */
+/* onde ela está: o mesmo bloco da ajuda, sem o toque de abrir */
 .opcoes-onde {
   margin: 0 0 var(--e3);
   padding: var(--e3) var(--e4);

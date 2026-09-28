@@ -112,9 +112,9 @@ export function telaLago(): Tela {
   limpezas.push(() => obs?.disconnect());
 
   const F = 200;
-  const parada = imagemDe(familia.stella(100, 190, 150, 'parado').svg, F, F);
-  const pula = imagemDe(familia.stella(100, 190, 150, 'pulo').svg, F, F);
-  const sentada = imagemDe(familia.stella(100, 190, 120, 'sentado').svg, F, F);
+  const parada = imagemDe(familia.menina(100, 190, 150, 'parado').svg, F, F);
+  const pula = imagemDe(familia.menina(100, 190, 150, 'pulo').svg, F, F);
+  const sentada = imagemDe(familia.menina(100, 190, 120, 'sentado').svg, F, F);
 
   const ritmo = ritmoDoLago(e.idasEVoltasNoLago);
   const faixas: Faixa[] = LAGO.velocidades.map((v, i) => ({ velocidade: v * ritmo, amplitude: 0.5, fase: (i * 0.37) % 1, dir: i % 2 ? -1 : 1 }));
@@ -126,7 +126,7 @@ export function telaLago(): Tela {
   let acabou = false;
   /* a mãozinha à vista: logo na entrada, quando a ajuda sobe e a cada 6 s
      parada; tocar tira. Ela segue a próxima plataforma e toca quando a
-     plataforma passa embaixo da Stella: a hora certa do pulo, mostrada */
+     plataforma passa embaixo da menina: a hora certa do pulo, mostrada */
   let maoAVista = true;
   let semTocar = 0;
   const ajuda = new Ajuda((n) => {
@@ -233,7 +233,7 @@ export function telaLago(): Tela {
         splash = t + LAGO.splash + LAGO.nado + LAGO.sacode;
         quedas += 1;
         ajuda.tentativa();
-        if (temVoz('lago_splash')) void falar('lago_splash');
+        if (temVoz('lago_sobe')) void falar('lago_sobe');
         faixa = p.de;
         x = p.xDe;
       }
@@ -405,7 +405,7 @@ export function telaLago(): Tela {
         ctx.fill();
       }
     });
-    /* a Stella; se caiu, o splash em volta dela */
+    /* a menina; se caiu, o splash em volta dela */
     const hS = H * 0.17;
     const esc = hS / 150;
     let sx = xAgora(t) * W;
@@ -479,7 +479,7 @@ export function telaLago(): Tela {
     desenharMao(t);
   }
 
-  /** A mãozinha na próxima plataforma: paira sobre ela e toca quando ela passa embaixo da Stella. */
+  /** A mãozinha na próxima plataforma: paira sobre ela e toca quando ela passa embaixo da menina. */
   function desenharMao(t: number): void {
     const i = faixa + passo();
     if (!maoAVista || pulo || noCoreto || acabou || (splash > 0 && splash > t) || i < 0 || i >= LAGO.faixas) return;

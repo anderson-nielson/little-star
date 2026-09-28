@@ -43,8 +43,8 @@ export function telaCozinha(): Tela {
   s += `<g class="mae">${familia.mae(70, 652, 262, 'segura').svg}</g>`;
   s += `<rect x="28" y="552" width="334" height="104" fill="#e3bfae"/><path d="M195 562v84" stroke="#c9a189" stroke-width="1.5"/><circle cx="185" cy="604" r="3" fill="#c9a189"/><circle cx="205" cy="604" r="3" fill="#c9a189"/>`;
   s += `<rect x="20" y="540" width="350" height="16" rx="5" fill="#c9a189"/>`;
-  /* o Theo no banquinho, na mesinha onde o prato chega */
-  s += `<g class="theo">${familia.theo(348, 742, 130, 'sentado', { dir: -1 }).svg}</g>`;
+  /* o irmão no banquinho, na mesinha onde o prato chega */
+  s += `<g class="irmao">${familia.irmao(348, 742, 130, 'sentado', { dir: -1 }).svg}</g>`;
   s += `<rect x="332" y="722" width="36" height="8" rx="3" fill="#c9a189"/><path d="M338 730v42M362 730v42" stroke="#c9a189" stroke-width="5" stroke-linecap="round"/>`;
   s += `<rect x="176" y="706" width="144" height="9" rx="4" fill="#c9a189"/><path d="M190 715v57M306 715v57" stroke="#c9a189" stroke-width="6" stroke-linecap="round"/>`;
   /* bacia com água, tigela e colher */
@@ -179,7 +179,7 @@ export function telaCozinha(): Tela {
     fase = 'fim';
     guia.calar();
     travar(5000);
-    /* o prato dela vai para a mesinha do Theo; a família come */
+    /* o prato dela vai para a mesinha do irmão; a família come */
     const prato = svg.querySelector('.prato-final') as SVGGElement;
     prato.innerHTML = `<ellipse cx="248" cy="698" rx="44" ry="12" fill="#f6f0e4" stroke="#c6a15b" stroke-width="1.5"/>${ingredientes.map((id, i) => figura(id, 230 + i * 12, 694, 22)).join('')}`;
     prato.style.opacity = '0';
@@ -188,12 +188,12 @@ export function telaCozinha(): Tela {
     naTigela.innerHTML = '';
     sininho();
     await esperar(800);
-    const theo = svg.querySelector('.theo') as SVGGElement;
+    const irmao = svg.querySelector('.irmao') as SVGGElement;
     for (let k = 0; k < 3; k++) {
-      mover(theo, 0, -8, 200);
+      mover(irmao, 0, -8, 200);
       toc(500 + k * 50, 0.12);
       await esperar(220);
-      mover(theo, 0, 0, 260);
+      mover(irmao, 0, 0, 260);
       await esperar(300);
     }
     tela.comemorar(300, 680);

@@ -12,7 +12,7 @@ export interface Palavra {
   silabas: string[];
   /**
    * O som de cada letra, quando não é o som ensinado da letra: o O de OLÁ é
-   * fechado (ô) e o segundo L de STELLA não soa. `null` é letra muda.
+   * fechado (ô). `null` é letra muda.
    */
   sons?: (string | null)[];
 }
