@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Os cabelos do Theo</title>
-<meta name="description" content="Seis penteados para o Theo, com o rosto da versão D, no pincel Aquarela e Lápis, para o Theo escolher.">
+<title>As roupas do Theo</title>
+<meta name="description" content="Seis roupas para o Theo: três jaquetas e casacos vermelhos abertos e três variações do baterista de camisa xadrez.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500&display=swap">
 <style>
@@ -73,9 +73,9 @@
 <body>
 <div class="pagina">
 <header class="capa">
-  <span class="rotulo">Little Star · referência · o cabelo do Theo</span>
-  <h1>Os cabelos do Theo</h1>
-  <p>O rosto ficou: é o da versão D (queixo reto, sobrancelha fina, bochecha leve, sorriso com dentes). O que muda aqui é só o cabelo, em seis penteados que saem das bolinhas de cacho: cachos soltos grandes, cabelo rente, ondulado curto, topete com laterais curtas, franja de cachos caída e liso curto repartido de lado. A camisa xadrez de baterista fica em todos.</p>
+  <span class="rotulo">Little Star · referência · a roupa do Theo</span>
+  <h1>As roupas do Theo</h1>
+  <p>Seis roupas com o mesmo rosto e o mesmo cabelo (o A dos penteados, de cachos soltos e franja, agora sem a marca escura entre a copa e a franja): três jaquetas e casacos vermelhos abertos, que é o que ele gosta de usar, e três variações do baterista de camisa xadrez com a camiseta preta por baixo.</p>
   <div class="linha"><span>Setembro de 2026</span><span>Em cima, de perto; embaixo, cada um no tamanho do jogo, ao lado da Stella</span></div>
 </header>
 
@@ -89,18 +89,18 @@
 
 <section id="theo" class="pessoa">
   <div class="cabeca" style="grid-column: 1 / -1">
-    <span class="rotulo">Theo, 10 · seis penteados</span>
-    <h2>O mesmo rosto, outro cabelo</h2>
+    <span class="rotulo">Theo, 10 · seis roupas</span>
+    <h2>Vermelho aberto, ou o xadrez do baterista</h2>
   </div>
   <div class="retratos" data-pessoa="theo" style="grid-template-columns: repeat(3, 1fr)"></div>
   <div class="texto" style="grid-column: 1 / -1">
     <ul>
-      <li><strong>A · Cachos soltos.</strong> O volume todo, numa silhueta só e macia em volta da cabeça, com os cachos desenhados por dentro a lápis, em vez de bolinhas.</li>
-      <li><strong>B · Rente.</strong> Cabelo curto, colado na cabeça, com a textura dos cachos em pontinhos: o corte de verão.</li>
-      <li><strong>C · Ondulado curto.</strong> Cabelo curto em ondas, até a orelha, com a franja em mechas para o lado.</li>
-      <li><strong>D · Topete.</strong> Laterais curtas e o volume de cachos concentrado em cima, jogado para trás.</li>
-      <li><strong>E · Franja caída.</strong> Os cachos caem sobre a testa até a sobrancelha, cobrindo a cabeça como um gorro macio.</li>
-      <li><strong>F · Liso repartido.</strong> Cabelo liso e curto, repartido de lado, com a franja penteada para o outro lado.</li>
+      <li><strong>A · Jaqueta vermelha, camiseta branca.</strong> A jaqueta de zíper aberta, com a gola em pé, sobre uma camiseta branca. Calça jeans.</li>
+      <li><strong>B · Jaqueta vermelha, camiseta preta.</strong> A mesma jaqueta sobre a camiseta preta do baterista. Calça escura.</li>
+      <li><strong>C · Casaco vermelho de moletom.</strong> Um moletom vermelho aberto, com capuz caído nas costas e o cordão, sobre camiseta cinza. Jeans.</li>
+      <li><strong>D · Xadrez vinho, camiseta preta.</strong> O baterista como está no jogo: a camisa xadrez creme com o risco vinho, aberta sobre a camiseta preta.</li>
+      <li><strong>E · Xadrez vermelho e preto.</strong> A camisa xadrez grunge de verdade, vermelha com o risco preto, aberta sobre a camiseta preta.</li>
+      <li><strong>F · Xadrez vermelho, manga arregaçada.</strong> A mesma camisa vermelha e preta com as mangas dobradas até o cotovelo, e a camiseta preta com um risco branco de banda.</li>
     </ul>
   </div>
 </section>
@@ -201,11 +201,69 @@ function ondulado(cx, cy, rx, ry, n = 11, semente = 0, amp = 0.09) {
   return d + 'z';
 }
 /* os cachos desenhados a lápis por dentro da silhueta: espirais pequenas espalhadas */
-function espirais(lista, cor) {
-  return lista.map(([x, y, r]) => S.fio(`M${x - r * 0.5} ${y + r * 0.2}q${r * 0.3} -${r * 0.9} ${r * 0.9} -${r * 0.3}q${r * 0.3} ${r * 0.5} -${r * 0.2} ${r * 0.7}q-${r * 0.5} ${r * 0.2} -${r * 0.5} -${r * 0.2}`, cor, 1.2, 0.6)).join('');
+function espirais(lista, cor, op = 0.5) {
+  return lista.map(([x, y, r]) => S.fio(`M${x - r * 0.5} ${y + r * 0.2}q${r * 0.3} -${r * 0.9} ${r * 0.9} -${r * 0.3}q${r * 0.3} ${r * 0.5} -${r * 0.2} ${r * 0.7}q-${r * 0.5} ${r * 0.2} -${r * 0.5} -${r * 0.2}`, cor, 1.2, op)).join('');
+}
+/**
+ * O cabelo numa camada só: a copa ondulada em volta da cabeça, com a borda de baixo (a
+ * franja) desenhada no mesmo contorno. `rx`, `ry` é o tamanho da copa; `testa` é onde a
+ * franja chega (y, negativo para cima; -30 é o alto da cabeça, -12 a sobrancelha);
+ * `ondas` é quantas ondinhas a franja tem. Sem sobreposição, sem mancha escura.
+ */
+function cabeloInteiro(rx, ry, testa, ondas = 5, semente = 0, amp = 0.08, lados = 4) {
+  /* o cabelo como um capacete redondo numa curva só: a borda de fora é uma elipse ondulada
+     (a copa) que vai da lateral esquerda à direita por cima; a borda de dentro volta pela
+     frente, descendo só até `lados` (y onde a lateral acaba, junto da orelha) e passando
+     pela testa em ondinhas na altura `testa` */
+  const cy = -8;
+  const n = 21;
+  const pts = [];
+  for (let k = 0; k < n; k++) {
+    const a = Math.PI * (0.92 + (1.16 * k) / (n - 1)); /* de 165° a 375°: desce um pouco dos dois lados */
+    const w = 1 - amp + amp * 2 * ((Math.sin(a * 2.7 + semente) + 1) / 2);
+    pts.push([Math.cos(a) * rx * w, cy + Math.sin(a) * ry * w]);
+  }
+  let d = `M${f1(pts[0][0])} ${f1(pts[0][1])}`;
+  for (let k = 1; k < n - 1; k++) {
+    const b = pts[k], c = pts[k + 1];
+    d += `Q${f1(b[0] * 1.06)} ${f1((b[1] - cy) * 1.06 + cy)} ${f1((b[0] + c[0]) / 2)} ${f1((b[1] + c[1]) / 2)}`;
+  }
+  /* o fim da lateral direita, na altura da orelha, e a volta por dentro */
+  const fimX = pts[n - 1][0], fimY = pts[n - 1][1];
+  d += `Q${f1(fimX)} ${f1(lados)} ${f1(fimX - 7)} ${f1(lados)}`;
+  const xi = fimX - 12;
+  d += `Q${f1(xi + 3)} ${f1((lados + testa) / 2)} ${f1(xi)} ${f1(testa + 3)}`;
+  const larg = 2 * xi;
+  for (let k = 0; k < ondas; k++) {
+    const xa = xi - (larg * (k + 0.5)) / ondas, xb = xi - (larg * (k + 1)) / ondas;
+    d += `Q${f1(xa)} ${f1(testa + 7)} ${f1(xb)} ${f1(testa + 1 + (k % 2) * 2)}`;
+  }
+  d += `Q${f1(-xi - 3)} ${f1((lados + testa) / 2)} ${f1(-fimX + 7)} ${f1(lados)}`;
+  d += `Q${f1(-fimX)} ${f1(lados)} ${f1(pts[0][0])} ${f1(pts[0][1])}z`;
+  return d;
 }
 const LAP = escuro(CAB_THEO, 0.3);
-const ROSTO_D = { olhos: 'abertos', boca: 'dentes', sobrancelha: 'fina', queixo: 'reto', bochechaLeve: true, roupa: 'xadrez', cores: XADREZ };
+const ESP = claro(CAB_THEO, 0.35);
+const ROSTO_D = { olhos: 'abertos', boca: 'dentes', sobrancelha: 'fina', queixo: 'reto', bochechaLeve: true, roupa: 'xadrez', cores: XADREZ, atras: () => '' };
+/* a borda de baixo de uma silhueta ondulada (a franja), só o arco inferior, para o lápis */
+function onduladoBaixo(cx, cy, rx, ry, n = 9, semente = 0, amp = 0.09) {
+  const pts = [];
+  for (let k = 0; k <= n; k++) { const a = (k * Math.PI * 2) / n; const w = 1 - amp + amp * 2 * ((Math.sin(a * 2.7 + semente) + 1) / 2); pts.push([cx + Math.cos(a) * rx * w, cy + Math.sin(a) * ry * w]); }
+  const meio = Math.floor(n / 2);
+  let d = `M${f1((pts[0][0] + pts[1][0]) / 2)} ${f1((pts[0][1] + pts[1][1]) / 2)}`;
+  for (let k = 1; k < meio; k++) { const b = pts[k], c = pts[k + 1]; d += `Q${f1(b[0] + (b[0] - cx) * 0.16)} ${f1(b[1] + (b[1] - cy) * 0.16)} ${f1((b[0] + c[0]) / 2)} ${f1((b[1] + c[1]) / 2)}`; }
+  return d;
+}
+/* O cabelo A dos penteados: a copa solta atrás, a franja de cachos na frente. A franja é
+   pintada com a cor já lavada (a mesma que a copa tem sobre o papel), opaca e sem contorno
+   em cima, para não escurecer onde passa por cima da copa; o lápis fica só na borda de baixo. */
+const FRANJA_COR = claro(CAB_THEO, 0.05);
+const CABELO_A = {
+  atras: () => S.forma(ondulado(0, -10, 47, 44, 13, 1, 0.08), CAB_THEO, { op: 0.92 }) + espirais([[-34, -14, 7], [-22, -34, 6], [2, -42, 7], [24, -34, 6], [34, -12, 7], [-36, 10, 6], [36, 12, 6], [-18, -20, 5], [18, -22, 5]], ESP),
+  frente: () => `<path d="${ondulado(0, -22, 33, 14, 9, 2, 0.12)}" fill="${FRANJA_COR}"/>` + S.fio(onduladoBaixo(0, -22, 33, 14, 9, 2, 0.12), LAP, 1.2, 0.55) + espirais([[-14, -24, 5], [4, -27, 5], [18, -23, 4]], ESP),
+};
+const ROSTO = { olhos: 'abertos', boca: 'dentes', sobrancelha: 'fina', queixo: 'reto', bochechaLeve: true, ...CABELO_A };
+const VERMELHO = '#c9564c', VERMELHO_ESC = '#a8433b', PRETO = '#2f2f36', JEANS = '#5b7aa0', CINZA = '#b9b3aa';
 const PESSOAS = {
   stella: {
     nome: 'Stella', pele: '#e9c39c', cabelo: '#c79a5e', crianca: true, h: 110,
@@ -213,36 +271,12 @@ const PESSOAS = {
   },
   theo: {
     nome: 'Theo', pele: '#f1d6bd', cabelo: CAB_THEO, crianca: true, h: 165, magro: true,
-    A: {
-      ...ROSTO_D, titulo: 'Cachos soltos',
-      atras: () => S.forma(ondulado(0, -10, 47, 44, 13, 1, 0.08), CAB_THEO, { op: 0.92 }) + espirais([[-34, -14, 7], [-22, -34, 6], [2, -42, 7], [24, -34, 6], [34, -12, 7], [-36, 10, 6], [36, 12, 6], [-18, -20, 5], [18, -22, 5]], claro(CAB_THEO, 0.35)),
-      frente: () => S.forma(ondulado(0, -22, 33, 14, 9, 2, 0.12), CAB_THEO, { op: 0.9 }) + espirais([[-14, -24, 5], [4, -27, 5], [18, -23, 4]], claro(CAB_THEO, 0.35)),
-    },
-    B: {
-      ...ROSTO_D, titulo: 'Rente',
-      atras: () => '',
-      frente: () => S.forma('M-31 -2A31 31 0 0 1 31 -2Q26 -9 17 -13Q0 -9 -17 -13Q-26 -9 -31 -2z', CAB_THEO, { op: 0.9 }) + [[-22, -12], [-12, -22], [0, -26], [12, -22], [22, -12], [-27, -4], [27, -4], [-6, -20], [6, -20], [-17, -18], [17, -18], [-2, -14], [10, -15], [-11, -15]].map(([x, y]) => S.fio(`M${x - 1.5} ${y + 1}q1.5 -2.5 3 0`, claro(CAB_THEO, 0.35), 1.1, 0.7)).join(''),
-    },
-    C: {
-      ...ROSTO_D, titulo: 'Ondulado curto',
-      atras: () => S.forma('M-34 -6C-34 -40 34 -40 34 -6C36 2 36 8 34 12C29 9 25 14 20 10L-20 10C-25 14 -29 9 -34 12C-36 8 -36 2 -34 -6z', CAB_THEO, { op: 0.92 }) + S.fios(['M-31 -2q-2 6 -1 12', 'M31 -2q2 6 1 12'], LAP, 1.2, 0.55),
-      frente: () => S.forma('M-32 -4C-31 -30 -14 -36 0 -35C14 -36 31 -30 32 -4Q28 -12 22 -16Q16 -8 10 -15Q4 -8 -2 -16Q-8 -8 -14 -15Q-20 -8 -26 -16Q-30 -12 -32 -4z', CAB_THEO, { op: 0.94 }) + S.fios(['M-20 -28q6 -4 12 -2', 'M4 -31q8 0 14 5', 'M-8 -22q4 4 2 8', 'M14 -20q3 5 0 9'], LAP, 1.2, 0.5),
-    },
-    D: {
-      ...ROSTO_D, titulo: 'Topete',
-      atras: () => S.forma(ondulado(2, -30, 30, 17, 11, 3, 0.12), CAB_THEO, { op: 0.92 }) + espirais([[-14, -34, 6], [4, -40, 6], [20, -33, 5], [-4, -28, 4]], claro(CAB_THEO, 0.35)),
-      frente: () => S.forma('M-31 -2A31 31 0 0 1 -12 -28Q-14 -18 -26 -8z', CAB_THEO, { op: 0.85 }) + S.forma('M31 -2A31 31 0 0 0 12 -28Q14 -18 26 -8z', CAB_THEO, { op: 0.85 }) + [[-24, -12], [-27, -4], [24, -12], [27, -4], [-20, -18], [20, -18]].map(([x, y]) => S.fio(`M${x - 1.5} ${y + 1}q1.5 -2.5 3 0`, claro(CAB_THEO, 0.35), 1.1, 0.7)).join(''),
-    },
-    E: {
-      ...ROSTO_D, titulo: 'Franja caída',
-      atras: () => S.forma(ondulado(0, -8, 40, 38, 13, 5, 0.07), CAB_THEO, { op: 0.9 }),
-      frente: () => S.forma('M-33 -4C-33 -38 33 -38 33 -4Q30 0 26 -5Q20 -1 14 -6Q8 -1 2 -7Q-6 -1 -12 -6Q-18 -1 -24 -5Q-30 0 -33 -4z', CAB_THEO, { op: 0.95 }) + espirais([[-22, -20, 6], [-6, -26, 6], [10, -24, 6], [24, -16, 5], [-14, -10, 4], [18, -9, 4]], claro(CAB_THEO, 0.35)),
-    },
-    F: {
-      ...ROSTO_D, titulo: 'Liso repartido',
-      atras: () => S.forma('M-32 -6C-33 -36 33 -36 32 -6C33 0 33 6 31 10L-31 10C-33 6 -33 0 -32 -6z', CAB_THEO, { op: 0.92 }),
-      frente: () => S.forma('M-32 -6C-30 -30 -12 -36 2 -35C18 -35 30 -28 32 -4Q26 -12 16 -14Q4 -14 -8 -20Q-22 -14 -32 -6z', CAB_THEO, { op: 0.94 }) + S.fios(['M-6 -30q14 4 24 14', 'M2 -32q12 2 22 12', 'M-14 -30q-8 6 -14 14'], LAP, 1.2, 0.5),
-    },
+    A: { ...ROSTO, titulo: 'Jaqueta vermelha, camiseta branca', roupa: 'jaqueta', gola: true, cores: { roupa: C.papel, jaqueta: VERMELHO, calca: JEANS, sapato: '#8b8078', estampa: [] } },
+    B: { ...ROSTO, titulo: 'Jaqueta vermelha, camiseta preta', roupa: 'jaqueta', gola: true, cores: { roupa: PRETO, jaqueta: VERMELHO, calca: '#3f4652', sapato: '#8b8078', estampa: [] } },
+    C: { ...ROSTO, titulo: 'Casaco vermelho de moletom', roupa: 'moletom', cores: { roupa: CINZA, jaqueta: VERMELHO, calca: JEANS, sapato: '#8b8078', estampa: [] } },
+    D: { ...ROSTO, titulo: 'Xadrez vinho, camiseta preta', roupa: 'xadrez', cores: { roupa: PRETO, jaqueta: '#efe6d6', calca: '#3f4652', sapato: '#8b8078', estampa: ['#8a3a44'] } },
+    E: { ...ROSTO, titulo: 'Xadrez vermelho e preto', roupa: 'xadrez', cores: { roupa: PRETO, jaqueta: VERMELHO, calca: '#3f4652', sapato: '#8b8078', estampa: ['#2a2024'] } },
+    F: { ...ROSTO, titulo: 'Xadrez vermelho, manga arregaçada', roupa: 'xadrez', arregacada: true, risco: true, cores: { roupa: PRETO, jaqueta: VERMELHO, calca: JEANS, sapato: '#8b8078', estampa: ['#2a2024'] } },
   },
 };
 function blob(x, y, r, i) {
@@ -317,15 +351,22 @@ function corpo(pessoa, v, cx, chao) {
     const sw = so * 0.95;
     s += S.forma(`M${cx - sw} ${ombro}H${cx + sw}L${cx + sw * 0.9} ${cint}H${cx - sw * 0.9}z`, c.roupa);
     if (v.roupa === 'polo' || v.roupa === 'camisa' || v.roupa === 'cardiga') s += S.forma(`M${cx - 5 * esc} ${ombro - 1 * esc}L${cx} ${ombro + 7 * esc}L${cx + 5 * esc} ${ombro - 1 * esc}L${cx + 7 * esc} ${ombro + 1 * esc}L${cx} ${ombro + 10 * esc}L${cx - 7 * esc} ${ombro + 1 * esc}z`, c.roupa, { lapis: 0.5 });
-    if (['jaqueta', 'cardiga', 'xadrez'].includes(v.roupa)) s += S.forma(`M${cx - sw} ${ombro}H${cx - 4 * esc}L${cx - 6 * esc} ${cint}H${cx - sw * 0.9}z`, c.jaqueta) + S.forma(`M${cx + sw} ${ombro}H${cx + 4 * esc}L${cx + 6 * esc} ${cint}H${cx + sw * 0.9}z`, c.jaqueta);
+    if (['jaqueta', 'cardiga', 'xadrez', 'moletom'].includes(v.roupa)) s += S.forma(`M${cx - sw} ${ombro}H${cx - 4 * esc}L${cx - 6 * esc} ${cint}H${cx - sw * 0.9}z`, c.jaqueta) + S.forma(`M${cx + sw} ${ombro}H${cx + 4 * esc}L${cx + 6 * esc} ${cint}H${cx + sw * 0.9}z`, c.jaqueta);
+    if (v.gola) s += S.forma(`M${cx - 6 * esc} ${ombro - 1 * esc}L${cx - 3 * esc} ${ombro + 5 * esc}L${cx - 9 * esc} ${ombro + 4 * esc}z`, escuro(c.jaqueta, 0.12)) + S.forma(`M${cx + 6 * esc} ${ombro - 1 * esc}L${cx + 3 * esc} ${ombro + 5 * esc}L${cx + 9 * esc} ${ombro + 4 * esc}z`, escuro(c.jaqueta, 0.12));
+    if (v.roupa === 'moletom') s += S.forma(`M${cx - 9 * esc} ${ombro + 1 * esc}C${cx - 7 * esc} ${ombro - 4 * esc} ${cx + 7 * esc} ${ombro - 4 * esc} ${cx + 9 * esc} ${ombro + 1 * esc}Q${cx} ${ombro - 0.5 * esc} ${cx - 9 * esc} ${ombro + 1 * esc}z`, escuro(c.jaqueta, 0.18)) + S.fios([`M${cx - 4 * esc} ${ombro + 2 * esc}v${6 * esc}`, `M${cx + 4 * esc} ${ombro + 2 * esc}v${6 * esc}`], C.papel, 1.2, 0.8);
+    if (v.risco) s += S.fio(`M${cx - 3 * esc} ${ombro + 9 * esc}h${6 * esc}`, C.papel, 1.6, 0.9);
+    if (v.roupa === 'xadrez' && c.estampa[0] === '#2a2024') s += S.fios([`M${cx - lw * 0.95} ${ombro + 7 * esc}H${cx - 5 * esc}`, `M${cx + 5 * esc} ${ombro + 7 * esc}H${cx + lw * 0.95}`, `M${cx - lw * 0.9} ${ombro + 15 * esc}H${cx - 5 * esc}`, `M${cx + 5 * esc} ${ombro + 15 * esc}H${cx + lw * 0.9}`, `M${cx - lw * 0.7} ${ombro + 1 * esc}V${cint}`, `M${cx + lw * 0.7} ${ombro + 1 * esc}V${cint}`], c.estampa[0], 1.2, 0.5);
     if (v.roupa === 'listrada') for (let i = 0; i < 3; i++) s += `<rect x="${cx - sw * 0.9}" y="${ombro + (5 + i * 7) * esc}" width="${sw * 1.8}" height="${3 * esc}" fill="${c.estampa[i % 2]}" opacity=".8"/>`;
     if (v.roupa === 'puffer') for (let i = 0; i < 3; i++) s += S.fio(`M${cx - sw * 0.9} ${ombro + (6 + i * 6) * esc}Q${cx} ${ombro + (4 + i * 6) * esc} ${cx + sw * 0.9} ${ombro + (6 + i * 6) * esc}`, escuro(c.roupa, 0.35), 1, 0.6);
     if (v.roupa === 'dino') s += `<circle cx="${cx}" cy="${ombro + 12 * esc}" r="${4 * esc}" fill="${c.estampa[0]}" opacity=".8"/>`;
     if (v.roupa === 'camisa' && c.estampa.length) for (let i = 0; i < 6; i++) { const x = cx - sw * 0.7 + (i * 0.41 % 1) * sw * 1.4, y = ombro + 4 * esc + ((i * 0.63) % 1) * (cint - ombro - 8 * esc); s += `<path d="M${x} ${y}q${3 * esc} -${2 * esc} ${5 * esc} ${1 * esc}q-${3 * esc} ${2 * esc} -${5 * esc} -${1 * esc}z" fill="${c.estampa[0]}" opacity=".6"/>`; }
     s += S.forma(membro([cx - so, ombro + 3 * esc], [cx - so - 4 * esc, ombro + h * 0.34], 2.8 * esc, 2.1 * esc), pele, { lapis: 0.4 }) + mao(cx - so - 4 * esc, ombro + h * 0.34, -1, 3 * esc);
     s += S.forma(membro([cx + so, ombro + 3 * esc], [cx + so + 4 * esc, ombro + h * 0.34], 2.8 * esc, 2.1 * esc), pele, { lapis: 0.4 }) + mao(cx + so + 4 * esc, ombro + h * 0.34, 1, 3 * esc);
-    const mangaCor = ['jaqueta', 'cardiga', 'xadrez'].includes(v.roupa) ? c.jaqueta : c.roupa;
-    s += S.forma(elipse(cx - so, ombro + 5 * esc, 3.4 * esc, 5.5 * esc), mangaCor, { lapis: 0.25, opLapis: 0.5 }) + S.forma(elipse(cx + so, ombro + 5 * esc, 3.4 * esc, 5.5 * esc), mangaCor, { lapis: 0.25, opLapis: 0.5 });
+    const mangaCor = ['jaqueta', 'cardiga', 'xadrez', 'moletom'].includes(v.roupa) ? c.jaqueta : c.roupa;
+    if (v.arregacada) {
+      s += S.forma(elipse(cx - so - 1 * esc, ombro + 8 * esc, 3.6 * esc, 9 * esc), mangaCor, { lapis: 0.25, opLapis: 0.5 }) + S.forma(elipse(cx + so + 1 * esc, ombro + 8 * esc, 3.6 * esc, 9 * esc), mangaCor, { lapis: 0.25, opLapis: 0.5 });
+      s += S.forma(elipse(cx - so - 1.5 * esc, ombro + 16 * esc, 3.8 * esc, 2 * esc), escuro(mangaCor, 0.2), { mudo: true }) + S.forma(elipse(cx + so + 1.5 * esc, ombro + 16 * esc, 3.8 * esc, 2 * esc), escuro(mangaCor, 0.2), { mudo: true });
+    } else s += S.forma(elipse(cx - so, ombro + 5 * esc, 3.4 * esc, 5.5 * esc), mangaCor, { lapis: 0.25, opLapis: 0.5 }) + S.forma(elipse(cx + so, ombro + 5 * esc, 3.4 * esc, 5.5 * esc), mangaCor, { lapis: 0.25, opLapis: 0.5 });
   }
   LAPIS = hr / R < 0.6 ? 0.6 : 0.75;
   s += `<g transform="translate(${cx} ${cy}) scale(${hr / R})">${rosto({ ...pessoa, ...v, pequeno: hr / R < 0.7 })}</g>`;
@@ -351,10 +392,16 @@ function ombros(p) {
   const dome = 'M-52 92C-52 62 -26 46 -8 44H8C26 46 52 62 52 92z';
   let s = `<clipPath id="${id}"><path d="${dome}"/></clipPath>` + S.forma(dome, cor, { lapis: 0.4 });
   if (p.roupa === 'polo' || p.roupa === 'camisa') s += S.forma('M-14 44L0 66L14 44L20 48L0 76L-20 48z', cor, { lapis: 0.5 });
-  if (p.roupa === 'jaqueta') s += S.forma('M-52 92C-52 62 -26 46 -8 44L-12 92z', p.cores.jaqueta) + S.forma('M52 92C52 62 26 46 8 44L12 92z', p.cores.jaqueta);
+  if (p.roupa === 'jaqueta') s += S.forma('M-52 92C-52 62 -28 48 -10 46L-13 92z', p.cores.jaqueta) + S.forma('M52 92C52 62 28 48 10 46L13 92z', p.cores.jaqueta) + (p.gola ? S.forma('M-16 44L-10 46L-4 58L-20 52z', escuro(p.cores.jaqueta, 0.12)) + S.forma('M16 44L10 46L4 58L20 52z', escuro(p.cores.jaqueta, 0.12)) : '') + S.fios(['M-13 60V92', 'M13 60V92'], escuro(p.cores.jaqueta, 0.45), 1.1, 0.5);
+  if (p.roupa === 'moletom') s += S.forma('M-52 92C-52 62 -30 48 -12 47L-15 92z', p.cores.jaqueta) + S.forma('M52 92C52 62 30 48 12 47L15 92z', p.cores.jaqueta) + S.forma('M-30 50C-24 40 24 40 30 50Q24 46 16 47H-16Q-24 46 -30 50z', escuro(p.cores.jaqueta, 0.18)) + S.fios(['M-12 50q-1 10 -3 18', 'M12 50q1 10 3 18'], C.papel, 1.4, 0.8) + `<circle cx="-15" cy="70" r="1.6" fill="${C.papel}"/><circle cx="15" cy="70" r="1.6" fill="${C.papel}"/>`;
   if (p.roupa === 'cardiga') s += S.forma('M-10 44L0 62L10 44z', p.pele, { mudo: true }) + S.forma('M-14 44L0 66L14 44L18 47L0 74L-18 47z', C.papel, { lapis: 0.5 }) + S.forma('M-52 92C-52 62 -28 48 -12 46Q-20 68 -16 92z', p.cores.jaqueta) + S.forma('M52 92C52 62 28 48 12 46Q20 68 16 92z', p.cores.jaqueta);
   if (p.dino) s += S.forma('M-13 66q1 -14 13 -14t13 12q-1 7 -9 8l-1 6h-6l-1 -6h-2l-1 6h-4l-1 -6q-9 -1 -10 -6z', '#e0a35a', { lapis: 0.45 }) + `<circle cx="-5" cy="63" r="2.6" fill="${C.tinta}" opacity=".8"/><circle cx="6" cy="62" r="2.6" fill="${C.tinta}" opacity=".8"/>`;
-  if (p.roupa === 'xadrez') s += S.forma('M-52 92C-52 62 -28 48 -10 46Q-16 68 -14 92z', p.cores.jaqueta) + S.forma('M52 92C52 62 28 48 10 46Q16 68 14 92z', p.cores.jaqueta) + `<g clip-path="url(#${id})" stroke="${p.cores.estampa[0]}" stroke-width="1.6" ${NSS} opacity=".55"><path d="M-52 58H52M-52 70H52M-52 82H52M-44 44V92M-32 44V92M-20 44V92M20 44V92M32 44V92M44 44V92"/></g>`;
+  if (p.roupa === 'xadrez') {
+    const cid = id + 'x';
+    s += `<clipPath id="${cid}"><path d="M-52 92C-52 62 -28 48 -10 46Q-16 68 -14 92z"/><path d="M52 92C52 62 28 48 10 46Q16 68 14 92z"/></clipPath>`;
+    s += S.forma('M-52 92C-52 62 -28 48 -10 46Q-16 68 -14 92z', p.cores.jaqueta) + S.forma('M52 92C52 62 28 48 10 46Q16 68 14 92z', p.cores.jaqueta) + `<g clip-path="url(#${cid})" stroke="${p.cores.estampa[0]}" stroke-width="1.6" ${NSS} opacity=".55"><path d="M-52 58H52M-52 70H52M-52 82H52M-44 44V92M-32 44V92M-20 44V92M20 44V92M32 44V92M44 44V92"/></g>`;
+    if (p.risco) s += S.fio('M-7 66h14', C.papel, 2.2, 0.9) + S.fio('M-5 72h10', C.papel, 1.4, 0.7);
+  }
   if (p.roupa === 'puffer') s += S.forma('M-22 44H22V56H-22z', cor, { lapis: 0.45 }) + `<g clip-path="url(#${id})" fill="none" stroke="${escuro(cor, 0.35)}" stroke-width="1.2" ${NSS} opacity=".7"><path d="M-52 62Q0 54 52 62M-52 74Q0 66 52 74M-52 86Q0 78 52 86M0 56V92"/></g>`;
   if (p.roupa === 'vestido-gola') s += S.forma('M-9 44h18v14h-18z', cor, { mudo: true });
   if (p.fone) s += `<path d="M-19 58q19 14 38 0" fill="none" stroke="#3a3a42" stroke-width="3.2" ${NSS} stroke-linecap="round" opacity=".9"/>` + S.forma(circ(-19, 57, 5), '#3a3a42', { lapis: 0.2 }) + S.forma(circ(19, 57, 5), '#3a3a42', { lapis: 0.2 });
