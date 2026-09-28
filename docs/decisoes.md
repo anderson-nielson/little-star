@@ -33,11 +33,11 @@ quando fica pequeno.
 | Rodada | O que muda | Onde vive |
 |---|---|---|
 | 1 | O pincel (`forma`, `fio`, `lavagem`, grão do papel, lápis de espessura fixa), a marionete com as quatro faces e os cabelos novos em todas as poses, o gato e o coelho, os tokens da família, o styleguide. | `src/puppet/pincel.ts`, `src/puppet/boneco.ts`, `src/puppet/objetos.ts`, `src/ui/tokens.css`, `src/telas/styleguide.ts` |
-| 2 | A casa e a chegada, a partir das fotos da casa real. | `src/telas/casa.ts`, `src/telas/chegada.ts` |
-| 3 | O dia: roda, prato, cozinha, horta, cuidados, cama, dentes, brinquedos, relógio, noite, despedida. | `src/telas/*.ts` |
-| 4 | As letras: som, caderno, palavra, bilhete, areia, pinhas e as 54 figuras. | `src/puppet/figuras.ts`, `src/telas/*.ts` |
-| 5 | As aventuras e a música: jardim, árvore, árvore grande, lago, parquinho, palco, piano, ukulele, bonecas. | `src/telas/*.ts` |
-| 6 | A interface e o passeio: cabeçalho, pílulas, opções, cantinho dos pais; as capturas regravadas. | `src/ui/*`, `docs/shots/` |
+| 2 | O passe de lápis em toda cena (`aLapis`): toda forma preenchida de um `telaSvg` ganha o contorno a lápis, e o grão do papel cobre a cena. É o que faz a casa, a chegada e todas as telas de SVG entrarem no estilo de uma vez, sem reescrever cada uma. A nuvem vira um contorno só; o pinheiro passa pelo pincel. A casa a partir das fotos da casa real fica para quando as fotos chegarem. | `src/puppet/pincel.ts`, `src/telas/comum.ts`, `src/puppet/objetos.ts` |
+| 3 | O dia (roda, prato, cozinha, horta, cuidados, cama, dentes, brinquedos, relógio, noite, despedida): saem do passe de lápis da rodada 2. | `src/telas/*.ts` |
+| 4 | As letras: as 54 figuras ganham o lápis dentro de `figura()` (inclusive nas partes com opacidade); a pinha vira um corpo com escamas a lápis, a flor um contorno só de pétalas. | `src/puppet/figuras.ts`, `src/puppet/objetos.ts` |
+| 5 | As aventuras: as copas viram contornos ondulados (`copa`, `copaPath`), no SVG das árvores e no canvas do jardim; o lápis chega ao canvas (`formaNoCanvas`, `lapisNoCanvas`) no jardim (casa, flores, obstáculos, coelho) e no lago (vitórias-régias, cisnes com pescoço de contorno único e asa a lápis). | `src/telas/jardim.ts`, `src/telas/lago.ts`, `src/telas/arvore.ts`, `src/telas/arvoregrande.ts` |
+| 6 | A interface já tinha o fio de ouro; o cabeçalho fica fora do grão. `scripts/olhar.mjs` captura qualquer tela pelo nome; as capturas de `docs/shots/` regravadas pelo passeio. | `scripts/olhar.mjs`, `docs/shots/` |
 
 ## As respostas que chegaram depois
 

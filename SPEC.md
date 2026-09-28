@@ -682,8 +682,10 @@ cor, nunca preto, que falha e retoma como uma mão de verdade e pousa meio pixel
 mancha, como num livro impresso antigo. O lápis tem sempre a mesma espessura na tela, no
 retrato grande ou na marionete pequena, e o grão do papel cobre a tela inteira. Tudo passa
 por `src/puppet/pincel.ts`; quanto menor a cabeça na tela, menos detalhe (o nariz some, o
-lápis afina). O redesenho anda em rodadas: a família e os bichos primeiro, depois a casa,
-o dia, as letras, as aventuras e a interface.
+lápis afina). Toda cena em SVG passa por `aLapis()` ao nascer (`telaSvg`): cada forma
+preenchida ganha o contorno a lápis, os véus e os fundos ficam de fora. No canvas (o
+caderno, a areia, o jardim, o lago) o mesmo lápis é `formaNoCanvas()`. As copas são contornos
+ondulados (`copa`), as figuras das palavras têm o lápis dentro de `figura()`.
 
 **Mantido do Ponta**
 - Fio no lugar de caixa (1 a 2 px). Nenhum cartão com sombra, nenhum gradiente decorativo.

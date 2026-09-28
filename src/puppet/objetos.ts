@@ -1,5 +1,5 @@
 import { circ, CORES as C } from './boneco';
-import { claro, escuro, fio, fios, forma } from './pincel';
+import { claro, copaPath, escuro, fio, fios, forma } from './pincel';
 
 /** A centelha de quatro pontas do Ponta: a estrela do jogo. Nunca ★. */
 export const CENTELHA = 'M10 0c.7 6.2 3.8 9.3 10 10-6.2.7-9.3 3.8-10 10-.7-6.2-3.8-9.3-10-10 6.2-.7 9.3-3.8 10-10z';
@@ -66,28 +66,58 @@ export function contornoLuz(cx: number, cy: number, rx: number, ry: number, cls 
   return `<ellipse class="${cls}" cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="none" stroke="${C.ouro}" stroke-width="2.5"/>`;
 }
 
+/**
+ * A pinha: um corpo oval com as escamas em arcos a lápis, e o miolo mais claro. Quatro
+ * jeitos (mais comprida, mais gorda, mais escura), como as pinhas de verdade.
+ */
 export function pinha(x: number, y: number, s: number, tipo = 0): string {
-  let d = '';
-  const linhas = tipo === 1 ? 5 : tipo === 2 ? 3 : 4;
-  const cols = tipo === 3 ? 4 : 3;
+  const rx = s * (tipo === 3 ? 0.62 : 0.5);
+  const ry = s * (tipo === 1 ? 1.05 : tipo === 2 ? 0.75 : 0.9);
   const cor = tipo === 3 ? '#8a5a3a' : '#a8714a';
-  for (let i = 0; i < linhas; i++)
-    for (let j = 0; j < cols; j++) {
-      const yy = y - s * 0.9 + i * s * 0.28;
-      const xx = x - s * 0.15 * (cols - 1) + j * s * 0.3 + (i % 2) * s * 0.15;
-      d += `<ellipse cx="${xx.toFixed(1)}" cy="${yy.toFixed(1)}" rx="${(s * 0.16).toFixed(1)}" ry="${(s * 0.2).toFixed(1)}" fill="${cor}" opacity="${0.75 + 0.06 * i}"/>`;
+  const cy = y - ry * 0.55;
+  const corpo = `M${(x - rx).toFixed(1)} ${cy.toFixed(1)}C${(x - rx).toFixed(1)} ${(cy - ry * 1.2).toFixed(1)} ${(x + rx).toFixed(1)} ${(cy - ry * 1.2).toFixed(1)} ${(x + rx).toFixed(1)} ${cy.toFixed(1)}C${(x + rx).toFixed(1)} ${(cy + ry * 0.9).toFixed(1)} ${(x + rx * 0.3).toFixed(1)} ${(cy + ry * 1.05).toFixed(1)} ${x.toFixed(1)} ${(cy + ry * 1.05).toFixed(1)}C${(x - rx * 0.3).toFixed(1)} ${(cy + ry * 1.05).toFixed(1)} ${(x - rx).toFixed(1)} ${(cy + ry * 0.9).toFixed(1)} ${(x - rx).toFixed(1)} ${cy.toFixed(1)}z`;
+  let g = forma(corpo, cor, { lapis: 0.4 });
+  /* as escamas: fileiras de arcos, deslocadas uma da outra */
+  const linhas = s >= 6 ? 4 : 2;
+  let escamas = '';
+  for (let i = 0; i < linhas; i++) {
+    const yy = cy - ry * 0.55 + (i * ry * 1.35) / linhas;
+    const larg = rx * (1 - Math.abs((yy - cy) / ry) * 0.5);
+    const n = s >= 6 ? 3 : 2;
+    for (let j = 0; j < n; j++) {
+      const xx = x - larg + ((j + 0.5 + (i % 2) * 0.5) * 2 * larg) / n;
+      const w = larg / n;
+      escamas += `M${(xx - w * 0.7).toFixed(1)} ${yy.toFixed(1)}q${(w * 0.7).toFixed(1)} ${(w * 0.9).toFixed(1)} ${(w * 1.4).toFixed(1)} 0`;
     }
-  return `<g>${d}</g>`;
+  }
+  g += fio(escamas, escuro(cor, 0.35), 1, 0.7);
+  g += `<path d="${corpo}" fill="${claro(cor, 0.35)}" opacity="0.25" transform="translate(${(-rx * 0.15).toFixed(1)} ${(-ry * 0.15).toFixed(1)}) scale(0.6)" transform-origin="${x} ${cy}"/>`;
+  return `<g>${g}</g>`;
 }
 
+/** Uma flor: caule a lápis, cinco pétalas num contorno só, miolo. O girassol tem dez pétalas e o miolo escuro. */
 export function flor(x: number, y: number, cor: string, s = 10, girassol = false): string {
-  let pet = '';
   const n = girassol ? 10 : 5;
+  const cy = y - s * 1.6;
+  const r = s * (girassol ? 0.55 : 0.42);
+  const pr = s * (girassol ? 0.28 : 0.34);
+  /* as pétalas como um contorno só: um arco para fora em cada pétala, um vinco entre elas */
+  let d = '';
   for (let i = 0; i < n; i++) {
-    const [px, py] = pol(x, y - s * 1.6, s * (girassol ? 0.55 : 0.42), (i * Math.PI * 2) / n - Math.PI / 2);
-    pet += circ([px, py], s * (girassol ? 0.28 : 0.34));
+    const a0 = (i * Math.PI * 2) / n - Math.PI / 2;
+    const a1 = ((i + 1) * Math.PI * 2) / n - Math.PI / 2;
+    const [px, py] = pol(x, cy, r - pr * 0.2, a0);
+    const [qx, qy] = pol(x, cy, r - pr * 0.2, a1);
+    const [mx, my] = pol(x, cy, r + pr, (a0 + a1) / 2);
+    d += (i ? '' : `M${px.toFixed(1)} ${py.toFixed(1)}`) + `Q${mx.toFixed(1)} ${my.toFixed(1)} ${qx.toFixed(1)} ${qy.toFixed(1)}`;
   }
-  return `<g><path d="M${x} ${y}V${y - s * 1.4}" stroke="${C.musgoTinta}" stroke-width="${s * 0.12}" fill="none"/><path d="${pet}" fill="${girassol ? '#e8c24a' : cor}"/><circle cx="${x}" cy="${y - s * 1.6}" r="${s * (girassol ? 0.34 : 0.22)}" fill="${girassol ? '#6b4a2a' : C.luz}"/></g>`;
+  d += 'z';
+  return `<g>${fio(`M${x} ${y}V${(y - s * 1.4).toFixed(1)}`, C.musgoTinta, Math.max(1, s * 0.12), 0.85)}${forma(d, girassol ? '#e8c24a' : cor, { lapis: 0.32 })}${forma(circ([x, cy], s * (girassol ? 0.34 : 0.22)), girassol ? '#6b4a2a' : C.luz, { mudo: true })}</g>`;
+}
+
+/** A copa de uma árvore de folhas: um contorno ondulado, como uma nuvem verde. */
+export function copa(cx: number, cy: number, rx: number, ry: number, cor: string, semente = 0): string {
+  return forma(copaPath(cx, cy, rx, ry, 9, semente), cor, { op: 0.95, lapis: 0.3 });
 }
 
 export function pinheiro(x: number, y: number, h: number, comPinhas = true): string {

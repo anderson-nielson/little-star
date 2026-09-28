@@ -24,6 +24,8 @@ export interface OpcoesForma {
   molhado?: boolean;
   /** atributos extras na mancha (classe, data-*) */
   attrs?: string;
+  /** no passe de cena: contorna também o que tem opacidade (as figuras pequenas, não os véus) */
+  comOpacidade?: boolean;
 }
 
 /** O lápis não muda de espessura com a escala do desenho. */
@@ -141,7 +143,8 @@ export function aLapis(svg: string, o: OpcoesForma = {}): string {
   return svg.replace(FORMA, (todo, tag: string, attrs: string) => {
     const fill = /\sfill="([^"]*)"/.exec(attrs)?.[1];
     if (!fill || !HEX.test(fill)) return todo;
-    if (/\sstroke=|\sopacity=|\sfill-opacity=|data-sem-lapis/.test(attrs)) return todo;
+    if (/\sstroke=|data-sem-lapis/.test(attrs)) return todo;
+    if (!o.comOpacidade && /\sopacity=|\sfill-opacity=/.test(attrs)) return todo;
     if (tag === 'rect') {
       const w = Number(/\swidth="([^"]*)"/.exec(attrs)?.[1] ?? 0);
       const h = Number(/\sheight="([^"]*)"/.exec(attrs)?.[1] ?? 0);
@@ -151,4 +154,54 @@ export function aLapis(svg: string, o: OpcoesForma = {}): string {
     const w = f((o.w ?? 1.1) * escalaLapis);
     return `${todo}<${tag}${limpo} fill="none" stroke="${escuro(fill, o.lapis ?? 0.42)}" stroke-width="${w}" ${NSS} stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="${TRACO}" opacity="${o.opLapis ?? 0.7}" pointer-events="none"/>`;
   });
+}
+
+/* ---------- o lápis no canvas (o caderno, a areia, o jardim, o lago) ---------- */
+
+/**
+ * Passa o lápis no caminho que acabou de ser preenchido no canvas: chama depois
+ * do `fill()`, com o mesmo caminho ainda aberto. A mesma regra do SVG: um tom
+ * escuro da própria cor, traço que falha e retoma, sempre da mesma espessura.
+ */
+export function lapisNoCanvas(ctx: CanvasRenderingContext2D, cor: string, o: OpcoesForma = {}): void {
+  ctx.save();
+  ctx.strokeStyle = escuro(cor, o.lapis ?? 0.42);
+  ctx.lineWidth = (o.w ?? 1.1) * escalaLapis;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.setLineDash([17, 1.6, 31, 2.2, 11, 1.4]);
+  ctx.globalAlpha = (o.opLapis ?? 0.75) * ctx.globalAlpha;
+  ctx.stroke();
+  ctx.restore();
+}
+
+/** Preenche e passa o lápis de uma vez. */
+export function formaNoCanvas(ctx: CanvasRenderingContext2D, cor: string, o: OpcoesForma = {}): void {
+  ctx.fillStyle = cor;
+  ctx.fill();
+  if (!o.mudo) lapisNoCanvas(ctx, cor, o);
+}
+
+/** Uma copa de árvore, um arbusto, uma moita: um contorno ondulado em volta de uma elipse. */
+export function copaPath(cx: number, cy: number, rx: number, ry: number, n = 9, semente = 0): string {
+  const pts: [number, number][] = [];
+  for (let k = 0; k < n; k++) {
+    const a = (k * Math.PI * 2) / n;
+    const w = 0.9 + 0.12 * ((Math.sin(a * 2.7 + semente) + 1) / 2);
+    pts.push([cx + Math.cos(a) * rx * w, cy + Math.sin(a) * ry * w]);
+  }
+  let d = '';
+  for (let k = 0; k < n; k++) {
+    const a = pts[k]!;
+    const b = pts[(k + 1) % n]!;
+    const c = pts[(k + 2) % n]!;
+    if (k === 0) d += `M${f((a[0] + b[0]) / 2)} ${f((a[1] + b[1]) / 2)}`;
+    /* o ponto de controle empurrado para fora: cada gomo boja como uma nuvem */
+    const mx = (b[0] + c[0]) / 2;
+    const my = (b[1] + c[1]) / 2;
+    const px = b[0] + (b[0] - cx) * 0.18;
+    const py = b[1] + (b[1] - cy) * 0.18;
+    d += `Q${f(px)} ${f(py)} ${f(mx)} ${f(my)}`;
+  }
+  return d + 'z';
 }
