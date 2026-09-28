@@ -1,4 +1,5 @@
 import { convidarParaCasa, mover, pedrinhasSobem, telaSvg, trilha } from './comum';
+import { demonstrar, type Ponto } from './guia';
 import { ganhar, PEDRINHAS } from '@/core/pedrinhas';
 import { estado, mudar } from '@/core/estado';
 import { sessao } from '@/core/sessao';
@@ -73,6 +74,21 @@ export function telaSom(params: Record<string, string> = {}): Tela {
   };
 
   const ajuda = new Ajuda();
+  /* a mãozinha passeia por cima de todas as figuras, sem parar em nenhuma:
+     mostra que figura se toca, sem dizer qual. A resposta é do ouvido dela;
+     só a ajuda (6 s a certa respira, 12 s a mãozinha nela) aponta a certa */
+  let pararMao: (() => void) | null = null;
+  const tirarMao = () => {
+    pararMao?.();
+    pararMao = null;
+    tela.mao(null);
+  };
+  const passear = (pos: number[][]) => {
+    tirarMao();
+    const meio: Ponto = [195, 415];
+    pararMao = demonstrar(tela, { tipo: 'caminho', pontos: [meio, ...pos.map(([x, y]) => [x!, y! + 10] as Ponto), meio] }, 1);
+  };
+  tela.svg.addEventListener('pointerdown', tirarMao);
 
   const proximaRodada = async () => {
     if (!vivo) return;
@@ -80,7 +96,7 @@ export function telaSom(params: Record<string, string> = {}): Tela {
     ajuda.reset();
     camada.innerHTML = '';
     camadaLuz.innerHTML = '';
-    tela.mao(null);
+    tirarMao();
     contas.agora(rodada);
     const { letra, som, alvo, figuras } = rodadas[rodada]!;
     textoLetra.textContent = letra;
@@ -101,17 +117,28 @@ export function telaSom(params: Record<string, string> = {}): Tela {
     if (!vivo) return;
     const meuTurno = rodada;
     let esperando = true;
-    /* ajuda: depois de 6 s a figura certa respira mais; depois de 12 a mãozinha aponta */
+    /* a primeira rodada: logo depois do som, a mãozinha passeia pelas figuras */
+    if (rodada === 0) passear(posicoes);
+    /* ajuda: depois de 6 s a figura certa respira e a mãozinha passeia de novo;
+       depois de 12 a mãozinha aponta a certa e o som volta. Parada, repete a cada 6 s */
+    let parada = 0;
+    let nivelMostrado = 0;
     const timer = window.setInterval(() => {
       if (!vivo || !esperando || rodada !== meuTurno) return window.clearInterval(timer);
       ajuda.tick(1);
+      parada += 1;
       const g = camada.querySelector(`[data-fig="${alvo}"]`) as SVGGElement | null;
       if (!g) return;
       if (ajuda.nivel >= 1) g.classList.add('respira');
+      /* a ajuda subiu (o tempo ou as tentativas): mostra já; senão, a cada 6 s parada */
+      const subiu = ajuda.nivel > nivelMostrado;
+      nivelMostrado = ajuda.nivel;
+      if (!subiu && parada % 6 !== 0) return;
       if (ajuda.nivel >= 2) {
+        tirarMao();
         tela.mao([Number(g.getAttribute('data-x')) + 20, Number(g.getAttribute('data-y')) + 30]);
-        if (ajuda.nivel === 2) void falarSom(som);
-      }
+        void falarSom(som);
+      } else if (ajuda.nivel >= 1) passear(posicoes);
     }, 1000);
     tela.aoDestruir(() => window.clearInterval(timer));
 
@@ -121,6 +148,7 @@ export function telaSom(params: Record<string, string> = {}): Tela {
       const x = Number(el.getAttribute('data-x'));
       const y = Number(el.getAttribute('data-y'));
       ajuda.tocou();
+      parada = 0;
       if (id === alvo) {
         esperando = false;
         window.clearInterval(timer);

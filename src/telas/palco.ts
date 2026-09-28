@@ -1,4 +1,5 @@
 import { convidarParaCasa, mover, pedrinhasSobem, telaSvg } from './comum';
+import { botaoPronto, demonstrar, guiar, type Ponto } from './guia';
 import { ganhar, PEDRINHAS } from '@/core/pedrinhas';
 import { estado, mudar } from '@/core/estado';
 import { esperar } from '@/core/util';
@@ -13,13 +14,22 @@ import { falarEspanhol } from '@/audio/espanhol';
 import { espanholAtivo } from '@/core/laco';
 import type { Tela } from '@/core/roteador';
 
+/* o show acaba sozinho depois disto, só como rede de segurança: o visto é a saída de verdade */
 const DURACAO = 40;
+/* onde a mãozinha mostra o salto (em cima) e o giro (embaixo), ao lado da Stella */
+const EM_CIMA: Ponto = [270, 250];
+const EMBAIXO: Ponto = [270, 530];
 
 /**
  * O palco: cortina de veludo, luz de ribalta. A Stella dança sozinha com a
  * Dança da Fada Açucarada; tocar em cima faz um salto, embaixo um giro,
  * sempre dá certo. Plateia: mãe, pai, Theo e as bonecas. Reverência,
  * aplauso, abraço na coxia, uma boneca nova na estante.
+ *
+ * Sozinha, ela não descobria o salto e o giro, e o show acabava num relógio
+ * escondido. Agora, aberta a cortina, a mãozinha toca em cima e depois
+ * embaixo (e de novo se ela parar); com o primeiro passo o visto verde acende
+ * e é ela quem diz quando o show acaba, com reverência e aplauso.
  */
 export function telaPalco(): Tela {
   const e = estado();
@@ -67,6 +77,51 @@ export function telaPalco(): Tela {
   }, 750);
   tela.aoDestruir(() => window.clearInterval(batida));
 
+  /* o visto, no chão do palco à direita (longe da Stella e da plateia), aceso no primeiro passo */
+  const pronto = botaoPronto(tela, 340, 560, () => void fim(), 30);
+  /*
+   * A mãozinha mostra os dois toques, um depois do outro: em cima (salto) e
+   * embaixo (giro). O guia só sabe um gesto por vez, então a dupla é feita
+   * aqui e o guia só a chama (e para quando ela toca, abaixo).
+   */
+  let pararDupla = () => {};
+  const pararDanca = () => pararDupla();
+  const mostrarDupla = () => {
+    pararDupla();
+    let vivaDupla = true;
+    let parar = demonstrar(tela, { tipo: 'tocar', em: EM_CIMA }, 1);
+    void esperar(1900).then(() => {
+      if (vivaDupla && vivo && dancando) parar = demonstrar(tela, { tipo: 'tocar', em: EMBAIXO }, 1);
+    });
+    pararDupla = () => {
+      vivaDupla = false;
+      parar();
+    };
+  };
+  svg.addEventListener('pointerdown', pararDanca);
+  tela.aoDestruir(() => {
+    pararDanca();
+    svg.removeEventListener('pointerdown', pararDanca);
+  });
+  let aberta = false;
+  const guia = guiar(tela, {
+    soParada: true,
+    proximo: () => {
+      if (!aberta || !dancando) return null;
+      /* já dançou e parou de novo: a mãozinha aponta o visto */
+      if (pronto.aceso && guia.ajuda.nivel >= 2) return { tipo: 'apontar', em: pronto.onde };
+      mostrarDupla();
+      return null;
+    },
+  });
+  /* a primeira demonstração quando a cortina acaba de abrir, com a música já tocando */
+  const abriu = () => {
+    aberta = true;
+    void esperar(1400).then(() => {
+      if (vivo && dancando && guia.ajuda.nivel === 0) guia.mostrar();
+    });
+  };
+
   /* tocar em cima = salto, embaixo = giro: sempre dá certo */
   tela.alvo(
     'svg',
@@ -74,6 +129,8 @@ export function telaPalco(): Tela {
       if (!dancando) return;
       const [, y] = tela.ponto(ev);
       const p = y < 390 ? 'pulo' : 'giro';
+      pronto.acender();
+      guia.passo();
       trocarPose(p);
       lira(p === 'pulo' ? 79 : 74, undefined, 0.3);
       brilhos.innerHTML = `<g class="sobe">${centelha(195 + (Math.random() - 0.5) * 80, 300, 14, '#c6a15b')}${centelha(195 + (Math.random() - 0.5) * 80, 320, 10, '#f2a9c4')}</g>`;
@@ -81,21 +138,13 @@ export function telaPalco(): Tela {
     true,
   );
 
-  void (async () => {
-    await audio.tentarDestravar();
-    await esperar(600);
-    const ce = svg.querySelector('.cortina-e') as SVGElement;
-    const cd = svg.querySelector('.cortina-d') as SVGElement;
-    mover(ce, -200, 0, 1800);
-    mover(cd, 200, 0, 1800);
-    /* às vezes a Estrellita conta a entrada em espanhol */
-    if (espanholAtivo(e) && e.aventuras % 2 === 1) {
-      if (temVoz('es_contagem')) await falar('es_contagem');
-      else for (const n of ['cinco', 'seis', 'sete', 'oito']) await falarEspanhol(n, 0.9);
-    }
-    seq.iniciar(audio.agora() + 1.6);
-    await esperar(DURACAO * 1000);
-    if (!vivo) return;
+  /* o fim do show, pelo visto ou pela rede de segurança: reverência, aplauso, abraço */
+  let acabou = false;
+  const fim = async () => {
+    if (!vivo || acabou) return;
+    acabou = true;
+    guia.calar();
+    pararDanca();
     dancando = false;
     seq.parar();
     trocarPose('reverencia');
@@ -116,6 +165,24 @@ export function telaPalco(): Tela {
     stella.innerHTML = familia.stellaPalco(180, 470, 170, 'parado').svg + familia.pai(230, 470, 200, 'abraca', { dir: -1, contorno: '#ebd9a8' }).svg;
     await esperar(1500);
     if (vivo) convidarParaCasa(tela);
+  };
+
+  void (async () => {
+    await audio.tentarDestravar();
+    await esperar(600);
+    const ce = svg.querySelector('.cortina-e') as SVGElement;
+    const cd = svg.querySelector('.cortina-d') as SVGElement;
+    mover(ce, -200, 0, 1800);
+    mover(cd, 200, 0, 1800);
+    /* às vezes a Estrellita conta a entrada em espanhol */
+    if (espanholAtivo(e) && e.aventuras % 2 === 1) {
+      if (temVoz('es_contagem')) await falar('es_contagem');
+      else for (const n of ['cinco', 'seis', 'sete', 'oito']) await falarEspanhol(n, 0.9);
+    }
+    seq.iniciar(audio.agora() + 1.6);
+    abriu();
+    await esperar(DURACAO * 1000);
+    void fim();
   })();
 
   return tela;

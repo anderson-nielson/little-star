@@ -1,8 +1,8 @@
 import { arrastavel, mover, relogioDeAjuda, telaSvg, trilha } from './comum';
-import { entrarNoCuidado, gesto, terminarCuidado, ursinho } from './cuidados';
+import { entrarNoCuidado, terminarCuidado, ursinho } from './cuidados';
+import { guiar } from './guia';
 import { estado } from '@/core/estado';
 import { BRINQUEDOS, destinoDoBrinquedo, lugarPerto, type Brinquedo, type Lugar } from '@/core/cuidados';
-import { Ajuda } from '@/core/ajuda';
 import { travar } from '@/core/toque';
 import { esperar, svgEl } from '@/core/util';
 import { familia } from '@/puppet/boneco';
@@ -90,7 +90,6 @@ export function telaBrinquedos(): Tela {
   });
   let guardados = 0;
   let ocupado = false;
-  let pararGesto = () => {};
   const noChao = new Set(BRINQUEDOS.map((b) => b.id));
 
   const acenderCasa = (l: Lugar, ms = 1600) => {
@@ -114,7 +113,7 @@ export function telaBrinquedos(): Tela {
     guardados += 1;
     contas.agora(guardados < BRINQUEDOS.length ? guardados : -1);
     sininho(0.2);
-    ajuda.reset();
+    guia.passo();
     if (guardados >= BRINQUEDOS.length) void fim();
   };
 
@@ -123,12 +122,10 @@ export function telaBrinquedos(): Tela {
     const [x0, y0] = NO_CHAO[b.id]!;
     const onde = lugarPerto(x0 + dx, y0 + dy, CASA, ALCANCE);
     const { vai, certo } = destinoDoBrinquedo(b, onde);
-    pararGesto();
-    tela.mao(null);
     if (!vai) {
       /* no chão: volta para onde estava, e dá para levar de novo */
       toc(300, 0.08);
-      ajuda.tentativa();
+      guia.ajuda.tentativa();
       return false;
     }
     ocupado = true;
@@ -159,43 +156,42 @@ export function telaBrinquedos(): Tela {
     arrastavel(svg, g, (dx, dy) => soltar(b, g, dx, dy));
   });
 
-  /* a ajuda: a mãozinha pega o próximo brinquedo e leva até a casa dele; no A2, ele vai sozinho */
+  /* a ajuda: a mãozinha pega o próximo brinquedo e leva, com ele junto, até a
+     casa dele (logo na entrada, depois da voz, e de novo parada); no A2, ele vai sozinho */
   const proximo = (): Brinquedo | null => BRINQUEDOS.find((b) => noChao.has(b.id)) ?? null;
-  const mostrar = () => {
-    pararGesto();
-    const b = proximo();
-    if (!b) return;
-    const [x, y] = NO_CHAO[b.id]!;
-    const [cx, cy] = CASA[b.lugar];
-    pararGesto = gesto(tela, [[x + 10, y + 10], [(x + cx) / 2 + 10, (y + cy) / 2 + 10], [cx + 10, cy + 10]], 520);
-    acenderCasa(b.lugar, 2000);
-  };
-  const ajuda = new Ajuda((n) => {
-    if (n >= 1 && !ocupado) mostrar();
+  const fala = esperar(900).then(async () => {
+    if (vivo && temVoz('brinquedos_comeca')) await falar('brinquedos_comeca');
+  });
+  const guia = guiar(tela, {
+    /* os brinquedos ainda estão aparecendo no tapete */
+    atraso: 1400,
+    depoisDe: fala,
+    proximo: () => {
+      const b = ocupado ? null : proximo();
+      const el = b && svg.querySelector(`[data-brinq="${b.id}"]`);
+      if (!b || !el) return null;
+      acenderCasa(b.lugar, 2600);
+      return { tipo: 'arrastar', de: NO_CHAO[b.id]!, ate: CASA[b.lugar], levar: el };
+    },
   });
   let vez = 0;
-  relogioDeAjuda(tela, (dt) => {
-    ajuda.tick(dt);
-    if (ajuda.nivel < 2 || ocupado || !vivo) return;
+  relogioDeAjuda(tela, () => {
+    if (guia.ajuda.nivel < 2 || ocupado || !vivo) return;
     vez += 1;
     if (vez % 3) return;
     const b = proximo();
     const el = b && (svg.querySelector(`[data-brinq="${b.id}"]`) as SVGGElement | null);
     if (b && el) {
+      /* a mãozinha solta o brinquedo antes: ele vai sozinho do lugar dele */
+      guia.parar();
       ocupado = true;
       void entrar(b, el).then(() => (ocupado = false));
     }
   });
-  const tocou = () => {
-    ajuda.tocou();
-    pararGesto();
-    tela.mao(null);
-  };
-  svg.addEventListener('pointerdown', tocou);
-  tela.aoDestruir(() => svg.removeEventListener('pointerdown', tocou));
 
   /* o tapete limpo: a família vem sentar, o gatinho deita no meio */
   const fim = async () => {
+    guia.calar();
     travar(3000);
     lira(67, undefined, 0.3);
     const fam = svg.querySelector('.familia') as SVGGElement;
@@ -215,6 +211,5 @@ export function telaBrinquedos(): Tela {
   };
 
   contas.agora(0);
-  void esperar(900).then(() => vivo && temVoz('brinquedos_comeca') && falar('brinquedos_comeca'));
   return tela;
 }

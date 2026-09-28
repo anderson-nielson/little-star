@@ -99,6 +99,22 @@ function imagemDe(svgInterno: string, w: number, h: number): HTMLImageElement {
   return img;
 }
 
+/** O mesmo desenho da mãozinha das telas em svg, para o canvas. Feito na hora: nos testes não há Path2D. */
+let maoFeita: Path2D | null = null;
+const MAO = () => (maoFeita ??= new Path2D('M-6 26V2a3.2 3.2 0 0 1 6.4 0v10l2.6-1.4a3 3 0 0 1 4.4 2.2v1.4l2.2-.6a2.8 2.8 0 0 1 3.6 2.6V26z'));
+
+/**
+ * Quanto a mãozinha está apertando, pelo tempo até o obstáculo chegar nela:
+ * paira, desce e toca bem na hora do pulo, e sobe de novo. É a hora certa
+ * do toque, mostrada, não dita.
+ */
+export function apertoDaMao(ate: number): number {
+  if (ate > 0.85 || ate < 0.2) return 0;
+  if (ate > 0.6) return (0.85 - ate) / 0.25;
+  if (ate > 0.4) return 1;
+  return (ate - 0.2) / 0.2;
+}
+
 /** onde fica a porta de casa no caminho */
 const CASA = -0.2;
 
@@ -172,7 +188,16 @@ export function telaJardim(): Tela {
   let queda: { inicio: number; tipo: Tipo } | null = null;
   let comCoelho = false;
   let vivo = true;
-  const ajuda = new Ajuda();
+  /* a mãozinha à vista: na entrada (o primeiro obstáculo), quando a ajuda sobe
+     e a cada 6 s parada; tocar tira */
+  let maoAVista = false;
+  const ajuda = new Ajuda((n) => {
+    if (n >= 1) maoAVista = true;
+  });
+  /* a entrada: no primeiro obstáculo a mãozinha toca na hora certa e ela pula,
+     para ver que o toque faz pular; tocar antes disso passa a vez para ela */
+  let entrada = true;
+  let parada = 0;
   let perdidos = 0;
 
   const tempo = () => audio.agora() - tInicio;
@@ -208,7 +233,12 @@ export function telaJardim(): Tela {
     }
     if (!audio.pronto) void audio.tentarDestravar();
     ajuda.tocou();
-    const agora = tempo();
+    entrada = false;
+    maoAVista = false;
+    parada = 0;
+    pular(tempo());
+  };
+  const pular = (agora: number) => {
     if (!andando() || caida(agora) || (pulo && agora < pulo.fim)) return;
     const prox = obst.find((o) => !o.resolvido && (o.p - d) * sentido > -0.03);
     const ate = prox ? ((prox.p - d) * sentido) / v : null;
@@ -491,20 +521,6 @@ export function telaJardim(): Tela {
       const x = sx(o.p);
       if (x < -80 || x > W + 80) continue;
       obstaculo(o, x, ch);
-      /* ajuda A1: a mãozinha no obstáculo seguinte */
-      const ate = ((o.p - d) * sentido) / v;
-      if (ajuda.nivel >= 1 && !o.resolvido && ate < 2.5 && ate > 0.2 && andando()) {
-        ctx.save();
-        ctx.translate(x - 6, ch - 80);
-        ctx.fillStyle = '#f6e3dc';
-        ctx.strokeStyle = '#4f6b3a';
-        ctx.lineWidth = 1.6;
-        const p = new Path2D('M-6 26V2a3.2 3.2 0 0 1 6.4 0v10l2.6-1.4a3 3 0 0 1 4.4 2.2v1.4l2.2-.6a2.8 2.8 0 0 1 3.6 2.6V26z');
-        ctx.globalAlpha = 0.5 + 0.5 * Math.abs(Math.sin(t * 3));
-        ctx.fill(p);
-        ctx.stroke(p);
-        ctx.restore();
-      }
     }
     /* a Stella */
     const hS = H * JARDIM.alturaDaStella;
@@ -595,6 +611,45 @@ export function telaJardim(): Tela {
       ctx.fill(new Path2D(CENTELHA));
       ctx.restore();
     }
+    /* a mãozinha no obstáculo seguinte, por cima de tudo: paira e toca na hora do pulo */
+    const prox = obst.find((o) => !o.resolvido && (o.p - d) * sentido > -0.03);
+    if (prox && andando() && (maoAVista || entrada)) {
+      const ate = ((prox.p - d) * sentido) / v;
+      if (ate < 3.2 && ate > 0.15) {
+        const x = Math.max(30, Math.min(W - 30, sx(prox.p)));
+        /* A2: o obstáculo acende também */
+        if (ajuda.nivel >= 2) {
+          ctx.strokeStyle = '#c6a15b';
+          ctx.lineWidth = 2.5;
+          ctx.globalAlpha = 0.5 + 0.5 * Math.abs(Math.sin(t * 3));
+          ctx.beginPath();
+          ctx.ellipse(x, ch - 6, 48, 24, 0, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.globalAlpha = 1;
+        }
+        const k = apertoDaMao(ate);
+        /* o toque: uma ondinha de luz embaixo do dedo */
+        if (k > 0.9) {
+          ctx.strokeStyle = '#ebd9a8';
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.ellipse(x, ch - 48, 16, 6, 0, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+        ctx.save();
+        /* a ponta do dedo fica em (-2.8, -1.2) do desenho */
+        ctx.translate(x + 3.6, ch - 92 + k * 40 + (k === 0 ? Math.sin(t * 4) * 3 : 0));
+        ctx.scale(1.3, 1.3);
+        ctx.globalAlpha = Math.min(1, (3.2 - ate) / 0.4);
+        ctx.fillStyle = '#f6e3dc';
+        ctx.strokeStyle = '#4f6b3a';
+        ctx.lineWidth = 1.4;
+        ctx.lineJoin = 'round';
+        ctx.fill(MAO());
+        ctx.stroke(MAO());
+        ctx.restore();
+      }
+    }
   }
 
   /* ---------- simulação ---------- */
@@ -614,11 +669,19 @@ export function telaJardim(): Tela {
       d += sentido * v * dt;
       passo = (passo + dt * JARDIM.passadas) % 1;
     }
+    if (entrada && fase === 'ida' && !pulo && !caida(t)) {
+      /* na entrada, o toque da mãozinha faz ela pular de verdade */
+      const prox = obst.find((o) => !o.resolvido);
+      const ate = prox ? (prox.p - d) / v : Infinity;
+      if (ate <= 0.45 && ate > 0.2) pular(t);
+    }
     if (fase === 'ida' || fase === 'volta') {
       for (const o of obst) {
         /* um tiquinho de folga depois da borda: o dedo da criança atrasa */
         if (o.resolvido || (d - o.p) * sentido < 0.035) continue;
         o.resolvido = true;
+        /* a entrada é só o primeiro obstáculo: dali em diante, o toque é dela */
+        entrada = false;
         if (noAr(t) || o.viraFolha) {
           sininho(0.2);
           perdidos = Math.max(0, perdidos - 1);
@@ -688,7 +751,11 @@ export function telaJardim(): Tela {
     requestAnimationFrame(laco);
   });
   const tique = window.setInterval(() => {
-    if (andando()) ajuda.tick(1);
+    if (!andando()) return;
+    ajuda.tick(1);
+    /* parada, a mãozinha volta a cada 6 s, e fica até ela tocar */
+    parada += 1;
+    if (parada % 6 === 0) maoAVista = true;
   }, 1000);
   limpezas.push(() => window.clearInterval(tique));
 

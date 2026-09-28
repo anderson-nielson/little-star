@@ -1,5 +1,7 @@
-import { mover, telaSvg } from './comum';
+import { convidarParaCasa, mover, telaSvg } from './comum';
+import { botaoPronto, guiar } from './guia';
 import { estado } from '@/core/estado';
+import { sessao } from '@/core/sessao';
 import { esperar } from '@/core/util';
 import { Ajuda } from '@/core/ajuda';
 import { familia } from '@/puppet/boneco';
@@ -25,6 +27,12 @@ const PRETAS: [number, number][] = [
  * O piano rosa: livre (cada tecla toca o piano de verdade, as bonecas dançam)
  * e seguir a estrelinha (uma centelha pula para a próxima tecla e espera).
  * Tecla "errada" também soa bonita.
+ *
+ * Sozinha, ela nunca achava o seguir a estrelinha (nada mostrava que a
+ * partitura se toca) e só saía pela casinha. Agora a mãozinha toca uma tecla
+ * na entrada; parada, aponta a partitura, e o visto verde (aceso com a
+ * primeira tecla) comemora e volta para a casa. A música seguida até o fim
+ * continua acabando na casinha.
  */
 export function telaPiano(): Tela {
   const e = estado();
@@ -58,7 +66,35 @@ export function telaPiano(): Tela {
   let sequencia = musica(cancoes[0]!).notasMelodia.map((n) => TECLAS.indexOf(n.midi)).filter((i) => i >= 0);
   let seguindo = false;
   let passo = 0;
+  /* a ajuda do seguir: a tecla certa acende, depois a melodia anda sozinha (o tique lá embaixo) */
   const ajuda = new Ajuda();
+  let tocouTecla = false;
+  let acabou = false;
+  let apagarConvite: (() => void) | null = null;
+  const TECLA_GUIA = 3;
+  /* o visto à direita da partitura: longe das teclas, da casinha e das Opções */
+  const pronto = botaoPronto(tela, 318, 248, () => {
+    if (acabou) return;
+    acabou = true;
+    seguindo = false;
+    guia.calar();
+    luz.innerHTML = '';
+    tela.comemorar(195, 300);
+    void esperar(1400).then(() => tela.el.isConnected && void sessao.voltarParaCasa());
+  });
+  /* livre: a mãozinha toca uma tecla; já tocando, aponta a partitura; parada de novo, o visto.
+     Seguindo, a mãozinha toca a tecla da estrelinha. */
+  const guia = guiar(tela, {
+    atraso: 1000,
+    proximo: () => {
+      /* a música acabou: quem mostra agora é a casinha acesa */
+      if (apagarConvite) return null;
+      if (seguindo && passo < sequencia.length) return { tipo: 'tocar', em: [30 + sequencia[passo]! * tw + tw / 2, 640] };
+      if (!tocouTecla) return { tipo: 'tocar', em: [30 + TECLA_GUIA * tw + tw / 2, 640] };
+      if (pronto.aceso && guia.ajuda.nivel >= 2) return { tipo: 'apontar', em: pronto.onde };
+      return { tipo: 'tocar', em: [195, 246] };
+    },
+  });
 
   const mostrarProxima = () => {
     luz.innerHTML = '';
@@ -73,10 +109,10 @@ export function telaPiano(): Tela {
         mover(b, 0, -14, 300 + i * 80);
         void esperar(400 + i * 80).then(() => mover(b, 0, 0, 400));
       });
-      /* acabou a música: a mãozinha mostra o caminho de volta para a casa */
-      void esperar(2000).then(() => {
-        if (!seguindo) tela.mao([56, 66], 20);
-        void esperar(5000).then(() => !seguindo && tela.mao(null));
+      /* acabou a música: a casinha acende e a mãozinha mostra o caminho de volta */
+      guia.parar();
+      void esperar(800).then(() => {
+        if (!seguindo && !acabou && tela.el.isConnected) apagarConvite = convidarParaCasa(tela);
       });
       return;
     }
@@ -87,9 +123,13 @@ export function telaPiano(): Tela {
 
   tela.alvo('[data-alvo="partitura"]', () => {
     if (!audio.pronto) void audio.tentarDestravar();
+    if (acabou) return;
     seguindo = !seguindo;
     passo = 0;
     ajuda.reset();
+    guia.passo();
+    apagarConvite?.();
+    apagarConvite = null;
     sininho();
     mostrarProxima();
   });
@@ -108,8 +148,12 @@ export function telaPiano(): Tela {
         void esperar(160 + k * 30).then(() => mover(b, 0, 0, 260));
       });
       ajuda.tocou();
+      tocouTecla = true;
+      pronto.acender();
+      if (!seguindo) guia.passo();
       if (seguindo) {
         if (i === sequencia[passo]) {
+          guia.passo();
           passo += 1;
           ajuda.reset();
           mostrarProxima();
@@ -128,6 +172,9 @@ export function telaPiano(): Tela {
       r.setAttribute('fill', '#5a5a6a');
       void esperar(180).then(() => r.setAttribute('fill', '#3a3a4a'));
       ajuda.tocou();
+      tocouTecla = true;
+      pronto.acender();
+      if (!seguindo) guia.passo();
       if (seguindo) ajuda.tentativa();
     },
     true,

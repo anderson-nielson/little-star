@@ -1,4 +1,5 @@
-import { mover, telaSvg } from './comum';
+import { convidarParaCasa, mover, telaSvg } from './comum';
+import { guiar } from './guia';
 import { estado, mudar } from '@/core/estado';
 import { esperar } from '@/core/util';
 import { travar } from '@/core/toque';
@@ -79,6 +80,11 @@ function iconeEnfeite(x: number, y: number, e: Exclude<Enfeite, 'nenhum'>): stri
  * Stella bater palma; a Estrellita diz a cor em espanhol. Tocar na Stella dá a
  * mão para a boneca: é essa que vai junto nas aventuras (a centelha na estante
  * mostra qual).
+ *
+ * Sozinha, ela não descobria que a Stella dá a mão, e a brincadeira não
+ * acabava nunca. Agora a mãozinha mostra o caminho, um passo de cada vez:
+ * uma boneca da estante, um vestidinho, a Stella. A boneca vestida de mão dada
+ * com a Stella é o fim: centelhas, e a casinha acende.
  */
 export function telaBonecas(): Tela {
   let escolhida = Math.max(0, estado().companheira);
@@ -98,7 +104,7 @@ export function telaBonecas(): Tela {
   for (let i = 0; i < n; i++) s += `<g data-boneca="${i}"><circle cx="${xEstante(i)}" cy="190" r="36" fill="transparent"/><g class="desenho"></g></g>`;
   s += `</g><g class="marca"></g>`;
 
-  s += `<g class="cena"><g class="grande"></g><g class="stella"></g></g>`;
+  s += `<g class="luz-stella" style="pointer-events:none"></g><g class="cena"><g class="grande"></g><g class="stella"></g></g>`;
   s += `<g data-alvo="boneca"><ellipse cx="${BONECA_X}" cy="${CHAO - 105}" rx="62" ry="110" fill="transparent"/></g>`;
   s += `<g data-alvo="stella"><ellipse cx="${STELLA_X}" cy="${CHAO - 130}" rx="62" ry="135" fill="transparent"/></g>`;
 
@@ -117,7 +123,12 @@ export function telaBonecas(): Tela {
   const marca = svg.querySelector('.marca') as SVGGElement;
   const grande = svg.querySelector('.grande') as SVGGElement;
   const stella = svg.querySelector('.stella') as SVGGElement;
+  const luzStella = svg.querySelector('.luz-stella') as SVGGElement;
   let palmas = false;
+  /* os passos que ela já fez: escolheu outra boneca na estante, vestiu, acabou */
+  let escolheu = n <= 1;
+  let vestiu = false;
+  let acabou = false;
 
   const figurino = (i: number) => {
     const f = estado().figurinos[String(i)];
@@ -163,8 +174,46 @@ export function telaBonecas(): Tela {
     await fala;
   };
 
+  /* a mãozinha: uma boneca da estante (se tem mais de uma), um vestidinho que ela
+     ainda não usa, e a Stella; parada no passo da Stella, a Stella acende */
+  const guia = guiar(tela, {
+    atraso: 1200,
+    proximo: () => {
+      luzStella.innerHTML = '';
+      const e = estado();
+      if (!escolheu && !vestiu) {
+        /* outra boneca que não a de agora (nem a que já anda junto) */
+        const i = [...Array(n).keys()].find((k) => k !== escolhida && k !== e.companheira) ?? (escolhida + 1) % n;
+        return { tipo: 'tocar', em: [xEstante(i), 196] };
+      }
+      if (!vestiu) {
+        const i = Math.max(0, ROUPAS.findIndex((r) => r !== figurino(escolhida).roupa));
+        return { tipo: 'tocar', em: [XS[i]!, Y_ROUPA] };
+      }
+      if (e.companheira !== escolhida) {
+        if (guia.ajuda.nivel >= 2) luzStella.innerHTML = contornoLuz(STELLA_X, CHAO - 130, 66, 140);
+        return { tipo: 'tocar', em: [STELLA_X - 6, CHAO - 150] };
+      }
+      return null;
+    },
+  });
+  /* vestida e de mão dada com a Stella: é essa que vai junto, a brincadeira acabou */
+  const talvezAcabe = () => {
+    if (acabou || !vestiu || estado().companheira !== escolhida) return;
+    acabou = true;
+    guia.calar();
+    luzStella.innerHTML = '';
+    void esperar(900).then(() => {
+      if (!tela.el.isConnected) return;
+      tela.comemorar(BONECA_X, CHAO - 230);
+      convidarParaCasa(tela);
+    });
+  };
+
   tela.alvo('[data-boneca]', (_ev, el) => {
     escolhida = Number(el.getAttribute('data-boneca'));
+    escolheu = true;
+    guia.passo();
     lira(67 + escolhida * 2, undefined, 0.3);
     render();
     pulinho();
@@ -181,6 +230,9 @@ export function telaBonecas(): Tela {
     mudar((x) => void (x.companheira = vai ? escolhida : -1));
     if (vai) tela.comemorar((BONECA_X + STELLA_X) / 2 + 20, CHAO - 150);
     render();
+    luzStella.innerHTML = '';
+    guia.passo();
+    talvezAcabe();
   });
   const vestir = (mexe: (f: { roupa: string; cabelo: string; gorro: string }) => void) => {
     mudar((x) => {
@@ -192,6 +244,9 @@ export function telaBonecas(): Tela {
   tela.alvo('[data-roupa]', (_ev, el) => {
     const i = Number(el.getAttribute('data-roupa'));
     vestir((f) => void (f.roupa = ROUPAS[i]!));
+    vestiu = true;
+    guia.passo();
+    talvezAcabe();
     lira(72 + i * 2, undefined, 0.3);
     mover(el, 0, -4, 150);
     void esperar(170).then(() => mover(el, 0, 0, 250));
@@ -202,6 +257,9 @@ export function telaBonecas(): Tela {
     /* tocar no enfeite que ela já está usando tira da cabeça */
     const tira = (figurinoDe(figurino(escolhida)).enfeite ?? 'nenhum') === e;
     vestir((f) => void (f.gorro = tira ? 'nenhum' : e));
+    vestiu = true;
+    guia.passo();
+    talvezAcabe();
     lira(tira ? 67 : 76 + ENFEITES.indexOf(e) * 2, undefined, 0.3);
     mover(el, 0, -4, 150);
     void esperar(170).then(() => mover(el, 0, 0, 250));

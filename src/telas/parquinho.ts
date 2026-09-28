@@ -1,11 +1,11 @@
-import { mover, pedrinha, pedrinhasSobem, relogioDeAjuda, telaSvg, type TelaSvg } from './comum';
+import { convidarParaCasa, mover, pedrinha, pedrinhasSobem, telaSvg, type TelaSvg } from './comum';
+import { botaoPronto, guiar, type Pronto } from './guia';
 import { estado, mudar } from '@/core/estado';
 import { ir } from '@/core/roteador';
 import { sessao } from '@/core/sessao';
 import { ceuDaHora } from '@/core/relogio';
 import { esperar, pontoNoSvg, svgEl } from '@/core/util';
 import { reivindicarDedo, soltarDedo, travar } from '@/core/toque';
-import { Ajuda } from '@/core/ajuda';
 import { ganhar, PEDRINHAS } from '@/core/pedrinhas';
 import { anunciar } from '@/core/narracao';
 import { familia } from '@/puppet/boneco';
@@ -13,7 +13,7 @@ import { centelha, coelho, nuvem, pinheiro, veu } from '@/puppet/objetos';
 import { tocarFundo } from '@/audio/musica';
 import { falar, temVoz } from '@/audio/vozes';
 import { falarPalavra } from '@/audio/fala';
-import { aplauso, lira, PENTATONICA, sininho, tiquinho, toc } from '@/audio/synth';
+import { aplauso, lira, liraDesce, PENTATONICA, sininho, tiquinho, toc } from '@/audio/synth';
 import { AMPLITUDE_ALTA, AMPLITUDE_PARA_CONTAR, amplitude, anguloDoDedo, CONTA_ATE, empurrar, impulso, novaGangorra, novoBalanco, parado, passo, passoGangorra, peNoChao, soltar, type Balanco } from '@/core/parquinho';
 import type { Tela } from '@/core/roteador';
 
@@ -24,7 +24,11 @@ import type { Tela } from '@/core/roteador';
  * sozinha; na gangorra, que é para dois, o Theo fica na outra ponta. Quem
  * sobe, empurra e desce é sempre ela.
  * Três telas, uma por brinquedo; os outros dois aparecem pequenos na cena e
- * se tocam para ir. Nada é trancado, e a mãozinha aponta o próximo da volta.
+ * se tocam para ir. Nada é trancado.
+ * Sozinha, ela não sabia o que fazer em nenhum dos três, e nenhum acabava:
+ * agora a mãozinha toca o brinquedo logo na entrada (e de novo se ela parar),
+ * e depois da primeira vez o visto verde acende no céu, à direita: tocado,
+ * a palma vem e ela volta para casa (o guia, em guia.ts).
  */
 
 const CEU: Record<string, string> = { 'ceu-dia': '#dbe7ee', 'ceu-tarde': '#f3d9cf', 'ceu-noite': '#232a55' };
@@ -75,6 +79,28 @@ function escorregador(x: number, y: number, h: number): string {
 
 function gangorra(x: number, y: number, w: number, ang = -8): string {
   return `<path d="M${x - 12} ${y}L${x} ${y - 28}L${x + 12} ${y}z" fill="${TERRA}"/><g transform="rotate(${ang} ${x} ${y - 28})"><rect x="${x - w / 2}" y="${y - 34}" width="${w}" height="10" rx="5" fill="${MADEIRA}"/><path d="M${x - w / 2 + 14} ${y - 34}v-14M${x + w / 2 - 14} ${y - 34}v-14" stroke="${TERRA}" stroke-width="5" stroke-linecap="round"/><rect x="${x - w / 2 + 4}" y="${y - 40}" width="26" height="7" rx="3" fill="#f2a9c4"/><rect x="${x + w / 2 - 30}" y="${y - 40}" width="26" height="7" rx="3" fill="#f2a9c4"/></g>`;
+}
+
+/**
+ * O visto verde do parquinho: tocado, a palma e de volta para casa. Fica no
+ * céu à direita, longe da casinha, das Opções e dos brinquedos; no balanço,
+ * acima da trave (y 230); nos outros, mais baixo (y 290), para o cartão do
+ * anúncio aos pais, que desce do alto na primeira vez, não cobrir o visto.
+ */
+function prontoDoParquinho(tela: TelaSvg, y: number, aoAcabar: () => void): Pronto {
+  const x = 330;
+  let foi = false;
+  return botaoPronto(tela, x, y, () => {
+    if (foi) return;
+    foi = true;
+    aoAcabar();
+    travar(1200);
+    liraDesce();
+    tela.comemorar(x, y);
+    void esperar(900).then(() => {
+      if (tela.el.isConnected) void sessao.voltarParaCasa();
+    });
+  });
 }
 
 /* ---------- a palma quando ela brilha: a voz vem de fora da cena ---------- */
@@ -149,6 +175,7 @@ export function telaParquinho(): Tela {
   let conta = 0;
   let cheio = false;
   let ultimaPalma = 0;
+  let fezDez = false;
   let vivo = true;
   tela.aoDestruir(() => {
     vivo = false;
@@ -159,11 +186,24 @@ export function telaParquinho(): Tela {
     if (cabelo) cabelo.setAttribute('transform', `rotate(${(b.om * 9).toFixed(2)} ${hx.toFixed(1)} ${hy.toFixed(1)})`);
   };
 
-  /* a ajuda: com o balanço parado, a mãozinha vai para o escorregador, o próximo da volta dela */
-  const ajuda = new Ajuda((n) => {
-    if (n >= 1 && parado(b)) tela.mao([300, 560], 20);
+  /* o visto acende no primeiro empurrão: o balanço não acaba sozinho */
+  const pronto = prontoDoParquinho(tela, 230, () => guia.calar());
+  /* a mãozinha toca o assento, e o balanço sai de leve, como se fosse o toque:
+     antes ela ia para o escorregador e ninguém mostrava o balanço. Balançando
+     e parada de novo, aponta o visto */
+  const ASSENTO_MAO: [number, number] = [PIV[0], ASSENTO - 14];
+  const guia = guiar(tela, {
+    atraso: 1000,
+    proximo: () => {
+      if (pronto.aceso && (fezDez || guia.ajuda.nivel >= 2)) return { tipo: 'apontar', em: pronto.onde };
+      if (parado(b))
+        void esperar(300).then(() => {
+          /* baixinho: não chega a contar pedrinha, a conta é dela */
+          if (vivo && parado(b) && !arrasto) b.om = 0.35;
+        });
+      return { tipo: 'tocar', em: ASSENTO_MAO };
+    },
   });
-  relogioDeAjuda(tela, (dt) => ajuda.tick(dt));
 
   const umaPedrinha = () => {
     if (!contar || cheio) return;
@@ -205,6 +245,11 @@ export function telaParquinho(): Tela {
         g.innerHTML = '';
         conta = 0;
         cheio = false;
+        /* a primeira vez até dez é o fim natural: a casinha acende; pode seguir balançando */
+        if (!fezDez) {
+          fezDez = true;
+          convidarParaCasa(tela);
+        }
       })();
     }
   };
@@ -233,8 +278,6 @@ export function telaParquinho(): Tela {
     if (y < 320 || y > 700) return;
     if (!reivindicarDedo(ev.pointerId)) return;
     arrasto = { id: ev.pointerId, th0: b.th, t: performance.now(), vel: 0, moveu: false, x0: x };
-    ajuda.tocou();
-    tela.mao(null);
     try {
       svg.setPointerCapture(ev.pointerId);
     } catch {
@@ -261,6 +304,8 @@ export function telaParquinho(): Tela {
     soltarDedo(a.id);
     if (a.moveu) soltar(b, a.vel);
     else impulso(b);
+    pronto.acender();
+    guia.passo();
   };
   svg.addEventListener('pointerdown', baixo);
   svg.addEventListener('pointermove', move);
@@ -346,13 +391,21 @@ export function telaEscorregador(): Tela {
   };
   desenha();
 
-  /* a ajuda: parada no chão, a mãozinha mostra a escada; parada no alto, mostra ela mesma */
-  const ajuda = new Ajuda((n) => {
-    if (n < 1) return;
-    if (st.fase === 'chao' || st.fase === 'escada') tela.mao([EX + 30, st.pos[1] - 150], 0);
-    else if (st.fase === 'topo') tela.mao([EX + 80, EY - EH - 60], 30);
+  /* o visto acende depois da primeira descida: ela escorrega quantas vezes quiser */
+  const pronto = prontoDoParquinho(tela, 290, () => guia.calar());
+  /* a mãozinha toca o degrau de cima dela (subir) e, lá no alto, toca ela
+     (descer): antes nada mostrava isso na entrada. Já tendo descido e parada
+     de novo no chão, aponta o visto */
+  const guia = guiar(tela, {
+    atraso: 1000,
+    proximo: () => {
+      if (st.fase === 'topo') return { tipo: 'tocar', em: [EX + 38, EY - EH - 30] };
+      if (st.fase !== 'chao' && st.fase !== 'escada') return null;
+      if (pronto.aceso && guia.ajuda.nivel >= 2) return { tipo: 'apontar', em: pronto.onde };
+      const [, y] = posDegrau(Math.min(DEGRAUS, st.degrau + 1));
+      return { tipo: 'tocar', em: [EX, y + 10] };
+    },
   });
-  relogioDeAjuda(tela, (dt) => ajuda.tick(dt));
 
   laco(tela, (dt) => {
     if (st.fase === 'subindo' || st.fase === 'voltando') {
@@ -382,15 +435,14 @@ export function telaEscorregador(): Tela {
           st.de = [...st.pos] as [number, number];
           st.para = posDegrau(0);
           st.degrau = 0;
-          ajuda.reset();
+          pronto.acender();
+          guia.passo();
         })();
       }
     }
   });
 
   const tocou = () => {
-    ajuda.tocou();
-    tela.mao(null);
     if (st.fase === 'chao' || st.fase === 'escada') {
       st.degrau += 1;
       st.fase = 'subindo';
@@ -399,12 +451,14 @@ export function telaEscorregador(): Tela {
       st.para = posDegrau(st.degrau);
       lira(PENTATONICA[Math.min(PENTATONICA.length - 1, st.degrau)]!, undefined, 0.32);
       travar(420);
+      guia.passo();
     } else if (st.fase === 'topo') {
       st.fase = 'descendo';
       st.t = 0;
       /* o "uuuh" da descida: a lira descendo em escala */
       for (let i = 0; i < 7; i++) void esperar(150 + i * 160).then(() => vivo && lira(PENTATONICA[6 - i]!, undefined, 0.22));
       travar(1600);
+      guia.passo();
     } else tiquinho();
   };
   tela.alvo('[data-alvo="escada"]', tocou, true);
@@ -455,10 +509,17 @@ export function telaGangorra(): Tela {
     if (cabelo) cabelo.setAttribute('transform', `rotate(${(g.om * 6).toFixed(2)} ${hx.toFixed(1)} ${hy.toFixed(1)})`);
   };
   desenha();
-  const ajuda = new Ajuda((n) => {
-    if (n >= 1 && peNoChao(g)) tela.mao([GX - GL + 30, GY - 190], 0);
+  /* o visto acende na primeira subida: a gangorra não acaba sozinha */
+  const pronto = prontoDoParquinho(tela, 290, () => guia.calar());
+  /* a mãozinha toca a ponta dela da tábua (antes, só parada, e alto demais);
+     já tendo subido e parada de novo, aponta o visto */
+  const guia = guiar(tela, {
+    atraso: 1000,
+    proximo: () => {
+      if (pronto.aceso && guia.ajuda.nivel >= 2) return { tipo: 'apontar', em: pronto.onde };
+      return peNoChao(g) ? { tipo: 'tocar', em: [GX - GL + 40, GY - 70] } : null;
+    },
   });
-  relogioDeAjuda(tela, (dt) => ajuda.tick(dt));
 
   laco(tela, (dt) => {
     if (passoGangorra(g, dt)) toc(300, 0.12);
@@ -468,13 +529,13 @@ export function telaGangorra(): Tela {
   tela.alvo(
     '[data-alvo="tabua"]',
     () => {
-      ajuda.tocou();
-      tela.mao(null);
       if (!empurrar(g)) {
         tiquinho();
         return;
       }
       subidas += 1;
+      pronto.acender();
+      guia.passo();
       for (let i = 0; i < 4; i++) void esperar(i * 90).then(() => vivo && lira(PENTATONICA[i + 1]!, undefined, 0.24));
       if (subidas % 5 === 0) {
         if (subidas === 5) anunciar('gangorra');

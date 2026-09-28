@@ -1,10 +1,11 @@
 import { convidarParaCasa, mover, telaSvg } from './comum';
+import { guiar, type Gesto } from './guia';
 import { estado, mudar, type Quem } from '@/core/estado';
 import { carimbosDoBilhete } from '@/core/laco';
 import { esperar } from '@/core/util';
 import { travar } from '@/core/toque';
 import { familia } from '@/puppet/boneco';
-import { arco, veu } from '@/puppet/objetos';
+import { arco, contornoLuz, veu } from '@/puppet/objetos';
 import { tocarFundo } from '@/audio/musica';
 import { falar, temVoz } from '@/audio/vozes';
 import { falarSomDaLetra } from '@/audio/fonemas';
@@ -20,6 +21,11 @@ const MAXIMO = 8;
  * carimbos. Ela toca nos carimbos, as letras vão para o papel rosa, e entrega para a mãe, o pai ou o Theo, que
  * lê em voz alta o que ela "escreveu", mesmo que seja SSTAEL. Os bilhetes
  * ficam guardados e os pais veem no cantinho.
+ *
+ * Sozinha, ela carimbava e não sabia que o bilhete se entrega: nada mostrava
+ * que a família recebe. Agora a mãozinha toca num carimbo na entrada; com a
+ * primeira letra no papel, a família acende e a mãozinha, se ela parar, toca
+ * na mãe. Com o papel cheio, mostra a mãe na hora.
  */
 export function telaBilhete(): Tela {
   const e = estado();
@@ -37,6 +43,8 @@ export function telaBilhete(): Tela {
   });
   s += `</g>`;
   /* para quem: a mãe, o pai e o Theo esperam embaixo */
+  /* a luz da família, acesa só quando já tem o que entregar */
+  s += `<g class="luz-familia" style="pointer-events:none;opacity:0;transition:opacity 400ms">${contornoLuz(80, 680, 52, 60)}${contornoLuz(195, 680, 54, 62)}${contornoLuz(310, 690, 48, 54)}</g>`;
   s += `<g data-para="mae"><circle cx="80" cy="690" r="46" fill="transparent"/>${familia.mae(80, 740, 120).svg}</g>`;
   s += `<g data-para="pai"><circle cx="195" cy="690" r="46" fill="transparent"/>${familia.pai(195, 740, 126).svg}</g>`;
   s += `<g data-para="theo"><circle cx="310" cy="700" r="46" fill="transparent"/>${familia.theo(310, 742, 96).svg}</g>`;
@@ -45,10 +53,23 @@ export function telaBilhete(): Tela {
   tocarFundo('preludio_bach');
   const textoEl = svg.querySelector('.texto') as SVGTextElement;
   let entregue = false;
+  const luzFamilia = svg.querySelector('.luz-familia') as SVGGElement;
+  const acenderFamilia = () => {
+    luzFamilia.style.opacity = texto && !entregue ? '1' : '0';
+  };
+  /* sem letra, a mãozinha toca num carimbo; com letra, toca na mãe: o bilhete se entrega */
+  const noCarimbo: Gesto = { tipo: 'tocar', em: [70, 366] };
+  const naMae: Gesto = { tipo: 'tocar', em: [80, 668] };
+  const guia = guiar(tela, {
+    atraso: 1000,
+    proximo: () => (entregue ? null : texto ? naMae : noCarimbo),
+  });
 
   tela.alvo('[data-carimbo]', (_ev, el) => {
     if (entregue || texto.length >= MAXIMO) {
       toc(400, 0.1);
+      /* o papel está cheio: a mãozinha mostra para quem entregar, sem esperar */
+      if (!entregue) guia.mostrar();
       return;
     }
     const l = el.getAttribute('data-carimbo')!;
@@ -59,6 +80,9 @@ export function telaBilhete(): Tela {
     mover(el, 0, -4, 120);
     void esperar(140).then(() => mover(el, 0, 0, 240));
     void falarSomDaLetra(l);
+    acenderFamilia();
+    guia.passo();
+    if (texto.length >= MAXIMO) void esperar(700).then(() => guia.mostrar());
   });
   /* tocar no papel tira a última letra */
   tela.alvo('[data-alvo="papel"]', () => {
@@ -66,6 +90,7 @@ export function telaBilhete(): Tela {
     texto = texto.slice(0, -1);
     textoEl.textContent = texto;
     toc(300, 0.12);
+    acenderFamilia();
   });
   tela.alvo('[data-para]', async (_ev, el) => {
     if (entregue || !texto) {
@@ -73,6 +98,8 @@ export function telaBilhete(): Tela {
       return;
     }
     entregue = true;
+    guia.calar();
+    acenderFamilia();
     const quem = el.getAttribute('data-para') as Quem;
     travar(6000);
     const papel = svg.querySelector('.papel') as SVGGElement;

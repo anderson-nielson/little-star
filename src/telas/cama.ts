@@ -1,5 +1,6 @@
 import { mover, puxavel, quadroDePassos, relogioDeAjuda, telaSvg } from './comum';
-import { coelhinhoDePano, entrarNoCuidado, gesto, terminarCuidado, ursinho } from './cuidados';
+import { coelhinhoDePano, entrarNoCuidado, terminarCuidado, ursinho } from './cuidados';
+import { demonstrar, type Ponto } from './guia';
 import { estado } from '@/core/estado';
 import { AFOFADAS, alisar, foiLongeOBastante, PASSOS, type PassoDaCama } from '@/core/cuidados';
 import { Ajuda } from '@/core/ajuda';
@@ -180,26 +181,72 @@ export function telaCama(): Tela {
     if (p === 'coberta') l += contornoLuz(300, 470, 46, 56);
     luz.innerHTML = l;
   };
+  /* a mãozinha puxa e o pano vem junto com ela (o lençol estica, a coberta
+     sobe); quando ela some, o pano escorrega de volta, como se ninguém tivesse puxado */
+  const puxando = (pontos: Ponto[], vale: () => boolean, seguir: (x: number) => void, voltar: () => void) =>
+    demonstrar(
+      {
+        ...tela,
+        mao: (p, rot, firme) => {
+          tela.mao(p, rot, firme);
+          if (!vale()) return;
+          if (p) seguir(p[0] - 6);
+          else voltar();
+        },
+      },
+      { tipo: 'caminho', pontos },
+    );
+  const lencolSolto = () => passo() === 'lencol' && !esticado && !ocupado;
+  const cobertaSolta = () => passo() === 'coberta' && !ocupado;
   const mostrar = () => {
     pararGesto();
     const p = passo();
-    if (p === 'lencol' && !esticado) pararGesto = gesto(tela, [[84, 486], [150, 486], [220, 486], [290, 486]], 420);
-    else if (p === 'lencol') pararGesto = gesto(tela, [[80, 486], [130, 486], [180, 486], [240, 486]]);
-    else if (p === 'coberta') pararGesto = gesto(tela, [[312, 490], [260, 490], [200, 490], [150, 490]], 420);
+    if (p === 'lencol' && !esticado)
+      pararGesto = puxando(
+        [[84, 486], [150, 486], [220, 486], [290, 486]],
+        lencolSolto,
+        (x) => {
+          const f = Math.max(0, Math.min(1, (x - 84) / 236));
+          lencol(EMBOLADO + (1 - EMBOLADO) * f, 0);
+          amarrotado.style.transition = 'none';
+          amarrotado.style.opacity = String(Math.max(0, 1 - f * 1.6));
+        },
+        () => {
+          lencol(EMBOLADO, 500);
+          amarrotado.style.transition = 'opacity 500ms';
+          amarrotado.style.opacity = '1';
+        },
+      );
+    else if (p === 'lencol') pararGesto = demonstrar(tela, { tipo: 'caminho', pontos: [[80, 486], [130, 486], [180, 486], [240, 486]] });
+    else if (p === 'coberta')
+      pararGesto = puxando(
+        [[312, 490], [260, 490], [200, 490], [150, 490]],
+        cobertaSolta,
+        (x) => dobrar(DOBRADA + (1 - DOBRADA) * Math.max(0, Math.min(1, (304 - x) / 164)), 0),
+        () => dobrar(DOBRADA, 500),
+      );
     else {
       const it = pendentes()[0];
       if (it) {
         const [x, y] = pos(it);
-        tela.mao([x + 12, y + 12]);
+        pararGesto = demonstrar(tela, { tipo: 'tocar', em: [x, y - (it === 'travesseiro' || it === 'bola' ? 0 : 12)] });
       }
     }
   };
   const VOZ: Record<PassoDaCama, string> = { tirar: 'cama_tirar', lencol: 'cama_lencol', coberta: 'cama_coberta', travesseiro: 'cama_travesseiro', bichinhos: 'cama_bichinhos' };
+  /* cada passo começa mostrando: a voz diz, e logo a mãozinha faz o gesto de
+     verdade (puxa o pano junto, toca o que sai), se ela ainda não começou */
+  let toques = 0;
   const comecarPasso = () => {
     passos.agora(k);
     acender();
     const p = passo();
-    if (p && temVoz(VOZ[p])) void falar(VOZ[p]);
+    const este = k;
+    const antes = toques;
+    const fala = p && temVoz(VOZ[p]) ? falar(VOZ[p]) : null;
+    void Promise.all([fala, esperar(900)]).then(() => {
+      if (vivo && k === este && toques === antes && !ocupado) mostrar();
+    });
   };
   const concluir = async () => {
     ocupado = true;
@@ -239,6 +286,7 @@ export function telaCama(): Tela {
     }
   });
   const tocou = () => {
+    toques += 1;
     ajuda.tocou();
     pararGesto();
     tela.mao(null);

@@ -1,9 +1,9 @@
 import { convidarParaCasa, mover, pedrinhasSobem, relogioDeAjuda, telaSvg } from './comum';
+import { guiar } from './guia';
 import { ganhar, PEDRINHAS } from '@/core/pedrinhas';
 import { estado, mudar, type Semente } from '@/core/estado';
 import { espanholAtivo } from '@/core/laco';
 import { esperar } from '@/core/util';
-import { Ajuda } from '@/core/ajuda';
 import { travar } from '@/core/toque';
 import { familia } from '@/puppet/boneco';
 import { contornoLuz, veu } from '@/puppet/objetos';
@@ -22,6 +22,10 @@ type Fase = 'lavar' | 'misturar' | 'servir' | 'fim';
  * ela toca em cada um, que vai para a bacia, se lava e cai na tigela; depois
  * mexe com a colher; depois a família come o que ela fez. Cada comida diz
  * o nome em português e, quando o espanhol já entrou, a Estrellita diz o dela.
+ *
+ * Só a voz dizia o que fazer, e a troca para a colher passava despercebida.
+ * Agora a mãozinha toca o primeiro legume logo depois da mãe falar, e quando
+ * a tigela enche ela já vai tocar a colher.
  */
 export function telaCozinha(): Tela {
   const e = estado();
@@ -80,17 +84,24 @@ export function telaCozinha(): Tela {
     if (fase === 'misturar') return [300, 470];
     return null;
   };
-  const mostrarAjuda = (n: number) => {
-    luz.innerHTML = '';
-    tela.mao(null);
-    const p = proximoAlvo();
-    if (!p || n < 1) return;
-    luz.innerHTML = contornoLuz(p[0], p[1], 42, 42);
-    tela.mao([p[0] + 14, p[1] + 20]);
-  };
-  const ajuda = new Ajuda(mostrarAjuda);
-  relogioDeAjuda(tela, (dt) => {
-    ajuda.tick(dt);
+  /* a pergunta da mãe; a mãozinha mostra o legume logo depois */
+  const pergunta = esperar(600).then(async () => {
+    if (temVoz('cozinha_lavar')) await falar('cozinha_lavar');
+  });
+  /* a mãozinha toca o que é a vez (legume, depois a colher), e ele acende */
+  const guia = guiar(tela, {
+    depoisDe: pergunta,
+    proximo: () => {
+      luz.innerHTML = '';
+      const p = ocupado ? null : proximoAlvo();
+      if (!p) return null;
+      luz.innerHTML = contornoLuz(p[0], p[1], 42, 42);
+      return { tipo: 'tocar', em: [p[0], p[1] + 6] };
+    },
+  });
+  const ajuda = guia.ajuda;
+  svg.addEventListener('pointerdown', () => (luz.innerHTML = ''));
+  relogioDeAjuda(tela, () => {
     /* A2: a mãe faz junto */
     if (ajuda.nivel >= 2 && !ocupado && vivo) {
       if (fase === 'lavar') {
@@ -116,8 +127,7 @@ export function telaCozinha(): Tela {
     if (ocupado || fase !== 'lavar' || g.hasAttribute('data-feito')) return;
     ocupado = true;
     g.setAttribute('data-feito', '1');
-    ajuda.tocou();
-    ajuda.reset();
+    guia.passo();
     const id = g.getAttribute('data-ing')!;
     const x = Number(g.getAttribute('data-x'));
     travar(1500);
@@ -139,12 +149,14 @@ export function telaCozinha(): Tela {
       if (temVoz('cozinha_misturar')) void falar('cozinha_misturar');
     }
     ocupado = false;
+    /* a tigela encheu: a mãozinha já mostra a colher, sem esperar ela parar */
+    if (fase === 'misturar' && vivo) guia.mostrar();
   };
 
   const mexer = async () => {
     if (ocupado || fase !== 'misturar') return;
     ocupado = true;
-    ajuda.tocou();
+    guia.passo();
     mexidas += 1;
     const colher = svg.querySelector('[data-alvo="colher"]') as SVGGElement;
     mover(colher, -30, 30, 250);
@@ -165,6 +177,7 @@ export function telaCozinha(): Tela {
 
   const servir = async () => {
     fase = 'fim';
+    guia.calar();
     travar(5000);
     /* o prato dela vai para a mesinha do Theo; a família come */
     const prato = svg.querySelector('.prato-final') as SVGGElement;
@@ -200,7 +213,6 @@ export function telaCozinha(): Tela {
 
   tela.alvo('[data-ing]', (_ev, el) => void lavar(el as SVGGElement));
   tela.alvo('[data-alvo="colher"]', () => void mexer());
-  void esperar(600).then(() => temVoz('cozinha_lavar') && falar('cozinha_lavar'));
   tela.aoDestruir(() => pararFundo());
   return tela;
 }
