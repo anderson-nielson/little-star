@@ -659,9 +659,15 @@ acontece onde ela caiu, ela nada de volta até onde estava, sobe, sacode e tenta
 perder nada.
 
 ### 12.4 O Palco
-Cortina de veludo, luz de ribalta. A Stella dança com a música da aventura; tocar faz ela
-girar ou pular (sempre dá certo). Plateia: mãe, pai, Theo e as bonecas. Reverência, aplauso,
-abraço na coxia, volta para casa.
+Cortina de veludo, luz de ribalta. Plateia: mãe, pai, Theo e as bonecas. Dois jeitos:
+
+- **A brincadeira** (as sapatilhas na parede do quarto): na ribalta, um botão para cada passo
+  com a Stella desenhada na pose (plié, relevé, arabesque, pirueta); tocar no palco é o
+  salto. Sempre dá certo. A cada oito passos a família bate palma e vem a música seguinte da
+  playlist (Fada Açucarada, Valsa das Flores, Cisnes, Marcha). O visto fecha o show:
+  reverência, aplauso, abraço na coxia.
+- **O fecho** de toda aventura: ela dança sozinha uma coreografia curta com os mesmos passos,
+  reverência, aplauso, a boneca nova na estante, abraço, volta para casa. Uns vinte segundos.
 
 ### 12.5 Generosidade das aventuras
 - O pulo **procura** o obstáculo: um toque até 0,7 s antes ainda vira o pulo certo.
