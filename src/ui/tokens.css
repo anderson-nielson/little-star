@@ -92,7 +92,7 @@
   --coluna: 430px;
   /* o cabeçalho: a casinha à esquerda, o balãozinho e o menu à direita, todos com o
      centro na mesma linha (y 44 do cabeçalho) e a mesma margem até a borda. Os botões
-     da direita são do adulto: pílulas de 44 px de altura, o mínimo de um alvo de toque comum. */
+     da direita são do adulto: discos de 44 px, o mínimo de um alvo de toque comum. */
   --topo-linha: 44px;
   --topo-margem: 16px;
   --topo-botao: 44px;

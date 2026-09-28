@@ -59,7 +59,7 @@ export interface Opcoes {
   trocarTela: (nome: string, params: Record<string, string>) => void;
   aberto: () => boolean;
   fechar: () => void;
-  /** a linha da direita do cabeçalho, onde o balão recolhido se põe ao lado de "Opções" */
+  /** a linha da direita do cabeçalho, onde o balão recolhido se põe ao lado das opções */
   linha: HTMLElement;
 }
 
@@ -67,9 +67,12 @@ export interface Opcoes {
 const SEM_SOM = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
 
 /**
- * A pílula "Opções", no canto de cima à direita, em todas as telas do jogo. É
- * uma palavra e não um ícone de propósito: o adulto lê e entende na hora, e para
- * a Stella, que não lê, é uma forma sem desenho, que chama pouco o dedo. Ela
+/** as três linhas do menu, o ícone que todo adulto já conhece */
+const MENU = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
+
+/**
+ * O botão das opções (três linhas), no canto de cima à direita, em todas as
+ * telas do jogo. Ele
  * abre um painel que corre da direita para a esquerda, para quem joga junto:
  * o que é esta tela e o que fazer nela, o som, o balão de leitura, a tela
  * cheia, a versão e a busca por uma versão nova, e o caminho para o cantinho
@@ -77,7 +80,7 @@ const SEM_SOM = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4
  */
 export function montarOpcoes(app: HTMLElement, irParaPais: () => void): Opcoes {
   const selo = h('span', { class: 'opcoes-selo', html: SEM_SOM });
-  const botao = h('button', { type: 'button', class: 'opcoes-botao', 'aria-label': 'Opções e ajuda', 'aria-expanded': 'false' }, 'Opções');
+  const botao = h('button', { type: 'button', class: 'opcoes-botao', 'aria-label': 'Opções e ajuda', 'aria-expanded': 'false', html: MENU });
   botao.appendChild(selo);
   const linhaDoTopo = h('div', { class: 'opcoes-linha' }, botao);
   const veu = h('div', { class: 'opcoes-veu' });

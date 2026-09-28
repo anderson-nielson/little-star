@@ -607,3 +607,14 @@ Ficou a das palavras.
 
 Arquivos: `src/puppet/objetos.ts`, `src/telas/comum.ts`, `src/ui/opcoes.ts`, `src/ui/balao.ts`,
 `src/ui/base.css`, `src/ui/tokens.css`, `src/telas/casa.ts`, `src/main.ts`, `SPEC.md`, `GAMEPLAY.md`.
+
+## Um ícone para cada ação, sem palavras
+
+As pílulas "Ler frase" e "Opções" não ficaram boas no jogo: texto no alto de uma tela toda
+desenhada pesava mais do que a ação pedia. Voltam os ícones, um para cada ação, no mesmo
+disco de 44 px da casinha: o balão de fala para ler a frase e as três linhas para as opções.
+Fica o que as pílulas trouxeram de bom: a linha só, as margens iguais e o contorno de 1,5 px
+no ouro escuro, que segura o contraste nos céus claros.
+
+Arquivos: `src/ui/opcoes.ts`, `src/ui/balao.ts`, `src/ui/base.css`, `src/ui/tokens.css`,
+`SPEC.md`, `GAMEPLAY.md`.

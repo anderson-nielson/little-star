@@ -141,8 +141,8 @@ aprende uma música. Toda tela usa só estes.
 | Mãozinha desenhada fazendo o gesto | Faça isso |
 | Estrela guia correndo por uma fita | O caminho é este |
 | A casinha verde, no canto de cima à esquerda, em toda tela | Volta para a casa, sempre, mesmo no meio de uma cena (na casa, só brilha) |
-| A pílula "Opções", no canto de cima à direita, em toda tela | Para o adulto: ajuda da tela, som, balão de leitura e o cantinho dos pais |
-| A pílula "Ler frase", ao lado de "Opções" | Tem uma frase guardada para ler para ela; um toque abre |
+| As três linhas (opções), no canto de cima à direita, em toda tela | Para o adulto: ajuda da tela, som, balão de leitura e o cantinho dos pais |
+| O balão de fala, ao lado das opções | Tem uma frase guardada para ler para ela; um toque abre |
 | Trilha de contas no alto, abaixo do cabeçalho | Quanto já foi (contas de ouro) e quanto falta; a estrelinha é a de agora |
 | A casinha acende e a mãozinha aponta para ela | Por hoje acabou; pode voltar para casa (ou continuar brincando) |
 | Sininho no tom da música | Deu certo |

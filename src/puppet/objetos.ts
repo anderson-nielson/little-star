@@ -42,9 +42,9 @@ export function nuvem(x: number, y: number, s: number): string {
 
 /**
  * A casinha verde: voltar para casa. Sempre no canto de cima à esquerda, com a
- * mesma margem (16) de cima e do lado que as pílulas da direita. O disco
+ * mesma margem (16) de cima e do lado que os botões da direita. O disco
  * desenhado tem 56 de diâmetro, no mesmo papel e no mesmo contorno de ouro escuro
- * (1,5) das pílulas do cabeçalho; o alvo do dedo continua com 72.
+ * (1,5) dos botões do cabeçalho; o alvo do dedo continua com 72.
  */
 export function casinha(x = 44, y = 44): string {
   const k = 0.8;
