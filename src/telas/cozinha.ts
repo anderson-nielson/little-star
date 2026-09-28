@@ -1,8 +1,7 @@
-import { mover, pedrinhasSobem, relogioDeAjuda, telaSvg } from './comum';
+import { convidarParaCasa, mover, pedrinhasSobem, relogioDeAjuda, telaSvg } from './comum';
 import { ganhar, PEDRINHAS } from '@/core/pedrinhas';
 import { estado, mudar, type Semente } from '@/core/estado';
 import { espanholAtivo } from '@/core/laco';
-import { ir } from '@/core/roteador';
 import { esperar } from '@/core/util';
 import { Ajuda } from '@/core/ajuda';
 import { travar } from '@/core/toque';
@@ -35,12 +34,17 @@ export function telaCozinha(): Tela {
   /* a janela, a prateleira, a bancada */
   s += `<rect x="130" y="60" width="130" height="90" rx="8" fill="#dbe7ee" stroke="#c6a15b" stroke-width="1.5"/><path d="M195 60v90M130 105h130" stroke="#c6a15b" stroke-width="1.5"/>`;
   s += `<rect x="30" y="250" width="330" height="8" rx="3" fill="#c9a189"/>`;
-  s += `<rect x="0" y="560" width="390" height="220" fill="#ebcdc3" opacity="0.6"/><rect x="20" y="540" width="350" height="24" rx="6" fill="#c9a189"/>`;
-  /* a mãe, o Theo sentado à mesa */
-  s += `<g class="mae">${familia.mae(60, 540, 250, 'segura').svg}</g>`;
-  s += `<g class="theo">${familia.theo(330, 700, 130, 'sentado', { dir: -1 }).svg}</g>`;
-  /* bacia, tigela e colher */
-  s += `<g class="bacia"><ellipse cx="150" cy="530" rx="46" ry="14" fill="#9fc3cf" stroke="#c6a15b" stroke-width="1.5"/><g class="bolhas"></g></g>`;
+  s += `<rect x="0" y="560" width="390" height="220" fill="#ebcdc3" opacity="0.6"/>`;
+  /* a mãe em pé atrás do balcão: o armário cobre as pernas dela */
+  s += `<g class="mae">${familia.mae(70, 652, 262, 'segura').svg}</g>`;
+  s += `<rect x="28" y="552" width="334" height="104" fill="#e3bfae"/><path d="M195 562v84" stroke="#c9a189" stroke-width="1.5"/><circle cx="185" cy="604" r="3" fill="#c9a189"/><circle cx="205" cy="604" r="3" fill="#c9a189"/>`;
+  s += `<rect x="20" y="540" width="350" height="16" rx="5" fill="#c9a189"/>`;
+  /* o Theo no banquinho, na mesinha onde o prato chega */
+  s += `<g class="theo">${familia.theo(348, 742, 130, 'sentado', { dir: -1 }).svg}</g>`;
+  s += `<rect x="332" y="722" width="36" height="8" rx="3" fill="#c9a189"/><path d="M338 730v42M362 730v42" stroke="#c9a189" stroke-width="5" stroke-linecap="round"/>`;
+  s += `<rect x="176" y="706" width="144" height="9" rx="4" fill="#c9a189"/><path d="M190 715v57M306 715v57" stroke="#c9a189" stroke-width="6" stroke-linecap="round"/>`;
+  /* bacia com água, tigela e colher */
+  s += `<g class="bacia"><path d="M104 522q46 34 92 0z" fill="#fbf8f1" stroke="#c6a15b" stroke-width="1.5"/><ellipse cx="150" cy="522" rx="46" ry="11" fill="#9fc3cf" stroke="#c6a15b" stroke-width="1.5"/><path d="M126 520q6 -4 12 0t12 0M154 525q6 -4 12 0" fill="none" stroke="#fbf8f1" stroke-width="1.5" stroke-linecap="round"/><g class="bolhas"></g></g>`;
   s += `<g class="tigela"><path d="M200 520q50 60 100 0z" fill="#fbf8f1" stroke="#c6a15b" stroke-width="1.5"/><ellipse cx="250" cy="520" rx="50" ry="12" fill="#f6f0e4" stroke="#c6a15b" stroke-width="1.5"/><g class="na-tigela"></g></g>`;
   s += `<g data-alvo="colher"><circle cx="300" cy="470" r="36" fill="transparent"/><path d="M300 470l30 -60" stroke="#c9a189" stroke-width="7" stroke-linecap="round"/><ellipse cx="298" cy="474" rx="12" ry="16" fill="#c9a189" transform="rotate(30 298 474)"/></g>`;
   /* a Estrellita na janela, quando o espanhol já entrou */
@@ -162,9 +166,9 @@ export function telaCozinha(): Tela {
   const servir = async () => {
     fase = 'fim';
     travar(5000);
-    /* o prato dela vai para a mesa; a família come */
+    /* o prato dela vai para a mesinha do Theo; a família come */
     const prato = svg.querySelector('.prato-final') as SVGGElement;
-    prato.innerHTML = `<ellipse cx="250" cy="600" rx="44" ry="14" fill="#f6f0e4" stroke="#c6a15b" stroke-width="1.5"/>${ingredientes.map((id, i) => figura(id, 232 + i * 12, 596, 22)).join('')}`;
+    prato.innerHTML = `<ellipse cx="248" cy="698" rx="44" ry="12" fill="#f6f0e4" stroke="#c6a15b" stroke-width="1.5"/>${ingredientes.map((id, i) => figura(id, 230 + i * 12, 694, 22)).join('')}`;
     prato.style.opacity = '0';
     prato.style.transition = 'opacity 600ms';
     requestAnimationFrame(() => (prato.style.opacity = '1'));
@@ -179,7 +183,7 @@ export function telaCozinha(): Tela {
       mover(theo, 0, 0, 260);
       await esperar(300);
     }
-    tela.comemorar(300, 560);
+    tela.comemorar(300, 680);
     if (temVoz('cozinha_pronto')) await falar('cozinha_pronto');
     mudar((x) => {
       x.comidinhas += 1;
@@ -188,9 +192,10 @@ export function telaCozinha(): Tela {
       x.registro.partes.cozinha = (x.registro.partes.cozinha ?? 0) + 1;
       ganhar(x, PEDRINHAS.comidinha, 'comidinha');
     });
-    pedrinhasSobem(tela, PEDRINHAS.comidinha, 250, 560);
-    await esperar(2500);
-    if (vivo) void ir('casa');
+    pedrinhasSobem(tela, PEDRINHAS.comidinha, 250, 680);
+    /* acabou: a casinha acende, e é ela quem decide quando sair */
+    await esperar(1500);
+    if (vivo) convidarParaCasa(tela);
   };
 
   tela.alvo('[data-ing]', (_ev, el) => void lavar(el as SVGGElement));
