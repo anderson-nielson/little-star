@@ -12,6 +12,14 @@ describe('o estado', () => {
     expect(e.hoje.brincadas).toEqual([]);
     expect(e.visitadas).toEqual([]);
   });
+  it('a mesa da estação guarda o que ela arrumou, e um save de antes dela começa vazia', () => {
+    expect(estadoNovo().mesa).toEqual([]);
+    const antigo = migrar({ versao: VERSAO_DO_SAVE, pinhas: [{ tipo: 1, x: 0.5, y: 0.5 }] } as unknown as Record<string, unknown>);
+    expect(antigo.mesa).toEqual([]);
+    expect(antigo.pinhas).toHaveLength(1);
+    const arrumada = migrar({ versao: VERSAO_DO_SAVE, mesa: [{ material: 'pedra', tipo: 2, x: 0.1, y: 0.9 }] } as unknown as Record<string, unknown>);
+    expect(arrumada.mesa).toEqual([{ material: 'pedra', tipo: 2, x: 0.1, y: 0.9 }]);
+  });
   it('cada tarefa vale uma vez por dia e nada se perde', () => {
     let e = estadoNovo(new Date(2026, 8, 1, 10));
     e = abrirDia(e, new Date(2026, 8, 1, 10));

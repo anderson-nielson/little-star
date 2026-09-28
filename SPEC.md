@@ -208,10 +208,10 @@ marionete por dados). Nada de copiar personagens, colagem ou estilo visual do de
 
 | Quem | Jeito | Onde aparece |
 |---|---|---|
-| **Stella** | 5 anos, pequena, loirinha, cabelo bem liso passando do ombro, solto no dia a dia e em coque no palco. Tutu rosa. | Tudo. |
+| **Stella** | 5 anos, pequena, cabelo cor de mel bem liso passando do ombro, repartido no meio com um lacinho no dia a dia e em coque no palco. Vestido rosa de flores; tutu no palco. | Tudo. |
 | **Mãe Andrea** | Aconchego. Recebe, abraça, cozinha junto, põe para dormir. | Porta, cozinha, hora de dormir, primeira fila do palco. |
 | **Pai Anderson** | Parceria e brincadeira. Gira a Stella no ar, ri junto. | Volta das aventuras, brinquedos, caderno, aplauso. |
-| **Theo** | 10 anos, o dobro da altura dela, cabelo castanho bem claro, quase loiro, muito cacheado. O irmão que está por perto. | Na porta, na roda (pergunta da gentileza), na mesa da cozinha, na plateia do palco, na outra ponta da gangorra, no relógio (pede uma hora) e no boa-noite. Não ensina, não segura e não resgata: quem faz é ela. |
+| **Theo** | 10 anos, uma vez e meia a altura dela, nuvem de cachos castanhos, camisa xadrez de baterista. O irmão que está por perto. | Na porta, na roda (pergunta da gentileza), na mesa da cozinha, na plateia do palco, na outra ponta da gangorra, no relógio (pede uma hora) e no boa-noite. Não ensina, não segura e não resgata: quem faz é ela. |
 
 **Como o amor aparece**, sempre sem texto:
 - **Abraço** tem animação própria: quem abraça se abaixa até a altura dela. Centelhas rosa e
@@ -290,9 +290,11 @@ subir é gostoso quando tem alguém perto.
   Cada pinha é um pouco diferente (comprida, redondinha, pequenininha, a grande da araucária)
   e ela toca para pegar e pôr na cestinha. O coelhinho cheira, o gatinho empurra com a pata.
 - **A mesa da estação.** No quarto, uma mesinha com um pano da cor da estação, como a mesa da
-  estação dos jardins Waldorf. As pinhas que ela cata vão para lá, e ela arruma do jeito que
-  quiser: em fila, em roda, em estrela. No outono ganham folhas, no inverno uma fitinha, no
-  Advento uma velinha ao lado.
+  estação dos jardins Waldorf. As pinhas que ela cata vão para lá, e junto uma bandeja com o
+  que mais ela junta lá fora: pedrinhas de rio, areia, barba de velho. Ela monta o que
+  quiser: uma fila de pinhas, uma roda de pedras, um caminho de areia, uma pinha com barba.
+  Fica tudo onde ela pôs. No outono a mesa ganha folhas, no inverno uma velinha, na primavera
+  flores, no verão uma concha.
 - **Pinha no caderno e na areia.** PINHA é palavra de destaque (tem o NH, que entra depois das
   primeiras), e em espanhol a Estrellita diz "piña". Na caixa de areia, uma pinha pode estar
   enterrada entre as letras.
@@ -685,7 +687,17 @@ Cortina de veludo, luz de ribalta. Plateia: mãe, pai, Theo e as bonecas. Dois j
 
 ## 13. Estética
 
-Mesmas formas do Ponta, com mais rosa, mais luz e mais tamanho.
+Mesmas formas do Ponta, com mais rosa, mais luz e mais tamanho, desenhadas com o pincel
+**Aquarela e Lápis** (escolhido em `docs/referencia/estilos.html` entre três propostas): a
+mancha de aquarela quase opaca e, por cima, um lápis de cor fino num tom escuro da própria
+cor, nunca preto, que falha e retoma como uma mão de verdade e pousa meio pixel fora da
+mancha, como num livro impresso antigo. O lápis tem sempre a mesma espessura na tela, no
+retrato grande ou na marionete pequena, e o grão do papel cobre a tela inteira. Tudo passa
+por `src/puppet/pincel.ts`; quanto menor a cabeça na tela, menos detalhe (o nariz some, o
+lápis afina). Toda cena em SVG passa por `aLapis()` ao nascer (`telaSvg`): cada forma
+preenchida ganha o contorno a lápis, os véus e os fundos ficam de fora. No canvas (o
+caderno, a areia, o jardim, o lago) o mesmo lápis é `formaNoCanvas()`. As copas são contornos
+ondulados (`copa`), as figuras das palavras têm o lápis dentro de `figura()`.
 
 **Mantido do Ponta**
 - Fio no lugar de caixa (1 a 2 px). Nenhum cartão com sombra, nenhum gradiente decorativo.
@@ -703,7 +715,8 @@ Mesmas formas do Ponta, com mais rosa, mais luz e mais tamanho.
   transparentes (opacidade 0,3 a 0,6) sobrepostas, pintadas uma vez num canvas de fundo que
   não se redesenha a cada quadro. Céu, paredes e grama são véus assim.
 - **Nada de contorno preto.** Traço é sempre `--luz`, `--ouro` ou um tom mais escuro da
-  própria cor. Já era assim no Ponta.
+  própria cor (o lápis do pincel: `escuro(cor)` mistura a cor com um marrom quente). Já era
+  assim no Ponta.
 - **Materiais naturais no desenho**: madeira, lã, feltro, algodão. Brinquedos do quarto são de
   madeira (arco-íris de encaixe, bloquinhos), as bonecas são **bonecas Waldorf de pano**, de
   rosto quase liso (dois pontos de olho, um fio de boca), o que casa com o rosto econômico
@@ -723,13 +736,20 @@ Mesmas formas do Ponta, com mais rosa, mais luz e mais tamanho.
   proibido porque significava erro; aqui não existe erro, e o vermelho é só a caixa dela. Proporção: musgo 35%, rosas 30%, dia e marfim 15%, noite
   (palco e noite) 8%, mata (jardim fundo) 4%, veludo 4%, ouro 4%. O `--mata` escuro do Ponta
   fica só para sombra de jardim e fundo de aventura.
-- **A Stella** é a do Ponta (pele `#F2D5BC`), mais loira e com proporção de 5 anos: cabeça
-  maior, pernas curtas, bochecha. Cabelo bem liso passando do ombro, desenhado como uma
-  cortina de fios que balança com o movimento (dois ou três paths com atraso, como o tutu do
-  Ponta). No palco, coque. Collant e tutu rosa.
-- **O Theo** tem o dobro da altura dela e cabelo castanho bem claro, quase loiro, muito
-  cacheado: um cacho feito de círculos agrupados, como o coque crespo da Paula no Ponta, só
-  que em volta da cabeça toda e mais solto.
+- **A Stella** tem proporção de 5 anos: cabeça maior, pernas curtas, bochecha. Pele dourada
+  (`--pele-stella`), cabelo cor de mel (`--cabelo-stella`), liso, repartido no meio e passando
+  do ombro, com um lacinho rosa de lado. Olhos de sorriso, sorriso grande com os dentes.
+  Vestido rosa de flores com manguinhas fofas. No palco, coque, collant e tutu rosa.
+- **O Theo** tem uma vez e meia a altura dela e uma nuvem de cachos castanhos com luz nas
+  pontas (`--cabelo-theo`, `--cabelo-theo-luz`), irregulares, com mechas na testa. Queixo
+  reto, sobrancelha grossa, olhos grandes abertos, sorriso largo, sem bochecha rosada: mais
+  menino. Camisa xadrez vinho aberta sobre camiseta escura, calção. É o baterista da casa.
+- **A mãe** é magra e elegante: cabelo castanho-escuro repartido de lado, em camadas até o
+  ombro, atrás de uma orelha, argolinha. Sorriso com os dentes. Vestido salmão pastel de gola.
+- **O pai** tem o cabelo curto e ralo em cima com as entradas, barba cheia grisalha com o sal
+  e pimenta a lápis, óculos redondos de aro fino, olhos de sorriso. Camiseta preta e jeans.
+- As quatro faces foram escolhidas em `docs/referencia/familia.html`, a partir das fotos da
+  família (que ficam fora do repositório).
 - **Tamanho**: a Stella ocupa uns 20% da altura da tela; objetos tocáveis têm pelo menos 72 px.
 - **Contraste**: tudo o que se toca tem contorno em `--luz` ou `--ouro` e um leve pulsar de
   opacidade quando a mãozinha aponta.
