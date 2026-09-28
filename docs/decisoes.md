@@ -664,6 +664,29 @@ Arquivos: `src/telas/pinhas.ts`, `src/puppet/objetos.ts` (`pedra`, `montinhoDeAr
 `barbaDeVelho`), `src/core/estado.ts` (`mesa`), `src/telas/casa.ts`,
 `src/data/ajuda-telas.json`, `tests/estado.test.ts`, `SPEC.md`, `GAMEPLAY.md`.
 
+## Palavras e figuras com desenho direto (setembro de 2026)
+
+O teste no celular: as figuras de gente (avó, ela) e a égua não se reconheciam; elefante,
+árvore e ovo sim. A regra que ficou: **toda palavra e toda figura do som tem um desenho que
+se reconhece de um olhar, em poucas formas**. O que mudou:
+
+- **Palavra de cada letra.** A: LUA (era AVÓ). E: MEIA (era ELA; o E é fechado, e a lista
+  de sons diz isso). L: LATA (era LUA). T: TATU (era LATA). O: MOLA (era OLÁ; ÔNIBUS seria
+  melhor, mas N e B não estão nas dez letras). I: IOIÔ (era LIMA, palavra rara). A regra de
+  no máximo uma consoante nova por palavra continua valendo, e o teste vigia.
+- **A mala só com palavra comum.** TUTU, TELA, LAMA e MATA saíram: com as dez letras e as
+  regras de som, sobram poucas palavras, e melhor doze boas que dezoito com enchimento.
+  Ficam LUA, MEIA, LATA, SALA, TATU, MOLA, MALA, UVA, IOIÔ, VELA e LUVA.
+- **Figuras do som do dia.** A: árvore, abelha, avião. E: elefante, estrela, escada (as três
+  começam com ê; o caderno do E diz só o som, como o do O fazia). L: lua, leão, luva.
+  T: tatu, tomate, tartaruga. O: óculos, ovo, ônibus (os óculos começam com o ó aberto: o
+  caderno do O ganhou figura). M: mala, mão, macaco. U: uva, urso, unicórnio. I: ilha,
+  igreja, ioiô. S e V ficam como estavam.
+- Desenhos novos: avião, estrela, escada, óculos, unicórnio, meia, ônibus, igreja; o tatu
+  foi redesenhado (casco em arco com faixas, focinho). Saíram avó, ela e égua.
+  Arquivos: `src/data/letras.json`, `src/data/palavras.json`, `src/puppet/figuras.ts`,
+  `src/audio/fonemas.ts`, `tests/palavras.test.ts`, `tests/fonemas.test.ts`.
+
 ## Ninguém tem nome no jogo
 
 O jogo não chama ninguém pelo nome: nem ela, nem o irmão, nem a mãe, nem o pai. A família é

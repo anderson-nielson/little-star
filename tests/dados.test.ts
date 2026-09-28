@@ -13,7 +13,7 @@ const LETRAS_V1 = ['A', 'E', 'L', 'S', 'T', 'O', 'M', 'U', 'I', 'V'];
 describe('as palavras do fônico', () => {
   it('só usam as letras da v1', () => {
     for (const p of palavras) {
-      for (const l of p.palavra.replace('Á', 'A').replace('Ó', 'O')) expect(LETRAS_V1, p.palavra).toContain(l);
+      for (const l of p.palavra.replace('Á', 'A').replace(/[ÓÔ]/g, 'O')) expect(LETRAS_V1, p.palavra).toContain(l);
     }
   });
   it('nenhuma tem L no fim da sílaba (soa U), S entre vogais (soa Z), TE ou TI (soa tchi), nem O átono final', () => {
@@ -29,7 +29,7 @@ describe('as palavras do fônico', () => {
   it('a palavra de cada letra traz no máximo uma consoante que ela ainda não traçou', () => {
     const vistas: string[] = [];
     for (const l of letras) {
-      const novas = [...l.palavra.replace('Á', 'A').replace('Ó', 'O')].filter((x) => x !== l.id && !vistas.includes(x) && !'AEIOU'.includes(x));
+      const novas = [...l.palavra.replace('Á', 'A').replace(/[ÓÔ]/g, 'O')].filter((x) => x !== l.id && !vistas.includes(x) && !'AEIOU'.includes(x));
       expect(novas.length, `${l.palavra} traz ${novas.join('')} antes da hora`).toBeLessThanOrEqual(1);
       vistas.push(l.id);
     }
