@@ -26,6 +26,8 @@ export const PEDRINHAS = {
   relogio: 1,
   /** contou até dez no balanço do parquinho */
   balanco: 1,
+  /** um passeio de bicicleta inteiro, ida e volta */
+  passeio: 1,
   /** pedrinhas para encher o pote e virar medalha */
   pote: 12,
 } as const;

@@ -16,7 +16,7 @@ import type { Tela } from '@/core/roteador';
 const NUMEROS = ['dois', 'três', 'quatro', 'cinco', 'seis', 'sete', 'oito', 'nove'];
 const DONO = { mae: 'Mãe', pai: 'Pai', irmao: 'Irmão', qualquer: 'Qualquer um' };
 const NOME_COR: Record<CorDeComida, string> = { vermelho: 'Vermelho', laranja: 'Laranja', amarelo: 'Amarelo', verde: 'Verde', roxo: 'Roxo', marrom: 'Branco ou marrom' };
-const NOME_TAREFA: Record<Tarefa, string> = { cama: 'Arrumou a cama', dentes: 'Escovou os dentes', brinquedos: 'Guardou os brinquedos', banho: 'Tomou banho', quarto: 'Arrumou o quarto', gentil: 'Foi gentil com alguém', parquinho: 'Brincou no parquinho' };
+const NOME_TAREFA: Record<Tarefa, string> = { cama: 'Arrumou a cama', dentes: 'Escovou os dentes', brinquedos: 'Guardou os brinquedos', banho: 'Tomou banho', quarto: 'Arrumou o quarto', gentil: 'Foi gentil com alguém', parquinho: 'Brincou no parquinho', bicicleta: 'Andou de bicicleta' };
 
 /**
  * O cantinho dos pais: o único lugar com texto. Chega-se pelo menu do canto
@@ -217,7 +217,7 @@ export function telaPais(): Tela {
     });
     painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'O pote'), bPed), h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Pedrinha rola quando um combinado não acontece', h('span', { class: 'sub' }, 'Se virar tensão, deixe em "Nunca rola": só ganha.')), bPerde));
     if (e.pedrinhasHistorico.length) {
-      const NOMES: Record<string, string> = { dormiu_sozinha: 'dormiu sozinha no quarto', noite_toda: 'dormiu a noite toda', nao_dormiu_sozinha: 'não dormiu sozinha', letra: 'letra traçada', som: 'som do dia', palavra: 'palavra inteira', relogio: 'hora no relógio', colheita: 'colheita', comidinha: 'comidinha', aventura: 'aventura', pais_deram: 'vocês deram', pais_tiraram: 'vocês tiraram', cama: 'arrumou a cama', dentes: 'escovou os dentes', brinquedos: 'guardou os brinquedos', banho: 'tomou banho', quarto: 'arrumou o quarto', gentil: 'foi gentil', parquinho: 'brincou no parquinho', balanco: 'contou até dez no balanço' };
+      const NOMES: Record<string, string> = { dormiu_sozinha: 'dormiu sozinha no quarto', noite_toda: 'dormiu a noite toda', nao_dormiu_sozinha: 'não dormiu sozinha', letra: 'letra traçada', som: 'som do dia', palavra: 'palavra inteira', relogio: 'hora no relógio', colheita: 'colheita', comidinha: 'comidinha', aventura: 'aventura', pais_deram: 'vocês deram', pais_tiraram: 'vocês tiraram', cama: 'arrumou a cama', dentes: 'escovou os dentes', brinquedos: 'guardou os brinquedos', banho: 'tomou banho', quarto: 'arrumou o quarto', gentil: 'foi gentil', parquinho: 'brincou no parquinho', balanco: 'contou até dez no balanço', bicicleta: 'andou de bicicleta', passeio: 'passeio de bicicleta' };
       const nome = (m: string) => NOMES[m] ?? (m.startsWith('nao_') ? 'não: ' + (NOMES[m.slice(4)] ?? m.slice(4)) : m.startsWith('confirmou_') ? 'vocês confirmaram: ' + (NOMES[m.slice(10)] ?? m.slice(10)) : m.startsWith('desconfirmou_') ? 'desconfirmaram' : m);
       painel.append(h('p', {}, 'Últimas: ' + e.pedrinhasHistorico.slice(-14).reverse().map((r) => `${r.delta > 0 ? '+' : ''}${r.delta} ${nome(r.motivo)} (${r.dia.slice(5)})`).join(' · ')));
     }
@@ -425,6 +425,7 @@ export function telaPais(): Tela {
         h('div', {}, h('b', {}, String(e.horta.filter(Boolean).length)), 'canteiros plantados'),
         h('div', {}, h('b', {}, String(e.coreto)), 'luzes no coreto'),
         h('div', {}, h('b', {}, String(e.idasEVoltasNoLago)), 'idas e voltas no lago'),
+        h('div', {}, h('b', {}, String(Object.values(e.bicicleta.passeios).reduce((a, x) => a + x, 0))), 'passeios de bicicleta'),
         h('div', {}, h('b', {}, String(e.bilhetes.length)), 'bilhetinhos'),
         h('div', {}, h('b', {}, String(e.medalhas)), 'medalhas'),
         h('div', {}, h('b', {}, String(a1)), 'vezes que a mãozinha ajudou'),

@@ -164,5 +164,10 @@
   { "id": "num_9", "texto": "nove", "dono": "qualquer", "grupo": "parquinho", "obrigatoria": false },
   { "id": "num_10", "texto": "dez", "dono": "qualquer", "grupo": "parquinho", "obrigatoria": false },
 
+  { "id": "boa_viagem", "texto": "Boa viagem! Vai com cuidado.", "dono": "mae", "grupo": "bicicleta", "obrigatoria": false },
+  { "id": "chegou_bicicleta", "texto": "Você veio de bicicleta até aqui!", "dono": "qualquer", "grupo": "bicicleta", "obrigatoria": false },
+  { "id": "pergunta_bicicleta", "texto": "Você andou de bicicleta?", "dono": "pai", "grupo": "roda", "obrigatoria": false },
+  { "id": "comemora_bicicleta", "texto": "Pedalou, pulou, chegou! Que pernas fortes.", "dono": "pai", "grupo": "roda", "obrigatoria": false },
+  { "id": "convite_bicicleta", "texto": "Vamos andar de bicicleta de verdade?", "dono": "mae", "grupo": "despedida", "obrigatoria": false },
   { "id": "chamado_vem_ca", "texto": "Ei, vem cá!", "dono": "qualquer", "grupo": "chamado", "obrigatoria": false }
 ]

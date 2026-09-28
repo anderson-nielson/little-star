@@ -1,0 +1,71 @@
+{
+  "_": "As rotas da bicicletinha, do condomínio. Cada uma é uma lista: o chão (fundo), quem espera no fim, o kit de coisas do chão com o passeio bom em que cada uma entra, e os gestos com o passeio bom em que entram (pular entra sempre). Uma rota nova abre depois de `abreCom` passeios completos na anterior. Uma rota nova não exige código.",
+  "abreCom": 3,
+  "rotas": [
+    {
+      "id": "rua",
+      "nome": "A rua",
+      "destino": "padaria",
+      "quem": "mae",
+      "ceu": "dia",
+      "fundo": "rua",
+      "musica": "manha_grieg",
+      "kit": [["lombada", 0], ["poca", 0], ["rampa", 3], ["areia", 6]],
+      "gestos": { "acelerar": 3 },
+      "enfeite": "cestinha",
+      "obstaculos": 8
+    },
+    {
+      "id": "bosque",
+      "nome": "O bosque",
+      "destino": "lago",
+      "quem": "pai",
+      "ceu": "dia",
+      "fundo": "bosque",
+      "musica": "primavera",
+      "kit": [["tronco", 0], ["poca", 0], ["gamba", 3], ["areia", 3], ["galho", 6]],
+      "gestos": { "acelerar": 0, "frear": 3, "abaixar": 6 },
+      "enfeite": "bandeirinha",
+      "obstaculos": 8
+    },
+    {
+      "id": "morrinhos",
+      "nome": "Os morrinhos",
+      "destino": "portao",
+      "quem": "mae",
+      "ceu": "tarde",
+      "fundo": "morros",
+      "musica": "marcha",
+      "kit": [["morro", 0], ["lombada", 0], ["pedregulho", 3], ["areia", 6], ["ponte", 6]],
+      "gestos": { "acelerar": 0, "frear": 0, "abaixar": 6 },
+      "enfeite": "fitas",
+      "obstaculos": 5
+    },
+    {
+      "id": "atalho",
+      "nome": "O atalho do parquinho",
+      "destino": "parquinho",
+      "quem": "irmao",
+      "ceu": "dia",
+      "fundo": "atalho",
+      "musica": "serenata",
+      "kit": [["areia", 0], ["poca", 0], ["rampa", 0], ["tronco", 3], ["pedregulho", 3], ["gamba", 6]],
+      "gestos": { "acelerar": 0, "frear": 0, "abaixar": 0 },
+      "enfeite": "campainha",
+      "obstaculos": 9
+    },
+    {
+      "id": "volta",
+      "nome": "A volta grande",
+      "destino": "casa",
+      "quem": "familia",
+      "ceu": "muda",
+      "fundo": "tudo",
+      "musica": "manha_grieg",
+      "kit": [["lombada", 0], ["poca", 0], ["tronco", 0], ["morro", 0], ["rampa", 3], ["gamba", 3], ["areia", 3], ["pedregulho", 6], ["galho", 6], ["ponte", 6]],
+      "gestos": { "acelerar": 0, "frear": 0, "abaixar": 0 },
+      "enfeite": "buzina",
+      "obstaculos": 10
+    }
+  ]
+}

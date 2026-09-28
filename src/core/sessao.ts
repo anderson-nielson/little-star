@@ -18,7 +18,7 @@ class Sessao {
   private relogio: number | null = null;
   agora: () => Date = () => new Date();
 
-  comecar(telaForcada?: string): void {
+  comecar(telaForcada?: string, params: Record<string, string> = {}): void {
     this.descansando = false;
     this.retorno = null;
     mudar((e) => abrirDia(e, this.agora()));
@@ -26,7 +26,7 @@ class Sessao {
     this.atual = this.partes[0] ?? 'casa';
     this.contarTempo();
     if (telaForcada) {
-      void ir(telaForcada);
+      void ir(telaForcada, params);
       return;
     }
     void this.irPara(this.atual);

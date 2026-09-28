@@ -330,6 +330,33 @@ export function escovada(ida = true, vel = 0.1): void {
 }
 
 /**
+ * Um chiado: ruído filtrado que dura `dur` segundos em volta de `freq`. É o
+ * "shhh" da roda deslizando na poça (agudo), o "trrrr" dos pedregulhos (curto e
+ * seco) e a freada (grave). Sempre baixinho, no canal dos efeitos.
+ */
+export function chiado(dur = 0.3, freq = 2600, vel = 0.06, tipo: BiquadFilterType = 'bandpass'): void {
+  const ctx = audio.ctx;
+  const out = audio.efeitos;
+  if (!ctx || !out) return;
+  const t = ctx.currentTime;
+  const s = ctx.createBufferSource();
+  s.buffer = ruido(ctx);
+  const f = ctx.createBiquadFilter();
+  f.type = tipo;
+  f.Q.value = 0.9;
+  f.frequency.value = freq;
+  const g = ctx.createGain();
+  s.connect(f);
+  f.connect(g);
+  g.connect(out);
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(vel, t + 0.02);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  s.start(t, Math.random() * 0.5);
+  s.stop(t + dur + 0.02);
+}
+
+/**
  * O assovio de chamar alguém: "fiu-fiu", duas subidas curtas de apito, a
  * segunda mais alta. Seno puro com um vibrato leve e um sopro de ruído, no
  * canal dos efeitos. Nunca alto: é um chamado, não um susto.

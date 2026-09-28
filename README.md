@@ -16,6 +16,7 @@ família se despede com um convite para o mundo.
 - `docs/referencia/familia.html`: as quatro faces da família no pincel escolhido, com as variações e as escolhas.
 - `docs/referencia/casa.html`: três propostas da fachada a partir das fotos da casa real, para a chegada, a casa e as casas pequenas.
 - `docs/parquinho.md` e `docs/referencia/parquinho.html`: o parquinho do condomínio (balanço, escorregador e gangorra), a volta dela em cinco telas com os brinquedos simulados.
+- `docs/bicicleta.md` e `docs/referencia/bicicleta.html`: o estudo da bicicletinha (cinco rotas do condomínio, o kit de obstáculos, a progressão lenta), com o passeio simulado no traço Aquarela e Lápis. O que entrou no jogo está no fim do estudo e em `docs/decisoes.md`.
 - `docs/shots/`: capturas do passeio automático.
 
 ## Rodar
@@ -30,7 +31,8 @@ npm run varredura    # joga cada tela etapa por etapa e confere que a casinha se
 TELAS=casa,jardim node scripts/olhar.mjs   # captura qualquer tela pelo nome em docs/shots/olhar/ (fora do git)
 ```
 
-Atalhos de depuração: `?debug=1&zerar=1&sessoes=8&hora=15:00&tela=jardim` e
+Atalhos de depuração: `?debug=1&zerar=1&sessoes=8&hora=15:00&tela=jardim` (o resto da URL vai para a
+tela: `&tela=passeio&rota=bosque&turbo=4`, `&tela=palavra&palavra=LUA`) e
 `?styleguide=1` (a família de perto e no tamanho do jogo, as poses, os bichos, as figuras e as cores).
 
 ## Publicado
