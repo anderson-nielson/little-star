@@ -81,7 +81,7 @@ const app = document.getElementById('app')!;
 montar(app);
 
 /* o cabeçalho fica colado no alto da tela, com a mesma escala em toda tela. A casinha
-   é SVG (`encaixar`); as pílulas "Ler frase" e "Opções" são HTML e usam estas variáveis para cair
+   é SVG (`encaixar`); o balão de fala e as opções são HTML e usam estas variáveis para cair
    na mesma linha e com a mesma margem. Girar ou redimensionar reencaixa tudo. */
 const medirCena = () => {
   const m = medida();
@@ -97,7 +97,7 @@ new ResizeObserver(medirCena).observe(app);
 /* o som desligado nas opções vale desde o primeiro toque */
 audio.definirMudo(estado().pais.mudo);
 
-/* a pílula "Opções" do canto de cima, à direita: ajuda da tela, som, versão e o cantinho dos pais */
+/* as opções (três linhas) no canto de cima, à direita: ajuda da tela, som, versão e o cantinho dos pais */
 const opcoes = montarOpcoes(app, () => void ir('pais'));
 aoTrocarTela((nome, params) => opcoes.trocarTela(nome, params));
 

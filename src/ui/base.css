@@ -480,10 +480,9 @@ body {
 .opcoes.escondido {
   display: none;
 }
-/* a linha da direita do cabeçalho: "Ler frase" e "Opções", pílulas com palavra.
-   A Stella não lê: para ela são duas formas sem desenho, que chamam pouco o dedo;
-   para o adulto, dizem o que fazem. O centro fica na linha da casinha (y 44) e a
-   margem até a borda é a mesma dela. Mora dentro das opções, antes do véu e do
+/* a linha da direita do cabeçalho: o balão de fala (ler a frase) e as três linhas
+   (opções), um ícone para cada ação, no mesmo disco da casinha. O centro fica na
+   linha da casinha (y 44) e a margem até a borda é a mesma dela. Mora dentro das opções, antes do véu e do
    painel, para o painel aberto ficar por cima. */
 .opcoes-linha {
   /* crescem e encolhem com a casinha, sem ficar menores que 36 px */
@@ -493,26 +492,19 @@ body {
   right: calc(var(--cena-dx, 0px) + var(--topo-margem) * var(--cena-k, 1));
   display: flex;
   align-items: center;
-  gap: var(--e2);
+  gap: var(--e3);
   pointer-events: none;
 }
 .opcoes-botao,
 .balao-bolinha {
   position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--e2);
+  width: var(--b);
   height: var(--b);
-  padding: 0 calc(var(--b) * 0.36);
+  padding: calc(var(--b) * 0.23);
   border: var(--topo-fio) solid var(--ouro-tinta);
-  border-radius: var(--r-pilula);
+  border-radius: 50%;
   background: var(--papel);
-  color: var(--tinta);
-  font-family: var(--sans);
-  font-size: calc(var(--b) * 0.36);
-  font-weight: 500;
-  line-height: 1;
-  white-space: nowrap;
+  color: var(--ouro-tinta);
   cursor: pointer;
   touch-action: manipulation;
 }
@@ -520,12 +512,18 @@ body {
   pointer-events: auto;
   transition: transform var(--d-rapido) var(--ease-sai), opacity var(--d-rapido);
 }
-/* o alvo cresce para além do desenho: a pílula é baixa, o dedo do adulto não */
+/* o alvo cresce para além do desenho: o disco é pequeno, o dedo do adulto não */
 .opcoes-botao::before,
 .balao-bolinha::before {
   content: '';
   position: absolute;
-  inset: -6px -4px;
+  inset: -4px;
+}
+.opcoes-botao > svg,
+.balao-bolinha > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 .opcoes-botao:active {
   transform: scale(0.96);
@@ -727,19 +725,13 @@ body {
   display: none;
 }
 
-/* o balão recolhido: a pílula "Ler frase", à esquerda de "Opções". A forma vem da
-   regra das pílulas do cabeçalho; aqui só o aparecer e o sumir. */
+/* o balão recolhido: o balão de fala, à esquerda das opções. A forma vem da regra
+   dos botões do cabeçalho; aqui só o aparecer e o sumir. */
 .balao-bolinha {
   opacity: 0;
   transform: scale(0.8);
   transition: opacity var(--d-lento) var(--ease-entra-sai), transform var(--d-lento) var(--ease-sai);
   pointer-events: none;
-}
-.balao-bolinha > svg {
-  display: block;
-  width: calc(var(--b) * 0.45);
-  height: calc(var(--b) * 0.45);
-  color: var(--ouro-tinta);
 }
 .balao-bolinha.visivel {
   opacity: 1;
