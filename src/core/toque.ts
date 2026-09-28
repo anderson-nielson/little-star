@@ -202,33 +202,3 @@ export function soltarDedo(id: number): void {
     dono = null;
   }
 }
-
-/**
- * Segurar: para a lua do cantinho dos pais. Chama `ao` depois de `ms`
- * com o dedo parado no elemento.
- */
-export function segurar(el: Element, ms: number, ao: () => void): () => void {
-  let t: number | null = null;
-  const cancela = () => {
-    if (t !== null) window.clearTimeout(t);
-    t = null;
-  };
-  const baixo = () => {
-    cancela();
-    t = window.setTimeout(() => {
-      t = null;
-      ao();
-    }, ms);
-  };
-  el.addEventListener('pointerdown', baixo);
-  el.addEventListener('pointerup', cancela);
-  el.addEventListener('pointercancel', cancela);
-  el.addEventListener('pointerleave', cancela);
-  return () => {
-    cancela();
-    el.removeEventListener('pointerdown', baixo);
-    el.removeEventListener('pointerup', cancela);
-    el.removeEventListener('pointercancel', cancela);
-    el.removeEventListener('pointerleave', cancela);
-  };
-}

@@ -40,14 +40,16 @@ export function nuvem(x: number, y: number, s: number): string {
   return `<path d="${circ([x, y], s) + circ([x + s * 0.9, y + s * 0.2], s * 0.75) + circ([x - s * 0.9, y + s * 0.25], s * 0.7)}" fill="${C.papel}" opacity="0.7"/>`;
 }
 
-/** A casinha verde: voltar para casa. Sempre no canto de cima, grande (72 px). */
-export function casinha(x = 40, y = 44): string {
-  return `<g class="casinha" data-alvo="casa" aria-label="voltar para casa"><circle cx="${x}" cy="${y}" r="36" fill="${C.marfim}" opacity="0.85"/><path d="M${x - 17} ${y + 2}L${x} ${y - 15}L${x + 17} ${y + 2}V${y + 16}H${x - 17}z" fill="#8FAE6B" stroke="${C.musgoTinta}" stroke-width="1.6" stroke-linejoin="round"/><path d="M${x - 4.5} ${y + 16}V${y + 6}H${x + 4.5}V${y + 16}" fill="${C.rosaDoce}"/></g>`;
-}
-
-/** A lua do cantinho dos pais: quase invisível, na linha da casinha, logo à esquerda do botão das opções. */
-export function lua(x = 294, y = 44): string {
-  return `<g class="lua-pais" data-alvo="pais"><circle cx="${x}" cy="${y}" r="30" fill="transparent"/><path d="M${x} ${y - 9}a9 9 0 1 0 8 13a7 7 0 1 1-8-13z" fill="${C.luz}" opacity="0.5"/></g>`;
+/**
+ * A casinha verde: voltar para casa. Sempre no canto de cima à esquerda, com a
+ * mesma margem (16) de cima e do lado que as pílulas da direita. O disco
+ * desenhado tem 56 de diâmetro, no mesmo papel e no mesmo contorno de ouro escuro
+ * (1,5) das pílulas do cabeçalho; o alvo do dedo continua com 72.
+ */
+export function casinha(x = 44, y = 44): string {
+  const k = 0.8;
+  const p = (dx: number, dy: number) => `${(x + dx * k).toFixed(1)} ${(y + dy * k).toFixed(1)}`;
+  return `<g class="casinha" data-alvo="casa" aria-label="voltar para casa"><circle cx="${x}" cy="${y}" r="36" fill="transparent"/><circle cx="${x}" cy="${y}" r="28" fill="${C.papel}" stroke="#8f6f2c" stroke-width="1.5"/><path d="M${p(-17, 1)}L${p(0, -16)}L${p(17, 1)}V${(y + 15 * k).toFixed(1)}H${(x - 17 * k).toFixed(1)}z" fill="#8FAE6B" stroke="${C.musgoTinta}" stroke-width="1.6" stroke-linejoin="round"/><path d="M${p(-4.5, 15)}V${(y + 5 * k).toFixed(1)}H${(x + 4.5 * k).toFixed(1)}V${(y + 15 * k).toFixed(1)}" fill="${C.rosaDoce}"/></g>`;
 }
 
 /** A mãozinha desenhada: faça este gesto. */

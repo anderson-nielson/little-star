@@ -571,3 +571,39 @@ Opções ela aparecia duas vezes, em "Agora" e em "Ainda falta".
 
 Arquivos: `src/telas/lago.ts`, `src/telas/casa.ts`, `src/telas/pais.ts`, `src/core/estado.ts`,
 `src/data/ajuda-telas.json`, `tests/aventuras.test.ts`, `SPEC.md`.
+
+## O cabeçalho segue um padrão só
+
+Os controles do alto tinham quatro tamanhos, três estilos e nenhuma margem em comum: a
+casinha num disco cinza translúcido, o balão recolhido em três pontinhos (que todo mundo lê
+como "mais opções"), a lua quase invisível e o menu com a estrelinha do jogo. O balão aberto
+cobria a casinha e o "x" ficava pendurado embaixo dele, no meio da tela.
+
+Antes de decidir, quatro alternativas foram prototipadas e testadas lado a lado (alvo, alvos
+sobrepostos, balão sobre a casinha, alinhamento, margens e contraste com o céu da noite, do
+dia e o rosa): ícones padrão, palavras para o adulto, balão no rodapé e porteira no menu.
+Ficou a das palavras.
+
+- **Uma linha, uma margem, um contorno.** A casinha e as duas pílulas da direita têm o centro
+  na mesma linha (y 44 do cabeçalho), a mesma margem de 16 até a borda, fundo de papel opaco e
+  contorno de 1,5 px no ouro escuro. O fio de 1 px no ouro claro sumia no céu de dia
+  (contraste 1,2:1); o ouro escuro passa de 3:1 nos três céus. A casinha é a maior (56
+  desenhada, 72 de alvo), porque é dela; as pílulas têm 44 px de altura e encolhem com a casinha
+  em tela pequena, nunca abaixo de 36 (`--topo-*` em `tokens.css`).
+- **O adulto lê, ela não.** "Opções" e "Ler frase" são palavras, sem ícone. Para quem joga junto
+  não há o que adivinhar; para a Stella, que não lê, são formas sem desenho, que chamam menos o
+  dedo do que um ícone bonito. A estrelinha saiu do botão: ela é a estrela guia e a conta de
+  agora, e ali não dizia "opções".
+- **A lua saiu.** Ela era um segundo caminho escondido para o cantinho dos pais, que as opções
+  já levam, com a mesma continha na porta. Um glifo apagado que só respondia a 2 s de dedo
+  parecia enfeite ou defeito.
+- **As duas pílulas moram numa linha só** (`.opcoes-linha`), dentro das opções e antes do véu:
+  "Ler frase" à esquerda de "Opções", e o painel aberto fica por cima das duas.
+- **O balão aberto fica abaixo do cabeçalho**, na largura da coluna, e o "x" mora no canto de
+  cima à direita dele, como em todo cartão que se fecha.
+- **O quadro da rotina é opaco.** Meio transparente no céu da noite ele virava um cinza sujo.
+- **Guardado para depois:** se a Stella começar a abrir as opções sozinha, "Opções" pode pedir
+  o dedo parado por menos de um segundo, com um anel mostrando o tempo.
+
+Arquivos: `src/puppet/objetos.ts`, `src/telas/comum.ts`, `src/ui/opcoes.ts`, `src/ui/balao.ts`,
+`src/ui/base.css`, `src/ui/tokens.css`, `src/telas/casa.ts`, `src/main.ts`, `SPEC.md`, `GAMEPLAY.md`.

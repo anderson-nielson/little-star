@@ -620,9 +620,10 @@ function rotina(passos: PassoDoDia[]): string {
   const inicio = 195 - largura / 2;
   const feitos = passos.filter((p) => p.feito).length;
   let s = '';
-  /* o quadro: uma tábua clara atrás da fila, para a rotina ler como uma coisa só */
+  /* o quadro: uma tábua de papel atrás da fila, para a rotina ler como uma coisa só.
+     Opaca: meio transparente, no céu da noite, ela virava um cinza sujo. */
   const folga = raio + 14;
-  s += `<rect x="${inicio - folga}" y="${y - raio - 10}" width="${largura + 2 * folga}" height="${2 * raio + 20}" rx="${raio + 10}" fill="#fbf8f1" opacity="0.6" stroke="#c6a15b" stroke-width="0.8"/>`;
+  s += `<rect x="${inicio - folga}" y="${y - raio - 10}" width="${largura + 2 * folga}" height="${2 * raio + 20}" rx="${raio + 10}" fill="#fbf8f1" stroke="#c6a15b" stroke-width="1"/>`;
   /* o fio que liga os passos: dourado até a última cartinha feita */
   if (passos.length > 1) {
     s += `<path d="M${inicio} ${y}H${inicio + largura}" stroke="#c9a189" stroke-width="1.5" opacity="0.8"/>`;

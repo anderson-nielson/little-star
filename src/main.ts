@@ -80,9 +80,9 @@ registrar('brinquedos', telaBrinquedos);
 const app = document.getElementById('app')!;
 montar(app);
 
-/* o cabeçalho fica colado no alto da tela, com a mesma escala em toda tela. A casinha e
-   a lua são SVG (`encaixar`); o botão das opções e a bolinha do balão são HTML e usam
-   estas variáveis para cair na mesma linha. Girar ou redimensionar reencaixa tudo. */
+/* o cabeçalho fica colado no alto da tela, com a mesma escala em toda tela. A casinha
+   é SVG (`encaixar`); as pílulas "Ler frase" e "Opções" são HTML e usam estas variáveis para cair
+   na mesma linha e com a mesma margem. Girar ou redimensionar reencaixa tudo. */
 const medirCena = () => {
   const m = medida();
   if (!m) return;
@@ -97,7 +97,7 @@ new ResizeObserver(medirCena).observe(app);
 /* o som desligado nas opções vale desde o primeiro toque */
 audio.definirMudo(estado().pais.mudo);
 
-/* o botão pequeno do canto de cima, à direita: ajuda da tela, som, versão e o cantinho dos pais */
+/* a pílula "Opções" do canto de cima, à direita: ajuda da tela, som, versão e o cantinho dos pais */
 const opcoes = montarOpcoes(app, () => void ir('pais'));
 aoTrocarTela((nome, params) => opcoes.trocarTela(nome, params));
 
@@ -110,7 +110,7 @@ definirVoltar(() => (opcoes.aberto() ? opcoes.fechar() : void sessao.voltarParaC
 /* a narração para quem joga junto: a cada avanço dela, um balão no topo para ler em voz alta.
    Ele fica até o "x"; só sai sozinho nas telas onde não cabe (o cantinho dos pais, o styleguide).
    Com ela dormindo o balão fica: é ele que conta a quem está junto que o jogo também dorme até de manhã. */
-const balao = montarBalao(app);
+const balao = montarBalao(app, opcoes.linha);
 const SEM_BALAO = new Set(['pais', 'styleguide']);
 aoTrocarTela((nome) => {
   if (SEM_BALAO.has(nome)) balao.esconder();

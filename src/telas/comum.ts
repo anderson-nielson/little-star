@@ -1,8 +1,7 @@
 import { cena, doTopo, encaixar, esperar, pontoNoSvg, svgEl } from '@/core/util';
-import { ocupado, reivindicarDedo, saida, segurar, soltarDedo, tocavel, travar } from '@/core/toque';
-import { ir } from '@/core/roteador';
+import { ocupado, reivindicarDedo, saida, soltarDedo, tocavel, travar } from '@/core/toque';
 import { sessao } from '@/core/sessao';
-import { casinha, centelha, centelhas, contornoLuz, lua, maozinha } from '@/puppet/objetos';
+import { casinha, centelha, centelhas, contornoLuz, maozinha } from '@/puppet/objetos';
 import { audio } from '@/audio/engine';
 import { centelhasSom, tiquinho, toc } from '@/audio/synth';
 import type { Tela } from '@/core/roteador';
@@ -23,8 +22,6 @@ export interface TelaSvg extends Tela {
 export interface OpcoesTela {
   /** a casinha verde no canto: volta para a casa (ou o que se passar). Toda tela tem; `false` só no styleguide */
   casinha?: boolean | (() => void);
-  /** a lua do cantinho dos pais, no canto da direita. Toda tela tem; `false` só no styleguide */
-  lua?: boolean;
   fundo?: string;
   /** o que mais mora no cabeçalho, em unidades do cabeçalho (o varal da casa) */
   topo?: string;
@@ -33,8 +30,8 @@ export interface OpcoesTela {
 }
 
 /**
- * Uma tela feita de um SVG de cena inteira (390 x 780), com a casinha e a
- * lua opcionais e os utilitários que todas as telas usam.
+ * Uma tela feita de um SVG de cena inteira (390 x 780), com a casinha
+ * opcional e os utilitários que todas as telas usam.
  */
 export function telaSvg(conteudo: string, o: OpcoesTela = {}): TelaSvg {
   const el = document.createElement('div');
@@ -43,9 +40,8 @@ export function telaSvg(conteudo: string, o: OpcoesTela = {}): TelaSvg {
   const corDeFundo = o.fundo ?? /^<rect width="390" height="780" fill="(#[0-9a-fA-F]{3,8})"/.exec(conteudo)?.[1];
   if (corDeFundo) el.style.background = corDeFundo;
   const comCasinha = o.casinha ?? true;
-  const comLua = o.lua ?? true;
   /* o cabeçalho num grupo só: colado no alto da tela, do mesmo tamanho em toda tela */
-  const svg = cena(conteudo + `<g class="topo">${comCasinha ? casinha() : ''}${comLua ? lua() : ''}${o.topo ?? ''}</g>`);
+  const svg = cena(conteudo + `<g class="topo">${comCasinha ? casinha() : ''}${o.topo ?? ''}</g>`);
   svg.dataset.encaixe = '1';
   if (o.folga) svg.dataset.topo = String(o.folga);
   encaixar(svg);
@@ -77,17 +73,13 @@ export function telaSvg(conteudo: string, o: OpcoesTela = {}): TelaSvg {
         }),
       );
   }
-  if (comLua) {
-    const luaEl = svg.querySelector('.lua-pais');
-    if (luaEl) limpezas.push(segurar(luaEl, 2000, () => void ir('pais')));
-  }
 
   /* toque em algo que não faz nada: um sininho baixinho. Nada parece quebrado.
      Vale também para um alvo tocado enquanto a cena anterior ainda termina
      (`travar`): sem som nenhum, ela achava que o jogo tinha travado. */
   const fundo = (ev: Event) => {
     const t = ev.target as Element;
-    if (t.closest('.lua-pais') || t.closest('.casinha')) return;
+    if (t.closest('.casinha')) return;
     if (t.closest('.alvo') && !ocupado()) return;
     if (!audio.pronto) void audio.tentarDestravar();
     tiquinho();
@@ -121,31 +113,23 @@ export function telaSvg(conteudo: string, o: OpcoesTela = {}): TelaSvg {
 }
 
 /**
- * A casinha e a lua por cima de uma tela que não é um `telaSvg` (canvas, cena
- * que rola). O mesmo desenho, no mesmo lugar e com o mesmo `meet` das outras
- * telas: com `slice` elas mudavam de posição e, em tela curta, caíam na borda
+ * A casinha por cima de uma tela que não é um `telaSvg` (canvas, cena que
+ * rola). O mesmo desenho, no mesmo lugar e com o mesmo `meet` das outras
+ * telas: com `slice` ela mudava de posição e, em tela curta, caía na borda
  * morta. Devolve como tirar os ouvintes.
  */
-export function cantos(el: HTMLElement, aoCasa: () => void, aoPais: () => void = () => void ir('pais')): () => void {
-  const hud = cena(`<g class="topo">${casinha()}${lua()}</g>`);
+export function cantos(el: HTMLElement, aoCasa: () => void): () => void {
+  const hud = cena(`<g class="topo">${casinha()}</g>`);
   hud.dataset.encaixe = '1';
   encaixar(hud);
   hud.style.pointerEvents = 'none';
   el.appendChild(hud);
   const casa = hud.querySelector('.casinha') as SVGGElement;
-  const luaEl = hud.querySelector('.lua-pais') as SVGGElement;
   casa.style.pointerEvents = 'auto';
-  luaEl.style.pointerEvents = 'auto';
-  const limpar = [
-    saida(casa, () => {
-      travar(400);
-      aoCasa();
-    }),
-    segurar(luaEl, 2000, aoPais),
-  ];
-  return () => {
-    for (const l of limpar) l();
-  };
+  return saida(casa, () => {
+    travar(400);
+    aoCasa();
+  });
 }
 
 /* ---------- o avanço e o fim, iguais em toda brincadeira ---------- */
