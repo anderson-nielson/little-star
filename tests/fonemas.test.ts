@@ -45,9 +45,10 @@ describe('o som certo em cada palavra e figura', () => {
     const { figuraDoSom, fraseDeEnsinar } = await import('@/audio/fonemas');
     const o = letras.find((l) => l.id === 'O')!;
     const e = letras.find((l) => l.id === 'E')!;
-    /* ovo, olho e onda começam com ô: o ó aberto fica sem figura */
-    expect(figuraDoSom(o.som, o.figuras)).toBeNull();
-    expect(fraseDeEnsinar(o.som, null)).toBe('{som_o}... {som_o:1.6}');
-    expect(figuraDoSom(e.som, e.figuras)).toBe('egua');
+    /* elefante, estrela e escada começam com ê: o é aberto fica sem figura, só o som */
+    expect(figuraDoSom(e.som, e.figuras)).toBeNull();
+    expect(fraseDeEnsinar(e.som, null)).toBe('{som_e}... {som_e:1.6}');
+    /* ovo e olho começam com ô; os óculos começam com o ó aberto ensinado */
+    expect(figuraDoSom(o.som, o.figuras)).toBe('oculos');
   });
 });

@@ -4,11 +4,11 @@
     "som": "som_a",
     "historia": "hist_a",
     "imagem": "telhado",
-    "palavra": "AVÓ",
+    "palavra": "LUA",
     "figuras": [
-      "avo",
+      "arvore",
       "abelha",
-      "arvore"
+      "aviao"
     ],
     "tracos": [
       [
@@ -48,11 +48,11 @@
     "som": "som_e",
     "historia": "hist_e",
     "imagem": "estante",
-    "palavra": "ELA",
+    "palavra": "MEIA",
     "figuras": [
-      "egua",
-      "ela",
-      "elefante"
+      "elefante",
+      "estrela",
+      "escada"
     ],
     "tracos": [
       [
@@ -102,11 +102,11 @@
     "som": "som_l",
     "historia": "hist_l",
     "imagem": "deitada",
-    "palavra": "LUA",
+    "palavra": "LATA",
     "figuras": [
       "lua",
-      "lata",
-      "lobo"
+      "leao",
+      "luva"
     ],
     "tracos": [
       [
@@ -193,11 +193,11 @@
     "som": "som_t",
     "historia": "hist_t",
     "imagem": "tronco",
-    "palavra": "LATA",
+    "palavra": "TATU",
     "figuras": [
       "tatu",
-      "tela",
-      "tomate"
+      "tomate",
+      "tartaruga"
     ],
     "tracos": [
       [
@@ -229,9 +229,9 @@
     "imagem": "boca",
     "palavra": "OLÁ",
     "figuras": [
+      "oculos",
       "ovo",
-      "olho",
-      "onda"
+      "olho"
     ],
     "tracos": [
       [
@@ -250,8 +250,8 @@
     "palavra": "MALA",
     "figuras": [
       "mala",
-      "mesa",
-      "mao"
+      "mao",
+      "macaco"
     ],
     "tracos": [
       [
@@ -305,7 +305,7 @@
     "figuras": [
       "uva",
       "urso",
-      "unha"
+      "unicornio"
     ],
     "tracos": [
       [

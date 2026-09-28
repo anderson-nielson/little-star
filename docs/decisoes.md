@@ -618,3 +618,21 @@ no ouro escuro, que segura o contraste nos céus claros.
 
 Arquivos: `src/ui/opcoes.ts`, `src/ui/balao.ts`, `src/ui/base.css`, `src/ui/tokens.css`,
 `SPEC.md`, `GAMEPLAY.md`.
+
+## Palavras e figuras com desenho direto (setembro de 2026)
+
+O teste no celular: as figuras de gente (avó, ela) e a égua não se reconheciam; elefante,
+árvore e ovo sim. A regra que ficou: **toda palavra e toda figura do som tem um desenho que
+se reconhece de um olhar, em poucas formas**. O que mudou:
+
+- **Palavra de cada letra.** A: LUA (era AVÓ). E: MEIA (era ELA; o E é fechado, e a lista
+  de sons diz isso, como em OLÁ). L: LATA (era LUA). T: TATU (era LATA). As outras ficam.
+  A regra de no máximo uma consoante nova por palavra continua valendo, e o teste vigia.
+- **Figuras do som do dia.** A: árvore, abelha, avião. E: elefante, estrela, escada (as três
+  começam com ê; o caderno do E diz só o som, como o do O fazia). L: lua, leão, luva.
+  T: tatu, tomate, tartaruga. O: óculos, ovo, olho (os óculos começam com o ó aberto: o
+  caderno do O ganhou figura). M: mala, mão, macaco. U: uva, urso, unicórnio. S, I e V
+  ficam como estavam.
+- Desenhos novos: avião, estrela, escada, óculos, unicórnio, meia. Saíram avó, ela e égua.
+  Arquivos: `src/data/letras.json`, `src/data/palavras.json`, `src/puppet/figuras.ts`,
+  `src/audio/fonemas.ts`, `tests/palavras.test.ts`, `tests/fonemas.test.ts`.
