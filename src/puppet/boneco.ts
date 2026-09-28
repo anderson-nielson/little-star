@@ -432,8 +432,8 @@ function desenha(o: Figura, dir: 1 | -1, pose: Pose, crianca: boolean, hr: numbe
   /* roupa */
   /* o vestido pende de alças finas; a camiseta cobre os ombros */
   const camiseta = !o.vestido && !o.pano;
-  const tl: Ponto = camiseta ? [sL[0] - 0.5 * esc, sL[1] - 2 * esc] : [sL[0] + 2 * esc, sL[1] + 3 * esc];
-  const tr: Ponto = camiseta ? [sR[0] + 0.5 * esc, sR[1] - 2 * esc] : [sR[0] - 2 * esc, sR[1] + 3 * esc];
+  const tl: Ponto = camiseta ? [sL[0] - 1.2 * esc, sL[1] - 2.5 * esc] : [sL[0] + 2 * esc, sL[1] + 3 * esc];
+  const tr: Ponto = camiseta ? [sR[0] + 1.2 * esc, sR[1] - 2.5 * esc] : [sR[0] - 2 * esc, sR[1] + 3 * esc];
   let roupaPath = '';
   let mangas = '';
   if (o.vestido) {
@@ -483,21 +483,21 @@ function desenha(o: Figura, dir: 1 | -1, pose: Pose, crianca: boolean, hr: numbe
     const e: Ponto = [s[0] + Math.cos(a1) * la, s[1] + Math.sin(a1) * la];
     const wri: Ponto = [e[0] + Math.cos(a2) * lb, e[1] + Math.sin(a2) * lb];
     const mangaCor = o.camisa ?? roupa;
-    /* a manga: parte da camiseta. Sai do canto do ombro, segue a direção do braço e acaba
-       numa barra reta; o lado de dentro cola na borda da camiseta */
+    /* a manga: um tubo reto em volta do braço, mais largo que ele, que começa um pouco acima
+       da linha do ombro e acaba numa barra reta. A camiseta vem por cima e esconde o lado de dentro */
     let manga = '';
     if (!o.vestido && !o.pano) {
-      const canto: Ponto = lado > 0 ? tl : tr;
       const u: Ponto = [Math.cos(a1), Math.sin(a1)];
-      let nFora: Ponto = [-u[1], u[0]];
-      if (nFora[0] * lado > 0) nFora = [-nFora[0], -nFora[1]];
-      const comp = la * 0.45;
-      const wFora = L.braco[0] * 1.5;
-      const wDentro = L.braco[0] * 0.7;
-      const D: Ponto = [s[0] + u[0] * comp + nFora[0] * wFora, s[1] + u[1] * comp + nFora[1] * wFora];
-      const Cc: Ponto = [s[0] + u[0] * comp - nFora[0] * wDentro, s[1] + u[1] * comp - nFora[1] * wDentro];
-      const B: Ponto = [canto[0] - lado * 0.4 * esc, canto[1] + comp * 0.9];
-      manga = forma(`M${f(canto[0])} ${f(canto[1])}L${f(D[0])} ${f(D[1])}L${f(Cc[0])} ${f(Cc[1])}L${f(B[0])} ${f(B[1])}z`, mangaCor, pl);
+      const nn: Ponto = [-u[1], u[0]];
+      const comp = la * 0.46;
+      const wS = L.braco[0] * 1.35;
+      const topo: Ponto = [s[0] - u[0] * 2.6 * esc, s[1] - u[1] * 2.6 * esc];
+      const fim: Ponto = [s[0] + u[0] * comp, s[1] + u[1] * comp];
+      const A: Ponto = [topo[0] + nn[0] * wS, topo[1] + nn[1] * wS];
+      const B: Ponto = [topo[0] - nn[0] * wS, topo[1] - nn[1] * wS];
+      const Cc: Ponto = [fim[0] - nn[0] * wS * 0.95, fim[1] - nn[1] * wS * 0.95];
+      const D: Ponto = [fim[0] + nn[0] * wS * 0.95, fim[1] + nn[1] * wS * 0.95];
+      manga = forma(`M${f(A[0])} ${f(A[1])}L${f(D[0])} ${f(D[1])}L${f(Cc[0])} ${f(Cc[1])}L${f(B[0])} ${f(B[1])}z`, mangaCor, pl);
     }
     const rm = L.ante[1] * 1.55;
     const mao: Ponto = [wri[0] + Math.cos(a2) * rm * 0.7, wri[1] + Math.sin(a2) * rm * 0.7];
@@ -595,13 +595,13 @@ function desenha(o: Figura, dir: 1 | -1, pose: Pose, crianca: boolean, hr: numbe
 
   const svg =
     `<g><g class="cabelo-atras">${local(cab.atras)}</g>` +
+    ombros +
     pernas +
     tutu +
     bL.d +
-    mangaL +
-    ombros +
-    roupaPath +
     bL.manga +
+    mangaL +
+    roupaPath +
     pescoco +
     bR.d +
     bR.manga +

@@ -13,6 +13,8 @@ export function telaStyleguide(): Tela {
   el.appendChild(p);
   const svg = (inner: string, w = 120, hh = 160) => `<svg viewBox="0 0 ${w} ${hh}" width="${w}" height="${hh}" xmlns="http://www.w3.org/2000/svg">${graoDefs()}${inner}${grao(0, 0, w, hh)}</svg>`;
 
+  p.append(h('h2', {}, 'De muito perto: os ombros, as mangas, as mãos'));
+  p.append(h('div', { class: 'fila', html: svg(familia.theo(170, 400, 380, 'acena').svg, 340, 420) + svg(familia.pai(170, 410, 400).svg, 340, 420) }));
   p.append(h('h2', {}, 'A família, de perto'));
   p.append(h('div', { class: 'fila', html: svg(familia.stella(80, 300, 210).svg, 160, 310) + svg(familia.theo(80, 300, 240).svg, 160, 310) + svg(familia.mae(80, 300, 300).svg, 160, 310) + svg(familia.pai(80, 300, 300).svg, 160, 310) }));
   p.append(h('h2', {}, 'A família: Stella 1, Theo 1,5, pais 2'));
