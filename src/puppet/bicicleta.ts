@@ -8,7 +8,7 @@ import type { Enfeite } from '@/core/bicicleta';
  * o coelhinho, e os enfeites que ela ganha rota a rota (a bandeirinha, as
  * fitas do guidão, a campainha, a buzina de pera). Tudo em função de `R`, o
  * raio da roda. A origem é o chão, no meio entre as rodas; x é para a frente.
- * Com a Stella, ela vai sentada na marionete (`familia.stella`, sentada), o
+ * Com a menina, ela vai sentada na marionete (`familia.menina`, sentada), o
  * capacete rosa-claro por cima do cabelo e as mãos no guidão.
  */
 export interface OpcoesBicicleta {
@@ -17,7 +17,7 @@ export interface OpcoesBicicleta {
   rodinhas?: boolean;
   enfeites?: Enfeite[];
   /** só a bicicleta encostada, sem ninguém */
-  semStella?: boolean;
+  semMenina?: boolean;
   /** abaixada, para passar embaixo do galho */
   abaixada?: boolean;
   capacete?: boolean;
@@ -42,7 +42,7 @@ function roda(cx: number, cy: number, R: number, ang: number): string {
   return s;
 }
 
-/** A proporção da Stella para a roda: a altura dela é sete raios. */
+/** A proporção da menina para a roda: a altura dela é sete raios. */
 export const ALTURA_POR_RAIO = 7;
 
 /** O capacete rosa-claro: uma calota sobre a cabeça, com os fios do lápis. */
@@ -52,7 +52,7 @@ export function capacete(cabeca: [number, number], hr: number): string {
   return forma(d, C.rosaClara, { lapis: 0.45 }) + fios([`M${f(hx - 6)} ${f(hy - hr - 5)}q6 -2 12 0`, `M${f(hx + hr + 2)} ${f(hy - 3)}l-2 12`], escuro(C.rosaClara, 0.35), 0.9, 0.6);
 }
 
-/** A bicicleta, na origem (o chão entre as rodas). Devolve o svg e, com a Stella, onde fica a cabeça dela. */
+/** A bicicleta, na origem (o chão entre as rodas). Devolve o svg e, com a menina, onde fica a cabeça dela. */
 export function bicicleta(R: number, o: OpcoesBicicleta = {}): { svg: string; cabeca: [number, number] | null } {
   const volta = o.volta ?? 0;
   const cor = o.cor ?? C.rosaDoce;
@@ -91,12 +91,12 @@ export function bicicleta(R: number, o: OpcoesBicicleta = {}): { svg: string; ca
   if (enf.includes('fitas')) s += fios([`M${f(guidao[0] + 0.4 * R)} ${f(guidao[1])}q${f(0.5 * R)} ${f(-0.3 * R)} ${f(0.9 * R)} ${f(-0.9 * R)}`, `M${f(guidao[0] + 0.4 * R)} ${f(guidao[1])}q${f(0.6 * R)} ${f(0.1 * R)} ${f(1.1 * R)} ${f(-0.3 * R)}`], C.rosaDoce, R * 0.11, 0.9);
   if (enf.includes('campainha')) s += forma(circ([guidao[0] - 0.7 * R, guidao[1] - 0.15 * R], 0.2 * R), C.ouro, { lapis: 0.35 });
   if (enf.includes('buzina')) s += forma(circ([tubo[0] - 0.3 * R, tubo[1] - 0.2 * R], 0.22 * R), '#d2463c', { lapis: 0.3 }) + fio(`M${f(tubo[0] - 0.15 * R)} ${f(tubo[1] - 0.3 * R)}q${f(0.5 * R)} ${f(-0.25 * R)} ${f(0.9 * R)} ${f(-0.35 * R)}`, C.preto, R * 0.12, 0.9);
-  if (o.semStella) return { svg: `<g>${s}</g>`, cabeca: null };
+  if (o.semMenina) return { svg: `<g>${s}</g>`, cabeca: null };
 
-  /* a Stella sentada no selim: a marionete, com o quadril na sela e os pés nos pedais */
+  /* a menina sentada no selim: a marionete, com o quadril na sela e os pés nos pedais */
   const h = ALTURA_POR_RAIO * R;
   const ySela = sela[1] + 0.153 * h;
-  const d: Desenho = familia.stella(sela[0], ySela, h, 'sentado');
+  const d: Desenho = familia.menina(sela[0], ySela, h, 'sentado');
   let t = `<g${o.abaixada ? ` transform="translate(0 ${f(0.6 * R)}) scale(1 0.82) translate(0 ${f(-0.6 * R)})" transform-origin="0 ${f(-R)}"` : ''}>${d.svg}`;
   /* as mãos chegam ao guidão: a haste vai do tubo até a mão da frente */
   t += fio(`M${f(tubo[0])} ${f(tubo[1])}L${f(d.maoR[0])} ${f(d.maoR[1])}`, cor, R * 0.12, 0.9);
@@ -107,7 +107,7 @@ export function bicicleta(R: number, o: OpcoesBicicleta = {}): { svg: string; ca
 
 /** A bicicletinha pequena, encostada: no quintal, na mesa da estação, na roda. */
 export function bicicletinha(x: number, y: number, R: number, enfeites: Enfeite[] = [], inclinada = -6): string {
-  return `<g transform="translate(${x} ${y}) rotate(${inclinada})">${bicicleta(R, { semStella: true, enfeites, rodinhas: true, volta: 0.15 }).svg}</g>`;
+  return `<g transform="translate(${x} ${y}) rotate(${inclinada})">${bicicleta(R, { semMenina: true, enfeites, rodinhas: true, volta: 0.15 }).svg}</g>`;
 }
 
 /**

@@ -1,4 +1,4 @@
-# A bicicletinha da Stella
+# A bicicletinha da menina
 
 Um passeio de bicicleta que sai da porta da casa verde e cresce devagar: cinco rotas do
 condomínio, cada uma com seu chão, seus bichos e alguém da família esperando no fim. É quase
@@ -45,10 +45,10 @@ alto, é um giro.
 
 | Tela | O que ela faz | Aprende | Custa | A família |
 |---|---|---|---|---|
-| 1. A saída | Toca no capacete (põe), toca na bicicleta (sobe). O coelhinho pula na cestinha. O mapinha mostra a rota de hoje e as abertas. | A ordem de sair de casa; escolher o caminho num mapa | Uma cena nova fora da porta | A mãe na porta: "Boa viagem, Stella!" |
+| 1. A saída | Toca no capacete (põe), toca na bicicleta (sobe). O coelhinho pula na cestinha. O mapinha mostra a rota de hoje e as abertas. | A ordem de sair de casa; escolher o caminho num mapa | Uma cena nova fora da porta | A mãe na porta: "Boa viagem!" |
 | 2. O passeio | Ela pedala sozinha na faixa do meio. Os quatro gestos acima. Cada obstáculo responde do seu jeito se o gesto não vier, e nada dói: a poça desliza e dá uma aceleradinha, a lombadinha dá um "tum", o tronco faz ela parar e passar a bicicleta por cima, o gambá atravessa e ela espera. | A hora certa; esforço na subida e descanso na descida; esperar (o gambá) e insistir (o tronco); gestos que moram em lugares diferentes | O motor: chão como função de altura, velocidade com inércia, o pulo do Jardim, as reações, a ajuda | Ninguém empurra |
 | 3. O kit do caminho | Lombadinha, poça, rampinha, tronco caído, gambá com filhotes, galho baixo, morrinhos em cadeia, pedregulhos, areia funda (em trechos, intercalada), ponte de tábuas. | Cada coisa do chão pede um gesto | Dez desenhos e dez reações | |
-| 4. As rotas | A rua (padaria, a mãe), o bosque (lago, o pai), os morrinhos (a avó, se houver; até lá a mãe), o atalho do parquinho (tudo misturado em trechos curtos, o Theo), a volta grande (a família na porta). Uma abre a cada três passeios na anterior. | Lugares do condomínio dela | Dado: `rotas.json` | Quem espera no fim, de corpo inteiro, acenando |
+| 4. As rotas | A rua (padaria, a mãe), o bosque (lago, o pai), os morrinhos (a avó, se houver; até lá a mãe), o atalho do parquinho (tudo misturado em trechos curtos, o irmão), a volta grande (a família na porta). Uma abre a cada três passeios na anterior. | Lugares do condomínio dela | Dado: `rotas.json` | Quem espera no fim, de corpo inteiro, acenando |
 | 5. A progressão | Ritmo +4% por passeio bom (teto 30%); um obstáculo a cada 4, 3, 2 compassos nos degraus 0, 3, 6; um tipo novo e um gesto novo a cada dois passeios bons, sempre sozinhos e com a mãozinha; volta um degrau com duas A2. A janela do pulo não muda. | Fica mais difícil devagar, sem nível na tela | Dado: `BICICLETA` | Os pais veem no cantinho |
 | 6. A chegada | Freia (ela ou a criança), desce e abraça quem esperava. A lira sobe, centelhas, palmas, e a frase na voz gravada de quem espera; sem gravação, só a festa. Volta pelo mesmo caminho, a família na porta, a casinha acende. A rota se desenha a lápis no mapa da parede do quarto; na primeira chegada de cada rota, um enfeite para a bicicleta (cestinha, bandeirinha, fitas, campainha, buzina). | Ir até alguém é o motivo de sair; o jogo olha para a vida dela | Mapa na parede, cinco enfeites, a roda e o convite | "Você veio de bicicleta até aqui!"; na roda, "Você andou de bicicleta?"; na despedida, "Vamos andar de bicicleta de verdade?" |
 
@@ -65,7 +65,7 @@ cabelo para trás e o "uuuh" da lira. Em dados: `gravidade`, `decolagem`.
 - Fora da porta, pela bicicletinha encostada no muro do quintal, ao lado do balancinho. Abre na
   etapa 3, com a árvore e a horta.
 - Quem faz é ela. Ninguém segura, ninguém empurra. A família espera no fim e recebe na porta.
-  O Theo aparece uma vez, acenando da gangorra.
+  O irmão aparece uma vez, acenando da gangorra.
 - Um gesto, depois quatro, um por vez e cada um com motivo. Se o teste com ela mostrar que
   quatro é demais, frear e abaixar esperam: com pular e acelerar a fase inteira funciona.
 - Rampinha voa com a velocidade; poça desliza e acelera; pedregulho não pede nada, só treme;
@@ -106,7 +106,7 @@ objeto no quintal em `casa.ts`, a roda, a despedida, `frases.json` e `narracao.j
 
 ## O que mudou depois da primeira leitura
 
-O Anderson jogou o simulador e pediu: acelerar e frear além de pular; a rampinha da rua estava
+O pai jogou o simulador e pediu: acelerar e frear além de pular; a rampinha da rua estava
 sem graça; passar direto na poça devia deslizar e dar uma aceleradinha; areia intercalada nas
 rotas, não uma rota só de areia; o gambá às vezes não reagia (o pulinho da campainha e o "tum"
 da lombadinha contavam como pular por cima; agora só um pulo de verdade conta); a voz
@@ -119,7 +119,7 @@ mais forte para subir mais alto, com descidas grandes. Tudo isso entrou acima.
 Tudo o que está acima, numa rodada só, menos o mapa da parede do quarto (fica para a próxima):
 `src/core/bicicleta.ts` (o chão, a velocidade com inércia, o pulo, as rotas e a progressão, puro
 e testado em `tests/bicicleta.test.ts`), `src/data/rotas.json` (as cinco rotas em dados),
-`src/puppet/bicicleta.ts` (a bicicleta com a Stella sentada na marionete, o capacete, os
+`src/puppet/bicicleta.ts` (a bicicleta com a menina sentada na marionete, o capacete, os
 enfeites, o gambá), `src/telas/bicicleta.ts` (a saída em SVG e o passeio em Canvas 2D, com os
 quatro gestos por lugar da tela, a ida, a chegada com quem espera, a volta e a família na porta),
 a bicicletinha no quintal (`casa.ts`), a pergunta da roda (`roda.ts`), o convite da despedida

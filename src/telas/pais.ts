@@ -14,7 +14,7 @@ import letras from '@/data/letras.json';
 import type { Tela } from '@/core/roteador';
 
 const NUMEROS = ['dois', 'três', 'quatro', 'cinco', 'seis', 'sete', 'oito', 'nove'];
-const DONO = { mae: 'Andrea', pai: 'Anderson', theo: 'Theo', qualquer: 'Qualquer um' };
+const DONO = { mae: 'Mãe', pai: 'Pai', irmao: 'Irmão', qualquer: 'Qualquer um' };
 const NOME_COR: Record<CorDeComida, string> = { vermelho: 'Vermelho', laranja: 'Laranja', amarelo: 'Amarelo', verde: 'Verde', roxo: 'Roxo', marrom: 'Branco ou marrom' };
 const NOME_TAREFA: Record<Tarefa, string> = { cama: 'Arrumou a cama', dentes: 'Escovou os dentes', brinquedos: 'Guardou os brinquedos', banho: 'Tomou banho', quarto: 'Arrumou o quarto', gentil: 'Foi gentil com alguém', parquinho: 'Brincou no parquinho', bicicleta: 'Andou de bicicleta' };
 
@@ -57,7 +57,7 @@ export function telaPais(): Tela {
     /* hoje */
     painel.append(h('h2', {}, 'Hoje'));
     painel.append(
-      h('p', {}, 'A Stella contou o que fez; confirmar aqui acende a lembrança com um brilho a mais e toca a voz de quem confirmou. Sem confirmação, a cena e o carinho acontecem igual.'),
+      h('p', {}, 'Ela contou o que fez; confirmar aqui acende a lembrança com um brilho a mais e toca a voz de quem confirmou. Sem confirmação, a cena e o carinho acontecem igual.'),
     );
     const conf = e.pais.confirmacoes[e.hoje.dia] ?? [];
     for (const t of tarefasAtivas(e)) {
@@ -132,11 +132,11 @@ export function telaPais(): Tela {
     const sons: [SomDoChamado, string][] = [
       ['alterna', 'Um de cada vez'],
       ['assovio', 'Assovio'],
-      ['ei', '"Ei, Stella!"'],
+      ['ei', '"Ei, vem cá!"'],
     ];
     const selSom = h('select', { id: 'chamado-som' }, ...sons.map(([v, t]) => h('option', { value: v, selected: v === e.pais.chamadoSom }, t))) as HTMLSelectElement;
     selSom.addEventListener('change', () => mudar((x) => void (x.pais.chamadoSom = selSom.value as SomDoChamado)));
-    painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Som do chamado', h('span', { class: 'sub' }, 'O "Ei, Stella!" usa a voz gravada no grupo Chamado; sem gravação, a voz do aparelho diz "Ei!"')), selSom));
+    painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Som do chamado', h('span', { class: 'sub' }, 'O "Ei, vem cá!" usa a voz gravada no grupo Chamado; sem gravação, a voz do aparelho diz "Ei!"')), selSom));
 
     /* prato */
     painel.append(h('h2', {}, 'O prato colorido'));
@@ -172,7 +172,7 @@ export function telaPais(): Tela {
         mudar((x) => void (x.sessoes = SESSAO_COMPLETA + 1));
         abrir();
       });
-      painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Para testar tudo', h('span', { class: 'sub' }, 'Para a Stella, o aos poucos é melhor. Para vocês conhecerem o jogo, abram.')), h('div', { class: 'acoes' }, bCasa)));
+      painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, 'Para testar tudo', h('span', { class: 'sub' }, 'Para ela, o aos poucos é melhor. Para vocês conhecerem o jogo, abram.')), h('div', { class: 'acoes' }, bCasa)));
     }
     if (primeiraVez) mudar((x) => void (x.pais.instalacaoVista = true));
 
@@ -228,7 +228,7 @@ export function telaPais(): Tela {
       h(
         'p',
         {},
-        'A cada avanço dela (uma tarefa contada, uma letra, um som, a chegada, um bilhete) um balão aparece no topo da tela com uma frase curta para vocês lerem em voz alta. Ela não lê; vocês leem para ela. As frases nomeiam o que ela fez de verdade, dizem o carinho e a segurança da família, e deixam o mérito com ela: ninguém ensina, segura ou resolve no lugar dela. O mano (o Theo, como ela chama) aparece pouco, como família por perto, nunca como medida. Sem comparação, sem "melhor que". O balão fica na tela até vocês tocarem no "x" para fechar.',
+        'A cada avanço dela (uma tarefa contada, uma letra, um som, a chegada, um bilhete) um balão aparece no topo da tela com uma frase curta para vocês lerem em voz alta. Ela não lê; vocês leem para ela. As frases nomeiam o que ela fez de verdade, dizem o carinho e a segurança da família, e deixam o mérito com ela: ninguém ensina, segura ou resolve no lugar dela. O mano (como ela chama o irmão) aparece pouco, como família por perto, nunca como medida. Sem comparação, sem "melhor que". O balão fica na tela até vocês tocarem no "x" para fechar.',
       ),
     );
     const bNarra = h('button', { type: 'button', class: e.pais.narracao ? 'ligado' : '' }, e.pais.narracao ? 'Ligada' : 'Desligada');
@@ -264,7 +264,7 @@ export function telaPais(): Tela {
     /* espanhol */
     painel.append(h('h2', {}, 'Espanhol'));
     painel.append(
-      h('p', {}, 'A Estrellita, a boneca da estante, diz o outro nome das coisas: nas palavras, na comidinha, na horta e no palco. A escrita fica sempre em português. No automático, ela começa a falar quando a Stella já traçou três letras, para os primeiros sons estarem firmes. Se o celular não tiver voz em espanhol, grave as palavras no grupo Espanhol das vozes.'),
+      h('p', {}, 'A Estrellita, a boneca da estante, diz o outro nome das coisas: nas palavras, na comidinha, na horta e no palco. A escrita fica sempre em português. No automático, ela começa a falar quando ela já traçou três letras, para os primeiros sons estarem firmes. Se o celular não tiver voz em espanhol, grave as palavras no grupo Espanhol das vozes.'),
     );
     const modos: ['auto' | 'ligado' | 'desligado', string][] = [
       ['auto', 'Automático'],
@@ -304,7 +304,7 @@ export function telaPais(): Tela {
     /* bilhetes */
     if (e.bilhetes.length) {
       painel.append(h('h2', {}, 'Os bilhetinhos dela'));
-      const NOME_QUEM = { mae: 'para a mãe', pai: 'para o pai', theo: 'para o Theo' };
+      const NOME_QUEM = { mae: 'para a mãe', pai: 'para o pai', irmao: 'para o irmão' };
       for (const b of e.bilhetes.slice(-12).reverse()) painel.append(h('div', { class: 'linha' }, h('span', { class: 'nome' }, b.letras, h('span', { class: 'sub' }, `${NOME_QUEM[b.para]}, ${b.dia}`))));
     }
 
@@ -460,7 +460,7 @@ export function telaPais(): Tela {
   }
 
   /**
-   * Opções: o aparelho, não a Stella. Versão nova, reiniciar, limpar, instalar,
+   * Opções: o aparelho, não a menina. Versão nova, reiniciar, limpar, instalar,
    * proteger as gravações e testar som e voz. Nada aqui mexe no progresso,
    * fora "Recomeçar o dia", que pede dois toques.
    */
@@ -470,7 +470,7 @@ export function telaPais(): Tela {
     painel.append(
       h('div', { class: 'fechar' }, h('button', { type: 'button', class: 'primario', onClick: abrir }, 'Voltar ao cantinho')),
       h('h1', {}, 'Opções'),
-      h('p', {}, 'O que é do aparelho, e não da Stella: versão, reiniciar, instalar, proteger as gravações. Nada aqui mexe no progresso dela, fora o que avisa antes.'),
+      h('p', {}, 'O que é do aparelho, e não dela: versão, reiniciar, instalar, proteger as gravações. Nada aqui mexe no progresso dela, fora o que avisa antes.'),
     );
 
     /* versão */

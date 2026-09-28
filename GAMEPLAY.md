@@ -1,4 +1,4 @@
-# Little Star: como a Stella joga
+# Little Star: como ela joga
 
 > As decisões tomadas para implementar a v1 estão em `docs/decisoes.md`; onde este texto e
 > o código discordarem, vale aquele.
@@ -7,9 +7,9 @@
 > dois discordarem sobre jogabilidade, vale este.
 
 Sumário
-1. O que a Stella de verdade consegue fazer
+1. O que ela de verdade consegue fazer
 2. O laço: um dia na casa verde
-3. Quem faz o quê: Stella, adulto, Theo
+3. Quem faz o quê: a menina, o adulto, o irmão
 4. O que cresce
 5. A língua sem palavras do jogo
 6. As atividades, uma a uma
@@ -18,13 +18,13 @@ Sumário
 9. A ajuda invisível
 10. Roteiro da primeira sessão, com vocês
 11. Guia para quem joga junto
-12. Como testar com a Stella
+12. Como testar com ela
 13. A v1, revista
 14. Riscos e respostas
 
 ---
 
-## 1. O que a Stella de verdade consegue fazer
+## 1. O que ela de verdade consegue fazer
 
 Tudo começa daqui. Uma criança de 5 anos, com um celular, faz bem três coisas, e o jogo
 inteiro é feito só delas.
@@ -50,7 +50,7 @@ Regras que valem para os três gestos:
 
 Uma criança de 5 anos se sente segura quando sabe o que vem depois. O jardim Waldorf faz isso
 com o ritmo do dia: roda, brincar, lanche, história, despedida. Cada sessão do jogo tem essa
-mesma forma, sempre, e a Stella aprende a forma em três ou quatro dias.
+mesma forma, sempre, e ela aprende a forma em três ou quatro dias.
 
 ```
   CHEGADA  ->  RODA DO DIA  ->  SOM DO DIA  ->  BRINCADEIRA DO DIA  ->  LIVRE  ->  BICHOS  ->  DESPEDIDA
@@ -79,16 +79,16 @@ Regras do laço:
 
 ---
 
-## 3. Quem faz o quê: Stella, adulto, Theo
+## 3. Quem faz o quê: a menina, o adulto, o irmão
 
 O jogo é pensado para ser jogado **no colo**, pelo menos nas primeiras semanas. Não é babá
 eletrônica. Cada um tem um papel claro.
 
 | Quem | Faz | Não faz |
 |---|---|---|
-| **Stella** | Todos os toques, arrastos e traços. Escolhe o que brincar no livre. Dá nome aos bichos. | Nada de ler, nada de configurar. |
-| **Adulto (Andrea ou Anderson)** | Faz as perguntas da roda em voz alta ("você arrumou a cama hoje?"). Confirma tarefas e cores no cantinho dos pais, se quiser. Repete os sons com ela. Faz o convite da despedida virar verdade. | Não toca na tela por ela, a não ser que ela peça. Não corrige letra. Não negocia comida com o jogo. |
-| **Theo** | Pode ser o adulto da sessão (ele tem 10 anos). Brinca de "achar o som" com ela fora da tela. | O mesmo que o adulto. E não ensina por ela: no jogo, quem descobre é ela. |
+| **A menina** | Todos os toques, arrastos e traços. Escolhe o que brincar no livre. Dá nome aos bichos. | Nada de ler, nada de configurar. |
+| **Adulto (a mãe ou o pai)** | Faz as perguntas da roda em voz alta ("você arrumou a cama hoje?"). Confirma tarefas e cores no cantinho dos pais, se quiser. Repete os sons com ela. Faz o convite da despedida virar verdade. | Não toca na tela por ela, a não ser que ela peça. Não corrige letra. Não negocia comida com o jogo. |
+| **O irmão** | Pode ser o adulto da sessão (10 anos). Brinca de "achar o som" com ela fora da tela. | O mesmo que o adulto. E não ensina por ela: no jogo, quem descobre é ela. |
 
 **Sozinha.** Depois que ela conhece o laço (umas duas semanas), pode jogar sem ninguém. O
 jogo funciona igual; a diferença é que ninguém confirma as tarefas e ninguém faz a roda em
@@ -107,7 +107,7 @@ faz cresce **num lugar só**, sempre o mesmo, para ela entender de onde veio.
 | Treinar os cuidados na casa (6.14) | Nada que se conte: o que cresce é a tarefa de verdade, na roda | O convite da despedida leva para fazer de verdade |
 | Provar cores de comida | Uma flor por cor; girassol por comida nova | No canteiro na frente da casa |
 | Dormir na hora e sozinha | Uma estrela | No céu da janela do quarto |
-| Aprender uma letra | A letra, feita de fita rosa | Na parede do quarto; as do nome, na porta |
+| Aprender uma letra | A letra, feita de fita rosa | Na parede do quarto |
 | Catar pinhas | As pinhas | Na mesa da estação |
 | Terminar uma aventura | Uma boneca de pano nova | Na estante |
 | Cuidar dos bichos | Os bichos mais próximos dela (seguem ela, dormem perto) | Pela casa |
@@ -123,7 +123,7 @@ dia se toca: a mãozinha mostra onde ela mora na casa.
 Na casa, a luz dourada diz onde ela ainda pode ir: começa na brincadeira do dia; feita, passa
 para o que ainda não foi hoje; quando tudo já foi, fica na família, que chama para o fim. O
 que ainda não abriu aparece em silhueta cinza, no lugar dele: ela vê que existe e que ainda
-não é a hora. No painel de Opções, "Onde a Stella está" diz em texto, para o adulto, a etapa,
+não é a hora. No painel de Opções, "Onde ela está" diz em texto, para o adulto, a etapa,
 o que já foi hoje, o que falta e o que abre na próxima etapa.
 
 ---
@@ -183,8 +183,9 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
 
 - **Para quê**: ela se sentir esperada.
 - **Como**: a casa verde aparece de fora, com o céu da hora de verdade. A porta abre, a mãe, o
-  pai e o Theo estão ali, o gatinho sai correndo. Alguém diz o nome dela (voz gravada, e cada
-  dia uma pessoa diferente). A câmera entra na casa.
+  pai e o irmão estão ali, o gatinho sai correndo. Alguém diz oi (voz gravada: a mãe "Você
+  chegou!", o pai "Oi, filha!", o irmão "Oi, mana!"; cada dia uma pessoa diferente). A
+  câmera entra na casa.
 - **Dura**: 15 a 20 segundos. Um toque em qualquer lugar adianta.
 - **Acaba**: a família vai para o tapete da sala. Começa a roda.
 
@@ -234,7 +235,7 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
   abre o som do dia de novo, com outras figuras, quantas vezes ela quiser. O mural recebe a
   luz da casa como as outras coisas.
 - **Como**:
-  1. A Stella aparece na página; a letra da rodada fica grande no canto. O som soa curto e
+  1. A menina aparece na página; a letra da rodada fica grande no canto. O som soa curto e
      depois esticado: "sss... sssss".
   2. **Achar o som**: aparecem figuras grandes em arcos. Ela toca numa. Cada figura diz o
      próprio nome e o próprio som inicial ("lua, lll"). A que começa com "sss" ganha festa, diz
@@ -271,27 +272,26 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
   5. Terminou: o S vira o rabo do gatinho de novo, que abana, e a família comemora.
   6. **Segunda vez, sem a estrela guia**, se a primeira foi até o fim. Se não foi, com ela.
   7. A letra voa para a parede do quarto.
-- **Ordem das letras na v1**: A, E, L, S, T, O, M, U, I, V. As cinco primeiras são as do nome
-  dela, que ela já reconhece (resposta da família); com elas a porta do quarto ganha STELLA.
-  Depois as outras (antes: vogais primeiro, depois as
-  consoantes que se esticam, depois o T do Theo e do nome dela). Uma letra nova por semana,
+- **Ordem das letras na v1**: A, E, L, S, T, O, M, U, I, V. As cinco primeiras são as que ela
+  já reconhece (resposta da família). Depois as outras (antes: vogais primeiro, depois as
+  consoantes que se esticam, depois o T, que para e não estica). Uma letra nova por semana,
   por padrão. Os pais podem adiantar ou segurar, para andar junto com a escola.
 - **Imagens**: A, o telhado da casa verde. E, a estante com três prateleiras. O, a boca
-  cantando "óóó". S, o rabo do gatinho. L, a Stella deitada na grama com o braço para o céu.
+  cantando "óóó". S, o rabo do gatinho. L, a menina deitada na grama com o braço para o céu.
   M, as montanhas atrás da casa. U, a ferradura (ou o balanço). I, o pinheiro fininho de
   inverno. T, o tronco da árvore com o galho de cima. Se a escola usa outra imagem, vale a da
   escola.
 - **Dura**: 2 a 3 minutos.
 - **Ajuda**: A1, a estrela guia repete o traço onde ela parou. A2, a fita enche sozinha a
   partir de onde o dedo está, acompanhando o dedo em qualquer direção.
-- **Cresce**: a letra na parede. Com S, T, E, L, A, a porta do quarto ganha STELLA.
+- **Cresce**: a letra na parede.
 
 ### 6.6 Palavras em destaque e o escorregador de sons
 
 - **Para quê**: juntar sons em palavras, o passo em que ela sente que leu.
 - **Como, em qualquer lugar da casa**: tocar num objeto que tem palavra (gato, sol, lua, mala,
   bola, pinha) faz a palavra aparecer grande em cima dele, em letra bastão, só com letras que
-  ela já aprendeu ou está aprendendo. A voz diz a palavra. A Stella está no canto, lendo.
+  ela já aprendeu ou está aprendendo. A voz diz a palavra. A menina está no canto, lendo.
 - **O escorregador de sons**, sempre nas mesmas quatro etapas, na ordem do fônico. O que
   fazer é mostrado, nunca dito:
   1. **Ouvir.** A voz diz a palavra inteira. Embaixo da palavra há uma fita reta, da esquerda
@@ -319,8 +319,7 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
   as palavras feitas só de letras traçadas, na ordem do fônico. As palavras lidas inteiras
   ficam guardadas e aparecem no cantinho dos pais.
 - **Palavras da v1** (só com as letras da v1, de sílaba aberta, em que cada letra soa como o
-  som ensinado): LUA, MEIA, LATA, SALA, TATU, MOLA, MALA, UVA, IOIÔ, VELA, LUVA e o nome
-  STELLA. ASA e MESA saíram: S entre vogais soa Z. AVÓ, ELA, OLÁ, LIMA, TUTU, TELA, LAMA e
+  som ensinado): LUA, MEIA, LATA, SALA, TATU, MOLA, MALA, UVA, IOIÔ, VELA e LUVA. ASA e MESA saíram: S entre vogais soa Z. AVÓ, ELA, OLÁ, LIMA, TUTU, TELA, LAMA e
   MATA saíram: palavra rara ou figura que não se reconhece de um olhar. Os objetos
   de palavra na casa são a mala, a lata e a lua da janela à noite; GATO e CAMA aparecem como
   palavra só no caderno.
@@ -405,7 +404,7 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
 - **Quando**: brincadeira do dia no sábado; a porta de casa abre para ela em qualquer dia a
   partir da primeira semana.
 - **Como**:
-  1. O coelhinho fugiu para o fim do jardim. A porta abre e a Stella sai para buscar, na faixa
+  1. O coelhinho fugiu para o fim do jardim. A porta abre e ela sai para buscar, na faixa
      do meio da tela. Ela anda sozinha, balançando os bracinhos; a tela rola devagar. Música:
      *Valsa das Flores*. Lá em cima, um mapinha: a casinha, o coelhinho e a cabecinha dela
      andando entre os dois (rosa na ida, ouro na volta).
@@ -421,7 +420,7 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
   6. Entra pela porta de casa e vai para o palco. Chega sempre, com ou sem toque (pior caso,
      uns dois minutos).
   7. **O fecho no palco**: cortina de veludo abre, luz de ribalta. Na plateia, a mãe, o pai, o
-     Theo e as bonecas. Ela dança sozinha uma coreografia curta com a *Dança da Fada
+     irmão e as bonecas. Ela dança sozinha uma coreografia curta com a *Dança da Fada
      Açucarada* (plié, relevé, arabesque, pirueta, salto), uns vinte segundos; tocar faz
      centelhas, nunca erra. Agradecimento, aplauso, a família abraça na coxia, a cortina desce. Uma boneca de
      pano nova espera por ela na estante. Sem visto nem mãozinha: é a recompensa, não uma
@@ -461,10 +460,10 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
 - **Como**: a casa escurece, a lira toca a *Canção de ninar* de Brahms. Não há roda nem
   brincadeira. Só a **rotina da noite**, cinco toques, um de cada vez, cada um com sua cena
   curta: banheira (banho), escova (dentes), pijama, livrinho, abajur. No abajur, a luz apaga, a
-  mãe e o pai dão boa noite, o Theo dá boa noite também, o gatinho sobe na cama.
+  mãe e o pai dão boa noite, o irmão dá boa noite também, o gatinho sobe na cama.
 - **Dura**: 2 minutos.
 - **Acaba**: a tela escurece até o azul da noite e o jogo fecha. Até a manhã, abrir o jogo
-  mostra só a Stella dormindo e a canção baixinha, por 20 segundos, e fecha de novo.
+  mostra só a menina dormindo e a canção baixinha, por 20 segundos, e fecha de novo.
 
 ### 6.13 Despedida
 
@@ -536,12 +535,12 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
 - **Quando**: as sapatilhas de ponta penduradas na parede do quarto, entre o caderno e a
   porta. Abrem na sessão 2, junto com as bonecas.
 - **Como**:
-  1. Cortina de veludo abre, luz de ribalta, a Stella de tutu e coque. Na plateia, a mãe, o
-     pai, o Theo e as bonecas; a boneca companheira assiste da coxia. Música: *Dança da Fada
+  1. Cortina de veludo abre, luz de ribalta, a menina de tutu e coque. Na plateia, a mãe, o
+     pai, o irmão e as bonecas; a boneca companheira assiste da coxia. Música: *Dança da Fada
      Açucarada*. Entre um passo e outro ela nunca fica parada: gira devagar na ponta dos
      pés, braços em coroa, como a bailarina de uma caixinha de música, e passeia de um lado
      a outro do palco.
-  2. **A ribalta**: uma fileira de botões no chão do palco, cada um com a Stella desenhada
+  2. **A ribalta**: uma fileira de botões no chão do palco, cada um com a menina desenhada
      na pose: plié, relevé, arabesque, pirueta. O segundo número traz quatro passos novos
      na ribalta (tendu, passé, attitude, échappé), e os conjuntos alternam a cada número.
      Tocar num botão, ela vira de frente e faz o passo na hora, leve, com uma nota baixinha, centelhas e a voz da mãe dizendo o nome do
@@ -568,7 +567,7 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
 
 ## 7. A semana
 
-Waldorf vive de ritmo semanal, e a Stella já conhece isso da escola. Cada dia tem **uma**
+Waldorf vive de ritmo semanal, e ela já conhece isso da escola. Cada dia tem **uma**
 brincadeira do dia, que brilha na casa e para onde a família leva depois do som do dia. O
 resto da casa fica aberto no livre.
 
@@ -651,7 +650,7 @@ Regras:
 
 Por cima da ajuda de cada brincadeira, o jogo conta em toda tela o tempo sem nenhum toque.
 Passado o tempo que os pais escolheram (20 segundos de saída; 10 a 60, ou desligado, no
-cantinho dos pais), vem um chamado: um assovio "fiu-fiu" ou um "Ei, Stella!" (a voz gravada
+cantinho dos pais), vem um chamado: um assovio "fiu-fiu" ou um "Ei, vem cá!" (a voz gravada
 no grupo Chamado; sem gravação, a voz do aparelho diz "Ei!"), e a mãozinha toca no próximo
 passo. O próximo passo é o que a tela marcar, senão o contorno de luz que pulsa, senão algo
 tocável que ela ainda não tocou ali, senão o meio da cena, senão a casinha. Se a tela já tem
@@ -663,12 +662,12 @@ cantinho dos pais, com ela dormindo, com o painel das opções aberto nem com a 
 
 ## 10. Roteiro da primeira sessão, com vocês
 
-Para a primeira vez, com a Stella no colo. Uns 10 minutos.
+Para a primeira vez, com ela no colo. Uns 10 minutos.
 
 1. **Antes**: instalar o jogo, abrir o cantinho dos pais, gravar as frases de voz (uns 15
    minutos, sem ela por perto, para ser surpresa), definir hora de dormir, lista de comidas.
 2. **Abrir o jogo com ela.** Deixar a chegada rolar sem pressa. Quando a família do jogo
-   disser "Stella", olhar para ela: é a voz de vocês.
+   disser "oi", olhar para ela: é a voz de vocês.
 3. **Deixar ela tocar.** A primeira coisa que ela vai fazer é tocar em tudo. Tudo responde.
    Não guiar ainda.
 4. **O piano.** Se ela não achar, apontar para o piano rosa. Deixar ela tocar livre.
@@ -699,9 +698,9 @@ Para a primeira vez, com a Stella no colo. Uns 10 minutos.
 
 ---
 
-## 12. Como testar com a Stella
+## 12. Como testar com ela
 
-A regra do Ponta vale aqui: **medir antes de mexer**. Só que a medida é observar a Stella.
+A regra do Ponta vale aqui: **medir antes de mexer**. Só que a medida é observar a menina.
 
 **O que observar nas primeiras sessões** (anotar no celular, depois):
 - Onde ela ficou parada sem saber o que fazer, e por quanto tempo.
@@ -736,7 +735,7 @@ inteiro; o que sai volta na v2, sem pressa.
 - O laço da noite.
 - Três tarefas na roda (cama, dentes, brinquedos), a estrela da noite e o prato colorido.
 - Caderno com 10 letras (A, E, L, S, T, O, M, U, I, V), uma por semana.
-- Som do dia e palavras em destaque com o escorregador de sons (18 palavras).
+- Som do dia e palavras em destaque com o escorregador de sons (17 palavras).
 - Caixa de areia (dedo, pá e balde).
 - Pinhas e a mesa da estação.
 - Piano livre e *Brilha, brilha estrelinha*.

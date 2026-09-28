@@ -10,7 +10,7 @@ export const CORES_DE_COMIDA: CorDeComida[] = ['vermelho', 'laranja', 'amarelo',
 /** todas as tarefas da roda; os pais ligam e desligam cada uma no cantinho */
 export const TAREFAS: Tarefa[] = ['cama', 'dentes', 'brinquedos', 'banho', 'quarto', 'gentil', 'parquinho', 'bicicleta'];
 export type Semente = 'cenoura' | 'tomate' | 'milho' | 'alface';
-export type Quem = 'mae' | 'pai' | 'theo';
+export type Quem = 'mae' | 'pai' | 'irmao';
 
 /** um canteiro da horta: o que foi plantado, quando, e os dias em que foi regado */
 export interface Canteiro {
@@ -285,7 +285,9 @@ export function migrar(bruto: Record<string, unknown>): Estado {
   const base = estadoNovo();
   const pais = (atual.pais as Partial<Pais> | undefined) ?? {};
   const hoje = (atual.hoje as Partial<Hoje> | undefined) ?? {};
-  return { ...base, ...(atual as unknown as Estado), hoje: { ...base.hoje, ...hoje }, pais: { ...base.pais, ...pais, tarefas: { ...base.pais.tarefas, ...(pais.tarefas ?? {}) } } };
+  /* o irmão já se chamou 'theo' no save; ninguém tem nome no jogo */
+  const bilhetes = ((atual.bilhetes as Bilhete[] | undefined) ?? []).map((b) => ((b.para as string) === 'theo' ? { ...b, para: 'irmao' as Quem } : b));
+  return { ...base, ...(atual as unknown as Estado), bilhetes, hoje: { ...base.hoje, ...hoje }, pais: { ...base.pais, ...pais, tarefas: { ...base.pais.tarefas, ...(pais.tarefas ?? {}) } } };
 }
 
 function storage(): Storage | null {

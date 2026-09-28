@@ -9,6 +9,5 @@
   { "palavra": "UVA", "figura": "uva", "silabas": ["U", "VA"] },
   { "palavra": "IOIÔ", "figura": "ioio", "silabas": ["IO", "IÔ"] },
   { "palavra": "VELA", "figura": "vela", "silabas": ["VE", "LA"] },
-  { "palavra": "LUVA", "figura": "luva", "silabas": ["LU", "VA"] },
-  { "palavra": "STELLA", "figura": "stella", "silabas": ["STE", "LLA"], "sons": ["som_s", "som_t", "som_e", "som_l", null, "som_a"] }
+  { "palavra": "LUVA", "figura": "luva", "silabas": ["LU", "VA"] }
 ]

@@ -48,12 +48,12 @@ export interface Figura {
   crianca?: boolean;
   pele: string;
   cabelo: string;
-  /** a luz nas pontas do cabelo (os cachos do Theo) */
+  /** a luz nas pontas do cabelo (os cachos do irmão) */
   cabeloLuz?: string;
   cabeloTipo: Cabelo;
   roupa: string;
   vestido?: boolean;
-  /** a camisa aberta por cima da camiseta (o xadrez do Theo): a cor da camisa */
+  /** a camisa aberta por cima da camiseta (o xadrez do irmão): a cor da camisa */
   camisa?: string;
   /** o risco da camisa xadrez */
   xadrez?: string;
@@ -102,13 +102,13 @@ export interface Desenho {
 
 /* espelho de src/ui/tokens.css: o SVG precisa da cor escrita */
 export const CORES = {
-  peleStella: '#e9c39c',
-  peleTheo: '#f1d6bd',
+  peleMenina: '#e9c39c',
+  peleIrmao: '#f1d6bd',
   peleMae: '#f0d2b6',
   pelePai: '#d9a97e',
-  cabeloStella: '#c79a5e',
-  cabeloTheo: '#6b4a32',
-  luzTheo: '#9a7350',
+  cabeloMenina: '#c79a5e',
+  cabeloIrmao: '#6b4a32',
+  luzIrmao: '#9a7350',
   cabeloMae: '#553a28',
   cabeloPai: '#6a5646',
   barbaPai: '#9b928a',
@@ -230,7 +230,7 @@ function cabeloLocal(o: Figura, n: Nivel): Local {
   if (o.gorro) return { atras: '', frente: forma('M-31.5 0A31.5 31.5 0 0 1 31.5 0z', o.gorro) };
   switch (o.cabeloTipo) {
     case 'repartido':
-      /* a Stella: liso, repartido no meio, passando do ombro, com o lacinho de lado */
+      /* a menina: liso, repartido no meio, passando do ombro, com o lacinho de lado */
       return {
         atras: forma('M-37 -2C-37 -44 37 -44 37 -2L42 46Q30 40 20 48L12 36Q0 40 -12 36L-20 48Q-30 40 -42 46z', cor) + (detalhe ? fios(['M-34 6q-3 18 -1 34', 'M34 6q3 18 1 34'], escuro(cor, 0.3)) : ''),
         frente:
@@ -240,7 +240,7 @@ function cabeloLocal(o: Figura, n: Nivel): Local {
       };
     case 'rebelde':
     case 'cacheado':
-      /* o Theo: a nuvem de cachos, irregular, com luz nas pontas */
+      /* o irmão: a nuvem de cachos, irregular, com luz nas pontas */
       return {
         atras: cachos(NUVEM_GRANDE, cor, luz, n),
         frente: cachos([[-17, -22, 8.5], [2, -26, 8.5], [19, -20, 7.5], [-28, -9, 6]], cor, luz, n, false),
@@ -716,22 +716,22 @@ function desenha(o: Figura, dir: 1 | -1, pose: Pose, crianca: boolean, hr: numbe
 type Extra = Partial<Figura>;
 
 /** As quatro faces escolhidas em docs/referencia/familia.html. */
-export const CARAS: Record<'stella' | 'theo' | 'mae' | 'pai', Cara> = {
-  stella: { olhos: 'sorriso', boca: 'dentes', sobrancelha: 'fina', bochecha: true },
-  theo: { olhos: 'abertos', boca: 'largo', sobrancelha: 'grossa', queixo: 'reto', bochecha: false },
+export const CARAS: Record<'menina' | 'irmao' | 'mae' | 'pai', Cara> = {
+  menina: { olhos: 'sorriso', boca: 'dentes', sobrancelha: 'fina', bochecha: true },
+  irmao: { olhos: 'abertos', boca: 'largo', sobrancelha: 'grossa', queixo: 'reto', bochecha: false },
   mae: { olhos: 'abertos', boca: 'dentes', sobrancelha: 'fina', bochecha: true, brinco: C.ouro },
   pai: { olhos: 'sorriso', boca: 'dentes', sobrancelha: 'fina', bochecha: true },
 };
 
 export const familia = {
-  /** Stella em casa: vestido rosa de flores, cabelo mel repartido com lacinho. No palco, `tutu` e coque. */
-  stella: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
-    boneco({ x, y, h, pose, crianca: true, pele: C.peleStella, cabelo: C.cabeloStella, roupa: C.rosaDoce, cabeloTipo: 'repartido', laco: C.rosaDoce, vestido: true, manguinhas: true, estampa: [C.vinho, C.roxo], sapato: C.luz, cara: CARAS.stella, ...extra }),
-  stellaPalco: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
-    boneco({ x, y, h, pose, crianca: true, pele: C.peleStella, cabelo: C.cabeloStella, roupa: C.rosaDoce, cabeloTipo: 'coque', tutu: '#F7C3D8', sapato: '#EFB9CE', cara: CARAS.stella, ...extra }),
-  /** Theo, o baterista: a nuvem de cachos, camisa xadrez aberta sobre a camiseta escura */
-  theo: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
-    boneco({ x, y, h, pose, crianca: true, pele: C.peleTheo, cabelo: C.cabeloTheo, cabeloLuz: C.luzTheo, roupa: C.grafite, camisa: C.creme, xadrez: C.vinho, calca: '#3f4652', calcaCurta: true, cabeloTipo: 'rebelde', forte: 1.2, sapato: '#8b8078', cara: CARAS.theo, ...extra }),
+  /** a menina em casa: vestido rosa de flores, cabelo mel repartido com lacinho. No palco, `tutu` e coque. */
+  menina: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
+    boneco({ x, y, h, pose, crianca: true, pele: C.peleMenina, cabelo: C.cabeloMenina, roupa: C.rosaDoce, cabeloTipo: 'repartido', laco: C.rosaDoce, vestido: true, manguinhas: true, estampa: [C.vinho, C.roxo], sapato: C.luz, cara: CARAS.menina, ...extra }),
+  meninaPalco: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
+    boneco({ x, y, h, pose, crianca: true, pele: C.peleMenina, cabelo: C.cabeloMenina, roupa: C.rosaDoce, cabeloTipo: 'coque', tutu: '#F7C3D8', sapato: '#EFB9CE', cara: CARAS.menina, ...extra }),
+  /** o irmão, o baterista: a nuvem de cachos, camisa xadrez aberta sobre a camiseta escura */
+  irmao: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
+    boneco({ x, y, h, pose, crianca: true, pele: C.peleIrmao, cabelo: C.cabeloIrmao, cabeloLuz: C.luzIrmao, roupa: C.grafite, camisa: C.creme, xadrez: C.vinho, calca: '#3f4652', calcaCurta: true, cabeloTipo: 'rebelde', forte: 1.2, sapato: '#8b8078', cara: CARAS.irmao, ...extra }),
   /** a mãe: cabelo em camadas atrás da orelha, vestido salmão, magra */
   mae: (x: number, y: number, h: number, pose: Pose = 'parado', extra: Extra = {}): Desenho =>
     boneco({ x, y, h, pose, pele: C.peleMae, cabelo: C.cabeloMae, roupa: C.salmao, cabeloTipo: 'camadas', vestido: true, gola: true, forte: 0.8, esbelta: true, orelha: 4.6, sapato: C.ouro, cara: CARAS.mae, ...extra }),
@@ -754,5 +754,5 @@ export function figurinoDe(f: { roupa: string; cabelo: string; gorro: string } |
   return x;
 }
 
-/** Proporções decididas: Stella 1, Theo 1,5, pais 2. */
-export const ALTURAS = { stella: 1, theo: 1.5, mae: 2, pai: 2.1 };
+/** Proporções decididas: a menina 1, o irmão 1,5, pais 2. */
+export const ALTURAS = { menina: 1, irmao: 1.5, mae: 2, pai: 2.1 };

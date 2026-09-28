@@ -100,7 +100,7 @@ export function parado(b: Balanco): boolean {
 /* ---------- a gangorra ---------- */
 
 /**
- * A gangorra: ela numa ponta, o Theo na outra. Só o pé dela no chão faz
+ * A gangorra: ela numa ponta, o irmão na outra. Só o pé dela no chão faz
  * subir; lá em cima ela fica um instante e desce devagar, macia. Nunca bate
  * no chão.
  */

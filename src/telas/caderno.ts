@@ -68,13 +68,13 @@ export function telaCaderno(params: Record<string, string> = {}): Tela {
   const canvas = document.createElement('canvas');
   canvas.className = 'cena';
   el.appendChild(canvas);
-  /* a Stella em svg por cima do canvas: a letra é dela */
+  /* a menina em svg por cima do canvas: a letra é dela */
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   svg.setAttribute('viewBox', '0 0 390 780');
   svg.setAttribute('class', 'cena');
   svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
   svg.style.pointerEvents = 'none';
-  svg.innerHTML = `<g class="stella">${familia.stella(84, 712, 80, 'parado').svg}</g>`;
+  svg.innerHTML = `<g class="menina">${familia.menina(84, 712, 80, 'parado').svg}</g>`;
   el.appendChild(svg);
   /* a letra é traçada duas vezes: duas contas, no svg por cima do canvas */
   const contas = trilha({ svg }, 2);
@@ -87,7 +87,7 @@ export function telaCaderno(params: Record<string, string> = {}): Tela {
   let W = 390;
   let H = 780;
   let dpr = 1;
-  /* a caixa da letra: centrada no meio da página em arco, acima da Stella */
+  /* a caixa da letra: centrada no meio da página em arco, acima da menina */
   const caixa = () => {
     const lado = Math.min(W * 0.72, H * 0.5);
     return { x: (W - lado) / 2, y: H * 0.46 - lado / 2, lado };

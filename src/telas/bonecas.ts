@@ -22,7 +22,7 @@ const Y_ROUPA = 646;
 const Y_ENFEITE = 730;
 const CHAO = 560;
 const BONECA_X = 146;
-const STELLA_X = 290;
+const MENINA_X = 290;
 
 /** um vestidinho (ou um tutu, para a Estrellita) na cesta */
 function iconeRoupa(x: number, y: number, cor: string, tutu: boolean): string {
@@ -74,17 +74,17 @@ function iconeEnfeite(x: number, y: number, e: Exclude<Enfeite, 'nenhum'>): stri
 /**
  * O cantinho das bonecas. A estante de madeira em cima com as bonecas que ela
  * ganhou; embaixo, a boneca escolhida em pé no tapete, do tamanho de uma
- * boneca de verdade ao lado da Stella. Na cesta, os vestidinhos e os enfeites
+ * boneca de verdade ao lado da menina. Na cesta, os vestidinhos e os enfeites
  * da cabeça (laço, gorrinho de lã, coroa de flores, chapéu de sol) desenhados
  * como são, não como bolinhas de cor. Vestir faz a boneca dar um pulinho e a
- * Stella bater palma; a Estrellita diz a cor em espanhol. Tocar na Stella dá a
+ * menina bater palma; a Estrellita diz a cor em espanhol. Tocar na menina dá a
  * mão para a boneca: é essa que vai junto nas aventuras (a centelha na estante
  * mostra qual).
  *
- * Sozinha, ela não descobria que a Stella dá a mão, e a brincadeira não
+ * Sozinha, ela não descobria que a menina dá a mão, e a brincadeira não
  * acabava nunca. Agora a mãozinha mostra o caminho, um passo de cada vez:
- * uma boneca da estante, um vestidinho, a Stella. A boneca vestida de mão dada
- * com a Stella é o fim: centelhas, e a casinha acende.
+ * uma boneca da estante, um vestidinho, a menina. A boneca vestida de mão dada
+ * com a menina é o fim: centelhas, e a casinha acende.
  */
 export function telaBonecas(): Tela {
   let escolhida = Math.max(0, estado().companheira);
@@ -96,7 +96,7 @@ export function telaBonecas(): Tela {
   /* papel de parede: centelhas bem clarinhas */
   for (let r = 0; r < 4; r++) for (let c = 0; c < 5; c++) s += centelha(39 + c * 78 + (r % 2) * 39, 300 + r * 58, 9, '#ebcdc3');
   s += `<rect x="0" y="${CHAO - 30}" width="390" height="${780 - CHAO + 30}" fill="#ecd3c6"/><rect x="0" y="${CHAO - 32}" width="390" height="5" fill="#dcbfae"/>`;
-  s += `<ellipse cx="${(BONECA_X + STELLA_X) / 2 + 4}" cy="${CHAO - 2}" rx="158" ry="24" fill="${C.papel}" opacity="0.75"/><ellipse cx="${(BONECA_X + STELLA_X) / 2 + 4}" cy="${CHAO - 2}" rx="142" ry="18" fill="none" stroke="${C.rosaDoce}" stroke-width="1.6" stroke-dasharray="4 3.5" opacity="0.8"/>`;
+  s += `<ellipse cx="${(BONECA_X + MENINA_X) / 2 + 4}" cy="${CHAO - 2}" rx="158" ry="24" fill="${C.papel}" opacity="0.75"/><ellipse cx="${(BONECA_X + MENINA_X) / 2 + 4}" cy="${CHAO - 2}" rx="142" ry="18" fill="none" stroke="${C.rosaDoce}" stroke-width="1.6" stroke-dasharray="4 3.5" opacity="0.8"/>`;
 
   /* a estante: tábua com mãos-francesas */
   s += `<path d="M60 246l14 0l-14 16zM330 246l-14 0l14 16z" fill="#b8907a"/><rect x="34" y="236" width="322" height="11" rx="4" fill="${C.madeira}"/><rect x="34" y="236" width="322" height="3" rx="1.5" fill="#d9b7a1"/>`;
@@ -104,9 +104,9 @@ export function telaBonecas(): Tela {
   for (let i = 0; i < n; i++) s += `<g data-boneca="${i}"><circle cx="${xEstante(i)}" cy="190" r="36" fill="transparent"/><g class="desenho"></g></g>`;
   s += `</g><g class="marca"></g>`;
 
-  s += `<g class="luz-stella" style="pointer-events:none"></g><g class="cena"><g class="grande"></g><g class="stella"></g></g>`;
+  s += `<g class="luz-menina" style="pointer-events:none"></g><g class="cena"><g class="grande"></g><g class="menina"></g></g>`;
   s += `<g data-alvo="boneca"><ellipse cx="${BONECA_X}" cy="${CHAO - 105}" rx="62" ry="110" fill="transparent"/></g>`;
-  s += `<g data-alvo="stella"><ellipse cx="${STELLA_X}" cy="${CHAO - 130}" rx="62" ry="135" fill="transparent"/></g>`;
+  s += `<g data-alvo="menina"><ellipse cx="${MENINA_X}" cy="${CHAO - 130}" rx="62" ry="135" fill="transparent"/></g>`;
 
   /* a cesta: vestidinhos em cima, enfeites embaixo */
   const bolinha = (x: number, y: number) => `<circle class="bolinha" cx="${x}" cy="${y}" r="34" fill="${C.papel}" fill-opacity="0.85" stroke="${C.ouro}" stroke-width="1.5"/>`;
@@ -122,8 +122,8 @@ export function telaBonecas(): Tela {
   const luzEstante = svg.querySelector('.luz-estante') as SVGGElement;
   const marca = svg.querySelector('.marca') as SVGGElement;
   const grande = svg.querySelector('.grande') as SVGGElement;
-  const stella = svg.querySelector('.stella') as SVGGElement;
-  const luzStella = svg.querySelector('.luz-stella') as SVGGElement;
+  const menina = svg.querySelector('.menina') as SVGGElement;
+  const luzMenina = svg.querySelector('.luz-menina') as SVGGElement;
   let palmas = false;
   /* os passos que ela já fez: escolheu outra boneca na estante, vestiu, acabou */
   let escolheu = n <= 1;
@@ -145,8 +145,8 @@ export function telaBonecas(): Tela {
     /* a centelha em cima da boneca que vai junto nas aventuras */
     marca.innerHTML = e.companheira >= 0 && e.companheira < n ? centelha(xEstante(e.companheira), 128, 16, C.ouro) : '';
     const deMao = e.companheira === escolhida;
-    const st = familia.stella(STELLA_X, CHAO, 250, palmas ? 'palma' : deMao ? 'mao' : 'parado', { dir: -1 });
-    stella.innerHTML = st.svg;
+    const st = familia.menina(MENINA_X, CHAO, 250, palmas ? 'palma' : deMao ? 'mao' : 'parado', { dir: -1 });
+    menina.innerHTML = st.svg;
     grande.innerHTML = familia.boneca(BONECA_X, CHAO, 205, escolhida, { ...figurinoDe(e.figurinos[String(escolhida)]), ...(deMao ? { maoR: st.maoL } : {}) }).svg;
     /* a cesta mostra o que a boneca está usando: aro grosso */
     const f = figurino(escolhida);
@@ -175,11 +175,11 @@ export function telaBonecas(): Tela {
   };
 
   /* a mãozinha: uma boneca da estante (se tem mais de uma), um vestidinho que ela
-     ainda não usa, e a Stella; parada no passo da Stella, a Stella acende */
+     ainda não usa, e a menina; parada no passo da menina, a menina acende */
   const guia = guiar(tela, {
     atraso: 1200,
     proximo: () => {
-      luzStella.innerHTML = '';
+      luzMenina.innerHTML = '';
       const e = estado();
       if (!escolheu && !vestiu) {
         /* outra boneca que não a de agora (nem a que já anda junto) */
@@ -191,18 +191,18 @@ export function telaBonecas(): Tela {
         return { tipo: 'tocar', em: [XS[i]!, Y_ROUPA] };
       }
       if (e.companheira !== escolhida) {
-        if (guia.ajuda.nivel >= 2) luzStella.innerHTML = contornoLuz(STELLA_X, CHAO - 130, 66, 140);
-        return { tipo: 'tocar', em: [STELLA_X - 6, CHAO - 150] };
+        if (guia.ajuda.nivel >= 2) luzMenina.innerHTML = contornoLuz(MENINA_X, CHAO - 130, 66, 140);
+        return { tipo: 'tocar', em: [MENINA_X - 6, CHAO - 150] };
       }
       return null;
     },
   });
-  /* vestida e de mão dada com a Stella: é essa que vai junto, a brincadeira acabou */
+  /* vestida e de mão dada com a menina: é essa que vai junto, a brincadeira acabou */
   const talvezAcabe = () => {
     if (acabou || !vestiu || estado().companheira !== escolhida) return;
     acabou = true;
     guia.calar();
-    luzStella.innerHTML = '';
+    luzMenina.innerHTML = '';
     void esperar(900).then(() => {
       if (!tela.el.isConnected) return;
       tela.comemorar(BONECA_X, CHAO - 230);
@@ -223,14 +223,14 @@ export function telaBonecas(): Tela {
     pulinho();
     if (escolhida === 0 && espanholAtivo(estado())) void falarEspanhol('hola');
   });
-  tela.alvo('[data-alvo="stella"]', () => {
+  tela.alvo('[data-alvo="menina"]', () => {
     travar(600);
     sininho();
     const vai = estado().companheira !== escolhida;
     mudar((x) => void (x.companheira = vai ? escolhida : -1));
-    if (vai) tela.comemorar((BONECA_X + STELLA_X) / 2 + 20, CHAO - 150);
+    if (vai) tela.comemorar((BONECA_X + MENINA_X) / 2 + 20, CHAO - 150);
     render();
-    luzStella.innerHTML = '';
+    luzMenina.innerHTML = '';
     guia.passo();
     talvezAcabe();
   });

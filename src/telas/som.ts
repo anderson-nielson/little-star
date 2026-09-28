@@ -41,7 +41,7 @@ export function telaSom(params: Record<string, string> = {}): Tela {
 
   let s = `<rect width="390" height="780" fill="#f6e3dc"/>` + veu(0, 0, 390, 780, '#ebcdc3', 5, 0.25);
   s += `<path d="M36 720V210a159 159 0 0 1 318 0v510z" fill="#fbf8f1"/><path d="M36 720V210a159 159 0 0 1 318 0v510" fill="none" stroke="#c6a15b" stroke-width="1.5"/><line x1="36" y1="720" x2="354" y2="720" stroke="#c6a15b" stroke-width="1.5"/>`;
-  s += `<g class="stella">${familia.stella(84, 712, 80, 'parado').svg}</g>`;
+  s += `<g class="menina">${familia.menina(84, 712, 80, 'parado').svg}</g>`;
   s += `<text class="letra" x="270" y="690" text-anchor="middle" font-family="Jost, sans-serif" font-size="72" font-weight="500" fill="#f2a9c4">${semana.id}</text>`;
   s += `<g class="figuras"></g><g class="luz"></g>`;
   const tela = telaSvg(s);

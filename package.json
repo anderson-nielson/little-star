@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Little Star: a casa verde da Stella, um jogo de celular para 5 anos.",
+  "description": "Little Star: a casa verde, um jogo de celular para 5 anos.",
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",

@@ -61,14 +61,14 @@ export function fraseDaHoraReal(hora: number, minutos: number): string {
  * O relógio da sala, grande: ela gira o ponteiro das horas (o curto) e o
  * relógio diz a hora; o dos minutos (o comprido) fica nas doze. Ao chegar, o
  * relógio mostra a hora de verdade com os dois ponteiros e diz como está
- * ("passou das seis"). O céu da janelinha muda com a hora. Tocar no Theo:
+ * ("passou das seis"). O céu da janelinha muda com a hora. Tocar no irmão:
  * ele pede uma hora ("mostra as sete horas"); ela gira até lá e ganha uma
  * pedrinha. Ajuda: o número pedido acende; depois, o ponteiro anda sozinho.
  *
  * Sozinha, ela não sabia que o ponteiro se gira: só a voz dizia. Agora, logo
  * depois da hora falada, a mãozinha gira o ponteiro de verdade, em volta do
  * mostrador, e ele volta; parada, mostra de novo (sem pedida, e depois toca no
- * Theo; com pedida, gira até o número aceso). No fim, a mão anda junto com o
+ * irmão; com pedida, gira até o número aceso). No fim, a mão anda junto com o
  * ponteiro que vai sozinho.
  */
 export function telaRelogio(): Tela {
@@ -107,10 +107,10 @@ export function telaRelogio(): Tela {
   s += `<g class="minutos"><line x1="${CX}" y1="${CY + 12}" x2="${CX}" y2="${CY - R * 0.68}" stroke="#c6a15b" stroke-width="6" stroke-linecap="round"/></g>`;
   s += `<circle cx="${CX}" cy="${CY}" r="10" fill="#6e1a27"/>`;
   s += `<g class="luz"></g>`;
-  /* o Theo, que pergunta as horas */
-  s += `<g data-alvo="theo"><circle cx="90" cy="640" r="60" fill="transparent"/>${familia.theo(90, 740, 150, 'aponta').svg}</g>`;
+  /* o irmão, que pergunta as horas */
+  s += `<g data-alvo="irmao"><circle cx="90" cy="640" r="60" fill="transparent"/>${familia.irmao(90, 740, 150, 'aponta').svg}</g>`;
   s += `<g class="balao-hora" opacity="0">${arco(160, 540, 70, 76, '#fbf8f1')}<text class="pedida" x="195" y="595" text-anchor="middle" font-family="Jost, sans-serif" font-size="40" font-weight="500" fill="#f2a9c4"></text></g>`;
-  s += `<g class="stella">${familia.stella(310, 740, 100, 'acena').svg}</g>`;
+  s += `<g class="menina">${familia.menina(310, 740, 100, 'acena').svg}</g>`;
   const tela = telaSvg(s);
   const svg = tela.svg;
   tocarFundo('preludio_bach');
@@ -120,7 +120,7 @@ export function telaRelogio(): Tela {
   const luz = svg.querySelector('.luz') as SVGGElement;
   const balao = svg.querySelector('.balao-hora') as SVGGElement;
   const pedidaEl = svg.querySelector('.pedida') as SVGTextElement;
-  /* três pedidas do Theo por visita, em contas entre a janelinha e o relógio; depois, a casinha convida */
+  /* três pedidas do irmão por visita, em contas entre a janelinha e o relógio; depois, a casinha convida */
   const PEDIDAS = 3;
   const contas = trilha(tela, PEDIDAS, 148);
   contas.agora(0);
@@ -135,12 +135,12 @@ export function telaRelogio(): Tela {
   const ajuda = new Ajuda((n) => {
     luz.innerHTML = '';
     pararMostra();
-    /* sem pedida: primeiro o giro, depois a mãozinha toca no Theo aceso (até a casinha convidar) */
+    /* sem pedida: primeiro o giro, depois a mãozinha toca no irmão aceso (até a casinha convidar) */
     if (pedida === null) {
       if (n === 0 || convidou) return;
       if (n === 1) return mostrarGiro(hora, hora + 3);
       luz.innerHTML = contornoLuz(90, 650, 58, 76);
-      pararTheo = demonstrar(tela, { tipo: 'tocar', em: [100, 630] });
+      pararIrmao = demonstrar(tela, { tipo: 'tocar', em: [100, 630] });
       /* e a ajuda recomeça: parada de novo, o giro volta (nunca some de vez) */
       void esperar(4500).then(() => {
         if (pedida === null && ajuda.nivel === 2) ajuda.reset();
@@ -156,11 +156,11 @@ export function telaRelogio(): Tela {
     /* A1: a mãozinha gira o ponteiro até o número aceso (e ele volta; quem gira é ela) */
     if (n === 1) mostrarGiro(hora, pedida);
   });
-  /* a mão que toca no Theo, e o giro de mostra (abaixo): tocar em qualquer lugar tira */
-  let pararTheo = () => {};
+  /* a mão que toca no irmão, e o giro de mostra (abaixo): tocar em qualquer lugar tira */
+  let pararIrmao = () => {};
   let pararGiro = () => {};
   const pararMostra = () => {
-    pararTheo();
+    pararIrmao();
     pararGiro();
   };
   svg.addEventListener('pointerdown', pararMostra);
@@ -291,7 +291,7 @@ export function telaRelogio(): Tela {
         convidarParaCasa(tela);
       }
     } else {
-      /* ainda não: o Theo repete a hora, sem "errado" */
+      /* ainda não: o irmão repete a hora, sem "errado" */
       ajuda.tentativa();
       toc(400, 0.12);
       await dizer(pedida);
@@ -341,8 +341,8 @@ export function telaRelogio(): Tela {
   svg.addEventListener('pointerup', solta);
   svg.addEventListener('pointercancel', solta);
 
-  /* o Theo pede uma hora */
-  tela.alvo('[data-alvo="theo"]', async () => {
+  /* o irmão pede uma hora */
+  tela.alvo('[data-alvo="irmao"]', async () => {
     if (ocupado) return;
     ocupado = true;
     travar(800);

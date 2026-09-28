@@ -70,14 +70,14 @@ export function telaArvoreGrande(): Tela {
   /* o gatinho esperando no topo */
   m += `<g class="gatinho respira">${gato(TRONCO + 40, topo + 2, 26)}</g>`;
   /* a família embaixo, olhando */
-  m += familia.mae(40, CHAO + 12, 110).svg + familia.theo(320, CHAO + 14, 84, 'acena').svg;
-  m += `<g class="stella"></g>`;
+  m += familia.mae(40, CHAO + 12, 110).svg + familia.irmao(320, CHAO + 14, 84, 'acena').svg;
+  m += `<g class="menina"></g>`;
   m += `</g>`;
 
   const tela = telaSvg(m);
   const svg = tela.svg;
   const mundo = svg.querySelector('.mundo') as SVGGElement;
-  const gst = svg.querySelector('.stella') as SVGGElement;
+  const gst = svg.querySelector('.menina') as SVGGElement;
   tocarFundo('marcha');
   const contas = trilha(tela, N);
   contas.agora(0);
@@ -103,7 +103,7 @@ export function telaArvoreGrande(): Tela {
       dir = pulo.para[0] >= pulo.de[0] ? 1 : -1;
     } else if (acabou) pose = 'abraca';
     else if (onde >= 0) pose = 'acena';
-    gst.innerHTML = familia.stella(pos[0], pos[1], 86, pose, { dir }).svg;
+    gst.innerHTML = familia.menina(pos[0], pos[1], 86, pose, { dir }).svg;
     mundo.setAttribute('transform', `translate(0 ${cam.toFixed(1)})`);
   };
   desenhar();

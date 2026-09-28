@@ -5,7 +5,7 @@ import { centelha } from './objetos';
  * A boneca Waldorf de pano, desenhada à parte da marionete: cabeça grande e
  * redonda, corpo curtinho e macio, cabelo de lã em fios, rosto quase liso
  * (dois pontos e um sorriso pequeno), a costura aparecendo na barra. Cada
- * boneca tem o seu penteado, que é o jeito dela; o que a Stella troca é o
+ * boneca tem o seu penteado, que é o jeito dela; o que a menina troca é o
  * vestido e o enfeite da cabeça. A primeira é a Estrellita, a bailarina.
  */
 export type Penteado = 'coque' | 'trancas' | 'cachos' | 'chiquinhas' | 'solto';
@@ -28,7 +28,7 @@ export interface OpcoesBoneca {
   cabelo?: string;
   enfeite?: Enfeite;
   contorno?: string;
-  /** a mão direita vai até este ponto (dar a mão para a Stella) */
+  /** a mão direita vai até este ponto (dar a mão para a menina) */
   maoR?: Ponto;
 }
 

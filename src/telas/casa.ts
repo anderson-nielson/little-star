@@ -120,11 +120,8 @@ export function telaCasa(): Tela {
   s += `<g data-alvo="estante"${novo('bonecas')}>${toque(185, 224, 34)}<rect x="150" y="194" width="70" height="60" fill="none" stroke="#c9a189" stroke-width="2"/><line x1="150" y1="224" x2="220" y2="224" stroke="#c9a189" stroke-width="2"/>`;
   for (let i = 0; i < Math.min(e.bonecas, 5); i++) s += `<g class="boneca">${familia.boneca(162 + (i % 3) * 23, 222 + Math.floor(i / 3) * 30, 22, i, figurinoDe(e.figurinos[String(i)])).svg}</g>`;
   s += `</g>`;
-  /* a porta do quarto, rosa, com o nome dela em cima e o envelope do bilhetinho */
+  /* a porta do quarto, rosa, com o envelope do bilhetinho */
   s += `<rect x="226" y="236" width="38" height="${f1 - 236}" rx="6" fill="#f2a9c4"/><circle cx="256" cy="310" r="2.5" fill="#c6a15b"/>`;
-  const nome = 'STELLA';
-  const temNome = [...nome].every((l) => e.letras.includes(l));
-  if (temNome) s += `<text x="245" y="228" text-anchor="middle" font-family="Jost, sans-serif" font-size="10" font-weight="500" letter-spacing="1.5" fill="#6e1a27">${nome}</text>`;
   s += `<g data-alvo="bilhete"${novo('bilhete')}>${toque(245, 272, 28)}<rect x="233" y="264" width="24" height="16" rx="2" fill="#fbf8f1" stroke="#c6a15b"/><path d="M233 264l12 9l12 -9" fill="none" stroke="#c6a15b"/></g>`;
   /* mala no chão (palavra) */
   s += `<g data-alvo="mala"${novo('palavras')}>${toque(35, 358, 28)}<rect x="20" y="${f1 - 20}" width="30" height="20" rx="4" fill="#c48f5a"/><rect x="29" y="${f1 - 25}" width="12" height="6" rx="2" fill="none" stroke="#c48f5a" stroke-width="3"/></g>`;
@@ -133,8 +130,8 @@ export function telaCasa(): Tela {
   /* lembranças: o travesseiro */
   if (e.lembrancas.length > 0) s += `<ellipse cx="80" cy="${f1 - 22}" rx="10" ry="5" fill="#fbf8f1" stroke="#ebcdc3"/>`;
   s += `</g>`;
-  /* a Stella sentada na cama. É só enfeite, então o toque passa por ela e chega no que estiver atrás. */
-  s += `<g class="stella" style="pointer-events:none">${familia.stella(92, f1 - 20, 50, 'sentado').svg}</g>`;
+  /* ela sentada na cama. É só enfeite, então o toque passa por ela e chega no que estiver atrás. */
+  s += `<g class="menina" style="pointer-events:none">${familia.menina(92, f1 - 20, 50, 'sentado').svg}</g>`;
   /* caderno na escrivaninha de parede, entre a cama e o piano: é onde ela mais gosta de ir */
   s += `<g data-alvo="caderno"${novo('caderno')}>${toque(153, 290, 30)}<rect x="130" y="300" width="46" height="6" rx="2" fill="#c9a189"/><path d="M134 306l6 10M172 306l-6 10" stroke="#c9a189" stroke-width="2.5"/><rect x="136" y="277" width="34" height="23" rx="2" fill="#fbf8f1" stroke="#c6a15b"/><line x1="153" y1="278" x2="153" y2="299" stroke="#ebcdc3" stroke-width="1"/><text x="161" y="295" text-anchor="middle" font-family="Jost, sans-serif" font-size="16" fill="#f2a9c4" font-weight="500">${(letras as { id: string }[])[Math.min(e.letraIndice, 8)]?.id ?? 'A'}</text></g>`;
   /* as sapatilhas de ponta penduradas pelas fitas num ganchinho, entre o caderno e a porta: o palco */
@@ -212,7 +209,7 @@ export function telaCasa(): Tela {
   s += `</g>`;
   /* a família no tapete, em volta da lareira */
   s += `<g data-alvo="tapete"><ellipse cx="124" cy="${bottom - 4}" rx="80" ry="12" fill="#ebcdc3" opacity="0.85"/>`;
-  s += familia.mae(70, bottom - 2, 92).svg + familia.theo(96, bottom + 2, 66, 'acena').svg + familia.pai(170, bottom - 2, 98, 'parado', { dir: -1 }).svg + `</g>`;
+  s += familia.mae(70, bottom - 2, 92).svg + familia.irmao(96, bottom + 2, 66, 'acena').svg + familia.pai(170, bottom - 2, 98, 'parado', { dir: -1 }).svg + `</g>`;
   /* a caixa de brinquedos no canto da sala */
   s += `<g data-alvo="caixa-brinquedos"${novo('cuidados')}>${toque(206, 578, 28)}<circle cx="196" cy="${bottom - 29}" r="6" fill="#f2a9c4"/><rect x="204" y="${bottom - 36}" width="10" height="10" rx="2" fill="#7FA5B8"/><rect x="188" y="${bottom - 23}" width="34" height="21" rx="4" fill="#c9a189"/><rect x="186" y="${bottom - 25}" width="38" height="5" rx="2" fill="#b08a70"/></g>`;
   /* cozinha: o mural das figuras, a prateleira da lata, o fogão e a mesa com a toalha do dia */

@@ -28,9 +28,9 @@ export function telaNoite(): Tela {
   s += `<rect x="20" y="120" width="350" height="560" rx="12" fill="#4a3a48" opacity="0.6"/>`;
   s += arco(150, 150, 90, 110, '#10142a') + centelha(180, 190, 8, '#ebd9a8') + centelha(210, 175, 6, '#ebd9a8') + centelha(225, 210, 5, '#ebd9a8');
   s += `<path d="M195 200a10 10 0 1 0 9 14a8 8 0 1 1-9-14z" fill="#ebd9a8"/>`;
-  /* cama grande com a Stella sentada */
+  /* cama grande com a menina sentada */
   s += `<rect x="70" y="480" width="250" height="90" rx="14" fill="#f6e3dc" opacity="0.85"/><rect x="70" y="510" width="250" height="60" rx="10" fill="#f2a9c4" opacity="0.75"/>`;
-  s += `<g class="stella">${familia.stella(140, 520, 90, 'sentado').svg}</g>`;
+  s += `<g class="menina">${familia.menina(140, 520, 90, 'sentado').svg}</g>`;
   if (e.bichos.gato) s += `<g class="gato" opacity="0.6">${gato(300, 640, 18)}</g>`;
   /* os cinco objetos da rotina, num arco */
   const pos: [number, number][] = [
@@ -123,7 +123,7 @@ export function telaNoite(): Tela {
 
   const dormir = async () => {
     travar(9000);
-    const st = svg.querySelector('.stella') as SVGGElement;
+    const st = svg.querySelector('.menina') as SVGGElement;
     svg.querySelector('.gato')?.remove();
     st.style.transition = 'opacity 900ms';
     st.style.opacity = '0';
@@ -133,11 +133,11 @@ export function telaNoite(): Tela {
     await esperar(800);
     /* o combinado: dormir no quarto dela, a noite toda; amanhã a gente conta */
     if (temVoz('noite_combinado')) await falar('noite_combinado');
-    if (temVoz('boa_noite_mae')) await falar('boa_noite_mae');
+    if (temVoz('boa_noite_filha')) await falar('boa_noite_filha');
     else await esperar(1200);
-    if (temVoz('boa_noite_pai')) await falar('boa_noite_pai');
+    if (temVoz('boa_noite_te_amo')) await falar('boa_noite_te_amo');
     else await esperar(1000);
-    if (temVoz('boa_noite_theo')) await falar('boa_noite_theo');
+    if (temVoz('boa_noite_irmao')) await falar('boa_noite_irmao');
     liraDesce();
     mudar((x) => {
       if (!x.hoje.despedidaFeita) x.sessoesCompletas += 1;
@@ -153,13 +153,13 @@ export function telaNoite(): Tela {
 }
 
 /**
- * A Stella deitada na cama: a cabeça no travesseiro, olhos fechados, a
+ * A menina deitada na cama: a cabeça no travesseiro, olhos fechados, a
  * coberta até o pescoço. A marionete de pé, deitada de lado (girada), e a
  * coberta por cima; só a cabeça aparece, e fica claro que ela dorme.
  */
 export function stellaNaCama(gatinho: boolean): string {
   let s = `<ellipse cx="102" cy="498" rx="36" ry="16" fill="#fbf8f1" opacity="0.9"/>`;
-  s += `<g transform="rotate(-90 212 506)">${familia.stella(212, 506, 110, 'parado').svg}</g>`;
+  s += `<g transform="rotate(-90 212 506)">${familia.menina(212, 506, 110, 'parado').svg}</g>`;
   s += `<path d="M126 488q20-12 46-4q30 8 58-2q34-10 66 0q16 4 16 22v44h-186z" fill="#a58bc4"/>`;
   s += `<path d="M126 488q20-12 46-4q30 8 58-2q34-10 66 0" fill="none" stroke="#fbf8f1" stroke-width="5" opacity="0.5"/>`;
   if (gatinho) s += gato(282, 492, 16, '#c8b8a6', true);
@@ -172,7 +172,7 @@ export function stellaNaCama(gatinho: boolean): string {
 
 /**
  * Dormindo: até de manhã, abrir o jogo mostra o quarto dela no escuro, a
- * Stella dormindo com o gatinho e a canção baixinha por 20 segundos, e
+ * ela dormindo com o gatinho e a canção baixinha por 20 segundos, e
  * depois silêncio. Nada responde ao toque, a não ser a lua dos pais. O
  * balão diz a quem está junto que o jogo também dorme e volta de manhã.
  */

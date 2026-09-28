@@ -2,7 +2,7 @@ import { h } from '@/core/util';
 
 /**
  * O balão de narração: um balão de história em quadrinhos no topo da tela,
- * suave, para quem joga junto ler em voz alta para a Stella. Ele fica até
+ * suave, para quem joga junto ler em voz alta para ela. Ele fica até
  * alguém tocar no "x" para fechar; não some sozinho. Um de cada vez: se outra
  * frase chegar, ela toma o lugar da anterior. Só `opacity` e `transform` se
  * movem.
@@ -33,7 +33,7 @@ const BALAOZINHO = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14
 
 /** `linha`: a linha da direita do cabeçalho, onde o botão recolhido fica à esquerda das opções */
 export function montarBalao(app: HTMLElement, linha: HTMLElement = app): Balao {
-  const rotulo = h('span', { class: 'balao-rotulo' }, 'Para ler para a Stella');
+  const rotulo = h('span', { class: 'balao-rotulo' }, 'Para ler para ela');
   const texto = h('p', { class: 'balao-texto' });
   const fechar = h('button', { type: 'button', class: 'balao-fechar', 'aria-label': 'Fechar' }, '×');
   const el = h('div', { class: 'balao', role: 'status', 'aria-live': 'polite' }, rotulo, texto, fechar);

@@ -93,9 +93,9 @@ export function telaBicicleta(): Tela {
   /* o gancho com o capacete, o alvo da vez */
   s += `<path d="M240 300v22" stroke="#8f6f2c" stroke-width="2" stroke-linecap="round"/>`;
   s += `<g data-alvo="capacete"><circle cx="240" cy="344" r="36" fill="transparent"/><path d="M216 344C216 318 264 318 264 344Q240 340 216 344z" fill="#f6e3dc"/><path d="M232 324q8 -2 16 0" fill="none" stroke="#b9948c" stroke-width="1" opacity="0.6"/></g>`;
-  /* a bicicleta encostada e a Stella de pé */
+  /* a bicicleta encostada e a menina de pé */
   s += `<g data-alvo="bici"><circle cx="292" cy="490" r="40" fill="transparent"/><g class="bici-parada">${bicicletinha(292, 522, 17, enfeites, -6)}</g><g class="bici-montada" opacity="0"></g></g>`;
-  s += `<g class="stella">${familia.stella(190, 524, 96).svg}</g>`;
+  s += `<g class="menina">${familia.menina(190, 524, 96).svg}</g>`;
   s += `<g class="coelho">${coelho(340, 530, 16)}</g>`;
   s += palmeira(372, 600, 250, 9, -8);
   /* o mapinha: a casa, as rotas abertas (uma figura por destino), a de hoje acesa */
@@ -158,8 +158,8 @@ export function telaBicicleta(): Tela {
     etapa = 'subir';
     sininho();
     /* o capacete voa para a cabeça dela */
-    const st = svg.querySelector('.stella') as SVGGElement;
-    const cab = familia.stella(190, 524, 96).cabeca;
+    const st = svg.querySelector('.menina') as SVGGElement;
+    const cab = familia.menina(190, 524, 96).cabeca;
     (el as SVGGElement).style.transition = 'transform 600ms cubic-bezier(0.2, 0, 0, 1)';
     (el as SVGGElement).style.transform = `translate(${cab[0] - 240}px, ${cab[1] - 336}px) scale(0.72)`;
     (el as SVGGElement).style.transformOrigin = '240px 344px';
@@ -178,7 +178,7 @@ export function telaBicicleta(): Tela {
     etapa = 'rota';
     sininho();
     /* ela sobe: a bicicleta parada some e aparece com ela em cima; o coelhinho pula na cestinha */
-    (svg.querySelector('.stella') as SVGGElement).style.opacity = '0';
+    (svg.querySelector('.menina') as SVGGElement).style.opacity = '0';
     (svg.querySelector('[data-alvo="capacete"]') as SVGGElement).style.opacity = '0';
     const parada = svg.querySelector('.bici-parada') as SVGGElement;
     parada.style.opacity = '0';
@@ -310,9 +310,9 @@ export function telaPasseio(params: Record<string, string> = {}): Tela {
   const bici = Array.from({ length: QUADROS }, (_, i) => quadro(i));
   const biciAbaixada = quadro(2, true);
   const alturaBici = ALTURA_POR_RAIO * R + 3 * R;
-  const quemImg = (quem: 'mae' | 'pai' | 'theo', dir: 1 | -1 = -1) => imagemDe((quem === 'mae' ? familia.mae(100, 190, 170, 'acena', { dir }) : quem === 'pai' ? familia.pai(100, 190, 176, 'acena', { dir }) : familia.theo(100, 190, 130, 'acena', { dir })).svg, 200, 200);
-  const espera = r.quem === 'familia' ? [quemImg('mae'), quemImg('pai'), quemImg('theo')] : [quemImg(r.quem)];
-  const familiaEmCasa = [quemImg('mae', 1), quemImg('pai', 1), quemImg('theo', 1)];
+  const quemImg = (quem: 'mae' | 'pai' | 'irmao', dir: 1 | -1 = -1) => imagemDe((quem === 'mae' ? familia.mae(100, 190, 170, 'acena', { dir }) : quem === 'pai' ? familia.pai(100, 190, 176, 'acena', { dir }) : familia.irmao(100, 190, 130, 'acena', { dir })).svg, 200, 200);
+  const espera = r.quem === 'familia' ? [quemImg('mae'), quemImg('pai'), quemImg('irmao')] : [quemImg(r.quem)];
+  const familiaEmCasa = [quemImg('mae', 1), quemImg('pai', 1), quemImg('irmao', 1)];
   const gambaImg = Array.from({ length: 4 }, (_, i) => imagemDe(`<g transform="translate(70 100)">${gamba(0, 0, 40, (i / 4) * Math.PI * 2)}</g>`, 140, 110));
   const pinheiroImg = [imagemDe(pinheiro(60, 220, 210), 120, 230), imagemDe(pinheiro(60, 220, 150), 120, 230)];
 
@@ -357,7 +357,7 @@ export function telaPasseio(params: Record<string, string> = {}): Tela {
   const distanciaDeFreada = () => (BICICLETA.velocidade * vRel * vRel) / (2 * FREADA);
   const faixaTopo = () => H * 0.32;
   const chao = () => H * 0.64;
-  const xDaStella = () => (fase === 'ida' || fase === 'chegando' ? W * 0.33 : fase === 'encontro' ? W * 0.33 + (W * 0.34) * suave(Math.min(1, (tempo() - tFase) / 3)) : W * 0.67);
+  const xDaMenina = () => (fase === 'ida' || fase === 'chegando' ? W * 0.33 : fase === 'encontro' ? W * 0.33 + (W * 0.34) * suave(Math.min(1, (tempo() - tFase) / 3)) : W * 0.67);
   const suave = (u: number) => u * u * (3 - 2 * u);
   const yChao = (wx: number) => chao() + alturaChao(morros, wx) * H;
   const trechoEm = (wx: number) => trechos.find((t) => wx >= t.x0 && wx <= t.x1)?.tipo ?? null;
@@ -373,7 +373,7 @@ export function telaPasseio(params: Record<string, string> = {}): Tela {
       /* no ar, num voo alto, um toque é o giro */
       if (pulo && pulo.h >= 0.13 && !pulo.giro) {
         pulo.giro = true;
-        centelhasVivas.push({ x: xDaStella(), y: yChao(x) - H * 0.2, t: agora });
+        centelhasVivas.push({ x: xDaMenina(), y: yChao(x) - H * 0.2, t: agora });
         centelhasSom();
       }
       return;
@@ -430,7 +430,7 @@ export function telaPasseio(params: Record<string, string> = {}): Tela {
     parada = 0;
     maoEm = null;
     const agora = tempo();
-    const sX = xDaStella();
+    const sX = xDaMenina();
     const noCeu = py < chao() - H * 0.19;
     const frente = (px - sX) * sentido;
     if (!noCeu && Math.abs(frente) <= 46 && gestos.abaixar) return abaixar(agora);
@@ -466,7 +466,7 @@ export function telaPasseio(params: Record<string, string> = {}): Tela {
     /* a faixa do meio: o que fica longe passa mais devagar e fica um pouco acima do caminho */
     ctx.fillStyle = '#c9dbb2';
     ctx.fillRect(0, topo, W, ch - topo);
-    const sX = xDaStella();
+    const sX = xDaMenina();
     const longe = (p: number) => sX + (p - x * 0.5) * W;
     const base = ch - 40;
     const tipoFundo = r.fundo;
@@ -508,7 +508,7 @@ export function telaPasseio(params: Record<string, string> = {}): Tela {
   }
 
   function chaoDesenho(ch: number): void {
-    const sX = xDaStella();
+    const sX = xDaMenina();
     const sx = (p: number) => sX + (p - x) * W;
     /* o chão sobe e desce: um caminho pela função de altura */
     ctx.beginPath();
@@ -791,7 +791,7 @@ export function telaPasseio(params: Record<string, string> = {}): Tela {
     const t = tempo();
     const topo = faixaTopo();
     const ch = chao();
-    const sX = xDaStella();
+    const sX = xDaMenina();
     const sx = (p: number) => sX + (p - x) * W;
     fundo(topo, ch, t);
     mapa(topo * 0.62);
@@ -839,9 +839,9 @@ export function telaPasseio(params: Record<string, string> = {}): Tela {
       /* a família na porta, recebendo: aparece quando a casa se aproxima, na volta */
       if (fase === 'volta' || fase === 'entrando' || fase === 'fim') familiaEmCasa.forEach((img, i) => ctx.drawImage(img, xCasa + w * 0.5 + 8 + i * 40 - 100, yc - 190, 200, 200));
     }
-    /* a Stella na bicicleta */
+    /* a menina na bicicleta */
     const alt = alturaDoPulo(pulo, t) * H;
-    const esc = (H * BICICLETA.alturaDaStella) / alturaBici;
+    const esc = (H * BICICLETA.alturaDaMenina) / alturaBici;
     const tam = F * esc;
     /* a bicicleta inclina com o chão: o ângulo é o da tangente na tela, para onde quer que ela olhe */
     let ang = Math.atan2(inclinacao(morros, x, 1) * H, W) * 0.6;
@@ -937,7 +937,7 @@ export function telaPasseio(params: Record<string, string> = {}): Tela {
           if (h > 0 && !noArAgora()) {
             pulo = { inicio: t, fim: t + 0.6 + h * 3, h };
             liraSobe();
-            if (h > 0.08) centelhasVivas.push({ x: xDaStella(), y: yChao(x) - H * 0.2, t });
+            if (h > 0.08) centelhasVivas.push({ x: xDaMenina(), y: yChao(x) - H * 0.2, t });
           } else if (mo.grande) liraDesce();
         }
       }
@@ -1010,7 +1010,7 @@ export function telaPasseio(params: Record<string, string> = {}): Tela {
             pulo = { inicio: t, fim: t + 0.6 + voo.h * 2.5, h: voo.h, giro: voo.giro };
             liraSobe();
             if (voo.giro) {
-              centelhasVivas.push({ x: xDaStella(), y: yChao(x) - H * 0.22, t });
+              centelhasVivas.push({ x: xDaMenina(), y: yChao(x) - H * 0.22, t });
               centelhasSom();
             }
             break;
@@ -1103,7 +1103,7 @@ export function telaPasseio(params: Record<string, string> = {}): Tela {
     liraSobe();
     await esperar(350);
     if (!vivo) return;
-    centelhasVivas.push({ x: xDaStella() + 30, y: yChao(x) - H * 0.16, t: tempo() });
+    centelhasVivas.push({ x: xDaMenina() + 30, y: yChao(x) - H * 0.16, t: tempo() });
     centelhasSom();
     aplauso(1.6);
     if (temVoz('chegou_bicicleta')) await falar('chegou_bicicleta');
@@ -1138,7 +1138,7 @@ export function telaPasseio(params: Record<string, string> = {}): Tela {
       if (!vivo) return;
       /* os quadros com o enfeite novo */
       for (let i = 0; i < QUADROS; i++) bici[i] = quadro(i);
-      centelhasVivas.push({ x: xDaStella(), y: yChao(x) - H * 0.14, t: tempo() });
+      centelhasVivas.push({ x: xDaMenina(), y: yChao(x) - H * 0.14, t: tempo() });
       centelhasSom();
     }
     await esperar(900);

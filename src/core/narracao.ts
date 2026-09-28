@@ -4,13 +4,13 @@ import type { Estado } from './estado';
 /**
  * A narração para quem joga junto. A cada avanço dela (uma tarefa contada,
  * uma letra, um som, a chegada, o bilhete) um balão no topo da tela traz
- * uma frase curta para a mãe, o pai ou o Theo lerem em voz alta. As frases
+ * uma frase curta para a mãe, o pai ou o irmão lerem em voz alta. As frases
  * vivem em `src/data/narracao.json` e se revezam.
  *
  * O texto é para o adulto, nunca para ela ler. Três coisas ele sempre faz:
  * nomeia o que ela fez de verdade (a força dela), diz o carinho e a
  * segurança da família, e deixa o mérito com ela: ninguém ensina, segura ou
- * resolve no lugar dela. O mano (o Theo, como ela o chama) aparece pouco, como
+ * resolve no lugar dela. O mano (como ela chama o irmão) aparece pouco, como
  * família por perto, nunca como medida. Nada de comparação, nada de "melhor que",
  * e nada de nomear a corrida ("não é corrida" ainda fala em corrida).
  *

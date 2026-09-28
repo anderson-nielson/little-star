@@ -22,7 +22,7 @@ export interface Rota {
   id: string;
   nome: string;
   destino: string;
-  quem: 'mae' | 'pai' | 'theo' | 'familia';
+  quem: 'mae' | 'pai' | 'irmao' | 'familia';
   ceu: 'dia' | 'tarde' | 'muda';
   fundo: string;
   musica: string;
@@ -86,8 +86,8 @@ export const BICICLETA = {
   errosParaA2: 4,
   /** a rede de segurança: mesmo sem nenhum toque, a ida e a volta acabam antes disto, em segundos */
   duracaoMaxima: 240,
-  /** a altura da Stella, em fração da altura da tela (com a bicicleta) */
-  alturaDaStella: 0.16,
+  /** a altura da menina, em fração da altura da tela (com a bicicleta) */
+  alturaDaMenina: 0.16,
 };
 
 /* ---------- a progressão ---------- */

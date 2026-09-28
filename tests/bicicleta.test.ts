@@ -37,7 +37,7 @@ describe('as rotas da bicicletinha', () => {
     expect(ROTAS).toHaveLength(5);
     expect(new Set(ROTAS.map((r) => r.enfeite)).size).toBe(5);
     for (const r of ROTAS) {
-      expect(['mae', 'pai', 'theo', 'familia']).toContain(r.quem);
+      expect(['mae', 'pai', 'irmao', 'familia']).toContain(r.quem);
       expect(kitDaRota(r, 0).length).toBeGreaterThanOrEqual(2);
       expect(kitDaRota(r, 100).length).toBe(r.kit.length);
     }
