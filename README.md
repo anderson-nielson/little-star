@@ -14,6 +14,7 @@ família se despede com um convite para o mundo.
 - `docs/referencia/little-star-telas.html`: as cinco telas desenhadas antes do código.
 - `docs/referencia/estilos.html`: as três propostas de estilo gráfico (a mesma cena por três pincéis); a escolhida foi Aquarela e Lápis, que vive em `src/puppet/pincel.ts`.
 - `docs/referencia/familia.html`: as quatro faces da família no pincel escolhido, com as variações e as escolhas.
+- `docs/referencia/theo.html`: seis versões do Theo, entre o menino redondo das primeiras propostas e o baterista escolhido.
 - `docs/referencia/casa.html`: três propostas da fachada a partir das fotos da casa real, para a chegada, a casa e as casas pequenas.
 - `docs/parquinho.md` e `docs/referencia/parquinho.html`: o parquinho do condomínio (balanço, escorregador e gangorra), a volta dela em cinco telas com os brinquedos simulados.
 - `docs/shots/`: capturas do passeio automático.
