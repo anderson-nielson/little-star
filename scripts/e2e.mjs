@@ -33,6 +33,19 @@ const toque = async (x, y) => {
   await espera(60);
   await page.mouse.up();
 };
+/* toque num ponto da cena (unidades do viewBox), onde quer que a cena esteja na tela: a casa
+   guarda uma folga em cima para a rotina, e a cena fica menor e mais baixa que o viewport */
+const toqueNaCena = async (x, y) => {
+  const [px, py] = await page.evaluate(
+    ([x, y]) => {
+      const svg = document.querySelector('svg.cena');
+      const pt = new DOMPoint(x, y).matrixTransform(svg.getScreenCTM());
+      return [pt.x, pt.y];
+    },
+    [x, y],
+  );
+  await toque(px, py);
+};
 const conta = async (nome, seletor, minimo = 1) => {
   const n = await page.locator(seletor).count();
   if (n < minimo) erros.push(`${nome}: esperava ${minimo} de "${seletor}", achou ${n}`);
@@ -260,7 +273,7 @@ await abrir('sessoes=8&hora=15:00&tela=casa');
 await page.evaluate(() => globalThis.littleStar.mudar((e) => { e.aventuras = 2; e.aventurasPor = { jardim: 1, arvore: 1 }; }));
 await page.evaluate(() => globalThis.littleStar.ir('casa'));
 await espera(1500);
-await toque(165, 564);
+await toqueNaCena(43, 565);
 await espera(800);
 await shot('33-porta-escolha');
 await conta('porta: três aventuras', '[data-aventura]', 3);
@@ -295,7 +308,7 @@ if (pedrinhas < 2) erros.push(`pedrinhas: dormir sozinha devia dar 2, o pote tem
 /* o parquinho do condomínio: balanço, escorregador, gangorra */
 await abrir('sessoes=8&hora=15:00&tela=casa');
 await conta('casa: o balancinho do parquinho', '[data-alvo="parquinho"]');
-await toque(236, 735);
+await toqueNaCena(186, 730);
 await espera(1500);
 await conta('parquinho: o balanço', '.balanco');
 await page.mouse.move(195, 560);

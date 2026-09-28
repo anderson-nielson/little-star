@@ -17,6 +17,7 @@ import { centelhasSom, sininho } from '@/audio/synth';
 import { CENTELHA } from '@/puppet/objetos';
 import letrasJson from '@/data/letras.json';
 import type { Tela } from '@/core/roteador';
+import { graoNoCanvas } from '@/puppet/pincel';
 
 interface Letra {
   id: string;
@@ -354,6 +355,8 @@ export function telaCaderno(params: Record<string, string> = {}): Tela {
     ctx.strokeStyle = CORES.ouro;
     ctx.lineWidth = 1.5;
     ctx.stroke();
+    /* o grão do papel, como nas telas de svg */
+    graoNoCanvas(ctx, 0, 0, W, H, 0.1);
     desenharImagem();
     desenharFita();
     desenharGuia();
