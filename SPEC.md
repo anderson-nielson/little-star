@@ -292,9 +292,11 @@ subir é gostoso quando tem alguém perto.
   Cada pinha é um pouco diferente (comprida, redondinha, pequenininha, a grande da araucária)
   e ela toca para pegar e pôr na cestinha. O coelhinho cheira, o gatinho empurra com a pata.
 - **A mesa da estação.** No quarto, uma mesinha com um pano da cor da estação, como a mesa da
-  estação dos jardins Waldorf. As pinhas que ela cata vão para lá, e ela arruma do jeito que
-  quiser: em fila, em roda, em estrela. No outono ganham folhas, no inverno uma fitinha, no
-  Advento uma velinha ao lado.
+  estação dos jardins Waldorf. As pinhas que ela cata vão para lá, e junto uma bandeja com o
+  que mais ela junta lá fora: pedrinhas de rio, areia, barba de velho. Ela monta o que
+  quiser: uma fila de pinhas, uma roda de pedras, um caminho de areia, uma pinha com barba.
+  Fica tudo onde ela pôs. No outono a mesa ganha folhas, no inverno uma velinha, na primavera
+  flores, no verão uma concha.
 - **Pinha no caderno e na areia.** PINHA é palavra de destaque (tem o NH, que entra depois das
   primeiras), e em espanhol a Estrellita diz "piña". Na caixa de areia, uma pinha pode estar
   enterrada entre as letras.

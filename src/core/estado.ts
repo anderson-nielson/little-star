@@ -70,6 +70,17 @@ export interface PinhaNaMesa {
   y: number;
 }
 
+/** o que mais ela põe na mesa da estação: pedrinha, um punhado de areia, um tufo de barba de velho */
+export type Material = 'pedra' | 'areia' | 'musgo';
+export interface CoisaNaMesa {
+  material: Material;
+  /** qual desenho, dentro do material (formato da pedra, do montinho, do tufo) */
+  tipo: number;
+  /** posição no tampo, de 0 a 1 */
+  x: number;
+  y: number;
+}
+
 export interface Pais {
   horaDormir: string;
   limiteMin: number;
@@ -125,6 +136,8 @@ export interface Estado {
   letraIndice: number;
   semanaDaLetra: string;
   pinhas: PinhaNaMesa[];
+  /** as pedrinhas, a areia e o musgo que ela arrumou na mesa da estação, onde ela pôs */
+  mesa: CoisaNaMesa[];
   cesta: number;
   bonecas: number;
   aventuras: number;
@@ -193,6 +206,7 @@ export function estadoNovo(agora = new Date()): Estado {
     letraIndice: 0,
     semanaDaLetra: '',
     pinhas: [],
+    mesa: [],
     cesta: 0,
     bonecas: 1,
     aventuras: 0,
