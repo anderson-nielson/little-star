@@ -11,6 +11,7 @@ import { audio } from '@/audio/engine';
 import { musica, pararFundo, Sequenciador } from '@/audio/musica';
 import { lira, liraSobe, sininho, tiquinho, toc } from '@/audio/synth';
 import type { Tela } from '@/core/roteador';
+import { copaPath, escuro, formaNoCanvas } from '@/puppet/pincel';
 
 /** Dados do balanceamento da aventura. */
 export const JARDIM = {
@@ -113,6 +114,28 @@ export function apertoDaMao(ate: number): number {
   if (ate > 0.6) return (0.85 - ate) / 0.25;
   if (ate > 0.4) return 1;
   return (ate - 0.2) / 0.2;
+}
+
+/** A copa de uma árvore no canvas, com o lápis em volta. Feita na hora: nos testes não há Path2D. */
+const copas = new Map<string, Path2D>();
+function copaCanvas(ctx: CanvasRenderingContext2D, cx: number, cy: number, rx: number, ry: number, semente: number, cor: string): void {
+  const chave = `${rx},${ry},${semente}`;
+  let p = copas.get(chave);
+  if (!p) {
+    p = new Path2D(copaPath(0, 0, rx, ry, 9, semente));
+    copas.set(chave, p);
+  }
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.fillStyle = cor;
+  ctx.fill(p);
+  ctx.strokeStyle = escuro(cor, 0.3);
+  ctx.lineWidth = 1.1;
+  ctx.lineCap = 'round';
+  ctx.setLineDash([17, 1.6, 31, 2.2, 11, 1.4]);
+  ctx.globalAlpha *= 0.75;
+  ctx.stroke(p);
+  ctx.restore();
 }
 
 /** onde fica a porta de casa no caminho */
@@ -254,18 +277,20 @@ export function telaJardim(): Tela {
     ctx.save();
     ctx.translate(x, y);
     ctx.scale(olha * s, s);
-    ctx.fillStyle = '#e9e2d6';
-    ctx.beginPath();
-    ctx.ellipse(0, -12, 16, 12, 0, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.arc(14, -24, 9, 0, Math.PI * 2);
-    ctx.fill();
+    const corC = '#f1ebe0';
     const orelha = Math.sin(t * 3) * 0.12;
     ctx.beginPath();
     ctx.ellipse(12, -40, 3, 10, -0.2 + orelha, 0, Math.PI * 2);
+    formaNoCanvas(ctx, corC);
+    ctx.beginPath();
     ctx.ellipse(19, -40, 3, 10, 0.2 - orelha, 0, Math.PI * 2);
-    ctx.fill();
+    formaNoCanvas(ctx, corC);
+    ctx.beginPath();
+    ctx.ellipse(0, -12, 16, 12, 0, 0, Math.PI * 2);
+    formaNoCanvas(ctx, corC);
+    ctx.beginPath();
+    ctx.arc(14, -24, 9, 0, Math.PI * 2);
+    formaNoCanvas(ctx, corC);
     ctx.fillStyle = '#fbf8f1';
     ctx.beginPath();
     ctx.arc(-15, -14, 5, 0, Math.PI * 2);
@@ -282,10 +307,6 @@ export function telaJardim(): Tela {
   function casa(x: number, ch: number): void {
     const w = Math.min(150, W * 0.36);
     const h = w * 0.62;
-    ctx.fillStyle = '#8fae6b';
-    ctx.strokeStyle = '#4f6b3a';
-    ctx.lineWidth = 2;
-    ctx.lineJoin = 'round';
     ctx.beginPath();
     ctx.moveTo(x - w / 2, ch);
     ctx.lineTo(x - w / 2, ch - h);
@@ -293,10 +314,10 @@ export function telaJardim(): Tela {
     ctx.lineTo(x + w / 2, ch - h);
     ctx.lineTo(x + w / 2, ch);
     ctx.closePath();
-    ctx.fill();
-    ctx.stroke();
-    ctx.fillStyle = '#f2a9c4';
-    ctx.fillRect(x - w * 0.11, ch - h * 0.62, w * 0.22, h * 0.62);
+    formaNoCanvas(ctx, '#8fae6b');
+    ctx.beginPath();
+    ctx.rect(x - w * 0.11, ch - h * 0.62, w * 0.22, h * 0.62);
+    formaNoCanvas(ctx, '#f2a9c4');
     ctx.fillStyle = '#ebd9a8';
     ctx.fillRect(x + w * 0.2, ch - h * 0.75, w * 0.16, w * 0.14);
   }
@@ -304,21 +325,18 @@ export function telaJardim(): Tela {
   function obstaculo(o: (typeof obst)[number], x: number, ch: number): void {
     if (o.viraFolha) {
       /* a ajuda: a poça vira vitória-régia, a pedra e o tronco viram tufo de flor */
-      ctx.fillStyle = '#8fae6b';
       ctx.beginPath();
       ctx.ellipse(x, ch + 2, 34, 8, 0, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillStyle = '#f2a9c4';
+      formaNoCanvas(ctx, '#8fae6b');
       ctx.beginPath();
       ctx.arc(x, ch - 4, 6, 0, Math.PI * 2);
-      ctx.fill();
+      formaNoCanvas(ctx, '#f2a9c4');
       return;
     }
     if (o.tipo === 'poca') {
-      ctx.fillStyle = '#9fc3cf';
       ctx.beginPath();
       ctx.ellipse(x, ch + 3, 40, 9, 0, 0, Math.PI * 2);
-      ctx.fill();
+      formaNoCanvas(ctx, '#9fc3cf', { lapis: 0.3 });
       ctx.fillStyle = '#fbf8f1';
       ctx.globalAlpha = 0.5;
       ctx.beginPath();
@@ -326,25 +344,23 @@ export function telaJardim(): Tela {
       ctx.fill();
       ctx.globalAlpha = 1;
     } else if (o.tipo === 'pedra') {
-      ctx.fillStyle = '#b6a58c';
       ctx.beginPath();
       ctx.ellipse(x, ch - 9, 17, 13, 0, Math.PI, 0);
       ctx.lineTo(x + 17, ch + 1);
       ctx.lineTo(x - 17, ch + 1);
-      ctx.fill();
+      ctx.closePath();
+      formaNoCanvas(ctx, '#b6a58c');
       ctx.fillStyle = '#d9d0c0';
       ctx.beginPath();
       ctx.ellipse(x - 5, ch - 14, 6, 3, -0.3, 0, Math.PI * 2);
       ctx.fill();
     } else {
-      ctx.fillStyle = '#a8845f';
       ctx.beginPath();
       ctx.roundRect(x - 30, ch - 16, 60, 16, 8);
-      ctx.fill();
-      ctx.fillStyle = '#c9a189';
+      formaNoCanvas(ctx, '#a8845f');
       ctx.beginPath();
       ctx.ellipse(x + 26, ch - 8, 5, 8, 0, 0, Math.PI * 2);
-      ctx.fill();
+      formaNoCanvas(ctx, '#c9a189');
       ctx.strokeStyle = '#8fae6b';
       ctx.lineWidth = 3;
       ctx.lineCap = 'round';
@@ -442,14 +458,12 @@ export function telaJardim(): Tela {
     for (let i = -2; i < Math.ceil((D * 0.6 + 2) / 0.45); i++) {
       const xx = longe(i * 0.45);
       if (xx < -80 || xx > W + 80) continue;
-      ctx.fillStyle = '#c9a189';
-      ctx.globalAlpha = 0.7;
-      ctx.fillRect(xx - 6, topo + 70, 12, ch - topo - 70);
-      ctx.fillStyle = i % 2 ? '#35564d' : '#2c4a42';
-      ctx.globalAlpha = 0.75;
+      ctx.globalAlpha = 0.85;
       ctx.beginPath();
-      ctx.ellipse(xx, topo + 60, 60, 44, 0, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.rect(xx - 6, topo + 70, 12, ch - topo - 70);
+      formaNoCanvas(ctx, '#c9a189', { lapis: 0.35 });
+      ctx.globalAlpha = 0.9;
+      copaCanvas(ctx, xx, topo + 60, 60, 44, i, i % 2 ? '#3d6154' : '#35564d');
       ctx.globalAlpha = 1;
       /* fita de cetim pendurada */
       if (i % 2 === 0) {
@@ -502,18 +516,22 @@ export function telaJardim(): Tela {
       ctx.moveTo(fx, ch);
       ctx.lineTo(fx, ch - 18);
       ctx.stroke();
-      ctx.fillStyle = i % 2 ? '#f2a9c4' : '#ebd9a8';
+      const corFlor = i % 2 ? '#f2a9c4' : '#ebd9a8';
       if (aberta) {
+        ctx.beginPath();
         for (let k = 0; k < 5; k++) {
-          const a = (k / 5) * Math.PI * 2;
-          ctx.beginPath();
-          ctx.arc(fx + Math.cos(a) * 6, ch - 22 + Math.sin(a) * 6, 4.5, 0, Math.PI * 2);
-          ctx.fill();
+          const a0 = (k / 5) * Math.PI * 2 - Math.PI / 2;
+          const a1 = ((k + 1) / 5) * Math.PI * 2 - Math.PI / 2;
+          const am = (a0 + a1) / 2;
+          if (k === 0) ctx.moveTo(fx + Math.cos(a0) * 5, ch - 22 + Math.sin(a0) * 5);
+          ctx.quadraticCurveTo(fx + Math.cos(am) * 12, ch - 22 + Math.sin(am) * 12, fx + Math.cos(a1) * 5, ch - 22 + Math.sin(a1) * 5);
         }
+        ctx.closePath();
+        formaNoCanvas(ctx, corFlor, { lapis: 0.32 });
       } else {
         ctx.beginPath();
         ctx.ellipse(fx, ch - 22, 4, 7, 0, 0, Math.PI * 2);
-        ctx.fill();
+        formaNoCanvas(ctx, corFlor, { lapis: 0.32 });
       }
     }
     /* obstáculos */

@@ -1,5 +1,6 @@
 import { circ, CORES as C } from './boneco';
 import nomes from '@/data/figuras-nomes.json';
+import { aLapis } from './pincel';
 
 /**
  * As figuras das palavras e das comidas, numa caixa de 100 x 100, em poucas
@@ -76,7 +77,8 @@ const F: Record<string, string> = {
 
 export function figura(id: string, x: number, y: number, s: number, extra = ''): string {
   const d = F[id] ?? `<circle cx="50" cy="50" r="30" fill="${C.rosa}"/>`;
-  return `<g transform="translate(${x - s / 2} ${y - s / 2}) scale(${s / 100})" ${extra}>${d}</g>`;
+  /* o lápis nas figuras: mesmo nas partes com opacidade (são figuras, não véus) */
+  return `<g transform="translate(${x - s / 2} ${y - s / 2}) scale(${s / 100})" ${extra} data-lapis="pronto">${aLapis(d, { comOpacidade: true, opLapis: 0.6 })}</g>`;
 }
 
 export function nomeDaFigura(id: string): string {

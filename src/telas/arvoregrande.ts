@@ -5,7 +5,7 @@ import { esperar } from '@/core/util';
 import { travar } from '@/core/toque';
 import { Ajuda } from '@/core/ajuda';
 import { familia } from '@/puppet/boneco';
-import { gato, nuvem } from '@/puppet/objetos';
+import { copa, gato, nuvem } from '@/puppet/objetos';
 import { tocarFundo } from '@/audio/musica';
 import { lira, PENTATONICA, ronronar, sininho } from '@/audio/synth';
 import type { Tela } from '@/core/roteador';
@@ -58,13 +58,13 @@ export function telaArvoreGrande(): Tela {
   m += `<rect x="${TRONCO - 20}" y="${topo - 20}" width="40" height="${CHAO - topo + 30}" rx="10" fill="#c9a189"/><rect x="${TRONCO - 10}" y="${topo - 20}" width="8" height="${CHAO - topo + 30}" fill="#b08a70" opacity="0.5"/>`;
   m += `<path d="M${TRONCO - 20} ${CHAO - 16}Q${TRONCO - 24} ${CHAO} ${TRONCO - 40} ${CHAO + 4}H${TRONCO + 40}Q${TRONCO + 24} ${CHAO} ${TRONCO + 20} ${CHAO - 16}z" fill="#c9a189"/>`;
   /* a copa lá em cima */
-  m += `<path d="M${TRONCO} ${topo - 150}L${TRONCO + 110} ${topo + 4}H${TRONCO - 110}z" fill="#2c4a42"/>`;
+  m += copa(TRONCO, topo - 70, 104, 76, '#2c4a42', 5);
   /* os galhos */
   for (let i = 0; i < N - 1; i++) {
     const [gx, gy] = galho(i);
     const esq = gx < TRONCO;
     m += `<path d="M${TRONCO} ${gy + 4}L${gx} ${gy + 10}" stroke="#b08a70" stroke-width="12" stroke-linecap="round"/>`;
-    m += `<ellipse cx="${esq ? gx + 18 : gx - 18}" cy="${gy - 50}" rx="80" ry="34" fill="${i % 2 ? '#35564d' : '#2c4a42'}" opacity="0.9"/>`;
+    m += copa(esq ? gx + 18 : gx - 18, gy - 50, 80, 34, i % 2 ? '#35564d' : '#2c4a42', i);
   }
   m += `<path d="M${TRONCO - 70} ${topo + 6}H${TRONCO + 70}" stroke="#b08a70" stroke-width="12" stroke-linecap="round"/>`;
   /* o gatinho esperando no topo */
