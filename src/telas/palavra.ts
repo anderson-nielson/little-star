@@ -1,7 +1,7 @@
-import { mover, pedrinhasSobem, telaSvg } from './comum';
+import { convidarParaCasa, mover, pedrinhasSobem, telaSvg } from './comum';
 import { ganhar, PEDRINHAS } from '@/core/pedrinhas';
 import { ir } from '@/core/roteador';
-import { easeOut, esperar, pontoNoSvg } from '@/core/util';
+import { doTopo, easeOut, esperar, pontoNoSvg } from '@/core/util';
 import { reivindicarDedo, soltarDedo, travar } from '@/core/toque';
 import { Ajuda } from '@/core/ajuda';
 import { estado, mudar } from '@/core/estado';
@@ -31,6 +31,9 @@ const LUZ = '#ebd9a8';
  */
 type Etapa = 'ouvir' | 'sons' | 'juntar' | 'pronta';
 
+/** quantas palavras seguidas numa vez (a próxima, o caderno e a palavra de novo contam) antes da casinha acender */
+export const PALAVRAS_POR_VEZ = 3;
+
 /**
  * Palavra em destaque e o escorregador de sons: a palavra grande em letra
  * bastão, uma fita reta embaixo. O que fazer é mostrado, nunca dito: a
@@ -45,7 +48,13 @@ export function telaPalavra(params: Record<string, string>): Tela {
   const p = palavras.find((x) => x.palavra === pedida) ?? palavras[0]!;
   const volta = params.volta ?? 'casa';
   const fila = sequenciaDePalavras(e0, p.palavra);
-  const proxima = proximaPalavra(e0, fila, p.palavra);
+  /* quantas palavras ela já fez nesta vez, esta contada: passa de palavra em palavra e pelo caderno */
+  const seguidas = Math.max(1, Number(params.seguidas) || 1);
+  /* o fim que se vê: depois das palavras da vez, ou quando a fila não tem mais
+     nenhuma nova, a casinha acende no lugar da próxima. O caderno continua ali */
+  const naoLidas = fila.some((q) => q.palavra !== p.palavra && !e0.palavras.includes(q.palavra));
+  const fimDaVez = seguidas >= PALAVRAS_POR_VEZ || !naoLidas;
+  const proxima = fimDaVez ? null : proximaPalavra(e0, fila, p.palavra);
   const letras = [...p.palavra];
   const n = letras.length;
   const X0 = 60;
@@ -245,6 +254,7 @@ export function telaPalavra(params: Record<string, string>): Tela {
     tela.mao(null);
     if (nova === 'pronta' && proximaEl) proximaEl.setAttribute('opacity', '1');
     if (nova === 'pronta') cadernoEl.setAttribute('opacity', '1');
+    if (nova === 'pronta' && fimDaVez) convidarParaCasa(tela);
   };
 
   /** as sílabas, batidas como palmas: as letras se juntam em grupos e cada grupo pula com uma nota */
@@ -373,17 +383,24 @@ export function telaPalavra(params: Record<string, string>): Tela {
   svg.addEventListener('pointerup', solta);
   svg.addEventListener('pointercancel', solta);
 
+  /* pronta, um toque em qualquer lugar tira a mãozinha e volta a contar a parada */
+  svg.addEventListener('pointerdown', () => {
+    if (etapa !== 'pronta') return;
+    paradaDesde = performance.now();
+    tela.mao(null);
+  });
+
   /* a próxima palavra da fila */
   if (proxima) {
     tela.alvo('[data-alvo="proxima"]', () => {
       if (etapa !== 'pronta') return;
-      void ir('palavra', { palavra: proxima.palavra, volta });
+      void ir('palavra', { palavra: proxima.palavra, volta, seguidas: String(seguidas + 1) });
     });
   }
 
   tela.alvo('[data-alvo="caderno"]', () => {
     if (etapa !== 'pronta') return;
-    void ir('caderno');
+    void ir('caderno', { seguidas: String(seguidas) });
   });
 
   /* a cena: a estrela guia, a mãozinha na fita e o convite para a próxima */
@@ -423,8 +440,8 @@ export function telaPalavra(params: Record<string, string>): Tela {
         if (u >= 1) void fimDaPassada();
       }
     } else if (etapa === 'pronta' && performance.now() - paradaDesde > 7000) {
-      /* pronta e parada: a mãozinha mostra a próxima palavra, ou o caderno */
-      tela.mao(proxima ? [PX + 22, PY + 26] : [CX + 22, PY + 26]);
+      /* pronta e parada: a mãozinha mostra a próxima palavra; no fim da vez, a casinha */
+      tela.mao(proxima ? [PX + 22, PY + 26] : fimDaVez ? doTopo(svg, 56, 70) : [CX + 22, PY + 26], proxima || !fimDaVez ? -15 : -30);
     }
   }, 1000);
   tela.aoDestruir(() => window.clearInterval(tique));

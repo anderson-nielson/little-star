@@ -67,6 +67,10 @@ export function proximoEncontro(f: Faixa, x: number, tAgora: number, janela: num
   return null;
 }
 
+/** O mesmo desenho da mãozinha das telas em svg, para o canvas. Feito na hora: nos testes não há Path2D. */
+let maoFeita: Path2D | null = null;
+const MAO = () => (maoFeita ??= new Path2D('M-6 26V2a3.2 3.2 0 0 1 6.4 0v10l2.6-1.4a3 3 0 0 1 4.4 2.2v1.4l2.2-.6a2.8 2.8 0 0 1 3.6 2.6V26z'));
+
 function imagemDe(svgInterno: string, w: number, h: number): HTMLImageElement {
   const img = new Image();
   img.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">${svgInterno}</svg>`);
@@ -119,7 +123,14 @@ export function telaLago(): Tela {
   let tInicio = 0;
   let vivo = true;
   let acabou = false;
-  const ajuda = new Ajuda();
+  /* a mãozinha à vista: logo na entrada, quando a ajuda sobe e a cada 6 s
+     parada; tocar tira. Ela segue a próxima plataforma e toca quando a
+     plataforma passa embaixo da Stella: a hora certa do pulo, mostrada */
+  let maoAVista = true;
+  let semTocar = 0;
+  const ajuda = new Ajuda((n) => {
+    if (n >= 1) maoAVista = true;
+  });
   /** -1 é a margem de baixo; LAGO.faixas é a margem de cima */
   let faixa = -1;
   let x = 0.5;
@@ -173,6 +184,8 @@ export function telaLago(): Tela {
     }
     if (!audio.pronto) void audio.tentarDestravar();
     ajuda.tocou();
+    maoAVista = false;
+    semTocar = 0;
     pular(tempo());
   };
   canvas.addEventListener('pointerdown', toque);
@@ -379,19 +392,6 @@ export function telaLago(): Tela {
         ctx.closePath();
         ctx.fill();
       }
-      /* ajuda A1: a mãozinha pulsa quando a plataforma da próxima faixa está embaixo dela */
-      if (ajuda.nivel >= 1 && i === faixa + passo() && !pulo && !noCoreto && Math.abs(posicaoNaFaixa(f, t) - xAgora(t)) < LAGO.largura * 0.45) {
-        ctx.save();
-        ctx.translate(px - 6, y - 60);
-        ctx.fillStyle = '#f6e3dc';
-        ctx.strokeStyle = '#4f6b3a';
-        ctx.lineWidth = 1.6;
-        const p = new Path2D('M-6 26V2a3.2 3.2 0 0 1 6.4 0v10l2.6-1.4a3 3 0 0 1 4.4 2.2v1.4l2.2-.6a2.8 2.8 0 0 1 3.6 2.6V26z');
-        ctx.globalAlpha = 0.5 + 0.5 * Math.abs(Math.sin(t * 3));
-        ctx.fill(p);
-        ctx.stroke(p);
-        ctx.restore();
-      }
     });
     /* a Stella; se caiu, o splash em volta dela */
     const hS = H * 0.17;
@@ -464,6 +464,48 @@ export function telaLago(): Tela {
     }
     ctx.drawImage(img, sx - (F * esc) / 2, sy - F * esc * 0.95, F * esc, F * esc);
     desenharFlor(t, sx + hS * 0.2, sy - hS * 0.5);
+    desenharMao(t);
+  }
+
+  /** A mãozinha na próxima plataforma: paira sobre ela e toca quando ela passa embaixo da Stella. */
+  function desenharMao(t: number): void {
+    const i = faixa + passo();
+    if (!maoAVista || pulo || noCoreto || acabou || (splash > 0 && splash > t) || i < 0 || i >= LAGO.faixas) return;
+    const f = faixas[i]!;
+    const px = posicaoNaFaixa(f, t) * W;
+    const y = yDaFaixa(i);
+    const embaixo = Math.abs(posicaoNaFaixa(f, t) - xAgora(t)) < LAGO.largura * 0.45;
+    /* A2: a plataforma acende também */
+    if (ajuda.nivel >= 2) {
+      ctx.strokeStyle = '#c6a15b';
+      ctx.lineWidth = 2.5;
+      ctx.globalAlpha = 0.5 + 0.5 * Math.abs(Math.sin(t * 3));
+      ctx.beginPath();
+      ctx.ellipse(px, y + 4, (W * LAGO.largura) / 2 + 8, 22, 0, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
+    /* embaixo dela: o dedo desce e sobe, tocando; longe, só paira esperando */
+    const toque = embaixo ? Math.max(0, Math.sin(t * 7)) : 0;
+    if (toque > 0.8) {
+      ctx.strokeStyle = '#fbf8f1';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.ellipse(px, y - 4, 16, 6, 0, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    ctx.save();
+    /* a ponta do dedo fica em (-2.8, -1.2) do desenho */
+    ctx.translate(px + 3.6, y - 40 + toque * 32 + (embaixo ? 0 : Math.sin(t * 3) * 3));
+    ctx.scale(1.3, 1.3);
+    ctx.fillStyle = '#f6e3dc';
+    ctx.strokeStyle = '#4f6b3a';
+    ctx.lineWidth = 1.4;
+    ctx.lineJoin = 'round';
+    ctx.globalAlpha = embaixo ? 1 : 0.75;
+    ctx.fill(MAO());
+    ctx.stroke(MAO());
+    ctx.restore();
   }
 
   const laco = () => {
@@ -474,6 +516,9 @@ export function telaLago(): Tela {
   };
   const tique = window.setInterval(() => {
     ajuda.tick(1);
+    /* parada, a mãozinha volta a cada 6 s, e fica até ela tocar */
+    semTocar += 1;
+    if (semTocar % 6 === 0) maoAVista = true;
     /* A2: se ela não toca, a vitória-régia chega perto e ela pula sozinha */
     if (ajuda.nivel >= 2 && !pulo && !acabou && tempo() > 2) pular(tempo());
   }, 1000);

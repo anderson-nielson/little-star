@@ -49,6 +49,10 @@ export function letraDaVez(): { letra: Letra; indice: number } {
   return { letra: letras[Math.min(indice, letras.length - 1)]!, indice };
 }
 
+/** O mesmo desenho da mãozinha das telas em svg, para o canvas. Feito na hora: nos testes não há Path2D. */
+let maoFeita: Path2D | null = null;
+const MAO = () => (maoFeita ??= new Path2D('M-6 26V2a3.2 3.2 0 0 1 6.4 0v10l2.6-1.4a3 3 0 0 1 4.4 2.2v1.4l2.2-.6a2.8 2.8 0 0 1 3.6 2.6V26z'));
+
 const CORES = { papel: '#fbf8f1', rosa: '#f6e3dc', rosaDoce: '#f2a9c4', luz: '#ebd9a8', ouro: '#c6a15b', musgoTinta: '#4f6b3a', tinta: '#1a1c2b' };
 
 /**
@@ -56,7 +60,7 @@ const CORES = { papel: '#fbf8f1', rosa: '#f6e3dc', rosaDoce: '#f2a9c4', luz: '#e
  * ela traça com o dedo. Tolerância larga (40 px), tirar o dedo não apaga,
  * toda letra terminada é comemorada.
  */
-export function telaCaderno(): Tela {
+export function telaCaderno(params: Record<string, string> = {}): Tela {
   const { letra } = letraDaVez();
   const el = document.createElement('div');
   el.className = 'tela';
@@ -314,6 +318,21 @@ export function telaCaderno(): Tela {
     if (!f) return;
     const q = paraTela(pontoEm(f, guiaU));
     desenharCentelha(q[0], q[1], Math.max(28, caixa().lado * 0.14), CORES.ouro);
+    /* a mãozinha vai junto, com o dedo na estrela: é com o dedo que se traça.
+       Com o dedo dela na tela, só a estrela (a mão não fica na frente do traço) */
+    if (dedoNaTela) return;
+    ctx.save();
+    /* a ponta do dedo fica em (-2.8, -1.2) do desenho, um pouquinho abaixo do centro da estrela */
+    ctx.translate(q[0] + 4, q[1] + 6);
+    ctx.rotate(-0.26);
+    ctx.scale(1.5, 1.5);
+    ctx.fillStyle = CORES.rosa;
+    ctx.strokeStyle = CORES.musgoTinta;
+    ctx.lineWidth = 1.2;
+    ctx.lineJoin = 'round';
+    ctx.fill(MAO());
+    ctx.stroke(MAO());
+    ctx.restore();
   }
 
   function desenhar(): void {
@@ -420,7 +439,9 @@ export function telaCaderno(): Tela {
     }
     await esperar(600);
     /* a palavra da letra, no escorregador de sons */
-    if (vivo) void ir('palavra', { palavra: letra.palavra, volta: 'casa' });
+    /* vindo de uma palavra pronta, esta é mais uma da vez: a palavra conta e acende a casinha no fim */
+    const seguidas = Number(params.seguidas) || 0;
+    if (vivo) void ir('palavra', { palavra: letra.palavra, volta: 'casa', ...(seguidas ? { seguidas: String(seguidas + 1) } : {}) });
   }
 
   /* o dedo */
