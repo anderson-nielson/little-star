@@ -528,8 +528,10 @@ palavra de cada letra já traçada mais as palavras feitas só dessas letras (`s
 ensinado (no português do Brasil isso exclui L no fim da sílaba, que soa U; S entre vogais,
 que soa Z, como em ASA e MESA; TE e TI, que soam "tchi"; e O ou E átonos no fim, que soam U
 e I). Um teste automático guarda a regra.
-- Primeiras (v1): LUA, AVÓ, ELA, OLÁ, UVA, MALA, SALA, LAMA, MOLA, TATU, TUTU, TELA, LATA,
-  MATA, LIMA, VELA, LUVA e STELLA.
+- Primeiras (v1): LUA, MEIA, LATA, SALA, TATU, MOLA, MALA, UVA, IOIÔ, VELA, LUVA e STELLA.
+  Só palavra comum, com figura direta: LUA é a do A, MEIA a do E, LATA a do L, TATU a do T,
+  MOLA a do O, IOIÔ a do I. Saíram AVÓ e ELA (pessoa não vira desenho simples), OLÁ, LIMA,
+  TUTU, TELA, LAMA e MATA (palavra rara ou figura que não se reconhece).
 - Da casa: GATO, BOLA, CAMA, MALA, SOFÁ, PIPOCA, BONECA.
 - Da família: MAMÃE, PAPAI, THEO, STELLA (que é mais difícil e tudo bem: é o nome dela).
 - Dos bichos: GATO, COELHO (o LH é difícil, entra depois), PATO, SAPO, VACA.

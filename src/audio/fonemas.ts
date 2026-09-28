@@ -82,9 +82,10 @@ async function dizerPartes(partes: string[]): Promise<void> {
 
 /**
  * O som com que cada figura começa, quando não é o som ensinado da letra
- * dela: ovo, olho e onda começam com ô (fechado), não com ó; elefante com ê.
+ * dela: ovo, olho, onda e ônibus começam com ô (fechado), não com ó;
+ * elefante, estrela e escada com ê.
  */
-const SOM_INICIAL_DIFERENTE: Record<string, string> = { ovo: 'som_o2', olho: 'som_o2', onda: 'som_o2', elefante: 'som_e2' };
+const SOM_INICIAL_DIFERENTE: Record<string, string> = { ovo: 'som_o2', olho: 'som_o2', onda: 'som_o2', onibus: 'som_o2', elefante: 'som_e2', estrela: 'som_e2', escada: 'som_e2' };
 
 export function somInicialDaFigura(figura: string, somDaLetraDela: string): string {
   return SOM_INICIAL_DIFERENTE[figura] ?? somDaLetraDela;
