@@ -538,3 +538,5 @@ Opções ela aparecia duas vezes, em "Agora" e em "Ainda falta".
   refazer o resto do laço: `sessao.desviar()` guarda para onde voltar (`src/core/sessao.ts`).
 - **A mãozinha da casa aponta a roda** quando ela está pendente; senão, a brincadeira do dia.
 - **"Ainda falta"** nas Opções não repete o passo de agora (`src/ui/opcoes.ts`).
+- **Prato e som também.** Depois da roda, o teste mostrou a mesma lacuna no prato. A cartinha de
+  roda, prato e som pendentes se toca (`data-pendente`), e a mãozinha aponta a primeira delas.

@@ -36,4 +36,12 @@ describe('a roda aberta da casa', () => {
     await sessao.avancar();
     expect(sessao.atual).toBe('bichos');
   });
+
+  it('o prato e o som abertos da casa também voltam para ela', async () => {
+    await sessao.desviar('prato');
+    await sessao.avancar();
+    await sessao.desviar('som');
+    await sessao.avancar();
+    expect(idas).toEqual(['prato', 'casa', 'som', 'casa']);
+  });
 });
