@@ -133,8 +133,12 @@ export function telaCasa(): Tela {
   /* a lembrança do parquinho: um balancinho de madeira ao lado das pinhas */
   if (e.lembrancas.some((l) => l.startsWith('parquinho:'))) s += balancinho(hx + 262, y1 + 123, 12);
   s += `</g>`;
+  /* a lembrança do lago: a flor rosa que ela trouxe, num copinho d'água em cima do piano */
+  const florDoLago = e.lembrancas.some((l) => l.startsWith('lago:'))
+    ? `<rect x="${hx + 181}" y="${y1 + 94}" width="8" height="10" rx="1.5" fill="#dbe7ee" stroke="#9fc3cf"/><circle cx="${hx + 185}" cy="${y1 + 91}" r="4.5" fill="#f2a9c4"/><circle cx="${hx + 185}" cy="${y1 + 91}" r="1.6" fill="#ebd9a8"/>`
+    : '';
   /* piano rosa */
-  s += `<g data-alvo="piano"${novo('piano')}><rect x="${hx + 150}" y="${y1 + 104}" width="44" height="42" rx="4" fill="#f2a9c4"/><rect x="${hx + 150}" y="${y1 + 122}" width="44" height="10" fill="#fbf8f1"/><path d="M${hx + 156} ${y1 + 122}v10M${hx + 162} ${y1 + 122}v10M${hx + 168} ${y1 + 122}v10M${hx + 174} ${y1 + 122}v10M${hx + 180} ${y1 + 122}v10M${hx + 186} ${y1 + 122}v10" stroke="#ebcdc3" stroke-width="1"/></g>`;
+  s += `<g data-alvo="piano"${novo('piano')}><rect x="${hx + 150}" y="${y1 + 104}" width="44" height="42" rx="4" fill="#f2a9c4"/><rect x="${hx + 150}" y="${y1 + 122}" width="44" height="10" fill="#fbf8f1"/><path d="M${hx + 156} ${y1 + 122}v10M${hx + 162} ${y1 + 122}v10M${hx + 168} ${y1 + 122}v10M${hx + 174} ${y1 + 122}v10M${hx + 180} ${y1 + 122}v10M${hx + 186} ${y1 + 122}v10" stroke="#ebcdc3" stroke-width="1"/>${florDoLago}</g>`;
   /* caderno na mesinha */
   /* o caderno é grande e o toque pega bem em volta: é onde ela mais gosta de ir */
   s += `<g data-alvo="caderno"${novo('caderno')}><rect x="${hx + 90}" y="${y1 + 116}" width="54" height="46" fill="transparent"/><rect x="${hx + 94}" y="${y1 + 150}" width="46" height="6" fill="#c9a189"/><rect x="${hx + 100}" y="${y1 + 128}" width="34" height="23" rx="2" fill="#fbf8f1" stroke="#c6a15b"/><line x1="${hx + 117}" y1="${y1 + 129}" x2="${hx + 117}" y2="${y1 + 150}" stroke="#ebcdc3" stroke-width="1"/><text x="${hx + 125}" y="${y1 + 146}" text-anchor="middle" font-family="Jost, sans-serif" font-size="16" fill="#f2a9c4" font-weight="500">${(letras as { id: string }[])[Math.min(e.letraIndice, 8)]?.id ?? 'A'}</text></g>`;

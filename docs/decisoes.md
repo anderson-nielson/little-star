@@ -539,6 +539,11 @@ Arquivos: `src/core/cuidados.ts`, `tests/cuidados.test.ts`, `src/telas/cama.ts`,
   centelha; na beirada direita, uma pedrinha por faixa acende do ponto de partida até onde ela
   chegou. A rede de segurança subiu para três minutos (`LAGO.duracao`), porque sem nenhum toque
   a A2 leva uns 12 s por faixa e a ida e volta tem doze pulos.
+- **Buscar alguma coisa do outro lado.** A volta ganha propósito: no coreto espera uma flor
+  rosa de vitória-régia, com um brilho pulsando. Ela pega, a flor voa até a mão, e ela traz na
+  volta; se cair, nada com a flor bem no alto, e a flor não se perde. Chegando em casa, a flor
+  vira lembrança (`lago:<dia>` em `lembrancas`, uma por dia) e aparece num copinho d'água em
+  cima do piano rosa do quarto.
 - **Cresce com ela.** Cada ida e volta completa (`idasEVoltasNoLago`, no estado e no cantinho
   dos pais) deixa as faixas 8% mais rápidas da próxima vez, até 50% a mais (`LAGO.acelera`,
   `LAGO.aceleraTeto`, `ritmoDoLago`). Quando o tempo acaba antes de ela voltar, não conta: o

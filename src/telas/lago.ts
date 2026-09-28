@@ -131,6 +131,8 @@ export function telaLago(): Tela {
   let travessias = 0;
   /** parada no coreto, olhando a luz acender, antes de virar para voltar */
   let noCoreto = false;
+  /** a flor rosa que espera no coreto: ela pega na ida e traz para casa na volta */
+  let pegouAFlor: number | null = null;
   /** para onde é a frente: para cima na ida, para baixo na volta */
   const passo = () => (travessias === 0 ? 1 : -1);
   let quedas = 0;
@@ -187,6 +189,7 @@ export function telaLago(): Tela {
         x = p.xDe;
         travessias = 1;
         noCoreto = true;
+        pegouAFlor = t;
         sininho();
         mudar((s) => void (s.coreto = Math.min(LAGO.partesDoCoreto, s.coreto + 1)));
         ajuda.reset();
@@ -197,8 +200,13 @@ export function telaLago(): Tela {
         x = p.xDe;
         travessias = 2;
         sininho();
-        /* só ida e volta de verdade conta para a próxima vez ficar um pouquinho mais rápida */
-        mudar((s) => void (s.idasEVoltasNoLago += 1));
+        /* só ida e volta de verdade conta para a próxima vez ficar um pouquinho mais rápida;
+           a flor que ela trouxe vira lembrança, num copinho em cima do piano */
+        mudar((s) => {
+          s.idasEVoltasNoLago += 1;
+          const l = `lago:${s.hoje.dia}`;
+          if (!s.lembrancas.includes(l)) s.lembrancas.push(l);
+        });
         window.setTimeout(() => void terminar(), 1200);
       } else if (p.xPara !== null && Math.abs(posicaoNaFaixa(faixas[p.para]!, t) - p.xPara) < LAGO.largura * 0.5) {
         faixa = p.para;
@@ -218,6 +226,39 @@ export function telaLago(): Tela {
     }
     /* A2 depois de um tempo parada: a vitória-régia chega perto e ela pula */
     if (!acabou && t >= LAGO.duracao) void terminar();
+  }
+
+  /** a flor da vitória-régia: pétalas rosa em volta de um miolo dourado */
+  function flor(fx: number, fy: number, r: number): void {
+    ctx.fillStyle = '#f2a9c4';
+    for (let i = 0; i < 6; i++) {
+      const a = (i / 6) * Math.PI * 2 - Math.PI / 2;
+      ctx.beginPath();
+      ctx.ellipse(fx + Math.cos(a) * r * 0.55, fy + Math.sin(a) * r * 0.55, r * 0.5, r * 0.3, a, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.fillStyle = '#ebd9a8';
+    ctx.beginPath();
+    ctx.arc(fx, fy, r * 0.32, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  /** onde está a flor: no coreto antes de ela chegar, voando até a mão quando ela pega, depois na mão */
+  function desenharFlor(t: number, maoX: number, maoY: number): void {
+    const ex = W * 0.5;
+    const ey = margemCima() + 2;
+    if (pegouAFlor === null) {
+      /* esperando por ela, com um brilho que pulsa: é para lá que ela vai */
+      ctx.fillStyle = '#fbf8f1';
+      ctx.globalAlpha = 0.35 + 0.25 * Math.sin(t * 3);
+      ctx.beginPath();
+      ctx.arc(ex, ey, 22, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      flor(ex, ey + Math.sin(t * 2) * 1.5, 15);
+      return;
+    }
+    const k = Math.min(1, (t - pegouAFlor) / 0.5);
+    flor(ex + (maoX - ex) * k, ey + (maoY - ey) * k - Math.sin(k * Math.PI) * 30, 11);
   }
 
   function desenhar(): void {
@@ -407,6 +448,8 @@ export function telaLago(): Tela {
       ctx.beginPath();
       ctx.ellipse(nx, ny, 22, 5, 0, 0, Math.PI * 2);
       ctx.fill();
+      /* se já pegou a flor, nada com ela bem no alto, para não molhar */
+      desenharFlor(t, nx + hS * 0.18, ny - hS * 0.42);
       return;
     }
     /* de volta em cima, molhadinha: senta e sacode */
@@ -420,6 +463,7 @@ export function telaLago(): Tela {
       img = pula;
     }
     ctx.drawImage(img, sx - (F * esc) / 2, sy - F * esc * 0.95, F * esc, F * esc);
+    desenharFlor(t, sx + hS * 0.2, sy - hS * 0.5);
   }
 
   const laco = () => {
