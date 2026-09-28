@@ -757,7 +757,7 @@ export function telaJardim(): Tela {
     });
     await new Promise((r) => setTimeout(r, 900));
     seq.parar();
-    if (vivo) void ir('palco');
+    if (vivo) void ir('palco', { fecho: '1' });
   };
   const sair = async (para: string) => {
     seq.parar();
