@@ -37,8 +37,11 @@ export function veu(x: number, y: number, w: number, h: number, cor: string, n =
   return recorta ? s + '</svg>' : s;
 }
 
+/** A nuvem: um contorno só, para o lápis passar em volta, e um pouco transparente. */
 export function nuvem(x: number, y: number, s: number): string {
-  return `<path d="${circ([x, y], s) + circ([x + s * 0.9, y + s * 0.2], s * 0.75) + circ([x - s * 0.9, y + s * 0.25], s * 0.7)}" fill="${C.papel}" opacity="0.7"/>`;
+  const P = (a: number, b: number) => `${(x + a * s).toFixed(1)} ${(y + b * s).toFixed(1)}`;
+  const d = `M${P(-1.5, 0.8)}Q${P(-2.0, 0.1)} ${P(-1.25, -0.1)}Q${P(-1.05, -0.95)} ${P(-0.25, -0.7)}Q${P(0.3, -1.35)} ${P(0.95, -0.6)}Q${P(1.75, -0.7)} ${P(1.65, 0.2)}Q${P(2.05, 0.8)} ${P(1.5, 0.8)}z`;
+  return forma(d, C.papel, { op: 0.8, lapis: 0.3, opLapis: 0.55 });
 }
 
 /**
@@ -89,12 +92,12 @@ export function flor(x: number, y: number, cor: string, s = 10, girassol = false
 
 export function pinheiro(x: number, y: number, h: number, comPinhas = true): string {
   const w = h * 0.34;
-  let g = `<rect x="${x - w * 0.08}" y="${y - h * 0.22}" width="${w * 0.16}" height="${h * 0.22}" fill="${C.madeira}"/>`;
+  let g = forma(`M${(x - w * 0.08).toFixed(1)} ${(y - h * 0.22).toFixed(1)}h${(w * 0.16).toFixed(1)}v${(h * 0.22).toFixed(1)}h${(-w * 0.16).toFixed(1)}z`, C.madeira, { lapis: 0.4 });
   for (let i = 0; i < 4; i++) {
     const yy = y - h * 0.2 - i * h * 0.2;
     const ww = w * (1 - i * 0.2);
     const hh = h * 0.3;
-    g += `<path d="M${x} ${yy - hh}L${x + ww / 2} ${yy}Q${x} ${yy - hh * 0.12} ${x - ww / 2} ${yy}z" fill="${i % 2 ? '#35564d' : '#2c4a42'}" opacity="0.92"/>`;
+    g += forma(`M${x} ${yy - hh}L${x + ww / 2} ${yy}Q${x} ${yy - hh * 0.12} ${x - ww / 2} ${yy}z`, i % 2 ? '#3d6154' : '#35564d', { op: 0.92, lapis: 0.35 });
   }
   if (comPinhas) g += pinha(x - w * 0.22, y - h * 0.42, 5) + pinha(x + w * 0.2, y - h * 0.6, 5) + pinha(x + w * 0.05, y - h * 0.28, 5);
   return `<g>${g}</g>`;

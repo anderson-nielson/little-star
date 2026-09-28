@@ -124,3 +124,31 @@ export type Nivel = 'grande' | 'medio' | 'mini';
 export function nivelPara(raio: number): Nivel {
   return raio >= 18 ? 'grande' : raio >= 9 ? 'medio' : 'mini';
 }
+
+/* ---------- o passe de lápis numa cena inteira ---------- */
+
+const HEX = /^#[0-9a-fA-F]{3,8}$/;
+const FORMA = /<(path|rect|circle|ellipse|polygon)\b([^>]*?)\/>/g;
+
+/**
+ * Passa o lápis numa cena inteira: toda forma preenchida ganha por cima o seu
+ * contorno a lápis, num tom escuro da própria cor. Pula o que já tem traço, o que
+ * é transparente ou tem opacidade (os véus e as sombras), e os fundos grandes
+ * (céu, grama, parede inteira). É o que faz as telas antigas, desenhadas com
+ * formas lisas, entrarem no estilo sem reescrever cada uma.
+ */
+export function aLapis(svg: string, o: OpcoesForma = {}): string {
+  return svg.replace(FORMA, (todo, tag: string, attrs: string) => {
+    const fill = /\sfill="([^"]*)"/.exec(attrs)?.[1];
+    if (!fill || !HEX.test(fill)) return todo;
+    if (/\sstroke=|\sopacity=|\sfill-opacity=|data-sem-lapis/.test(attrs)) return todo;
+    if (tag === 'rect') {
+      const w = Number(/\swidth="([^"]*)"/.exec(attrs)?.[1] ?? 0);
+      const h = Number(/\sheight="([^"]*)"/.exec(attrs)?.[1] ?? 0);
+      if (w >= 300 || h >= 300) return todo;
+    }
+    const limpo = attrs.replace(/\s(fill|class|id|aria-label|style|data-[\w-]+)="[^"]*"/g, '');
+    const w = f((o.w ?? 1.1) * escalaLapis);
+    return `${todo}<${tag}${limpo} fill="none" stroke="${escuro(fill, o.lapis ?? 0.42)}" stroke-width="${w}" ${NSS} stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="${TRACO}" opacity="${o.opLapis ?? 0.7}" pointer-events="none"/>`;
+  });
+}
