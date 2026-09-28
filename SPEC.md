@@ -157,8 +157,9 @@ Travar em retrato também evita a tela girar sozinha quando ela deita o celular.
   vez, devagar, e a voz diz o que fazer ("toca na cama").
 - Se ela ficar 6 segundos sem tocar, a mãozinha aparece de novo. Nunca "você precisa...".
 - Nada de ícone abstrato no que é dela. Voltar é a **porta de casa** no canto de cima à
-  esquerda, a maior coisa do cabeçalho. O que é do adulto (o menu, o balão de leitura e o
-  "x" que o fecha) usa os ícones que todo adulto já conhece, pequenos e do lado direito.
+  esquerda, a maior coisa do cabeçalho. O que é do adulto fica do lado direito e fala por palavra: as pílulas
+  "Ler frase" e "Opções". Ela não lê, então para ela são formas sem desenho, que chamam pouco
+  o dedo; para quem joga junto, dizem o que fazem sem precisar aprender ícone.
 
 **Tempo de tela**
 - Sessões curtas por desenho: cada atividade fecha em 1 a 3 minutos e devolve ela para a casa,
@@ -232,9 +233,9 @@ marionete por dados). Nada de copiar personagens, colagem ou estilo visual do de
   sem cobrança. As frases vivem em `src/data/narracao.json` e se revezam; o balão fica na
   tela até um toque no "x", no canto de cima à direita do balão. Ele abre logo abaixo da
   linha do cabeçalho, sem cobrir a casinha nem o menu. Quando ela volta a tocar na cena, ele
-  se recolhe num botão de balãozinho no cabeçalho, ao lado do menu, para não cobrir a trilha
-  do avanço; tocar nele abre a frase de novo. O balão não segura toque (só o "x"). Desliga-se
-  no menu ou no cantinho dos pais.
+  se recolhe na pílula "Ler frase" do cabeçalho, ao lado de "Opções", para não cobrir a
+  trilha do avanço; tocar nela abre a frase de novo. O balão não segura toque (só o "x"). Desliga-se
+  nas opções ou no cantinho dos pais.
 
 ## 7. A casa verde, o quintal e o quarto rosa
 
@@ -777,7 +778,7 @@ PWA offline, sem engine e sem lib. Publicado no GitHub Pages.
 | Regras de performance | Só `transform` e `opacity`, sem `blur`, sem alocação por quadro, DPR até 2. |
 
 ### 15.3 Cantinho dos pais
-Pelo menu do canto de cima à direita ("Cantinho dos pais"), depois uma conta simples (por exemplo "toque no
+Pela pílula "Opções" do canto de cima à direita ("Cantinho dos pais"), depois uma conta simples (por exemplo "toque no
 número 7" escrito por extenso), que uma criança de 5 anos não resolve. Ali: hora de dormir,
 limite diário, confirmar tarefas, gravar vozes (com exportar e importar, porque o aparelho
 pode apagá-las), comidas de cada cor, prato ligado ou não, ritmo das letras, resumo,

@@ -42,14 +42,14 @@ export function nuvem(x: number, y: number, s: number): string {
 
 /**
  * A casinha verde: voltar para casa. Sempre no canto de cima à esquerda, com a
- * mesma margem (16) de cima e do lado que os botões da direita. O disco
- * desenhado tem 56 de diâmetro, no mesmo papel e no mesmo fio de ouro dos botões
- * do cabeçalho; o alvo do dedo continua com 72.
+ * mesma margem (16) de cima e do lado que as pílulas da direita. O disco
+ * desenhado tem 56 de diâmetro, no mesmo papel e no mesmo contorno de ouro escuro
+ * (1,5) das pílulas do cabeçalho; o alvo do dedo continua com 72.
  */
 export function casinha(x = 44, y = 44): string {
   const k = 0.8;
   const p = (dx: number, dy: number) => `${(x + dx * k).toFixed(1)} ${(y + dy * k).toFixed(1)}`;
-  return `<g class="casinha" data-alvo="casa" aria-label="voltar para casa"><circle cx="${x}" cy="${y}" r="36" fill="transparent"/><circle cx="${x}" cy="${y}" r="28" fill="${C.papel}" stroke="${C.ouro}" stroke-width="1"/><path d="M${p(-17, 1)}L${p(0, -16)}L${p(17, 1)}V${(y + 15 * k).toFixed(1)}H${(x - 17 * k).toFixed(1)}z" fill="#8FAE6B" stroke="${C.musgoTinta}" stroke-width="1.6" stroke-linejoin="round"/><path d="M${p(-4.5, 15)}V${(y + 5 * k).toFixed(1)}H${(x + 4.5 * k).toFixed(1)}V${(y + 15 * k).toFixed(1)}" fill="${C.rosaDoce}"/></g>`;
+  return `<g class="casinha" data-alvo="casa" aria-label="voltar para casa"><circle cx="${x}" cy="${y}" r="36" fill="transparent"/><circle cx="${x}" cy="${y}" r="28" fill="${C.papel}" stroke="#8f6f2c" stroke-width="1.5"/><path d="M${p(-17, 1)}L${p(0, -16)}L${p(17, 1)}V${(y + 15 * k).toFixed(1)}H${(x - 17 * k).toFixed(1)}z" fill="#8FAE6B" stroke="${C.musgoTinta}" stroke-width="1.6" stroke-linejoin="round"/><path d="M${p(-4.5, 15)}V${(y + 5 * k).toFixed(1)}H${(x + 4.5 * k).toFixed(1)}V${(y + 15 * k).toFixed(1)}" fill="${C.rosaDoce}"/></g>`;
 }
 
 /** A mãozinha desenhada: faça este gesto. */

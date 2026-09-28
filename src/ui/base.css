@@ -480,42 +480,55 @@ body {
 .opcoes.escondido {
   display: none;
 }
-/* os botões do cabeçalho: o mesmo disco de papel com fio de ouro da casinha,
-   o centro na linha dela e a mesma margem até a borda da direita */
-.opcoes-botao,
-.balao-bolinha {
+/* a linha da direita do cabeçalho: "Ler frase" e "Opções", pílulas com palavra.
+   A Stella não lê: para ela são duas formas sem desenho, que chamam pouco o dedo;
+   para o adulto, dizem o que fazem. O centro fica na linha da casinha (y 44) e a
+   margem até a borda é a mesma dela. Mora dentro das opções, antes do véu e do
+   painel, para o painel aberto ficar por cima. */
+.opcoes-linha {
   /* crescem e encolhem com a casinha, sem ficar menores que 36 px */
   --b: max(36px, var(--topo-botao) * var(--cena-k, 1));
   position: absolute;
   top: calc(env(safe-area-inset-top, 0px) + var(--topo-linha) * var(--cena-k, 1) - var(--b) / 2);
-  width: var(--b);
+  right: calc(var(--cena-dx, 0px) + var(--topo-margem) * var(--cena-k, 1));
+  display: flex;
+  align-items: center;
+  gap: var(--e2);
+  pointer-events: none;
+}
+.opcoes-botao,
+.balao-bolinha {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e2);
   height: var(--b);
-  padding: calc(var(--b) * 0.23);
-  border: var(--fio-w) solid var(--ouro);
+  padding: 0 calc(var(--b) * 0.36);
+  border: var(--topo-fio) solid var(--ouro-tinta);
   border-radius: var(--r-pilula);
   background: var(--papel);
-  color: var(--ouro-tinta);
+  color: var(--tinta);
+  font-family: var(--sans);
+  font-size: calc(var(--b) * 0.36);
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  touch-action: manipulation;
 }
 .opcoes-botao {
-  right: calc(var(--cena-dx, 0px) + var(--topo-margem) * var(--cena-k, 1));
-  cursor: pointer;
   pointer-events: auto;
-  touch-action: manipulation;
   transition: transform var(--d-rapido) var(--ease-sai), opacity var(--d-rapido);
 }
-/* o alvo cresce para além do desenho: o botão é pequeno, o dedo do adulto não */
-.opcoes-botao::before {
+/* o alvo cresce para além do desenho: a pílula é baixa, o dedo do adulto não */
+.opcoes-botao::before,
+.balao-bolinha::before {
   content: '';
   position: absolute;
-  inset: -6px;
-}
-.opcoes-botao > svg {
-  display: block;
-  width: 100%;
-  height: 100%;
+  inset: -6px -4px;
 }
 .opcoes-botao:active {
-  transform: scale(0.94);
+  transform: scale(0.96);
 }
 .opcoes.aberto .opcoes-botao {
   opacity: 0;
@@ -714,27 +727,19 @@ body {
   display: none;
 }
 
-/* o balão recolhido: um balãozinho no cabeçalho, à esquerda do menu. O disco e a
-   linha vêm da regra dos botões do cabeçalho, junto com o menu. */
+/* o balão recolhido: a pílula "Ler frase", à esquerda de "Opções". A forma vem da
+   regra das pílulas do cabeçalho; aqui só o aparecer e o sumir. */
 .balao-bolinha {
-  left: calc(var(--cena-x, 0px) + (390px - var(--topo-margem) - var(--topo-entre)) * var(--cena-k, 1) - 2 * var(--b));
-  z-index: var(--z-hud);
   opacity: 0;
-  transform: scale(0.6);
+  transform: scale(0.8);
   transition: opacity var(--d-lento) var(--ease-entra-sai), transform var(--d-lento) var(--ease-sai);
   pointer-events: none;
-  cursor: pointer;
-  touch-action: manipulation;
-}
-.balao-bolinha::before {
-  content: '';
-  position: absolute;
-  inset: -6px;
 }
 .balao-bolinha > svg {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: calc(var(--b) * 0.45);
+  height: calc(var(--b) * 0.45);
+  color: var(--ouro-tinta);
 }
 .balao-bolinha.visivel {
   opacity: 1;
@@ -742,7 +747,7 @@ body {
   pointer-events: auto;
 }
 .balao-bolinha:active {
-  transform: scale(0.94);
+  transform: scale(0.96);
 }
 
 /* ---------- o chamado: a mãozinha que aparece quando ela fica parada ---------- */

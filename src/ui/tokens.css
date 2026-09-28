@@ -92,11 +92,13 @@
   --coluna: 430px;
   /* o cabeçalho: a casinha à esquerda, o balãozinho e o menu à direita, todos com o
      centro na mesma linha (y 44 do cabeçalho) e a mesma margem até a borda. Os botões
-     da direita são do adulto: 44 px, o mínimo de um alvo de toque comum. */
+     da direita são do adulto: pílulas de 44 px de altura, o mínimo de um alvo de toque comum. */
   --topo-linha: 44px;
   --topo-margem: 16px;
   --topo-botao: 44px;
-  --topo-entre: 12px;
+  /* o contorno dos botões do cabeçalho: 1,5 px no ouro escuro. O fio de 1 px no ouro
+     claro sumia nos céus claros (contraste 1,2:1 com o céu de dia) */
+  --topo-fio: 1.5px;
   /* onde o conteúdo pode começar embaixo do cabeçalho (a casinha acaba em y 72) */
   --topo-fim: 84px;
   --fundo-seguro: max(env(safe-area-inset-bottom, 0px), 12px);
