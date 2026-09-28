@@ -2,6 +2,7 @@ import { cena, doTopo, encaixar, esperar, pontoNoSvg, svgEl } from '@/core/util'
 import { ocupado, reivindicarDedo, saida, soltarDedo, tocavel, travar } from '@/core/toque';
 import { sessao } from '@/core/sessao';
 import { casinha, centelha, centelhas, contornoLuz, maozinha } from '@/puppet/objetos';
+import { aLapis, grao, graoDefs } from '@/puppet/pincel';
 import { audio } from '@/audio/engine';
 import { centelhasSom, tiquinho, toc } from '@/audio/synth';
 import type { Tela } from '@/core/roteador';
@@ -27,6 +28,8 @@ export interface OpcoesTela {
   topo?: string;
   /** quanto a cena reserva em cima para esse cabeçalho, em unidades da cena */
   folga?: number;
+  /** sem o passe de lápis nem o grão do papel (uma cena que já vem pronta) */
+  semLapis?: boolean;
 }
 
 /**
@@ -40,8 +43,11 @@ export function telaSvg(conteudo: string, o: OpcoesTela = {}): TelaSvg {
   const corDeFundo = o.fundo ?? /^<rect width="390" height="780" fill="(#[0-9a-fA-F]{3,8})"/.exec(conteudo)?.[1];
   if (corDeFundo) el.style.background = corDeFundo;
   const comCasinha = o.casinha ?? true;
+  /* o pincel: toda forma da cena ganha o lápis por cima, e o grão do papel cobre a cena
+     inteira (o cabeçalho fica fora, por cima do grão) */
+  const cenaComLapis = o.semLapis ? conteudo : graoDefs() + aLapis(conteudo) + grao(-400, -400, 1190, 1580, 0.1);
   /* o cabeçalho num grupo só: colado no alto da tela, do mesmo tamanho em toda tela */
-  const svg = cena(conteudo + `<g class="topo">${comCasinha ? casinha() : ''}${o.topo ?? ''}</g>`);
+  const svg = cena(cenaComLapis + `<g class="topo">${comCasinha ? casinha() : ''}${o.topo ?? ''}</g>`);
   svg.dataset.encaixe = '1';
   if (o.folga) svg.dataset.topo = String(o.folga);
   encaixar(svg);

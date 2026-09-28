@@ -20,6 +20,25 @@
 | P12 | Semana | Cores da tradição Waldorf (dom dourado, seg roxo, ter vermelho, qua amarelo, qui laranja, sex verde, sáb azul). Brincadeira do dia: dom família, seg palavras, ter caderno, qua pinhas, qui areia, sex piano, sáb jardim. | `src/ui/tokens.css`, `src/core/laco.ts` |
 | P13 | O resto | Mãe de cabelo castanho escuro na altura do ombro e vestido rosa-velho; pai de testa alta, barba cheia e óculos finos sem hastes, castanho claro, camiseta verde-mata (opção C, escolhida entre três); gatinho cinza-areia, coelhinho branco; nomes candidatos Mimi, Luna, Bolota e Pipoca, Nino, Flor; nome do jogo Little Star; comidas iniciais tomate, cenoura, banana, brócolis, uva, pão (trocáveis); festas das estações ficam para a v2. | dados e cantinho dos pais |
 
+## O redesenho: Aquarela e Lápis
+
+Em setembro de 2026 o Anderson pediu um estilo gráfico menos simplório, ainda leve, pastel
+e Waldorf. Três propostas foram desenhadas em `docs/referencia/estilos.html` (Aquarela e
+Lápis, Feltro e Linha, Estampa de Três Tintas) e a escolha foi **Aquarela e Lápis**. As
+faces da família vieram das fotos, em `docs/referencia/familia.html`: Stella e mãe na
+variação B, Theo no baterista A (mais menino), pai na B com camiseta preta e jeans, a mãe
+magra e elegante de salmão, todos com mão no fim do braço e o rosto que simplifica sozinho
+quando fica pequeno.
+
+| Rodada | O que muda | Onde vive |
+|---|---|---|
+| 1 | O pincel (`forma`, `fio`, `lavagem`, grão do papel, lápis de espessura fixa), a marionete com as quatro faces e os cabelos novos em todas as poses, o gato e o coelho, os tokens da família, o styleguide. | `src/puppet/pincel.ts`, `src/puppet/boneco.ts`, `src/puppet/objetos.ts`, `src/ui/tokens.css`, `src/telas/styleguide.ts` |
+| 2 | O passe de lápis em toda cena (`aLapis`): toda forma preenchida de um `telaSvg` ganha o contorno a lápis, e o grão do papel cobre a cena. É o que faz a casa, a chegada e todas as telas de SVG entrarem no estilo de uma vez, sem reescrever cada uma. A nuvem vira um contorno só; o pinheiro passa pelo pincel. A casa a partir das fotos da casa real fica para quando as fotos chegarem. | `src/puppet/pincel.ts`, `src/telas/comum.ts`, `src/puppet/objetos.ts` |
+| 3 | O dia (roda, prato, cozinha, horta, cuidados, cama, dentes, brinquedos, relógio, noite, despedida): saem do passe de lápis da rodada 2. | `src/telas/*.ts` |
+| 4 | As letras: as 54 figuras ganham o lápis dentro de `figura()` (inclusive nas partes com opacidade); a pinha vira um corpo com escamas a lápis, a flor um contorno só de pétalas. | `src/puppet/figuras.ts`, `src/puppet/objetos.ts` |
+| 5 | As aventuras: as copas viram contornos ondulados (`copa`, `copaPath`), no SVG das árvores e no canvas do jardim; o lápis chega ao canvas (`formaNoCanvas`, `lapisNoCanvas`) no jardim (casa, flores, obstáculos, coelho) e no lago (vitórias-régias, cisnes com pescoço de contorno único e asa a lápis). | `src/telas/jardim.ts`, `src/telas/lago.ts`, `src/telas/arvore.ts`, `src/telas/arvoregrande.ts` |
+| 6 | A interface já tinha o fio de ouro; o cabeçalho fica fora do grão. `scripts/olhar.mjs` captura qualquer tela pelo nome; as capturas de `docs/shots/` regravadas pelo passeio. | `scripts/olhar.mjs`, `docs/shots/` |
+
 ## As respostas que chegaram depois
 
 O Anderson respondeu P1 a P7 na página das telas enquanto a v1 era implementada. O que mudou:
@@ -618,3 +637,29 @@ no ouro escuro, que segura o contraste nos céus claros.
 
 Arquivos: `src/ui/opcoes.ts`, `src/ui/balao.ts`, `src/ui/base.css`, `src/ui/tokens.css`,
 `SPEC.md`, `GAMEPLAY.md`.
+
+## A mesa da estação vira bancada de montar
+
+A mesa das pinhas era uma tela sem função clara e sem graça: um retângulo colorido com dois
+pés, e as pinhas caíam em posições soltas, sem leitura de "arrumado". A ideia da SPEC (a mesa
+da estação Waldorf, onde o tesouro dela cresce) estava certa; faltava ter o que fazer nela.
+
+Agora é uma bancada de montar. A mesa é vista de cima e um pouco de frente, com o pano da
+estação caindo em dobras na frente, o vasinho da estação num canto e a lembrança do parquinho
+no outro. Embaixo, uma bandeja de madeira com quatro materiais: a cesta das pinhas (as que
+ela catou, finitas), um potinho de pedrinhas de rio, uma tigela de areia e um galho com barba
+de velho (os três sem fim). Ela arrasta da bandeja para o tampo e monta o que quiser; fica
+tudo onde ela deixou, de uma sessão para a outra. Arrastar de volta para a bandeja tira da
+mesa. A mãozinha leva a pinha da cesta; sem pinha e com a mesa vazia, leva uma pedra. A
+casinha acende depois da primeira coisa arrumada, e nada obriga a sair.
+
+Decisões pequenas: as pedras da mesa são cinza e bege, de rio, para não confundir com as
+pedrinhas coloridas do pote, que são prêmio. A areia fica por baixo de tudo, a barba por
+cima dela e as pedras e pinhas por cima de tudo, para o caminho de areia não cobrir o que
+ela pôs em cima. A mesa aceita até 48 coisas da bandeja; depois disso a bandeja para de dar
+(a coisa volta sozinha), sem aviso, porque a tela já está cheia de qualquer jeito. A mesinha
+da sala mostra de longe as pinhas, umas pedrinhas e um tufinho.
+
+Arquivos: `src/telas/pinhas.ts`, `src/puppet/objetos.ts` (`pedra`, `montinhoDeAreia`,
+`barbaDeVelho`), `src/core/estado.ts` (`mesa`), `src/telas/casa.ts`,
+`src/data/ajuda-telas.json`, `tests/estado.test.ts`, `SPEC.md`, `GAMEPLAY.md`.

@@ -1,4 +1,5 @@
 import { circ, CORES as C } from './boneco';
+import { claro, copaPath, escuro, fio, fios, forma } from './pincel';
 
 /** A centelha de quatro pontas do Ponta: a estrela do jogo. Nunca ★. */
 export const CENTELHA = 'M10 0c.7 6.2 3.8 9.3 10 10-6.2.7-9.3 3.8-10 10-.7-6.2-3.8-9.3-10-10 6.2-.7 9.3-3.8 10-10z';
@@ -36,8 +37,11 @@ export function veu(x: number, y: number, w: number, h: number, cor: string, n =
   return recorta ? s + '</svg>' : s;
 }
 
+/** A nuvem: um contorno só, para o lápis passar em volta, e um pouco transparente. */
 export function nuvem(x: number, y: number, s: number): string {
-  return `<path d="${circ([x, y], s) + circ([x + s * 0.9, y + s * 0.2], s * 0.75) + circ([x - s * 0.9, y + s * 0.25], s * 0.7)}" fill="${C.papel}" opacity="0.7"/>`;
+  const P = (a: number, b: number) => `${(x + a * s).toFixed(1)} ${(y + b * s).toFixed(1)}`;
+  const d = `M${P(-1.5, 0.8)}Q${P(-2.0, 0.1)} ${P(-1.25, -0.1)}Q${P(-1.05, -0.95)} ${P(-0.25, -0.7)}Q${P(0.3, -1.35)} ${P(0.95, -0.6)}Q${P(1.75, -0.7)} ${P(1.65, 0.2)}Q${P(2.05, 0.8)} ${P(1.5, 0.8)}z`;
+  return forma(d, C.papel, { op: 0.8, lapis: 0.3, opLapis: 0.55 });
 }
 
 /**
@@ -62,54 +66,134 @@ export function contornoLuz(cx: number, cy: number, rx: number, ry: number, cls 
   return `<ellipse class="${cls}" cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="none" stroke="${C.ouro}" stroke-width="2.5"/>`;
 }
 
+/**
+ * A pinha: um corpo oval com as escamas em arcos a lápis, e o miolo mais claro. Quatro
+ * jeitos (mais comprida, mais gorda, mais escura), como as pinhas de verdade.
+ */
 export function pinha(x: number, y: number, s: number, tipo = 0): string {
-  let d = '';
-  const linhas = tipo === 1 ? 5 : tipo === 2 ? 3 : 4;
-  const cols = tipo === 3 ? 4 : 3;
+  const rx = s * (tipo === 3 ? 0.62 : 0.5);
+  const ry = s * (tipo === 1 ? 1.05 : tipo === 2 ? 0.75 : 0.9);
   const cor = tipo === 3 ? '#8a5a3a' : '#a8714a';
-  for (let i = 0; i < linhas; i++)
-    for (let j = 0; j < cols; j++) {
-      const yy = y - s * 0.9 + i * s * 0.28;
-      const xx = x - s * 0.15 * (cols - 1) + j * s * 0.3 + (i % 2) * s * 0.15;
-      d += `<ellipse cx="${xx.toFixed(1)}" cy="${yy.toFixed(1)}" rx="${(s * 0.16).toFixed(1)}" ry="${(s * 0.2).toFixed(1)}" fill="${cor}" opacity="${0.75 + 0.06 * i}"/>`;
+  const cy = y - ry * 0.55;
+  const corpo = `M${(x - rx).toFixed(1)} ${cy.toFixed(1)}C${(x - rx).toFixed(1)} ${(cy - ry * 1.2).toFixed(1)} ${(x + rx).toFixed(1)} ${(cy - ry * 1.2).toFixed(1)} ${(x + rx).toFixed(1)} ${cy.toFixed(1)}C${(x + rx).toFixed(1)} ${(cy + ry * 0.9).toFixed(1)} ${(x + rx * 0.3).toFixed(1)} ${(cy + ry * 1.05).toFixed(1)} ${x.toFixed(1)} ${(cy + ry * 1.05).toFixed(1)}C${(x - rx * 0.3).toFixed(1)} ${(cy + ry * 1.05).toFixed(1)} ${(x - rx).toFixed(1)} ${(cy + ry * 0.9).toFixed(1)} ${(x - rx).toFixed(1)} ${cy.toFixed(1)}z`;
+  let g = forma(corpo, cor, { lapis: 0.4 });
+  /* as escamas: fileiras de arcos, deslocadas uma da outra */
+  const linhas = s >= 6 ? 4 : 2;
+  let escamas = '';
+  for (let i = 0; i < linhas; i++) {
+    const yy = cy - ry * 0.55 + (i * ry * 1.35) / linhas;
+    const larg = rx * (1 - Math.abs((yy - cy) / ry) * 0.5);
+    const n = s >= 6 ? 3 : 2;
+    for (let j = 0; j < n; j++) {
+      const xx = x - larg + ((j + 0.5 + (i % 2) * 0.5) * 2 * larg) / n;
+      const w = larg / n;
+      escamas += `M${(xx - w * 0.7).toFixed(1)} ${yy.toFixed(1)}q${(w * 0.7).toFixed(1)} ${(w * 0.9).toFixed(1)} ${(w * 1.4).toFixed(1)} 0`;
     }
-  return `<g>${d}</g>`;
+  }
+  g += fio(escamas, escuro(cor, 0.35), 1, 0.7);
+  g += `<path d="${corpo}" fill="${claro(cor, 0.35)}" opacity="0.25" transform="translate(${(-rx * 0.15).toFixed(1)} ${(-ry * 0.15).toFixed(1)}) scale(0.6)" transform-origin="${x} ${cy}"/>`;
+  return `<g>${g}</g>`;
 }
 
+/** Uma flor: caule a lápis, cinco pétalas num contorno só, miolo. O girassol tem dez pétalas e o miolo escuro. */
 export function flor(x: number, y: number, cor: string, s = 10, girassol = false): string {
-  let pet = '';
   const n = girassol ? 10 : 5;
+  const cy = y - s * 1.6;
+  const r = s * (girassol ? 0.55 : 0.42);
+  const pr = s * (girassol ? 0.28 : 0.34);
+  /* as pétalas como um contorno só: um arco para fora em cada pétala, um vinco entre elas */
+  let d = '';
   for (let i = 0; i < n; i++) {
-    const [px, py] = pol(x, y - s * 1.6, s * (girassol ? 0.55 : 0.42), (i * Math.PI * 2) / n - Math.PI / 2);
-    pet += circ([px, py], s * (girassol ? 0.28 : 0.34));
+    const a0 = (i * Math.PI * 2) / n - Math.PI / 2;
+    const a1 = ((i + 1) * Math.PI * 2) / n - Math.PI / 2;
+    const [px, py] = pol(x, cy, r - pr * 0.2, a0);
+    const [qx, qy] = pol(x, cy, r - pr * 0.2, a1);
+    const [mx, my] = pol(x, cy, r + pr, (a0 + a1) / 2);
+    d += (i ? '' : `M${px.toFixed(1)} ${py.toFixed(1)}`) + `Q${mx.toFixed(1)} ${my.toFixed(1)} ${qx.toFixed(1)} ${qy.toFixed(1)}`;
   }
-  return `<g><path d="M${x} ${y}V${y - s * 1.4}" stroke="${C.musgoTinta}" stroke-width="${s * 0.12}" fill="none"/><path d="${pet}" fill="${girassol ? '#e8c24a' : cor}"/><circle cx="${x}" cy="${y - s * 1.6}" r="${s * (girassol ? 0.34 : 0.22)}" fill="${girassol ? '#6b4a2a' : C.luz}"/></g>`;
+  d += 'z';
+  return `<g>${fio(`M${x} ${y}V${(y - s * 1.4).toFixed(1)}`, C.musgoTinta, Math.max(1, s * 0.12), 0.85)}${forma(d, girassol ? '#e8c24a' : cor, { lapis: 0.32 })}${forma(circ([x, cy], s * (girassol ? 0.34 : 0.22)), girassol ? '#6b4a2a' : C.luz, { mudo: true })}</g>`;
+}
+
+/** A copa de uma árvore de folhas: um contorno ondulado, como uma nuvem verde. */
+export function copa(cx: number, cy: number, rx: number, ry: number, cor: string, semente = 0): string {
+  return forma(copaPath(cx, cy, rx, ry, 9, semente), cor, { op: 0.95, lapis: 0.3 });
 }
 
 export function pinheiro(x: number, y: number, h: number, comPinhas = true): string {
   const w = h * 0.34;
-  let g = `<rect x="${x - w * 0.08}" y="${y - h * 0.22}" width="${w * 0.16}" height="${h * 0.22}" fill="${C.madeira}"/>`;
+  let g = forma(`M${(x - w * 0.08).toFixed(1)} ${(y - h * 0.22).toFixed(1)}h${(w * 0.16).toFixed(1)}v${(h * 0.22).toFixed(1)}h${(-w * 0.16).toFixed(1)}z`, C.madeira, { lapis: 0.4 });
   for (let i = 0; i < 4; i++) {
     const yy = y - h * 0.2 - i * h * 0.2;
     const ww = w * (1 - i * 0.2);
     const hh = h * 0.3;
-    g += `<path d="M${x} ${yy - hh}L${x + ww / 2} ${yy}Q${x} ${yy - hh * 0.12} ${x - ww / 2} ${yy}z" fill="${i % 2 ? '#35564d' : '#2c4a42'}" opacity="0.92"/>`;
+    g += forma(`M${x} ${yy - hh}L${x + ww / 2} ${yy}Q${x} ${yy - hh * 0.12} ${x - ww / 2} ${yy}z`, i % 2 ? '#3d6154' : '#35564d', { op: 0.92, lapis: 0.35 });
   }
   if (comPinhas) g += pinha(x - w * 0.22, y - h * 0.42, 5) + pinha(x + w * 0.2, y - h * 0.6, 5) + pinha(x + w * 0.05, y - h * 0.28, 5);
   return `<g>${g}</g>`;
 }
 
-export function gato(x: number, y: number, s: number, cor = '#c8b8a6', deitado = false): string {
+/**
+ * O gatinho, a lápis e aquarela: corpo sentado, cabeça redonda, orelhas, o
+ * rabo em curva, olhos em arco, bigodes. Deitado, enrolado com a cabeça de lado.
+ * Tudo em função de `s` (mais ou menos o raio da cabeça).
+ */
+export function gato(x: number, y: number, s: number, cor = '#c4b4a0', deitado = false): string {
+  const pl = { lapis: 0.4 };
+  const detalhe = s >= 14;
   const olhos = (ox: number, oy: number) =>
-    `<path d="M${ox - s * 0.2} ${oy}q${s * 0.08} ${-s * 0.08} ${s * 0.16} 0M${ox + s * 0.04} ${oy}q${s * 0.08} ${-s * 0.08} ${s * 0.16} 0" fill="none" stroke="${C.tinta}" stroke-width="${s * 0.06}" stroke-linecap="round" opacity="0.7"/>`;
-  if (deitado)
-    return `<g><ellipse cx="${x}" cy="${y - s * 0.35}" rx="${s * 0.9}" ry="${s * 0.38}" fill="${cor}"/><path d="M${x + s * 0.8} ${y - s * 0.4}q${s * 0.7} ${-s * 0.3} ${s * 0.5} ${s * 0.35}" fill="none" stroke="${cor}" stroke-width="${s * 0.16}" stroke-linecap="round"/><circle cx="${x - s * 0.75}" cy="${y - s * 0.55}" r="${s * 0.36}" fill="${cor}"/><path d="M${x - s * 1.0} ${y - s * 0.82}l${-s * 0.06} ${-s * 0.3} ${s * 0.25} ${s * 0.16}zM${x - s * 0.6} ${y - s * 0.86}l${s * 0.06} ${-s * 0.3} ${-s * 0.25} ${s * 0.16}z" fill="${cor}"/>${olhos(x - s * 0.7, y - s * 0.55)}</g>`;
-  return `<g><ellipse cx="${x}" cy="${y - s * 0.5}" rx="${s * 0.5}" ry="${s * 0.55}" fill="${cor}"/><path class="rabo" d="M${x + s * 0.4} ${y - s * 0.2}q${s * 0.8} 0 ${s * 0.6} ${-s * 0.7}" fill="none" stroke="${cor}" stroke-width="${s * 0.16}" stroke-linecap="round"/><circle cx="${x}" cy="${y - s * 1.1}" r="${s * 0.38}" fill="${cor}"/><path d="M${x - s * 0.32} ${y - s * 1.35}l${-s * 0.08} ${-s * 0.32} ${s * 0.28} ${s * 0.14}zM${x + s * 0.32} ${y - s * 1.35}l${s * 0.08} ${-s * 0.32} ${-s * 0.28} ${s * 0.14}z" fill="${cor}"/>${olhos(x, y - s * 1.1)}</g>`;
+    fios([`M${ox - s * 0.24} ${oy}q${s * 0.1} ${-s * 0.1} ${s * 0.2} 0`, `M${ox + s * 0.04} ${oy}q${s * 0.1} ${-s * 0.1} ${s * 0.2} 0`], C.lapisTinta, s >= 14 ? 1.3 : 1, 0.8);
+  const bigodes = (ox: number, oy: number) => (detalhe ? fios([`M${ox - s * 0.42} ${oy + s * 0.06}l${-s * 0.3} ${-s * 0.04}`, `M${ox - s * 0.42} ${oy + s * 0.16}l${-s * 0.3} ${s * 0.08}`, `M${ox + s * 0.42} ${oy + s * 0.06}l${s * 0.3} ${-s * 0.04}`, `M${ox + s * 0.42} ${oy + s * 0.16}l${s * 0.3} ${s * 0.08}`], escuro(cor, 0.35), 1, 0.6) : '');
+  const orelha = (ox: number, oy: number, lado: 1 | -1) => forma(`M${ox + lado * s * 0.3} ${oy - s * 0.2}l${lado * s * 0.08} ${-s * 0.42}l${-lado * s * 0.34} ${s * 0.2}z`, cor, pl) + (detalhe ? forma(`M${ox + lado * s * 0.28} ${oy - s * 0.26}l${lado * s * 0.04} ${-s * 0.24}l${-lado * s * 0.18} ${s * 0.1}z`, C.rosaClara, { mudo: true }) : '');
+  if (deitado) {
+    const cx = x;
+    const cy = y - s * 0.35;
+    const hx = x - s * 0.75;
+    const hy = y - s * 0.55;
+    return (
+      `<g>` +
+      fio(`M${x + s * 0.8} ${y - s * 0.4}q${s * 0.7} ${-s * 0.3} ${s * 0.5} ${s * 0.35}`, escuro(cor, 0.12), s * 0.16, 0.95) +
+      forma(`M${cx - s * 0.9} ${cy}a${s * 0.9} ${s * 0.38} 0 1 0 ${s * 1.8} 0a${s * 0.9} ${s * 0.38} 0 1 0 ${-s * 1.8} 0z`, cor, pl) +
+      orelha(hx, hy, -1) + orelha(hx, hy, 1) +
+      forma(circ([hx, hy], s * 0.36), cor, pl) +
+      olhos(hx, hy) +
+      `</g>`
+    );
+  }
+  const hx = x;
+  const hy = y - s * 1.1;
+  return (
+    `<g>` +
+    fio(`M${x + s * 0.4} ${y - s * 0.2}q${s * 0.8} 0 ${s * 0.6} ${-s * 0.7}`, escuro(cor, 0.12), s * 0.16, 0.95, 'class="rabo"') +
+    forma(`M${x - s * 0.5} ${y}C${x - s * 0.66} ${y - s * 0.7} ${x - s * 0.3} ${y - s * 1.2} ${x + s * 0.15} ${y - s * 1.15}C${x + s * 0.6} ${y - s * 1.1} ${x + s * 0.62} ${y - s * 0.45} ${x + s * 0.5} ${y}z`, cor, pl) +
+    forma(`M${x - s * 0.44} ${y}a${s * 0.2} ${s * 0.1} 0 1 0 ${s * 0.4} 0a${s * 0.2} ${s * 0.1} 0 1 0 ${-s * 0.4} 0z`, cor, pl) +
+    forma(`M${x + s * 0.06} ${y}a${s * 0.2} ${s * 0.1} 0 1 0 ${s * 0.4} 0a${s * 0.2} ${s * 0.1} 0 1 0 ${-s * 0.4} 0z`, cor, pl) +
+    orelha(hx, hy, -1) + orelha(hx, hy, 1) +
+    forma(circ([hx, hy], s * 0.38), cor, pl) +
+    olhos(hx, hy) +
+    bigodes(hx, hy) +
+    `</g>`
+  );
 }
 
-export function coelho(x: number, y: number, s: number, cor = '#e9e2d6', pulo = false): string {
+/** O coelhinho: corpo agachado, cabeça erguida, orelhas compridas com o rosa por dentro, pompom de rabo. */
+export function coelho(x: number, y: number, s: number, cor = '#f1ebe0', pulo = false): string {
   const dy = pulo ? -s * 0.5 : 0;
-  return `<g transform="translate(0 ${dy})"><ellipse cx="${x}" cy="${y - s * 0.45}" rx="${s * 0.55}" ry="${s * 0.42}" fill="${cor}"/><circle cx="${x - s * 0.55}" cy="${y - s * 0.35}" r="${s * 0.16}" fill="${C.rosaClara}"/><circle cx="${x + s * 0.45}" cy="${y - s * 0.85}" r="${s * 0.3}" fill="${cor}"/><path d="M${x + s * 0.32} ${y - s * 1.1}q${-s * 0.1} ${-s * 0.7} ${s * 0.14} ${-s * 0.75}q${s * 0.16} ${0.05 * s} ${s * 0.02} ${s * 0.75}zM${x + s * 0.56} ${y - s * 1.1}q${s * 0.05} ${-s * 0.7} ${s * 0.26} ${-s * 0.7}q${s * 0.1} ${0.1 * s} ${-s * 0.1} ${s * 0.7}z" fill="${cor}"/><path d="M${x + s * 0.42} ${y - s * 1.08}q${-s * 0.06} ${-s * 0.55} ${s * 0.06} ${-s * 0.6}M${x + s * 0.64} ${y - s * 1.08}q${s * 0.05} ${-s * 0.55} ${s * 0.14} ${-s * 0.55}" fill="none" stroke="${C.rosaDoce}" stroke-width="${s * 0.06}" opacity="0.6"/><path d="M${x + s * 0.5} ${y - s * 0.86}q${s * 0.07} ${-s * 0.07} ${s * 0.14} 0" fill="none" stroke="${C.tinta}" stroke-width="${s * 0.05}" stroke-linecap="round" opacity="0.7"/></g>`;
+  const pl = { lapis: 0.4 };
+  const detalhe = s >= 14;
+  return (
+    `<g transform="translate(0 ${dy})">` +
+    forma(`M${x + s * 0.32} ${y - s * 1.1}q${-s * 0.1} ${-s * 0.7} ${s * 0.14} ${-s * 0.75}q${s * 0.16} ${0.05 * s} ${s * 0.02} ${s * 0.75}z`, cor, pl) +
+    forma(`M${x + s * 0.56} ${y - s * 1.1}q${s * 0.05} ${-s * 0.7} ${s * 0.26} ${-s * 0.7}q${s * 0.1} ${0.1 * s} ${-s * 0.1} ${s * 0.7}z`, cor, pl) +
+    (detalhe ? forma(`M${x + s * 0.4} ${y - s * 1.12}q${-s * 0.04} ${-s * 0.5} ${s * 0.08} ${-s * 0.55}q${s * 0.06} ${0.05 * s} ${s * 0.02} ${s * 0.55}z`, C.rosaClara, { mudo: true }) : '') +
+    forma(`M${x - s * 0.55} ${y}C${x - s * 0.75} ${y - s * 0.55} ${x - s * 0.3} ${y - s * 0.9} ${x + s * 0.2} ${y - s * 0.82}C${x + s * 0.6} ${y - s * 0.75} ${x + s * 0.66} ${y - s * 0.25} ${x + s * 0.55} ${y}z`, cor, pl) +
+    forma(circ([x - s * 0.55, y - s * 0.35], s * 0.16), claro(cor, 0.5), { mudo: true }) +
+    forma(`M${x + s * 0.1} ${y}a${s * 0.22} ${s * 0.1} 0 1 0 ${s * 0.44} 0a${s * 0.22} ${s * 0.1} 0 1 0 ${-s * 0.44} 0z`, cor, { mudo: true }) +
+    forma(circ([x + s * 0.45, y - s * 0.85], s * 0.3), cor, pl) +
+    fio(`M${x + s * 0.5} ${y - s * 0.86}q${s * 0.07} ${-s * 0.07} ${s * 0.14} 0`, C.lapisTinta, s >= 14 ? 1.3 : 1, 0.8) +
+    `<circle cx="${x + s * 0.72}" cy="${y - s * 0.76}" r="${s * 0.05}" fill="${C.rosaDoce}" opacity="0.8"/>` +
+    `</g>`
+  );
 }
 
 /** A caixa de areia em estrela de cinco pontas, vista de cima e achatada. A única estrela de cinco pontas do jogo. */
@@ -143,4 +227,73 @@ export function balancinho(x: number, y: number, s: number, ang = 0): string {
     `<path d="M${x - s * 0.36} ${py}h${s * 0.72}" stroke="#8a6a4a" stroke-width="${s * 0.1}" stroke-linecap="round"/>` +
     `<g transform="rotate(${ang} ${px} ${py})"><path d="M${x - s * 0.08} ${py}v${s * 0.62}M${x + s * 0.08} ${py}v${s * 0.62}" stroke="#8f6f2c" stroke-width="${s * 0.04}"/><rect x="${x - s * 0.16}" y="${y - s * 0.4}" width="${s * 0.32}" height="${s * 0.07}" rx="${s * 0.03}" fill="${C.madeira}"/></g></g>`
   );
+}
+
+/* ---------- os materiais da mesa da estação ---------- */
+
+const COR_PEDRA = ['#b9b1a4', '#8f8a80', '#c9bfae', '#a89a86'];
+
+/**
+ * Uma pedra de rio, lisa, de tom natural (nada das pedrinhas coloridas do pote,
+ * que são prêmio): quatro formatos, para a fileira dela não ficar toda igual.
+ */
+export function pedra(x: number, y: number, s: number, tipo = 0): string {
+  const cor = COR_PEDRA[tipo % COR_PEDRA.length]!;
+  const rx = s * (tipo === 1 ? 1.25 : tipo === 3 ? 0.8 : 1);
+  const ry = s * (tipo === 1 ? 0.6 : tipo === 2 ? 0.95 : 0.75);
+  const rot = tipo === 1 ? -14 : tipo === 3 ? 18 : 0;
+  return (
+    `<g transform="rotate(${rot} ${x} ${y})"><ellipse cx="${x}" cy="${y + s * 0.12}" rx="${rx}" ry="${ry * 0.5}" fill="#000" opacity="0.08"/>` +
+    `<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="${cor}"/>` +
+    `<ellipse cx="${x - rx * 0.3}" cy="${y - ry * 0.35}" rx="${rx * 0.36}" ry="${ry * 0.22}" fill="#fbf8f1" opacity="0.45"/></g>`
+  );
+}
+
+/**
+ * Um punhado de areia despejado na mesa: uma mancha macia, com uns grãos em volta.
+ * Três formatos (redondo, alongado, um risquinho), para ela fazer caminho e chão.
+ */
+export function montinhoDeAreia(x: number, y: number, s: number, tipo = 0): string {
+  const rx = s * (tipo === 1 ? 1.7 : tipo === 2 ? 2.2 : 1.1);
+  const ry = s * (tipo === 2 ? 0.35 : 0.75);
+  let graos = '';
+  for (let i = 0; i < 7; i++) {
+    const a = (i / 7) * Math.PI * 2 + tipo;
+    const gx = x + Math.cos(a) * rx * (1.05 + (i % 3) * 0.08);
+    const gy = y + Math.sin(a) * ry * (1.1 + (i % 2) * 0.15);
+    graos += `<circle cx="${gx.toFixed(1)}" cy="${gy.toFixed(1)}" r="${(s * 0.09).toFixed(1)}" fill="#d9c69a" opacity="0.8"/>`;
+  }
+  return (
+    `<g><ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="#EEDDB4"/>` +
+    `<ellipse cx="${x - rx * 0.15}" cy="${y - ry * 0.15}" rx="${rx * 0.55}" ry="${ry * 0.5}" fill="#f5e8c6" opacity="0.7"/>${graos}</g>`
+  );
+}
+
+/**
+ * Um tufo de barba de velho: fios cinza-esverdeados, finos e ondulados, que
+ * caem de um emaranhado pequeno, como os que ficam pendurados nas árvores.
+ * Três tufos diferentes, um mais cheio, um comprido, um mirradinho.
+ */
+export function barbaDeVelho(x: number, y: number, s: number, tipo = 0): string {
+  const n = tipo === 0 ? 9 : tipo === 1 ? 7 : 5;
+  const comp = s * (tipo === 1 ? 2.4 : tipo === 2 ? 1.3 : 1.7);
+  let fios = '';
+  for (let i = 0; i < n; i++) {
+    const k = (i - (n - 1) / 2) / Math.max(1, n - 1);
+    const x0 = x + k * s * 0.9;
+    const onda = s * (0.25 + (i % 3) * 0.12);
+    const y1 = y + comp * (0.3 + ((i * 0.37) % 0.2));
+    const y2 = y + comp * (0.65 + ((i * 0.53) % 0.2));
+    const fim = x0 + k * s * 0.6 + Math.sin(i * 3.3 + tipo) * s * 0.25;
+    const yFim = y + comp * (0.8 + ((i * 0.71) % 0.25));
+    const d = `M${x0.toFixed(1)} ${y.toFixed(1)}C${(x0 + onda).toFixed(1)} ${y1.toFixed(1)} ${(x0 - onda).toFixed(1)} ${y2.toFixed(1)} ${fim.toFixed(1)} ${yFim.toFixed(1)}`;
+    fios += `<path d="${d}" fill="none" stroke="${i % 3 === 0 ? '#93a894' : i % 3 === 1 ? '#b3c2ae' : '#c7d2c2'}" stroke-width="${(s * (0.06 + (i % 2) * 0.03)).toFixed(2)}" stroke-linecap="round" opacity="0.9"/>`;
+  }
+  /* o emaranhado de cima: uns fios curtos cruzados, sem parecer uma cabeça */
+  let no = '';
+  for (let i = 0; i < 4; i++) {
+    const a = x - s * 0.5 + i * s * 0.25;
+    no += `<path d="M${a.toFixed(1)} ${(y + (i % 2) * s * 0.12).toFixed(1)}q${(s * 0.3).toFixed(1)} ${(-s * 0.2).toFixed(1)} ${(s * 0.6).toFixed(1)} 0" fill="none" stroke="${i % 2 ? '#a9baa5' : '#8fa590'}" stroke-width="${(s * 0.09).toFixed(2)}" stroke-linecap="round"/>`;
+  }
+  return `<g>${fios}${no}</g>`;
 }
