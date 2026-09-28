@@ -240,15 +240,23 @@ A casa de verdade da Stella é **verde**, um verde musgo mais vivo e leve, e a d
 Por fora e nos cômodos comuns, verde musgo claro; lá dentro, o quarto dela é o pedaço rosa da
 casa. O rosa fica mais especial justamente por ser o cantinho dela.
 
-A casa é vista em corte, como uma casa de bonecas, e rola na vertical: quarto em cima, sala e
-cozinha no meio, porta embaixo. Ela desliza para cima e para baixo, ou toca num cômodo.
+A casa é vista em corte, como uma casa de bonecas, e ocupa a tela inteira de largura, em dois
+andares altos: em cima o quarto rosa e o banheiro, embaixo a sala e a cozinha. Cada andar tem uma
+fileira de coisas na parede e outra no chão, para cada coisa que leva a uma brincadeira ter o seu
+lugar sem encostar na vizinha (os alvos de 72 px).
 
-**O quarto da Stella**, todo rosa: cama, estante de bonecas, piano, ukulele na parede, mesinha
-com o caderno, janela com o céu. A porta do quarto é rosa, na parede verde. É aqui que as tarefas viram lembrança.
+**O quarto da Stella**, todo rosa: cama, estante de bonecas, piano, ukulele na parede, escrivaninha
+de parede com o caderno, janela com o céu. A porta do quarto é rosa, com o bilhetinho. É aqui que as tarefas viram lembrança.
+
+**O banheiro**, ao lado do quarto: a pia com o espelho e a escova no copo, a banheira de espuma e o
+tapetinho onde o gatinho dorme.
+
+**A sala**, com a lareira branca no fundo e a família no tapete em volta dela. O relógio fica na
+chaminé, a mesa da estação e o pote de pedrinhas na parede, a caixa de brinquedos no canto.
 
 **A cozinha**, onde a mãe e a Stella fazem comidinha e onde moram as palavras em espanhol.
 
-**A porta**, de onde saem as aventuras e onde a família recebe na volta.
+**A porta**, na sala, de onde saem as aventuras e onde a família recebe na volta.
 
 **O quintal.** A casa verde tem quintal na frente, visto no mesmo corte, embaixo da porta.
 Nele moram duas coisas que são dela de verdade:
