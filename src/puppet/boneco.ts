@@ -101,6 +101,9 @@ export interface Desenho {
   maoR: Ponto;
   cabeca: Ponto;
   raioCabeca: number;
+  /** as articulações, para conferir a pose (tests/poses.test.ts): ombro, cotovelo, punho de cada
+      braço; quadril, joelho, tornozelo, ponta do pé de cada perna */
+  juntas?: { bracos: [Ponto, Ponto, Ponto][]; pernas: [Ponto, Ponto, Ponto, Ponto][] };
 }
 
 /* espelho de src/ui/tokens.css: o SVG precisa da cor escrita */
@@ -184,7 +187,23 @@ function membroDobrado(a: Ponto, k: Ponto, b: Ponto, wa: number, wk: number, wb:
   const P = (p: Ponto, nn: Ponto, w: number, lado: 1 | -1) => `${f(p[0] + nn[0] * w * lado)} ${f(p[1] + nn[1] * w * lado)}`;
   const sb = sentidoDoArco([-2 * n2[0] * wb, -2 * n2[1] * wb], [b[0] - k[0], b[1] - k[1]]);
   const sa = sentidoDoArco([2 * n1[0] * wa, 2 * n1[1] * wa], [a[0] - k[0], a[1] - k[1]]);
-  return `M${P(a, n1, wa, 1)}L${P(k, n1, wk, 1)}Q${P(k, [n1[0] + n2[0], n1[1] + n2[1]], wk * 0.5, 1)} ${P(k, n2, wk, 1)}L${P(b, n2, wb, 1)}A${f(wb)} ${f(wb)} 0 0 ${sb} ${P(b, n2, wb, -1)}L${P(k, n2, wk, -1)}Q${P(k, [n1[0] + n2[0], n1[1] + n2[1]], wk * 0.5, -1)} ${P(k, n1, wk, -1)}L${P(a, n1, wa, -1)}A${f(wa)} ${f(wa)} 0 0 ${sa} ${P(a, n1, wa, 1)}z`;
+  /* de que lado a dobra fecha: nesse lado as duas bordas se cruzam, e o canto é o ponto onde
+     elas se encontram (a dobra do cotovelo, a dobra do joelho); do outro lado a junta boja
+     em arco. Sem isso, numa dobra fechada as bordas de dentro se atravessam e sai um bico */
+  const cruz = (k[0] - a[0]) * (b[1] - k[1]) - (k[1] - a[1]) * (b[0] - k[0]);
+  const dentro: 1 | -1 = cruz > 0 ? 1 : -1;
+  const soma: Ponto = [n1[0] + n2[0], n1[1] + n2[1]];
+  const canto = (lado: 1 | -1, volta: boolean): string => {
+    if (lado !== dentro || Math.abs(cruz) < 1e-6) {
+      const [p1, p2] = volta ? [n2, n1] : [n1, n2];
+      return `L${P(k, p1, wk, lado)}Q${P(k, soma, wk * 0.5, lado)} ${P(k, p2, wk, lado)}`;
+    }
+    /* o encontro das bordas de dentro: k + (n1 + n2) * wk / (1 + n1·n2), limitado numa dobra muito fechada */
+    const cos = n1[0] * n2[0] + n1[1] * n2[1];
+    const escala = Math.min(wk / (1 + cos), wk * 1.6);
+    return `L${P(k, soma, escala, lado)}`;
+  };
+  return `M${P(a, n1, wa, 1)}${canto(1, false)}L${P(b, n2, wb, 1)}A${f(wb)} ${f(wb)} 0 0 ${sb} ${P(b, n2, wb, -1)}${canto(-1, true)}L${P(a, n1, wa, -1)}A${f(wa)} ${f(wa)} 0 0 ${sa} ${P(a, n1, wa, 1)}z`;
 }
 function elipse(cx: number, cy: number, rx: number, ry: number): string {
   return `M${f(cx - rx)} ${f(cy)}a${f(rx)} ${f(ry)} 0 1 0 ${f(2 * rx)} 0a${f(rx)} ${f(ry)} 0 1 0 ${f(-2 * rx)} 0z`;
@@ -619,15 +638,18 @@ function desenha(o: Figura, dir: 1 | -1, pose: Pose, crianca: boolean, hr: numbe
     const mao: Ponto = [wri[0] + Math.cos(a2) * rm * 0.7, wri[1] + Math.sin(a2) * rm * 0.7];
     const polegar: Ponto = [mao[0] - Math.sin(a2) * lado * rm * 0.85, mao[1] + Math.cos(a2) * lado * rm * 0.85];
     const d = forma(membroDobrado(s, e, wri, L.braco[0], L.braco[1], L.ante[1]), pele, pl) + forma(circ(mao, rm), pele, pl) + forma(circ(polegar, rm * 0.4), pele, { mudo: true });
-    return { d, manga, w: wri };
+    return { d, manga, w: wri, s, e };
   };
   const PI = Math.PI;
-  let bL: { d: string; manga: string; w: Ponto };
-  let bR: { d: string; manga: string; w: Ponto };
+  type Braco = { d: string; manga: string; w: Ponto; s: Ponto; e: Ponto };
+  let bL: Braco;
+  let bR: Braco;
   switch (pose) {
     case 'acena':
-      bL = braco(sL, PI * 0.42, PI * 0.35, 1);
-      bR = braco(sR, -PI * 0.62, -PI * 0.5, -1);
+      /* o aceno: o braço de cima abre para o lado e o antebraço sobe, a mão ao lado da cabeça,
+         na altura dela (nunca por trás); o outro cai ao lado do corpo */
+      bL = braco(sL, PI * 0.58, PI * 0.54, 1);
+      bR = braco(sR, -PI * 0.22, -PI * 0.5, -1);
       break;
     case 'pulo':
       bL = braco(sL, -PI * 0.72, -PI * 0.6, 1);
@@ -650,8 +672,9 @@ function desenha(o: Figura, dir: 1 | -1, pose: Pose, crianca: boolean, hr: numbe
       bR = braco(sR, -PI * 0.5, -PI * 0.5, -1);
       break;
     case 'palma':
-      bL = braco(sL, PI * 0.2, -PI * 0.35, 1);
-      bR = braco(sR, PI * 0.8, -PI * 0.65, -1);
+      /* a palma: os cotovelos abrem para os lados e as mãos se encontram na frente do peito */
+      bL = braco(sL, PI * 0.6, -PI * 0.16, 1);
+      bR = braco(sR, PI * 0.4, PI * 1.16, -1);
       break;
     case 'mao':
       /* dá a mão para alguém menor do lado esquerdo */
@@ -674,19 +697,23 @@ function desenha(o: Figura, dir: 1 | -1, pose: Pose, crianca: boolean, hr: numbe
       bL = braco(sL, PI * 0.5 + dir * balanco * 0.42, PI * 0.5 + dir * (balanco * 0.42 - 0.3), 1);
       bR = braco(sR, PI * 0.5 - dir * balanco * 0.42, PI * 0.5 - dir * (balanco * 0.42 + 0.3), -1);
       break;
-    case 'salto':
-      /* braços abertos para cima, um para a frente e outro para trás, como no balé */
-      bL = braco(sL, -PI * 0.5 - dir * PI * 0.32, -PI * 0.5 - dir * PI * 0.22, 1);
-      bR = braco(sR, -PI * 0.5 + dir * PI * 0.22, -PI * 0.5 + dir * PI * 0.12, -1);
+    case 'salto': {
+      /* braços abertos para cima, o da frente mais alto, como no balé; cada braço abre para o
+         seu lado, nunca cruza por trás da cabeça */
+      const [aL, aR] = dir > 0 ? [0.32, 0.22] : [0.22, 0.32];
+      bL = braco(sL, -PI * 0.5 - PI * aL, -PI * 0.5 - PI * (aL - 0.1), 1);
+      bR = braco(sR, -PI * 0.5 + PI * aR, -PI * 0.5 + PI * (aR - 0.1), -1);
       break;
+    }
     case 'escorrega':
       /* os braços voam, procurando equilíbrio */
       bL = braco(sL, -PI * 0.85, -PI * 0.6, 1);
       bR = braco(sR, -PI * 0.2, -PI * 0.45, -1);
       break;
     case 'deitado':
-      bL = braco(sL, -PI * 0.55, -PI * 0.5, 1);
-      bR = braco(sR, PI * 0.95, PI * 0.9, -1);
+      /* deitada de lado, as pernas para um lado e os braços descansando ao longo do corpo */
+      bL = braco(sL, PI * 0.58, PI * 0.54, 1);
+      bR = braco(sR, PI * 0.42, PI * 0.46, -1);
       break;
     case 'plie':
       /* os braços em coroa baixa, na frente do corpo */
@@ -694,9 +721,9 @@ function desenha(o: Figura, dir: 1 | -1, pose: Pose, crianca: boolean, hr: numbe
       bR = braco(sR, PI * 0.4, PI * 0.78, -1);
       break;
     case 'releve':
-      /* os braços em coroa alta, por cima da cabeça */
-      bL = braco(sL, -PI * 0.62, -PI * 0.22, 1);
-      bR = braco(sR, -PI * 0.38, -PI * 0.78, -1);
+      /* os braços em coroa alta: sobem pelos lados e as mãos se encontram acima da cabeça */
+      bL = braco(sL, -PI * 0.55, -PI * 0.3, 1);
+      bR = braco(sR, -PI * 0.45, -PI * 0.7, -1);
       break;
     case 'agradece': {
       /* o braço de trás abre para o lado; o da frente desce cruzando na frente da saia */
@@ -714,8 +741,9 @@ function desenha(o: Figura, dir: 1 | -1, pose: Pose, crianca: boolean, hr: numbe
       bR = braco(sR, PI * 0.1, PI * 0.07, -1);
       break;
     case 'passe':
-      bL = braco(sL, -PI * 0.62, -PI * 0.22, 1);
-      bR = braco(sR, -PI * 0.38, -PI * 0.78, -1);
+      /* a coroa alta, como no relevé */
+      bL = braco(sL, -PI * 0.55, -PI * 0.3, 1);
+      bR = braco(sR, -PI * 0.45, -PI * 0.7, -1);
       break;
     case 'attitude': {
       /* o braço do lado da perna levantada vai ao alto; o outro abre para o lado */
@@ -758,22 +786,25 @@ function desenha(o: Figura, dir: 1 | -1, pose: Pose, crianca: boolean, hr: numbe
   const brinco = o.cara?.brinco && nivel !== 'mini' ? `<circle cx="-30" cy="9" r="2.6" fill="none" stroke="${o.cara.brinco}" stroke-width="1.2" vector-effect="non-scaling-stroke"/><circle cx="30" cy="9" r="2.6" fill="none" stroke="${o.cara.brinco}" stroke-width="1.2" vector-effect="non-scaling-stroke"/>` : '';
   const cabecaSvg = local(orelhas + brinco + forma(cabecaD, pele, pl) + barbaLocal(o, nivel) + rostoLocal(o, nivel) + oculosLocal(o, nivel) + cab.frente);
 
+  /* um braço que sobe acima do ombro fica ao lado da cabeça, na frente dela e do cabelo:
+     é desenhado depois da cabeça. Os que caem ficam atrás da roupa, como antes */
+  const sobe = (b: Braco) => b.w[1] < shY - 2 * esc || b.e[1] < shY - 2 * esc;
+  const bracoL = bL.d + bL.manga + mangaL;
+  const bracoR = bR.d + bR.manga + mangaR;
   const svg =
     `<g><g class="cabelo-atras">${local(cab.atras)}</g>` +
     ombros +
     pernas +
     tutu +
-    bL.d +
-    bL.manga +
-    mangaL +
+    (sobe(bL) ? '' : bracoL) +
     roupaPath +
     pescoco +
-    bR.d +
-    bR.manga +
-    mangaR +
+    (sobe(bR) ? '' : bracoR) +
     cabecaSvg +
+    (sobe(bL) ? bracoL : '') +
+    (sobe(bR) ? bracoR : '') +
     `</g>`;
-  return { svg, maoL: bL.w, maoR: bR.w, cabeca, raioCabeca: hr };
+  return { svg, maoL: bL.w, maoR: bR.w, cabeca, raioCabeca: hr, juntas: { bracos: [[bL.s, bL.e, bL.w], [bR.s, bR.e, bR.w]], pernas: legs } };
 }
 
 /* ---------- a família ---------- */

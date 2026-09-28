@@ -824,3 +824,15 @@ Arquivos: `src/core/bicicleta.ts` (puro, com `tests/bicicleta.test.ts`), `src/da
 `src/core/estado.ts` (`bicicleta` no save, tarefa `bicicleta`), `src/audio/synth.ts` (`chiado`),
 `src/data/frases.json`, `narracao.json`, `ajuda-telas.json`, `musica-telas.json`,
 `musicas/manha_grieg.json`, `musicas-sobre.json`.
+
+## Braços e pernas que fazem sentido (setembro de 2026)
+
+Na porta da casa a mão do pai caía dentro do cabelo do Theo e o aceno subia o braço por
+trás da cabeça, a mão sumindo no cabelo. Virou regra geral (SPEC, seção 13): cotovelo e
+joelho dobram só para dentro e dentro do que uma pessoa dobra, braço que sobe passa pelo
+lado da cabeça e na frente dela, mãos que se encontram se encontram na frente do peito ou
+acima da cabeça, pé apoiado no chão, e numa cena com mais gente cada braço fica inteiro no
+seu dono. As poses foram revistas uma a uma numa folha com as 24 poses das quatro pessoas
+(o aceno, a palma, o salto virado, a coroa do relevé e do passé, o canto de dentro do joelho
+e do cotovelo), a família na porta ganhou espaço entre os corpos, e `tests/poses.test.ts`
+confere a geometria de todas as poses a cada rodada.
