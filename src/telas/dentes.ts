@@ -39,6 +39,20 @@ function sujeira([x, y, tipo]: Sujeira, id: string): string {
   if (tipo === 'lingua') return `<ellipse data-suj="${id}" cx="${x}" cy="${y}" rx="4.5" ry="3" fill="#fbf3e6" opacity="0.8"/>`;
   return `<ellipse data-suj="${id}" cx="${x}" cy="${y}" rx="3.2" ry="2.4" fill="#e6d59f" opacity="0.8" transform="rotate(${(x * 7) % 40 - 20} ${x} ${y})"/>`;
 }
+/**
+ * O reflexo de "ficou limpo": uma centelha branca com um fio azul da água em
+ * volta, que nasce na beirada da fileira (não em cima do esmalte, onde a
+ * sujeirinha estava), sobe e some. Ouro parado no dente parecia mancha.
+ */
+function reflexo(x: number, y: number, s: number, atraso = 0): string {
+  return `<g class="sobe" style="animation-delay:${atraso}ms">${centelha(x, y, s, '#fffdf6', 'stroke="#7FA5B8" stroke-width="1.4" stroke-linejoin="round" paint-order="stroke"')}</g>`;
+}
+/** onde o reflexo de cada parte nasce: os cantos de fora da fileira */
+const REFLEXOS: Record<Parte, [number, number][]> = {
+  cima: [[X0 - 4, FAIXA.cima.y0 + 6], [X1 + 4, FAIXA.cima.y0 + 10]],
+  lingua: [[X0 + 6, FAIXA.lingua.cy - 4], [X1 - 6, FAIXA.lingua.cy + 2]],
+  baixo: [[X0 - 4, FAIXA.baixo.y1 - 8], [X1 + 4, FAIXA.baixo.y1 - 4]],
+};
 /** a pasta dela é de abacaxi: um amarelinho bem clarinho */
 const PASTA = '#f6e7a8';
 const PASTA_BORDA = '#e2c877';
@@ -317,7 +331,7 @@ export function telaDentes(): Tela {
     });
     if (escovadas[pt] >= ESCOVADAS_POR_PARTE && !ocupado) {
       const brilho = svg.querySelector('.brilho') as SVGGElement;
-      brilho.innerHTML += `<g class="surge">${centelha(X0 + 30, FAIXA[pt].cy - 6, 14)}${centelha(X1 - 30, FAIXA[pt].cy + 4, 12)}</g>`;
+      brilho.innerHTML = REFLEXOS[pt].map(([x, y], i) => reflexo(x, y, 14 - i * 2, i * 120)).join('');
       escovaEm([X1 + 10, FAIXA[pt].cy + 10, -8], 400);
       void concluir(700);
     }
@@ -416,7 +430,9 @@ export function telaDentes(): Tela {
     passos.agora(-1);
     travar(2500);
     const brilho = svg.querySelector('.brilho') as SVGGElement;
-    brilho.innerHTML = `<g class="surge">${centelha(150, 300, 18)}${centelha(236, 296, 14)}${centelha(170, 432, 14)}${centelha(250, 428, 16)}</g>`;
+    brilho.innerHTML = [[X0 - 6, 282, 18], [X1 + 6, 286, 14], [X0 - 4, 446, 14], [X1 + 6, 442, 16]]
+      .map(([x, y, k], i) => reflexo(x!, y!, k!, i * 140))
+      .join('');
     await terminarCuidado(tela, 'dentes', [195, 330], 'dentes_pronto', () => vivo);
   };
 
