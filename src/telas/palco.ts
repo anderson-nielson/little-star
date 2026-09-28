@@ -1,7 +1,6 @@
-import { mover, pedrinhasSobem, telaSvg } from './comum';
+import { convidarParaCasa, mover, pedrinhasSobem, telaSvg } from './comum';
 import { ganhar, PEDRINHAS } from '@/core/pedrinhas';
 import { estado, mudar } from '@/core/estado';
-import { ir } from '@/core/roteador';
 import { esperar } from '@/core/util';
 import { travar } from '@/core/toque';
 import { familia, figurinoDe } from '@/puppet/boneco';
@@ -115,8 +114,8 @@ export function telaPalco(): Tela {
     await esperar(1500);
     /* abraço na coxia */
     stella.innerHTML = familia.stellaPalco(180, 470, 170, 'parado').svg + familia.pai(230, 470, 200, 'abraca', { dir: -1, contorno: '#ebd9a8' }).svg;
-    await esperar(2500);
-    if (vivo) void ir('casa');
+    await esperar(1500);
+    if (vivo) convidarParaCasa(tela);
   })();
 
   return tela;

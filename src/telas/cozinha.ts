@@ -1,8 +1,7 @@
-import { mover, pedrinhasSobem, relogioDeAjuda, telaSvg } from './comum';
+import { convidarParaCasa, mover, pedrinhasSobem, relogioDeAjuda, telaSvg } from './comum';
 import { ganhar, PEDRINHAS } from '@/core/pedrinhas';
 import { estado, mudar, type Semente } from '@/core/estado';
 import { espanholAtivo } from '@/core/laco';
-import { ir } from '@/core/roteador';
 import { esperar } from '@/core/util';
 import { Ajuda } from '@/core/ajuda';
 import { travar } from '@/core/toque';
@@ -194,8 +193,9 @@ export function telaCozinha(): Tela {
       ganhar(x, PEDRINHAS.comidinha, 'comidinha');
     });
     pedrinhasSobem(tela, PEDRINHAS.comidinha, 250, 680);
-    await esperar(2500);
-    if (vivo) void ir('casa');
+    /* acabou: a casinha acende, e é ela quem decide quando sair */
+    await esperar(1500);
+    if (vivo) convidarParaCasa(tela);
   };
 
   tela.alvo('[data-ing]', (_ev, el) => void lavar(el as SVGGElement));

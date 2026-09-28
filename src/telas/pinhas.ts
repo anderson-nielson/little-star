@@ -1,4 +1,4 @@
-import { arrastavel, mover, telaSvg } from './comum';
+import { arrastavel, convidarParaCasa, mover, telaSvg } from './comum';
 import { estado, mudar } from '@/core/estado';
 import { sessao } from '@/core/sessao';
 import { estacao } from '@/core/relogio';
@@ -138,12 +138,12 @@ function mesaDaEstacao(): Tela {
             }
           });
           render();
-          /* a cesta ficou vazia: a mesa está pronta, e a casa chama */
+          /* a cesta ficou vazia: a mesa está pronta, e a casinha acende */
           if (!acabou && estado().pinhas.every((q) => q.y > 0)) {
             acabou = true;
             tela.comemorar(195, 400);
-            void esperar(2400).then(() => {
-              if (tela.el.isConnected) void ir('casa');
+            void esperar(1500).then(() => {
+              if (tela.el.isConnected) convidarParaCasa(tela);
             });
           }
           return true;
