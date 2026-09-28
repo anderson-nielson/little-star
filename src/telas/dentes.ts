@@ -1,5 +1,6 @@
 import { quadroDePassos, relogioDeAjuda, telaSvg } from './comum';
-import { entrarNoCuidado, gesto, terminarCuidado } from './cuidados';
+import { entrarNoCuidado, terminarCuidado } from './cuidados';
+import { demonstrar, type Ponto } from './guia';
 import { ESCOVADAS_POR_PARTE, Escovacao, PASSOS, sujeirasQueFicam, type PassoDosDentes } from '@/core/cuidados';
 import { Ajuda } from '@/core/ajuda';
 import { reivindicarDedo, soltarDedo, travar } from '@/core/toque';
@@ -129,6 +130,9 @@ export function telaDentes(): Tela {
   let k = 0;
   let ocupado = false;
   let pararGesto = () => {};
+  let toques = 0;
+  /* a mãozinha está levando a escova: o A2 escova junto sem tirar dela */
+  let escovaNaMao = false;
   const escovadas: Record<Parte, number> = { cima: 0, lingua: 0, baixo: 0 };
   const conta = new Escovacao();
   const passo = (): PassoDosDentes | null => PASSOS.dentes[k] ?? null;
@@ -147,17 +151,35 @@ export function telaDentes(): Tela {
     else if (p === 'guardar') luz.innerHTML = contornoLuz(DESCANSO[0] + 20, DESCANSO[1] - 6, 52, 30);
     else luz.innerHTML = '';
   };
+  /* escovando, a mãozinha leva a escova junto, indo e voltando na parte da vez;
+     quando ela some, a escova volta a esperar do lado da boca */
+  const escovandoJunto = (pt: Parte) => {
+    const y = FAIXA[pt].cy + 8;
+    const vale = () => parteDaVez() === pt && !ocupado && dedo < 0;
+    return demonstrar(
+      {
+        ...tela,
+        mao: (p, rot, firme) => {
+          tela.mao(p, rot, firme);
+          escovaNaMao = Boolean(p);
+          if (!vale()) return;
+          if (p) escovaEm([p[0] - 6, p[1] + 2, -8], 0);
+          else escovaEm([X1 + 10, FAIXA[pt].cy + 10, -8], 400);
+        },
+      },
+      { tipo: 'caminho', pontos: [[140, y], [230, y], [150, y], [240, y], [150, y]] },
+    );
+  };
   const mostrar = () => {
     pararGesto();
     const p = passo();
     const pt = parteDaVez();
-    if (pt) {
-      const y = FAIXA[pt].cy + 8;
-      pararGesto = gesto(tela, [[140, y], [230, y], [150, y], [240, y], [150, y]], 320);
-    } else if (p === 'molhar') tela.mao([206, 552]);
-    else if (p === 'pasta') tela.mao([84, 598]);
-    else if (p === 'enxaguar') tela.mao([288, 592]);
-    else if (p === 'guardar') tela.mao([DESCANSO[0] + 30, DESCANSO[1] + 8]);
+    const tocar = (em: Ponto) => (pararGesto = demonstrar(tela, { tipo: 'tocar', em }));
+    if (pt) pararGesto = escovandoJunto(pt);
+    else if (p === 'molhar') tocar([200, 544]);
+    else if (p === 'pasta') tocar([78, 590]);
+    else if (p === 'enxaguar') tocar([282, 584]);
+    else if (p === 'guardar') tocar([DESCANSO[0] + 24, DESCANSO[1]]);
   };
   const VOZ: Partial<Record<PassoDosDentes, string>> = { molhar: 'dentes_molhar', pasta: 'dentes_pasta', cima: 'dentes_escovar', enxaguar: 'dentes_enxaguar', guardar: 'dentes_guardar' };
   const comecarPasso = () => {
@@ -166,7 +188,13 @@ export function telaDentes(): Tela {
     conta.zerar();
     const p = passo();
     const v = p ? VOZ[p] : undefined;
-    if (v && temVoz(v)) void falar(v);
+    /* a voz diz, e logo a mãozinha faz o gesto do passo (escova junto, toca a torneira), se ela ainda não começou */
+    const este = k;
+    const antes = toques;
+    const fala = v && temVoz(v) ? falar(v) : null;
+    void Promise.all([fala, esperar(parteDaVez() ? 1400 : 900)]).then(() => {
+      if (vivo && k === este && toques === antes && !ocupado) mostrar();
+    });
     /* a escova vai para perto da parte da boca da vez, esperando o dedo */
     const pt = parteDaVez();
     if (pt) escovaEm([X1 + 10, FAIXA[pt].cy + 10, -8], 600);
@@ -202,7 +230,7 @@ export function telaDentes(): Tela {
     const pt = parteDaVez();
     if (pt) {
       const y = FAIXA[pt].cy + 8;
-      escovaEm([vez % 2 ? 150 : 230, y, -8], 500);
+      if (!escovaNaMao) escovaEm([vez % 2 ? 150 : 230, y, -8], 500);
       vez += 1;
       escovar(pt, 1);
       return;
@@ -216,6 +244,7 @@ export function telaDentes(): Tela {
     else if (p === 'guardar') void guardar();
   });
   const tocou = () => {
+    toques += 1;
     ajuda.tocou();
     pararGesto();
     tela.mao(null);

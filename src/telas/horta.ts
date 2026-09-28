@@ -1,4 +1,5 @@
-import { mover, pedrinhasSobem, relogioDeAjuda, telaSvg } from './comum';
+import { convidarParaCasa, mover, pedrinhasSobem, telaSvg } from './comum';
+import { guiar } from './guia';
 import { ganhar, PEDRINHAS } from '@/core/pedrinhas';
 import { estado, mudar, type Semente } from '@/core/estado';
 import { colher, estagio, plantar, regadoHoje, regar, type Estagio } from '@/core/horta';
@@ -6,7 +7,6 @@ import { espanholAtivo } from '@/core/laco';
 import { chaveDoDia } from '@/core/relogio';
 import { sessao } from '@/core/sessao';
 import { esperar } from '@/core/util';
-import { Ajuda } from '@/core/ajuda';
 import { travar } from '@/core/toque';
 import { familia } from '@/puppet/boneco';
 import { coelho, contornoLuz, veu } from '@/puppet/objetos';
@@ -15,7 +15,7 @@ import { tocarFundo } from '@/audio/musica';
 import { falar, temVoz } from '@/audio/vozes';
 import { falarPalavra } from '@/audio/fala';
 import { falarEspanhol } from '@/audio/espanhol';
-import { lira, sininho, toc } from '@/audio/synth';
+import { lira, liraDesce, sininho, toc } from '@/audio/synth';
 import type { Tela } from '@/core/roteador';
 
 const COVAS: [number, number][] = [
@@ -45,6 +45,10 @@ function planta(x: number, y: number, semente: Semente, est: Estagio): string {
  * A horta do quintal: quatro covas. Um toque faz a coisa certa: cova vazia,
  * planta; planta com sede, rega; planta pronta, colhe. O que ela colhe vai
  * para a comidinha com a mãe. Nada murcha se ela não vier.
+ *
+ * Sozinha, ela não sabia que a cova se toca, e quando tudo já estava plantado
+ * e regado a tela ficava parada. Agora a mãozinha toca a próxima cova logo na
+ * entrada, e sem mais nada para fazer hoje a lira desce e a casinha acende.
  */
 export function telaHorta(): Tela {
   const hoje = chaveDoDia(sessao.agora());
@@ -91,16 +95,33 @@ export function telaHorta(): Tela {
     const vazia = e.horta.findIndex((c) => !c);
     return vazia;
   };
-  const ajuda = new Ajuda((n) => {
-    const i = melhorCova();
-    luz.innerHTML = '';
-    if (n >= 1 && i >= 0) {
+  /* a mãozinha toca a cova da vez, que acende junto; sem cova da vez, nada */
+  const guia = guiar(tela, {
+    proximo: () => {
+      const i = melhorCova();
+      luz.innerHTML = '';
+      if (i < 0) return null;
       const [x, y] = COVAS[i]!;
       luz.innerHTML = contornoLuz(x, y - 10, 40, 40);
-      tela.mao([x + 12, y + 20]);
-    }
+      return { tipo: 'tocar', em: [x, y - 6] };
+    },
   });
-  relogioDeAjuda(tela, (dt) => ajuda.tick(dt));
+
+  /* nada mais para hoje (tudo plantado e regado): a horta acabou, a casinha chama */
+  let acabou = false;
+  const acabar = (festa: boolean) => {
+    if (acabou) return;
+    acabou = true;
+    guia.calar();
+    luz.innerHTML = '';
+    if (festa) {
+      liraDesce();
+      tela.comemorar(195, 470);
+    }
+    convidarParaCasa(tela);
+  };
+  /* entrou e já estava tudo feito: não tem o que ensinar, só a volta */
+  if (melhorCova() < 0) void esperar(1500).then(() => tela.el.isConnected && acabar(false));
 
   let ocupado = false;
   tela.alvo('[data-cova]', async (_ev, el) => {
@@ -109,8 +130,6 @@ export function telaHorta(): Tela {
     const [x, y] = COVAS[i]!;
     const e = estado();
     const c = e.horta[i];
-    ajuda.tocou();
-    tela.mao(null);
     luz.innerHTML = '';
     ocupado = true;
     travar(900);
@@ -170,8 +189,10 @@ export function telaHorta(): Tela {
       mover(el, 0, -3, 200);
       void esperar(220).then(() => mover(el, 0, 0, 300));
     }
-    ajuda.reset();
     ocupado = false;
+    if (!tela.el.isConnected) return;
+    guia.passo();
+    if (melhorCova() < 0) acabar(true);
   });
   return tela;
 }

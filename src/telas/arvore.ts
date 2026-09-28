@@ -1,5 +1,5 @@
-import { mover, relogioDeAjuda, telaSvg } from './comum';
-import { Ajuda } from '@/core/ajuda';
+import { convidarParaCasa, mover, telaSvg } from './comum';
+import { guiar } from './guia';
 import { estado } from '@/core/estado';
 import { aventurasAbertas } from '@/core/laco';
 import { ceuDaHora } from '@/core/relogio';
@@ -11,7 +11,7 @@ import { familia } from '@/puppet/boneco';
 import { centelha, gato, nuvem, pinha, veu } from '@/puppet/objetos';
 import { tocarFundo } from '@/audio/musica';
 import { falar, temVoz } from '@/audio/vozes';
-import { lira, ronronar, sininho } from '@/audio/synth';
+import { lira, liraDesce, ronronar, sininho } from '@/audio/synth';
 import type { Tela } from '@/core/roteador';
 
 const CEU: Record<string, string> = { 'ceu-dia': '#dbe7ee', 'ceu-tarde': '#f3d9cf', 'ceu-noite': '#232a55' };
@@ -30,6 +30,7 @@ const GALHOS: [number, number][] = [
  * cima e a família acenando embaixo. À noite, do galho mais alto, a estrela nova.
  * Se o gatinho subiu ao topo, esta cena só mostra ele lá em cima: tocar nele
  * (ou num galho) começa a aventura da Árvore Grande, que é a subida de perto.
+ * O topo é o fim: a lira desce, as centelhas sobem e a casinha acende.
  */
 export function telaArvore(): Tela {
   const e = estado();
@@ -76,17 +77,21 @@ export function telaArvore(): Tela {
     }
     return gatoNoTopo ? [236, 190] : null;
   };
-  const ajuda = new Ajuda((n) => tela.mao(n >= 1 && !subindo ? proximo() : null));
-  relogioDeAjuda(tela, (dt) => ajuda.tick(dt));
-  /* na chegada ela ainda não sabe o que fazer: a mãozinha já mostra o primeiro galho */
-  tela.mao(proximo());
+  /* na chegada ela ainda não sabe o que fazer: a mãozinha já toca o primeiro galho */
+  const guia = guiar(tela, {
+    atraso: 500,
+    proximo: () => {
+      const p = subindo ? null : proximo();
+      return p ? { tipo: 'tocar', em: p } : null;
+    },
+  });
+  let convidou = false;
   const posDe = (i: number): [number, number] => (i < 0 ? [150, 712] : [GALHOS[i]![0] + (GALHOS[i]![0] < 195 ? 10 : -10), GALHOS[i]![1] - 2]);
 
   const irPara = async (alvo: number) => {
     if (subindo || alvo === onde) return;
     subindo = true;
-    ajuda.reset();
-    tela.mao(null);
+    guia.passo();
     travar(400);
     const passo = alvo > onde ? 1 : -1;
     while (onde !== alvo) {
@@ -104,9 +109,16 @@ export function telaArvore(): Tela {
       (v as SVGElement).style.opacity = onde >= GALHOS.length - 2 ? '1' : '0';
     });
     if (onde === GALHOS.length - 1) {
+      /* chegou lá em cima: é o fim da subida, e a casinha chama (uma vez só) */
       sininho();
+      liraDesce();
       tela.comemorar(195, 150);
-      if (gatoNoTopo) ronronar();
+      void esperar(700).then(() => tela.el.isConnected && tela.comemorar(240, 120));
+      if (!convidou) {
+        convidou = true;
+        guia.calar();
+        void esperar(1400).then(() => tela.el.isConnected && convidarParaCasa(tela));
+      }
     }
     subindo = false;
   };
@@ -120,7 +132,7 @@ export function telaArvore(): Tela {
     const subirAtras = async () => {
       if (indo) return;
       indo = true;
-      tela.mao(null);
+      guia.calar();
       ronronar();
       mover(gatoEl, 0, -6, 200);
       travar(1500);
