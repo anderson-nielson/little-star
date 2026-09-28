@@ -44,195 +44,222 @@ export function telaCasa(): Tela {
   const hoje = chaveDoDia(agora);
   const s7 = etapa(e);
 
+  /* a casa larga, em dois andares altos: em cima o quarto rosa e o banheiro, embaixo
+     a sala com a lareira e a cozinha. Cada andar tem uma fileira de coisas na parede
+     e outra no chão, e cada coisa que leva a uma brincadeira fica longe da vizinha
+     (os alvos de 72 px não se encostam). */
   const W = 390;
-  const hx = 22;
-  const hw = 286;
+  const hx = 6;
+  const hw = 378;
+  const L = hx + 10;
+  const R = hx + hw - 10;
   const top = 140;
   const bottom = 600;
-  const y1 = top + 8;
-  const y2 = 310;
-  const y3 = 470;
+  /** o chão do andar de cima */
+  const f1 = 372;
+  /** a parede entre o quarto e o banheiro */
+  const bw = 268;
+  /** a parede entre a sala e a cozinha */
+  const sw = 224;
+  /* a área de toque de cada coisa: um círculo transparente em volta do desenho */
+  const toque = (x: number, y: number, r = 32) => `<circle cx="${x}" cy="${y}" r="${r}" fill="transparent"/>`;
 
   let s = `<rect width="390" height="780" fill="${CEU[ceu]}"/>` + veu(0, 0, W, 200, noite ? '#1b2140' : '#ebcdc3', 5, 0.35);
-  /* o sol (ou a lua) e as nuvens moram no céu à direita da casa, entre a lua dos pais
-     e o pinheiro. O alto da tela é do cabeçalho: a casinha, o varal e as opções. */
+  /* o sol (ou a lua) mora no cantinho de céu à direita do telhado. O alto da tela é
+     do cabeçalho: a casinha, o varal e as opções. */
   s += noite
-    ? `<circle cx="360" cy="200" r="13" fill="#ebd9a8" opacity="0.9"/>${centelha(340, 262, 7, '#ebd9a8')}${centelha(374, 318, 6, '#ebd9a8')}`
-    : `<circle cx="360" cy="200" r="15" fill="#ebd9a8" opacity="0.9"/>` + nuvem(352, 286, 9);
+    ? `<circle cx="372" cy="116" r="11" fill="#ebd9a8" opacity="0.9"/>${centelha(24, 112, 7, '#ebd9a8')}${centelha(352, 98, 6, '#ebd9a8')}`
+    : `<circle cx="372" cy="116" r="12" fill="#ebd9a8" opacity="0.9"/>` + nuvem(34, 118, 7);
   /* quintal */
   /* a grama vai além da cena: em tela mais larga ou mais alta, as sobras são quintal, não faixa lisa */
   s += `<rect x="-400" y="600" width="1190" height="800" fill="#c9dbb2"/>` + veu(-80, 600, W + 160, 180, '#8fae6b', 5, 0.32, true);
   /* a estação e as festas mudam o quintal devagar */
   if (clima.folhas) for (let i = 0; i < 7; i++) s += `<path d="M${30 + i * 52} ${612 + (i % 3) * 8}q8 -12 16 0q-8 12 -16 0z" fill="${i % 2 ? '#d97f74' : '#e8a24a'}" opacity="0.85"/>`;
-  if (clima.festa === 'junina') {
-    s += `<path d="M${hx + hw} ${top + 30}Q300 260 350 420" fill="none" stroke="#c9a189" stroke-width="1.5"/>`;
-    for (let i = 0; i < 6; i++) {
-      const t = (i + 0.5) / 6;
-      const bx = hx + hw + (350 - hx - hw) * t;
-      const by = top + 30 + (420 - top - 30) * t * t;
-      s += `<path d="M${bx - 6} ${by}h12l-6 12z" fill="${['#d2463c', '#ebd9a8', '#7FA5B8', '#f2a9c4', '#8fae6b', '#e8a24a'][i]}"/>`;
-    }
-    s += `<g class="fogueira"><path d="M230 700l30 -10l30 10z" fill="#8a6a4a"/><path d="M245 700q0 -30 15 -44q15 14 15 44z" fill="#e8a24a" opacity="0.9"/><path d="M252 700q0 -18 8 -28q8 10 8 28z" fill="#ebd9a8" opacity="0.9"/></g>`;
-  }
-  if (clima.festa === 'lanterna') for (let i = 0; i < 4; i++) s += `<g class="respira" style="animation-delay:${i * 400}ms"><path d="M${hx + 40 + i * 70} ${top + 8}v10" stroke="#c9a189" stroke-width="1.5"/><rect x="${hx + 32 + i * 70}" y="${top + 18}" width="16" height="20" rx="6" fill="#e8a24a" opacity="0.9"/><rect x="${hx + 36 + i * 70}" y="${top + 24}" width="8" height="8" rx="3" fill="#ebd9a8"/></g>`;
+  if (clima.festa === 'junina') s += `<g class="fogueira"><path d="M214 700l24 -8l24 8z" fill="#8a6a4a"/><path d="M226 700q0 -26 12 -38q12 12 12 38z" fill="#e8a24a" opacity="0.9"/><path d="M232 700q0 -16 6 -24q6 8 6 24z" fill="#ebd9a8" opacity="0.9"/></g>`;
   if (clima.velas > 0) {
-    s += `<path d="M60 700m0 0c-20 -6 -24 -30 -4 -36c22 -6 36 12 24 28c-10 14 -30 8 -28 -6c2 -10 14 -8 14 -2" fill="none" stroke="#35564d" stroke-width="5" stroke-linecap="round"/>`;
+    s += `<path d="M130 694m0 0c-20 -6 -24 -30 -4 -36c22 -6 36 12 24 28c-10 14 -30 8 -28 -6c2 -10 14 -8 14 -2" fill="none" stroke="#35564d" stroke-width="5" stroke-linecap="round"/>`;
     for (let i = 0; i < 4; i++) {
-      const vx = 42 + i * 14;
-      s += `<rect x="${vx - 3}" y="${672 - (i % 2) * 8}" width="6" height="16" fill="#ebd9a8"/>`;
-      if (i < clima.velas) s += `<ellipse cx="${vx}" cy="${668 - (i % 2) * 8}" rx="3" ry="5" fill="#e8a24a" opacity="0.9"/>`;
+      const vx = 112 + i * 14;
+      s += `<rect x="${vx - 3}" y="${666 - (i % 2) * 8}" width="6" height="16" fill="#ebd9a8"/>`;
+      if (i < clima.velas) s += `<ellipse cx="${vx}" cy="${662 - (i % 2) * 8}" rx="3" ry="5" fill="#e8a24a" opacity="0.9"/>`;
     }
   }
   /* casa */
   /* o telhado para abaixo do varal: a segunda corda não encosta na cumeeira */
-  s += `<path d="M${hx - 14} ${top + 10}L${hx + hw / 2} ${top - 46}L${hx + hw + 14} ${top + 10}z" fill="#4f6b3a"/>`;
+  s += `<path d="M${hx - 6} ${top + 10}L${hx + hw / 2} ${top - 50}L${hx + hw + 6} ${top + 10}z" fill="#4f6b3a"/>`;
+  s += `<circle cx="${hx + hw / 2}" cy="${top - 14}" r="11" fill="#f6e3dc" stroke="#c6a15b" stroke-width="1.5"/>`;
   s += `<rect x="${hx}" y="${top}" width="${hw}" height="${bottom - top}" fill="#8fae6b"/>` + veu(hx, top, hw, bottom - top, '#c9dbb2', 4, 0.22, true);
-  /* quarto rosa */
-  s += `<rect x="${hx + 10}" y="${y1}" width="${hw - 20}" height="${y2 - y1 - 8}" fill="#f6e3dc"/>` + veu(hx + 10, y1, hw - 20, y2 - y1 - 8, '#ebcdc3', 3, 0.3, true);
-  s += `<line x1="${hx + 10}" y1="${y2 - 8}" x2="${hx + hw - 10}" y2="${y2 - 8}" stroke="#c6a15b" stroke-width="1" opacity="0.6"/>`;
+  if (clima.festa === 'junina')
+    for (let i = 0; i < 14; i++) {
+      const t = (i + 0.5) / 14;
+      const bx = hx + hw * t;
+      const by = top + 12 + Math.sin(t * Math.PI * 2) ** 2 * 6;
+      s += `<path d="M${bx - 6} ${by}h12l-6 12z" fill="${['#d2463c', '#ebd9a8', '#7FA5B8', '#f2a9c4', '#8fae6b', '#e8a24a'][i % 6]}"/>`;
+    }
+  if (clima.festa === 'lanterna') for (let i = 0; i < 4; i++) s += `<g class="respira" style="animation-delay:${i * 400}ms"><path d="M${hx + 46 + i * 95} ${top + 8}v10" stroke="#c9a189" stroke-width="1.5"/><rect x="${hx + 38 + i * 95}" y="${top + 18}" width="16" height="20" rx="6" fill="#e8a24a" opacity="0.9"/><rect x="${hx + 42 + i * 95}" y="${top + 24}" width="8" height="8" rx="3" fill="#ebd9a8"/></g>`;
+
+  /* ---------- andar de cima: o quarto rosa e o banheiro ---------- */
+  s += `<rect x="${L}" y="${top + 8}" width="${bw - L}" height="${f1 - top - 8}" fill="#f6e3dc"/>` + veu(L, top + 8, bw - L, f1 - top - 8, '#ebcdc3', 3, 0.3, true);
+  s += `<rect x="${bw + 6}" y="${top + 8}" width="${R - bw - 6}" height="${f1 - top - 8}" fill="#e6eff2"/>`;
+  for (let y = f1 - 80; y < f1; y += 10) s += `<line x1="${bw + 6}" y1="${y}" x2="${R}" y2="${y}" stroke="#c9d9df" stroke-width="1"/>`;
+  s += `<rect x="${L}" y="${f1}" width="${R - L}" height="6" fill="#6f8f55"/>`;
+  /* as letras que ela já traçou, numa fileira no alto da parede */
+  e.letras.slice(0, 9).forEach((l, i) => {
+    s += `<text x="${30 + i * 22}" y="${top + 38}" font-family="Jost, sans-serif" font-size="18" font-weight="500" fill="#f2a9c4">${l}</text>`;
+  });
   /* janela do quarto: céu da hora, lua e estrelas das noites bem dormidas */
-  s += `<g data-alvo="janela">${arco(hx + 130, y1 + 42, 56, 74, CEU[ceu]!)}`;
-  for (let i = 0; i < Math.min(e.estrelas, 6); i++) s += centelha(hx + 140 + (i % 3) * 18, y1 + 58 + Math.floor(i / 3) * 14, 7, '#c6a15b');
-  if (noite) s += `<path d="M${hx + 170} ${y1 + 62}a6 6 0 1 0 5 9a5 5 0 1 1-5-9z" fill="#ebd9a8"/>`;
+  s += `<g data-alvo="janela">${toque(114, 218, 30)}${arco(88, 182, 52, 70, CEU[ceu]!)}`;
+  for (let i = 0; i < Math.min(e.estrelas, 6); i++) s += centelha(100 + (i % 3) * 14, 214 + Math.floor(i / 3) * 14, 7, '#c6a15b');
+  if (noite) s += `<path d="M124 196a6 6 0 1 0 5 9a5 5 0 1 1-5-9z" fill="#ebd9a8"/>`;
   s += `</g>`;
-  /* a porta do quarto com o nome dela, e as letras do nome que ela já traçou */
-  s += `<rect x="${hx + 16}" y="${y1 + 40}" width="46" height="${y2 - 8 - (y1 + 40)}" rx="6" fill="#f2a9c4"/>`;
+  /* o ukulele na parede */
+  s += `<g data-alvo="ukulele"${novo('ukulele')}>${toque(40, 232, 30)}<rect x="37" y="212" width="6" height="22" rx="2" fill="#c9a189"/><rect x="36" y="210" width="8" height="6" rx="2" fill="#a97e63"/><circle cx="40" cy="236" r="6.5" fill="#f2a9c4"/><circle cx="40" cy="245" r="8.5" fill="#f2a9c4"/><circle cx="40" cy="240" r="2.5" fill="#6e1a27" opacity="0.6"/></g>`;
+  /* estante de bonecas: três em cima, duas embaixo */
+  s += `<g data-alvo="estante"${novo('bonecas')}>${toque(185, 224, 34)}<rect x="150" y="194" width="70" height="60" fill="none" stroke="#c9a189" stroke-width="2"/><line x1="150" y1="224" x2="220" y2="224" stroke="#c9a189" stroke-width="2"/>`;
+  for (let i = 0; i < Math.min(e.bonecas, 5); i++) s += `<g class="boneca">${familia.boneca(162 + (i % 3) * 23, 222 + Math.floor(i / 3) * 30, 22, i, figurinoDe(e.figurinos[String(i)])).svg}</g>`;
+  s += `</g>`;
+  /* a porta do quarto, rosa, com o nome dela em cima e o envelope do bilhetinho */
+  s += `<rect x="226" y="236" width="38" height="${f1 - 236}" rx="6" fill="#f2a9c4"/><circle cx="256" cy="310" r="2.5" fill="#c6a15b"/>`;
   const nome = 'STELLA';
   const temNome = [...nome].every((l) => e.letras.includes(l));
-  if (temNome) s += `<text x="${hx + 39}" y="${y1 + 64}" text-anchor="middle" font-family="Jost, sans-serif" font-size="10" font-weight="500" letter-spacing="1.5" fill="#6e1a27">${nome}</text>`;
-  /* as letras na parede */
-  e.letras.slice(0, 9).forEach((l, i) => {
-    s += `<text x="${hx + 78 + (i % 5) * 20}" y="${y1 + 34 + Math.floor(i / 5) * 22}" font-family="Jost, sans-serif" font-size="20" font-weight="500" fill="#f2a9c4">${l}</text>`;
-  });
-  /* o ukulele na parede, o envelope do bilhetinho na porta do quarto */
-  s += `<g data-alvo="ukulele"${novo('ukulele')}><rect x="${hx + 62}" y="${y1 + 54}" width="38" height="48" fill="transparent"/><rect x="${hx + 79}" y="${y1 + 58}" width="6" height="22" rx="2" fill="#c9a189"/><rect x="${hx + 78}" y="${y1 + 56}" width="8" height="6" rx="2" fill="#a97e63"/><circle cx="${hx + 82}" cy="${y1 + 82}" r="6.5" fill="#f2a9c4"/><circle cx="${hx + 82}" cy="${y1 + 91}" r="8.5" fill="#f2a9c4"/><circle cx="${hx + 82}" cy="${y1 + 86}" r="2.5" fill="#6e1a27" opacity="0.6"/></g>`;
-  s += `<g data-alvo="bilhete"${novo('bilhete')}><circle cx="${hx + 39}" cy="${y1 + 110}" r="26" fill="transparent"/><rect x="${hx + 27}" y="${y1 + 102}" width="24" height="16" rx="2" fill="#fbf8f1" stroke="#c6a15b"/><path d="M${hx + 27} ${y1 + 102}l12 9l12 -9" fill="none" stroke="#c6a15b"/></g>`;
-  /* o pote de pedrinhas no chão do quarto, e as medalhas de feltro na parede da sala */
+  if (temNome) s += `<text x="245" y="228" text-anchor="middle" font-family="Jost, sans-serif" font-size="10" font-weight="500" letter-spacing="1.5" fill="#6e1a27">${nome}</text>`;
+  s += `<g data-alvo="bilhete"${novo('bilhete')}>${toque(245, 272, 28)}<rect x="233" y="264" width="24" height="16" rx="2" fill="#fbf8f1" stroke="#c6a15b"/><path d="M233 264l12 9l12 -9" fill="none" stroke="#c6a15b"/></g>`;
+  /* mala no chão (palavra) */
+  s += `<g data-alvo="mala"${novo('palavras')}>${toque(35, 358, 28)}<rect x="20" y="${f1 - 20}" width="30" height="20" rx="4" fill="#c48f5a"/><rect x="29" y="${f1 - 25}" width="12" height="6" rx="2" fill="none" stroke="#c48f5a" stroke-width="3"/></g>`;
+  /* cama */
+  s += `<g data-alvo="cama"${novo('cuidados')}>${toque(100, 350, 34)}<rect x="66" y="${f1 - 26}" width="70" height="26" rx="6" fill="#fbf8f1"/><rect x="66" y="${f1 - 18}" width="70" height="18" rx="4" fill="#f2a9c4" opacity="0.8"/><rect x="62" y="${f1 - 40}" width="8" height="40" rx="2" fill="#c9a189"/><rect x="132" y="${f1 - 32}" width="8" height="32" rx="2" fill="#c9a189"/>`;
+  /* lembranças: o travesseiro */
+  if (e.lembrancas.length > 0) s += `<ellipse cx="80" cy="${f1 - 22}" rx="10" ry="5" fill="#fbf8f1" stroke="#ebcdc3"/>`;
+  s += `</g>`;
+  /* a Stella sentada na cama. É só enfeite, então o toque passa por ela e chega no que estiver atrás. */
+  s += `<g class="stella" style="pointer-events:none">${familia.stella(92, f1 - 20, 50, 'sentado').svg}</g>`;
+  /* caderno na escrivaninha de parede, entre a cama e o piano: é onde ela mais gosta de ir */
+  s += `<g data-alvo="caderno"${novo('caderno')}>${toque(153, 290, 30)}<rect x="130" y="300" width="46" height="6" rx="2" fill="#c9a189"/><path d="M134 306l6 10M172 306l-6 10" stroke="#c9a189" stroke-width="2.5"/><rect x="136" y="277" width="34" height="23" rx="2" fill="#fbf8f1" stroke="#c6a15b"/><line x1="153" y1="278" x2="153" y2="299" stroke="#ebcdc3" stroke-width="1"/><text x="161" y="295" text-anchor="middle" font-family="Jost, sans-serif" font-size="16" fill="#f2a9c4" font-weight="500">${(letras as { id: string }[])[Math.min(e.letraIndice, 8)]?.id ?? 'A'}</text></g>`;
+  /* piano rosa */
+  s += `<g data-alvo="piano"${novo('piano')}>${toque(196, 352, 30)}<rect x="176" y="${f1 - 38}" width="40" height="38" rx="4" fill="#f2a9c4"/><rect x="176" y="${f1 - 22}" width="40" height="9" fill="#fbf8f1"/><path d="M182 ${f1 - 22}v9M188 ${f1 - 22}v9M194 ${f1 - 22}v9M200 ${f1 - 22}v9M206 ${f1 - 22}v9M211 ${f1 - 22}v9" stroke="#ebcdc3" stroke-width="1"/></g>`;
+  /* o banheiro: a toalha, a pia com o espelho e a escova no copo, a banheira */
+  s += `<line x1="304" y1="172" x2="325" y2="172" stroke="#c9a189" stroke-width="3" stroke-linecap="round"/><rect x="307" y="172" width="15" height="21" rx="2" fill="#f2a9c4" opacity="0.85"/><path d="M307 188h15" stroke="#fbf8f1" stroke-width="2"/>`;
+  s += `<g data-alvo="pia"${novo('cuidados')}>${toque(312, 272, 34)}<ellipse cx="312" cy="248" rx="15" ry="19" fill="#dbe7ee" stroke="#c6a15b" stroke-width="1.5"/><rect x="292" y="278" width="40" height="9" rx="4" fill="#fbf8f1" stroke="#c6a15b" stroke-width="1"/><rect x="307" y="287" width="10" height="12" rx="3" fill="#fbf8f1" opacity="0.9"/><path d="M309 278v-8h7" fill="none" stroke="#8f8270" stroke-width="2.5" stroke-linecap="round"/><path d="M336 266h10l-1.5 12h-7z" fill="#f6e3dc" stroke="#c9a189"/><rect x="339" y="252" width="3" height="18" rx="1.5" fill="#f2a9c4"/><rect x="338" y="249" width="5" height="5" rx="1" fill="#fbf8f1" stroke="#c9a189" stroke-width="0.6"/></g>`;
+  s += `<path d="M284 ${f1 - 30}h80v10a14 14 0 0 1 -14 14h-52a14 14 0 0 1 -14 -14z" fill="#fbf8f1" stroke="#c6a15b"/><path d="M292 ${f1 - 6}v6M356 ${f1 - 6}v6" stroke="#c9a189" stroke-width="3"/><path d="M358 ${f1 - 30}v-24h-8" fill="none" stroke="#8f8270" stroke-width="2.5" stroke-linecap="round"/>`;
+  [296, 308, 320, 334].forEach((x, i) => (s += `<circle cx="${x}" cy="${f1 - 32 - (i % 2) * 4}" r="${4 + (i % 2)}" fill="#fbf8f1" stroke="#dbe7ee"/>`));
+  s += `<ellipse cx="320" cy="${f1 - 2}" rx="28" ry="4" fill="#7FA5B8" opacity="0.5"/>`;
+  /* o gatinho dorme no tapetinho do banheiro */
+  if (e.bichos.gato) s += `<g data-alvo="gato">${toque(322, 358, 26)}${gato(326, f1 - 3, 11, '#c8b8a6', true)}</g>`;
+
+  /* ---------- andar de baixo: a sala com a lareira e a cozinha ---------- */
+  s += `<rect x="${L}" y="${f1 + 6}" width="${sw - L}" height="${bottom - f1 - 8}" fill="#c9dbb2" opacity="0.8"/>`;
+  s += `<rect x="${sw + 6}" y="${f1 + 6}" width="${R - sw - 6}" height="${bottom - f1 - 8}" fill="#fbf8f1" opacity="0.65"/>`;
+  /* as medalhas de feltro na parede da sala, em duas fileiras */
+  for (let i = 0; i < Math.min(e.medalhas, 8); i++) {
+    const mx = 26 + (i % 4) * 16;
+    const my = 384 + Math.floor(i / 4) * 26;
+    s += `<g class="medalha"><path d="M${mx} ${my}l-3.5 10h7z" fill="#f2a9c4"/><circle cx="${mx}" cy="${my + 14}" r="5" fill="#c6a15b"/><circle cx="${mx}" cy="${my + 14}" r="2.5" fill="#ebd9a8"/></g>`;
+  }
+  /* o pote de pedrinhas na prateleira da sala */
   if (e.pais.pedrinhas) {
-    /* na prateleira de baixo da estante, no lugar que sobra ao lado das bonecas */
-    s += `<g data-alvo="pote"><circle cx="${hx + 262}" cy="${y1 + 88}" r="26" fill="transparent"/><path d="M${hx + 252} ${y1 + 80}h20v12a10 10 0 0 1 -20 0z" fill="#dbe7ee" opacity="0.55" stroke="#c6a15b" stroke-width="1"/><rect x="${hx + 254}" y="${y1 + 76}" width="16" height="4" rx="2" fill="#c9a189"/>`;
+    s += `<rect x="22" y="454" width="48" height="4" rx="2" fill="#c9a189"/>`;
+    s += `<g data-alvo="pote">${toque(46, 440, 28)}<path d="M36 432h20v12a10 10 0 0 1 -20 0z" fill="#dbe7ee" opacity="0.55" stroke="#c6a15b" stroke-width="1"/><rect x="38" y="428" width="16" height="4" rx="2" fill="#c9a189"/>`;
     const n = Math.min(e.pedrinhas, PEDRINHAS.pote);
-    for (let i = 0; i < n; i++) s += pedrinha(hx + 256 + (i % 4) * 4, y1 + 98 - Math.floor(i / 4) * 4.5, 2.2, i);
+    for (let i = 0; i < n; i++) s += pedrinha(40 + (i % 4) * 4, 450 - Math.floor(i / 4) * 4.5, 2.2, i);
     s += `</g>`;
   }
-  /* cama, com o gatinho dormindo */
-  s += `<g data-alvo="cama"${novo('cuidados')}><rect x="${hx + 56}" y="${y1 + 102}" width="40" height="48" fill="transparent"/><rect x="${hx + 70}" y="${y1 + 118}" width="70" height="26" rx="6" fill="#fbf8f1"/><rect x="${hx + 70}" y="${y1 + 126}" width="70" height="18" rx="4" fill="#f2a9c4" opacity="0.8"/><rect x="${hx + 66}" y="${y1 + 104}" width="8" height="40" rx="2" fill="#c9a189"/><rect x="${hx + 136}" y="${y1 + 112}" width="8" height="32" rx="2" fill="#c9a189"/>`;
-  s += `</g>`;
-  /* lembranças: colcha, travesseiro, prateleira */
-  const lembr = e.lembrancas.length;
-  if (lembr > 0) s += `<ellipse cx="${hx + 84}" cy="${y1 + 122}" rx="10" ry="5" fill="#fbf8f1" stroke="#ebcdc3"/>`;
-  /* estante de bonecas */
-  s += `<g data-alvo="estante"${novo('bonecas')}><rect x="${hx + 200}" y="${y1 + 40}" width="76" height="60" fill="none" stroke="#c9a189" stroke-width="2"/><line x1="${hx + 200}" y1="${y1 + 70}" x2="${hx + 276}" y2="${y1 + 70}" stroke="#c9a189" stroke-width="2"/>`;
-  for (let i = 0; i < Math.min(e.bonecas, 5); i++) s += `<g class="boneca">${familia.boneca(hx + 214 + (i % 3) * 24, y1 + 68 + Math.floor(i / 3) * 30, 22, i, figurinoDe(e.figurinos[String(i)])).svg}</g>`;
-  s += `</g>`;
-  /* mesa da estação com as pinhas dela */
-  s += `<g data-alvo="mesa"><rect x="${hx + 206}" y="${y1 + 128}" width="66" height="6" rx="2" fill="#c9a189"/><rect x="${hx + 206}" y="${y1 + 122}" width="66" height="8" fill="${corEst}" opacity="0.85"/><line x1="${hx + 212}" y1="${y1 + 134}" x2="${hx + 212}" y2="${y1 + 146}" stroke="#c9a189" stroke-width="3"/><line x1="${hx + 266}" y1="${y1 + 134}" x2="${hx + 266}" y2="${y1 + 146}" stroke="#c9a189" stroke-width="3"/>`;
-  e.pinhas.slice(0, 8).forEach((p) => {
-    s += pinha(hx + 210 + p.x * 58, y1 + 124, 4, p.tipo);
-  });
-  /* a lembrança do parquinho: um balancinho de madeira ao lado das pinhas */
-  if (e.lembrancas.some((l) => l.startsWith('parquinho:'))) s += balancinho(hx + 262, y1 + 123, 12);
-  s += `</g>`;
-  /* piano rosa */
-  s += `<g data-alvo="piano"${novo('piano')}><rect x="${hx + 150}" y="${y1 + 104}" width="44" height="42" rx="4" fill="#f2a9c4"/><rect x="${hx + 150}" y="${y1 + 122}" width="44" height="10" fill="#fbf8f1"/><path d="M${hx + 156} ${y1 + 122}v10M${hx + 162} ${y1 + 122}v10M${hx + 168} ${y1 + 122}v10M${hx + 174} ${y1 + 122}v10M${hx + 180} ${y1 + 122}v10M${hx + 186} ${y1 + 122}v10" stroke="#ebcdc3" stroke-width="1"/></g>`;
-  /* caderno na mesinha */
-  /* o caderno é grande e o toque pega bem em volta: é onde ela mais gosta de ir */
-  s += `<g data-alvo="caderno"${novo('caderno')}><rect x="${hx + 90}" y="${y1 + 116}" width="54" height="46" fill="transparent"/><rect x="${hx + 94}" y="${y1 + 150}" width="46" height="6" fill="#c9a189"/><rect x="${hx + 100}" y="${y1 + 128}" width="34" height="23" rx="2" fill="#fbf8f1" stroke="#c6a15b"/><line x1="${hx + 117}" y1="${y1 + 129}" x2="${hx + 117}" y2="${y1 + 150}" stroke="#ebcdc3" stroke-width="1"/><text x="${hx + 125}" y="${y1 + 146}" text-anchor="middle" font-family="Jost, sans-serif" font-size="16" fill="#f2a9c4" font-weight="500">${(letras as { id: string }[])[Math.min(e.letraIndice, 8)]?.id ?? 'A'}</text></g>`;
-  /* mala no chão (palavra) */
-  s += `<g data-alvo="mala"${novo('palavras')}><rect x="${hx + 22}" y="${y1 + 132}" width="30" height="20" rx="4" fill="#c48f5a"/><rect x="${hx + 31}" y="${y1 + 127}" width="12" height="6" rx="2" fill="none" stroke="#c48f5a" stroke-width="3"/></g>`;
-  /* o gatinho, no pé do piano */
-  if (e.bichos.gato) s += `<g data-alvo="gato">${gato(hx + 156, y1 + 156, 10, '#c8b8a6', true)}</g>`;
-  /* a Stella no quarto, ao pé da cama: ao lado do caderno, não na frente dele. É só
-     enfeite, então o toque passa por ela e chega no que estiver atrás. */
-  s += `<g class="stella" style="pointer-events:none">${familia.stella(hx + 74, y2 - 10, 56, 'acena').svg}</g>`;
-  /* sala e cozinha */
-  s += `<rect x="${hx + 10}" y="${y2}" width="${hw / 2 - 12}" height="${y3 - y2 - 8}" fill="#c9dbb2" opacity="0.7"/>`;
-  s += `<rect x="${hx + hw / 2 + 2}" y="${y2}" width="${hw / 2 - 12}" height="${y3 - y2 - 8}" fill="#fbf8f1" opacity="0.6"/>`;
-  s += `<line x1="${hx + hw / 2 - 3}" y1="${y2}" x2="${hx + hw / 2 - 3}" y2="${y3 - 8}" stroke="#c6a15b" stroke-width="1" opacity="0.6"/>`;
-  s += `<line x1="${hx + 10}" y1="${y3 - 8}" x2="${hx + hw - 10}" y2="${y3 - 8}" stroke="#c6a15b" stroke-width="1" opacity="0.6"/>`;
-  for (let i = 0; i < Math.min(e.medalhas, 7); i++) s += `<g class="medalha"><path d="M${hx + 62 + i * 16} ${y2 + 8}l-4 12h8z" fill="#f2a9c4"/><circle cx="${hx + 62 + i * 16}" cy="${y2 + 24}" r="6" fill="#c6a15b"/><circle cx="${hx + 62 + i * 16}" cy="${y2 + 24}" r="3" fill="#ebd9a8"/></g>`;
-  /* o relógio da sala: ela está aprendendo a ver as horas */
+  /* a lareira branca no fundo da sala, com a chaminé até o teto */
+  const lx = 87;
+  const lb = bottom - 8;
+  s += `<rect x="96" y="${f1 + 6}" width="56" height="${lb - 80 - (f1 + 6)}" fill="#fbf8f1" stroke="#d8cbb5" stroke-width="1"/>`;
+  s += `<rect x="${lx}" y="${lb - 80}" width="74" height="80" rx="3" fill="#fbf8f1" stroke="#d8cbb5" stroke-width="1.2"/><rect x="${lx - 6}" y="${lb - 86}" width="86" height="8" rx="2" fill="#fbf8f1" stroke="#d8cbb5" stroke-width="1.2"/>`;
+  s += `<path d="M${lx + 16} ${lb}v-34a21 21 0 0 1 42 0v34z" fill="#3b3330"/><path d="M${lx + 25} ${lb - 4}h24" stroke="#8a6a4a" stroke-width="5" stroke-linecap="round"/>`;
+  s += `<g class="respira"><path d="M${lx + 27} ${lb - 6}q0 -18 10 -28q10 12 10 28z" fill="#e8a24a"/><path d="M${lx + 32} ${lb - 6}q0 -10 5 -16q5 6 5 16z" fill="#ebd9a8"/></g>`;
+  s += `<rect x="${lx + 58}" y="${lb - 102}" width="5" height="16" rx="1" fill="#ebd9a8"/><ellipse cx="${lx + 60.5}" cy="${lb - 105}" rx="2.4" ry="4" fill="#e8a24a"/><path d="M${lx + 8} ${lb - 86}q6 -14 16 -12M${lx + 12} ${lb - 86}q2 -10 -4 -14" fill="none" stroke="#8fae6b" stroke-width="2.4" stroke-linecap="round"/>`;
+  /* o relógio da sala, pendurado na chaminé: ela está aprendendo a ver as horas */
   {
     const hh = agora.getHours() % 12;
     const ang = ((hh + agora.getMinutes() / 60) * 30 - 90) * (Math.PI / 180);
-    s += `<g data-alvo="relogio"${novo('relogio')}><circle cx="${hx + 34}" cy="${y2 + 30}" r="28" fill="transparent"/><circle cx="${hx + 34}" cy="${y2 + 30}" r="15" fill="#fbf8f1" stroke="#c9a189" stroke-width="2.5"/><path d="M${hx + 34} ${y2 + 30}V${y2 + 19}" stroke="#c6a15b" stroke-width="1.5"/><path d="M${hx + 34} ${y2 + 30}L${(hx + 34 + Math.cos(ang) * 8).toFixed(1)} ${(y2 + 30 + Math.sin(ang) * 8).toFixed(1)}" stroke="#6e1a27" stroke-width="2.5" stroke-linecap="round"/></g>`;
+    s += `<g data-alvo="relogio"${novo('relogio')}>${toque(124, 420, 28)}<circle cx="124" cy="420" r="15" fill="#fbf8f1" stroke="#c9a189" stroke-width="2.5"/><path d="M124 420V409" stroke="#c6a15b" stroke-width="1.5"/><path d="M124 420L${(124 + Math.cos(ang) * 8).toFixed(1)} ${(420 + Math.sin(ang) * 8).toFixed(1)}" stroke="#6e1a27" stroke-width="2.5" stroke-linecap="round"/></g>`;
   }
-  s += `<g data-alvo="tapete"><ellipse cx="${hx + 80}" cy="${y3 - 22}" rx="62" ry="14" fill="#ebcdc3" opacity="0.8"/>`;
-  s += familia.mae(hx + 40, y3 - 20, 96).svg + familia.pai(hx + 120, y3 - 20, 104, 'parado', { dir: -1 }).svg + familia.theo(hx + 82, y3 - 22, 74, 'acena').svg + `</g>`;
-  /* cozinha: fogão e mesa com a toalha do dia */
-  s += `<g data-alvo="fogao"${novo('cozinha')}><circle cx="${hx + hw / 2 + 34}" cy="${y3 - 37}" r="34" fill="transparent"/><rect x="${hx + hw / 2 + 14}" y="${y3 - 60}" width="40" height="46" rx="3" fill="#fbf8f1" stroke="#c6a15b" stroke-width="1"/><circle cx="${hx + hw / 2 + 26}" cy="${y3 - 50}" r="5" fill="none" stroke="#1a1c2b" stroke-width="1.2" opacity="0.5"/><circle cx="${hx + hw / 2 + 42}" cy="${y3 - 50}" r="5" fill="none" stroke="#1a1c2b" stroke-width="1.2" opacity="0.5"/>`;
-  if (e.colheita.length) s += `<path d="M${hx + hw / 2 + 58} ${y3 - 24}q10 -4 20 0l-2 10h-16z" fill="#c9a189"/>` + e.colheita.slice(0, 3).map((c, i) => `<circle cx="${hx + hw / 2 + 62 + i * 6}" cy="${y3 - 26}" r="3" fill="${{ cenoura: '#e8a24a', tomate: '#d2463c', milho: '#ebd9a8', alface: '#8fae6b' }[c]}"/>`).join('');
+  /* a mesa da estação com as pinhas dela, na parede da sala */
+  s += `<g data-alvo="mesa">${toque(194, 426, 28)}<rect x="170" y="432" width="48" height="5" rx="2" fill="#c9a189"/><rect x="170" y="426" width="48" height="7" fill="${corEst}" opacity="0.85"/><path d="M174 437l5 10M214 437l-5 10" stroke="#c9a189" stroke-width="2.5"/>`;
+  e.pinhas.slice(0, 8).forEach((p) => {
+    s += pinha(174 + p.x * 36, 425, 4, p.tipo);
+  });
+  /* a lembrança do parquinho: um balancinho de madeira ao lado das pinhas */
+  if (e.lembrancas.some((l) => l.startsWith('parquinho:'))) s += balancinho(212, 426, 12);
   s += `</g>`;
-  s += `<g data-alvo="mesa-cozinha"><rect x="${hx + hw / 2 + 70}" y="${y3 - 52}" width="60" height="10" rx="2" fill="${corDia}"/><rect x="${hx + hw / 2 + 70}" y="${y3 - 42}" width="60" height="4" fill="#c9a189"/><line x1="${hx + hw / 2 + 76}" y1="${y3 - 38}" x2="${hx + hw / 2 + 76}" y2="${y3 - 14}" stroke="#c9a189" stroke-width="3"/><line x1="${hx + hw / 2 + 124}" y1="${y3 - 38}" x2="${hx + hw / 2 + 124}" y2="${y3 - 14}" stroke="#c9a189" stroke-width="3"/><ellipse cx="${hx + hw / 2 + 100}" cy="${y3 - 54}" rx="12" ry="4" fill="#fbf8f1" stroke="#c6a15b" stroke-width="1"/>`;
-  /* o mural das figuras na parede da cozinha: o som do dia mora aqui para ela voltar quando quiser */
-  s += `<g data-alvo="mural"${novo('som')}>${mural(hx + hw / 2 + 96, y2 + 36)}</g>`;
-  s += `<g data-alvo="lata"><rect x="${hx + hw / 2 + 20}" y="${y3 - 76}" width="12" height="16" rx="2" fill="#b6a58c"/></g></g>`;
-  /* térreo e porta */
-  s += `<rect x="${hx + 10}" y="${y3}" width="${hw - 20}" height="${bottom - y3 - 2}" fill="#c9dbb2" opacity="0.5"/>`;
+  /* a porta da rua, na sala: de onde saem as aventuras e onde a família recebe na volta */
   const jardimAberto = aberto(s7, 'jardim');
-  s += `<g data-alvo="porta"${novo('jardim')}><path d="M${hx + hw / 2 - 34} ${bottom}v-66a34 34 0 0 1 68 0v66z" fill="#6e1a27"/><path d="M${hx + hw / 2 - 26} ${bottom}v-60a26 26 0 0 1 52 0v60z" fill="#ebcdc3" opacity="0.35"/><circle cx="${hx + hw / 2 + 16}" cy="${bottom - 30}" r="3" fill="#c6a15b"/>`;
-  if (noite) s += `<path d="M${hx + hw / 2} ${bottom - 84}a8 8 0 1 0 7 12a6 6 0 1 1-7-12z" fill="#ebd9a8"/>`;
-  if (clima.festa === 'primavera') for (let i = 0; i < 5; i++) s += flor(hx + hw / 2 - 40 + i * 20, bottom - 70 + Math.abs(i - 2) * 6, ['#f2a9c4', '#ebd9a8', '#d97f74', '#ebd9a8', '#f2a9c4'][i]!, 6);
+  s += `<g data-alvo="porta"${novo('jardim')}><path d="M18 ${bottom}v-71a25 25 0 0 1 50 0v71z" fill="#6e1a27"/><path d="M24 ${bottom}v-67a19 19 0 0 1 38 0v67z" fill="#ebcdc3" opacity="0.35"/><circle cx="58" cy="${bottom - 36}" r="3" fill="#c6a15b"/>`;
+  if (noite) s += `<path d="M43 ${bottom - 82}a7 7 0 1 0 6 10a5 5 0 1 1-6-10z" fill="#ebd9a8"/>`;
+  if (clima.festa === 'primavera') for (let i = 0; i < 5; i++) s += flor(21 + i * 11, bottom - 92 + Math.abs(i - 2) * 6, ['#f2a9c4', '#ebd9a8', '#d97f74', '#ebd9a8', '#f2a9c4'][i]!, 6);
   s += `</g>`;
-  const coelhoNovo = !e.bichos.coelho && aberto(s7, 'coelho');
-  if (e.bichos.coelho || coelhoNovo) s += `<g data-alvo="coelho" class="${coelhoNovo ? 'respira' : ''}">${coelho(hx + hw / 2 + 50, bottom, coelhoNovo ? 20 : 16)}</g>`;
-  /* os cuidados no térreo: a pia com o espelho e a escova no copo, e a caixa de brinquedos */
-  s += `<g data-alvo="pia"${novo('cuidados')}><circle cx="${hx + 62}" cy="${y3 + 64}" r="36" fill="transparent"/><ellipse cx="${hx + 58}" cy="${y3 + 34}" rx="15" ry="19" fill="#dbe7ee" stroke="#c6a15b" stroke-width="1.5"/><rect x="${hx + 38}" y="${y3 + 64}" width="42" height="9" rx="4" fill="#fbf8f1" stroke="#c6a15b" stroke-width="1"/><rect x="${hx + 54}" y="${y3 + 73}" width="10" height="44" fill="#fbf8f1" opacity="0.9"/><path d="M${hx + 56} ${y3 + 64}v-8h7" fill="none" stroke="#8f8270" stroke-width="2.5" stroke-linecap="round"/><path d="M${hx + 82} ${y3 + 52}h10l-1.5 12h-7z" fill="#f6e3dc" stroke="#c9a189"/><rect x="${hx + 85}" y="${y3 + 38}" width="3" height="18" rx="1.5" fill="#f2a9c4"/><rect x="${hx + 84}" y="${y3 + 35}" width="5" height="5" rx="1" fill="#fbf8f1" stroke="#c9a189" stroke-width="0.6"/></g>`;
-  s += `<g data-alvo="caixa-brinquedos"${novo('cuidados')}><circle cx="${hx + hw - 44}" cy="${bottom - 26}" r="34" fill="transparent"/><circle cx="${hx + hw - 54}" cy="${bottom - 34}" r="7" fill="#f2a9c4"/><rect x="${hx + hw - 44}" y="${bottom - 42}" width="12" height="12" rx="2" fill="#7FA5B8"/><rect x="${hx + hw - 64}" y="${bottom - 32}" width="40" height="26" rx="4" fill="#c9a189"/><rect x="${hx + hw - 66}" y="${bottom - 34}" width="44" height="6" rx="2" fill="#b08a70"/></g>`;
-  /* quintal: canteiro com as flores dela, caixa de areia, pinheiro */
-  s += `<g data-alvo="canteiro"><ellipse cx="120" cy="650" rx="70" ry="10" fill="#8a6a4a" opacity="0.55"/>`;
+  /* a família no tapete, em volta da lareira */
+  s += `<g data-alvo="tapete"><ellipse cx="124" cy="${bottom - 4}" rx="80" ry="12" fill="#ebcdc3" opacity="0.85"/>`;
+  s += familia.mae(70, bottom - 2, 92).svg + familia.theo(96, bottom + 2, 66, 'acena').svg + familia.pai(170, bottom - 2, 98, 'parado', { dir: -1 }).svg + `</g>`;
+  /* a caixa de brinquedos no canto da sala */
+  s += `<g data-alvo="caixa-brinquedos"${novo('cuidados')}>${toque(206, 578, 28)}<circle cx="196" cy="${bottom - 29}" r="6" fill="#f2a9c4"/><rect x="204" y="${bottom - 36}" width="10" height="10" rx="2" fill="#7FA5B8"/><rect x="188" y="${bottom - 23}" width="34" height="21" rx="4" fill="#c9a189"/><rect x="186" y="${bottom - 25}" width="38" height="5" rx="2" fill="#b08a70"/></g>`;
+  /* cozinha: o mural das figuras, a prateleira da lata, o fogão e a mesa com a toalha do dia */
+  s += `<g data-alvo="mural"${novo('som')}>${mural(268, 424)}</g>`;
+  s += `<g data-alvo="lata">${toque(342, 428, 28)}<rect x="320" y="440" width="46" height="4" rx="2" fill="#c9a189"/><rect x="334" y="422" width="14" height="18" rx="2" fill="#b6a58c"/><rect x="350" y="428" width="10" height="12" rx="2" fill="#ebd9a8"/></g>`;
+  s += `<g data-alvo="fogao"${novo('cozinha')}>${toque(270, 566, 32)}<rect x="250" y="${bottom - 46}" width="40" height="46" rx="3" fill="#fbf8f1" stroke="#c6a15b" stroke-width="1"/><circle cx="262" cy="${bottom - 36}" r="5" fill="none" stroke="#1a1c2b" stroke-width="1.2" opacity="0.5"/><circle cx="278" cy="${bottom - 36}" r="5" fill="none" stroke="#1a1c2b" stroke-width="1.2" opacity="0.5"/><rect x="256" y="${bottom - 26}" width="28" height="18" rx="2" fill="none" stroke="#c6a15b" opacity="0.6"/>`;
+  if (e.colheita.length) s += `<path d="M${sw + 10} ${bottom - 2}q10 -4 20 0l-2 -10h-16z" fill="#c9a189"/>` + e.colheita.slice(0, 3).map((c, i) => `<circle cx="${sw + 14 + i * 6}" cy="${bottom - 14}" r="3" fill="${{ cenoura: '#e8a24a', tomate: '#d2463c', milho: '#ebd9a8', alface: '#8fae6b' }[c]}"/>`).join('');
+  s += `</g>`;
+  s += `<g data-alvo="mesa-cozinha">${toque(338, 566, 30)}<rect x="308" y="${bottom - 38}" width="60" height="10" rx="2" fill="${corDia}"/><rect x="308" y="${bottom - 28}" width="60" height="4" fill="#c9a189"/><line x1="314" y1="${bottom - 24}" x2="314" y2="${bottom}" stroke="#c9a189" stroke-width="3"/><line x1="362" y1="${bottom - 24}" x2="362" y2="${bottom}" stroke="#c9a189" stroke-width="3"/><ellipse cx="338" cy="${bottom - 40}" rx="12" ry="4" fill="#fbf8f1" stroke="#c6a15b" stroke-width="1"/></g>`;
+
+  /* ---------- quintal: canteiro, coelhinho, horta, caixa de areia, parquinho, pinheiro ---------- */
+  s += `<g data-alvo="canteiro"><ellipse cx="64" cy="648" rx="52" ry="9" fill="#8a6a4a" opacity="0.55"/>`;
   e.flores.slice(-8).forEach((fl, i) => {
-    s += flor(66 + i * 15, 648 + (i % 2) * 3, COR_FLOR[fl.cor] ?? '#f2a9c4', fl.girassol ? 11 : 9, fl.girassol);
+    s += flor(22 + i * 12, 646 + (i % 2) * 3, COR_FLOR[fl.cor] ?? '#f2a9c4', fl.girassol ? 10 : 8, fl.girassol);
   });
   s += `</g>`;
-  s += `<g data-alvo="areia"${novo('areia')}>${caixaDeAreia(110, 720, 52)}<path d="M96 722q10 -8 20 0" fill="none" stroke="#d9c69a" stroke-width="2"/><rect x="128" y="710" width="10" height="12" rx="2" fill="#f2a9c4"/>${clima.conchas ? `<path d="M104 730q4 -6 8 0q-4 4 -8 0zM118 734q4 -6 8 0q-4 4 -8 0z" fill="#fbf8f1" stroke="#c6a15b" stroke-width="0.8"/>` : ''}</g>`;
+  const coelhoNovo = !e.bichos.coelho && aberto(s7, 'coelho');
+  if (e.bichos.coelho || coelhoNovo) s += `<g data-alvo="coelho" class="${coelhoNovo ? 'respira' : ''}">${toque(172, 628, 26)}${coelho(170, 642, coelhoNovo ? 22 : 18)}</g>`;
   /* a horta: quatro covinhas que mostram o que está crescendo */
   {
-    s += `<g data-alvo="horta"${novo('horta')}><circle cx="236" cy="670" r="38" fill="transparent"/><path d="M192 648h88M192 660h88" stroke="#c9a189" stroke-width="2.5"/><path d="M198 642v22M236 642v22M274 642v22" stroke="#c9a189" stroke-width="3" stroke-linecap="round"/><rect x="192" y="664" width="88" height="16" rx="6" fill="#8a6a4a" opacity="0.75"/>`;
+    s += `<g data-alvo="horta"${novo('horta')}>${toque(270, 652, 36)}<path d="M232 640h76M232 652h76" stroke="#c9a189" stroke-width="2.5"/><path d="M238 634v22M270 634v22M302 634v22" stroke="#c9a189" stroke-width="3" stroke-linecap="round"/><rect x="232" y="656" width="76" height="14" rx="6" fill="#8a6a4a" opacity="0.75"/>`;
     e.horta.forEach((c, i) => {
-      const cx = 202 + i * 23;
+      const cx = 242 + i * 19;
       if (!c) return;
       const est = estagio(c, hoje);
       const cor = { cenoura: '#e8a24a', tomate: '#d2463c', milho: '#ebd9a8', alface: '#8fae6b' }[c.semente];
-      s += est === 'semente' ? `<circle cx="${cx}" cy="666" r="2" fill="#6b4a2a"/>` : `<path d="M${cx} 668v-${est === 'broto' ? 6 : 10}" stroke="#8fae6b" stroke-width="2"/>`;
-      if (est === 'pronta') s += `<circle cx="${cx}" cy="656" r="4" fill="${cor}"/>`;
-      if (!regadoHoje(c, hoje) && est !== 'pronta') s += `<circle cx="${cx + 5}" cy="652" r="2" fill="#9fc3cf"/>`;
+      s += est === 'semente' ? `<circle cx="${cx}" cy="660" r="2" fill="#6b4a2a"/>` : `<path d="M${cx} 662v-${est === 'broto' ? 6 : 10}" stroke="#8fae6b" stroke-width="2"/>`;
+      if (est === 'pronta') s += `<circle cx="${cx}" cy="650" r="4" fill="${cor}"/>`;
+      if (!regadoHoje(c, hoje) && est !== 'pronta') s += `<circle cx="${cx + 5}" cy="646" r="2" fill="#9fc3cf"/>`;
     });
     s += `</g>`;
   }
+  s += `<g data-alvo="areia"${novo('areia')}>${caixaDeAreia(76, 720, 48)}<path d="M62 722q10 -8 20 0" fill="none" stroke="#d9c69a" stroke-width="2"/><rect x="92" y="710" width="10" height="12" rx="2" fill="#f2a9c4"/>${clima.conchas ? `<path d="M70 730q4 -6 8 0q-4 4 -8 0zM84 734q4 -6 8 0q-4 4 -8 0z" fill="#fbf8f1" stroke="#c6a15b" stroke-width="0.8"/>` : ''}</g>`;
   /* o parquinho do condomínio, logo ali fora: o balancinho na beirada do quintal */
-  s += `<g data-alvo="parquinho"${novo('parquinho')}><circle cx="236" cy="735" r="34" fill="transparent"/>${balancinho(236, 758, 44, 8)}</g>`;
-  s += `<g data-alvo="arvore">${pinheiro(350, 745, 330)}`;
-  if (clima.flores) s += flor(322, 640, '#f2a9c4', 5) + flor(372, 600, '#ebd9a8', 5) + flor(340, 560, '#f2a9c4', 4);
-  if (clima.fitinha) s += `<path d="M330 700q20 -10 40 0" fill="none" stroke="#7FA5B8" stroke-width="3"/>`;
-  s += `</g><g data-alvo="pinhas"${novo('pinhas')}><circle cx="340" cy="758" r="36" fill="transparent"/>`;
-  s += pinha(316, 752, 6) + pinha(368, 758, 6, 1) + pinha(340, 768, 5, 2);
+  s += `<g data-alvo="parquinho"${novo('parquinho')}>${toque(186, 728, 32)}${balancinho(186, 752, 44, 8)}</g>`;
+  s += `<g data-alvo="arvore">${pinheiro(352, 760, 150)}`;
+  if (clima.flores) s += flor(336, 660, '#f2a9c4', 5) + flor(366, 640, '#ebd9a8', 5) + flor(348, 700, '#f2a9c4', 4);
+  if (clima.fitinha) s += `<path d="M334 712q18 -10 36 0" fill="none" stroke="#7FA5B8" stroke-width="3"/>`;
+  s += `</g><g data-alvo="pinhas"${novo('pinhas')}>${toque(276, 734, 30)}`;
+  s += pinha(266, 728, 6) + pinha(286, 732, 6, 1) + pinha(276, 742, 5, 2);
   s += `</g>`;
   /* onde cada coisa mora, para a luz e para a centelha do que já foi hoje */
   const alvoDaCoisa: Record<Coisa, [number, number, number, number]> = {
-    piano: [hx + 172, y1 + 124, 28, 28],
-    caderno: [hx + 117, y1 + 140, 30, 22],
-    som: [hx + hw / 2 + 96, y2 + 36, 28, 24],
-    palavras: [hx + 37, y1 + 140, 24, 18],
-    areia: [110, 720, 58, 36],
-    pinhas: [326, 750, 40, 22],
-    jardim: [hx + hw / 2, bottom - 36, 44, 44],
-    familia: [hx + 80, y3 - 50, 70, 60],
-    cozinha: [hx + hw / 2 + 34, y3 - 40, 32, 34],
-    ukulele: [hx + 82, y1 + 78, 22, 26],
-    bonecas: [hx + 238, y1 + 70, 42, 34],
-    bilhete: [hx + 39, y1 + 110, 18, 14],
-    relogio: [hx + 34, y2 + 30, 20, 20],
-    horta: [236, 662, 48, 22],
-    arvore: [350, 600, 36, 60],
-    parquinho: [236, 738, 34, 30],
-    cuidados: [hx + 64, y3 + 60, 34, 34],
+    piano: [196, 352, 26, 24],
+    caderno: [153, 290, 26, 20],
+    som: [268, 424, 28, 24],
+    palavras: [35, 360, 20, 16],
+    areia: [76, 720, 54, 32],
+    pinhas: [276, 734, 28, 18],
+    jardim: [43, 552, 30, 50],
+    familia: [124, 540, 66, 58],
+    cozinha: [270, 568, 28, 34],
+    ukulele: [40, 234, 18, 26],
+    bonecas: [185, 224, 40, 34],
+    bilhete: [245, 272, 16, 12],
+    relogio: [124, 420, 20, 20],
+    horta: [270, 652, 44, 22],
+    arvore: [352, 660, 30, 56],
+    parquinho: [186, 730, 30, 28],
+    cuidados: [312, 272, 28, 30],
   };
   /* os cuidados moram em três lugares; a luz e a centelha vão em cada um */
   const alvoDoCuidado: Record<Cuidado, [number, number, number, number]> = {
-    cama: [hx + 88, y1 + 124, 36, 24],
-    dentes: [hx + 64, y3 + 60, 34, 34],
-    brinquedos: [hx + hw - 44, bottom - 24, 30, 24],
+    cama: [100, 352, 42, 22],
+    dentes: [312, 272, 28, 30],
+    brinquedos: [206, 580, 24, 20],
   };
   /* contorno de luz onde ela ainda pode ir; centelha parada no que já brincou hoje */
   const luz = luzEm ? alvoDaCoisa[luzEm] : null;
@@ -442,7 +469,7 @@ export function telaCasa(): Tela {
       mudar((x) => {
         x.bichos.coelho = textos[i]!;
       });
-      tela.comemorar(hx + hw / 2 + 50, bottom - 60);
+      tela.comemorar(172, 590);
       void (async () => {
         if (temVoz(nomes[i]!)) await falar(nomes[i]!);
         g.remove();
@@ -480,7 +507,7 @@ export function telaCasa(): Tela {
   tela.alvo('[data-alvo="tapete"]', () => {
     sininho();
     mudar((x) => marcarBrincada(x, 'familia'));
-    tela.comemorar(hx + 80, y3 - 90);
+    tela.comemorar(124, 470);
     const fam = svg.querySelector('[data-alvo="tapete"]');
     if (fam) {
       mover(fam, 0, -4, 250);
