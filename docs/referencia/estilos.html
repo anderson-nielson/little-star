@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Três pincéis para a casa da Stella</title>
+<meta name="description" content="Três propostas de estilo gráfico para o Little Star, a mesma cena desenhada por três pincéis, para escolher antes de redesenhar todas as telas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500&display=swap">
+<style>
+  :root {
+    --noite: #10142a; --noite-2: #1b2140; --marfim: #f6f0e4; --papel: #fbf8f1; --tinta: #1a1c2b;
+    --rosa: #ebcdc3; --rosa-clara: #f6e3dc; --rosa-doce: #f2a9c4; --veludo: #6e1a27;
+    --ouro: #c6a15b; --ouro-tinta: #8f6f2c; --luz: #ebd9a8; --mata: #2c4a42; --mata-2: #35564d;
+    --musgo: #8FAE6B; --musgo-claro: #C9DBB2; --musgo-tinta: #4F6B3A;
+    --fundo: var(--marfim); --superficie: var(--papel); --texto: var(--tinta);
+    --texto-2: rgba(26, 28, 43, 0.68); --fio: rgba(79, 107, 58, 0.28); --acento: var(--musgo-tinta);
+    --acento-2: var(--rosa-doce); --realce: rgba(242, 169, 196, 0.18);
+    --sombra-tela: 0 18px 40px rgba(26, 28, 43, 0.12);
+    --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --sans: 'Jost', 'Avenir Next', 'Century Gothic', system-ui, sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --fundo: var(--noite); --superficie: var(--noite-2); --texto: var(--marfim);
+      --texto-2: rgba(246, 240, 228, 0.68); --fio: rgba(198, 161, 91, 0.34); --acento: var(--luz);
+      --realce: rgba(242, 169, 196, 0.12); --sombra-tela: 0 18px 40px rgba(0, 0, 0, 0.45);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --fundo: var(--noite); --superficie: var(--noite-2); --texto: var(--marfim);
+    --texto-2: rgba(246, 240, 228, 0.68); --fio: rgba(198, 161, 91, 0.34); --acento: var(--luz);
+    --realce: rgba(242, 169, 196, 0.12); --sombra-tela: 0 18px 40px rgba(0, 0, 0, 0.45);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fundo); color: var(--texto); font-family: var(--sans); font-size: 1rem; line-height: 1.55; }
+  .pagina { max-width: 1120px; margin: 0 auto; padding-inline: 20px; padding-block: 32px 96px; }
+  h1, h2, h3, h4 { font-family: var(--serif); font-weight: 500; line-height: 1.12; text-wrap: balance; margin: 0; }
+  h1 { font-size: clamp(2.4rem, 6vw, 3.6rem); }
+  h2 { font-size: 2.1rem; }
+  h3 { font-size: 1.35rem; }
+  h4 { font-size: 1.15rem; font-style: italic; }
+  p { margin: 0; max-width: 64ch; }
+  ul { margin: 0; padding-left: 1.2em; max-width: 64ch; }
+  li { margin-block: 4px; }
+  li::marker { color: var(--acento); }
+  .rotulo { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--texto-2); }
+  header.capa { display: grid; gap: 14px; padding-bottom: 28px; border-bottom: 1px solid var(--fio); }
+  header .linha { display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: baseline; color: var(--texto-2); font-size: 0.92rem; }
+  .indice { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+  .indice a { color: var(--texto); text-decoration: none; border: 1px solid var(--fio); border-radius: 999px; padding: 6px 14px; font-size: 0.92rem; }
+  .indice a:hover, .indice a:focus-visible { border-color: var(--acento); outline: none; }
+  section { padding-block: 48px; border-bottom: 1px solid var(--fio); display: grid; gap: 18px; }
+  section .cabeca { display: grid; gap: 6px; }
+  section .cabeca .rotulo { color: var(--acento); }
+  .tese { font-family: var(--serif); font-size: 1.35rem; font-style: italic; max-width: 40ch; }
+
+  /* as três lado a lado */
+  .trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+  @media (max-width: 860px) { .trio { grid-template-columns: 1fr; } }
+  .amostra { display: grid; gap: 10px; justify-items: center; }
+  .amostra .nome { font-family: var(--serif); font-size: 1.3rem; }
+  .celular { width: 100%; max-width: 330px; aspect-ratio: 390 / 600; border-radius: 26px; overflow: hidden; box-shadow: var(--sombra-tela); border: 1px solid var(--fio); background: var(--papel); }
+  .celular svg { display: block; width: 100%; height: 100%; }
+  .kit { width: 100%; max-width: 330px; aspect-ratio: 390 / 130; border-radius: 14px; overflow: hidden; border: 1px solid var(--fio); background: var(--papel); }
+  .kit svg { display: block; width: 100%; height: 100%; }
+
+  /* a proposta em detalhe */
+  .proposta { grid-template-columns: minmax(280px, 360px) 1fr; gap: 28px 44px; align-items: start; }
+  .proposta .cabeca { grid-column: 1 / -1; }
+  .proposta .visual { display: grid; gap: 12px; }
+  .proposta .texto { display: grid; gap: 22px; }
+  @media (max-width: 860px) { .proposta { grid-template-columns: 1fr; } }
+  .bloco { display: grid; gap: 8px; }
+  .paleta { display: flex; flex-wrap: wrap; gap: 6px; }
+  .paleta span { display: inline-grid; place-items: center; width: 54px; height: 54px; border-radius: 12px; font-size: 0.62rem; color: rgba(26,28,43,.7); border: 1px solid rgba(0,0,0,.06); text-align: center; line-height: 1.1; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--fio); }
+  th { font-weight: 500; color: var(--texto-2); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  td:first-child { color: var(--acento); font-family: var(--serif); font-size: 1.05rem; white-space: nowrap; }
+  .tabela { overflow-x: auto; }
+  .marca { background: var(--realce); border-radius: 12px; padding: 16px 18px; max-width: 70ch; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.86em; background: rgba(127,127,127,.12); padding: 1px 5px; border-radius: 5px; }
+  a { color: var(--acento); }
+  .nota { color: var(--texto-2); font-size: 0.92rem; }
+</style>
+</head>
+<body>
+<div class="pagina">
+<header class="capa">
+  <span class="rotulo">Little Star · referência</span>
+  <h1>Três pincéis para a casa da Stella</h1>
+  <p>O jogo hoje é feito de formas geométricas lisas: trapézio de vestido, elipse de copa, círculo de cabeça. Funciona, mas ficou simplório. Aqui estão três jeitos de desenhar a mesma casa, a mesma Stella e os mesmos bichos com mais mão e mais gosto, sem perder a leveza, o pastel e o espírito Waldorf. Cada um é um pincel: a mesma geometria passa por ele e sai com outra pele. Escolhido um, todas as telas, figuras e peças de interface são redesenhadas com ele.</p>
+  <div class="linha"><span>Setembro de 2026</span><span>Mesma cena, mesmo kit, três pincéis</span><span>Tudo SVG gerado por código, zero imagem</span></div>
+  <nav class="indice">
+    <a href="#lado-a-lado">Lado a lado</a>
+    <a href="#aquarela">1 · Aquarela e Lápis</a>
+    <a href="#feltro">2 · Feltro e Linha</a>
+    <a href="#estampa">3 · Estampa de Três Tintas</a>
+    <a href="#comparacao">Comparação e recomendação</a>
+    <a href="#redesenho">O redesenho de tudo</a>
+  </nav>
+</header>
+
+<section id="lado-a-lado">
+  <div class="cabeca">
+    <span class="rotulo">A mesma cena por três pincéis</span>
+    <h2>Lado a lado</h2>
+    <p>A frente da casa verde num fim de tarde, a Stella no quintal, o gatinho, o coelhinho e o pinheiro. Embaixo de cada tela, o kit: o botão da casinha, um tomate, uma cenoura, a mãozinha do guia e a centelha. São as peças que aparecem em todas as telas, e é nelas que um estilo se prova ou se desmancha.</p>
+  </div>
+  <div class="trio" id="trio"></div>
+  <p class="nota">Os desenhos desta página são gerados pelo mesmo script, com a mesma geometria, trocando só o pincel. É o mesmo mecanismo que o redesenho usaria no jogo.</p>
+</section>
+
+<section id="aquarela" class="proposta">
+  <div class="cabeca">
+    <span class="rotulo">Proposta 1</span>
+    <h2>Aquarela e Lápis</h2>
+    <p class="tese">A pintura do jardim de infância Waldorf, feita com o cuidado de um livro ilustrado.</p>
+  </div>
+  <div class="visual" data-estilo="aquarela"></div>
+  <div class="texto">
+    <div class="bloco">
+      <h3>De onde vem</h3>
+      <p>Da aquarela molhada da sala Waldorf e dos livros de Elsa Beskow e Eva-Maria Ott-Heidmann: manchas de cor que se tocam sem contorno preto, e por cima um lápis de cor fino que conta a forma. O lápis nunca fecha a figura por inteiro, ele falha e retoma, como uma mão de verdade. A cor pousa um pouco fora da linha, como num livro impresso antigo.</p>
+    </div>
+    <div class="bloco">
+      <h3>O que muda no desenho</h3>
+      <ul>
+        <li><strong>Toda forma ganha três camadas:</strong> a mancha de cor com 80% de opacidade, uma segunda mancha deslocada um pixel (a borda molhada, onde a tinta se acumula) e o contorno de lápis num tom escuro da própria cor, nunca preto.</li>
+        <li><strong>O papel aparece.</strong> Um grão fino de pontinhos ouro e vinho, quase invisível, cobre a tela inteira e dá textura ao céu e às paredes.</li>
+        <li><strong>A família</strong> ganha cintura, mangas, mãos e cabelo com fios soltos desenhados a lápis. O rosto continua econômico: dois arcos, um fio de boca, bochecha em mancha rosa.</li>
+        <li><strong>Céu e grama</strong> deixam de ser elipses lisas e viram manchas com borda de tinta acumulada. A luz da tarde é uma aguada rosa sobre o azul.</li>
+        <li><strong>Interface:</strong> o botão da casinha vira um disco de papel com aro de lápis ouro, a mãozinha é uma luva rosa com contorno vinho, a centelha ganha borda de lápis.</li>
+      </ul>
+    </div>
+    <div class="bloco">
+      <h3>Como se faz no código</h3>
+      <p>Um módulo <code>src/puppet/pincel.ts</code> com <code>forma(d, cor)</code> que devolve as três camadas, <code>veu()</code> com borda molhada e um <code>pattern</code> de grão pintado uma vez no fundo. O lápis é um <code>stroke</code> com <code>stroke-dasharray</code> irregular e <code>stroke-linecap: round</code>, deslocado meio pixel. Nada de filtro, nada de blur, nada de raster. Cada forma custa três caminhos SVG em vez de um.</p>
+    </div>
+    <div class="bloco">
+      <h3>Risco</h3>
+      <p>É o mais "desenhado" dos três e o mais Waldorf. O risco está na escala: no celular, em alvos de 72 px, o lápis precisa ficar entre 1 e 1,5 px para não sujar. Nas figuras pequenas das palavras (54 desenhos em caixinha de 100), o contorno terá que ser mais grosso e o grão desligado.</p>
+    </div>
+  </div>
+</section>
+
+<section id="feltro" class="proposta">
+  <div class="cabeca">
+    <span class="rotulo">Proposta 2</span>
+    <h2>Feltro e Linha</h2>
+    <p class="tese">Os brinquedos Waldorf de feltro e lã, cortados e costurados com capricho escandinavo.</p>
+  </div>
+  <div class="visual" data-estilo="feltro"></div>
+  <div class="texto">
+    <div class="bloco">
+      <h3>De onde vem</h3>
+      <p>Dos tapetes de brincar de feltro, das bonecas de pano e dos bichinhos de lã agulhada que a SPEC já pede para o quarto. Cada peça é um recorte de feltro com uma sombra dura e curta embaixo, um pesponto de linha clara junto da borda, e o cabelo é lã de verdade: fios que caem. O tom não é o do artesanato rústico, é o das lojas de brinquedo de madeira do norte da Europa: cores lavadas, bordas limpas, costura discreta.</p>
+    </div>
+    <div class="bloco">
+      <h3>O que muda no desenho</h3>
+      <ul>
+        <li><strong>Toda forma ganha sombra e costura:</strong> a mesma silhueta repetida 2,5 px abaixo num tom escuro (a espessura do feltro), o recorte em cima, e um pesponto tracejado numa linha mais clara, um pouco para dentro da borda.</li>
+        <li><strong>A cena é um tapete em camadas:</strong> o céu é uma peça, o morro de grama outra com a borda ondulada, a casa se monta em peças sobrepostas. O sol é um pompom, as nuvens são flocos de lã.</li>
+        <li><strong>A família</strong> vira boneca de pano: cabeça redonda, corpo de feltro, cabelo de fios de lã em dois tons, rosto bordado com dois pontos e um fio (é exatamente a boneca Waldorf que a SPEC descreve para o quarto, agora para todo mundo).</li>
+        <li><strong>Os bichos</strong> ganham a mesma costura e um olho bordado. O gato tem o rabo em cordão de lã.</li>
+        <li><strong>Interface:</strong> o botão da casinha é um disco de feltro creme costurado, a mãozinha é uma luvinha de feltro, a centelha é um recorte de feltro ouro.</li>
+      </ul>
+    </div>
+    <div class="bloco">
+      <h3>Como se faz no código</h3>
+      <p>O mesmo <code>pincel.ts</code>, com <code>forma(d, cor)</code> devolvendo sombra, recorte e pesponto. O pesponto é o mesmo caminho com <code>stroke-dasharray</code> e <code>transform: scale(0.93)</code> com <code>transform-box: fill-box</code>, para ficar dentro da borda sem calcular nada. O cabelo de lã é uma função própria que gera fios curvos. O grão do feltro é um <code>pattern</code> de fibras a 6% de opacidade. É o mais barato dos três: três caminhos por forma, sem transparências grandes.</p>
+    </div>
+    <div class="bloco">
+      <h3>Risco</h3>
+      <p>Pode escorregar para o rústico se as cores forem quentes demais ou a costura muito visível. A resposta está na paleta (mais lavada, menos saturada que a de hoje) e na linha (1 px, tom claro, nunca contrastante). É o estilo que mais casa com os brinquedos de madeira e as bonecas que já existem na SPEC, e o que melhor sobrevive a alvos pequenos.</p>
+    </div>
+  </div>
+</section>
+
+<section id="estampa" class="proposta">
+  <div class="cabeca">
+    <span class="rotulo">Proposta 3</span>
+    <h2>Estampa de Três Tintas</h2>
+    <p class="tese">Um livro ilustrado escandinavo dos anos 60, impresso com poucas tintas sobre papel creme.</p>
+  </div>
+  <div class="visual" data-estilo="estampa"></div>
+  <div class="texto">
+    <div class="bloco">
+      <h3>De onde vem</h3>
+      <p>Das ilustrações de Alain Grée e Ingela P. Arrhenius e das impressões de risografia: formas chapadas, sem contorno, em três ou quatro tintas que se sobrepõem e criam uma quinta cor onde se cruzam. A sombra é uma retícula de pontinhos, não um degradê. O branco é o papel aparecendo. É o mais adulto e o mais "de design" dos três, e ainda assim macio, porque as tintas são pastéis.</p>
+    </div>
+    <div class="bloco">
+      <h3>O que muda no desenho</h3>
+      <ul>
+        <li><strong>Cada tela tem uma paleta de tintas:</strong> papel creme mais três tintas claras (rosa, sálvia, ocre) e uma tinta escura, o verde-tinta, só para olhos, boca e detalhes. O azul entra como quarta tinta no lago e no céu.</li>
+        <li><strong>As formas se somam:</strong> onde o vestido rosa passa na frente da parede verde, a cor multiplica e escurece, como tinta transparente sobre tinta. Onde uma forma faz sombra, uma retícula de pontinhos aparece só na borda de baixo.</li>
+        <li><strong>A família</strong> tem silhueta mais desenhada (cintura, mangas, mãos), cabelo com um risco de luz em papel, bochecha de retícula rosa. Rosto sem contorno: dois arcos e uma boca na tinta escura.</li>
+        <li><strong>Céu e grama</strong> são chapados, com uma faixa de retícula onde o dia encontra a noite. Nada de véu de elipses.</li>
+        <li><strong>Interface:</strong> o botão da casinha é um aro de tinta ouro sobre papel, a mãozinha é uma luva em tinta rosa com retícula, a centelha é um carimbo ouro.</li>
+      </ul>
+    </div>
+    <div class="bloco">
+      <h3>Como se faz no código</h3>
+      <p>O mesmo <code>pincel.ts</code>: <code>forma(d, cor)</code> devolve a forma em tinta com <code>mix-blend-mode: multiply</code> e uma cópia recortada com <code>clipPath</code> que deixa a retícula (um <code>pattern</code> de pontos) só numa lua de sombra. Um caminho e um recorte por forma. Onde o multiply custar caro em movimento (a Stella andando no jardim), a cor do cruzamento é calculada uma vez em código e a forma sai chapada.</p>
+    </div>
+    <div class="bloco">
+      <h3>Risco</h3>
+      <p>É o menos Waldorf dos três no sentido literal (aquarela, lã), mas é o que melhor responde ao pedido de sofisticação. O risco é esfriar: chapado demais, a casa pode parecer um cartaz. A retícula e o papel creme seguram o calor. O <code>multiply</code> precisa de teste no Galaxy da Stella antes de virar regra.</p>
+    </div>
+  </div>
+</section>
+
+<section id="comparacao">
+  <div class="cabeca">
+    <span class="rotulo">Para decidir</span>
+    <h2>Comparação e recomendação</h2>
+  </div>
+  <div class="tabela">
+  <table>
+    <thead><tr><th>Critério</th><th>Aquarela e Lápis</th><th>Feltro e Linha</th><th>Estampa de Três Tintas</th></tr></thead>
+    <tbody>
+      <tr><td>Espírito Waldorf</td><td>O mais literal: é a pintura da sala.</td><td>Os brinquedos da sala.</td><td>Pelo tom, não pela técnica.</td></tr>
+      <tr><td>Sofisticação</td><td>Alta, de livro ilustrado.</td><td>Média-alta, depende da paleta.</td><td>A mais alta, de design.</td></tr>
+      <tr><td>Calor para uma criança de 5</td><td>Muito.</td><td>O maior: é brinquedo.</td><td>Bom, um pouco mais frio.</td></tr>
+      <tr><td>Legibilidade em 72 px</td><td>Exige lápis fino e cuidado.</td><td>A melhor: sombra dura lê em qualquer tamanho.</td><td>Boa: chapado lê bem.</td></tr>
+      <tr><td>Custo por forma</td><td>3 caminhos.</td><td>3 caminhos.</td><td>1 caminho + 1 recorte (+ multiply).</td></tr>
+      <tr><td>Risco técnico</td><td>Baixo (só caminhos).</td><td>Baixo (só caminhos).</td><td>Médio: multiply e clipPath em movimento.</td></tr>
+      <tr><td>Combina com o que já existe</td><td>Com o véu de aquarela da SPEC.</td><td>Com as bonecas de pano e os brinquedos de madeira.</td><td>Com o fio de ouro e o arco do proscênio.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="marca" id="recomendacao"></div>
+</section>
+
+<section id="redesenho">
+  <div class="cabeca">
+    <span class="rotulo">Depois da escolha</span>
+    <h2>O redesenho de tudo</h2>
+    <p>Qualquer um dos três passa por todas as telas do mesmo jeito, porque a geometria do jogo já vive em funções (a marionete, as figuras, os objetos) e o que muda é o pincel que as pinta. O inventário do que existe hoje e a ordem em que seria redesenhado:</p>
+  </div>
+  <div class="tabela">
+  <table>
+    <thead><tr><th>Camada</th><th>O que é</th><th>Onde vive</th></tr></thead>
+    <tbody>
+      <tr><td>Pincel</td><td>O módulo novo: forma, véu, fio, rosto, cabelo, textura de fundo. Escolhe o estilo e todo o resto passa por ele.</td><td><code>src/puppet/pincel.ts</code> (novo), tokens novos em <code>src/ui/tokens.css</code></td></tr>
+      <tr><td>Família</td><td>Stella, Theo, mãe e pai, 16 poses, cabelos, barba, óculos. A boneca de pano com 4 tutus e 4 enfeites.</td><td><code>src/puppet/boneco.ts</code>, <code>src/puppet/bonecaPano.ts</code></td></tr>
+      <tr><td>Bichos e objetos</td><td>Gato, coelho, cisnes, pinheiro, pinha, flor, nuvem, caixa de areia, balancinho, arco, centelha, casinha, mãozinha, contorno de luz.</td><td><code>src/puppet/objetos.ts</code></td></tr>
+      <tr><td>Figuras</td><td>As 54 figuras das palavras e das comidas (asa, abelha, árvore, avó, uva, tomate, brócolis...), cada uma em caixa de 100.</td><td><code>src/puppet/figuras.ts</code></td></tr>
+      <tr><td>Telas</td><td>As 33 telas: casa, chegada, roda, prato, som, caderno, palavra, areia, pinhas, bichos, cuidados, cama, dentes, brinquedos, cozinha, horta, árvore, árvore grande, jardim, lago, palco, piano, ukulele, bonecas, bilhete, relógio, parquinho, noite, despedida e as de apoio.</td><td><code>src/telas/*.ts</code></td></tr>
+      <tr><td>Canvas</td><td>O caderno, a areia e o jardim desenham em Canvas 2D; o pincel ganha uma versão canvas para os fundos pintados uma vez.</td><td><code>src/telas/caderno.ts</code>, <code>areia.ts</code>, <code>jardim.ts</code></td></tr>
+      <tr><td>Interface</td><td>Cabeçalho (casinha, balãozinho, menu), pílulas, trilha de passos, opções, balão de narração, cantinho dos pais, tela de escolha.</td><td><code>src/ui/*.css</code>, <code>src/ui/*.ts</code>, <code>src/telas/comum.ts</code></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="bloco">
+    <h3>A ordem</h3>
+    <ul>
+      <li><strong>Rodada 1, o pincel e o styleguide.</strong> O módulo novo, os tokens, a família e os bichos redesenhados no <code>?styleguide=1</code>. É onde se aprova o estilo de verdade, no celular, antes de tocar em tela.</li>
+      <li><strong>Rodada 2, a casa e a chegada.</strong> As duas telas que ela mais vê, com todos os cômodos, móveis e o quintal.</li>
+      <li><strong>Rodada 3, o dia.</strong> Roda, prato, cozinha, horta, cuidados, cama, dentes, brinquedos, relógio, noite e despedida.</li>
+      <li><strong>Rodada 4, as letras.</strong> Som, caderno, palavra, bilhete, areia, pinhas, e as 54 figuras.</li>
+      <li><strong>Rodada 5, as aventuras e a música.</strong> Jardim, árvore, árvore grande, lago, parquinho, palco, piano, ukulele, bonecas.</li>
+      <li><strong>Rodada 6, a interface e o passeio.</strong> Cabeçalho, pílulas, opções, cantinho dos pais; o passeio automático regrava as capturas em <code>docs/shots/</code>.</li>
+    </ul>
+    <p class="nota">Cada rodada é uma PR que passa no lint, nos testes e na varredura, e as regras da casa continuam valendo: cor só de token, sem raster, sem blur, nada pisca, só transform e opacity em movimento.</p>
+  </div>
+</section>
+</div>
+
+<script>
+/* ===== cores ===== */
+const C = {
+  papel: '#fbf8f1', marfim: '#f6f0e4', luz: '#ebd9a8', ouro: '#c6a15b', ouroTinta: '#8f6f2c',
+  rosa: '#ebcdc3', rosaClara: '#f6e3dc', rosaDoce: '#f2a9c4', veludo: '#8a3a44',
+  musgo: '#8fae6b', musgoClaro: '#c9dbb2', musgoTinta: '#4f6b3a', mata2: '#4a6b5c',
+  ceu: '#dbe7ee', ceuTarde: '#f3d9cf', madeira: '#c9a189', pele: '#f2d5bc', cabelo: '#e6c98a',
+  gato: '#c4b4a0', coelho: '#f1ebe0', tomate: '#e07a6e', cenoura: '#eaa45c', tinta: '#4a3a30',
+};
+const hex = c => c.replace('#', '').match(/../g).map(h => parseInt(h, 16));
+const rgb = v => '#' + v.map(n => Math.max(0, Math.min(255, Math.round(n))).toString(16).padStart(2, '0')).join('');
+const mix = (a, b, t) => rgb(hex(a).map((v, i) => v + (hex(b)[i] - v) * t));
+const escuro = (c, t = 0.3) => mix(c, '#3a2a22', t);
+const claro = (c, t = 0.4) => mix(c, '#fffaf0', t);
+const lum = c => { const [r, g, b] = hex(c); return 0.299 * r + 0.587 * g + 0.114 * b; };
+const f1 = n => Math.round(n * 10) / 10;
+
+/* ===== geometria compartilhada ===== */
+function circ(cx, cy, r) { return `M${f1(cx - r)} ${f1(cy)}a${r} ${r} 0 1 0 ${2 * r} 0a${r} ${r} 0 1 0 ${-2 * r} 0z`; }
+function elipse(cx, cy, rx, ry) { return `M${f1(cx - rx)} ${f1(cy)}a${rx} ${ry} 0 1 0 ${2 * rx} 0a${rx} ${ry} 0 1 0 ${-2 * rx} 0z`; }
+function arco(x, y, w, h) { const r = w / 2; return `M${x} ${y + h}V${y + r}A${r} ${r} 0 0 1 ${x + w} ${y + r}V${y + h}z`; }
+function nuvem(x, y, s) { const P = (a, b) => `${f1(x + a * s)} ${f1(y + b * s)}`; return `M${P(-1.5, 0.8)}Q${P(-2.0, 0.1)} ${P(-1.25, -0.1)}Q${P(-1.05, -0.95)} ${P(-0.25, -0.7)}Q${P(0.3, -1.35)} ${P(0.95, -0.6)}Q${P(1.75, -0.7)} ${P(1.65, 0.2)}Q${P(2.05, 0.8)} ${P(1.5, 0.8)}z`; }
+function membro(a, b, wa, wb) {
+  const dx = b[0] - a[0], dy = b[1] - a[1], l = Math.hypot(dx, dy) || 1, nx = -dy / l, ny = dx / l;
+  return `M${f1(a[0] + nx * wa)} ${f1(a[1] + ny * wa)}L${f1(b[0] + nx * wb)} ${f1(b[1] + ny * wb)}A${wb} ${wb} 0 0 1 ${f1(b[0] - nx * wb)} ${f1(b[1] - ny * wb)}L${f1(a[0] - nx * wa)} ${f1(a[1] - ny * wa)}A${wa} ${wa} 0 0 1 ${f1(a[0] + nx * wa)} ${f1(a[1] + ny * wa)}z`;
+}
+const CENTELHA = 'M10 0c.7 6.2 3.8 9.3 10 10-6.2.7-9.3 3.8-10 10-.7-6.2-3.8-9.3-10-10 6.2-.7 9.3-3.8 10-10z';
+const MAOZINHA = 'M-6 26V2a3.2 3.2 0 0 1 6.4 0v10l2.6-1.4a3 3 0 0 1 4.4 2.2v1.4l2.2-.6a2.8 2.8 0 0 1 3.6 2.6V26z';
+function trans(d, x, y, s = 1) { return `<g transform="translate(${x} ${y}) scale(${s})">${d}</g>`; }
+
+/* a Stella: 5 anos, cabeça grande, vestido com cintura e mangas, cabelo liso passando do ombro */
+function stella(S, cx, chao, h) {
+  const hr = h * 0.13, cy = chao - h + hr, ombro = cy + hr + 5, cint = ombro + 20, bainha = ombro + 52;
+  const pele = C.pele, cab = C.cabelo, roupa = C.rosaDoce;
+  let s = '';
+  s += S.forma(`M${cx - hr - 1} ${cy + 1}C${cx - hr - 1} ${cy - hr - 9} ${cx + hr + 1} ${cy - hr - 9} ${cx + hr + 1} ${cy + 1}L${cx + hr + 5} ${ombro + 14}Q${cx} ${ombro + 6} ${cx - hr - 5} ${ombro + 14}z`, cab, { tipo: 'cabelo' });
+  s += S.forma(membro([cx - 8, bainha - 3], [cx - 9, chao - 3], 4, 3), pele, { tipo: 'pele' });
+  s += S.forma(membro([cx + 8, bainha - 3], [cx + 9, chao - 3], 4, 3), pele, { tipo: 'pele' });
+  s += S.forma(elipse(cx - 9.5, chao - 2, 6.5, 3), roupa, { tipo: 'sapato' });
+  s += S.forma(elipse(cx + 9.5, chao - 2, 6.5, 3), roupa, { tipo: 'sapato' });
+  s += S.forma(`M${cx - 3} ${cy + hr - 3}h6v8h-6z`, pele, { tipo: 'pele', mudo: true });
+  s += S.forma(`M${cx - 11} ${ombro}H${cx + 11}L${cx + 12} ${cint}C${cx + 21} ${cint + 10} ${cx + 25} ${bainha - 8} ${cx + 25} ${bainha}Q${cx} ${bainha + 4} ${cx - 25} ${bainha}C${cx - 25} ${bainha - 8} ${cx - 21} ${cint + 10} ${cx - 12} ${cint}z`, roupa, { tipo: 'roupa' });
+  s += S.forma(membro([cx - 13, ombro + 8], [cx - 20, ombro + 38], 3.2, 2.6), pele, { tipo: 'pele' });
+  s += S.forma(membro([cx + 13, ombro + 8], [cx + 20, ombro + 38], 3.2, 2.6), pele, { tipo: 'pele' });
+  s += S.forma(elipse(cx - 12.5, ombro + 5, 5, 6.5), roupa, { tipo: 'roupa' });
+  s += S.forma(elipse(cx + 12.5, ombro + 5, 5, 6.5), roupa, { tipo: 'roupa' });
+  s += S.forma(circ(cx, cy, hr), pele, { tipo: 'pele' });
+  s += S.forma(`M${cx - hr} ${cy - 1}C${cx - hr + 1} ${cy - hr - 5} ${cx + hr - 1} ${cy - hr - 5} ${cx + hr} ${cy - 1}Q${cx + 6} ${cy - 7} ${cx + 1} ${cy - 3}Q${cx - 5} ${cy - 8} ${cx - hr} ${cy - 1}z`, cab, { tipo: 'cabelo' });
+  s += S.fios([
+    `M${cx + hr + 2} ${cy + 4}q3 14 1 26`, `M${cx - hr - 2} ${cy + 5}q-3 12 -1 24`, `M${cx - 4} ${cy - hr - 1}q4 -3 9 -1`,
+  ], escuro(cab, 0.25));
+  s += S.rosto(cx, cy, hr);
+  return s;
+}
+function gato(S, x, chao) {
+  const cor = C.gato;
+  let s = '';
+  s += S.fio(`M${x + 13} ${chao - 6}q22 2 18 -26`, escuro(cor, 0.12), 5);
+  s += S.forma(`M${x - 15} ${chao}C${x - 20} ${chao - 22} ${x - 10} ${chao - 40} ${x + 6} ${chao - 38}C${x + 20} ${chao - 36} ${x + 20} ${chao - 14} ${x + 15} ${chao}z`, cor, { tipo: 'pelo' });
+  s += S.forma(elipse(x - 8, chao - 2, 6, 3.2), cor, { tipo: 'pelo' });
+  s += S.forma(elipse(x + 8, chao - 2, 6, 3.2), cor, { tipo: 'pelo' });
+  s += S.forma(`M${x - 11} ${chao - 44}l-2 -13l11 6z`, cor, { tipo: 'pelo' });
+  s += S.forma(`M${x + 9} ${chao - 44}l2 -13l-11 6z`, cor, { tipo: 'pelo' });
+  s += S.forma(circ(x - 1, chao - 42, 11.5), cor, { tipo: 'pelo' });
+  s += S.forma(`M${x - 9} ${chao - 46}l-1.2 -8l6.4 3.6z`, C.rosaClara, { tipo: 'pele', mudo: true });
+  s += S.forma(`M${x + 7} ${chao - 46}l1.2 -8l-6.4 3.6z`, C.rosaClara, { tipo: 'pele', mudo: true });
+  s += S.olhos(x - 1, chao - 42, 4.6, 'fechado');
+  s += S.fios([`M${x - 14} ${chao - 40}l-8 -1`, `M${x - 14} ${chao - 37}l-8 2`, `M${x + 12} ${chao - 40}l8 -1`, `M${x + 12} ${chao - 37}l8 2`], escuro(cor, 0.35));
+  return s;
+}
+function coelho(S, x, chao) {
+  const cor = C.coelho;
+  let s = '';
+  s += S.forma(`M${x + 9} ${chao - 34}c-4 -12 2 -20 5 -20c4 0 6 8 2 21z`, cor, { tipo: 'pelo' });
+  s += S.forma(`M${x + 17} ${chao - 33}c-1 -12 5 -19 8 -18c3 1 3 9 -3 20z`, cor, { tipo: 'pelo' });
+  s += S.forma(`M${x + 11.5} ${chao - 36}c-2 -8 1 -14 2.5 -14c2 0 3 6 1 15z`, C.rosaClara, { tipo: 'pele', mudo: true });
+  s += S.forma(`M${x - 14} ${chao}C${x - 20} ${chao - 14} ${x - 8} ${chao - 22} ${x + 6} ${chao - 20}C${x + 16} ${chao - 18} ${x + 18} ${chao - 6} ${x + 14} ${chao}z`, cor, { tipo: 'pelo' });
+  s += S.forma(circ(x + 14, chao - 18, 8.5), cor, { tipo: 'pelo' });
+  s += S.forma(circ(x - 15, chao - 10, 4.5), claro(cor, 0.5), { tipo: 'pelo', mudo: true });
+  s += S.forma(elipse(x + 4, chao - 2, 6, 2.6), cor, { tipo: 'pelo', mudo: true });
+  s += S.olhos(x + 15, chao - 19, 0, 'ponto');
+  s += S.forma(circ(x + 21.5, chao - 16, 1.4), C.rosaDoce, { tipo: 'pele', mudo: true });
+  return s;
+}
+function flor(S, x, chao, cor, tam = 1) {
+  let s = S.fio(`M${x} ${chao}q1 -8 0 -${18 * tam}`, C.musgoTinta, 1.8);
+  s += S.forma(`M${x} ${chao - 8 * tam}q-8 -2 -9 -8q7 0 9 8z`, C.musgo, { tipo: 'folha', mudo: true });
+  for (let i = 0; i < 5; i++) {
+    const a = -Math.PI / 2 + i * Math.PI * 2 / 5;
+    s += S.forma(circ(x + Math.cos(a) * 4.2 * tam, chao - 22 * tam + Math.sin(a) * 4.2 * tam, 3.6 * tam), cor, { tipo: 'petala', mudo: true });
+  }
+  s += S.forma(circ(x, chao - 22 * tam, 2.4 * tam), C.ouro, { tipo: 'miolo', mudo: true });
+  return s;
+}
+function cena(S) {
+  const W = 390, H = 600, hz = 396;
+  let s = S.fundo(W, H, hz);
+  s += S.sol(298, 84, 27);
+  s += S.forma(nuvem(84, 76, 15), C.papel, { tipo: 'nuvem' });
+  s += S.forma(nuvem(238, 128, 11), C.papel, { tipo: 'nuvem' });
+  /* pinheiro */
+  s += S.forma('M334 330h13v84h-13z', C.madeira, { tipo: 'madeira' });
+  s += S.forma('M341 262L294 344H388z', C.mata2, { tipo: 'folha' });
+  s += S.forma('M341 216L302 296H380z', C.mata2, { tipo: 'folha' });
+  s += S.forma('M341 176L310 248H372z', C.mata2, { tipo: 'folha' });
+  /* casa */
+  s += S.forma('M96 232H294V406H96z', C.musgo, { tipo: 'parede' });
+  s += S.forma('M70 238L195 136L320 238z', C.musgoTinta, { tipo: 'telhado' });
+  s += S.forma(arco(116, 258, 40, 50), C.luz, { tipo: 'vidro' });
+  s += S.forma(arco(234, 258, 40, 50), C.luz, { tipo: 'vidro' });
+  s += S.fios(['M136 262v42', 'M254 262v42', 'M118 284h36', 'M236 284h36'], C.ouroTinta, 1.2);
+  s += S.forma(arco(163, 302, 64, 104), C.veludo, { tipo: 'porta' });
+  s += S.forma(circ(216, 362, 2.6), C.ouro, { tipo: 'metal', mudo: true });
+  s += S.forma(`M195 154${CENTELHA.replace(/^M10 0/, 'm0 -10')}`, C.ouro, { tipo: 'metal', mudo: true });
+  /* quintal */
+  s += flor(S, 60, 470, C.rosaDoce, 1.1);
+  s += flor(S, 90, 486, C.luz, 0.85);
+  s += flor(S, 362, 476, C.rosaDoce, 0.9);
+  s += coelho(S, 312, 462);
+  s += gato(S, 248, 474);
+  s += stella(S, 140, 472, 112);
+  s += S.textura(W, H);
+  return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A frente da casa verde no estilo ${S.nome}">${s}</svg>`;
+}
+function kit(S) {
+  const W = 390, H = 130;
+  let s = S.papel(W, H);
+  /* botão da casinha */
+  s += S.forma(circ(50, 65, 28), C.papel, { tipo: 'botao' });
+  s += S.forma('M36 66L50 52L64 66V79H36z', C.musgo, { tipo: 'parede' });
+  s += S.forma('M46 79V69h8v10z', C.rosaDoce, { tipo: 'porta', mudo: true });
+  /* tomate */
+  s += S.forma(circ(135, 70, 24), C.tomate, { tipo: 'fruta' });
+  s += S.forma('M124 50q11 -7 22 0q-6 6 -11 6q-5 0 -11 -6z', C.musgoTinta, { tipo: 'folha', mudo: true });
+  s += S.fio('M135 49v-8', C.musgoTinta, 3);
+  /* cenoura */
+  s += S.forma('M205 40h22l-11 58z', C.cenoura, { tipo: 'fruta' });
+  s += S.fio('M208 40l-7 -11', C.musgo, 4) + S.fio('M216 40V26', C.musgo, 4) + S.fio('M224 40l7 -11', C.musgo, 4);
+  /* mãozinha */
+  s += S.forma(trans(MAOZINHA, 0, 0), C.rosaClara, { tipo: 'mao', em: [285, 42], escala: 1.55 });
+  /* centelha */
+  s += S.forma(CENTELHA, C.ouro, { tipo: 'metal', em: [335, 50], escala: 1.6 });
+  s += S.textura(W, H);
+  return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="O kit no estilo ${S.nome}">${s}</svg>`;
+}
+/* forma com posição: usada no kit para peças desenhadas na origem */
+function posiciona(s, o) { return o.em ? `<g transform="translate(${o.em[0]} ${o.em[1]}) scale(${o.escala || 1})">${s}</g>` : s; }
+function dPath(d) { return d.startsWith('<') ? d.replace(/^<g[^>]*>|<\/g>$/g, '') : d; }
+
+/* ===== pincel 1: aquarela e lápis ===== */
+const aquarela = {
+  nome: 'Aquarela e Lápis',
+  papel(W, H) { return `<rect width="${W}" height="${H}" fill="${C.papel}"/>` + this.defs(); },
+  defs() {
+    return `<defs><pattern id="grao-a" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(23)"><circle cx="1.2" cy="1.4" r=".55" fill="${C.ouroTinta}"/><circle cx="4.6" cy="4.2" r=".42" fill="${C.veludo}"/></pattern></defs>`;
+  },
+  lavagem(d, cor, op = 0.55) {
+    return `<path d="${d}" fill="${cor}" opacity="${op}"/><path d="${d}" fill="none" stroke="${escuro(cor, 0.16)}" stroke-width="3" opacity="0.22"/>`;
+  },
+  fundo(W, H, hz) {
+    let s = this.papel(W, H);
+    s += this.lavagem(elipse(180, 160, 300, 260), C.ceu, 0.6);
+    s += this.lavagem(elipse(290, 120, 220, 170), C.ceuTarde, 0.45);
+    s += this.lavagem(elipse(90, 300, 240, 150), C.ceu, 0.35);
+    s += `<rect y="${hz}" width="${W}" height="${H - hz}" fill="${C.musgoClaro}" opacity="0.7"/>`;
+    s += `<path d="M-20 ${hz + 60}Q200 ${hz + 20} ${W + 20} ${hz + 70}V${H + 20}H-20z" fill="${C.musgo}" opacity="0.32"/>`;
+    s += `<path d="M-20 ${hz + 60}Q200 ${hz + 20} ${W + 20} ${hz + 70}" fill="none" stroke="${escuro(C.musgo, 0.2)}" stroke-width="3" opacity="0.14"/>`;
+    s += `<path d="M-20 ${hz + 150}Q140 ${hz + 120} ${W + 20} ${hz + 160}V${H + 20}H-20z" fill="${C.musgo}" opacity="0.22"/>`;
+    s += `<path d="M0 ${hz + 2}q60 -8 130 0t130 -3t130 3" fill="none" stroke="${escuro(C.musgo, 0.35)}" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="22 2 40 2.5" opacity="0.6"/>`;
+    return s;
+  },
+  sol(x, y, r) { return this.lavagem(circ(x, y, r + 4), C.luz, 0.5) + `<path d="${circ(x, y, r)}" fill="${C.luz}" opacity="0.85"/><path d="${circ(x, y, r)}" fill="none" stroke="${C.ouro}" stroke-width="1.1" stroke-dasharray="30 2 22 2.5" stroke-linecap="round" opacity="0.8"/>`; },
+  forma(d, cor, o = {}) {
+    d = dPath(d);
+    const lap = escuro(cor, o.tipo === 'pele' ? 0.4 : 0.42);
+    let s = `<path d="${d}" fill="${cor}" opacity="0.84"/><path d="${d}" fill="${cor}" opacity="0.32" transform="translate(1.1 0.9)"/>`;
+    if (!o.mudo) s += `<path d="${d}" fill="none" stroke="${lap}" stroke-width="${o.tipo === 'botao' ? 1.5 : 1.15}" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="17 1.6 31 2.2 11 1.4" opacity="0.78" transform="translate(-0.6 0.5)"/>`;
+    return posiciona(s, o);
+  },
+  fio(d, cor, w = 1.4) { return `<path d="${d}" fill="none" stroke="${cor}" stroke-width="${w}" stroke-linecap="round" opacity="0.8"/>`; },
+  fios(ds, cor, w = 1.1) { return ds.map(d => `<path d="${d}" fill="none" stroke="${cor}" stroke-width="${w}" stroke-linecap="round" opacity="0.7"/>`).join(''); },
+  olhos(cx, cy, e, modo) {
+    if (modo === 'ponto') return `<circle cx="${cx}" cy="${cy}" r="1.4" fill="${C.tinta}" opacity="0.8"/>`;
+    return `<path d="M${cx - e - 2.4} ${cy + 0.5}q2.4 -2.6 4.8 0M${cx + e - 2.4} ${cy + 0.5}q2.4 -2.6 4.8 0" fill="none" stroke="${C.tinta}" stroke-width="1.3" stroke-linecap="round" opacity="0.8"/>`;
+  },
+  rosto(cx, cy, r) {
+    return this.olhos(cx, cy + 1, r * 0.36, 'fechado') +
+      `<path d="M${cx - 2.6} ${cy + r * 0.5}q2.6 2.4 5.2 0" fill="none" stroke="${C.veludo}" stroke-width="1.2" stroke-linecap="round" opacity="0.8"/>` +
+      `<circle cx="${cx - r * 0.62}" cy="${cy + r * 0.4}" r="2.6" fill="${C.rosaDoce}" opacity="0.45"/><circle cx="${cx + r * 0.62}" cy="${cy + r * 0.4}" r="2.6" fill="${C.rosaDoce}" opacity="0.45"/>`;
+  },
+  textura(W, H) { return `<rect width="${W}" height="${H}" fill="url(#grao-a)" opacity="0.13"/>`; },
+};
+
+/* ===== pincel 2: feltro e linha ===== */
+const feltro = {
+  nome: 'Feltro e Linha',
+  papel(W, H) { return `<rect width="${W}" height="${H}" fill="#f3ecdd"/>` + this.defs(); },
+  defs() {
+    return `<defs><pattern id="fibra-f" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-35)"><path d="M0 2h3M5 6h3" stroke="${C.tinta}" stroke-width=".6" stroke-linecap="round"/></pattern></defs>`;
+  },
+  fundo(W, H, hz) {
+    let s = this.papel(W, H);
+    s += this.forma(`M0 0H${W}V${hz + 30}H0z`, '#d5e2e8', { tipo: 'ceu', mudo: true });
+    s += this.forma(`M-10 ${hz + 8}Q100 ${hz - 18} 210 ${hz + 2}T${W + 10} ${hz - 2}V${H + 10}H-10z`, '#bfd39f', { tipo: 'grama' });
+    s += this.forma(`M-10 ${hz + 120}Q120 ${hz + 96} 250 ${hz + 118}T${W + 10} ${hz + 112}V${H + 10}H-10z`, '#aac48a', { tipo: 'grama' });
+    return s;
+  },
+  sol(x, y, r) {
+    let s = '';
+    for (let i = 0; i < 18; i++) { const a = i * Math.PI * 2 / 18; s += `<circle cx="${f1(x + Math.cos(a) * r)}" cy="${f1(y + Math.sin(a) * r)}" r="4.5" fill="${C.luz}"/>`; }
+    return `<circle cx="${x}" cy="${y + 2.5}" r="${r + 3}" fill="${escuro(C.luz, 0.28)}" opacity=".5"/>${s}<circle cx="${x}" cy="${y}" r="${r - 1}" fill="${C.luz}"/>` + this.pesponto(circ(x, y, r - 1), C.luz);
+  },
+  pesponto(d, cor, k = 0.93) {
+    return `<path d="${d}" fill="none" stroke="${claro(cor, 0.62)}" stroke-width="1.1" stroke-dasharray="2.4 3.2" stroke-linecap="round" style="transform-box:fill-box;transform-origin:center;transform:scale(${k})"/>`;
+  },
+  forma(d, cor, o = {}) {
+    d = dPath(d);
+    const alto = o.tipo === 'ceu' || o.tipo === 'grama' || o.tipo === 'parede';
+    let s = `<path d="${d}" fill="${escuro(cor, 0.3)}" opacity="0.5" transform="translate(0 ${alto ? 3.5 : 2.5})"/><path d="${d}" fill="${cor}"/>`;
+    if (!o.mudo) s += this.pesponto(d, cor, alto ? 0.985 : 0.9);
+    return posiciona(s, o);
+  },
+  fio(d, cor, w = 1.4) { return `<path d="${d}" fill="none" stroke="${escuro(cor, 0.3)}" stroke-width="${w}" stroke-linecap="round" opacity=".5" transform="translate(0 2)"/><path d="${d}" fill="none" stroke="${cor}" stroke-width="${w}" stroke-linecap="round"/>`; },
+  fios(ds, cor, w = 1.4) { return ds.map(d => `<path d="${d}" fill="none" stroke="${cor}" stroke-width="${w}" stroke-linecap="round" opacity=".85"/>`).join(''); },
+  olhos(cx, cy, e, modo) {
+    if (modo === 'ponto') return `<path d="M${cx - 1.4} ${cy}l2.8 0" stroke="${C.tinta}" stroke-width="2.2" stroke-linecap="round"/>`;
+    return `<path d="M${cx - e - 2.4} ${cy + 0.5}q2.4 -2.6 4.8 0M${cx + e - 2.4} ${cy + 0.5}q2.4 -2.6 4.8 0" fill="none" stroke="${C.tinta}" stroke-width="1.7" stroke-linecap="round" stroke-dasharray="1.4 1.1"/>`;
+  },
+  rosto(cx, cy, r) {
+    return this.olhos(cx, cy + 1, r * 0.36, 'fechado') +
+      `<path d="M${cx - 2.8} ${cy + r * 0.5}q2.8 2.6 5.6 0" fill="none" stroke="${C.veludo}" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="1.6 1.2"/>` +
+      `<circle cx="${cx - r * 0.62}" cy="${cy + r * 0.42}" r="2.8" fill="${C.rosaDoce}" opacity="0.55"/><circle cx="${cx + r * 0.62}" cy="${cy + r * 0.42}" r="2.8" fill="${C.rosaDoce}" opacity="0.55"/>`;
+  },
+  textura(W, H) { return `<rect width="${W}" height="${H}" fill="url(#fibra-f)" opacity="0.07"/>`; },
+};
+/* o cabelo de lã: no feltro, os fios da Stella viram mechas de lã em dois tons */
+feltro.fios = function (ds, cor, w = 1.4) {
+  return ds.map(d => `<path d="${d}" fill="none" stroke="${escuro(cor, 0.2)}" stroke-width="${w + 1.2}" stroke-linecap="round" opacity=".55"/><path d="${d}" fill="none" stroke="${claro(cor, 0.35)}" stroke-width="${w}" stroke-linecap="round" opacity=".9"/>`).join('');
+};
+
+/* ===== pincel 3: estampa de três tintas ===== */
+const estampa = {
+  nome: 'Estampa de Três Tintas',
+  n: 0,
+  tintas: new Map(),
+  papel(W, H) { this.W = W; this.H = H; return `<rect width="${W}" height="${H}" fill="#f7f1e3"/>`; },
+  reticula(cor) {
+    const id = 'ret-' + cor.slice(1);
+    if (!this.tintas.has(id)) this.tintas.set(id, `<pattern id="${id}" width="3.4" height="3.4" patternUnits="userSpaceOnUse" patternTransform="rotate(30)"><circle cx="1.7" cy="1.7" r=".95" fill="${cor}"/></pattern>`);
+    return id;
+  },
+  fundo(W, H, hz) {
+    let s = this.papel(W, H);
+    s += `<rect width="${W}" height="${hz}" fill="#cfdde4"/>`;
+    s += `<rect y="${hz - 56}" width="${W}" height="56" fill="url(#${this.reticula('#eadbc9')})" opacity=".7"/>`;
+    s += `<rect y="${hz}" width="${W}" height="${H - hz}" fill="#b6cc98"/>`;
+    s += `<path d="M0 ${hz + 118}Q120 ${hz + 96} 250 ${hz + 118}T${W} ${hz + 112}V${H}H0z" fill="#a3bd85" style="mix-blend-mode:multiply" opacity=".55"/>`;
+    s += `<rect y="${hz + 60}" width="${W}" height="${H - hz - 60}" fill="url(#${this.reticula('#8fae6b')})" opacity=".45"/>`;
+    return s;
+  },
+  sol(x, y, r) {
+    return `<circle cx="${x}" cy="${y}" r="${r}" fill="${C.luz}"/><circle cx="${x + 5}" cy="${y + 5}" r="${r - 6}" fill="url(#${this.reticula(C.ouro)})" opacity=".8"/>`;
+  },
+  forma(d, cor, o = {}) {
+    d = dPath(d);
+    const id = 'c' + (this.n++);
+    const knock = !['parede', 'telhado', 'folha', 'grama', 'ceu', 'madeira'].includes(o.tipo) || lum(cor) > 232;
+    const sombra = this.reticula(escuro(cor, o.tipo === 'pele' ? 0.22 : 0.38));
+    const desloca = o.tipo === 'parede' || o.tipo === 'grama' ? 5 : 2.6;
+    let s = `<clipPath id="${id}"><path d="${d}"/></clipPath><path d="${d}" fill="${cor}"/>`;
+    if (!o.mudo) s += `<g clip-path="url(#${id})"><rect x="-40" y="-40" width="${(this.W || 390) + 80}" height="${(this.H || 600) + 80}" fill="url(#${sombra})" opacity=".85"/><path d="${d}" fill="${cor}" transform="translate(${-desloca} ${-desloca})"/></g>`;
+    if (o.tipo === 'botao') s += `<path d="${d}" fill="none" stroke="${C.ouroTinta}" stroke-width="2"/>`;
+    return posiciona(`<g style="mix-blend-mode:${knock ? 'normal' : 'multiply'}">${s}</g>`, o);
+  },
+  fio(d, cor, w = 1.4) { return `<path d="${d}" fill="none" stroke="${cor}" stroke-width="${w}" stroke-linecap="round" style="mix-blend-mode:multiply"/>`; },
+  fios(ds, cor, w = 1.3) { return ds.map(d => `<path d="${d}" fill="none" stroke="#f7f1e3" stroke-width="${w}" stroke-linecap="round" opacity=".9"/>`).join(''); },
+  olhos(cx, cy, e, modo) {
+    if (modo === 'ponto') return `<circle cx="${cx}" cy="${cy}" r="1.5" fill="${C.musgoTinta}"/>`;
+    return `<path d="M${cx - e - 2.4} ${cy + 0.5}q2.4 -2.8 4.8 0M${cx + e - 2.4} ${cy + 0.5}q2.4 -2.8 4.8 0" fill="none" stroke="${C.musgoTinta}" stroke-width="1.6" stroke-linecap="round"/>`;
+  },
+  rosto(cx, cy, r) {
+    return this.olhos(cx, cy + 1, r * 0.36, 'fechado') +
+      `<path d="M${cx - 2.6} ${cy + r * 0.5}q2.6 2.6 5.2 0" fill="none" stroke="${C.musgoTinta}" stroke-width="1.4" stroke-linecap="round"/>` +
+      `<circle cx="${cx - r * 0.62}" cy="${cy + r * 0.42}" r="3.2" fill="url(#${this.reticula(C.rosaDoce)})"/><circle cx="${cx + r * 0.62}" cy="${cy + r * 0.42}" r="3.2" fill="url(#${this.reticula(C.rosaDoce)})"/>`;
+  },
+  textura() { return `<defs>${[...this.tintas.values()].join('')}</defs>`; },
+};
+/* na estampa, os fios claros da Stella e do gato: no cabelo é um risco de luz de papel, no bigode tinta escura */
+estampa.fios = function (ds, cor, w = 1.3) {
+  const claroPapel = lum(cor) > 120;
+  return ds.map(d => `<path d="${d}" fill="none" stroke="${claroPapel ? '#f7f1e3' : C.musgoTinta}" stroke-width="${w}" stroke-linecap="round" opacity=".9"/>`).join('');
+};
+/* a mancha de tinta dos fios pintados com cor escura (bigodes e caules) */
+
+/* ===== monta a página ===== */
+const ESTILOS = { aquarela, feltro, estampa };
+const trio = document.getElementById('trio');
+for (const [id, S] of Object.entries(ESTILOS)) {
+  const a = document.createElement('div');
+  a.className = 'amostra';
+  a.innerHTML = `<span class="nome">${S.nome}</span><div class="celular">${cena(S)}</div><div class="kit">${kit(S)}</div>`;
+  trio.appendChild(a);
+  const vis = document.querySelector(`.visual[data-estilo="${id}"]`);
+  const pal = id === 'aquarela'
+    ? [['#dbe7ee', 'céu'], ['#f3d9cf', 'tarde'], ['#8fae6b', 'musgo'], ['#f2a9c4', 'rosa'], ['#ebd9a8', 'luz'], ['#8f6f2c', 'lápis ouro'], ['#8a3a44', 'lápis vinho']]
+    : id === 'feltro'
+      ? [['#d5e2e8', 'céu'], ['#bfd39f', 'grama'], ['#8fae6b', 'musgo'], ['#f2a9c4', 'rosa'], ['#ebd9a8', 'lã'], ['#f3ecdd', 'feltro cru'], ['#4a3a30', 'linha escura']]
+      : [['#f7f1e3', 'papel'], ['#cfdde4', 'tinta azul'], ['#b6cc98', 'tinta sálvia'], ['#f2a9c4', 'tinta rosa'], ['#ebd9a8', 'tinta ocre'], ['#4f6b3a', 'tinta escura']];
+  vis.innerHTML = `<div class="celular">${cena(S)}</div><div class="kit">${kit(S)}</div><span class="rotulo">Paleta</span><div class="paleta">${pal.map(([c, n]) => `<span style="background:${c}">${n}</span>`).join('')}</div>`;
+}
+document.getElementById('recomendacao').innerHTML = `<p><strong>Minha recomendação: Aquarela e Lápis.</strong> É o único dos três que responde às duas coisas ao mesmo tempo: fica mais desenhado (o lápis conta a forma, a cintura, a mão, o fio de cabelo) e fica mais Waldorf, não menos. O Feltro é o mais quente e o mais seguro no celular, e seria minha segunda escolha se o lápis sujar nos alvos pequenos. A Estampa é a mais bonita numa parede e a que mais parece design, mas é a que menos parece a sala dela. A primeira rodada (o pincel e o styleguide) custa o mesmo para os três, então a decisão pode ser confirmada no aparelho antes de redesenhar as telas.</p>`;
+</script>
+</body>
+</html>

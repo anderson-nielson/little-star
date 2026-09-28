@@ -35,6 +35,25 @@
   --madeira: #c9a189;
   --terra: #8a6a4a;
 
+  /* cor: a família a lápis e aquarela (docs/referencia/familia.html); espelhada em src/puppet/boneco.ts */
+  --pele-stella: #e9c39c;
+  --pele-theo: #f1d6bd;
+  --pele-mae: #f0d2b6;
+  --pele-pai: #d9a97e;
+  --cabelo-stella: #c79a5e;
+  --cabelo-theo: #6b4a32;
+  --cabelo-theo-luz: #9a7350;
+  --cabelo-mae: #553a28;
+  --cabelo-pai: #6a5646;
+  --barba-pai: #9b928a;
+  --salmao: #f3b59a;
+  --jeans: #5b7aa0;
+  --preto: #2f2f36;
+  --creme: #efe6d6;
+  --vinho: #8a3a44;
+  /* o lápis: o traço nunca é preto */
+  --lapis-tinta: #4a3a30;
+
   /* cor: comidas e flores */
   --vermelho: #d2463c;
   --laranja: #e8a24a;

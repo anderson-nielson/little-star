@@ -368,17 +368,22 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
 
 ### 6.8 Pinhas e a mesa da estação
 
-- **Para quê**: o tesouro dela, e um momento calmo de arrumar.
+- **Para quê**: o tesouro dela, e um momento calmo de montar coisas com o que ela junta lá fora.
 - **Quando**: brincadeira do dia na quarta; sempre aberta embaixo do pinheiro.
 - **Como**:
   1. Embaixo do pinheiro há de 4 a 7 pinhas no chão, de tipos diferentes. Cada sessão, umas
      novas caem com o vento (lira).
   2. Ela **arrasta** cada pinha para a cestinha. O coelhinho cheira, o gatinho empurra uma.
-  3. No quarto, a mesa da estação. Ela **arrasta** pinhas da cesta para a mesa, onde quiser.
-     Elas ficam onde ela pôs.
-  4. A mesa muda com a estação (pano, folhas, fitinha, velinha), sozinha.
-- **Dura**: 2 a 4 minutos.
-- **Cresce**: as pinhas na mesa.
+  3. No quarto, a mesa da estação, com uma bandeja de madeira embaixo: a cesta das pinhas, um
+     potinho de pedrinhas, uma tigela de areia e um galho com barba de velho. Ela **arrasta** o
+     que quiser da bandeja para a mesa e monta o que quiser: um caminho de areia, uma roda de
+     pedras, uma pinha com barba. Pedra, areia e barba de velho não acabam nunca; as pinhas são
+     as que ela catou. Fica tudo onde ela pôs, de uma sessão para a outra.
+  4. Arrastar uma coisa de volta para a bandeja tira da mesa (a pinha volta para a cesta).
+  5. A mesa muda com a estação (pano, folhas, velinha, flores, concha), sozinha. A casinha
+     acende depois da primeira coisa arrumada; nada obriga a sair.
+- **Dura**: 2 a 6 minutos.
+- **Cresce**: o que ela montou na mesa. A mesinha da sala mostra de longe.
 
 ### 6.9 O piano rosa
 

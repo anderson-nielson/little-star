@@ -12,6 +12,7 @@ import { musica, pararFundo, Sequenciador } from '@/audio/musica';
 import { falar, temVoz } from '@/audio/vozes';
 import { lira, sininho, tiquinho, toc } from '@/audio/synth';
 import type { Tela } from '@/core/roteador';
+import { formaNoCanvas } from '@/puppet/pincel';
 
 /** Dados do balanceamento do Lago dos Cisnes. */
 export const LAGO = {
@@ -362,34 +363,45 @@ export function telaLago(): Tela {
       const y = yDaFaixa(i);
       const px = posicaoNaFaixa(f, t) * W;
       if (i % 2 === 0) {
-        ctx.fillStyle = '#8fae6b';
         ctx.beginPath();
         ctx.ellipse(px, y + 6, largura / 2, 14, 0, 0.15 * Math.PI, 1.85 * Math.PI);
         ctx.lineTo(px, y + 6);
-        ctx.fill();
-        ctx.fillStyle = '#f2a9c4';
+        ctx.closePath();
+        formaNoCanvas(ctx, '#8fae6b', { lapis: 0.35 });
         ctx.beginPath();
         ctx.arc(px + largura * 0.25, y - 2, 6, 0, Math.PI * 2);
-        ctx.fill();
+        formaNoCanvas(ctx, '#f2a9c4', { lapis: 0.3 });
       } else {
         /* o cisne: corpo, pescoço, bico */
-        ctx.fillStyle = '#fbf8f1';
+        /* o pescoço num contorno só, com a cabeça na ponta, antes do corpo */
+        const d = f.dir;
+        const nx = px + d * largura * 0.35;
+        ctx.beginPath();
+        ctx.moveTo(nx - d * 5, y + 4);
+        ctx.quadraticCurveTo(px + d * largura * 0.5, y - 26, px + d * largura * 0.41, y - 36);
+        ctx.arc(px + d * largura * 0.45, y - 37, 6.5, Math.PI * (d > 0 ? 1.1 : 1.9), Math.PI * (d > 0 ? 0.1 : 0.9), d < 0);
+        ctx.quadraticCurveTo(px + d * largura * 0.6, y - 24, nx + d * 5, y + 4);
+        ctx.closePath();
+        formaNoCanvas(ctx, '#fbf8f1', { lapis: 0.28 });
         ctx.beginPath();
         ctx.ellipse(px, y + 4, largura / 2, 14, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.strokeStyle = '#fbf8f1';
-        ctx.lineWidth = 9;
-        ctx.lineCap = 'round';
+        formaNoCanvas(ctx, '#fbf8f1', { lapis: 0.28 });
+        /* a asa: um arco a lápis no corpo */
         ctx.beginPath();
-        ctx.moveTo(px + f.dir * largura * 0.35, y + 2);
-        ctx.quadraticCurveTo(px + f.dir * largura * 0.55, y - 30, px + f.dir * largura * 0.45, y - 36);
+        ctx.moveTo(px - d * largura * 0.3, y + 6);
+        ctx.quadraticCurveTo(px - d * largura * 0.05, y - 14, px + d * largura * 0.2, y + 2);
+        ctx.strokeStyle = '#b9ad9a';
+        ctx.lineWidth = 1.1;
         ctx.stroke();
-        ctx.fillStyle = '#e8a24a';
         ctx.beginPath();
-        ctx.moveTo(px + f.dir * largura * 0.45, y - 40);
-        ctx.lineTo(px + f.dir * largura * 0.58, y - 34);
-        ctx.lineTo(px + f.dir * largura * 0.45, y - 30);
+        ctx.moveTo(px + d * largura * 0.5, y - 40);
+        ctx.lineTo(px + d * largura * 0.62, y - 35);
+        ctx.lineTo(px + d * largura * 0.5, y - 31);
         ctx.closePath();
+        formaNoCanvas(ctx, '#e8a24a', { lapis: 0.35 });
+        ctx.fillStyle = '#4a3a30';
+        ctx.beginPath();
+        ctx.arc(px + d * largura * 0.47, y - 39, 1.3, 0, Math.PI * 2);
         ctx.fill();
       }
     });
