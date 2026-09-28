@@ -234,7 +234,7 @@ export function telaParquinho(): Tela {
         tela.comemorar(PIV[0] + 40, ASSENTO - 150);
         if (e.pais.pedrinhas) pedrinhasSobem(tela, PEDRINHAS.balanco, PIV[0], ASSENTO - 120);
         if (medalha) sininho();
-        await viva('viva_forca');
+        await viva('que_forca');
         if (!vivo) return;
         await esperar(600);
         g.querySelectorAll('g').forEach((c) => {
@@ -264,7 +264,7 @@ export function telaParquinho(): Tela {
         if (cruzou > 0 && amp > AMPLITUDE_ALTA && performance.now() - ultimaPalma > 9000) {
           ultimaPalma = performance.now();
           tela.comemorar(PIV[0] + 20, ASSENTO - 150);
-          void viva('viva_forca');
+          void viva('que_forca');
         }
       }
     }
@@ -428,7 +428,7 @@ export function telaEscorregador(): Tela {
         tela.comemorar(st.pos[0], st.pos[1] - 110);
         if (desceu === 1) anunciar('escorregador');
         void (async () => {
-          await viva('viva_coragem');
+          await viva('que_coragem');
           if (!vivo) return;
           st.fase = 'voltando';
           st.t = 0;
@@ -542,7 +542,7 @@ export function telaGangorra(): Tela {
         void esperar(500).then(async () => {
           if (!vivo) return;
           tela.comemorar(GX - GL + 24, GY - 200);
-          await palmaDoIrmao(tela, IRMAO_G[0], IRMAO_G[1], 'theo_esperta');
+          await palmaDoIrmao(tela, IRMAO_G[0], IRMAO_G[1], 'irmao_esperta');
         });
       }
     },

@@ -157,7 +157,7 @@ export function telaDespedida(): Tela {
       if (agora < respondeuAte) return;
       respondeuAte = agora + 2500;
       tela.comemorar(195, 470);
-      if (temVoz('tchau')) void falar('tchau');
+      if (temVoz('tchau_mae')) void falar('tchau_mae');
       else tiquinho();
     }, true);
   };
@@ -171,7 +171,7 @@ export function telaDespedida(): Tela {
     bal.style.opacity = '1';
     if (temVoz(convite)) await falar(convite);
     else await esperar(2500);
-    if (temVoz('tchau')) await falar('tchau');
+    if (temVoz('tchau_mae')) await falar('tchau_mae');
     else await esperar(1200);
     bal.style.opacity = '0';
     if (primeiraVez) await escolherNome();

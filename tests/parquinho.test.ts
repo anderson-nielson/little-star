@@ -111,7 +111,7 @@ describe('o parquinho no jogo', () => {
     expect(antigo.pais.contarNoBalanco).toBe(true);
   });
   it('tem as frases da roda, do convite, da palma e os dez números, nenhuma obrigatória', () => {
-    const ids = ['pergunta_parquinho', 'comemora_parquinho', 'convite_parquinho', 'viva_forca', 'viva_coragem', 'theo_esperta', ...Array.from({ length: 10 }, (_, i) => `num_${i + 1}`)];
+    const ids = ['pergunta_parquinho', 'comemora_parquinho', 'convite_parquinho', 'que_forca', 'que_coragem', 'irmao_esperta', ...Array.from({ length: 10 }, (_, i) => `num_${i + 1}`)];
     for (const id of ids) {
       const f = frases.find((x) => x.id === id);
       expect(f, id).toBeTruthy();

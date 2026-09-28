@@ -133,11 +133,11 @@ export function telaNoite(): Tela {
     await esperar(800);
     /* o combinado: dormir no quarto dela, a noite toda; amanhã a gente conta */
     if (temVoz('noite_combinado')) await falar('noite_combinado');
-    if (temVoz('boa_noite_mae')) await falar('boa_noite_mae');
+    if (temVoz('boa_noite_filha')) await falar('boa_noite_filha');
     else await esperar(1200);
-    if (temVoz('boa_noite_pai')) await falar('boa_noite_pai');
+    if (temVoz('boa_noite_te_amo')) await falar('boa_noite_te_amo');
     else await esperar(1000);
-    if (temVoz('boa_noite_theo')) await falar('boa_noite_theo');
+    if (temVoz('boa_noite_irmao')) await falar('boa_noite_irmao');
     liraDesce();
     mudar((x) => {
       if (!x.hoje.despedidaFeita) x.sessoesCompletas += 1;

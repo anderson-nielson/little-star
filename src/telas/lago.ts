@@ -232,7 +232,7 @@ export function telaLago(): Tela {
         splash = t + LAGO.splash + LAGO.nado + LAGO.sacode;
         quedas += 1;
         ajuda.tentativa();
-        if (temVoz('lago_splash')) void falar('lago_splash');
+        if (temVoz('lago_sobe')) void falar('lago_sobe');
         faixa = p.de;
         x = p.xDe;
       }

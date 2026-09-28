@@ -632,8 +632,11 @@ Os documentos do repositório seguem a mesma regra e não usam mais os nomes rea
 - **O nome dela saiu** da lista de palavras do fônico.
 - **Espanhol:** "¡Hola!" e "¡Muy bien!", sem nome.
 - **Cantinho dos pais:** as vozes são de "Mãe", "Pai" e "Irmão".
-- **Gravações.** As frases que tinham o nome mudaram de texto. Quem já gravou precisa gravar
-  de novo no cantinho dos pais; senão a gravação antiga continua tocando com o nome.
+- **Gravações do zero.** As frases que tinham o nome mudaram de texto e de id (`oi_mae`,
+  `boa_noite_filha`, `chamado_vem_ca`...), e o jogo passou a ler uma loja nova de gravações
+  (`gravacoes-2` no IndexedDB). Nada gravado antes toca: a família regrava tudo no cantinho
+  dos pais. A loja antiga fica no aparelho sem uso, e um arquivo exportado antes só devolve
+  as frases cujo id ainda existe.
 - **No código**, o irmão passou a se chamar `irmao` e a menina `menina`, em identificadores,
   classes CSS e chaves de dados (`Dono`/`Quem`: 'mae' | 'pai' | 'irmao').
 

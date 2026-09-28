@@ -87,7 +87,7 @@ async function tocarSom(qual: 'assovio' | 'ei'): Promise<void> {
   if (!audio.pronto) await audio.tentarDestravar();
   if (qual === 'ei') {
     /* a voz de alguém da família, se gravaram; senão a voz do aparelho; sem ela, o assovio */
-    if (temVoz('chamado') && (await falar('chamado'))) return;
+    if (temVoz('chamado_vem_ca') && (await falar('chamado_vem_ca'))) return;
     if (temVozPt()) {
       await falarPalavra('Ei! Ei!', 1);
       return;

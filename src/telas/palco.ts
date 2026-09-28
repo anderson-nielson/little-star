@@ -151,7 +151,7 @@ export function telaPalco(): Tela {
     aplauso(4);
     tela.comemorar(195, 300);
     travar(6000);
-    if (temVoz('brava')) await falar('brava');
+    if (temVoz('brava_pai')) await falar('brava_pai');
     else await esperar(1200);
     if (espanholAtivo(e)) await falarEspanhol('muy_bien');
     sininho();

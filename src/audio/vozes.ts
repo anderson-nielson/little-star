@@ -19,13 +19,19 @@ export interface Frase {
 export const frases: Frase[] = frasesJson as Frase[];
 
 const BANCO = 'little-star-vozes';
-const LOJA = 'gravacoes';
+/**
+ * A loja atual. As frases perderam os nomes e os textos mudaram, e a família
+ * regrava tudo: a loja `gravacoes` (versão 1) fica de lado, sem tocar,
+ * e nada dela toca no jogo.
+ */
+const LOJA = 'gravacoes-2';
+const VERSAO_DO_BANCO = 2;
 
 function abrir(): Promise<IDBDatabase | null> {
   return new Promise((r) => {
     try {
       if (typeof indexedDB === 'undefined') return r(null);
-      const req = indexedDB.open(BANCO, 1);
+      const req = indexedDB.open(BANCO, VERSAO_DO_BANCO);
       req.onupgradeneeded = () => {
         if (!req.result.objectStoreNames.contains(LOJA)) req.result.createObjectStore(LOJA);
       };
@@ -209,7 +215,10 @@ export async function importarGravacoes(arquivo: Blob): Promise<number> {
   try {
     const json = JSON.parse(await arquivo.text()) as { itens: Record<string, { tipo: string; dados: string }> };
     let n = 0;
+    const conhecidos = new Set(frases.map((f) => f.id));
     for (const [id, it] of Object.entries(json.itens)) {
+      /* um arquivo antigo pode trazer ids que não existem mais (as frases com nome) */
+      if (!conhecidos.has(id)) continue;
       const bin = atob(it.dados);
       const bytes = new Uint8Array(bin.length);
       for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
