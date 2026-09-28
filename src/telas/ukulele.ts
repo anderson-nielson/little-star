@@ -1,5 +1,7 @@
 import { dedilhar, mover, telaSvg } from './comum';
+import { botaoPronto, guiar, type Gesto } from './guia';
 import { estado } from '@/core/estado';
+import { sessao } from '@/core/sessao';
 import { esperar } from '@/core/util';
 import { familia, figurinoDe } from '@/puppet/boneco';
 import { contornoLuz, veu } from '@/puppet/objetos';
@@ -62,6 +64,11 @@ const ROSA_ESCURO = '#e98fb2';
  * nas cordas soltas dá o som da afinação; um dos sete botões de cor aperta um
  * acorde do campo harmônico de dó (corda dedilhada, Karplus-Strong). As bonecas da estante balançam.
  * Nenhuma combinação soa feia.
+ *
+ * Sozinha, ela não sabia que as cordas se dedilham nem para que servem os
+ * botões, e só saía pela casinha. Agora a mãozinha passa pelas cordas logo na
+ * entrada; parada, mostra de novo e depois toca um botão de cor; tocado um
+ * pouco, acende o visto verde, que comemora e volta para a casa.
  */
 export function telaUkulele(): Tela {
   const e = estado();
@@ -114,10 +121,52 @@ export function telaUkulele(): Tela {
       void esperar(160 + k * 30).then(() => mover(b, 0, 0, 260));
     });
   };
-  tela.aoDestruir(dedilhar(svg, CORDAS_X, [PESTANA_Y, 660], soa));
+  /* o que ela já fez: dedilhou as cordas? apertou um acorde? quantas notas tirou? */
+  let dedilhou = false;
+  let apertou = false;
+  let notasDela = 0;
+  let acabou = false;
+  /* o visto à direita do braço, longe das cordas, dos botões e do canto das Opções */
+  const pronto = botaoPronto(tela, 322, 290, () => {
+    if (acabou) return;
+    acabou = true;
+    guia.calar();
+    tela.comemorar(195, 445);
+    void esperar(1400).then(() => tela.el.isConnected && void sessao.voltarParaCasa());
+  });
+  /* depois de tocar um pouquinho (dois dedilhados, ou um acorde e um dedilhado), ela pode dizer que acabou */
+  const tocouUmPouco = (n: number) => {
+    notasDela += n;
+    if (notasDela >= 8) pronto.acender();
+    guia.passo();
+  };
+  /* primeiro o dedilhado de ponta a ponta, embaixo da boca; depois um botão de cor; no fim, o visto */
+  const dedilhado: Gesto = { tipo: 'caminho', pontos: [[122, 588], [268, 588]] };
+  const guia = guiar(tela, {
+    atraso: 1400,
+    proximo: () => {
+      if (!dedilhou) return dedilhado;
+      if (!apertou) {
+        const [x, y] = botao(3);
+        return { tipo: 'tocar', em: [x, y] };
+      }
+      if (pronto.aceso && guia.ajuda.nivel >= 2) return { tipo: 'apontar', em: pronto.onde };
+      return dedilhado;
+    },
+  });
+
+  tela.aoDestruir(
+    dedilhar(svg, CORDAS_X, [PESTANA_Y, 660], (i) => {
+      soa(i);
+      dedilhou = true;
+      tocouUmPouco(1);
+    }),
+  );
   tela.alvo(
     '[data-acorde]',
     (_ev, el) => {
+      apertou = true;
+      tocouUmPouco(4);
       acorde = Number(el.getAttribute('data-acorde'));
       const [x, y] = botao(acorde);
       luz.innerHTML = contornoLuz(x, y, BOTAO_R + 6, BOTAO_R + 6);
