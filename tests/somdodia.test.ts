@@ -43,7 +43,7 @@ describe('o som do dia', () => {
     }
   });
 
-  it('o som dito é o da figura certa: ó com os óculos, ô com ovo e olho', () => {
+  it('o som dito é o da figura certa: ó com os óculos, ô com ovo e ônibus', () => {
     const r = montarRodadas(letras, 'O', [], 'y');
     for (const x of r) expect(x.som).toBe(x.alvo === 'oculos' ? 'som_o' : 'som_o2');
   });

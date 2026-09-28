@@ -12,7 +12,7 @@ describe('a fila de palavras do escorregador de sons', () => {
   });
   it('cresce com as letras traçadas: a palavra de cada letra e as feitas só de letras conhecidas, na ordem do fônico', () => {
     const e = { ...estadoNovo(), letras: ['A', 'E', 'L', 'S', 'T'], letraIndice: 5 };
-    expect(nomes(sequenciaDePalavras(e, 'MEIA'))).toEqual(['LUA', 'MEIA', 'LATA', 'SALA', 'TATU', 'TELA', 'OLÁ', 'STELLA']);
+    expect(nomes(sequenciaDePalavras(e, 'MEIA'))).toEqual(['LUA', 'MEIA', 'LATA', 'SALA', 'TATU', 'MOLA', 'STELLA']);
   });
   it('a próxima é a primeira não lida à frente, senão atrás, senão a seguinte; sozinha não tem próxima', () => {
     const e = { ...estadoNovo(), letras: ['A', 'E', 'L', 'S', 'T'], letraIndice: 5 };

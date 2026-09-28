@@ -319,9 +319,9 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
   as palavras feitas só de letras traçadas, na ordem do fônico. As palavras lidas inteiras
   ficam guardadas e aparecem no cantinho dos pais.
 - **Palavras da v1** (só com as letras da v1, de sílaba aberta, em que cada letra soa como o
-  som ensinado): LUA, MEIA, LATA, SALA, TATU, TUTU, TELA, OLÁ, MALA, LAMA, MOLA, MATA, UVA,
-  LIMA, VELA, LUVA e o nome STELLA. ASA e MESA saíram: S entre vogais soa Z. AVÓ e ELA
-  saíram: a figura de uma pessoa não fica simples nem direta. Os objetos
+  som ensinado): LUA, MEIA, LATA, SALA, TATU, MOLA, MALA, UVA, IOIÔ, VELA, LUVA e o nome
+  STELLA. ASA e MESA saíram: S entre vogais soa Z. AVÓ, ELA, OLÁ, LIMA, TUTU, TELA, LAMA e
+  MATA saíram: palavra rara ou figura que não se reconhece de um olhar. Os objetos
   de palavra na casa são a mala, a lata e a lua da janela à noite; GATO e CAMA aparecem como
   palavra só no caderno.
 - **Dura**: o quanto ela quiser; cada palavra leva uns 30 segundos.
