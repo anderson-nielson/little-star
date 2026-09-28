@@ -1,6 +1,27 @@
 import { circ, CORES as C } from './boneco';
 import { claro, copaPath, escuro, fio, fios, forma } from './pincel';
 
+/* a casa de verdade: espelho dos tokens --salvia, --telha, --beiral, --madeira-escura, --terracota, --palma */
+export const CASA = {
+  salvia: '#9fb88c',
+  salviaEscura: '#8aa578',
+  salviaClara: '#b9cca9',
+  branco: '#f6f0e4',
+  telha: '#cf7f5c',
+  beiral: '#7a5236',
+  madeira: '#8a5634',
+  madeiraEscura: '#6b4126',
+  madeiraClara: '#a86d44',
+  terracota: '#d98a5a',
+  degrau: '#8fae6b',
+  palma: '#4f7a4a',
+  palmaClara: '#7ea36f',
+  tronco: '#b8a48a',
+  folha: '#6f9a63',
+  flor: '#e9b6c2',
+  florEscura: '#d98fa2',
+};
+
 /** A centelha de quatro pontas do Ponta: a estrela do jogo. Nunca ★. */
 export const CENTELHA = 'M10 0c.7 6.2 3.8 9.3 10 10-6.2.7-9.3 3.8-10 10-.7-6.2-3.8-9.3-10-10 6.2-.7 9.3-3.8 10-10z';
 
@@ -53,7 +74,130 @@ export function nuvem(x: number, y: number, s: number): string {
 export function casinha(x = 44, y = 44): string {
   const k = 0.8;
   const p = (dx: number, dy: number) => `${(x + dx * k).toFixed(1)} ${(y + dy * k).toFixed(1)}`;
-  return `<g class="casinha" data-alvo="casa" aria-label="voltar para casa"><circle cx="${x}" cy="${y}" r="36" fill="transparent"/><circle cx="${x}" cy="${y}" r="28" fill="${C.papel}" stroke="#8f6f2c" stroke-width="1.5"/><path d="M${p(-17, 1)}L${p(0, -16)}L${p(17, 1)}V${(y + 15 * k).toFixed(1)}H${(x - 17 * k).toFixed(1)}z" fill="#8FAE6B" stroke="${C.musgoTinta}" stroke-width="1.6" stroke-linejoin="round"/><path d="M${p(-4.5, 15)}V${(y + 5 * k).toFixed(1)}H${(x + 4.5 * k).toFixed(1)}V${(y + 15 * k).toFixed(1)}" fill="${C.rosaDoce}"/></g>`;
+  /* a casa de verdade em miniatura: o telhado de telhas, a parede verde-sálvia, a porta de madeira */
+  return (
+    `<g class="casinha" data-alvo="casa" aria-label="voltar para casa"><circle cx="${x}" cy="${y}" r="36" fill="transparent"/><circle cx="${x}" cy="${y}" r="28" fill="${C.papel}" stroke="#8f6f2c" stroke-width="1.5"/>` +
+    `<path d="M${p(-14, 1)}L${p(0, -12)}L${p(14, 1)}V${(y + 15 * k).toFixed(1)}H${(x - 14 * k).toFixed(1)}z" fill="${CASA.salvia}" stroke="${escuro(CASA.salvia, 0.4)}" stroke-width="1.4" stroke-linejoin="round"/>` +
+    `<path d="M${p(-17, 2)}L${p(0, -14)}L${p(17, 2)}z" fill="${CASA.telha}" stroke="${escuro(CASA.telha, 0.35)}" stroke-width="1.4" stroke-linejoin="round"/>` +
+    `<path d="M${p(-4, 15)}V${(y + 5 * k).toFixed(1)}H${(x + 4 * k).toFixed(1)}V${(y + 15 * k).toFixed(1)}" fill="${CASA.madeiraEscura}"/></g>`
+  );
+}
+
+/* ---------- a casa de verdade, em peças ---------- */
+
+const r1 = (n: number) => Math.round(n * 10) / 10;
+function rect(x: number, y: number, w: number, h: number): string {
+  return `M${r1(x)} ${r1(y)}h${r1(w)}v${r1(h)}h${r1(-w)}z`;
+}
+
+/** A parede de reboco verde-sálvia. */
+export function parede(x: number, y: number, w: number, h: number, cor = CASA.salvia): string {
+  return forma(rect(x, y, w, h), cor, { lapis: 0.35 });
+}
+/** A faixa branca em relevo. */
+export function faixa(x: number, y: number, w: number, h = 7): string {
+  return forma(rect(x, y, w, h), CASA.branco, { lapis: 0.25, opLapis: 0.6 });
+}
+/**
+ * O telhado de telhas de duas águas com o beiral de madeira: o triângulo de telha,
+ * a fileira de meias-luas na borda e a viga do beiral embaixo.
+ */
+export function telhadoDuasAguas(x: number, y: number, w: number, h: number): string {
+  const cx = x + w / 2;
+  let s = forma(`M${r1(x)} ${r1(y + h)}L${r1(cx)} ${r1(y)}L${r1(x + w)} ${r1(y + h)}z`, CASA.telha, { lapis: 0.35 });
+  let ondas = '';
+  const n = Math.floor(w / 9);
+  for (let i = 0; i < n; i++) ondas += `M${r1(x + (w - n * 9) / 2 + i * 9)} ${r1(y + h)}a4.5 4 0 0 1 9 0`;
+  s += fio(ondas, escuro(CASA.telha, 0.35), 1, 0.65);
+  s += fio(`M${r1(x + w * 0.07)} ${r1(y + h - h * 0.08)}Q${r1(cx)} ${r1(y - h * 0.08)} ${r1(x + w - w * 0.07)} ${r1(y + h - h * 0.08)}`, escuro(CASA.telha, 0.3), 1, 0.4);
+  s += forma(rect(x, y + h, w, 6), CASA.beiral, { lapis: 0.3 });
+  return s;
+}
+/** Um telhado de uma água só (a beirada de telhas com o beiral), para os anexos. */
+export function telhadoReto(x: number, y: number, w: number): string {
+  let s = forma(rect(x, y, w, 10), CASA.telha, { lapis: 0.35 });
+  let ondas = '';
+  for (let i = 0; i < Math.floor(w / 9); i++) ondas += `M${r1(x + 2 + i * 9)} ${r1(y + 10)}a4.5 4 0 0 1 9 0`;
+  s += fio(ondas, escuro(CASA.telha, 0.35), 1, 0.7);
+  s += forma(rect(x, y + 12, w, 6), CASA.beiral, { lapis: 0.3 });
+  return s;
+}
+/** A porta (ou o portão) de madeira ripada, com a moldura branca em cima. */
+export function portaDeMadeira(x: number, y: number, w: number, h: number, ripas = 6, comMoldura = true, cls = ''): string {
+  let s = comMoldura ? forma(rect(x - 4, y - 8, w + 8, 8), CASA.branco, { lapis: 0.25 }) : '';
+  s += forma(rect(x, y, w, h), CASA.madeiraEscura, { lapis: 0.35, attrs: cls ? `class="${cls}"` : '' });
+  let d = '';
+  for (let i = 1; i < ripas; i++) d += `M${r1(x + (i * w) / ripas)} ${r1(y + 2)}V${r1(y + h - 2)}`;
+  s += fio(d, escuro(CASA.madeiraEscura, 0.3), 1, 0.6);
+  s += `<circle cx="${r1(x + w * 0.82)}" cy="${r1(y + h * 0.52)}" r="${r1(Math.max(1.6, w * 0.03))}" fill="${C.ouro}"/>`;
+  return s;
+}
+/** A janela de madeira com a moldura branca e o vidro. */
+export function janelaDeMadeira(x: number, y: number, w: number, h: number, vidro = '#dbe7ee'): string {
+  return forma(rect(x - 3, y - 3, w + 6, h + 6), CASA.branco, { lapis: 0.25 }) + forma(rect(x, y, w, h), CASA.madeiraClara, { lapis: 0.35 }) + forma(rect(x + 3, y + 3, w - 6, h - 6), vidro, { lapis: 0.2, op: 0.85 });
+}
+/** A escada verde com a borda terracota, subindo até a porta. */
+export function escadinha(x: number, chao: number, n: number, larg: number, alt = 9, prof = 10): string {
+  let s = '';
+  for (let i = 0; i < n; i++) {
+    const yy = chao - (i + 1) * alt;
+    s += forma(rect(x + i * prof, yy, larg - 2 * i * prof, alt), CASA.degrau, { lapis: 0.35 });
+    s += forma(rect(x + i * prof, yy - 2, larg - 2 * i * prof, 3), CASA.terracota, { lapis: 0.3 });
+  }
+  return s;
+}
+/** A palmeira alta de folhas em pena. */
+export function palmeira(x: number, chao: number, h: number, folhas = 9, inclina = 0): string {
+  const topoY = chao - h;
+  let s = forma(`M${r1(x - 4)} ${r1(chao)}C${r1(x - 5)} ${r1(chao - h * 0.5)} ${r1(x - 3 + inclina)} ${r1(chao - h * 0.8)} ${r1(x - 3 + inclina)} ${r1(topoY)}h6C${r1(x + 3 + inclina)} ${r1(chao - h * 0.8)} ${r1(x + 5)} ${r1(chao - h * 0.5)} ${r1(x + 4)} ${r1(chao)}z`, CASA.tronco, { lapis: 0.35 });
+  let anel = '';
+  for (let i = 1; i < 7; i++) anel += `M${r1(x - 4 + i * 0.3)} ${r1(chao - (i * h) / 7)}q4 -2 8 0`;
+  s += fio(anel, escuro(CASA.tronco, 0.3), 1, 0.5);
+  const cx = x + inclina;
+  const cy = topoY;
+  for (let i = 0; i < folhas; i++) {
+    const a = -Math.PI + (i * Math.PI) / (folhas - 1) + 0.15;
+    const L = h * 0.42;
+    const ex = cx + Math.cos(a) * L;
+    const ey = cy + Math.sin(a) * L * 0.55 + L * 0.35;
+    const mx = cx + Math.cos(a) * L * 0.55;
+    const my = cy + Math.sin(a) * L * 0.55 * 0.55 - L * 0.12;
+    const nx = -(ey - cy);
+    const ny = ex - cx;
+    const nl = Math.hypot(nx, ny) || 1;
+    const w = Math.max(3, h * 0.035);
+    const d = `M${r1(cx)} ${r1(cy)}Q${r1(mx + (nx / nl) * w)} ${r1(my + (ny / nl) * w)} ${r1(ex)} ${r1(ey)}Q${r1(mx - (nx / nl) * w)} ${r1(my - (ny / nl) * w)} ${r1(cx)} ${r1(cy)}z`;
+    s += forma(d, i % 2 ? CASA.palma : CASA.palmaClara, { lapis: 0.3, op: 0.92 });
+    s += fio(`M${r1(cx)} ${r1(cy)}Q${r1(mx)} ${r1(my)} ${r1(ex)} ${r1(ey)}`, escuro(CASA.palma, 0.3), 1, 0.6);
+  }
+  return s;
+}
+/** O arbusto florido do jardim: uma copa ondulada com pontinhos de flor rosada. */
+export function arbusto(cx: number, cy: number, rx: number, ry: number, semente = 0): string {
+  let s = forma(copaPath(cx, cy, rx, ry, 9, semente), CASA.folha, { lapis: 0.3 });
+  for (let i = 0; i < 9; i++) s += `<circle cx="${r1(cx + Math.cos(i * 2.4) * rx * 0.7)}" cy="${r1(cy + Math.sin(i * 2.4) * ry * 0.7)}" r="${2.2 + (i % 2)}" fill="${i % 3 ? CASA.flor : CASA.florEscura}" opacity="0.9"/>`;
+  return s;
+}
+/**
+ * A casa de verdade por fora, na essência (docs/referencia/casa.html, proposta C): o bloco
+ * largo com o telhado de telhas de duas águas e o beiral, o reboco verde-sálvia com a faixa
+ * branca, duas janelas de madeira, a porta de madeira ripada com a moldura branca no alto da
+ * escadinha. `x` e `w` são a parede; `chao` é onde ela pisa; `topo` é onde a parede começa.
+ * Sem a porta (`semPorta`), para a tela desenhar a porta que abre por cima.
+ */
+export function fachada(x: number, topo: number, w: number, chao: number, o: { semPorta?: boolean; vidro?: string } = {}): string {
+  const cx = x + w / 2;
+  const h = chao - topo;
+  let s = parede(x, topo, w, h);
+  s += telhadoDuasAguas(x - 30, topo - h * 0.47, w + 60, h * 0.47);
+  s += faixa(x - 4, topo + h * 0.42, w + 8, 8);
+  const jw = w * 0.16;
+  const jh = h * 0.22;
+  s += janelaDeMadeira(x + w * 0.13, topo + h * 0.12, jw, jh, o.vidro);
+  s += janelaDeMadeira(x + w - w * 0.13 - jw, topo + h * 0.12, jw, jh, o.vidro);
+  if (!o.semPorta) s += portaDeMadeira(cx - w * 0.15, topo + h * 0.5, w * 0.3, h * 0.5 - 10, 6);
+  s += escadinha(cx - w * 0.2, chao, 2, w * 0.4, 6, 8);
+  return s;
 }
 
 /** A mãozinha desenhada: faça este gesto. */
