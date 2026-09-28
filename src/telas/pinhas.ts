@@ -1,9 +1,10 @@
-import { arrastavel, mover, telaSvg } from './comum';
+import { arrastavel, convidarParaCasa, mover, telaSvg } from './comum';
+import { guiar, type Gesto } from './guia';
 import { estado, mudar } from '@/core/estado';
 import { sessao } from '@/core/sessao';
 import { estacao } from '@/core/relogio';
 import { ir } from '@/core/roteador';
-import { esperar, semente } from '@/core/util';
+import { doTopo, esperar, semente } from '@/core/util';
 import { travar } from '@/core/toque';
 import { coelho, gato, pinha, pinheiro, veu } from '@/puppet/objetos';
 import { tocarFundo } from '@/audio/musica';
@@ -16,6 +17,8 @@ const COR_ESTACAO: Record<string, string> = { verao: '#ebd9a8', outono: '#e8a24a
  * Pinhas e a mesa da estação. Embaixo do pinheiro, de 4 a 7 pinhas para
  * arrastar até a cestinha. Na mesa, ela arruma as pinhas da cesta onde
  * quiser, e elas ficam onde ela pôs.
+ * Sozinha, ela não sabia que a pinha se arrasta: agora, nas duas cenas, a
+ * mãozinha leva uma pinha até onde ela vai (e de novo se ela ficar parada).
  */
 export function telaPinhas(params: Record<string, string>): Tela {
   return params.mesa === '1' ? mesaDaEstacao() : embaixoDoPinheiro();
@@ -39,6 +42,19 @@ function embaixoDoPinheiro(): Tela {
   const chao = svg.querySelector('.chao') as SVGGElement;
   const naCesta = svg.querySelector('.na-cesta') as SVGGElement;
   let catadas = 0;
+  /* a mãozinha leva a primeira pinha do chão até a cestinha, depois que todas caíram */
+  let caiu: () => void = () => {};
+  const cairam = new Promise<void>((r) => (caiu = r));
+  const guia = guiar(tela, {
+    depoisDe: cairam,
+    atraso: 600,
+    proximo: () => {
+      const p = chao.querySelector('.pinha');
+      if (!p) return null;
+      const de: [number, number] = [Number(p.getAttribute('data-x')), Number(p.getAttribute('data-y'))];
+      return { tipo: 'arrastar', de, ate: [104, 668], levar: p };
+    },
+  });
   /* umas pinhas novas caem com o vento */
   void (async () => {
     for (let i = 0; i < n; i++) {
@@ -47,6 +63,8 @@ function embaixoDoPinheiro(): Tela {
       const tipo = Math.floor((seed * 31 * (i + 1)) % 4);
       const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
       g.setAttribute('class', 'pinha');
+      g.setAttribute('data-x', String(x));
+      g.setAttribute('data-y', String(y - 6));
       g.innerHTML = alcance(x, y, 20) + pinha(x, y, 20, tipo);
       g.style.transformBox = 'fill-box';
       g.style.transform = 'translateY(-300px)';
@@ -66,6 +84,7 @@ function embaixoDoPinheiro(): Tela {
           sininho();
           g.remove();
           catadas += 1;
+          guia.passo();
           naCesta.innerHTML += pinha(70 + catadas * 16, 664, 12, tipo);
           mudar((m) => {
             m.cesta += 1;
@@ -76,16 +95,20 @@ function embaixoDoPinheiro(): Tela {
             mover(co, -20, 0, 400);
             void esperar(500).then(() => mover(co, 0, 0, 400));
           }
-          if (catadas >= n) void esperar(1200).then(() => {
+          if (catadas >= n) {
+            guia.calar();
+            void esperar(1200).then(() => {
               /* a casinha, tocada nesse instante, vale mais que a mesa */
               if (tela.el.isConnected) void ir('pinhas', { mesa: '1' });
             });
+          }
           return true;
         }
         return false;
       });
       await esperar(500);
     }
+    caiu();
   })();
   return tela;
 }
@@ -111,6 +134,26 @@ function mesaDaEstacao(): Tela {
   const naCesta = svg.querySelector('.na-cesta') as SVGGElement;
 
   let acabou = false;
+  /* a mesa pronta: a casinha acende; parada, a mãozinha volta a apontar para ela */
+  const pronta = () => {
+    acabou = true;
+    tela.comemorar(195, 400);
+    convidarParaCasa(tela);
+  };
+  /* a mãozinha leva a pinha de cima da cesta até o meio da mesa */
+  const guia = guiar(tela, {
+    atraso: 1000,
+    proximo: (): Gesto | null => {
+      if (acabou) {
+        const [x, y] = doTopo(svg, 50, 62);
+        return { tipo: 'apontar', em: [x, y] };
+      }
+      const p = naCesta.querySelector('[data-de-cima]');
+      if (!p) return null;
+      const de: [number, number] = [Number(p.getAttribute('data-x')), Number(p.getAttribute('data-y'))];
+      return { tipo: 'arrastar', de, ate: [195, 400], levar: p };
+    },
+  });
   const render = () => {
     naMesa.innerHTML = '';
     naCesta.innerHTML = '';
@@ -124,6 +167,11 @@ function mesaDaEstacao(): Tela {
       /* a de cima da cesta se pega pela cesta inteira: o dedo não precisa acertar a pinha */
       const pega = i === ultimaNaCesta ? `<rect x="104" y="640" width="182" height="108" fill="transparent"/>` : alcance(x, y, 18);
       g.innerHTML = pega + pinha(x, y, 18, p.tipo);
+      if (i === ultimaNaCesta) {
+        g.setAttribute('data-de-cima', '');
+        g.setAttribute('data-x', String(x));
+        g.setAttribute('data-y', String(y - 6));
+      }
       (naMesaJa ? naMesa : naCesta).appendChild(g);
       arrastavel(svg, g, (dx, dy) => {
         const fx = x + dx;
@@ -138,10 +186,10 @@ function mesaDaEstacao(): Tela {
             }
           });
           render();
+          guia.passo();
           /* a cesta ficou vazia: a mesa está pronta, e a casa chama */
           if (!acabou && estado().pinhas.every((q) => q.y > 0)) {
-            acabou = true;
-            tela.comemorar(195, 400);
+            pronta();
             void esperar(2400).then(() => {
               if (tela.el.isConnected) void ir('casa');
             });
@@ -153,6 +201,9 @@ function mesaDaEstacao(): Tela {
     });
   };
   render();
+  /* chegou com a cesta vazia (nada catado, ou tudo já na mesa): não tem o que
+     arrumar, então a mesa já está pronta; antes a tela ficava esperando para sempre */
+  if (estado().pinhas.every((q) => q.y > 0)) pronta();
   return tela;
 }
 
