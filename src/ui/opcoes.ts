@@ -61,13 +61,17 @@ export interface Opcoes {
   fechar: () => void;
 }
 
-/** a estrelinha de quatro pontas do jogo, pequena, no botão */
-const ESTRELINHA = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c.6 4.6 3.4 7.4 9 9c-5.6 1.6-8.4 4.4-9 9c-.6-4.6-3.4-7.4-9-9c5.6-1.6 8.4-4.4 9-9z" fill="currentColor"/></svg>`;
+/**
+ * As três linhas do menu, o ícone que todo adulto já conhece. A estrelinha do
+ * jogo ficava aqui antes, mas ela é a estrela guia e a conta de agora: no botão
+ * do adulto, não dizia "opções".
+ */
+const MENU = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
 /** o alto-falante riscado: aparece no canto do botão quando o som está desligado */
 const SEM_SOM = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
 
 /**
- * O botão pequeno do canto de cima, à direita, em todas as telas do jogo. Ele
+ * O botão do menu, no canto de cima à direita, em todas as telas do jogo. Ele
  * abre um painel que corre da direita para a esquerda, para quem joga junto:
  * o que é esta tela e o que fazer nela, o som, o balão de leitura, a tela
  * cheia, a versão e a busca por uma versão nova, e o caminho para o cantinho
@@ -75,7 +79,7 @@ const SEM_SOM = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4
  */
 export function montarOpcoes(app: HTMLElement, irParaPais: () => void): Opcoes {
   const selo = h('span', { class: 'opcoes-selo', html: SEM_SOM });
-  const botao = h('button', { type: 'button', class: 'opcoes-botao', 'aria-label': 'Opções e ajuda', 'aria-expanded': 'false', html: ESTRELINHA });
+  const botao = h('button', { type: 'button', class: 'opcoes-botao', 'aria-label': 'Opções e ajuda', 'aria-expanded': 'false', html: MENU });
   botao.appendChild(selo);
   const veu = h('div', { class: 'opcoes-veu' });
   const painel = h('aside', { class: 'opcoes-painel', role: 'dialog', 'aria-label': 'Opções', 'aria-hidden': 'true' });

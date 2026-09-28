@@ -156,8 +156,9 @@ Travar em retrato também evita a tela girar sozinha quando ela deita o celular.
 - Toda atividade nova começa com uma **demonstração**: uma mãozinha desenhada faz o gesto uma
   vez, devagar, e a voz diz o que fazer ("toca na cama").
 - Se ela ficar 6 segundos sem tocar, a mãozinha aparece de novo. Nunca "você precisa...".
-- Nada de ícone abstrato (engrenagem, xis, seta de menu). Voltar é a **porta de casa** no
-  canto de cima, grande.
+- Nada de ícone abstrato no que é dela. Voltar é a **porta de casa** no canto de cima à
+  esquerda, a maior coisa do cabeçalho. O que é do adulto (o menu, o balão de leitura e o
+  "x" que o fecha) usa os ícones que todo adulto já conhece, pequenos e do lado direito.
 
 **Tempo de tela**
 - Sessões curtas por desenho: cada atividade fecha em 1 a 3 minutos e devolve ela para a casa,
@@ -229,10 +230,11 @@ marionete por dados). Nada de copiar personagens, colagem ou estilo visual do de
   fez de verdade (a força dela), diz o carinho e a segurança da família, e deixa o mérito
   com ela. O Theo aparece pouco, como família por perto, nunca como medida nem como motivo. Sem comparação, sem "melhor que",
   sem cobrança. As frases vivem em `src/data/narracao.json` e se revezam; o balão fica na
-  tela até um toque no "x". Quando ela volta a tocar na cena, ele se recolhe numa bolinha no
-  alto, para não cobrir a casinha nem a trilha do avanço; tocar na bolinha abre a frase de
-  novo. O balão não segura toque (só o "x", pendurado embaixo dele): a casinha e a lua por
-  baixo dos cantos respondem mesmo com ele aberto. Desliga-se no cantinho dos pais.
+  tela até um toque no "x", no canto de cima à direita do balão. Ele abre logo abaixo da
+  linha do cabeçalho, sem cobrir a casinha nem o menu. Quando ela volta a tocar na cena, ele
+  se recolhe num botão de balãozinho no cabeçalho, ao lado do menu, para não cobrir a trilha
+  do avanço; tocar nele abre a frase de novo. O balão não segura toque (só o "x"). Desliga-se
+  no menu ou no cantinho dos pais.
 
 ## 7. A casa verde, o quintal e o quarto rosa
 
@@ -775,7 +777,7 @@ PWA offline, sem engine e sem lib. Publicado no GitHub Pages.
 | Regras de performance | Só `transform` e `opacity`, sem `blur`, sem alocação por quadro, DPR até 2. |
 
 ### 15.3 Cantinho dos pais
-Segurar 2 segundos na lua do canto de cima, depois uma conta simples (por exemplo "toque no
+Pelo menu do canto de cima à direita ("Cantinho dos pais"), depois uma conta simples (por exemplo "toque no
 número 7" escrito por extenso), que uma criança de 5 anos não resolve. Ali: hora de dormir,
 limite diário, confirmar tarefas, gravar vozes (com exportar e importar, porque o aparelho
 pode apagá-las), comidas de cada cor, prato ligado ou não, ritmo das letras, resumo,

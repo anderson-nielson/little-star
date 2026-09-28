@@ -80,9 +80,9 @@ registrar('brinquedos', telaBrinquedos);
 const app = document.getElementById('app')!;
 montar(app);
 
-/* o cabeçalho fica colado no alto da tela, com a mesma escala em toda tela. A casinha e
-   a lua são SVG (`encaixar`); o botão das opções e a bolinha do balão são HTML e usam
-   estas variáveis para cair na mesma linha. Girar ou redimensionar reencaixa tudo. */
+/* o cabeçalho fica colado no alto da tela, com a mesma escala em toda tela. A casinha
+   é SVG (`encaixar`); o menu e o balãozinho são HTML e usam estas variáveis para cair
+   na mesma linha e com a mesma margem. Girar ou redimensionar reencaixa tudo. */
 const medirCena = () => {
   const m = medida();
   if (!m) return;
@@ -97,7 +97,7 @@ new ResizeObserver(medirCena).observe(app);
 /* o som desligado nas opções vale desde o primeiro toque */
 audio.definirMudo(estado().pais.mudo);
 
-/* o botão pequeno do canto de cima, à direita: ajuda da tela, som, versão e o cantinho dos pais */
+/* o menu do canto de cima, à direita: ajuda da tela, som, versão e o cantinho dos pais */
 const opcoes = montarOpcoes(app, () => void ir('pais'));
 aoTrocarTela((nome, params) => opcoes.trocarTela(nome, params));
 

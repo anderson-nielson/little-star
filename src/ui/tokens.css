@@ -61,8 +61,6 @@
   --toque: rgba(79, 107, 58, 0.12);
   --halo: rgba(235, 217, 168, 0.5);
   --veu: rgba(16, 20, 42, 0.55);
-  /* o marfim meio transparente da casinha, no botão das opções */
-  --marfim-veu: rgba(246, 240, 228, 0.85);
 
   /* tipo */
   --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
@@ -92,9 +90,15 @@
   --entre-alvos: 16px;
   --borda-morta: 24px;
   --coluna: 430px;
-  /* o botão das opções é pequeno de propósito: é para o adulto, fica na borda morta */
-  --opcoes-botao: 40px;
-  --opcoes-folga: 48px;
+  /* o cabeçalho: a casinha à esquerda, o balãozinho e o menu à direita, todos com o
+     centro na mesma linha (y 44 do cabeçalho) e a mesma margem até a borda. Os botões
+     da direita são do adulto: 44 px, o mínimo de um alvo de toque comum. */
+  --topo-linha: 44px;
+  --topo-margem: 16px;
+  --topo-botao: 44px;
+  --topo-entre: 12px;
+  /* onde o conteúdo pode começar embaixo do cabeçalho (a casinha acaba em y 72) */
+  --topo-fim: 84px;
   --fundo-seguro: max(env(safe-area-inset-bottom, 0px), 12px);
 
   /* movimento: tudo lento, nada pisca */

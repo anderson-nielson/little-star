@@ -186,7 +186,7 @@ body {
   opacity: 1;
   pointer-events: auto;
 }
-/* a casinha de voltar e a lua dos pais são elementos do svg da cena */
+/* a casinha de voltar é um elemento do svg da cena */
 
 /* ---------- cantinho dos pais (o único lugar com texto) ---------- */
 .pais {
@@ -386,13 +386,14 @@ body {
 /* ---------- o balão de narração (texto para quem joga junto, não para ela) ---------- */
 .balao {
   position: absolute;
-  top: calc(env(safe-area-inset-top, 0px) + var(--e3));
-  /* deixa o canto de cima à direita para o botão das opções */
-  left: calc(50% - var(--opcoes-folga) / 2);
-  width: calc(100% - 2 * var(--e4) - var(--opcoes-folga));
-  max-width: calc(var(--coluna) - 2 * var(--e4) - var(--opcoes-folga));
+  /* logo abaixo da linha do cabeçalho: a casinha e o menu ficam sempre à vista */
+  top: calc(env(safe-area-inset-top, 0px) + var(--topo-fim) * var(--cena-k, 1));
+  left: 50%;
+  width: calc(100% - 2 * var(--e4));
+  max-width: calc(var(--coluna) - 2 * var(--e4));
   z-index: var(--z-hud);
-  padding: var(--e3) var(--e4) var(--e6) var(--e4);
+  /* à direita, o lugar do "x" */
+  padding: var(--e3) calc(var(--topo-botao) + var(--e1)) var(--e4) var(--e4);
   background: var(--papel);
   color: var(--txt);
   border: var(--fio-w) solid var(--fio-ouro);
@@ -435,22 +436,22 @@ body {
   font-weight: 500;
   line-height: 1.25;
 }
-/* o "x" que fecha: pendurado no meio da borda de baixo, longe da casinha e da lua.
+/* o "x" que fecha: no canto de cima à direita do balão, como em todo cartão que se fecha.
    É o único pedaço do balão que recebe toque; o resto deixa o toque passar para a cena. */
 .balao-fechar {
   position: absolute;
-  bottom: -24px;
-  left: 50%;
-  width: var(--e7);
-  height: var(--e7);
-  margin-left: calc(-1 * var(--e7) / 2);
+  top: var(--e1);
+  right: var(--e1);
+  width: var(--topo-botao);
+  height: var(--topo-botao);
   padding: 0;
-  border: var(--fio-w) solid var(--fio-ouro);
+  border: 0;
   border-radius: 50%;
-  background: var(--papel);
+  background: transparent;
   color: var(--ouro-tinta);
-  font-family: var(--serif);
-  font-size: var(--t-h2);
+  font-family: var(--sans);
+  font-size: var(--t-h1);
+  font-weight: 300;
   line-height: 1;
   cursor: pointer;
   touch-action: manipulation;
@@ -460,7 +461,7 @@ body {
   pointer-events: auto;
 }
 .balao-fechar:active {
-  opacity: 0.6;
+  background: var(--toque);
 }
 
 /* ---------- as opções: o botão pequeno do canto e o painel que corre para a esquerda ---------- */
@@ -479,18 +480,24 @@ body {
 .opcoes.escondido {
   display: none;
 }
-/* na linha do cabeçalho, com a casinha (y 44), espelhada no canto da direita (x 350) */
-.opcoes-botao {
+/* os botões do cabeçalho: o mesmo disco de papel com fio de ouro da casinha,
+   o centro na linha dela e a mesma margem até a borda da direita */
+.opcoes-botao,
+.balao-bolinha {
+  /* crescem e encolhem com a casinha, sem ficar menores que 36 px */
+  --b: max(36px, var(--topo-botao) * var(--cena-k, 1));
   position: absolute;
-  top: calc(env(safe-area-inset-top, 0px) + 44px * var(--cena-k, 1) - var(--opcoes-botao) / 2);
-  right: calc(var(--cena-dx, 0px) + 40px * var(--cena-k, 1) - var(--opcoes-botao) / 2);
-  width: var(--opcoes-botao);
-  height: var(--opcoes-botao);
-  padding: 10px;
-  border: var(--fio-w) solid var(--fio-ouro);
+  top: calc(env(safe-area-inset-top, 0px) + var(--topo-linha) * var(--cena-k, 1) - var(--b) / 2);
+  width: var(--b);
+  height: var(--b);
+  padding: calc(var(--b) * 0.23);
+  border: var(--fio-w) solid var(--ouro);
   border-radius: var(--r-pilula);
-  background: var(--marfim-veu);
+  background: var(--papel);
   color: var(--ouro-tinta);
+}
+.opcoes-botao {
+  right: calc(var(--cena-dx, 0px) + var(--topo-margem) * var(--cena-k, 1));
   cursor: pointer;
   pointer-events: auto;
   touch-action: manipulation;
@@ -707,20 +714,10 @@ body {
   display: none;
 }
 
-/* o balão recolhido: uma bolinha de papel com três pontinhos na linha do cabeçalho,
-   ao lado da casinha (x 116), longe do varal da casa e da trilha do avanço.
-   O alvo tem 72 px; o desenho é menor. */
+/* o balão recolhido: um balãozinho no cabeçalho, à esquerda do menu. O disco e a
+   linha vêm da regra dos botões do cabeçalho, junto com o menu. */
 .balao-bolinha {
-  position: absolute;
-  top: calc(env(safe-area-inset-top, 0px) + 44px * var(--cena-k, 1) - var(--alvo) / 2);
-  /* nunca em cima da casinha (raio 36 em x 40): com a tela deitada ou pequena o
-     cabeçalho encolhe, o alvo de 72 px não, e a bolinha roubava o toque da saída */
-  left: calc(var(--cena-x, 0px) + max(116px * var(--cena-k, 1) - var(--alvo) / 2, 80px * var(--cena-k, 1)));
-  width: var(--alvo);
-  height: var(--alvo);
-  padding: 0;
-  border: 0;
-  background: transparent;
+  left: calc(var(--cena-x, 0px) + (390px - var(--topo-margem) - var(--topo-entre)) * var(--cena-k, 1) - 2 * var(--b));
   z-index: var(--z-hud);
   opacity: 0;
   transform: scale(0.6);
@@ -729,18 +726,23 @@ body {
   cursor: pointer;
   touch-action: manipulation;
 }
+.balao-bolinha::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+}
+.balao-bolinha > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 .balao-bolinha.visivel {
   opacity: 1;
   transform: scale(1);
   pointer-events: auto;
 }
-.balao-bolinha-miolo {
-  position: absolute;
-  inset: 16px;
-  border-radius: 50%;
-  background: var(--papel) radial-gradient(circle, var(--ouro-tinta) 2.5px, transparent 3px) center / 12px 12px repeat-x;
-  border: var(--fio-w) solid var(--fio-ouro);
-  box-shadow: 0 4px 14px rgba(16, 20, 42, 0.12);
+.balao-bolinha:active {
+  transform: scale(0.94);
 }
 
 /* ---------- o chamado: a mãozinha que aparece quando ela fica parada ---------- */

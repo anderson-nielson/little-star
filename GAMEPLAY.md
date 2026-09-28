@@ -141,8 +141,9 @@ aprende uma música. Toda tela usa só estes.
 | Mãozinha desenhada fazendo o gesto | Faça isso |
 | Estrela guia correndo por uma fita | O caminho é este |
 | A casinha verde, no canto de cima à esquerda, em toda tela | Volta para a casa, sempre, mesmo no meio de uma cena (na casa, só brilha) |
-| A lua, no canto de cima à direita, em toda tela | Segurada 2 s, abre o cantinho dos pais |
-| Trilha de contas no alto, entre a casinha e a lua | Quanto já foi (contas de ouro) e quanto falta; a estrelinha é a de agora |
+| O menu (três linhas), no canto de cima à direita, em toda tela | Para o adulto: ajuda da tela, som, balão de leitura e o cantinho dos pais |
+| O balãozinho, ao lado do menu | Tem uma frase guardada para ler para ela; um toque abre |
+| Trilha de contas no alto, abaixo do cabeçalho | Quanto já foi (contas de ouro) e quanto falta; a estrelinha é a de agora |
 | A casinha acende e a mãozinha aponta para ela | Por hoje acabou; pode voltar para casa (ou continuar brincando) |
 | Sininho no tom da música | Deu certo |
 | Centelhas rosa e ouro subindo | Alguém da família está feliz com você |

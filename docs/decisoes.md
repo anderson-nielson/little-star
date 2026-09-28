@@ -571,3 +571,29 @@ Opções ela aparecia duas vezes, em "Agora" e em "Ainda falta".
 
 Arquivos: `src/telas/lago.ts`, `src/telas/casa.ts`, `src/telas/pais.ts`, `src/core/estado.ts`,
 `src/data/ajuda-telas.json`, `tests/aventuras.test.ts`, `SPEC.md`.
+
+## O cabeçalho segue um padrão só
+
+Os controles do alto tinham quatro tamanhos, três estilos e nenhuma margem em comum: a
+casinha num disco cinza translúcido, o balão recolhido em três pontinhos (que todo mundo lê
+como "mais opções"), a lua quase invisível e o menu com a estrelinha do jogo. O balão aberto
+cobria a casinha e o "x" ficava pendurado embaixo dele, no meio da tela.
+
+- **Uma linha, uma margem, um estilo.** A casinha, o balãozinho e o menu têm o centro na
+  mesma linha (y 44 do cabeçalho), a mesma margem de 16 até a borda e o mesmo disco de papel
+  com fio de ouro, opaco. A casinha é a maior (56 desenhada, 72 de alvo), porque é dela; os
+  botões da direita são do adulto e têm 44 px, encolhendo com a casinha em tela pequena, nunca
+  abaixo de 36 (`--topo-*` em `tokens.css`).
+- **O menu tem cara de menu.** Três linhas no lugar da estrelinha: a estrela é a guia e a conta
+  de agora, e no botão do adulto não dizia "opções".
+- **A lua saiu.** Ela era um segundo caminho escondido para o cantinho dos pais, que o menu já
+  leva, com a mesma continha na porta. Um glifo apagado que só respondia a 2 s de dedo parecia
+  enfeite ou defeito.
+- **O balão recolhido é um balãozinho de fala**, à esquerda do menu, e não três pontinhos ao
+  lado da casinha.
+- **O balão aberto fica abaixo do cabeçalho**, na largura da coluna, e o "x" mora no canto de
+  cima à direita dele, como em todo cartão que se fecha.
+- **O quadro da rotina é opaco.** Meio transparente no céu da noite ele virava um cinza sujo.
+
+Arquivos: `src/puppet/objetos.ts`, `src/telas/comum.ts`, `src/ui/opcoes.ts`, `src/ui/balao.ts`,
+`src/ui/base.css`, `src/ui/tokens.css`, `src/telas/casa.ts`, `SPEC.md`, `GAMEPLAY.md`.

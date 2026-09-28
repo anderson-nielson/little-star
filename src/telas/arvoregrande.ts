@@ -166,7 +166,7 @@ export function telaArvoreGrande(): Tela {
 
   const tocou = (ev: PointerEvent) => {
     const t = ev.target as Element;
-    if (t.closest('.casinha') || t.closest('.lua-pais')) return;
+    if (t.closest('.casinha')) return;
     if (pulo || acabou) return;
     ajuda.tocou();
     ajuda.reset();

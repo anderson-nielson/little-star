@@ -121,7 +121,7 @@ export function telaJardim(): Tela {
   canvas.className = 'cena';
   el.appendChild(canvas);
   const limpezas: (() => void)[] = [];
-  limpezas.push(cantos(el, () => void sair('casa'), () => void sair('pais')));
+  limpezas.push(cantos(el, () => void sair('casa')));
 
   const ctx = canvas.getContext('2d')!;
   let W = 390;

@@ -7,13 +7,17 @@ import { h } from '@/core/util';
  * frase chegar, ela toma o lugar da anterior. Só `opacity` e `transform` se
  * movem.
  *
- * Quando ela volta a brincar (um toque na cena), o balão se recolhe numa
- * bolinha no alto: aberto, ele cobria a casinha e a trilha do avanço, e o
- * jogo parecia travado. A frase não se perde: tocar na bolinha abre de novo.
+ * Ele abre logo abaixo da linha do cabeçalho, sem cobrir a casinha nem o
+ * menu, e o "x" fica no canto de cima à direita do próprio balão, onde todo
+ * mundo procura.
+ *
+ * Quando ela volta a brincar (um toque na cena), o balão se recolhe num botão
+ * de balãozinho no cabeçalho, ao lado do menu: aberto, ele cobria a trilha do
+ * avanço, e o jogo parecia travado. A frase não se perde: tocar no botão abre
+ * de novo.
  *
  * O balão não segura toque nenhum, só o "x": um toque em cima dele chega na
- * cena. Assim a casinha e a lua, que ficam por baixo dos cantos, respondem
- * sempre, também no quarto dormindo, onde o balão fica aberto.
+ * cena, também no quarto dormindo, onde o balão fica aberto.
  */
 export interface Balao {
   mostrar: (texto: string) => void;
@@ -24,12 +28,15 @@ export interface Balao {
   atual: () => string;
 }
 
+/** um balão de fala com duas linhas de texto: aqui tem uma frase para ler */
+const BALAOZINHO = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-8l-4 3.5V17H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M7.5 9.5h9M7.5 12.5h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+
 export function montarBalao(app: HTMLElement): Balao {
   const rotulo = h('span', { class: 'balao-rotulo' }, 'Para ler para a Stella');
   const texto = h('p', { class: 'balao-texto' });
   const fechar = h('button', { type: 'button', class: 'balao-fechar', 'aria-label': 'Fechar' }, '×');
   const el = h('div', { class: 'balao', role: 'status', 'aria-live': 'polite' }, rotulo, texto, fechar);
-  const bolinha = h('button', { type: 'button', class: 'balao-bolinha', 'aria-label': 'Abrir a frase para ler' }, h('span', { class: 'balao-bolinha-miolo' }));
+  const bolinha = h('button', { type: 'button', class: 'balao-bolinha', 'aria-label': 'Abrir a frase para ler', html: BALAOZINHO });
   app.appendChild(el);
   app.appendChild(bolinha);
 

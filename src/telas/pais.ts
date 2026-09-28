@@ -19,8 +19,8 @@ const NOME_COR: Record<CorDeComida, string> = { vermelho: 'Vermelho', laranja: '
 const NOME_TAREFA: Record<Tarefa, string> = { cama: 'Arrumou a cama', dentes: 'Escovou os dentes', brinquedos: 'Guardou os brinquedos', banho: 'Tomou banho', quarto: 'Arrumou o quarto', gentil: 'Foi gentil com alguém', parquinho: 'Brincou no parquinho' };
 
 /**
- * O cantinho dos pais: o único lugar com texto. Chega-se segurando a lua
- * por dois segundos e tocando no número certo, escrito por extenso.
+ * O cantinho dos pais: o único lugar com texto. Chega-se pelo menu do canto
+ * de cima, tocando no número certo, escrito por extenso.
  */
 export function telaPais(): Tela {
   const el = document.createElement('div');
