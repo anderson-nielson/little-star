@@ -724,6 +724,11 @@ grande, a mãe ou o pai esperando no fim e nada de voz sintética na festa. O qu
 - **Música**: Grieg, *Manhã* (`manha_grieg`, arranjo novo em oito compassos de seis colcheias) na
   rua e na volta grande; a *Primavera* no bosque, a *Marcha* nos morrinhos, a *Serenata* no atalho.
 - **Depuração**: o resto da URL vai para a tela forçada (`?tela=passeio&rota=bosque&turbo=4`).
+- **A casa é a casa de verdade** também aqui, desde a rodada 2 do redesenho (`docs/referencia/casa.html`):
+  o pedaço da casa na saída (reboco sálvia, telhado de telhas com beiral, janela de madeira,
+  faixa branca, porta ripada e a palmeira no lugar do pinheiro), a casa de onde ela sai e para
+  onde volta no passeio, e os ícones de casa e portão do mapinha, todos com as peças de
+  `objetos.ts` e as cores de `CASA`.
 
 Arquivos: `src/core/bicicleta.ts` (puro, com `tests/bicicleta.test.ts`), `src/data/rotas.json`,
 `src/puppet/bicicleta.ts` (a bicicleta, o capacete e o gambá no pincel), `src/telas/bicicleta.ts`,

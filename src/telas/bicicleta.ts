@@ -10,7 +10,7 @@ import { naBorda, saida, travar } from '@/core/toque';
 import { ganhar, PEDRINHAS } from '@/core/pedrinhas';
 import { anunciar } from '@/core/narracao';
 import { familia } from '@/puppet/boneco';
-import { casinha, centelha, CENTELHA, coelho, contornoLuz, nuvem, pinheiro, veu } from '@/puppet/objetos';
+import { CASA, casinha, centelha, CENTELHA, coelho, contornoLuz, faixa, janelaDeMadeira, nuvem, palmeira, parede, pinheiro, portaDeMadeira, telhadoDuasAguas, veu } from '@/puppet/objetos';
 import { bicicleta, bicicletinha, gamba, ALTURA_POR_RAIO } from '@/puppet/bicicleta';
 import { escuro, formaNoCanvas, lapisNoCanvas } from '@/puppet/pincel';
 import { audio } from '@/audio/engine';
@@ -62,9 +62,9 @@ const CEU: Record<string, string> = { 'ceu-dia': '#dbe7ee', 'ceu-tarde': '#f3d9c
 const ICONE_DESTINO: Record<string, string> = {
   padaria: `<path d="M-14 8V-4h28V8z" fill="#ebd9a8"/><path d="M-16 -4L0 -14L16 -4z" fill="#8a3a44"/><ellipse cy="3" rx="7" ry="3.4" fill="#c9a189"/>`,
   lago: `<ellipse cy="3" rx="17" ry="8" fill="#9fc3cf"/><path d="M-3 -2q-8 -10 -3 -14q4 2 6 8q4 -2 8 2q-4 2 -6 8q-3 -2 -5 -4z" fill="#fbf8f1"/>`,
-  portao: `<path d="M-14 8V-2h28V8z" fill="#f6e3dc"/><path d="M-16 -2L0 -14L16 -2z" fill="#4f6b3a"/><path d="M-4 8V2h8v6z" fill="#8a3a44"/><circle cx="9" cy="2" r="2.6" fill="#f2a9c4"/>`,
+  portao: `<path d="M-14 8V-2h28V8z" fill="#9fb88c"/><path d="M-16 -2L0 -14L16 -2z" fill="#cf7f5c"/><path d="M-5 8V0h10v8z" fill="#6b4126"/><path d="M-2 0v8M2 0v8" stroke="#4a2c18" stroke-width="0.6" opacity="0.7"/><circle cx="9" cy="2" r="2.6" fill="#f2a9c4"/>`,
   parquinho: `<path d="M-12 10L-4 -10L4 10" fill="none" stroke="#c9a189" stroke-width="3" stroke-linecap="round"/><path d="M-14 -2L14 2" stroke="#c9a189" stroke-width="3.5" stroke-linecap="round"/><circle cx="-4" cy="-10" r="3.5" fill="#c9a189"/>`,
-  casa: `<path d="M-14 8L0 -8L14 8V18H-14z" fill="#8fae6b"/><path d="M-5 18V11h10v7z" fill="#f2a9c4"/>`,
+  casa: `<path d="M-14 4V18H14V4z" fill="#9fb88c"/><path d="M-17 5L0 -10L17 5z" fill="#cf7f5c"/><path d="M-4 18V10h8v8z" fill="#6b4126"/><path d="M-16 10h32" stroke="#f6f0e4" stroke-width="2"/>`,
 };
 
 /* ---------- a saída ---------- */
@@ -86,10 +86,9 @@ export function telaBicicleta(): Tela {
   let s = `<rect width="390" height="780" fill="${CEU[ceu]}"/>` + veu(0, 0, 390, 420, noite ? '#1b2140' : '#f6e3dc', 4, 0.35);
   if (!noite) s += nuvem(300, 250, 13);
   s += `<rect x="0" y="470" width="390" height="310" fill="#c9dbb2"/>` + veu(0, 470, 390, 310, '#8fae6b', 4, 0.32);
-  /* um pedaço da casa verde, com a porta e a mãe */
-  s += `<rect x="0" y="236" width="210" height="234" fill="#8fae6b"/>` + veu(0, 236, 210, 234, '#c9dbb2', 3, 0.22, true);
-  s += `<path d="M-20 240L110 150L236 240z" fill="#4f6b3a"/><path d="M30 300V260a20 20 0 0 1 40 0v40z" fill="#ebd9a8"/>`;
-  s += `<path d="M118 466V324a34 34 0 0 1 68 0v142z" fill="#6e1a27"/>`;
+  /* um pedaço da casa de verdade: o reboco verde-sálvia, o telhado de telhas com o beiral, a janela de madeira, a faixa branca e a porta ripada, com a mãe */
+  s += parede(0, 236, 210, 234) + telhadoDuasAguas(-24, 150, 264, 90) + janelaDeMadeira(28, 256, 44, 42, noite ? '#f2a9c4' : '#ebd9a8') + faixa(-4, 308, 218, 8);
+  s += portaDeMadeira(118, 324, 68, 142, 5, true);
   s += `<g class="mae">${familia.mae(152, 464, 172, 'acena').svg}</g>`;
   /* o gancho com o capacete, o alvo da vez */
   s += `<path d="M240 300v22" stroke="#8f6f2c" stroke-width="2" stroke-linecap="round"/>`;
@@ -98,11 +97,11 @@ export function telaBicicleta(): Tela {
   s += `<g data-alvo="bici"><circle cx="292" cy="490" r="40" fill="transparent"/><g class="bici-parada">${bicicletinha(292, 522, 17, enfeites, -6)}</g><g class="bici-montada" opacity="0"></g></g>`;
   s += `<g class="stella">${familia.stella(190, 524, 96).svg}</g>`;
   s += `<g class="coelho">${coelho(340, 530, 16)}</g>`;
-  s += pinheiro(365, 640, 220, true);
+  s += palmeira(372, 600, 250, 9, -8);
   /* o mapinha: a casa, as rotas abertas (uma figura por destino), a de hoje acesa */
   s += `<g class="mapinha">`;
   const y0 = 150;
-  s += `<path d="M-14 4L0 -10L14 4V16H-14z" fill="#8fae6b" transform="translate(50 ${y0 - 3})"/><path d="M-5 16V9h10v7z" fill="#f2a9c4" transform="translate(50 ${y0 - 3})"/>`;
+  s += `<g transform="translate(50 ${y0 - 5})">${ICONE_DESTINO.casa}</g>`;
   abertas.forEach((r, i) => {
     const y = y0 + i * 44;
     s += `<path d="M68 ${y0}Q${150 + i * 20} ${y0 + 10} 320 ${y}" fill="none" stroke="${r.id === doDia.id ? '#f2a9c4' : '#c9dbb2'}" stroke-width="5" stroke-linecap="round" opacity="0.9"/>`;
@@ -722,19 +721,17 @@ export function telaPasseio(params: Record<string, string> = {}): Tela {
       ctx.lineTo(xs, y);
       ctx.stroke();
     }
-    ctx.fillStyle = '#8fae6b';
-    ctx.strokeStyle = '#4f6b3a';
-    ctx.lineWidth = 1.4;
+    /* a casinha de verdade: parede verde-sálvia, telhado de telhas, porta de madeira */
     ctx.beginPath();
-    ctx.moveTo(x0 - 12, y + 9);
-    ctx.lineTo(x0 - 12, y - 3);
+    ctx.rect(x0 - 11, y - 3, 22, 12);
+    formaNoCanvas(ctx, CASA.salvia, { lapis: 0.4 });
+    ctx.beginPath();
+    ctx.moveTo(x0 - 14, y - 2);
     ctx.lineTo(x0, y - 14);
-    ctx.lineTo(x0 + 12, y - 3);
-    ctx.lineTo(x0 + 12, y + 9);
+    ctx.lineTo(x0 + 14, y - 2);
     ctx.closePath();
-    ctx.fill();
-    ctx.stroke();
-    ctx.fillStyle = '#f2a9c4';
+    formaNoCanvas(ctx, CASA.telha, { lapis: 0.35 });
+    ctx.fillStyle = CASA.madeiraEscura;
     ctx.fillRect(x0 - 3, y + 1, 6, 8);
     /* o destino: uma figura simples */
     ctx.save();
@@ -756,9 +753,9 @@ export function telaPasseio(params: Record<string, string> = {}): Tela {
       ctx.lineTo(14, 2);
       ctx.stroke();
     } else {
-      ctx.fillStyle = d === 'casa' ? '#8fae6b' : d === 'portao' ? '#f6e3dc' : '#ebd9a8';
+      ctx.fillStyle = d === 'casa' || d === 'portao' ? CASA.salvia : '#ebd9a8';
       ctx.fillRect(-14, -4, 28, 12);
-      ctx.fillStyle = d === 'padaria' ? '#8a3a44' : '#4f6b3a';
+      ctx.fillStyle = d === 'padaria' ? '#8a3a44' : CASA.telha;
       ctx.beginPath();
       ctx.moveTo(-16, -4);
       ctx.lineTo(0, -14);
@@ -814,21 +811,31 @@ export function telaPasseio(params: Record<string, string> = {}): Tela {
     }
     const xCasa = sx(-0.25);
     if (xCasa > -200 && xCasa < W + 200) {
-      /* a casa verde, onde começa e termina */
+      /* a casa de verdade, onde começa e termina: a parede verde-sálvia, o telhado de telhas com o beiral, a faixa branca, a porta de madeira, uma janela */
       const w = Math.min(150, W * 0.36);
       const h = w * 0.62;
       const yc = yChao(-0.25);
       ctx.beginPath();
-      ctx.moveTo(xCasa - w / 2, yc);
-      ctx.lineTo(xCasa - w / 2, yc - h);
-      ctx.lineTo(xCasa, yc - h - w * 0.4);
-      ctx.lineTo(xCasa + w / 2, yc - h);
-      ctx.lineTo(xCasa + w / 2, yc);
+      ctx.rect(xCasa - w / 2, yc - h, w, h);
+      formaNoCanvas(ctx, CASA.salvia, { lapis: 0.35 });
+      ctx.beginPath();
+      ctx.moveTo(xCasa - w / 2 - w * 0.08, yc - h);
+      ctx.lineTo(xCasa, yc - h - w * 0.36);
+      ctx.lineTo(xCasa + w / 2 + w * 0.08, yc - h);
       ctx.closePath();
-      formaNoCanvas(ctx, '#8fae6b');
+      formaNoCanvas(ctx, CASA.telha, { lapis: 0.35 });
+      ctx.beginPath();
+      ctx.rect(xCasa - w / 2 - w * 0.08, yc - h, w * 1.16, h * 0.05);
+      formaNoCanvas(ctx, CASA.beiral, { lapis: 0.3 });
+      ctx.beginPath();
+      ctx.rect(xCasa - w * 0.42, yc - h * 0.5, w * 0.84, h * 0.06);
+      formaNoCanvas(ctx, CASA.branco, { lapis: 0.25, opLapis: 0.5 });
       ctx.beginPath();
       ctx.rect(xCasa - w * 0.11, yc - h * 0.62, w * 0.22, h * 0.62);
-      formaNoCanvas(ctx, '#6e1a27');
+      formaNoCanvas(ctx, CASA.madeiraEscura, { lapis: 0.3 });
+      ctx.beginPath();
+      ctx.rect(xCasa + w * 0.2, yc - h * 0.85, w * 0.16, w * 0.14);
+      formaNoCanvas(ctx, '#ebd9a8', { lapis: 0.25 });
       /* a família na porta, recebendo: aparece quando a casa se aproxima, na volta */
       if (fase === 'volta' || fase === 'entrando' || fase === 'fim') familiaEmCasa.forEach((img, i) => ctx.drawImage(img, xCasa + w * 0.5 + 8 + i * 40 - 100, yc - 190, 200, 200));
     }
