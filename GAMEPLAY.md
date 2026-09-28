@@ -419,11 +419,13 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
      atrás. As flores que abriram na ida ficam abertas na volta.
   6. Entra pela porta de casa e vai para o palco. Chega sempre, com ou sem toque (pior caso,
      uns dois minutos).
-  7. **O palco**: cortina de veludo abre, luz de ribalta. Na plateia, a mãe, o pai, o irmão e as
-     bonecas. Ela dança sozinha a *Dança da Fada Açucarada*; cada toque faz um giro (metade de
-     baixo da tela) ou um salto (metade de cima). Reverência, aplauso, a família abraça na
-     coxia. Uma boneca de pano nova espera por ela na estante.
-- **Dura**: 3 a 4 minutos, com o palco.
+  7. **O fecho no palco**: cortina de veludo abre, luz de ribalta. Na plateia, a mãe, o pai, o
+     irmão e as bonecas. Ela dança sozinha uma coreografia curta com a *Dança da Fada
+     Açucarada* (plié, relevé, arabesque, pirueta, salto), uns vinte segundos; tocar faz
+     centelhas, nunca erra. Agradecimento, aplauso, a família abraça na coxia, a cortina desce. Uma boneca de
+     pano nova espera por ela na estante. Sem visto nem mãozinha: é a recompensa, não uma
+     tarefa. Dançar de verdade é na brincadeira do palco (6.15).
+- **Dura**: 3 minutos, com o fecho.
 - **Ajuda**: A1 (dois escorregões seguidos), a mãozinha aparece no obstáculo seguinte. A2
   (quatro), a poça vira vitória-régia e a pedra vira tufo de flor: ela passa sem pular.
 - **Cresce**: uma boneca por aventura terminada, até completar a estante.
@@ -525,6 +527,44 @@ Cada atividade abaixo diz: **para quê**, **como se joga**, **quanto dura**, **c
 
 ---
 
+### 6.15 O palco: as sapatilhas
+
+- **Para quê**: dançar. Passos de balé com nome, escolhidos por ela, com a família na plateia
+  e músicas que mudam. É o que o palco no fim da aventura prometia e não entregava: lá ela só
+  esperava o show acabar.
+- **Quando**: as sapatilhas de ponta penduradas na parede do quarto, entre o caderno e a
+  porta. Abrem na sessão 2, junto com as bonecas.
+- **Como**:
+  1. Cortina de veludo abre, luz de ribalta, a menina de tutu e coque. Na plateia, a mãe, o
+     pai, o irmão e as bonecas; a boneca companheira assiste da coxia. Música: *Dança da Fada
+     Açucarada*. Entre um passo e outro ela nunca fica parada: gira devagar na ponta dos
+     pés, braços em coroa, como a bailarina de uma caixinha de música, e passeia de um lado
+     a outro do palco.
+  2. **A ribalta**: uma fileira de botões no chão do palco, cada um com a menina desenhada
+     na pose: plié, relevé, arabesque, pirueta. O segundo número traz quatro passos novos
+     na ribalta (tendu, passé, attitude, échappé), e os conjuntos alternam a cada número.
+     Tocar num botão, ela vira de frente e faz o passo na hora, leve, com uma nota baixinha, centelhas e a voz da mãe dizendo o nome do
+     passo (se gravada). A pirueta gira de verdade; **tocar no palco é o salto**. Nada sai
+     errado.
+  3. **A barrinha da coreografia**, no alto: uma conta por passo. Um passo diferente do
+     anterior vira estrela; um repetido, só ouro. Sem número: ela vê a fileira encher e as
+     estrelas contam quanto a dança variou.
+  4. **Os números**: com oito contas a família bate palma (mais forte quanto mais
+     estrelas), a luz pisca, a barrinha esvazia e o número seguinte começa com outra música:
+     *Valsa das Flores*, *Dança dos pequenos cisnes*, a *Marcha*, e volta. A nota na ponta da
+     ribalta pula para a próxima quando ela quiser.
+  5. A cortininha na outra ponta acende no primeiro passo (no palco, o fim se chama cortina,
+     não visto). É ela quem fecha o show: o agradecimento como no balé (os braços abrem na
+     segunda posição, um pé cruza atrás, os joelhos dobram, um braço abre e o outro desce, a
+     cabeça agradece, e ela sobe de novo), aplauso, "Brava!", abraço na coxia, a cortina
+     desce e a casinha acende. Fechar a cortina antes de oito passos não é show: é desistir
+     da dança por agora. Ela acena, a família bate uma palminha, a cortina desce; sem
+     "Brava!" e sem narração.
+- **Dura**: o que ela quiser; a mãozinha mostra o passo que ela ainda não fez e, depois da
+  quarta música, aponta a cortina.
+- **Ajuda**: A1, a mãozinha toca no próximo passo que falta; A2, aponta a cortina.
+- **Cresce**: nada se ganha aqui além de dançar. As bonecas continuam vindo das aventuras.
+
 ## 7. A semana
 
 Waldorf vive de ritmo semanal, e ela já conhece isso da escola. Cada dia tem **uma**
@@ -556,7 +596,7 @@ continua de onde parou.
 | Sessão | O que se abre | O momento |
 |---|---|---|
 | 1 | A casa, a família, o quarto rosa, o piano | Na despedida, uma cestinha na porta. Dentro, um gatinho. Ela escolhe o nome entre três, ditos em voz alta. O sonho dela, no primeiro dia. |
-| 2 | A roda do dia e o caderno | A primeira letra: A, o telhado da casa verde |
+| 2 | A roda do dia, o caderno, as bonecas e as sapatilhas (o palco) | A primeira letra: A, o telhado da casa verde |
 | 3 | O quintal e a caixa de areia em estrela | O coelhinho aparece na grama, e ela dá o nome |
 | 4 | O prato colorido e o canteiro | A primeira flor nasce |
 | 5 | O pinheiro, as pinhas, a mesa da estação | Uma pinha cai bem perto dela |
@@ -699,7 +739,8 @@ inteiro; o que sai volta na v2, sem pressa.
 - Caixa de areia (dedo, pá e balde).
 - Pinhas e a mesa da estação.
 - Piano livre e *Brilha, brilha estrelinha*.
-- A aventura do Jardim e o palco.
+- A aventura do Jardim, com o fecho no palco.
+- O palco como brincadeira: passos de balé por botão e músicas que avançam.
 - O gatinho e o coelhinho, com cuidar.
 - A semana com as cores e a brincadeira do dia. A primeira semana que se abre aos poucos.
 - Cantinho dos pais: gravar vozes, hora de dormir, limite, confirmar, lista de comidas,
