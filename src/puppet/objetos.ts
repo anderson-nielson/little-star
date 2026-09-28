@@ -144,3 +144,72 @@ export function balancinho(x: number, y: number, s: number, ang = 0): string {
     `<g transform="rotate(${ang} ${px} ${py})"><path d="M${x - s * 0.08} ${py}v${s * 0.62}M${x + s * 0.08} ${py}v${s * 0.62}" stroke="#8f6f2c" stroke-width="${s * 0.04}"/><rect x="${x - s * 0.16}" y="${y - s * 0.4}" width="${s * 0.32}" height="${s * 0.07}" rx="${s * 0.03}" fill="${C.madeira}"/></g></g>`
   );
 }
+
+/* ---------- os materiais da mesa da estação ---------- */
+
+const COR_PEDRA = ['#b9b1a4', '#8f8a80', '#c9bfae', '#a89a86'];
+
+/**
+ * Uma pedra de rio, lisa, de tom natural (nada das pedrinhas coloridas do pote,
+ * que são prêmio): quatro formatos, para a fileira dela não ficar toda igual.
+ */
+export function pedra(x: number, y: number, s: number, tipo = 0): string {
+  const cor = COR_PEDRA[tipo % COR_PEDRA.length]!;
+  const rx = s * (tipo === 1 ? 1.25 : tipo === 3 ? 0.8 : 1);
+  const ry = s * (tipo === 1 ? 0.6 : tipo === 2 ? 0.95 : 0.75);
+  const rot = tipo === 1 ? -14 : tipo === 3 ? 18 : 0;
+  return (
+    `<g transform="rotate(${rot} ${x} ${y})"><ellipse cx="${x}" cy="${y + s * 0.12}" rx="${rx}" ry="${ry * 0.5}" fill="#000" opacity="0.08"/>` +
+    `<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="${cor}"/>` +
+    `<ellipse cx="${x - rx * 0.3}" cy="${y - ry * 0.35}" rx="${rx * 0.36}" ry="${ry * 0.22}" fill="#fbf8f1" opacity="0.45"/></g>`
+  );
+}
+
+/**
+ * Um punhado de areia despejado na mesa: uma mancha macia, com uns grãos em volta.
+ * Três formatos (redondo, alongado, um risquinho), para ela fazer caminho e chão.
+ */
+export function montinhoDeAreia(x: number, y: number, s: number, tipo = 0): string {
+  const rx = s * (tipo === 1 ? 1.7 : tipo === 2 ? 2.2 : 1.1);
+  const ry = s * (tipo === 2 ? 0.35 : 0.75);
+  let graos = '';
+  for (let i = 0; i < 7; i++) {
+    const a = (i / 7) * Math.PI * 2 + tipo;
+    const gx = x + Math.cos(a) * rx * (1.05 + (i % 3) * 0.08);
+    const gy = y + Math.sin(a) * ry * (1.1 + (i % 2) * 0.15);
+    graos += `<circle cx="${gx.toFixed(1)}" cy="${gy.toFixed(1)}" r="${(s * 0.09).toFixed(1)}" fill="#d9c69a" opacity="0.8"/>`;
+  }
+  return (
+    `<g><ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="#EEDDB4"/>` +
+    `<ellipse cx="${x - rx * 0.15}" cy="${y - ry * 0.15}" rx="${rx * 0.55}" ry="${ry * 0.5}" fill="#f5e8c6" opacity="0.7"/>${graos}</g>`
+  );
+}
+
+/**
+ * Um tufo de barba de velho: fios cinza-esverdeados, finos e ondulados, que
+ * caem de um emaranhado pequeno, como os que ficam pendurados nas árvores.
+ * Três tufos diferentes, um mais cheio, um comprido, um mirradinho.
+ */
+export function barbaDeVelho(x: number, y: number, s: number, tipo = 0): string {
+  const n = tipo === 0 ? 9 : tipo === 1 ? 7 : 5;
+  const comp = s * (tipo === 1 ? 2.4 : tipo === 2 ? 1.3 : 1.7);
+  let fios = '';
+  for (let i = 0; i < n; i++) {
+    const k = (i - (n - 1) / 2) / Math.max(1, n - 1);
+    const x0 = x + k * s * 0.9;
+    const onda = s * (0.25 + (i % 3) * 0.12);
+    const y1 = y + comp * (0.3 + ((i * 0.37) % 0.2));
+    const y2 = y + comp * (0.65 + ((i * 0.53) % 0.2));
+    const fim = x0 + k * s * 0.6 + Math.sin(i * 3.3 + tipo) * s * 0.25;
+    const yFim = y + comp * (0.8 + ((i * 0.71) % 0.25));
+    const d = `M${x0.toFixed(1)} ${y.toFixed(1)}C${(x0 + onda).toFixed(1)} ${y1.toFixed(1)} ${(x0 - onda).toFixed(1)} ${y2.toFixed(1)} ${fim.toFixed(1)} ${yFim.toFixed(1)}`;
+    fios += `<path d="${d}" fill="none" stroke="${i % 3 === 0 ? '#93a894' : i % 3 === 1 ? '#b3c2ae' : '#c7d2c2'}" stroke-width="${(s * (0.06 + (i % 2) * 0.03)).toFixed(2)}" stroke-linecap="round" opacity="0.9"/>`;
+  }
+  /* o emaranhado de cima: uns fios curtos cruzados, sem parecer uma cabeça */
+  let no = '';
+  for (let i = 0; i < 4; i++) {
+    const a = x - s * 0.5 + i * s * 0.25;
+    no += `<path d="M${a.toFixed(1)} ${(y + (i % 2) * s * 0.12).toFixed(1)}q${(s * 0.3).toFixed(1)} ${(-s * 0.2).toFixed(1)} ${(s * 0.6).toFixed(1)} 0" fill="none" stroke="${i % 2 ? '#a9baa5' : '#8fa590'}" stroke-width="${(s * 0.09).toFixed(2)}" stroke-linecap="round"/>`;
+  }
+  return `<g>${fios}${no}</g>`;
+}
