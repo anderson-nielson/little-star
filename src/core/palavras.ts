@@ -24,9 +24,9 @@ interface LetraDoCaderno {
 }
 const letras = letrasJson as unknown as LetraDoCaderno[];
 
-/** a letra base de uma acentuada: Á é A, Ó é O */
+/** a letra base de uma acentuada: Á é A, Ó e Ô são O */
 export function semAcento(p: string): string {
-  return p.replace(/Á/g, 'A').replace(/Ó/g, 'O');
+  return p.replace(/Á/g, 'A').replace(/[ÓÔ]/g, 'O');
 }
 
 /**
