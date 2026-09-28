@@ -5,7 +5,7 @@ import { brincadeiraDoDia, brincouHoje } from '@/core/laco';
 import { ceuDaHora } from '@/core/relogio';
 import { esperar } from '@/core/util';
 import { familia } from '@/puppet/boneco';
-import { arco, balancinho, gato, nuvem, pinha, pinheiro, veu } from '@/puppet/objetos';
+import { arco, arbusto, balancinho, fachada, gato, nuvem, palmeira, pinha, pinheiro, portaDeMadeira, veu } from '@/puppet/objetos';
 import { falar, temVoz } from '@/audio/vozes';
 import { anunciar } from '@/core/narracao';
 import { tocarFundo, pararFundo } from '@/audio/musica';
@@ -37,13 +37,13 @@ export function telaDespedida(): Tela {
   let s = `<rect width="390" height="780" fill="${CEU[ceu]}"/>` + veu(0, 0, 390, 300, noite ? '#1b2140' : '#ebcdc3', 5, 0.3);
   if (!noite) s += nuvem(280, 70, 14) + nuvem(150, 50, 10);
   s += `<rect x="0" y="560" width="390" height="220" fill="#c9dbb2"/>` + veu(0, 560, 390, 220, '#8fae6b', 5, 0.32);
-  s += `<path d="M40 300L195 160L350 300z" fill="#4f6b3a"/><rect x="60" y="300" width="270" height="260" fill="#8fae6b"/>` + veu(60, 300, 270, 260, '#c9dbb2', 4, 0.22);
-  s += arco(120, 330, 56, 70, '#ebd9a8') + arco(214, 330, 56, 70, '#ebd9a8');
+  s += fachada(60, 300, 270, 560, { semPorta: true, vidro: noite ? '#f2a9c4' : '#ebd9a8' });
+  s += palmeira(346, 600, 230, 9, -8) + arbusto(310, 578, 30, 22, 1);
   s += `<g class="familia">${familia.mae(168, 560, 112, 'acena').svg}${familia.pai(228, 560, 118, 'acena', { dir: -1 }).svg}${familia.theo(200, 562, 84, 'acena').svg}</g>`;
-  s += `<g class="porta" opacity="0"><path d="M150 560v-110a45 45 0 0 1 90 0v110z" fill="#6e1a27"/><g class="laco" opacity="0"><path d="M195 470q-24 -18 -20 4q4 12 20 -4q24 -18 20 4q-4 12 -20 -4z" fill="#f2a9c4"/><path d="M195 470l-10 26M195 470l10 26" stroke="#f2a9c4" stroke-width="5" stroke-linecap="round"/></g></g>`;
+  s += `<g class="porta" opacity="0">${portaDeMadeira(154, 430, 82, 130, 6, true)}<g class="laco" opacity="0"><path d="M195 470q-24 -18 -20 4q4 12 20 -4q24 -18 20 4q-4 12 -20 -4z" fill="#f2a9c4"/><path d="M195 470l-10 26M195 470l10 26" stroke="#f2a9c4" stroke-width="5" stroke-linecap="round"/></g></g>`;
   /* o balão do convite: um pictograma, sem texto */
   s += `<g class="convite" opacity="0">${arco(250, 380, 100, 110, '#fbf8f1')}<g class="picto"></g></g>`;
-  s += pinheiro(355, 640, 300) + pinha(300, 600, 5);
+  s += pinheiro(30, 600, 240) + pinha(72, 606, 5);
   /* a cestinha do primeiro dia */
   if (primeiraVez) s += `<g class="cesta" opacity="0"><path d="M60 600q40 -10 80 0l-8 34h-64z" fill="#c9a189"/><path d="M76 600q24 -30 48 0" fill="none" stroke="#c9a189" stroke-width="5"/><g class="gato-cesta">${gato(100, 604, 12)}</g></g>`;
   const tela = telaSvg(s);
