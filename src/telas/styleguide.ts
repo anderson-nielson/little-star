@@ -27,8 +27,16 @@ export function telaStyleguide(): Tela {
   p.append(h('div', { class: 'fila', html: poses.map((po) => svg(familia.menina(60, 150, 100, po).svg)).join('') }));
   p.append(h('h2', {}, 'Os passos do palco'));
   p.append(h('div', { class: 'fila', html: passos.map((po) => svg(familia.meninaPalco(60, 150, 100, po).svg)).join('') }));
-  p.append(h('h2', {}, 'Poses da família'));
-  p.append(h('div', { class: 'fila', html: svg(familia.irmao(60, 150, 105, 'acena').svg) + svg(familia.irmao(60, 150, 105, 'sentado').svg) + svg(familia.mae(60, 150, 140, 'abraca').svg) + svg(familia.mae(60, 150, 140, 'sentado').svg) + svg(familia.pai(60, 150, 148, 'palma').svg) + svg(familia.pai(60, 150, 148, 'mao').svg) }));
+  /* a folha de poses (SPEC 13, "Braços e pernas que fazem sentido"): todas as poses de cada um,
+     dos dois lados, para olhar antes de mudar qualquer braço ou perna */
+  const todas: Pose[] = ['parado', 'acena', 'sentado', 'pulo', 'aponta', 'segura', 'giro', 'reverencia', 'deitado', 'abraca', 'anda', 'salto', 'escorrega', 'balanco', 'palma', 'mao', 'plie', 'releve', 'arabesque', 'agradece', 'segunda', 'tendu', 'passe', 'attitude'];
+  const rotulo = (t: string) => `<text x="60" y="158" text-anchor="middle" font-size="10" font-family="Jost" fill="#6e5a48">${t}</text>`;
+  const folha = (quem: 'menina' | 'irmao' | 'mae' | 'pai', hh: number) => todas.flatMap((po) => [1, -1].map((dir) => svg(familia[quem](60, 140, hh, po, { dir: dir as 1 | -1, passo: 0.25 }).svg + rotulo(`${po} ${dir > 0 ? '→' : '←'}`), 120, 164))).join('');
+  p.append(h('h2', {}, 'A folha de poses: braços e pernas que fazem sentido'));
+  p.append(h('div', { class: 'fila', html: folha('menina', 100) }));
+  p.append(h('div', { class: 'fila', html: folha('irmao', 105) }));
+  p.append(h('div', { class: 'fila', html: folha('mae', 130) }));
+  p.append(h('div', { class: 'fila', html: folha('pai', 136) }));
   p.append(h('h2', {}, 'Bonecas de pano, bichos e objetos'));
   p.append(
     h('div', {

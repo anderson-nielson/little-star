@@ -42,7 +42,7 @@ export function telaDespedida(): Tela {
   s += `<rect x="0" y="560" width="390" height="220" fill="#c9dbb2"/>` + veu(0, 560, 390, 220, '#8fae6b', 5, 0.32);
   s += fachada(60, 300, 270, 560, { semPorta: true, vidro: noite ? '#f2a9c4' : '#ebd9a8' });
   s += palmeira(346, 600, 230, 9, -8) + arbusto(310, 578, 30, 22, 1);
-  s += `<g class="familia">${familia.mae(168, 560, 112, 'acena').svg}${familia.pai(228, 560, 118, 'acena', { dir: -1 }).svg}${familia.irmao(200, 562, 84, 'acena').svg}</g>`;
+  s += `<g class="familia">${familia.mae(164, 560, 112, 'acena').svg}${familia.pai(238, 560, 118, 'acena', { dir: -1 }).svg}${familia.irmao(200, 562, 84, 'acena').svg}</g>`;
   s += `<g class="porta" opacity="0">${portaDeMadeira(154, 430, 82, 130, 6, true)}<g class="laco" opacity="0"><path d="M195 470q-24 -18 -20 4q4 12 20 -4q24 -18 20 4q-4 12 -20 -4z" fill="#f2a9c4"/><path d="M195 470l-10 26M195 470l10 26" stroke="#f2a9c4" stroke-width="5" stroke-linecap="round"/></g></g>`;
   /* o balão do convite: um pictograma, sem texto */
   s += `<g class="convite" opacity="0">${arco(250, 380, 100, 110, '#fbf8f1')}<g class="picto"></g></g>`;

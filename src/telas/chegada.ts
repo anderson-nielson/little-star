@@ -36,7 +36,7 @@ export function telaChegada(): Tela {
   s += arbusto(310, 578, 30, 22, 1);
   /* a porta com a família: a porta de madeira some devagar e a família aparece no vão */
   s += `<g class="porta">${portaDeMadeira(154, 430, 82, 130, 6, true)}</g>`;
-  s += `<g class="familia" opacity="0">${familia.mae(168, 560, 112, 'acena').svg}${familia.pai(228, 560, 118, 'parado', { dir: -1 }).svg}${familia.irmao(200, 562, 84, 'acena').svg}</g>`;
+  s += `<g class="familia" opacity="0">${familia.mae(164, 560, 112, 'acena').svg}${familia.pai(238, 560, 118, 'parado', { dir: -1 }).svg}${familia.irmao(200, 562, 84, 'acena').svg}</g>`;
   s += `<g class="gatinho" opacity="0">${gato(120, 566, 12)}</g>`;
   s += coelho(300, 600, 16);
   const tela = telaSvg(s);

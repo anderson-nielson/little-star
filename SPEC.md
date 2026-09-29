@@ -759,6 +759,18 @@ ondulados (`copa`), as figuras das palavras têm o lápis dentro de `figura()`.
   e pimenta a lápis, óculos redondos de aro fino, olhos de sorriso. Camiseta preta e jeans.
 - As quatro faces foram escolhidas em `docs/referencia/familia.html`, a partir das fotos da
   família (que ficam fora do repositório).
+- **Braços e pernas que fazem sentido** (regra geral do jogo, para todo boneco em toda pose):
+  por mais simples que o desenho seja, o corpo obedece ao corpo. O ombro, o cotovelo e o punho
+  ficam na ordem certa e o cotovelo só dobra para dentro, de esticado até uns 35°; o quadril,
+  o joelho e o tornozelo também, e o joelho até uns 30°. Um braço que sobe passa pelo lado da
+  cabeça, na frente dela e do cabelo, nunca por trás: a mão de quem acena fica ao lado da
+  cabeça, na altura dela. Mãos que se encontram (a palma, a coroa do balé) se encontram na
+  frente do peito ou acima da cabeça, sem cruzar os braços. Pé apoiado fica no chão, nem
+  afundado nem no ar; em pé, pelo menos uma perna apoia. Numa cena com mais de uma pessoa,
+  ninguém fica com a mão dentro do cabelo ou do corpo do outro: quem está na frente cobre quem
+  está atrás, e a distância entre os corpos deixa cada braço inteiro no seu dono. A conferência
+  roda em `tests/poses.test.ts` (todas as poses, das quatro pessoas, dos dois lados) e a folha
+  com todas as poses fica no styleguide, para olhar antes de mudar qualquer braço ou perna.
 - **Tamanho**: a menina ocupa uns 20% da altura da tela; objetos tocáveis têm pelo menos 72 px.
 - **Contraste**: tudo o que se toca tem contorno em `--luz` ou `--ouro` e um leve pulsar de
   opacidade quando a mãozinha aponta.
